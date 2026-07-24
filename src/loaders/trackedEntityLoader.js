@@ -8,7 +8,9 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -16,10 +18,11 @@ import {
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
+import { parseWithSeparator } from '../util/numbers.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
-const fields = ['trackedEntity~rename(id)', 'geometry']
+const fields = ['trackedEntity~rename(id)', 'geometry', 'attributes']
 
 // Valid geometry types for TEIs
 const teiGeometryTypes = new Set([
@@ -100,41 +103,62 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-const toGeoJson = (instances) =>
-    instances.map(({ id, geometry }) => ({
+export const getAttributeProperties = (attributes) =>
+    Object.fromEntries(
+        (attributes ?? []).map(({ attribute, value, valueType }) => [
+            attribute,
+            numberValueTypes.includes(valueType)
+                ? parseWithSeparator(value)
+                : value,
+        ])
+    )
+
+export const getAttributeHeaders = (instances) => {
+    const headersByAttribute = new Map()
+    instances.forEach(({ attributes }) => {
+        ;(attributes ?? []).forEach(({ attribute, displayName, valueType }) => {
+            if (!headersByAttribute.has(attribute)) {
+                headersByAttribute.set(attribute, {
+                    name: displayName,
+                    dataKey: attribute,
+                    valueType,
+                })
+            }
+        })
+    })
+    return [...headersByAttribute.values()]
+}
+
+// The main tracked entity marker's own color is currently fixed still
+// stamped here for when data table's Color column has real data
+export const toGeoJson = (instances, color) =>
+    instances.map(({ id, geometry, attributes }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
         properties: {
             id,
+            color,
+            ...getAttributeProperties(attributes),
         },
     }))
 
-export const parseJsonConfig = (config) => {
-    if (!config.config || typeof config.config !== 'string') {
-        return
+export const applyParsedConfig = (config) => {
+    const { relationships, periodType, dataTableColumnConfig } =
+        parseJsonConfig(config.config)
+
+    if (relationships) {
+        config.relationshipType = relationships.type
+        config.relatedPointColor = relationships.pointColor
+        config.relatedPointRadius = relationships.pointRadius
+        config.relationshipLineColor = relationships.lineColor
+        config.relationshipOutsideProgram =
+            relationships.relationshipOutsideProgram
     }
 
-    try {
-        const { relationships, periodType, dataTableColumnConfig } = JSON.parse(
-            config.config
-        )
+    config.periodType = periodType
 
-        if (relationships) {
-            config.relationshipType = relationships.type
-            config.relatedPointColor = relationships.pointColor
-            config.relatedPointRadius = relationships.pointRadius
-            config.relationshipLineColor = relationships.lineColor
-            config.relationshipOutsideProgram =
-                relationships.relationshipOutsideProgram
-        }
-
-        config.periodType = periodType
-
-        if (dataTableColumnConfig) {
-            config.dataTableColumnConfig = dataTableColumnConfig
-        }
-    } catch (e) {
-        // Malformed config JSON
+    if (dataTableColumnConfig) {
+        config.dataTableColumnConfig = dataTableColumnConfig
     }
 
     delete config.config
@@ -150,6 +174,7 @@ const fetchRelationshipData = async ({
     relatedPointColor,
     relatedPointRadius,
     relationshipLineColor,
+    pointColor,
     legend,
 }) => {
     const { relationshipType } = await engine.query(
@@ -198,7 +223,7 @@ const fetchRelationshipData = async ({
     })
 
     return {
-        data: toGeoJson(dataWithRels.primary),
+        data: toGeoJson(dataWithRels.primary, pointColor),
         relationships: dataWithRels.relationships,
         secondaryData: toGeoJson(dataWithRels.secondary),
     }
@@ -244,7 +269,7 @@ const trackedEntityLoader = async ({
     keyAnalysisDigitGroupSeparator,
     serverVersion,
 }) => {
-    parseJsonConfig(config)
+    applyParsedConfig(config)
 
     const {
         trackedEntityType,
@@ -266,6 +291,7 @@ const trackedEntityLoader = async ({
     } = config
 
     const name = program ? program.name : i18n.t('Tracked entity')
+    const pointColor = eventPointColor || TEI_COLOR
 
     const legend = {
         title: name,
@@ -278,7 +304,7 @@ const trackedEntityLoader = async ({
                 name:
                     trackedEntityType.name +
                     (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
-                color: eventPointColor || TEI_COLOR,
+                color: pointColor,
                 radius: eventPointRadius || TEI_RADIUS,
             },
         ],
@@ -326,6 +352,8 @@ const trackedEntityLoader = async ({
             instance.geometry?.coordinates
     )
 
+    const headers = getAttributeHeaders(instances)
+
     let alert
 
     if (!instances.length) {
@@ -348,10 +376,11 @@ const trackedEntityLoader = async ({
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
+            pointColor,
             legend,
         }))
     } else {
-        data = toGeoJson(instances)
+        data = toGeoJson(instances, pointColor)
     }
 
     if (explanation) {
@@ -362,6 +391,7 @@ const trackedEntityLoader = async ({
         ...config,
         name,
         data,
+        headers,
         keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,

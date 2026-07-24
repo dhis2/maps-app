@@ -90,6 +90,10 @@ const layer = (state, action) => {
 
             return {
                 ...action.payload,
+                dataTableColumnConfig:
+                    state.dataTableColumnConfig ??
+                    action.payload.dataTableColumnConfig,
+                dataFilters: state.dataFilters ?? action.payload.dataFilters,
             }
 
         case types.LAYER_CHANGE_OPACITY:
@@ -120,6 +124,16 @@ const layer = (state, action) => {
             return {
                 ...state,
                 isVisible: !state.isVisible,
+            }
+
+        case types.LAYER_FORCE_CLIENT_CLUSTER_SET:
+            if (state.id !== action.id) {
+                return state
+            }
+
+            return {
+                ...state,
+                forceClientCluster: true,
             }
 
         case types.LAYER_TOGGLE_EXPAND:
@@ -318,6 +332,7 @@ const map = (state = defaultState, action) => {
         case types.LAYER_CHANGE_OPACITY:
         case types.LAYER_TOGGLE_VISIBILITY:
         case types.LAYER_TOGGLE_EXPAND:
+        case types.LAYER_FORCE_CLIENT_CLUSTER_SET:
         case types.DATA_FILTER_SET:
         case types.DATA_FILTER_CLEAR:
         case types.DATA_FILTERS_CLEAR_ALL:

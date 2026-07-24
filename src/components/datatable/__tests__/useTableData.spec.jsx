@@ -64,6 +64,106 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('adds an Icon column for a facility layer styled by group set symbol', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'facility',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'facility-1',
+                        name: 'Facility 1',
+                        type: 'Point',
+                        iconUrl: 'https://server/images/orgunitgroup/1.png',
+                        group: 'Hospitals',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Icon',
+            dataKey: 'iconUrl',
+            type: 'string',
+            renderer: 'rendericon',
+        })
+        expect(headers).toContainEqual({
+            name: 'Group',
+            dataKey: 'group',
+            type: 'string',
+        })
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'color' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 'https://server/images/orgunitgroup/1.png',
+                dataKey: 'iconUrl',
+            })
+        )
+    })
+
+    test('adds a Color column for an orgUnit layer styled by group set color', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'orgUnit',
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Bo District',
+                        type: 'MultiPolygon',
+                        level: 2,
+                        color: '#ff0000',
+                        group: 'Rural',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers } = result.current
+        expect(headers).toContainEqual(
+            expect.objectContaining({ name: 'Color', dataKey: 'color' })
+        )
+        expect(headers).toContainEqual(
+            expect.objectContaining({ name: 'Group', dataKey: 'group' })
+        )
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'iconUrl' })
+        )
+    })
+
     test('gets headers and rows for orgUnit layer', () => {
         const store = {
             aggregations: {},
@@ -161,11 +261,11 @@ describe('useTableData headers', () => {
             { name: 'Name', dataKey: 'name', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             { name: 'Value', dataKey: 'rawValue', type: 'number' },
-            { name: 'Legend', dataKey: 'legend', type: 'string' },
-            { name: 'Range', dataKey: 'range', type: 'string' },
             { name: 'Level', dataKey: 'level', type: 'number' },
             { name: 'Parent', dataKey: 'parentName', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Legend', dataKey: 'legend', type: 'string' },
+            { name: 'Range', dataKey: 'range', type: 'string' },
             {
                 name: 'Color',
                 dataKey: 'color',
@@ -179,14 +279,204 @@ describe('useTableData headers', () => {
             { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
             { value: 106.3, dataKey: 'rawValue' },
-            { value: 'Great', dataKey: 'legend' },
-            { value: '90 – 120', dataKey: 'range' },
             { value: 4, dataKey: 'level' },
             { value: 'Badjia', dataKey: 'parentName' },
             { value: 'Point', dataKey: 'type' },
+            { value: 'Great', dataKey: 'legend' },
+            { value: '90 – 120', dataKey: 'range' },
             { value: '#FFFFB2', dataKey: 'color' },
         ])
         expect(isLoading).toBe(false)
+    })
+
+    test('gets current-period Value/Legend/Range/Color for a timeline thematic layer', () => {
+        // The active timeline period is Map.jsx's own local UI state, synced
+        // into state.ui.activeTimelinePeriod (not part of the layer config).
+        const store = {
+            aggregations: {},
+            ui: {
+                activeTimelinePeriod: { id: '202302', name: 'February 2023' },
+            },
+        }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'TIMELINE',
+            valuesByPeriod: {
+                202301: {
+                    'ou-1': { value: 100, color: '#aaaaaa', legend: 'Low' },
+                },
+                202302: {
+                    'ou-1': {
+                        value: 200,
+                        color: '#bbbbbb',
+                        legend: 'High',
+                        range: '150 – 250',
+                    },
+                },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toMatchObject([
+            { name: 'Name', dataKey: 'name' },
+            { name: 'Id', dataKey: 'id' },
+            { name: 'Value (February 2023)', dataKey: 'rawValue' },
+            { name: 'Level', dataKey: 'level' },
+            { name: 'Parent', dataKey: 'parentName' },
+            { name: 'Type', dataKey: 'type' },
+            { name: 'Legend (February 2023)', dataKey: 'legend' },
+            { name: 'Range (February 2023)', dataKey: 'range' },
+            { name: 'Color (February 2023)', dataKey: 'color' },
+        ])
+        expect(rows[0]).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({ value: 200, dataKey: 'rawValue' }),
+                expect.objectContaining({ value: 'High', dataKey: 'legend' }),
+                expect.objectContaining({
+                    value: '150 – 250',
+                    dataKey: 'range',
+                }),
+            ])
+        )
+    })
+
+    test('adds a defaultHidden raw-value-only column for every other period, for a timeline thematic layer', () => {
+        const store = {
+            aggregations: {},
+            ui: {
+                activeTimelinePeriod: { id: '202302', name: 'February 2023' },
+            },
+        }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'TIMELINE',
+            periods: [
+                { id: '202301', name: 'January 2023' },
+                { id: '202302', name: 'February 2023' },
+            ],
+            valuesByPeriod: {
+                202301: { 'ou-1': { value: 100 } },
+                202302: { 'ou-1': { value: 200 } },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'period_202302_rawValue' })
+        )
+        expect(headers).toContainEqual({
+            name: 'Value (January 2023)',
+            dataKey: 'period_202301_rawValue',
+            type: 'number',
+            defaultHidden: true,
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 100,
+                dataKey: 'period_202301_rawValue',
+            })
+        )
+    })
+
+    test('split-by-period thematic layer has no default current-period column, only defaultHidden period columns', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'thematic',
+            renderingStrategy: 'SPLIT_BY_PERIOD',
+            periods: [{ id: '202301', name: 'January 2023' }],
+            valuesByPeriod: {
+                202301: { 'ou-1': { value: 100 } },
+            },
+            dataFilters: null,
+            data: [
+                {
+                    properties: {
+                        id: 'ou-1',
+                        name: 'Ngelehun CHC',
+                        type: 'Point',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toMatchObject([
+            { name: 'Name', dataKey: 'name' },
+            { name: 'Id', dataKey: 'id' },
+            { name: 'Level', dataKey: 'level' },
+            { name: 'Parent', dataKey: 'parentName' },
+            { name: 'Type', dataKey: 'type' },
+            {
+                name: 'Value (January 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ])
+        expect(rows[0]).not.toContainEqual(
+            expect.objectContaining({ dataKey: 'rawValue' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 100,
+                dataKey: 'period_202301_rawValue',
+            })
+        )
     })
 
     test('gets headers and rows for event layer', () => {
@@ -261,12 +551,17 @@ describe('useTableData headers', () => {
             { name: 'Org unit', dataKey: 'ouname', type: 'string' },
             { name: 'Id', dataKey: 'id', type: 'string' },
             {
-                name: 'Event time',
+                name: 'Event date',
                 dataKey: 'eventdate',
                 type: 'date',
-                renderer: 'formatTime...',
+                renderer: 'renderdate',
             },
-            { name: 'Last updated on', dataKey: 'lastupdated', type: 'string' },
+            {
+                name: 'Last updated on',
+                dataKey: 'lastupdated',
+                type: 'date',
+                renderer: 'renderdate',
+            },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
             { name: 'Gender', dataKey: 'oZg33kd9taw', type: 'string' },
             { name: 'Type', dataKey: 'type', type: 'string' },
@@ -281,6 +576,125 @@ describe('useTableData headers', () => {
             { value: 'ACTIVE', dataKey: 'eventstatus' },
             { value: 'Female', dataKey: 'oZg33kd9taw' },
             { value: 'Point', dataKey: 'type' },
+        ])
+        expect(isLoading).toBe(false)
+    })
+
+    test('is not "extending" a server-clustered event layer that has not been forced to client-cluster', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            serverCluster: true,
+            isExtended: false,
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(false)
+        expect(result.current.loadingReason).toBeNull()
+    })
+
+    test('shows "Loading additional events…" while forceClientCluster reload is in flight', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            serverCluster: true,
+            forceClientCluster: true,
+            isExtended: false,
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(true)
+        expect(result.current.loadingReason).toBe('Loading additional events…')
+    })
+
+    test('gets headers and rows for tracked entity layer', () => {
+        const store = {
+            aggregations: {},
+        }
+        const layer = {
+            layer: 'trackedEntity',
+            dataFilters: null,
+            headers: [
+                {
+                    name: 'First name',
+                    dataKey: 'w75KJ2mc4zz',
+                    valueType: 'TEXT',
+                },
+                {
+                    name: 'Age',
+                    dataKey: 'zDhUuAYrxNC',
+                    valueType: 'NUMBER',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'PsgJS8BUxZd',
+                        w75KJ2mc4zz: 'Gabrielle',
+                        zDhUuAYrxNC: 28,
+                        color: '#e57200',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows, isLoading } = result.current
+        expect(headers).toHaveLength(4)
+        expect(headers).toMatchObject([
+            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'First name', dataKey: 'w75KJ2mc4zz', type: 'string' },
+            { name: 'Age', dataKey: 'zDhUuAYrxNC', type: 'number' },
+            { name: 'Color', dataKey: 'color', type: 'string' },
+        ])
+        expect(rows).toHaveLength(1)
+        expect(rows[0]).toHaveLength(4)
+        expect(rows[0]).toMatchObject([
+            { value: 'PsgJS8BUxZd', dataKey: 'id' },
+            { value: 'Gabrielle', dataKey: 'w75KJ2mc4zz' },
+            { value: 28, dataKey: 'zDhUuAYrxNC' },
+            { value: '#e57200', dataKey: 'color' },
         ])
         expect(isLoading).toBe(false)
     })
@@ -374,6 +788,192 @@ describe('useTableData headers', () => {
         const { headers } = result.current
         const scoreHeader = headers.find((h) => h.dataKey === 'AbCdEfGhIjK')
         expect(scoreHeader.type).toBe('number')
+    })
+
+    test('adds Legend/Range/Color columns for an event layer styled by a numeric data item', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK' },
+            legend: {
+                items: [
+                    {
+                        name: 'Low',
+                        color: '#aaaaaa',
+                        startValue: 0,
+                        endValue: 50,
+                        colorGroup: 0,
+                    },
+                    {
+                        name: 'High',
+                        color: '#bbbbbb',
+                        startValue: 50,
+                        endValue: 100,
+                        colorGroup: 1,
+                    },
+                ],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Score', valueType: 'NUMBER' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 75,
+                        value: 75,
+                        color: '#bbbbbb',
+                        colorGroup: 1,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Legend',
+            dataKey: 'legend',
+            type: 'string',
+        })
+        expect(headers).toContainEqual({
+            name: 'Range',
+            dataKey: 'range',
+            type: 'string',
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: 'High', dataKey: 'legend' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: '50 – 100', dataKey: 'range' })
+        )
+    })
+
+    test('formats an event layer’s Range using the layer’s own legendDecimalPlaces', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK' },
+            legendDecimalPlaces: 1,
+            legend: {
+                items: [
+                    {
+                        name: 'High',
+                        color: '#bbbbbb',
+                        startValue: 50.256,
+                        endValue: 100.789,
+                        colorGroup: 0,
+                    },
+                ],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Score', valueType: 'NUMBER' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 75,
+                        value: 75,
+                        color: '#bbbbbb',
+                        colorGroup: 0,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        expect(result.current.rows[0]).toContainEqual(
+            expect.objectContaining({ value: '50.3 – 100.8', dataKey: 'range' })
+        )
+    })
+
+    test('leaves Range empty for an event layer styled by a non-numeric (option set) data item', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            styleDataItem: { id: 'AbCdEfGhIjK', optionSet: { id: 'os1' } },
+            legend: {
+                items: [{ name: 'Yes', color: '#00ff00', colorGroup: 0 }],
+            },
+            headers: [
+                { name: 'AbCdEfGhIjK', column: 'Answer', valueType: 'TEXT' },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        ouname: 'Test OU',
+                        eventdate: '2023-01-01',
+                        AbCdEfGhIjK: 'Yes',
+                        value: 'Yes',
+                        color: '#00ff00',
+                        colorGroup: 0,
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { rows } = result.current
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: 'Yes', dataKey: 'legend' })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: undefined, dataKey: 'range' })
+        )
     })
 
     test('gets headers and rows for EE population layer', () => {
@@ -619,6 +1219,49 @@ describe('useTableData headers', () => {
             { value: 3.976, dataKey: 'mean' },
         ])
         expect(isLoading).toBe(false)
+    })
+
+    test('gets headers and rows for a geoJsonUrl layer, labeling the synthetic color property "Color"', () => {
+        const store = { aggregations: {} }
+        const layer = {
+            layer: 'geoJsonUrl',
+            dataFilters: null,
+            data: [
+                {
+                    geometry: { type: 'Point' },
+                    properties: {
+                        id: 'feature-1',
+                        name: 'Feature 1',
+                        color: '#ff0000',
+                    },
+                },
+            ],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Color',
+            dataKey: 'color',
+            type: 'string',
+            renderer: 'rendercolor',
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({ value: '#ff0000', dataKey: 'color' })
+        )
     })
 })
 

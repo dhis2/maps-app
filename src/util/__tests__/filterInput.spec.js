@@ -1,9 +1,12 @@
 import {
+    getCyclicIndex,
     getDisplayValue,
     getFilteredOptions,
     getPopoverWidth,
     getSelectedAndAppliedString,
     measureMaxTextWidth,
+    toHighlightedIndex,
+    toOptionIndex,
 } from '../filterInput.js'
 
 describe('getSelectedAndAppliedString', () => {
@@ -134,5 +137,39 @@ describe('getPopoverWidth', () => {
 
     it('passes a mid-range measurement through with the non-label width added', () => {
         expect(getPopoverWidth(100)).toBe(156)
+    })
+})
+
+describe('getCyclicIndex', () => {
+    it('moves forward within range', () => {
+        expect(getCyclicIndex(0, 3, 1)).toBe(1)
+    })
+
+    it('wraps from the last index back to the first when moving forward', () => {
+        expect(getCyclicIndex(2, 3, 1)).toBe(0)
+    })
+
+    it('moving backward from -1 (nothing highlighted) lands on index 1, matching the pre-existing arithmetic', () => {
+        expect(getCyclicIndex(-1, 3, -1)).toBe(1)
+    })
+
+    it('moves backward within range', () => {
+        expect(getCyclicIndex(2, 3, -1)).toBe(1)
+    })
+
+    it('returns -1 when there is nothing to highlight', () => {
+        expect(getCyclicIndex(0, 0, 1)).toBe(-1)
+    })
+})
+
+describe('toOptionIndex / toHighlightedIndex', () => {
+    it('are unchanged when the custom-filter row is not shown', () => {
+        expect(toOptionIndex(2, false)).toBe(2)
+        expect(toHighlightedIndex(2, false)).toBe(2)
+    })
+
+    it('are offset by one, and invert each other, when the custom-filter row is shown', () => {
+        expect(toOptionIndex(1, true)).toBe(0)
+        expect(toHighlightedIndex(0, true)).toBe(1)
     })
 })

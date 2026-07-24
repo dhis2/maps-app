@@ -1,9 +1,16 @@
+import { SENTINEL_NO_VALUE, TYPE_NUMBER } from '../../constants/dataTable.js'
 import {
+    buildRowCells,
+    filterHeadersByName,
+    getColumnDistinctValues,
+    getDefaultVisibleKeys,
+    getOrderedHeaders,
     getPinnedCellProps,
     getPinnedCount,
     getPinnedLeftOffsets,
     getVisibleHeaders,
     isPinnedGroupEnd,
+    reorderHeaderKeys,
     reverseVisibleKeys,
     togglePinnedKey,
     toggleVisibleKey,
@@ -15,6 +22,38 @@ const headers = [
     { name: 'Value', dataKey: 'rawValue' },
     { name: 'Legend', dataKey: 'legend' },
 ]
+
+describe('getOrderedHeaders', () => {
+    it('returns every header, ordered/pinned but never filtered by visibility - even defaultHidden ones', () => {
+        const withHiddenColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getOrderedHeaders(withHiddenColumn, {})
+        expect(result).toEqual(withHiddenColumn)
+    })
+
+    it('still applies ordering and pinning', () => {
+        const result = getOrderedHeaders(headers, {
+            orderedKeys: ['legend', 'name', 'id', 'rawValue'],
+            pinnedKeys: ['rawValue'],
+        })
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'rawValue',
+            'legend',
+            'name',
+            'id',
+        ])
+    })
+
+    it('passes through a null/undefined headers list', () => {
+        expect(getOrderedHeaders(null)).toBe(null)
+    })
+})
 
 describe('getVisibleHeaders', () => {
     it('returns all headers unchanged when there is no saved config', () => {
@@ -122,6 +161,42 @@ describe('getVisibleHeaders', () => {
             'rawValue',
             'legend',
             'name',
+        ])
+    })
+
+    it('excludes defaultHidden headers when there is no saved config yet', () => {
+        const withPeriodColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getVisibleHeaders(withPeriodColumn, null)
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
+        ])
+    })
+
+    it('shows a defaultHidden header once explicitly added to visibleKeys', () => {
+        const withPeriodColumn = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        const result = getVisibleHeaders(withPeriodColumn, {
+            visibleKeys: ['name', 'period_202301_rawValue'],
+        })
+        expect(result.map((h) => h.dataKey)).toEqual([
+            'name',
+            'period_202301_rawValue',
         ])
     })
 })
@@ -299,5 +374,125 @@ describe('getPinnedCellProps', () => {
             width: '150px',
             isLastPinned: true,
         })
+    })
+})
+
+describe('getDefaultVisibleKeys', () => {
+    it('includes every header dataKey when none are marked defaultHidden', () => {
+        expect(getDefaultVisibleKeys(headers)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
+        ])
+    })
+
+    it('excludes headers marked defaultHidden', () => {
+        const withHidden = [
+            ...headers,
+            {
+                name: 'Value (Jan 2023)',
+                dataKey: 'period_202301_rawValue',
+                defaultHidden: true,
+            },
+        ]
+        expect(getDefaultVisibleKeys(withHidden)).toEqual([
+            'name',
+            'id',
+            'rawValue',
+            'legend',
+        ])
+    })
+})
+
+describe('getColumnDistinctValues', () => {
+    const typedHeaders = [
+        { dataKey: 'name', type: 'string' },
+        { dataKey: 'rawValue', type: TYPE_NUMBER },
+    ]
+
+    it('returns null when there are no headers or no data yet', () => {
+        expect(getColumnDistinctValues([], [{ name: 'A' }])).toBe(null)
+        expect(getColumnDistinctValues(typedHeaders, [])).toBe(null)
+    })
+
+    it('collects the distinct string value of each column across all rows', () => {
+        const data = [
+            { name: 'A', rawValue: 1 },
+            { name: 'B', rawValue: 2 },
+            { name: 'A', rawValue: 1 },
+        ]
+        const result = getColumnDistinctValues(typedHeaders, data)
+        expect(result.name).toEqual({ values: ['A', 'B'], type: 'string' })
+        expect(result.rawValue).toEqual({
+            values: ['1', '2'],
+            type: TYPE_NUMBER,
+        })
+    })
+
+    it('coalesces undefined/null/empty-string values to the sentinel and omits a column with none at all', () => {
+        const data = [{ name: '' }, { name: null }, { rawValue: 5 }]
+        const result = getColumnDistinctValues(typedHeaders, data)
+        expect(result.name.values).toEqual([SENTINEL_NO_VALUE])
+        expect(result.rawValue.values).toEqual([SENTINEL_NO_VALUE, '5'])
+    })
+})
+
+describe('buildRowCells', () => {
+    const rowHeaders = [
+        { dataKey: 'name', type: 'string' },
+        { dataKey: 'rawValue', type: TYPE_NUMBER },
+    ]
+
+    it('builds one cell per header, aligning numbers right and everything else left', () => {
+        const item = { id: 'a', name: 'Alpha', rawValue: 5 }
+        expect(buildRowCells(item, rowHeaders)).toEqual([
+            { dataKey: 'name', value: 'Alpha', align: 'left', itemId: 'a' },
+            { dataKey: 'rawValue', value: 5, align: 'right', itemId: 'a' },
+        ])
+    })
+
+    it('applies a column roundFn before returning the value', () => {
+        const item = { id: 'a', rawValue: 1.23456 }
+        const withRoundFn = [
+            { dataKey: 'rawValue', type: TYPE_NUMBER, roundFn: Math.round },
+        ]
+        expect(buildRowCells(item, withRoundFn)[0].value).toBe(1)
+    })
+
+    it('nulls out a non-numeric value in a number column instead of returning NaN', () => {
+        const item = { id: 'a', rawValue: 'not-a-number' }
+        expect(buildRowCells(item, rowHeaders)[1].value).toBe(null)
+    })
+})
+
+describe('filterHeadersByName', () => {
+    it('keeps headers whose name contains the search text, case-insensitively', () => {
+        const result = filterHeadersByName(headers, 'AME')
+        expect(result.map((h) => h.dataKey)).toEqual(['name'])
+    })
+
+    it('trims the search text before matching', () => {
+        const result = filterHeadersByName(headers, '  id  ')
+        expect(result.map((h) => h.dataKey)).toEqual(['id'])
+    })
+
+    it('returns every header when the search text is empty', () => {
+        expect(filterHeadersByName(headers, '')).toEqual(headers)
+    })
+})
+
+describe('reorderHeaderKeys', () => {
+    it('moves the active header to the dropped-on header’s position', () => {
+        const result = reorderHeaderKeys(headers, 'name', 'legend')
+        expect(result).toEqual(['id', 'rawValue', 'legend', 'name'])
+    })
+
+    it('returns null when the active header can no longer be found', () => {
+        expect(reorderHeaderKeys(headers, 'deletedColumn', 'legend')).toBe(null)
+    })
+
+    it('returns null when the drop-target header can no longer be found', () => {
+        expect(reorderHeaderKeys(headers, 'name', 'deletedColumn')).toBe(null)
     })
 })

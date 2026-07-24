@@ -334,6 +334,56 @@ describe('map reducer - per-layer delegation', () => {
             })
             expect(result.mapViews[1]).toBe(other)
         })
+
+        it("keeps the live dataTableColumnConfig/dataFilters instead of an async loader payload's stale snapshot", () => {
+            const state = {
+                ...defaultState,
+                mapViews: [
+                    {
+                        id: 'layer1',
+                        name: 'Old',
+                        dataTableColumnConfig: { visibleKeys: ['name'] },
+                        dataFilters: { name: 'foo' },
+                    },
+                ],
+            }
+
+            const result = map(state, {
+                type: types.LAYER_UPDATE,
+                payload: {
+                    id: 'layer1',
+                    name: 'New',
+                    // Stale: captured before the user's edits above
+                    dataTableColumnConfig: undefined,
+                    dataFilters: undefined,
+                },
+            })
+
+            expect(result.mapViews[0].dataTableColumnConfig).toEqual({
+                visibleKeys: ['name'],
+            })
+            expect(result.mapViews[0].dataFilters).toEqual({ name: 'foo' })
+        })
+
+        it("uses the payload's dataTableColumnConfig/dataFilters when the layer has none live yet (first load)", () => {
+            const state = {
+                ...defaultState,
+                mapViews: [{ id: 'layer1', name: 'Old' }],
+            }
+
+            const result = map(state, {
+                type: types.LAYER_UPDATE,
+                payload: {
+                    id: 'layer1',
+                    name: 'New',
+                    dataTableColumnConfig: { visibleKeys: ['id'] },
+                },
+            })
+
+            expect(result.mapViews[0].dataTableColumnConfig).toEqual({
+                visibleKeys: ['id'],
+            })
+        })
     })
 
     describe('LAYER_EDIT', () => {
@@ -402,6 +452,24 @@ describe('map reducer - per-layer delegation', () => {
             })
 
             expect(result.mapViews[0].isVisible).toBe(false)
+            expect(result.mapViews[1]).toBe(other)
+        })
+    })
+
+    describe('LAYER_FORCE_CLIENT_CLUSTER_SET', () => {
+        it('sets forceClientCluster on the matching layer only', () => {
+            const other = { id: 'layer2' }
+            const state = {
+                ...defaultState,
+                mapViews: [{ id: 'layer1' }, other],
+            }
+
+            const result = map(state, {
+                type: types.LAYER_FORCE_CLIENT_CLUSTER_SET,
+                id: 'layer1',
+            })
+
+            expect(result.mapViews[0].forceClientCluster).toBe(true)
             expect(result.mapViews[1]).toBe(other)
         })
     })

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-17T19:19:08.730Z\n"
-"PO-Revision-Date: 2026-07-17T19:19:08.731Z\n"
+"POT-Creation-Date: 2026-07-24T09:14:13.417Z\n"
+"PO-Revision-Date: 2026-07-24T09:14:13.417Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -167,6 +167,36 @@ msgstr "Sort by Selected"
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
+msgid "Edit layer"
+msgstr "Edit layer"
+
+msgid "Select a year, month, day or hour"
+msgstr "Select a year, month, day or hour"
+
+msgid "to match the events under it, or type to search"
+msgstr "to match the events under it, or type to search"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Contains"
+msgstr "Contains"
+
+msgid "Any value"
+msgstr "Any value"
+
+msgid "No value"
+msgstr "No value"
+
+msgid "No matches"
+msgstr "No matches"
+
+msgid "Collapse {{label}}"
+msgstr "Collapse {{label}}"
+
+msgid "Expand {{label}}"
+msgstr "Expand {{label}}"
+
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -194,29 +224,14 @@ msgstr "to match rows that contain it"
 msgid "Use filter"
 msgstr "Use filter"
 
-msgid "Contains"
-msgstr "Contains"
-
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
-
-msgid "Search"
-msgstr "Search"
 
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
-msgid "Any value"
-msgstr "Any value"
-
 msgid "Too many values to list - type to filter this column"
 msgstr "Too many values to list - type to filter this column"
-
-msgid "No matches"
-msgstr "No matches"
-
-msgid "No value"
-msgstr "No value"
 
 msgid "Selected"
 msgstr "Selected"
@@ -252,6 +267,12 @@ msgstr "Zoom to selected features"
 
 msgid "Zoom to filtered features"
 msgstr "Zoom to filtered features"
+
+msgid "Event details aren't available while this layer is clustered on the server"
+msgstr "Event details aren't available while this layer is clustered on the server"
+
+msgid "Show event details"
+msgstr "Show event details"
 
 msgid "No features match your filters"
 msgstr "No features match your filters"
@@ -307,9 +328,6 @@ msgstr "{{total}} rows"
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
 
-msgid "Data table is not supported when events are grouped on the server."
-msgstr "Data table is not supported when events are grouped on the server."
-
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
 
@@ -322,33 +340,6 @@ msgstr ""
 
 msgid "No valid data fields were found for this layer."
 msgstr "No valid data fields were found for this layer."
-
-msgid "Id"
-msgstr "Id"
-
-msgid "Level"
-msgstr "Level"
-
-msgid "Parent"
-msgstr "Parent"
-
-msgid "Type"
-msgstr "Type"
-
-msgid "Legend"
-msgstr "Legend"
-
-msgid "Range"
-msgstr "Range"
-
-msgid "Org unit"
-msgstr "Org unit"
-
-msgid "Org unit boundary"
-msgstr "Org unit boundary"
-
-msgid "Event time"
-msgstr "Event time"
 
 msgid "Loading Earth Engine data…"
 msgstr "Loading Earth Engine data…"
@@ -832,9 +823,6 @@ msgstr "Open in Data Visualizer app"
 msgid "Download data"
 msgstr "Download data"
 
-msgid "Edit layer"
-msgstr "Edit layer"
-
 msgid "Duplicate layer"
 msgstr "Duplicate layer"
 
@@ -908,6 +896,9 @@ msgstr[1] "{{n}} org units without coordinates"
 msgid "Selected org units: No coordinates found"
 msgstr "Selected org units: No coordinates found"
 
+msgid "External layer definition not found, showing last known settings"
+msgstr "External layer definition not found, showing last known settings"
+
 msgid "Error"
 msgstr "Error"
 
@@ -939,11 +930,17 @@ msgstr "Could not retrieve event data"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
+msgid "Event date"
+msgstr "Event date"
+
 msgid "Groups"
 msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
+
+msgid "Level"
+msgstr "Level"
 
 msgid "Not set"
 msgstr "Not set"
@@ -1070,6 +1067,9 @@ msgstr "No data found for this period."
 msgid "Image of the organisation unit"
 msgstr "Image of the organisation unit"
 
+msgid "Parent"
+msgstr "Parent"
+
 msgid "Code"
 msgstr "Code"
 
@@ -1188,6 +1188,9 @@ msgstr "Click to unpin legend"
 
 msgid "Click to pin legend"
 msgstr "Click to pin legend"
+
+msgid "Legend"
+msgstr "Legend"
 
 msgid "Hide layer"
 msgstr "Hide layer"
@@ -2052,6 +2055,33 @@ msgstr "Facility"
 
 msgid "GroupSet used for styling was not found"
 msgstr "GroupSet used for styling was not found"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Range"
+msgstr "Range"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Org unit boundary"
+msgstr "Org unit boundary"
+
+msgid "Group"
+msgstr "Group"
+
+msgid "Icon"
+msgstr "Icon"
+
+msgid "Current period"
+msgstr "Current period"
+
+msgid "Value ({{period}})"
+msgstr "Value ({{period}})"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

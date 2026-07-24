@@ -201,6 +201,25 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         ).toBeInTheDocument()
     })
 
+    test('renders Icon column options as a thumbnail plus filename, not the raw URL', () => {
+        renderFilterInput({
+            dataKey: 'iconUrl',
+            name: 'Icon',
+            renderer: 'rendericon',
+            options: [{ value: 'https://server/api/icons/mapMarker024.png' }],
+        })
+        openPopover('Icon')
+        const checkbox = screen.getByLabelText('mapMarker024.png')
+        expect(checkbox).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('https://server/api/icons/mapMarker024.png')
+        ).not.toBeInTheDocument()
+        expect(checkbox.closest('label').querySelector('img')).toHaveAttribute(
+            'src',
+            'https://server/api/icons/mapMarker024.png'
+        )
+    })
+
     test('formats numeric column options with the system digit group separator', () => {
         renderFilterInput({
             dataKey: 'value',
@@ -406,16 +425,25 @@ describe('FilterInput searchable popover — custom filter row', () => {
         expect(row).toHaveTextContent('medium')
     })
 
-    test('is hidden when the typed text exactly matches an existing option', () => {
-        const options = [{ value: 'High' }, { value: 'Low' }]
-        renderFilterInput({ dataKey: 'legend', name: 'Legend', options })
+    test('stays shown and keeps live-applying even when the typed text exactly matches an existing option', () => {
+        const { store } = renderFilterInput({
+            dataKey: 'legend',
+            name: 'Legend',
+            options: [{ value: 'High' }, { value: 'Low' }],
+        })
         openPopover('Legend')
         fireEvent.change(getInput('Legend'), {
             target: { value: 'High' },
         })
         expect(
-            screen.queryByTestId('data-table-column-filter-custom-Legend')
-        ).not.toBeInTheDocument()
+            screen.getByTestId('data-table-column-filter-custom-Legend')
+        ).toBeInTheDocument()
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'legend',
+            filter: 'High',
+        })
     })
 
     test('clearing the typed text clears an already-applied custom filter live', () => {

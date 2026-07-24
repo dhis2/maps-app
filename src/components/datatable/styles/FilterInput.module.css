@@ -104,6 +104,23 @@
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
+.iconOption {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.iconOptionThumbnail {
+    display: block;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+}
+
 .denseCheckbox {
     margin: 0;
     padding: 4px 0;
@@ -159,4 +176,29 @@
 
 .multiSelectPopover .highlighted {
     background: var(--colors-grey100);
+}
+
+.treeRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.expandButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    flex-shrink: 0;
+    background: transparent;
+    color: var(--colors-grey700);
+    cursor: pointer;
+}
+
+.expandButtonPlaceholder {
+    width: 16px;
+    flex-shrink: 0;
 }

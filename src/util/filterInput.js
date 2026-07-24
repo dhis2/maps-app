@@ -1,9 +1,15 @@
 import i18n from '@dhis2/d2-i18n'
+import { TYPE_NUMBER } from '../constants/dataTable.js'
 import { numericFilter } from './filter.js'
 
 const POPOVER_ROW_NON_LABEL_WIDTH = 56
 const MIN_POPOVER_WIDTH = 140
 const MAX_POPOVER_WIDTH = 280
+
+// Shared between FilterInput.jsx's SearchableFilterPopover and
+// DateGroupFilterInput.jsx's tree - both virtualize a list of fixed-height rows
+export const OPTION_ROW_HEIGHT = 28
+export const MAX_LIST_HEIGHT = 260
 
 export const getSelectedAndAppliedString = (filterValue) => ({
     selected: Array.isArray(filterValue) ? filterValue : [],
@@ -35,7 +41,7 @@ export const getFilteredOptions = ({
     if (!trimmedSearch) {
         return realOptions
     }
-    if (type === 'number') {
+    if (type === TYPE_NUMBER) {
         return realOptions.filter(({ value }) =>
             numericFilter(Number(value), trimmedSearch)
         )
@@ -66,3 +72,12 @@ export const getPopoverWidth = (maxLabelWidth) =>
         ),
         MAX_POPOVER_WIDTH
     )
+
+export const getCyclicIndex = (current, total, delta) =>
+    total ? (current + delta + total) % total : -1
+
+export const toOptionIndex = (highlightedIndex, showCustomFilterRow) =>
+    showCustomFilterRow ? highlightedIndex - 1 : highlightedIndex
+
+export const toHighlightedIndex = (optionIndex, showCustomFilterRow) =>
+    showCustomFilterRow ? optionIndex + 1 : optionIndex

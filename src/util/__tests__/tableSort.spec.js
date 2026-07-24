@@ -50,6 +50,24 @@ describe('compareFieldValues', () => {
         ).toBe(0)
     })
 
+    it('sorts null values to the end too, without throwing (e.g. a period column with no data for some rows)', () => {
+        expect(
+            compareFieldValues(null, 5, { sortDirection: 'asc' })
+        ).toBeGreaterThan(0)
+        expect(
+            compareFieldValues(5, null, { sortDirection: 'desc' })
+        ).toBeLessThan(0)
+    })
+
+    it('treats null and undefined as equally "no value"', () => {
+        expect(
+            compareFieldValues(null, undefined, { sortDirection: 'asc' })
+        ).toBe(0)
+        expect(
+            compareFieldValues(undefined, null, { sortDirection: 'asc' })
+        ).toBe(0)
+    })
+
     it('delegates to compareRangeValues for the Range column', () => {
         expect(
             compareFieldValues('5-10', '1-3', {
