@@ -177,3 +177,28 @@
 .multiSelectPopover .highlighted {
     background: var(--colors-grey100);
 }
+
+.treeRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.expandButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    padding: 0;
+    border: none;
+    flex-shrink: 0;
+    background: transparent;
+    color: var(--colors-grey700);
+    cursor: pointer;
+}
+
+.expandButtonPlaceholder {
+    width: 16px;
+    flex-shrink: 0;
+}

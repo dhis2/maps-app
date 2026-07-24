@@ -336,7 +336,7 @@ context('Event Layers', () => {
             'Event location',
             '-13.188339, 8.405215',
             'Organisation unit',
-            'Event time',
+            'Event date',
             'Age in years',
             'Mode of Discharge',
         ])

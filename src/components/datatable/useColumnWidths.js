@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 
+const MIN_COLUMN_WIDTH = 100
+
 export const useColumnWidths = ({ availableWidth, headers, error }) => {
     const headerRowRef = useRef(null)
     const minColumnWidthsRef = useRef([])
@@ -21,7 +23,9 @@ export const useColumnWidths = ({ availableWidth, headers, error }) => {
 
                 for (const cell of dataCells) {
                     const rect = cell.getBoundingClientRect()
-                    measuredColumnWidths.push(Math.floor(rect.width))
+                    measuredColumnWidths.push(
+                        Math.max(MIN_COLUMN_WIDTH, Math.floor(rect.width))
+                    )
                 }
 
                 minColumnWidthsRef.current = measuredColumnWidths

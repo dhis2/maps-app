@@ -12,6 +12,9 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     TYPE_NUMBER,
+    // TYPE_DATE,
+    // TYPE_DATETIME,
+    // TYPE_TIME,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import {
@@ -20,10 +23,11 @@ import {
     getFilteredOptions,
     getPopoverWidth,
     getSelectedAndAppliedString,
-    hasMatchingOptionLabel,
     measureMaxTextWidth,
     toHighlightedIndex,
     toOptionIndex,
+    OPTION_ROW_HEIGHT,
+    MAX_LIST_HEIGHT,
 } from '../../util/filterInput.js'
 import {
     getInvertibleValues,
@@ -34,6 +38,7 @@ import {
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
+// import DateGroupFilterInput from './DateGroupFilterInput.jsx'
 import {
     FilterDropdownPopover,
     getDropdownPlacement,
@@ -41,8 +46,6 @@ import {
 import FilterHelpTooltip from './FilterHelpTooltip.jsx'
 import styles from './styles/FilterInput.module.css'
 
-const OPTION_ROW_HEIGHT = 28 // Checkbox rows are a fixed height so the list can be virtualized
-const MAX_LIST_HEIGHT = 260
 const NUMERIC_HELP_HEIGHT = 140
 const TEXT_HELP_HEIGHT = 56
 const NUMERIC_FILTER_HELP = (
@@ -183,17 +186,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             }),
         [realOptions, trimmedSearch, normalizedSearch, type, resolveLabel]
     )
-    const hasExactMatch = useMemo(
-        () =>
-            hasMatchingOptionLabel(
-                filteredOptions,
-                resolveLabel,
-                normalizedSearch
-            ),
-        [filteredOptions, resolveLabel, normalizedSearch]
-    )
-    const showCustomFilterRow =
-        allowCustomFilter && normalizedSearch !== '' && !hasExactMatch
+    const showCustomFilterRow = allowCustomFilter && normalizedSearch !== ''
     const totalCount = filteredOptions.length + (showCustomFilterRow ? 1 : 0)
 
     const customFilterTag =
@@ -221,15 +214,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             return
         }
 
-        const normalized = trimmed.toLowerCase()
-        const exactMatch = hasMatchingOptionLabel(
-            options,
-            resolveLabel,
-            normalized
-        )
-        if (!exactMatch) {
-            applyCustomFilter(trimmed)
-        }
+        applyCustomFilter(trimmed)
     }
 
     const scrollHighlightedIntoView = (index) => {
@@ -575,6 +560,20 @@ const FilterInput = React.memo(function FilterInput({
     }
 
     const filterValue = filters?.[dataKey]
+
+    /* const isDateType =
+        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME */
+
+    /* return isDateType ? (
+        <DateGroupFilterInput
+            dataKey={dataKey}
+            name={name}
+            layerId={layerId}
+            filterValue={filterValue}
+            options={options ?? []}
+            type={type}
+        />
+    ) : */
 
     return optionSetId ? (
         <OptionSetSearchableFilter

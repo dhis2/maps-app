@@ -12,3 +12,7 @@ export const RENDERER_DATE = 'renderdate'
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
 export const TYPE_DATE = 'date'
+export const TYPE_DATETIME = 'datetime'
+export const TYPE_TIME = 'time'
+
+export const DATE_GROUPS_GRANULARITY = 'date-groups'

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-23T13:14:41.110Z\n"
-"PO-Revision-Date: 2026-07-23T13:14:41.111Z\n"
+"POT-Creation-Date: 2026-07-24T09:14:13.417Z\n"
+"PO-Revision-Date: 2026-07-24T09:14:13.417Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -167,6 +167,36 @@ msgstr "Sort by Selected"
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
+msgid "Edit layer"
+msgstr "Edit layer"
+
+msgid "Select a year, month, day or hour"
+msgstr "Select a year, month, day or hour"
+
+msgid "to match the events under it, or type to search"
+msgstr "to match the events under it, or type to search"
+
+msgid "Search"
+msgstr "Search"
+
+msgid "Contains"
+msgstr "Contains"
+
+msgid "Any value"
+msgstr "Any value"
+
+msgid "No value"
+msgstr "No value"
+
+msgid "No matches"
+msgstr "No matches"
+
+msgid "Collapse {{label}}"
+msgstr "Collapse {{label}}"
+
+msgid "Expand {{label}}"
+msgstr "Expand {{label}}"
+
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -194,29 +224,14 @@ msgstr "to match rows that contain it"
 msgid "Use filter"
 msgstr "Use filter"
 
-msgid "Contains"
-msgstr "Contains"
-
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
-
-msgid "Search"
-msgstr "Search"
 
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
-msgid "Any value"
-msgstr "Any value"
-
 msgid "Too many values to list - type to filter this column"
 msgstr "Too many values to list - type to filter this column"
-
-msgid "No matches"
-msgstr "No matches"
-
-msgid "No value"
-msgstr "No value"
 
 msgid "Selected"
 msgstr "Selected"
@@ -808,9 +823,6 @@ msgstr "Open in Data Visualizer app"
 msgid "Download data"
 msgstr "Download data"
 
-msgid "Edit layer"
-msgstr "Edit layer"
-
 msgid "Duplicate layer"
 msgstr "Duplicate layer"
 
@@ -918,8 +930,8 @@ msgstr "Could not retrieve event data"
 msgid "Organisation unit"
 msgstr "Organisation unit"
 
-msgid "Event time"
-msgstr "Event time"
+msgid "Event date"
+msgstr "Event date"
 
 msgid "Groups"
 msgstr "Groups"

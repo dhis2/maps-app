@@ -1,7 +1,31 @@
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
+    DATE_GROUPS_GRANULARITY,
 } from '../constants/dataTable.js'
+
+// Distinguishes a date-groups filter
+export const isDateGroupFilter = (filter) =>
+    filter != null &&
+    typeof filter === 'object' &&
+    !Array.isArray(filter) &&
+    filter.granularity === DATE_GROUPS_GRANULARITY
+
+export const dateGroupFilter = (value, { prefixes }) => {
+    if (!prefixes?.length) {
+        return true
+    }
+    const stringValue = value == null ? SENTINEL_NO_VALUE : String(value)
+    return prefixes.some((prefix) => {
+        if (prefix === SENTINEL_NO_VALUE) {
+            return stringValue === SENTINEL_NO_VALUE
+        }
+        if (prefix === SENTINEL_ANY_VALUE) {
+            return stringValue !== SENTINEL_NO_VALUE
+        }
+        return stringValue.startsWith(prefix)
+    })
+}
 
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
@@ -19,6 +43,10 @@ export const filterData = (data, filters) => {
             // Loop through all data items
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
+
+            if (isDateGroupFilter(filter)) {
+                return dateGroupFilter(value, filter)
+            }
 
             if (Array.isArray(filter)) {
                 // Multi-select: OR match against the raw stored value

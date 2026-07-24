@@ -4,7 +4,6 @@ import {
     getFilteredOptions,
     getPopoverWidth,
     getSelectedAndAppliedString,
-    hasMatchingOptionLabel,
     measureMaxTextWidth,
     toHighlightedIndex,
     toOptionIndex,
@@ -138,27 +137,6 @@ describe('getPopoverWidth', () => {
 
     it('passes a mid-range measurement through with the non-label width added', () => {
         expect(getPopoverWidth(100)).toBe(156)
-    })
-})
-
-describe('hasMatchingOptionLabel', () => {
-    const options = [{ value: 'a' }, { value: 'b' }]
-    const resolveLabel = (v) => ({ a: 'Apple', b: 'Banana' }[v])
-
-    it('is true when some option resolves to exactly the given text', () => {
-        expect(hasMatchingOptionLabel(options, resolveLabel, 'apple')).toBe(
-            true
-        )
-    })
-
-    it('is false for a partial match', () => {
-        expect(hasMatchingOptionLabel(options, resolveLabel, 'app')).toBe(false)
-    })
-
-    it('is false when no option matches', () => {
-        expect(hasMatchingOptionLabel(options, resolveLabel, 'cherry')).toBe(
-            false
-        )
     })
 })
 
