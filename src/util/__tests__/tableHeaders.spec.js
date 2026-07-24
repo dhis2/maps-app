@@ -1,3 +1,4 @@
+import { RENDERER_DATE } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -12,6 +13,9 @@ import {
     getHeadersForLayer,
     TYPE_NUMBER,
     TYPE_STRING,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_TIME,
 } from '../tableHeaders.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -99,6 +103,43 @@ describe('getHeadersForLayer - event', () => {
             (h) => h.dataKey === 'w75KJ2mc4zz'
         )
         expect(ageHeader.type).toBe(TYPE_NUMBER)
+        const eventdateHeader = result.headers.find(
+            (h) => h.dataKey === 'eventdate'
+        )
+        expect(eventdateHeader.type).toBe(TYPE_DATE)
+    })
+
+    test('custom DATE/DATETIME/TIME/AGE fields get their matching type, option-set-backed fields stay TYPE_STRING', () => {
+        const layerHeaders = [
+            { name: 'w75KJ2mc4zz', column: 'Date of birth', valueType: 'DATE' },
+            {
+                name: 'zDhUuAYrxNC',
+                column: 'Registered at',
+                valueType: 'DATETIME',
+            },
+            { name: 'oZg33kd9taw', column: 'Visit time', valueType: 'TIME' },
+            { name: 'a1b2c3d4e5f', column: 'Age', valueType: 'AGE' },
+            {
+                name: 'b2c3d4e5f6a',
+                column: 'Gender',
+                valueType: 'TEXT',
+                optionSet: { id: 'os1' },
+            },
+        ]
+        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
+        const headerFor = (dataKey) =>
+            result.headers.find((h) => h.dataKey === dataKey)
+        const typeOf = (dataKey) => headerFor(dataKey).type
+        expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
+        expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
+        expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
+        expect(typeOf('a1b2c3d4e5f')).toBe(TYPE_DATE)
+        expect(typeOf('b2c3d4e5f6a')).toBe(TYPE_STRING)
+        expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('a1b2c3d4e5f').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('b2c3d4e5f6a').renderer).toBeUndefined()
     })
 
     test('adds the org unit boundary column only when countEventsOutsideOrgUnits is set', () => {
@@ -165,6 +206,34 @@ describe('getHeadersForLayer - tracked entity', () => {
             (h) => h.dataKey === 'w75KJ2mc4zz'
         )
         expect(nameHeader.type).toBe(TYPE_STRING)
+    })
+
+    test('custom DATE/DATETIME/TIME attributes get their matching type', () => {
+        const layerHeaders = [
+            {
+                name: 'Date of birth',
+                dataKey: 'w75KJ2mc4zz',
+                valueType: 'DATE',
+            },
+            {
+                name: 'Enrolled at',
+                dataKey: 'zDhUuAYrxNC',
+                valueType: 'DATETIME',
+            },
+            { name: 'Visit time', dataKey: 'oZg33kd9taw', valueType: 'TIME' },
+        ]
+        const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
+            layerHeaders,
+        })
+        const headerFor = (dataKey) =>
+            result.headers.find((h) => h.dataKey === dataKey)
+        const typeOf = (dataKey) => headerFor(dataKey).type
+        expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
+        expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
+        expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
+        expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
     })
 })
 

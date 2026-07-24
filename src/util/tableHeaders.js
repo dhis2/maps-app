@@ -6,6 +6,8 @@ import {
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_TIME,
 } from '../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -16,13 +18,42 @@ import {
     GEOJSON_URL_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
-import { numberValueTypes } from '../constants/valueTypes.js'
+import {
+    numberValueTypes,
+    dateValueTypes,
+    datetimeValueTypes,
+    timeValueTypes,
+} from '../constants/valueTypes.js'
 import { hasClasses } from './earthEngine.js'
 import { getGeojsonDisplayData } from './geojson.js'
 import { getRoundToPrecisionFn, getPrecision } from './numbers.js'
 import { isValidUid } from './uid.js'
 
-export { TYPE_NUMBER, TYPE_STRING, TYPE_DATE }
+export { TYPE_NUMBER, TYPE_STRING, TYPE_DATE, TYPE_DATETIME, TYPE_TIME }
+
+const getCustomFieldType = (valueType, hasOptionSet) => {
+    if (hasOptionSet) {
+        return TYPE_STRING
+    }
+    if (numberValueTypes.includes(valueType)) {
+        return TYPE_NUMBER
+    }
+    if (dateValueTypes.includes(valueType)) {
+        return TYPE_DATE
+    }
+    if (datetimeValueTypes.includes(valueType)) {
+        return TYPE_DATETIME
+    }
+    if (timeValueTypes.includes(valueType)) {
+        return TYPE_TIME
+    }
+    return TYPE_STRING
+}
+
+const DATE_LIKE_TYPES = [TYPE_DATE, TYPE_DATETIME, TYPE_TIME]
+
+const getCustomFieldRenderer = (type) =>
+    DATE_LIKE_TYPES.includes(type) ? RENDERER_DATE : undefined
 
 const NAME = 'name'
 const ID = 'id'
@@ -61,7 +92,7 @@ const defaultFieldsMap = () => ({
         type: TYPE_STRING,
     },
     [EVENTDATE]: {
-        name: i18n.t('Event time'),
+        name: i18n.t('Event date'),
         dataKey: EVENTDATE,
         type: TYPE_DATE,
         renderer: RENDERER_DATE,
@@ -163,15 +194,16 @@ const getEventHeaders = ({
 
     const customFields = layerHeaders
         .filter(({ name }) => isValidUid(name))
-        .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
-            name,
-            dataKey,
-            type:
-                !optionSet && numberValueTypes.includes(valueType)
-                    ? TYPE_NUMBER
-                    : TYPE_STRING,
-            optionSet: optionSet || null,
-        }))
+        .map(({ name: dataKey, column: name, valueType, optionSet }) => {
+            const type = getCustomFieldType(valueType, !!optionSet)
+            return {
+                name,
+                dataKey,
+                type,
+                renderer: getCustomFieldRenderer(type),
+                optionSet: optionSet || null,
+            }
+        })
 
     customFields.push(
         defaultFieldsMap()[TYPE],
@@ -217,13 +249,15 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
 
     const customFields = layerHeaders
         .filter(({ dataKey }) => isValidUid(dataKey))
-        .map(({ name, dataKey, valueType }) => ({
-            name,
-            dataKey,
-            type: numberValueTypes.includes(valueType)
-                ? TYPE_NUMBER
-                : TYPE_STRING,
-        }))
+        .map(({ name, dataKey, valueType }) => {
+            const type = getCustomFieldType(valueType, false)
+            return {
+                name,
+                dataKey,
+                type,
+                renderer: getCustomFieldRenderer(type),
+            }
+        })
 
     customFields.push(...getStyleHeaders({ hasColor: true }))
 
