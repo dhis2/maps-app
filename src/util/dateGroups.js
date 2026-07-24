@@ -1,6 +1,15 @@
 import { TYPE_DATETIME, TYPE_TIME } from '../constants/dataTable.js'
 import { formatDate, formatDatetime } from './helpers.js'
+import { togglePrefix } from './prefixTree.js'
 import { dateLocale } from './time.js'
+
+export {
+    getNodeCheckState,
+    flattenVisibleNodes,
+    getSearchMatches,
+    nodeMatchesOrHasMatch,
+} from './prefixTree.js'
+export const toggleDateGroupPrefix = togglePrefix
 
 const DATE_KEY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})(?:([T ])(\d{2}))?/
 const TIME_KEY_PATTERN = /^(\d{2}):/
@@ -38,16 +47,21 @@ const getOrCreateNode = (childMap, { key, level, label }) => {
     return node
 }
 
+// Preserves encounter order rather than re-sorting: buildDateGroupTree's
+// caller (DateGroupFilterInput.jsx) always receives values already ordered
+// to match the column's current sort direction (see useTableData.js's
+// columnOptions) - walking them in that order naturally reproduces the same
+// ascending/descending order at every level of the tree, so the popover's
+// checkbox order stays consistent with the column header's sort, just like
+// every other filter popover's option list already does.
 const sortedNodes = (childMap) =>
-    Array.from(childMap.values())
-        .sort((a, b) => (a.key < b.key ? -1 : a.key > b.key ? 1 : 0))
-        .map((node) => ({
-            key: node.key,
-            level: node.level,
-            label: node.label,
-            prefix: node.prefix,
-            children: sortedNodes(node.childMap),
-        }))
+    Array.from(childMap.values()).map((node) => ({
+        key: node.key,
+        level: node.level,
+        label: node.label,
+        prefix: node.prefix,
+        children: sortedNodes(node.childMap),
+    }))
 
 const getValueFormatter = (granularity) =>
     granularity === TYPE_DATETIME || granularity === TYPE_TIME
@@ -116,47 +130,6 @@ export const buildDateGroupTree = (values, granularity) => {
     return [...tree, ...leaves]
 }
 
-export const getNodeCheckState = (node, selectedPrefixes) => {
-    if (
-        selectedPrefixes.some(
-            (prefix) => node.prefix === prefix || node.prefix.startsWith(prefix)
-        )
-    ) {
-        return 'checked'
-    }
-    if (selectedPrefixes.some((prefix) => prefix.startsWith(node.prefix))) {
-        return 'indeterminate'
-    }
-    return 'unchecked'
-}
-
-export const toggleDateGroupPrefix = (selectedPrefixes, node) => {
-    const state = getNodeCheckState(node, selectedPrefixes)
-    if (state === 'checked') {
-        return selectedPrefixes.includes(node.prefix)
-            ? selectedPrefixes.filter((prefix) => prefix !== node.prefix)
-            : selectedPrefixes
-    }
-    return [
-        ...selectedPrefixes.filter((prefix) => !prefix.startsWith(node.prefix)),
-        node.prefix,
-    ]
-}
-
-export const flattenVisibleNodes = (tree, expandedKeys) => {
-    const result = []
-    const walk = (nodes, depth) => {
-        nodes.forEach((node) => {
-            result.push({ node, depth })
-            if (node.children.length && expandedKeys.has(node.key)) {
-                walk(node.children, depth + 1)
-            }
-        })
-    }
-    walk(tree, 0)
-    return result
-}
-
 const getHourLabel = (key) => {
     const match = key.match(/(\d{2})$/)
     return match ? `${match[1]}:00` : key
@@ -191,27 +164,3 @@ export const formatNodeLabel = (node, locale) => {
             return node.key
     }
 }
-
-const collectMatches = (nodes, ancestors, options) => {
-    const { normalizedSearch, result } = options
-    nodes.forEach((node) => {
-        const isMatch = node.prefix.toLowerCase().includes(normalizedSearch)
-        if (isMatch) {
-            result.matchedKeys.add(node.key)
-            ancestors.forEach((key) => result.expandedAncestorKeys.add(key))
-        }
-        if (node.children.length) {
-            collectMatches(node.children, [...ancestors, node.key], options)
-        }
-    })
-}
-
-export const getSearchMatches = (tree, normalizedSearch) => {
-    const result = { matchedKeys: new Set(), expandedAncestorKeys: new Set() }
-    collectMatches(tree, [], { normalizedSearch, result })
-    return result
-}
-
-export const nodeMatchesOrHasMatch = (node, matchedKeys) =>
-    matchedKeys.has(node.key) ||
-    node.children.some((child) => nodeMatchesOrHasMatch(child, matchedKeys))

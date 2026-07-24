@@ -7,6 +7,12 @@ import i18n from '@dhis2/d2-i18n'
 import { uniqBy } from 'lodash/fp'
 import { qualitativeColors } from '../constants/colors.js'
 import {
+    ORG_UNIT_LEVEL_DATA_KEY,
+    ORG_UNIT_DATA_KEY,
+    ORG_UNIT_ID_DATA_KEY,
+    ORG_UNIT_PATH_DATA_KEY,
+} from '../constants/dataTable.js'
+import {
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS,
     ORG_UNIT_RADIUS_SMALL,
@@ -22,6 +28,7 @@ import {
     ORG_UNITS_COUNT_QUERY,
     ORG_UNITS_PATHS_QUERY,
     ORG_UNIT_DETAILS_QUERY,
+    ORG_UNIT_PATH_DETAILS_QUERY,
 } from './requests.js'
 
 // Expands the user's org unit tree into USER_ORGUNIT keyword id lists.
@@ -349,6 +356,44 @@ export const fetchOrgUnitPaths = async (engine, ids) => {
         buildVariables: (batch) => ({ ids: batch.join(',') }),
     })
     return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
+}
+
+export const fetchOrgUnitPathDetails = async (engine, ids) => {
+    const results = await fetchInBatches(engine, ids, {
+        query: ORG_UNIT_PATH_DETAILS_QUERY,
+        buildVariables: (batch) => ({ ids: batch }),
+    })
+    return results.reduce((acc, result) => {
+        result.orgUnits.organisationUnits?.forEach((ou) => {
+            acc[ou.id] = { name: ou.name, level: ou.level }
+        })
+        return acc
+    }, {})
+}
+
+export const attachOrgUnitPaths = async (features, engine, getOuId) => {
+    if (!features?.length) {
+        return features
+    }
+    const distinctOuIds = [...new Set(features.map(getOuId).filter(Boolean))]
+    const ouPaths = await fetchOrgUnitPaths(engine, distinctOuIds)
+    const pathById = new Map(ouPaths.map((ou) => [ou.id, ou.path]))
+    return features.map((feature) => {
+        const ouId = getOuId(feature)
+        const path = pathById.get(ouId) ?? null
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                [ORG_UNIT_ID_DATA_KEY]: ouId ?? null,
+                [ORG_UNIT_PATH_DATA_KEY]: path,
+                [ORG_UNIT_DATA_KEY]: path,
+                [ORG_UNIT_LEVEL_DATA_KEY]: path
+                    ? path.split('/').filter(Boolean).length
+                    : null,
+            },
+        }
+    })
 }
 
 export const addGroupCountsToLegend = (legendItems, features, groupSet) => {

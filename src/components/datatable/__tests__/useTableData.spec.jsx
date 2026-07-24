@@ -6,13 +6,26 @@ import {
     SENTINEL_SELECTED_ROW,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
+import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import { useTableData } from '../useTableData.js'
 
 jest.mock('../../map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
 
+jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}))
+
 const mockStore = configureMockStore()
+
+beforeEach(() => {
+    useOrgUnitAncestorNames.mockReturnValue({
+        idToName: new Map(),
+        loading: false,
+    })
+})
 
 describe('useTableData headers', () => {
     test('gets headers and rows for facility layer', () => {
@@ -48,17 +61,25 @@ describe('useTableData headers', () => {
         )
 
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(3)
+        expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(3)
+        expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 'Facility 1', dataKey: 'name' },
             { value: 'facility-1', dataKey: 'id' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
+            { value: null, dataKey: 'level' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: 'Point', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
@@ -200,19 +221,23 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Level', dataKey: 'level', type: 'number' },
-            { name: 'Parent', dataKey: 'parentName', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
         expect(rows[0]).toHaveLength(5)
         expect(rows[0]).toMatchObject([
-            { value: 'OrgUnitName 1', dataKey: 'name' },
             { value: 'orgunit-id-1', dataKey: 'id' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
             { value: 3, dataKey: 'level' },
-            { value: 'Bo', dataKey: 'parentName' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: 'MultiPolygon', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
@@ -258,12 +283,15 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
             { name: 'Value', dataKey: 'rawValue', type: 'number' },
-            { name: 'Level', dataKey: 'level', type: 'number' },
-            { name: 'Parent', dataKey: 'parentName', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
             { name: 'Legend', dataKey: 'legend', type: 'string' },
             { name: 'Range', dataKey: 'range', type: 'string' },
             {
@@ -272,19 +300,20 @@ describe('useTableData headers', () => {
                 type: 'string',
                 renderer: 'rendercolor',
             },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
         expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
-            { value: 'Ngelehun CHC', dataKey: 'name' },
             { value: 'thematicId-1', dataKey: 'id' },
-            { value: 106.3, dataKey: 'rawValue' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
             { value: 4, dataKey: 'level' },
-            { value: 'Badjia', dataKey: 'parentName' },
-            { value: 'Point', dataKey: 'type' },
+            { value: undefined, dataKey: 'orgUnitPath' },
+            { value: 106.3, dataKey: 'rawValue' },
             { value: 'Great', dataKey: 'legend' },
             { value: '90 – 120', dataKey: 'range' },
             { value: '#FFFFB2', dataKey: 'color' },
+            { value: 'Point', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
     })
@@ -340,15 +369,15 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name' },
-            { name: 'Id', dataKey: 'id' },
+            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn' },
+            { name: 'Org unit level', dataKey: 'level' },
+            { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
             { name: 'Value (February 2023)', dataKey: 'rawValue' },
-            { name: 'Level', dataKey: 'level' },
-            { name: 'Parent', dataKey: 'parentName' },
-            { name: 'Type', dataKey: 'type' },
             { name: 'Legend (February 2023)', dataKey: 'legend' },
             { name: 'Range (February 2023)', dataKey: 'range' },
             { name: 'Color (February 2023)', dataKey: 'color' },
+            { name: 'Geometry type', dataKey: 'type' },
         ])
         expect(rows[0]).toEqual(
             expect.arrayContaining([
@@ -457,11 +486,11 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name' },
-            { name: 'Id', dataKey: 'id' },
-            { name: 'Level', dataKey: 'level' },
-            { name: 'Parent', dataKey: 'parentName' },
-            { name: 'Type', dataKey: 'type' },
+            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn' },
+            { name: 'Org unit level', dataKey: 'level' },
+            { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
+            { name: 'Geometry type', dataKey: 'type' },
             {
                 name: 'Value (January 2023)',
                 dataKey: 'period_202301_rawValue',
@@ -546,10 +575,18 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(7)
+        expect(headers).toHaveLength(10)
         expect(headers).toMatchObject([
-            { name: 'Org unit', dataKey: 'ouname', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Event Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+                renderer: 'renderorgunit',
+            },
             {
                 name: 'Event date',
                 dataKey: 'eventdate',
@@ -564,13 +601,16 @@ describe('useTableData headers', () => {
             },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
             { name: 'Gender', dataKey: 'oZg33kd9taw', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(7)
+        expect(rows[0]).toHaveLength(10)
         expect(rows[0]).toMatchObject([
-            { value: 'Lumley Hospital', dataKey: 'ouname' },
             { value: 'a9712323629', dataKey: 'id' },
+            { value: undefined, dataKey: 'orgUnitId' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
+            { value: null, dataKey: 'level' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: '2023-05-15 00:00:00.0', dataKey: 'eventdate' },
             { value: '2018-04-12 20:58:51.31', dataKey: 'lastupdated' },
             { value: 'ACTIVE', dataKey: 'eventstatus' },
@@ -681,20 +721,34 @@ describe('useTableData headers', () => {
         )
 
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(4)
+        expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Id', dataKey: 'id', type: 'string' },
+            { name: 'Tracked entity Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
             { name: 'First name', dataKey: 'w75KJ2mc4zz', type: 'string' },
             { name: 'Age', dataKey: 'zDhUuAYrxNC', type: 'number' },
             { name: 'Color', dataKey: 'color', type: 'string' },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(4)
+        expect(rows[0]).toHaveLength(9)
         expect(rows[0]).toMatchObject([
             { value: 'PsgJS8BUxZd', dataKey: 'id' },
+            { value: undefined, dataKey: 'orgUnitId' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
+            { value: null, dataKey: 'level' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: 'Gabrielle', dataKey: 'w75KJ2mc4zz' },
             { value: 28, dataKey: 'zDhUuAYrxNC' },
             { value: '#e57200', dataKey: 'color' },
+            { value: undefined, dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
     })
@@ -1034,11 +1088,16 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(5)
+        expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
             {
                 name: 'Sum Population',
                 dataKey: 'sum',
@@ -1051,17 +1110,20 @@ describe('useTableData headers', () => {
                 // roundFn: Function.prototype,
                 type: 'number',
             },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
-        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
+        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(5)
+        expect(rows[0]).toHaveLength(7)
         expect(rows[0]).toMatchObject([
-            { value: 'Bo', dataKey: 'name' },
             { value: 'boOu', dataKey: 'id' },
-            { value: 'Polygon', dataKey: 'type' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
+            { value: null, dataKey: 'level' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: 851091, dataKey: 'sum' },
             { value: 47.35, dataKey: 'mean' },
+            { value: 'Polygon', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
     })
@@ -1189,11 +1251,16 @@ describe('useTableData headers', () => {
         )
         const { headers, rows, isLoading } = result.current
 
-        expect(headers).toHaveLength(5)
+        expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Name', dataKey: 'name', type: 'string' },
-            { name: 'Id', dataKey: 'id', type: 'string' },
-            { name: 'Type', dataKey: 'type', type: 'string' },
+            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
+            { name: 'Org unit level', dataKey: 'level', type: 'number' },
+            {
+                name: 'Org unit hierarchy',
+                dataKey: 'orgUnitPath',
+                type: 'orgUnit',
+            },
             {
                 name: 'Sum Population Age Groups',
                 dataKey: 'sum',
@@ -1206,17 +1273,20 @@ describe('useTableData headers', () => {
                 // roundFn: Function.prototype,
                 type: 'number',
             },
+            { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
-        expect(headers[3].roundFn).toBeInstanceOf(Function)
         expect(headers[4].roundFn).toBeInstanceOf(Function)
+        expect(headers[5].roundFn).toBeInstanceOf(Function)
         expect(rows).toHaveLength(2)
-        expect(rows[0]).toHaveLength(5)
+        expect(rows[0]).toHaveLength(7)
         expect(rows[0]).toMatchObject([
-            { value: 'Badija', dataKey: 'name' },
             { value: 'boOU', dataKey: 'id' },
-            { value: 'Polygon', dataKey: 'type' },
+            { value: undefined, dataKey: 'orgUnitOwn' },
+            { value: null, dataKey: 'level' },
+            { value: undefined, dataKey: 'orgUnitPath' },
             { value: 2517, dataKey: 'sum' },
             { value: 3.976, dataKey: 'mean' },
+            { value: 'Polygon', dataKey: 'type' },
         ])
         expect(isLoading).toBe(false)
     })
@@ -1297,7 +1367,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
+        const valueColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'rawValue')?.value
+        )
         expect(valueColumn).toEqual([5, 10, 15, null, null])
     })
 
@@ -1319,7 +1391,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
+        const valueColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'rawValue')?.value
+        )
         expect(valueColumn).toEqual([15, 10, 5, null, null])
     })
 
@@ -1329,10 +1403,10 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Zebra', value: 10 } },
-                { id: '2', properties: { name: 'Apple', value: 5 } },
-                { id: '3', properties: { name: undefined, value: 20 } },
-                { id: '4', properties: { name: 'Banana', value: 15 } },
+                { id: '1', properties: { orgUnitOwn: 'Zebra', value: 10 } },
+                { id: '2', properties: { orgUnitOwn: 'Apple', value: 5 } },
+                { id: '3', properties: { orgUnitOwn: undefined, value: 20 } },
+                { id: '4', properties: { orgUnitOwn: 'Banana', value: 15 } },
             ],
         }
 
@@ -1343,7 +1417,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithStringData,
-                    sortField: 'name',
+                    sortField: 'orgUnitOwn',
                     sortDirection: 'asc',
                 }),
             {
@@ -1353,7 +1427,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
+        const nameColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
+        )
         expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
     })
 
@@ -1363,10 +1439,10 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { id: '1', properties: { name: 'Zebra', value: 10 } },
-                { id: '2', properties: { name: 'Apple', value: 5 } },
-                { id: '3', properties: { name: undefined, value: 20 } },
-                { id: '4', properties: { name: 'Banana', value: 15 } },
+                { id: '1', properties: { orgUnitOwn: 'Zebra', value: 10 } },
+                { id: '2', properties: { orgUnitOwn: 'Apple', value: 5 } },
+                { id: '3', properties: { orgUnitOwn: undefined, value: 20 } },
+                { id: '4', properties: { orgUnitOwn: 'Banana', value: 15 } },
             ],
         }
 
@@ -1377,7 +1453,7 @@ describe('useTableData sorting', () => {
             () =>
                 useTableData({
                     layer: layerWithStringData,
-                    sortField: 'name',
+                    sortField: 'orgUnitOwn',
                     sortDirection: 'desc',
                 }),
             {
@@ -1387,7 +1463,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const nameColumn = result.current.rows.map((row) => row[0]?.value) // Name column
+        const nameColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
+        )
         expect(nameColumn).toEqual(['Zebra', 'Banana', 'Apple', undefined])
     })
 
@@ -1427,7 +1505,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
+        const valueColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'rawValue')?.value
+        )
         expect(valueColumn).toEqual([5, 10, null, null])
     })
 
@@ -1469,7 +1549,9 @@ describe('useTableData sorting', () => {
             }
         )
 
-        const valueColumn = result.current.rows.map((row) => row[2]?.value) // Value column
+        const valueColumn = result.current.rows.map(
+            (row) => row.find((c) => c.dataKey === 'rawValue')?.value
+        )
         expect(valueColumn).toEqual([null, null, null])
     })
 
@@ -1479,9 +1561,15 @@ describe('useTableData sorting', () => {
             layer: 'thematic',
             dataFilters: null,
             data: [
-                { properties: { id: '1', name: 'Item C', rawValue: 3 } },
-                { properties: { id: '2', name: 'Item A', rawValue: 1 } },
-                { properties: { id: '3', name: 'Item B', rawValue: 2 } },
+                {
+                    properties: { id: '1', orgUnitOwn: 'Item C', rawValue: 3 },
+                },
+                {
+                    properties: { id: '2', orgUnitOwn: 'Item A', rawValue: 1 },
+                },
+                {
+                    properties: { id: '3', orgUnitOwn: 'Item B', rawValue: 2 },
+                },
             ],
         }
         const store = { aggregations: {} }
@@ -1500,7 +1588,7 @@ describe('useTableData sorting', () => {
         )
 
         const names = result.current.rows.map(
-            (row) => row.find((c) => c.dataKey === 'name')?.value
+            (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
         )
         expect(names).toEqual(['Item C', 'Item A', 'Item B'])
     })
@@ -1605,8 +1693,8 @@ describe('useTableData showOnlyFeaturesInView', () => {
             mapBounds: bounds,
         })
         expect(current.rows).toHaveLength(1)
-        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
-            'In view'
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
+            'inview'
         )
     })
 
@@ -1631,8 +1719,8 @@ describe('useTableData showOnlyFeaturesInView', () => {
             mapBounds: bounds,
         })
         expect(current.rows).toHaveLength(1)
-        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
-            'In view'
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
+            'inview'
         )
     })
 })
@@ -1677,9 +1765,7 @@ describe('useTableData selectionFilter', () => {
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(1)
-        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
-            'Item A'
-        )
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe('a')
     })
 
     test('includes only non-selected rows when filtered to "not-selected"', () => {
@@ -1691,9 +1777,7 @@ describe('useTableData selectionFilter', () => {
             selectedIdSet: new Set(['a']),
         })
         expect(current.rows).toHaveLength(1)
-        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
-            'Item B'
-        )
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe('b')
     })
 
     test('includes all rows when both options are checked', () => {
@@ -1745,12 +1829,11 @@ describe('useTableData columnOptions', () => {
                 {
                     properties: {
                         id: 'ou1',
-                        name: 'Org unit 1',
+                        orgUnitOwn: 'Org unit 1',
                         rawValue: 10,
                         legend: 'High',
                         range: '5 - 15',
                         level: 1,
-                        parentName: 'Country',
                         type: 'Point',
                         color: '#ff0000',
                     },
@@ -1758,12 +1841,11 @@ describe('useTableData columnOptions', () => {
                 {
                     properties: {
                         id: 'ou2',
-                        name: 'Org unit 2',
+                        orgUnitOwn: 'Org unit 2',
                         rawValue: 20,
                         legend: 'Low',
                         range: '15 - 25',
                         level: 1,
-                        parentName: 'Country',
                         type: 'Point',
                         color: '#00ff00',
                     },
@@ -1778,7 +1860,7 @@ describe('useTableData columnOptions', () => {
             { value: 'Low' },
         ])
         expect(current.columnOptions.type).toEqual([{ value: 'Point' }])
-        expect(current.columnOptions.name).toEqual([
+        expect(current.columnOptions.orgUnitOwn).toEqual([
             { value: 'Org unit 1' },
             { value: 'Org unit 2' },
         ])
@@ -1786,7 +1868,6 @@ describe('useTableData columnOptions', () => {
             { value: 'ou1' },
             { value: 'ou2' },
         ])
-        expect(current.columnOptions.parentName).toEqual([{ value: 'Country' }])
         expect(current.columnOptions.rawValue).toEqual([
             { value: '10' },
             { value: '20' },
@@ -1878,27 +1959,24 @@ describe('useTableData columnOptions', () => {
                 {
                     properties: {
                         id: 'ou1',
-                        name: 'Org unit 1',
+                        orgUnitOwn: 'Country',
                         level: 1,
-                        parentName: 'Country',
                         type: 'Point',
                     },
                 },
                 {
                     properties: {
                         id: 'ou2',
-                        name: 'Org unit 2',
+                        orgUnitOwn: '',
                         level: 1,
-                        parentName: '',
                         type: 'Point',
                     },
                 },
                 {
                     properties: {
                         id: 'ou3',
-                        name: 'Org unit 3',
+                        // orgUnitOwn omitted entirely (undefined)
                         level: 1,
-                        // parentName omitted entirely (undefined)
                         type: 'Point',
                     },
                 },
@@ -1907,7 +1985,7 @@ describe('useTableData columnOptions', () => {
 
         const { current } = renderTableData(layer)
 
-        expect(current.columnOptions.parentName).toEqual([
+        expect(current.columnOptions.orgUnitOwn).toEqual([
             { value: SENTINEL_NO_VALUE },
             { value: 'Country' },
         ])
@@ -1956,22 +2034,20 @@ describe('useTableData columnOptions', () => {
                 {
                     properties: {
                         id: 'ou1',
-                        name: 'Org unit 1',
+                        orgUnitOwn: 'Org unit 1',
                         rawValue: 10,
                         legend: 'High',
                         level: 1,
-                        parentName: 'Country',
                         type: 'Point',
                     },
                 },
                 {
                     properties: {
                         id: 'ou2',
-                        name: 'Org unit 2',
+                        orgUnitOwn: 'Org unit 2',
                         rawValue: 20,
                         legend: 'Low',
                         level: 1,
-                        parentName: 'Country',
                         type: 'Point',
                     },
                 },
@@ -1982,7 +2058,7 @@ describe('useTableData columnOptions', () => {
             () =>
                 useTableData({
                     layer,
-                    sortField: 'name',
+                    sortField: 'orgUnitOwn',
                     sortDirection: 'desc',
                 }),
             {
@@ -1992,8 +2068,8 @@ describe('useTableData columnOptions', () => {
             }
         )
 
-        // Sorted column (name, desc) is reversed to match...
-        expect(result.current.columnOptions.name).toEqual([
+        // Sorted column (orgUnitOwn, desc) is reversed to match...
+        expect(result.current.columnOptions.orgUnitOwn).toEqual([
             { value: 'Org unit 2' },
             { value: 'Org unit 1' },
         ])
@@ -2016,8 +2092,20 @@ describe('useTableData globalSearch', () => {
         layer: 'orgUnit',
         dataFilters: null,
         data: [
-            { properties: { id: 'a', name: 'Kampala', parentName: 'Uganda' } },
-            { properties: { id: 'b', name: 'Nairobi', parentName: 'Kenya' } },
+            {
+                properties: {
+                    id: 'facility-a',
+                    orgUnitPath: '/country1/facility-a',
+                    orgUnitOwn: '/country1/facility-a',
+                },
+            },
+            {
+                properties: {
+                    id: 'facility-b',
+                    orgUnitPath: '/country1/facility-b',
+                    orgUnitOwn: '/country1/facility-b',
+                },
+            },
         ],
     }
 
@@ -2026,7 +2114,7 @@ describe('useTableData globalSearch', () => {
             () =>
                 useTableData({
                     layer,
-                    sortField: 'name',
+                    sortField: 'id',
                     sortDirection: 'asc',
                     globalSearch,
                 }),
@@ -2042,11 +2130,111 @@ describe('useTableData globalSearch', () => {
         expect(current.rows).toHaveLength(2)
     })
 
-    test('matches case-insensitively across any string column', () => {
-        const { current } = renderTableData('uganda')
+    test('matches an org-unit-typed column (Org unit/Org unit hierarchy) by its resolved name - the raw stored value is an id/path, which never contains what a user types here', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map([
+                ['country1', 'Uganda'],
+                ['facility-a', 'Kampala'],
+                ['facility-b', 'Nairobi'],
+            ]),
+            loading: false,
+        })
+        const { current } = renderTableData('kampala')
         expect(current.rows).toHaveLength(1)
-        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
-            'Kampala'
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
+            'facility-a'
+        )
+    })
+
+    test('also matches a custom ORGANISATION_UNIT-valued data element on an Event layer as plain text - the events analytics query always resolves it to a name server-side, so there is no id to look up', () => {
+        const eventLayer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'c3d4e5f6a7b',
+                    column: 'Referred by facility',
+                    valueType: 'ORGANISATION_UNIT',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'evt1',
+                        type: 'Point',
+                        eventdate: '2023-01-01',
+                        c3d4e5f6a7b: 'Referral Hospital',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer: eventLayer,
+                    sortField: 'id',
+                    sortDirection: 'asc',
+                    globalSearch: 'referral',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        expect(result.current.rows).toHaveLength(1)
+        expect(
+            result.current.rows[0].find((c) => c.dataKey === 'id').value
+        ).toBe('evt1')
+    })
+
+    test('matches a custom ORGANISATION_UNIT-valued attribute on a Tracked entity layer only by its raw stored value, not its resolved name - only "Org unit hierarchy" gets name-aware global search', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map([['facility9', 'Referral Hospital']]),
+            loading: false,
+        })
+        const teiLayer = {
+            layer: 'trackedEntity',
+            dataFilters: null,
+            headers: [
+                {
+                    name: 'Referred by facility',
+                    dataKey: 'c3d4e5f6a7b',
+                    valueType: 'ORGANISATION_UNIT',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'tei1',
+                        c3d4e5f6a7b: 'facility9',
+                    },
+                },
+            ],
+        }
+        const renderTeiTableData = (globalSearch) =>
+            renderHook(
+                () =>
+                    useTableData({
+                        layer: teiLayer,
+                        sortField: 'id',
+                        sortDirection: 'asc',
+                        globalSearch,
+                    }),
+                {
+                    wrapper: ({ children }) => (
+                        <Provider store={mockStore(store)}>{children}</Provider>
+                    ),
+                }
+            ).result
+
+        expect(renderTeiTableData('referral').current.rows).toHaveLength(0)
+
+        const { current } = renderTeiTableData('facility9')
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
+            'tei1'
         )
     })
 

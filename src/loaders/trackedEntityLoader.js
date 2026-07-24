@@ -19,10 +19,11 @@ import {
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
 import { parseWithSeparator } from '../util/numbers.js'
+import { attachOrgUnitPaths } from '../util/orgUnits.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'attributes']
+const fields = ['trackedEntity~rename(id)', 'geometry', 'attributes', 'orgUnit']
 
 // Valid geometry types for TEIs
 const teiGeometryTypes = new Set([
@@ -132,12 +133,14 @@ export const getAttributeHeaders = (instances) => {
 // The main tracked entity marker's own color is currently fixed still
 // stamped here for when data table's Color column has real data
 export const toGeoJson = (instances, color) =>
-    instances.map(({ id, geometry, attributes }) => ({
+    instances.map(({ id, geometry, attributes, orgUnit }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
         properties: {
             id,
             color,
+            orgUnit,
+            type: geometry?.type,
             ...getAttributeProperties(attributes),
         },
     }))
@@ -382,6 +385,12 @@ const trackedEntityLoader = async ({
     } else {
         data = toGeoJson(instances, pointColor)
     }
+
+    data = await attachOrgUnitPaths(
+        data,
+        engine,
+        (feature) => feature.properties.orgUnit
+    )
 
     if (explanation) {
         legend.explanation = [explanation]

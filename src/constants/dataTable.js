@@ -8,11 +8,25 @@ export const SORT_DESCENDING = 'desc'
 export const RENDERER_COLOR = 'rendercolor'
 export const RENDERER_ICON = 'rendericon'
 export const RENDERER_DATE = 'renderdate'
+export const RENDERER_ORG_UNIT = 'renderorgunit'
+export const RENDERER_ORG_UNIT_NAME = 'renderorgunitname'
 
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
 export const TYPE_DATE = 'date'
 export const TYPE_DATETIME = 'datetime'
 export const TYPE_TIME = 'time'
+export const TYPE_ORG_UNIT = 'orgUnit'
 
 export const DATE_GROUPS_GRANULARITY = 'date-groups'
+export const ORG_UNIT_GROUPS_GRANULARITY = 'org-unit-groups'
+
+// Full ancestor path (breadcrumb renderer) - "Org unit hierarchy" column
+export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
+// Same path value as ORG_UNIT_PATH_DATA_KEY, rendered as the leaf name only - "Org unit" column
+export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
+// The layer's own org unit's bare id - "Org unit Id" column (Event/Tracked entity layers only,
+// whose own "Id" field is the event/tracked-entity id, not the org unit id)
+export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
+// The org unit's own hierarchy depth (1 = country, 2 = region, ...) - "Org unit level" column
+export const ORG_UNIT_LEVEL_DATA_KEY = 'level'
