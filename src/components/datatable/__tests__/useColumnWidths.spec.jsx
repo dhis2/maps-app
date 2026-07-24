@@ -66,17 +66,15 @@ Harness.propTypes = {
 describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
     it('floors a narrower-than-minimum measured column up to the minimum, leaving wider columns untouched', () => {
         let latestWidths
-        act(() => {
-            render(
-                <Harness
-                    availableWidth={500}
-                    widths={[20, 150]}
-                    onColumnWidths={(w) => {
-                        latestWidths = w
-                    }}
-                />
-            )
-        })
+        render(
+            <Harness
+                availableWidth={500}
+                widths={[20, 150]}
+                onColumnWidths={(w) => {
+                    latestWidths = w
+                }}
+            />
+        )
         act(() => {
             flushRaf()
         })
