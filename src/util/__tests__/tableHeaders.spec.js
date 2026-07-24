@@ -1,4 +1,4 @@
-import { RENDERER_DATE } from '../../constants/dataTable.js'
+import { RENDERER_DATE, RENDERER_ORG_UNIT } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -30,15 +30,15 @@ describe('getHeadersForLayer - thematic', () => {
             isMultiPeriodThematic: false,
         })
         expect(dataKeys(result)).toEqual([
-            'name',
             'id',
-            'rawValue',
+            'orgUnitOwn',
             'level',
-            'parentName',
-            'type',
+            'orgUnitPath',
+            'rawValue',
             'legend',
             'range',
             'color',
+            'type',
         ])
     })
 
@@ -54,10 +54,10 @@ describe('getHeadersForLayer - thematic', () => {
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
-                'name',
                 'id',
+                'orgUnitOwn',
+                'orgUnitPath',
                 'level',
-                'parentName',
                 'type',
                 'period_p1_rawValue',
                 'period_p2_rawValue',
@@ -96,7 +96,14 @@ describe('getHeadersForLayer - event', () => {
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         expect(dataKeys(result)).toEqual(
-            expect.arrayContaining(['ouname', 'id', 'eventdate', 'w75KJ2mc4zz'])
+            expect.arrayContaining([
+                'id',
+                'orgUnitId',
+                'orgUnitOwn',
+                'eventdate',
+                'orgUnitPath',
+                'w75KJ2mc4zz',
+            ])
         )
         expect(dataKeys(result)).not.toContain('not-a-uid')
         const ageHeader = result.headers.find(
@@ -125,6 +132,11 @@ describe('getHeadersForLayer - event', () => {
                 valueType: 'TEXT',
                 optionSet: { id: 'os1' },
             },
+            {
+                name: 'c3d4e5f6a7b',
+                column: 'Referred by facility',
+                valueType: 'ORGANISATION_UNIT',
+            },
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         const headerFor = (dataKey) =>
@@ -135,11 +147,18 @@ describe('getHeadersForLayer - event', () => {
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
         expect(typeOf('a1b2c3d4e5f')).toBe(TYPE_DATE)
         expect(typeOf('b2c3d4e5f6a')).toBe(TYPE_STRING)
+        // Unlike a tracked entity attribute, the events analytics query
+        // always resolves an ORGANISATION_UNIT-valued data element to its
+        // display name server-side - there's no id left to build a tree
+        // filter from, so it stays plain text. The cell renderer still
+        // applies (a harmless no-op here, since the value is already a name).
+        expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
         expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
         expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
         expect(headerFor('a1b2c3d4e5f').renderer).toBe(RENDERER_DATE)
         expect(headerFor('b2c3d4e5f6a').renderer).toBeUndefined()
+        expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
     })
 
     test('adds the org unit boundary column only when countEventsOutsideOrgUnits is set', () => {
@@ -172,11 +191,11 @@ describe('getHeadersForLayer - org unit / facility', () => {
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
-                'name',
                 'id',
+                'orgUnitOwn',
                 'level',
-                'parentName',
                 'type',
+                'orgUnitPath',
                 'color',
                 'iconUrl',
             ])
@@ -188,7 +207,14 @@ describe('getHeadersForLayer - org unit / facility', () => {
         const result = getHeadersForLayer(FACILITY_LAYER, {
             data: [{ group: 'g1' }],
         })
-        expect(dataKeys(result)).toEqual(['name', 'id', 'type', 'group'])
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'group',
+            'type',
+        ])
     })
 })
 
@@ -201,7 +227,16 @@ describe('getHeadersForLayer - tracked entity', () => {
         const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
             layerHeaders,
         })
-        expect(dataKeys(result)).toEqual(['id', 'w75KJ2mc4zz', 'color'])
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitId',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'w75KJ2mc4zz',
+            'color',
+            'type',
+        ])
         const nameHeader = result.headers.find(
             (h) => h.dataKey === 'w75KJ2mc4zz'
         )
@@ -221,6 +256,11 @@ describe('getHeadersForLayer - tracked entity', () => {
                 valueType: 'DATETIME',
             },
             { name: 'Visit time', dataKey: 'oZg33kd9taw', valueType: 'TIME' },
+            {
+                name: 'Referred by facility',
+                dataKey: 'c3d4e5f6a7b',
+                valueType: 'ORGANISATION_UNIT',
+            },
         ]
         const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
             layerHeaders,
@@ -231,9 +271,13 @@ describe('getHeadersForLayer - tracked entity', () => {
         expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
         expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
+        // Plain text now (no tree filter), but the cell renderer still
+        // resolves the tracker API's raw bare id to a readable name.
+        expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
         expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
         expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
     })
 })
 
@@ -247,7 +291,13 @@ describe('getHeadersForLayer - earth engine', () => {
             },
         })
         expect(dataKeys(result)).toEqual(
-            expect.arrayContaining(['name', 'id', 'type', '1'])
+            expect.arrayContaining([
+                'id',
+                'orgUnitOwn',
+                'orgUnitPath',
+                'type',
+                '1',
+            ])
         )
         const classHeader = result.headers.find((h) => h.dataKey === '1')
         expect(classHeader.name).toBe('Forest')

@@ -32,6 +32,7 @@ import {
 } from '../util/geojson.js'
 import { formatWithSeparator, parseWithSeparator } from '../util/numbers.js'
 import {
+    attachOrgUnitPaths as attachOrgUnitPathsUtil,
     fetchAssociatedGeometries,
     fetchOrgUnitPaths,
     getPolygonItems,
@@ -45,6 +46,20 @@ import { isValidUid } from '../util/uid.js'
 // OU dimension value is always an ID; property key depends on outputIdScheme
 const getEventOuId = (feature) =>
     feature.properties?.ou ?? feature.properties?.['Organisation unit']
+
+// Attaches each event's org unit ancestor path (data table "Org unit
+// hierarchy" column) - see util/orgUnits.js's attachOrgUnitPaths, shared
+// with trackedEntityLoader.js.
+export const attachOrgUnitPaths = async ({ config, engine }) => {
+    if (!config.data?.length) {
+        return
+    }
+    config.data = await attachOrgUnitPathsUtil(
+        config.data,
+        engine,
+        getEventOuId
+    )
+}
 
 // Expands USER_ORGUNIT/_CHILDREN/_GRANDCHILDREN into ids; [id] if literal.
 const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
@@ -333,6 +348,8 @@ const loadEventLayer = async ({
                 alerts,
             })
         }
+
+        await attachOrgUnitPaths({ config, engine })
 
         if (styleDataItem) {
             await styleByDataItem(config, engine)

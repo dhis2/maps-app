@@ -6,12 +6,7 @@ import {
 import {
     parseDateGroupKey,
     buildDateGroupTree,
-    getNodeCheckState,
-    toggleDateGroupPrefix,
-    flattenVisibleNodes,
     formatNodeLabel,
-    getSearchMatches,
-    nodeMatchesOrHasMatch,
 } from '../dateGroups.js'
 
 describe('parseDateGroupKey', () => {
@@ -121,13 +116,21 @@ describe('buildDateGroupTree', () => {
         expect(tree[1].children.map((v) => v.label)).toEqual(['14:00:00'])
     })
 
-    it('sorts nodes ascending at every level regardless of input order', () => {
-        const values = ['2024-01-01', '2023-05-15', '2023-01-01']
-        const tree = buildDateGroupTree(values, TYPE_DATE)
-        expect(tree.map((y) => y.key)).toEqual(['2023', '2024'])
-        expect(tree[0].children.map((m) => m.key)).toEqual([
+    it("preserves the input order at every level, rather than forcing ascending - callers already order values to match the column's current sort direction", () => {
+        const ascendingValues = ['2023-01-01', '2023-05-15', '2024-01-01']
+        const ascending = buildDateGroupTree(ascendingValues, TYPE_DATE)
+        expect(ascending.map((y) => y.key)).toEqual(['2023', '2024'])
+        expect(ascending[0].children.map((m) => m.key)).toEqual([
             '2023-01',
             '2023-05',
+        ])
+
+        const descendingValues = ['2024-01-01', '2023-05-15', '2023-01-01']
+        const descending = buildDateGroupTree(descendingValues, TYPE_DATE)
+        expect(descending.map((y) => y.key)).toEqual(['2024', '2023'])
+        expect(descending[1].children.map((m) => m.key)).toEqual([
+            '2023-05',
+            '2023-01',
         ])
     })
 
@@ -141,100 +144,6 @@ describe('buildDateGroupTree', () => {
             prefix: 'garbage',
             children: [],
         })
-    })
-})
-
-describe('getNodeCheckState', () => {
-    const dayNode = { prefix: '2023-05-15' }
-
-    it('is checked when the node itself is selected', () => {
-        expect(getNodeCheckState(dayNode, ['2023-05-15'])).toBe('checked')
-    })
-
-    it('is checked when an ancestor prefix is selected', () => {
-        expect(getNodeCheckState(dayNode, ['2023'])).toBe('checked')
-    })
-
-    it('is indeterminate when only a descendant prefix is selected', () => {
-        expect(getNodeCheckState(dayNode, ['2023-05-15 09'])).toBe(
-            'indeterminate'
-        )
-    })
-
-    it('is unchecked otherwise', () => {
-        expect(getNodeCheckState(dayNode, ['2023-06-01'])).toBe('unchecked')
-        expect(getNodeCheckState(dayNode, [])).toBe('unchecked')
-    })
-})
-
-describe('toggleDateGroupPrefix', () => {
-    it('selects an unchecked node', () => {
-        expect(toggleDateGroupPrefix([], { prefix: '2023' })).toEqual(['2023'])
-    })
-
-    it('deselects a node that is checked via its own prefix', () => {
-        expect(
-            toggleDateGroupPrefix(['2023-01', '2023'], { prefix: '2023' })
-        ).toEqual(['2023-01'])
-    })
-
-    it('selecting a node drops now-redundant descendant prefixes', () => {
-        expect(
-            toggleDateGroupPrefix(['2023-01', '2023-02'], { prefix: '2023' })
-        ).toEqual(['2023'])
-    })
-
-    it('is a no-op when checked only via an already-selected ancestor', () => {
-        const selected = ['2023']
-        expect(
-            toggleDateGroupPrefix(selected, { prefix: '2023-05-15 09' })
-        ).toBe(selected)
-    })
-
-    it('selecting an indeterminate node adds it without touching unrelated selections', () => {
-        expect(
-            toggleDateGroupPrefix(['2024'], { prefix: '2023-05-15' })
-        ).toEqual(['2024', '2023-05-15'])
-    })
-})
-
-describe('flattenVisibleNodes', () => {
-    const tree = [
-        {
-            key: '2023',
-            children: [
-                {
-                    key: '2023-05',
-                    children: [{ key: '2023-05-15', children: [] }],
-                },
-            ],
-        },
-        { key: '2024', children: [] },
-    ]
-
-    it('shows only root nodes when nothing is expanded', () => {
-        expect(
-            flattenVisibleNodes(tree, new Set()).map((r) => r.node.key)
-        ).toEqual(['2023', '2024'])
-    })
-
-    it('shows children of an expanded node at depth + 1', () => {
-        const result = flattenVisibleNodes(tree, new Set(['2023']))
-        expect(result.map((r) => [r.node.key, r.depth])).toEqual([
-            ['2023', 0],
-            ['2023-05', 1],
-            ['2024', 0],
-        ])
-    })
-
-    it('recurses into nested expanded nodes', () => {
-        const result = flattenVisibleNodes(tree, new Set(['2023', '2023-05']))
-        expect(result.map((r) => r.node.key)).toEqual([
-            '2023',
-            '2023-05',
-            '2023-05-15',
-            '2024',
-        ])
     })
 })
 
@@ -285,46 +194,5 @@ describe('formatNodeLabel', () => {
         expect(formatNodeLabel({ level: 'leaf', key: 'garbage' }, 'en')).toBe(
             'garbage'
         )
-    })
-})
-
-describe('getSearchMatches / nodeMatchesOrHasMatch', () => {
-    const tree = buildDateGroupTree(
-        ['2023-05-15 09:00:00.0', '2024-01-01 00:00:00.0'],
-        TYPE_DATETIME
-    )
-
-    it('a year-number search matches every node whose raw prefix starts with that year, since a descendant prefix is always a literal extension of its ancestors', () => {
-        const { matchedKeys, expandedAncestorKeys } = getSearchMatches(
-            tree,
-            '2024'
-        )
-        expect(matchedKeys.has('2024')).toBe(true)
-        expect(matchedKeys.has('2024-01')).toBe(true)
-        expect(matchedKeys.has('2024-01-01 00:00:00.0')).toBe(true)
-        expect(matchedKeys.has('2023')).toBe(false)
-        // the value match's ancestors get force-expanded
-        expect(expandedAncestorKeys.has('2024')).toBe(true)
-        expect(expandedAncestorKeys.has('2024-01')).toBe(true)
-        expect(expandedAncestorKeys.has('2024-01-01')).toBe(true)
-        expect(expandedAncestorKeys.has('2024-01-01 00')).toBe(true)
-    })
-
-    it('matches a deep node by a longer numeric prefix and reports every ancestor key', () => {
-        const { matchedKeys, expandedAncestorKeys } = getSearchMatches(
-            tree,
-            '2023-05'
-        )
-        expect(matchedKeys.has('2023-05')).toBe(true)
-        expect(matchedKeys.has('2024-01')).toBe(false)
-        expect(expandedAncestorKeys.has('2023')).toBe(true)
-    })
-
-    it('nodeMatchesOrHasMatch is true for a match and for any ancestor of a match', () => {
-        const { matchedKeys } = getSearchMatches(tree, '2023-05')
-        const yearNode = tree.find((n) => n.key === '2023')
-        expect(nodeMatchesOrHasMatch(yearNode, matchedKeys)).toBe(true)
-        const otherYear = tree.find((n) => n.key === '2024')
-        expect(nodeMatchesOrHasMatch(otherYear, matchedKeys)).toBe(false)
     })
 })
