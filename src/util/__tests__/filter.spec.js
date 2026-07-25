@@ -248,6 +248,22 @@ describe('filterData', () => {
             expect(filterData(data, filters)).toEqual([{ a: null }])
         })
     })
+
+    describe('org-unit value filter ({ values, searchDerived, searchText }) - a committed free-text search on an org-unit-flavored plain-text column, resolved to matching raw values up front (see FilterInput.jsx)', () => {
+        const data = [{ a: 'moyowaId' }, { a: 'otherId' }, { a: null }]
+
+        it('matches rows whose raw value is in the resolved values list', () => {
+            const filters = {
+                a: { values: ['moyowaId'], searchDerived: true },
+            }
+            expect(filterData(data, filters)).toEqual([{ a: 'moyowaId' }])
+        })
+
+        it('matches no rows when nothing resolved (distinct from an empty checkbox array, which matches everything)', () => {
+            const filters = { a: { values: [], searchDerived: true } }
+            expect(filterData(data, filters)).toEqual([])
+        })
+    })
 })
 
 describe('filterByGlobalSearch', () => {

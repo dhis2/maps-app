@@ -1,6 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { TYPE_NUMBER } from '../constants/dataTable.js'
-import { numericFilter } from './filter.js'
+import { isOrgUnitValueFilter, numericFilter } from './filter.js'
 
 const POPOVER_ROW_NON_LABEL_WIDTH = 56
 const MIN_POPOVER_WIDTH = 140
@@ -11,10 +11,15 @@ const MAX_POPOVER_WIDTH = 280
 export const OPTION_ROW_HEIGHT = 28
 export const MAX_LIST_HEIGHT = 260
 
-export const getSelectedAndAppliedString = (filterValue) => ({
-    selected: Array.isArray(filterValue) ? filterValue : [],
-    appliedString: typeof filterValue === 'string' ? filterValue : '',
-})
+export const getSelectedAndAppliedString = (filterValue) => {
+    if (isOrgUnitValueFilter(filterValue)) {
+        return { selected: [], appliedString: filterValue.searchText ?? '' }
+    }
+    return {
+        selected: Array.isArray(filterValue) ? filterValue : [],
+        appliedString: typeof filterValue === 'string' ? filterValue : '',
+    }
+}
 
 export const getDisplayValue = ({
     isOpen,
