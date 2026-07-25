@@ -5,6 +5,7 @@ import {
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
@@ -31,6 +32,7 @@ import {
     datetimeValueTypes,
     timeValueTypes,
     ouValueTypes,
+    booleanValueTypes,
 } from '../constants/valueTypes.js'
 import { hasClasses } from './earthEngine.js'
 import { getGeojsonDisplayData } from './geojson.js'
@@ -81,6 +83,9 @@ const getCustomFieldRenderer = (type, valueType) => {
     if (ouValueTypes.includes(valueType)) {
         return RENDERER_ORG_UNIT
     }
+    if (booleanValueTypes.includes(valueType)) {
+        return RENDERER_BOOLEAN
+    }
     return undefined
 }
 
@@ -95,6 +100,9 @@ const GROUP = 'group'
 const ICON = 'iconUrl'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
+const LASTUPDATED = 'lastupdated'
+const CREATEDAT = 'createdAt'
+const UPDATEDAT = 'updatedAt'
 const ORG_UNIT_PATH = ORG_UNIT_PATH_DATA_KEY
 const ORG_UNIT = ORG_UNIT_DATA_KEY
 const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
@@ -138,6 +146,24 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Event date'),
         dataKey: EVENTDATE,
         type: TYPE_DATE,
+        renderer: RENDERER_DATE,
+    },
+    [LASTUPDATED]: {
+        name: i18n.t('Last updated'),
+        dataKey: LASTUPDATED,
+        type: TYPE_DATETIME,
+        renderer: RENDERER_DATE,
+    },
+    [CREATEDAT]: {
+        name: i18n.t('Created'),
+        dataKey: CREATEDAT,
+        type: TYPE_DATETIME,
+        renderer: RENDERER_DATE,
+    },
+    [UPDATEDAT]: {
+        name: i18n.t('Last updated'),
+        dataKey: UPDATEDAT,
+        type: TYPE_DATETIME,
         renderer: RENDERER_DATE,
     },
     [COLOR]: {
@@ -240,14 +266,22 @@ const getEventHeaders = ({
 }) => {
     const fields = getOrgUnitCoreFields(i18n.t('Event Id'), {
         includeOrgUnitId: true,
-    }).concat(defaultFieldsMap()[EVENTDATE])
+    })
+        .concat(defaultFieldsMap()[EVENTDATE])
+        .concat(defaultFieldsMap()[LASTUPDATED])
 
     if (countEventsOutsideOrgUnits) {
         fields.push(defaultFieldsMap()[OUBOUNDARY])
     }
 
+    // A handful of the analytics response's own fixed column names (e.g.
+    // "lastupdated", "eventstatus") happen to be 11 letters, the same shape
+    // isValidUid checks for - excluding whatever dataKey a fixed field above
+    // already claims prevents a coincidental duplicate column.
+    const fixedDataKeys = new Set(fields.map((f) => f.dataKey))
+
     const customFields = layerHeaders
-        .filter(({ name }) => isValidUid(name))
+        .filter(({ name }) => isValidUid(name) && !fixedDataKeys.has(name))
         .map(({ name: dataKey, column: name, valueType, optionSet }) => {
             const type = getCustomFieldType(valueType, !!optionSet)
             return {
@@ -299,16 +333,19 @@ const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
     const fields = getOrgUnitCoreFields(i18n.t('Tracked entity Id'), {
         includeOrgUnitId: true,
     })
+        .concat(defaultFieldsMap()[CREATEDAT])
+        .concat(defaultFieldsMap()[UPDATEDAT])
 
     const customFields = layerHeaders
         .filter(({ dataKey }) => isValidUid(dataKey))
-        .map(({ name, dataKey, valueType }) => {
-            const type = getCustomFieldType(valueType, false)
+        .map(({ name, dataKey, valueType, optionSet }) => {
+            const type = getCustomFieldType(valueType, !!optionSet)
             return {
                 name,
                 dataKey,
                 type,
                 renderer: getCustomFieldRenderer(type, valueType),
+                optionSet: optionSet || null,
             }
         })
 
