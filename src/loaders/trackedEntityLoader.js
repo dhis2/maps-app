@@ -20,10 +20,22 @@ import {
 } from '../util/geojson.js'
 import { parseWithSeparator } from '../util/numbers.js'
 import { attachOrgUnitPaths } from '../util/orgUnits.js'
+import { OPTION_SET_QUERY } from '../util/requests.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
+import {
+    TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
+    TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
+} from '../util/trackedEntity.js'
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'attributes', 'orgUnit']
+const fields = [
+    'trackedEntity~rename(id)',
+    'geometry',
+    'attributes',
+    'orgUnit',
+    'createdAt',
+    'updatedAt',
+]
 
 // Valid geometry types for TEIs
 const teiGeometryTypes = new Set([
@@ -104,25 +116,41 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-export const getAttributeProperties = (attributes) =>
+// Resolves an option-set-coded attribute value to its display name, mirroring
+// the load-time resolution eventLoader.js/util/geojson.js already does for
+// events (via the analytics response's metaData.items) - option codes never
+// come with a name attached on tracker/trackedEntities' attribute values, so
+// the caller must fetch and pass the code->name lookups separately (see
+// fetchOptionSetIdByAttribute/fetchOptionNamesByOptionSet below).
+export const getAttributeProperties = (
+    attributes,
+    optionSetIdByAttribute,
+    optionNamesByOptionSet
+) =>
     Object.fromEntries(
-        (attributes ?? []).map(({ attribute, value, valueType }) => [
-            attribute,
-            numberValueTypes.includes(valueType)
-                ? parseWithSeparator(value)
-                : value,
-        ])
+        (attributes ?? []).map(({ attribute, value, valueType }) => {
+            if (numberValueTypes.includes(valueType)) {
+                return [attribute, parseWithSeparator(value)]
+            }
+            const optionSetId = optionSetIdByAttribute?.get(attribute)
+            const optionName = optionSetId
+                ? optionNamesByOptionSet?.get(optionSetId)?.get(value)
+                : undefined
+            return [attribute, optionName ?? value]
+        })
     )
 
-export const getAttributeHeaders = (instances) => {
+export const getAttributeHeaders = (instances, optionSetIdByAttribute) => {
     const headersByAttribute = new Map()
     instances.forEach(({ attributes }) => {
         ;(attributes ?? []).forEach(({ attribute, displayName, valueType }) => {
             if (!headersByAttribute.has(attribute)) {
+                const optionSetId = optionSetIdByAttribute?.get(attribute)
                 headersByAttribute.set(attribute, {
                     name: displayName,
                     dataKey: attribute,
                     valueType,
+                    optionSet: optionSetId ? { id: optionSetId } : null,
                 })
             }
         })
@@ -132,18 +160,90 @@ export const getAttributeHeaders = (instances) => {
 
 // The main tracked entity marker's own color is currently fixed still
 // stamped here for when data table's Color column has real data
-export const toGeoJson = (instances, color) =>
-    instances.map(({ id, geometry, attributes, orgUnit }) => ({
-        type: GEO_TYPE_FEATURE,
-        geometry,
-        properties: {
-            id,
-            color,
-            orgUnit,
-            type: geometry?.type,
-            ...getAttributeProperties(attributes),
-        },
-    }))
+export const toGeoJson = (
+    instances,
+    color,
+    { optionSetIdByAttribute, optionNamesByOptionSet } = {}
+) =>
+    instances.map(
+        ({ id, geometry, attributes, orgUnit, createdAt, updatedAt }) => ({
+            type: GEO_TYPE_FEATURE,
+            geometry,
+            properties: {
+                id,
+                color,
+                orgUnit,
+                createdAt,
+                updatedAt,
+                type: geometry?.type,
+                ...getAttributeProperties(
+                    attributes,
+                    optionSetIdByAttribute,
+                    optionNamesByOptionSet
+                ),
+            },
+        })
+    )
+
+// Learns each attribute's option set id from trackedEntityType/program
+// metadata - tracker/trackedEntities' own attribute values never carry it
+// (optionSet lives on the trackedEntityAttribute metadata object, a separate
+// resource). Same query constants and merge-by-id logic as
+// TrackedEntityLayer.jsx's loadDisplayAttributes, reused here for the data
+// table instead of the map popup/marker display.
+const fetchOptionSetIdByAttribute = async (
+    engine,
+    { trackedEntityType, program }
+) => {
+    const { trackedEntityType: typeData } = await engine.query(
+        TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
+        { variables: { id: trackedEntityType.id, nameProperty: 'displayName' } }
+    )
+    let attributes = (typeData.trackedEntityTypeAttributes ?? []).map(
+        (a) => a.trackedEntityAttribute
+    )
+
+    if (program) {
+        const { program: programData } = await engine.query(
+            TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
+            { variables: { id: program.id, nameProperty: 'displayName' } }
+        )
+        const programAttributes = (
+            programData.programTrackedEntityAttributes ?? []
+        ).map((a) => a.trackedEntityAttribute)
+        attributes = [
+            ...attributes,
+            ...programAttributes.filter(
+                (a1) => !attributes.some((a2) => a2.id === a1.id)
+            ),
+        ]
+    }
+
+    return new Map(
+        attributes
+            .filter((a) => a.optionSet?.id)
+            .map((a) => [a.id, a.optionSet.id])
+    )
+}
+
+// Bulk-fetches each distinct option set's code->name lookup, only for option
+// sets actually referenced by attributes present in the loaded instances.
+const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
+    const entries = await Promise.all(
+        optionSetIds.map(async (id) => {
+            const { optionSet } = await engine.query(OPTION_SET_QUERY, {
+                variables: { id },
+            })
+            return [
+                id,
+                new Map(
+                    (optionSet?.options ?? []).map((o) => [o.code, o.name])
+                ),
+            ]
+        })
+    )
+    return new Map(entries)
+}
 
 export const applyParsedConfig = (config) => {
     const { relationships, periodType, dataTableColumnConfig } =
@@ -355,7 +455,18 @@ const trackedEntityLoader = async ({
             instance.geometry?.coordinates
     )
 
-    const headers = getAttributeHeaders(instances)
+    const optionSetIdByAttribute = instances.length
+        ? await fetchOptionSetIdByAttribute(engine, {
+              trackedEntityType,
+              program,
+          })
+        : new Map()
+
+    const headers = getAttributeHeaders(instances, optionSetIdByAttribute)
+
+    const optionNamesByOptionSet = await fetchOptionNamesByOptionSet(engine, [
+        ...new Set(headers.map((h) => h.optionSet?.id).filter(Boolean)),
+    ])
 
     let alert
 
@@ -383,7 +494,10 @@ const trackedEntityLoader = async ({
             legend,
         }))
     } else {
-        data = toGeoJson(instances, pointColor)
+        data = toGeoJson(instances, pointColor, {
+            optionSetIdByAttribute,
+            optionNamesByOptionSet,
+        })
     }
 
     data = await attachOrgUnitPaths(

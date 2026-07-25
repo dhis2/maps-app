@@ -156,7 +156,7 @@ export const formatCoordinate = (value) => {
 }
 
 // Formats a DHIS2 yes/no or yes only value
-const formatBoolean = (value) => {
+export const formatBoolean = (value) => {
     if (value === 'true' || value === '1') {
         return i18n.t('Yes')
     }

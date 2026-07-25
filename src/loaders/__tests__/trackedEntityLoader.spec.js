@@ -43,6 +43,46 @@ describe('getAttributeProperties', () => {
         ]
         expect(getAttributeProperties(attributes).ageUid).toBeUndefined()
     })
+
+    it('resolves an option-set-coded value to its display name, like events analytics already does server-side', () => {
+        const attributes = [
+            { attribute: 'genderUid', value: 'M', valueType: 'TEXT' },
+        ]
+        const optionSetIdByAttribute = new Map([['genderUid', 'os1']])
+        const optionNamesByOptionSet = new Map([
+            [
+                'os1',
+                new Map([
+                    ['M', 'Male'],
+                    ['F', 'Female'],
+                ]),
+            ],
+        ])
+        expect(
+            getAttributeProperties(
+                attributes,
+                optionSetIdByAttribute,
+                optionNamesByOptionSet
+            )
+        ).toEqual({ genderUid: 'Male' })
+    })
+
+    it('falls back to the raw code when no matching option name is found', () => {
+        const attributes = [
+            { attribute: 'genderUid', value: 'X', valueType: 'TEXT' },
+        ]
+        const optionSetIdByAttribute = new Map([['genderUid', 'os1']])
+        const optionNamesByOptionSet = new Map([
+            ['os1', new Map([['M', 'Male']])],
+        ])
+        expect(
+            getAttributeProperties(
+                attributes,
+                optionSetIdByAttribute,
+                optionNamesByOptionSet
+            )
+        ).toEqual({ genderUid: 'X' })
+    })
 })
 
 describe('getAttributeHeaders', () => {
@@ -73,13 +113,46 @@ describe('getAttributeHeaders', () => {
             },
         ]
         expect(getAttributeHeaders(instances)).toEqual([
-            { name: 'First name', dataKey: 'w75KJ2mc4zz', valueType: 'TEXT' },
-            { name: 'Last name', dataKey: 'zDhUuAYrxNC', valueType: 'TEXT' },
+            {
+                name: 'First name',
+                dataKey: 'w75KJ2mc4zz',
+                valueType: 'TEXT',
+                optionSet: null,
+            },
+            {
+                name: 'Last name',
+                dataKey: 'zDhUuAYrxNC',
+                valueType: 'TEXT',
+                optionSet: null,
+            },
         ])
     })
 
     it('returns an empty array when no instance has attributes', () => {
         expect(getAttributeHeaders([{ attributes: [] }, {}])).toEqual([])
+    })
+
+    it('stamps the resolved optionSet id onto a header when optionSetIdByAttribute has it', () => {
+        const instances = [
+            {
+                attributes: [
+                    {
+                        attribute: 'genderUid',
+                        displayName: 'Gender',
+                        valueType: 'TEXT',
+                    },
+                ],
+            },
+        ]
+        const optionSetIdByAttribute = new Map([['genderUid', 'os1']])
+        expect(getAttributeHeaders(instances, optionSetIdByAttribute)).toEqual([
+            {
+                name: 'Gender',
+                dataKey: 'genderUid',
+                valueType: 'TEXT',
+                optionSet: { id: 'os1' },
+            },
+        ])
     })
 })
 
@@ -173,5 +246,45 @@ describe('toGeoJson', () => {
         const result = toGeoJson(instances, '#ff0000')
 
         expect(result[0].properties.orgUnit).toBe('facility1')
+    })
+
+    it('carries createdAt/updatedAt through onto properties', () => {
+        const instances = [
+            {
+                id: 'tei-1',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                attributes: [],
+                createdAt: '2024-01-01T00:00:00.000',
+                updatedAt: '2024-06-15T12:30:00.000',
+            },
+        ]
+
+        const result = toGeoJson(instances, '#ff0000')
+
+        expect(result[0].properties.createdAt).toBe('2024-01-01T00:00:00.000')
+        expect(result[0].properties.updatedAt).toBe('2024-06-15T12:30:00.000')
+    })
+
+    it('resolves an option-set-coded attribute value to its display name when the resolution maps are given', () => {
+        const instances = [
+            {
+                id: 'tei-1',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                attributes: [
+                    { attribute: 'genderUid', value: 'M', valueType: 'TEXT' },
+                ],
+            },
+        ]
+        const optionSetIdByAttribute = new Map([['genderUid', 'os1']])
+        const optionNamesByOptionSet = new Map([
+            ['os1', new Map([['M', 'Male']])],
+        ])
+
+        const result = toGeoJson(instances, '#ff0000', {
+            optionSetIdByAttribute,
+            optionNamesByOptionSet,
+        })
+
+        expect(result[0].properties.genderUid).toBe('Male')
     })
 })

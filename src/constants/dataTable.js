@@ -10,6 +10,7 @@ export const RENDERER_ICON = 'rendericon'
 export const RENDERER_DATE = 'renderdate'
 export const RENDERER_ORG_UNIT = 'renderorgunit'
 export const RENDERER_ORG_UNIT_NAME = 'renderorgunitname'
+export const RENDERER_BOOLEAN = 'renderboolean'
 
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
