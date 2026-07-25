@@ -1,6 +1,8 @@
 import {
     SENTINEL_NO_VALUE,
     SENTINEL_SELECTED_ROW,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
 import {
     compareBySelected,
@@ -75,6 +77,57 @@ describe('compareFieldValues', () => {
                 sortDirection: 'asc',
             })
         ).toBeGreaterThan(0)
+    })
+
+    describe('org-unit-renderer columns - sorts by the resolved display name, not the raw stored path/id', () => {
+        // Deliberately opposite of alphabetical-by-name, so a test that
+        // still passed on the raw id would prove the fix does nothing.
+        const idToName = new Map([
+            ['country1', 'Sierra Leone'],
+            ['zFacility', 'Bargbe'],
+            ['aFacility', 'Upper Bambara'],
+        ])
+
+        it('RENDERER_ORG_UNIT_NAME: compares the resolved leaf name, not the raw id', () => {
+            // Raw ids alone would sort the other way ("aFacility" < "zFacility")
+            expect(
+                compareFieldValues(
+                    '/country1/aFacility',
+                    '/country1/zFacility',
+                    {
+                        sortDirection: 'asc',
+                        orgUnitRenderer: RENDERER_ORG_UNIT_NAME,
+                        idToName,
+                    }
+                )
+            ).toBeGreaterThan(0)
+        })
+
+        it('RENDERER_ORG_UNIT: compares the resolved full breadcrumb, not the raw path', () => {
+            expect(
+                compareFieldValues(
+                    '/country1/aFacility',
+                    '/country1/zFacility',
+                    {
+                        sortDirection: 'asc',
+                        orgUnitRenderer: RENDERER_ORG_UNIT,
+                        idToName,
+                    }
+                )
+            ).toBeGreaterThan(0)
+        })
+
+        it('falls back to the raw value when no renderer is given (e.g. a plain string column)', () => {
+            expect(
+                compareFieldValues(
+                    '/country1/aFacility',
+                    '/country1/zFacility',
+                    {
+                        sortDirection: 'asc',
+                    }
+                )
+            ).toBeLessThan(0)
+        })
     })
 })
 
