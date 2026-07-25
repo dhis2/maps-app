@@ -13,6 +13,7 @@ import {
     RENDERER_ICON,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_NUMBER,
     TYPE_DATE,
     TYPE_DATETIME,
@@ -39,6 +40,7 @@ import {
     toggleAnyValue,
     toggleRealValue,
 } from '../../util/filterSelection.js'
+import { formatBoolean } from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import {
     formatOrgUnitPathBreadcrumb,
@@ -534,6 +536,9 @@ const PlainSearchableFilter = (props) => {
             }
             if (renderer === RENDERER_ORG_UNIT_NAME) {
                 return formatOrgUnitOwnName(value, orgUnitIdToName)
+            }
+            if (renderer === RENDERER_BOOLEAN) {
+                return formatBoolean(value)
             }
             return type === TYPE_NUMBER
                 ? formatWithSeparator(

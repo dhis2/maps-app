@@ -594,9 +594,14 @@ describe('useTableData headers', () => {
                 renderer: 'renderdate',
             },
             {
-                name: 'Last updated on',
+                // A fixed column now, not a coincidental customFields match
+                // (see tableHeaders.js's fixedDataKeys exclusion) - the raw
+                // analytics header's own "Last updated on" label is no
+                // longer used, this is the same fixed name/type/renderer
+                // Tracked Entity's "Last updated" column uses.
+                name: 'Last updated',
                 dataKey: 'lastupdated',
-                type: 'date',
+                type: 'datetime',
                 renderer: 'renderdate',
             },
             { name: 'Event status', dataKey: 'eventstatus', type: 'string' },
@@ -721,7 +726,7 @@ describe('useTableData headers', () => {
         )
 
         const { headers, rows, isLoading } = result.current
-        expect(headers).toHaveLength(9)
+        expect(headers).toHaveLength(11)
         expect(headers).toMatchObject([
             { name: 'Tracked entity Id', dataKey: 'id', type: 'string' },
             { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
@@ -732,19 +737,23 @@ describe('useTableData headers', () => {
                 dataKey: 'orgUnitPath',
                 type: 'orgUnit',
             },
+            { name: 'Created', dataKey: 'createdAt', type: 'datetime' },
+            { name: 'Last updated', dataKey: 'updatedAt', type: 'datetime' },
             { name: 'First name', dataKey: 'w75KJ2mc4zz', type: 'string' },
             { name: 'Age', dataKey: 'zDhUuAYrxNC', type: 'number' },
             { name: 'Color', dataKey: 'color', type: 'string' },
             { name: 'Geometry type', dataKey: 'type', type: 'string' },
         ])
         expect(rows).toHaveLength(1)
-        expect(rows[0]).toHaveLength(9)
+        expect(rows[0]).toHaveLength(11)
         expect(rows[0]).toMatchObject([
             { value: 'PsgJS8BUxZd', dataKey: 'id' },
             { value: undefined, dataKey: 'orgUnitId' },
             { value: undefined, dataKey: 'orgUnitOwn' },
             { value: null, dataKey: 'level' },
             { value: undefined, dataKey: 'orgUnitPath' },
+            { value: undefined, dataKey: 'createdAt' },
+            { value: undefined, dataKey: 'updatedAt' },
             { value: 'Gabrielle', dataKey: 'w75KJ2mc4zz' },
             { value: 28, dataKey: 'zDhUuAYrxNC' },
             { value: '#e57200', dataKey: 'color' },
