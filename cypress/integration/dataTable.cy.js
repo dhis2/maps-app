@@ -85,8 +85,9 @@ describe('data table', () => {
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 10)
 
-        // Filter by name
-        cy.getByDataTest('data-table-column-filter-search-Name')
+        // Filter by name (the "Name" column was renamed "Org unit" and moved
+        // to column 2 - "Org unit Id" (the row's own id) is now column 1)
+        cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
             .type('bar{enter}')
 
@@ -97,11 +98,11 @@ describe('data table', () => {
             .should('have.length', 7)
 
         // Confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bargbe' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Upper Bambara' })
 
         // Sort by name
-        cy.getByDataTest('data-table-column-sort-button-Name').click()
+        cy.getByDataTest('data-table-column-sort-button-Org unit').click()
 
         // Sorting can shift the virtualized table's scroll position
         // (possibly an internal react-virtuoso quirk)
@@ -109,8 +110,8 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Confirm that the rows are sorted by Name descending
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Upper Bambara' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
 
         // Filter by Value (numeric)
         cy.getByDataTest('data-table-column-filter-search-Value')
@@ -130,8 +131,10 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that the rows are sorted by Value ascending
-        checkTableCell({ row: 0, column: 3, expectedContent: '35' })
-        checkTableCell({ row: 4, column: 3, expectedContent: '76' })
+        // ("Value" moved from column 3 to column 5: Org unit Id, Org unit,
+        // Org unit level and Org unit hierarchy now precede it)
+        checkTableCell({ row: 0, column: 5, expectedContent: '35' })
+        checkTableCell({ row: 4, column: 5, expectedContent: '76' })
 
         // Right-click a row and select "View profile"
         cy.getByDataTest('bottom-panel')
@@ -209,8 +212,10 @@ describe('data table', () => {
             .type(`${ouName}{enter}`)
 
         // Check that all the rows have Org unit Moyowa
-        checkTableCell({ row: 0, column: 1, expectedContent: ouName })
-        checkTableCell({ row: 2, column: 1, expectedContent: ouName })
+        // ("Org unit" moved from column 1 to column 3 - "Event Id" and the
+        // new "Org unit Id" column now precede it)
+        checkTableCell({ row: 0, column: 3, expectedContent: ouName })
+        checkTableCell({ row: 2, column: 3, expectedContent: ouName })
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
@@ -317,7 +322,9 @@ describe('data table', () => {
         cy.getByDataTest('layers-toggle-button').click()
 
         // Confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
+        // ("Name" is now the "Org unit" column, at index 2 - "Org unit Id"
+        // (the row's own id) is column 1)
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bendu CHC' })
 
         // First click on a new column always sorts ascending
         cy.getByDataTest('data-table-column-sort-button-Value').click()
@@ -326,15 +333,17 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that first row has Tihun CHC with value 28.63
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
+        // ("Value" moved from column 3 to column 5: Org unit Id, Org unit,
+        // Org unit level and Org unit hierarchy now precede it)
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '28.63' })
 
         // Check that row 5 has Gbamgbama CHC with value 117.98
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '117.98' })
 
         // Check that row 6 has no value (undefined)
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+        checkTableCell({ row: 6, column: 5, expectedContent: '' })
 
         // Sort descending by Value
         cy.getByDataTest('data-table-column-sort-button-Value').click()
@@ -342,13 +351,13 @@ describe('data table', () => {
         // Reset scroll position after sorting - see comment above
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '117.98' })
 
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '28.63' })
 
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
+        checkTableCell({ row: 6, column: 5, expectedContent: '' })
 
         // Third click on the same column cycles back to natural (unsorted)
         // order - there's no dedicated Index column/button any more
@@ -358,7 +367,9 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value is empty
-        checkTableCell({ row: 0, column: 8, expectedContent: '' })
+        // ("Range" moved from column 8 to column 7: Value now precedes
+        // Legend/Range/Color instead of following Name/Id/Value/Level/Parent)
+        checkTableCell({ row: 0, column: 7, expectedContent: '' })
 
         // Sort by range, which is a string
         cy.getByDataTest('data-table-column-sort-button-Range').click()
@@ -367,12 +378,12 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 8, expectedContent: '0 – 40' })
+        checkTableCell({ row: 0, column: 7, expectedContent: '0 – 40' })
 
         // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 8, expectedContent: '90 – 120' })
+        checkTableCell({ row: 5, column: 7, expectedContent: '90 – 120' })
 
         // Check that row 6 range value is empty
-        checkTableCell({ row: 6, column: 8, expectedContent: '' })
+        checkTableCell({ row: 6, column: 7, expectedContent: '' })
     })
 })

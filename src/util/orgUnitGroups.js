@@ -64,7 +64,7 @@ export const formatOrgUnitPathBreadcrumb = (path, idToName) =>
         .join(' / ')
 
 export const formatOrgUnitOwnName = (path, idToName) => {
-    const leafId = String(path).split('/').filter(Boolean).pop()
+    const leafId = String(path).split('/').findLast(Boolean)
     return formatOrgUnitNodeLabel({ key: leafId }, idToName)
 }
 
@@ -74,7 +74,7 @@ const collectOrgUnitMatches = (nodes, ancestors, options) => {
         const name = idToName?.get(node.key)
         const isMatch =
             node.prefix.toLowerCase().includes(normalizedSearch) ||
-            (name && name.toLowerCase().includes(normalizedSearch))
+            name?.toLowerCase().includes(normalizedSearch)
         if (isMatch) {
             result.matchedKeys.add(node.key)
             ancestors.forEach((key) => result.expandedAncestorKeys.add(key))

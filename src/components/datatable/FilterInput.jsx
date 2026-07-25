@@ -119,10 +119,36 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         applyValues(next)
     }
 
-    const applyCustomFilter = (text) =>
-        text
-            ? dispatch(setDataFilter(layerId, dataKey, text))
-            : dispatch(clearDataFilter(layerId, dataKey))
+    const isOrgUnitRenderer =
+        renderer === RENDERER_ORG_UNIT || renderer === RENDERER_ORG_UNIT_NAME
+
+    // For an org-unit-flavored column, the typed text is a name but the
+    // stored value is a raw path/id - resolve it to the matching raw values
+    // up front, so the filter itself is always raw-value based. That keeps
+    // matching consistent between the data table and every map layer, which
+    // filter this same `dataFilters` state independently (see filter.js's
+    // isOrgUnitValueFilter) and have no id->name resolution of their own.
+    const applyCustomFilter = (text) => {
+        if (!text) {
+            dispatch(clearDataFilter(layerId, dataKey))
+            return
+        }
+        if (isOrgUnitRenderer) {
+            const lower = text.toLowerCase()
+            const values = realValues.filter((value) =>
+                resolveLabel(value).toLowerCase().includes(lower)
+            )
+            dispatch(
+                setDataFilter(layerId, dataKey, {
+                    values,
+                    searchDerived: true,
+                    searchText: text,
+                })
+            )
+            return
+        }
+        dispatch(setDataFilter(layerId, dataKey, text))
+    }
 
     const isIconColumn = renderer === RENDERER_ICON
 
@@ -582,35 +608,47 @@ const FilterInput = React.memo(function FilterInput({
     const isDateType =
         type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
 
-    return isDateType ? (
-        <DateGroupFilterInput
-            dataKey={dataKey}
-            name={name}
-            layerId={layerId}
-            filterValue={filterValue}
-            options={options ?? []}
-            type={type}
-        />
-    ) : type === TYPE_ORG_UNIT ? (
-        <OrgUnitGroupFilterInput
-            dataKey={dataKey}
-            name={name}
-            layerId={layerId}
-            filterValue={filterValue}
-            options={options ?? []}
-        />
-    ) : optionSetId ? (
-        <OptionSetSearchableFilter
-            dataKey={dataKey}
-            name={name}
-            layerId={layerId}
-            filterValue={filterValue}
-            options={options ?? []}
-            optionSetId={optionSetId}
-            type={type}
-            renderer={renderer}
-        />
-    ) : (
+    if (isDateType) {
+        return (
+            <DateGroupFilterInput
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+                type={type}
+            />
+        )
+    }
+
+    if (type === TYPE_ORG_UNIT) {
+        return (
+            <OrgUnitGroupFilterInput
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+            />
+        )
+    }
+
+    if (optionSetId) {
+        return (
+            <OptionSetSearchableFilter
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+                optionSetId={optionSetId}
+                type={type}
+                renderer={renderer}
+            />
+        )
+    }
+
+    return (
         <PlainSearchableFilter
             dataKey={dataKey}
             name={name}

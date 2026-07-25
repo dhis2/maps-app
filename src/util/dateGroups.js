@@ -1,6 +1,5 @@
 import { TYPE_DATETIME, TYPE_TIME } from '../constants/dataTable.js'
 import { formatDate, formatDatetime } from './helpers.js'
-import { togglePrefix } from './prefixTree.js'
 import { dateLocale } from './time.js'
 
 export {
@@ -8,8 +7,8 @@ export {
     flattenVisibleNodes,
     getSearchMatches,
     nodeMatchesOrHasMatch,
+    togglePrefix as toggleDateGroupPrefix,
 } from './prefixTree.js'
-export const toggleDateGroupPrefix = togglePrefix
 
 const DATE_KEY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})(?:([T ])(\d{2}))?/
 const TIME_KEY_PATTERN = /^(\d{2}):/
@@ -18,11 +17,11 @@ export const parseDateGroupKey = (rawValue, granularity) => {
     const str = String(rawValue)
 
     if (granularity === TYPE_TIME) {
-        const match = str.match(TIME_KEY_PATTERN)
+        const match = TIME_KEY_PATTERN.exec(str)
         return match ? { hour: match[1] } : null
     }
 
-    const match = str.match(DATE_KEY_PATTERN)
+    const match = DATE_KEY_PATTERN.exec(str)
     if (!match) {
         return null
     }
