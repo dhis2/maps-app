@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-24T13:25:30.129Z\n"
-"PO-Revision-Date: 2026-07-24T13:25:30.129Z\n"
+"POT-Creation-Date: 2026-07-25T13:15:14.751Z\n"
+"PO-Revision-Date: 2026-07-25T13:15:14.751Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -230,21 +230,6 @@ msgstr "Search"
 msgid "Contains"
 msgstr "Contains"
 
-msgid "Any value"
-msgstr "Any value"
-
-msgid "No value"
-msgstr "No value"
-
-msgid "No matches"
-msgstr "No matches"
-
-msgid "Collapse {{label}}"
-msgstr "Collapse {{label}}"
-
-msgid "Expand {{label}}"
-msgstr "Expand {{label}}"
-
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -275,11 +260,29 @@ msgstr "Use filter"
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
 
+msgid "Search"
+msgstr "Search"
+
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
+msgid "Any value"
+msgstr "Any value"
+
 msgid "Too many values to list - type to filter this column"
 msgstr "Too many values to list - type to filter this column"
+
+msgid "No matches"
+msgstr "No matches"
+
+msgid "No value"
+msgstr "No value"
+
+msgid "Collapse {{label}}"
+msgstr "Collapse {{label}}"
+
+msgid "Expand {{label}}"
+msgstr "Expand {{label}}"
 
 msgid "Select a country, region, district or facility"
 msgstr "Select a country, region, district or facility"
