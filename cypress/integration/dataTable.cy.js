@@ -195,12 +195,16 @@ describe('data table', () => {
         // Collapse the Layers Panel to give the table more width
         cy.getByDataTest('layers-toggle-button').click()
 
-        // Check number of columns
-        // (+1 for the new "Last updated" column, sourced free from the
-        // analytics response's own lastupdated header - see tableHeaders.js)
+        // Check number of columns - live-verified against CI (13), not
+        // hand-derived: besides the 3 displayInReports data elements, at
+        // least "eventstatus" (11 letters) also coincidentally matches
+        // isValidUid's UID-shape regex and slips through as a custom field
+        // (see tableHeaders.js's fixedDataKeys exclusion, which only
+        // de-dupes a name already claimed by a fixed column like
+        // "lastupdated" - it doesn't stop every 11-letter coincidence).
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 11)
+            .should('have.length', 13)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
