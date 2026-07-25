@@ -34,6 +34,20 @@ export const isDateGroupFilter = (filter) =>
 export const isOrgUnitGroupFilter = (filter) =>
     isPrefixGroupFilter(filter, ORG_UNIT_GROUPS_GRANULARITY)
 
+// A committed free-text search on an org-unit-flavored plain-text column
+// (see FilterInput.jsx's applyCustomFilter) - the search text is resolved
+// to matching raw stored values up front, at commit time, so the stored
+// filter is always a plain list of raw values. That keeps matching
+// consistent everywhere `filterData` is called (the data table AND every
+// map layer, which filter the same `dataFilters` state independently and
+// have no access to the id->name resolution used to interpret typed text).
+export const isOrgUnitValueFilter = (filter) =>
+    filter != null &&
+    typeof filter === 'object' &&
+    !Array.isArray(filter) &&
+    Array.isArray(filter.values) &&
+    filter.searchDerived === true
+
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
     if (!filters) {
@@ -55,10 +69,15 @@ export const filterData = (data, filters) => {
                 return prefixGroupFilter(value, filter)
             }
 
+            const stringValue =
+                value == null ? SENTINEL_NO_VALUE : String(value)
+
+            if (isOrgUnitValueFilter(filter)) {
+                return filter.values.includes(stringValue)
+            }
+
             if (Array.isArray(filter)) {
                 // Multi-select: OR match against the raw stored value
-                const stringValue =
-                    value == null ? SENTINEL_NO_VALUE : String(value)
                 return (
                     filter.length === 0 ||
                     filter.includes(stringValue) ||

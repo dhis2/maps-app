@@ -57,6 +57,13 @@ const HELP_CONTENT = (
 )
 const INDENT_PX = 16
 
+const getAppliedString = (filterValue) => {
+    if (isOrgUnitGroupFilter(filterValue)) {
+        return filterValue.searchDerived ? filterValue.searchText : ''
+    }
+    return typeof filterValue === 'string' ? filterValue : ''
+}
+
 const OrgUnitGroupFilterInput = ({
     dataKey,
     name,
@@ -80,13 +87,7 @@ const OrgUnitGroupFilterInput = ({
         isOrgUnitGroupFilter(filterValue) && !filterValue.searchDerived
             ? filterValue.prefixes
             : []
-    const appliedString = isOrgUnitGroupFilter(filterValue)
-        ? filterValue.searchDerived
-            ? filterValue.searchText
-            : ''
-        : typeof filterValue === 'string'
-        ? filterValue
-        : ''
+    const appliedString = getAppliedString(filterValue)
     const anyValueActive = selectedPrefixes.includes(SENTINEL_ANY_VALUE)
     const notSetActive = selectedPrefixes.includes(SENTINEL_NO_VALUE)
     const treePrefixes = selectedPrefixes.filter(

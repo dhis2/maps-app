@@ -7,7 +7,10 @@ import {
     DATA_FILTER_SET,
     DATA_FILTER_CLEAR,
 } from '../../../constants/actionTypes.js'
-import { SENTINEL_ANY_VALUE } from '../../../constants/dataTable.js'
+import {
+    SENTINEL_ANY_VALUE,
+    RENDERER_ORG_UNIT_NAME,
+} from '../../../constants/dataTable.js'
 import useOptionSet from '../../../hooks/useOptionSet.js'
 import FilterInput from '../FilterInput.jsx'
 
@@ -459,6 +462,90 @@ describe('FilterInput searchable popover — custom filter row', () => {
             layerId: 'layer1',
             fieldId: 'legend',
         })
+    })
+})
+
+describe('FilterInput searchable popover — org-unit-flavored plain-text column', () => {
+    const options = [{ value: 'facility1' }, { value: 'facility2' }]
+    const orgUnitIdToName = new Map([
+        ['facility1', 'Moyowa CHC'],
+        ['facility2', 'Tihun CHC'],
+    ])
+
+    // "Org unit" (and any custom ORGANISATION_UNIT-valued field) stores a
+    // raw path/id but is filtered via the plain "Contains" box, unlike the
+    // tree-filterable "Org unit hierarchy" column - typing a name must still
+    // resolve to the matching raw value(s) up front, not commit the typed
+    // text itself, so that map layers (which match dataFilters against the
+    // raw stored value with no name resolution of their own) stay in sync
+    // with what the table shows.
+    test('resolves typed text to the matching raw value(s), not the raw typed text', () => {
+        const { store } = renderFilterInput({
+            dataKey: 'orgUnitOwn',
+            name: 'Org unit',
+            renderer: RENDERER_ORG_UNIT_NAME,
+            options,
+            orgUnitIdToName,
+        })
+        openPopover('Org unit')
+        fireEvent.change(getInput('Org unit'), {
+            target: { value: 'Moyowa' },
+        })
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'orgUnitOwn',
+            filter: {
+                values: ['facility1'],
+                searchDerived: true,
+                searchText: 'Moyowa',
+            },
+        })
+    })
+
+    test('resolves to an empty values list (matches nothing) rather than falling back to raw-text matching', () => {
+        const { store } = renderFilterInput({
+            dataKey: 'orgUnitOwn',
+            name: 'Org unit',
+            renderer: RENDERER_ORG_UNIT_NAME,
+            options,
+            orgUnitIdToName,
+        })
+        openPopover('Org unit')
+        fireEvent.change(getInput('Org unit'), {
+            target: { value: 'no such place' },
+        })
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'orgUnitOwn',
+            filter: {
+                values: [],
+                searchDerived: true,
+                searchText: 'no such place',
+            },
+        })
+    })
+
+    test('does not show any checkbox as checked while the search-derived filter is active', () => {
+        renderFilterInput(
+            {
+                dataKey: 'orgUnitOwn',
+                name: 'Org unit',
+                renderer: RENDERER_ORG_UNIT_NAME,
+                options,
+                orgUnitIdToName,
+            },
+            {
+                orgUnitOwn: {
+                    values: ['facility1'],
+                    searchDerived: true,
+                    searchText: 'Moyowa',
+                },
+            }
+        )
+        openPopover('Org unit')
+        expect(screen.getByLabelText('Moyowa CHC')).not.toBeChecked()
     })
 })
 
