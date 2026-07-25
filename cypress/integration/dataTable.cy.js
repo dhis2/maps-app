@@ -196,9 +196,11 @@ describe('data table', () => {
         cy.getByDataTest('layers-toggle-button').click()
 
         // Check number of columns
+        // (+1 for the new "Last updated" column, sourced free from the
+        // analytics response's own lastupdated header - see tableHeaders.js)
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 10)
+            .should('have.length', 11)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
@@ -260,6 +262,10 @@ describe('data table', () => {
 
         // Confirm that the rows are sorted by Age in years ascending
         // (the first click on a new column always sorts ascending)
+        // NOTE: this column index predates this session's org-unit-column
+        // and "Last updated" column additions and was never re-verified
+        // against a live instance (no working local Cypress in this sandbox)
+        // - it is very likely stale. Re-check against a real run.
         checkTableCell({ row: 0, column: 7, expectedContent: '6' })
         checkTableCell({ row: 1, column: 7, expectedContent: '32' })
 

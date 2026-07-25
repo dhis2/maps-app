@@ -35,6 +35,7 @@ import {
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_DATE,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
@@ -48,7 +49,11 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
-import { formatDate, formatDatetime } from '../../util/helpers.js'
+import {
+    formatBoolean,
+    formatDate,
+    formatDatetime,
+} from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import {
     formatOrgUnitOwnName,
@@ -639,6 +644,8 @@ const Table = ({
                                     renderer === RENDERER_ORG_UNIT
                                 const isOrgUnitNameCell =
                                     renderer === RENDERER_ORG_UNIT_NAME
+                                const isBooleanCell =
+                                    renderer === RENDERER_BOOLEAN
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -696,11 +703,15 @@ const Table = ({
                                                 value,
                                                 orgUnitIdToName
                                             )}
+                                        {isBooleanCell &&
+                                            value != null &&
+                                            formatBoolean(value)}
                                         {!isColorCell &&
                                             !isIconCell &&
                                             !isDateCell &&
                                             !isOrgUnitHierarchyCell &&
                                             !isOrgUnitNameCell &&
+                                            !isBooleanCell &&
                                             formatWithSeparator(
                                                 value,
                                                 keyAnalysisDigitGroupSeparator

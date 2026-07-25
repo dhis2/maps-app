@@ -10,6 +10,7 @@ import {
 import {
     SENTINEL_ANY_VALUE,
     RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
 } from '../../../constants/dataTable.js'
 import useOptionSet from '../../../hooks/useOptionSet.js'
 import FilterInput from '../FilterInput.jsx'
@@ -242,6 +243,29 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         })
         openPopover('Legend')
         expect(screen.getByLabelText('1000')).toBeInTheDocument()
+    })
+
+    test("renders a boolean column's raw values as Yes/No checkbox labels", () => {
+        const { store } = renderFilterInput({
+            dataKey: 'followUp',
+            name: 'Follow-up',
+            renderer: RENDERER_BOOLEAN,
+            options: [{ value: '1' }, { value: '0' }],
+        })
+        openPopover('Follow-up')
+        const yes = screen.getByLabelText('Yes')
+        const no = screen.getByLabelText('No')
+        expect(yes).toBeInTheDocument()
+        expect(no).toBeInTheDocument()
+        // The underlying dispatched filter value stays the raw stored
+        // string - only the checkbox label is reformatted for display.
+        fireEvent.click(yes)
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'followUp',
+            filter: ['1'],
+        })
     })
 })
 
