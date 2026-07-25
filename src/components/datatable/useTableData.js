@@ -303,7 +303,13 @@ export const useTableData = ({
 
         // Sort
         filteredData.sort((a, b) =>
-            compareRows(a, b, { sortField, sortDirection, selectedIdSet })
+            compareRows(a, b, {
+                sortField,
+                sortDirection,
+                selectedIdSet,
+                orgUnitRenderer: sortFieldRenderer,
+                idToName: orgUnitIdToName,
+            })
         )
 
         return filteredData.map((item) => buildRowCells(item, headers))
