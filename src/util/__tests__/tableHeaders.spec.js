@@ -156,15 +156,7 @@ describe('getHeadersForLayer - event', () => {
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
         expect(typeOf('a1b2c3d4e5f')).toBe(TYPE_DATE)
         expect(typeOf('b2c3d4e5f6a')).toBe(TYPE_STRING)
-        // Unlike a tracked entity attribute, the events analytics query
-        // always resolves an ORGANISATION_UNIT-valued data element to its
-        // display name server-side - there's no id left to build a tree
-        // filter from, so it stays plain text. The cell renderer still
-        // applies (a harmless no-op here, since the value is already a name).
         expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
-        // A boolean also stays plain text - its 2-3 distinct raw values
-        // already drive a sensible checkbox filter; only the renderer
-        // changes, to format cells/checkbox labels as Yes/No.
         expect(typeOf('d4e5f6a7b8c')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
         expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
@@ -335,8 +327,6 @@ describe('getHeadersForLayer - tracked entity', () => {
         expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
         expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
-        // Plain text now (no tree filter), but the cell renderer still
-        // resolves the tracker API's raw bare id to a readable name.
         expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
         expect(typeOf('d4e5f6a7b8c')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)

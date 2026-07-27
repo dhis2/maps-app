@@ -2,9 +2,6 @@ import { renderHook, waitFor } from '@testing-library/react'
 import { fetchOrgUnitPathDetails } from '../../util/orgUnits.js'
 import useOrgUnitAncestorNames from '../useOrgUnitAncestorNames.js'
 
-// A stable reference, matching the real useDataEngine's contract - an
-// unstable mock (a fresh object per call) would retrigger the hook's effect
-// on every state update it causes, since `engine` is one of its deps
 jest.mock('@dhis2/app-runtime', () => ({
     useDataEngine: () => mockEngine,
 }))

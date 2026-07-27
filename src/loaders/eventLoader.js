@@ -47,9 +47,6 @@ import { isValidUid } from '../util/uid.js'
 const getEventOuId = (feature) =>
     feature.properties?.ou ?? feature.properties?.['Organisation unit']
 
-// Attaches each event's org unit ancestor path (data table "Org unit
-// hierarchy" column) - see util/orgUnits.js's attachOrgUnitPaths, shared
-// with trackedEntityLoader.js.
 export const attachOrgUnitPaths = async ({ config, engine }) => {
     if (!config.data?.length) {
         return

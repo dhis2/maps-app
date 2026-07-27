@@ -41,14 +41,6 @@ import { isValidUid } from './uid.js'
 
 export { TYPE_NUMBER, TYPE_STRING, TYPE_DATE, TYPE_DATETIME, TYPE_TIME }
 
-// A custom ORGANISATION_UNIT-valued field is always plain text, on both
-// Event and Tracked Entity layers: the events analytics query always
-// resolves it to a display name server-side (a hardcoded `_name` column
-// select - no outputIdScheme param can change this), and tracker attribute
-// values are a bare id with no ancestor chain to reverse-resolve safely
-// (org unit names aren't guaranteed unique). Either way there's no reliable
-// path/ancestor data to build a tree filter from - only "Org unit
-// hierarchy" (the layer's own org unit) gets that treatment.
 const getCustomFieldType = (valueType, hasOptionSet) => {
     if (hasOptionSet) {
         return TYPE_STRING
@@ -70,12 +62,6 @@ const getCustomFieldType = (valueType, hasOptionSet) => {
 
 const DATE_LIKE_TYPES = new Set([TYPE_DATE, TYPE_DATETIME, TYPE_TIME])
 
-// Keyed off valueType (not the column's TYPE_STRING type) so an
-// ORGANISATION_UNIT-valued field's cell still resolves to a readable name:
-// a real id->name lookup for tracker-sourced (Tracked Entity) values, and a
-// harmless no-op for analytics-sourced (Event) values that are already a
-// name (formatOrgUnitPathBreadcrumb falls back to the raw string when it
-// finds no matching id in idToName).
 const getCustomFieldRenderer = (type, valueType) => {
     if (DATE_LIKE_TYPES.has(type)) {
         return RENDERER_DATE
@@ -274,10 +260,8 @@ const getEventHeaders = ({
         fields.push(defaultFieldsMap()[OUBOUNDARY])
     }
 
-    // A handful of the analytics response's own fixed column names (e.g.
-    // "lastupdated", "eventstatus") happen to be 11 letters, the same shape
-    // isValidUid checks for - excluding whatever dataKey a fixed field above
-    // already claims prevents a coincidental duplicate column.
+    // A handful of the analytics response's own fixed column names
+    // (e.g. "lastupdated", "eventstatus") happen to be 11 letters
     const fixedDataKeys = new Set(fields.map((f) => f.dataKey))
 
     const customFields = layerHeaders
