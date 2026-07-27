@@ -48,14 +48,20 @@ const getEventOuId = (feature) =>
     feature.properties?.ou ?? feature.properties?.['Organisation unit']
 
 export const attachOrgUnitPaths = async ({ config, engine }) => {
-    if (!config.data?.length) {
-        return
+    if (config.data?.length) {
+        config.data = await attachOrgUnitPathsUtil(
+            config.data,
+            engine,
+            getEventOuId
+        )
     }
-    config.data = await attachOrgUnitPathsUtil(
-        config.data,
-        engine,
-        getEventOuId
-    )
+    if (config.dataWithoutCoords?.length) {
+        config.dataWithoutCoords = await attachOrgUnitPathsUtil(
+            config.dataWithoutCoords,
+            engine,
+            getEventOuId
+        )
+    }
 }
 
 // Expands USER_ORGUNIT/_CHILDREN/_GRANDCHILDREN into ids; [id] if literal.
