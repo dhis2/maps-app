@@ -11,7 +11,6 @@ import {
     fetchAndParseGroupSet,
     loadGroupSetData,
     getUserOrgUnitIdsByKeyword,
-    fetchOrgUnitDetails,
     fetchOrgUnitPaths,
     fetchOrgUnitPathDetails,
     attachOrgUnitPaths,
@@ -63,15 +62,7 @@ describe('getUserOrgUnitIdsByKeyword', () => {
     })
 })
 
-describe('fetchOrgUnitDetails / fetchOrgUnitPaths error handling', () => {
-    it('fetchOrgUnitDetails returns an empty object when the query fails', async () => {
-        const engine = {
-            query: jest.fn().mockRejectedValue(new Error('Network error')),
-        }
-        const result = await fetchOrgUnitDetails(engine, ['ou1'])
-        expect(result).toEqual({})
-    })
-
+describe('fetchOrgUnitPaths error handling', () => {
     it('fetchOrgUnitPaths returns an empty array when the query fails', async () => {
         const engine = {
             query: jest.fn().mockRejectedValue(new Error('Network error')),

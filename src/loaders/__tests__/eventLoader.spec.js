@@ -786,6 +786,26 @@ describe('attachOrgUnitPaths', () => {
 
         expect(engine.query).not.toHaveBeenCalled()
     })
+
+    test('also attaches org unit paths to dataWithoutCoords, so those rows get the same table columns as the main dataset', async () => {
+        const engine = makeEngine({
+            orgUnitPathsById: {
+                fac1: '/country1/region1/fac1',
+                fac3: '/country1/region3/fac3',
+            },
+        })
+        const config = makeConfig([], [pointFeature('fac1', [5, 5])])
+        config.dataWithoutCoords = [
+            { properties: { ou: 'fac3' } },
+            { properties: { ou: 'fac3' } },
+        ]
+
+        await attachOrgUnitPaths({ config, engine })
+
+        expect(
+            config.dataWithoutCoords.map((d) => d.properties.orgUnitPath)
+        ).toEqual(['/country1/region3/fac3', '/country1/region3/fac3'])
+    })
 })
 
 describe('shouldUseServerCluster', () => {
