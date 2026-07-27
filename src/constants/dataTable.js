@@ -22,12 +22,7 @@ export const TYPE_ORG_UNIT = 'orgUnit'
 export const DATE_GROUPS_GRANULARITY = 'date-groups'
 export const ORG_UNIT_GROUPS_GRANULARITY = 'org-unit-groups'
 
-// Full ancestor path (breadcrumb renderer) - "Org unit hierarchy" column
 export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
-// Same path value as ORG_UNIT_PATH_DATA_KEY, rendered as the leaf name only - "Org unit" column
 export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
-// The layer's own org unit's bare id - "Org unit Id" column (Event/Tracked entity layers only,
-// whose own "Id" field is the event/tracked-entity id, not the org unit id)
 export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
-// The org unit's own hierarchy depth (1 = country, 2 = region, ...) - "Org unit level" column
 export const ORG_UNIT_LEVEL_DATA_KEY = 'level'

@@ -85,8 +85,7 @@ describe('data table', () => {
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 10)
 
-        // Filter by name (the "Name" column was renamed "Org unit" and moved
-        // to column 2 - "Org unit Id" (the row's own id) is now column 1)
+        // Filter by Org unit
         cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
             .type('bar{enter}')
@@ -132,8 +131,6 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that the rows are sorted by Value ascending
-        // ("Value" moved from column 3 to column 5: Org unit Id, Org unit,
-        // Org unit level and Org unit hierarchy now precede it)
         checkTableCell({ row: 0, column: 5, expectedContent: '35' })
         checkTableCell({ row: 4, column: 5, expectedContent: '76' })
 
@@ -196,13 +193,7 @@ describe('data table', () => {
         // Collapse the Layers Panel to give the table more width
         cy.getByDataTest('layers-toggle-button').click()
 
-        // Check number of columns - live-verified against CI (13), not
-        // hand-derived: besides the 3 displayInReports data elements, at
-        // least "eventstatus" (11 letters) also coincidentally matches
-        // isValidUid's UID-shape regex and slips through as a custom field
-        // (see tableHeaders.js's fixedDataKeys exclusion, which only
-        // de-dupes a name already claimed by a fixed column like
-        // "lastupdated" - it doesn't stop every 11-letter coincidence).
+        // Check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 13)
@@ -219,8 +210,6 @@ describe('data table', () => {
             .type(`${ouName}{enter}`)
 
         // Check that all the rows have Org unit Moyowa
-        // ("Org unit" moved from column 1 to column 3 - "Event Id" and the
-        // new "Org unit Id" column now precede it)
         checkTableCell({ row: 0, column: 3, expectedContent: ouName })
         checkTableCell({ row: 2, column: 3, expectedContent: ouName })
 
@@ -267,10 +256,6 @@ describe('data table', () => {
 
         // Confirm that the rows are sorted by Age in years ascending
         // (the first click on a new column always sorts ascending)
-        // NOTE: this column index predates this session's org-unit-column
-        // and "Last updated" column additions and was never re-verified
-        // against a live instance (no working local Cypress in this sandbox)
-        // - it is very likely stale. Re-check against a real run.
         checkTableCell({ row: 0, column: 10, expectedContent: '6' })
         checkTableCell({ row: 1, column: 10, expectedContent: '32' })
 
@@ -333,8 +318,6 @@ describe('data table', () => {
         cy.getByDataTest('layers-toggle-button').click()
 
         // Confirm that the sort order is initially ascending by Name
-        // ("Name" is now the "Org unit" column, at index 2 - "Org unit Id"
-        // (the row's own id) is column 1)
         checkTableCell({ row: 0, column: 2, expectedContent: 'Bendu CHC' })
 
         // First click on a new column always sorts ascending
@@ -344,8 +327,6 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that first row has Tihun CHC with value 28.63
-        // ("Value" moved from column 3 to column 5: Org unit Id, Org unit,
-        // Org unit level and Org unit hierarchy now precede it)
         checkTableCell({ row: 0, column: 2, expectedContent: 'Tihun CHC' })
         checkTableCell({ row: 0, column: 5, expectedContent: '28.63' })
 
@@ -378,8 +359,6 @@ describe('data table', () => {
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value is empty
-        // ("Range" moved from column 8 to column 7: Value now precedes
-        // Legend/Range/Color instead of following Name/Id/Value/Level/Parent)
         checkTableCell({ row: 0, column: 7, expectedContent: '' })
 
         // Sort by range, which is a string

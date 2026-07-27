@@ -80,8 +80,6 @@ describe('compareFieldValues', () => {
     })
 
     describe('org-unit-renderer columns - sorts by the resolved display name, not the raw stored path/id', () => {
-        // Deliberately opposite of alphabetical-by-name, so a test that
-        // still passed on the raw id would prove the fix does nothing.
         const idToName = new Map([
             ['country1', 'Sierra Leone'],
             ['zFacility', 'Bargbe'],
@@ -89,7 +87,6 @@ describe('compareFieldValues', () => {
         ])
 
         it('RENDERER_ORG_UNIT_NAME: compares the resolved leaf name, not the raw id', () => {
-            // Raw ids alone would sort the other way ("aFacility" < "zFacility")
             expect(
                 compareFieldValues(
                     '/country1/aFacility',

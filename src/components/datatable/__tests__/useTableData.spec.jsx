@@ -594,11 +594,6 @@ describe('useTableData headers', () => {
                 renderer: 'renderdate',
             },
             {
-                // A fixed column now, not a coincidental customFields match
-                // (see tableHeaders.js's fixedDataKeys exclusion) - the raw
-                // analytics header's own "Last updated on" label is no
-                // longer used, this is the same fixed name/type/renderer
-                // Tracked Entity's "Last updated" column uses.
                 name: 'Last updated',
                 dataKey: 'lastupdated',
                 type: 'datetime',
