@@ -191,6 +191,7 @@ const BottomPanel = () => {
                 onDoubleClick={toggleCollapsed}
             >
                 <button
+                    type="button"
                     className={styles.toggleButton}
                     onClick={toggleCollapsed}
                 >
@@ -273,6 +274,7 @@ const BottomPanel = () => {
                     </Tooltip>
                 </button>
                 <button
+                    type="button"
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlySelected,
                     })}
