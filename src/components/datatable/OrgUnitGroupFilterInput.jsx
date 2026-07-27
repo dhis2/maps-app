@@ -1,12 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback } from 'react'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
-import {
-    ORG_UNIT_GROUPS_GRANULARITY,
-    SENTINEL_NO_VALUE,
-} from '../../constants/dataTable.js'
-import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
+import { ORG_UNIT_GROUPS_GRANULARITY } from '../../constants/dataTable.js'
 import { isOrgUnitGroupFilter } from '../../util/filter.js'
 import {
     buildOrgUnitGroupTree,
@@ -45,16 +41,8 @@ const OrgUnitGroupFilterInput = ({
     layerId,
     filterValue,
     options,
+    idToName,
 }) => {
-    const realValues = useMemo(
-        () =>
-            options
-                .filter(({ value }) => value !== SENTINEL_NO_VALUE)
-                .map((o) => o.value),
-        [options]
-    )
-    const { idToName } = useOrgUnitAncestorNames(realValues)
-
     const getMatches = useCallback(
         (tree, normalizedSearch) =>
             getOrgUnitSearchMatches(tree, normalizedSearch, idToName),
@@ -119,6 +107,7 @@ const OrgUnitGroupFilterInput = ({
 
 OrgUnitGroupFilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
+    idToName: PropTypes.instanceOf(Map).isRequired,
     name: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string }))
         .isRequired,

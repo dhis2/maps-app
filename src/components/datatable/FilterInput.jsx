@@ -628,6 +628,7 @@ const FilterInput = React.memo(function FilterInput({
                 layerId={layerId}
                 filterValue={filterValue}
                 options={options ?? []}
+                idToName={orgUnitIdToName}
             />
         )
     }
