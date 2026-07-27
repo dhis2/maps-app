@@ -192,9 +192,8 @@ const BottomPanel = () => {
                 className={styles.dataTableControls}
                 onDoubleClick={onControlsDoubleClick}
             >
-                <button
-                    type="button"
-                    className={styles.toggleButton}
+                <CollapseControl
+                    isCollapsed={isCollapsed}
                     onClick={toggleCollapsed}
                 />
                 <span className={styles.divider} />
@@ -217,73 +216,25 @@ const BottomPanel = () => {
                     onResize={onResize}
                     onResizeEnd={onResizeEnd}
                 />
-                {rowCountLabel && (
-                    <span className={styles.rowCount}>{rowCountLabel}</span>
-                )}
-                {hasActiveFilters && (
-                    <button
-                        type="button"
-                        className={styles.clearFiltersButton}
-                        onClick={() => {
-                            dispatch(clearDataFilters(activeLayerId))
-                            setGlobalSearch('')
-                        }}
-                    >
-                        <Tooltip content={i18n.t('Clear filters')}>
-                            <span className={styles.filteredIcon}>
-                                <IconFilter16 />
-                                <span className={styles.clearBadge} />
-                            </span>
-                        </Tooltip>
-                    </button>
-                )}
-                <Input
-                    dense
-                    dataTest="data-table-global-search"
-                    placeholder={i18n.t('Search all columns')}
-                    value={globalSearch}
-                    onChange={({ value }) => setGlobalSearch(value)}
-                    className={styles.globalSearch}
-                    onDoubleClick={(e) => e.stopPropagation()}
+                <RowCountControl
+                    totalCount={totalCount}
+                    filteredCount={filteredCount}
                 />
-                <button
-                    type="button"
-                    className={cx(styles.toggleButton, {
-                        [styles.active]: showOnlyFeaturesInView,
-                    })}
-                    onClick={() => dispatch(toggleShowOnlyFeaturesInView())}
-                >
-                    <Tooltip
-                        content={i18n.t(
-                            'Show only features in current map view'
-                        )}
-                        placement="top"
-                    >
-                        <span className={styles.alignIcon1}>
-                            <IconEmptyFrame16 />
-                        </span>
-                    </Tooltip>
-                </button>
-                <Tooltip content={i18n.t('Highlight color')}>
-                    <ColorPicker
-                        className={styles.highlightColorPicker}
-                        color={highlightColor}
-                        width={18}
-                        height={18}
-                        centerIcon
-                        onChange={(color) => dispatch(setHighlightColor(color))}
-                    />
-                </Tooltip>
-                <button
-                    className={styles.closeIcon}
-                    onClick={() => dispatch(closeDataTable())}
-                >
-                    <Tooltip content={i18n.t('Close')} placement="top">
-                        <span className={styles.alignIcon1}>
-                            <IconCross16 />
-                        </span>
-                    </Tooltip>
-                </button>
+                <span className={styles.divider} />
+                <ClearFiltersControl
+                    disabled={!hasActiveFilters}
+                    onClick={onClearFilters}
+                />
+                <GlobalSearchControl
+                    value={globalSearch}
+                    onChange={setGlobalSearch}
+                />
+                <ShowInViewControl
+                    active={showOnlyFeaturesInView}
+                    onClick={onToggleShowOnlyFeaturesInView}
+                />
+                <span className={styles.divider} />
+                <CloseControl onClick={onCloseDataTable} />
             </div>
             {!isCollapsed && (
                 <div className={styles.tableContainer}>
