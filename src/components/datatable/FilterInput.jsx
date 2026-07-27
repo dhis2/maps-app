@@ -124,12 +124,6 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     const isOrgUnitRenderer =
         renderer === RENDERER_ORG_UNIT || renderer === RENDERER_ORG_UNIT_NAME
 
-    // For an org-unit-flavored column, the typed text is a name but the
-    // stored value is a raw path/id - resolve it to the matching raw values
-    // up front, so the filter itself is always raw-value based. That keeps
-    // matching consistent between the data table and every map layer, which
-    // filter this same `dataFilters` state independently (see filter.js's
-    // isOrgUnitValueFilter) and have no id->name resolution of their own.
     const applyCustomFilter = (text) => {
         if (!text) {
             dispatch(clearDataFilter(layerId, dataKey))

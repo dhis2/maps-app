@@ -65,10 +65,6 @@ export const compareRangeValues = (aVal, bVal, sortDirection) => {
 
 const isNoValue = (val) => val === undefined || val === null
 
-// An org-unit-renderer column's raw stored value is a path/id, not the name
-// actually displayed in the cell - sorting by the raw value would order rows
-// by that path/id instead of what's shown. Resolve it the same way the cell
-// itself does (DataTable.jsx) before comparing.
 const resolveSortText = (value, renderer, idToName) => {
     if (renderer === RENDERER_ORG_UNIT) {
         return formatOrgUnitPathBreadcrumb(value, idToName)

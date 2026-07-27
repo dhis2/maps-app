@@ -2,12 +2,6 @@ import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useMemo, useState } from 'react'
 import { fetchOrgUnitPathDetails } from '../util/orgUnits.js'
 
-// Resolves the distinct ancestor ids across a set of org-unit path values
-// (e.g. '/ImspTQPwCqd/O6uvpzGd5pu') to real display names, batched in one
-// bulk request. Ids are not human-readable on their own - unlike the date
-// tree, an org unit's raw value doesn't self-describe its label. Callers
-// (the table cell renderer and OrgUnitGroupFilterInput.jsx) render the raw
-// id as a placeholder until `idToName` resolves, rather than blocking.
 const useOrgUnitAncestorNames = (distinctPathValues) => {
     const engine = useDataEngine()
     const ids = useMemo(
@@ -43,8 +37,8 @@ const useOrgUnitAncestorNames = (distinctPathValues) => {
         return () => {
             cancelled = true
         }
-        // idsKey is the stable, content-based dependency - `ids` is a new
-        // array identity every render
+        // idsKey is the stable, content-based dependency
+        // `ids` is a new array identity every render
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [engine, idsKey])
 

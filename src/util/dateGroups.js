@@ -46,13 +46,6 @@ const getOrCreateNode = (childMap, { key, level, label }) => {
     return node
 }
 
-// Preserves encounter order rather than re-sorting: buildDateGroupTree's
-// caller (DateGroupFilterInput.jsx) always receives values already ordered
-// to match the column's current sort direction (see useTableData.js's
-// columnOptions) - walking them in that order naturally reproduces the same
-// ascending/descending order at every level of the tree, so the popover's
-// checkbox order stays consistent with the column header's sort, just like
-// every other filter popover's option list already does.
 const sortedNodes = (childMap) =>
     Array.from(childMap.values()).map((node) => ({
         key: node.key,

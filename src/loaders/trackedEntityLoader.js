@@ -116,12 +116,6 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-// Resolves an option-set-coded attribute value to its display name, mirroring
-// the load-time resolution eventLoader.js/util/geojson.js already does for
-// events (via the analytics response's metaData.items) - option codes never
-// come with a name attached on tracker/trackedEntities' attribute values, so
-// the caller must fetch and pass the code->name lookups separately (see
-// fetchOptionSetIdByAttribute/fetchOptionNamesByOptionSet below).
 export const getAttributeProperties = (
     attributes,
     optionSetIdByAttribute,
@@ -185,12 +179,6 @@ export const toGeoJson = (
         })
     )
 
-// Learns each attribute's option set id from trackedEntityType/program
-// metadata - tracker/trackedEntities' own attribute values never carry it
-// (optionSet lives on the trackedEntityAttribute metadata object, a separate
-// resource). Same query constants and merge-by-id logic as
-// TrackedEntityLayer.jsx's loadDisplayAttributes, reused here for the data
-// table instead of the map popup/marker display.
 const fetchOptionSetIdByAttribute = async (
     engine,
     { trackedEntityType, program }
@@ -226,8 +214,6 @@ const fetchOptionSetIdByAttribute = async (
     )
 }
 
-// Bulk-fetches each distinct option set's code->name lookup, only for option
-// sets actually referenced by attributes present in the loaded instances.
 const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
     const entries = await Promise.all(
         optionSetIds.map(async (id) => {

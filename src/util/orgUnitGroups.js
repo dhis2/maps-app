@@ -7,13 +7,6 @@ const getOrCreateNode = (childMap, { key, prefix, ouLevel }) => {
     return node
 }
 
-// Preserves encounter order rather than re-sorting: buildOrgUnitGroupTree's
-// caller (OrgUnitGroupFilterInput.jsx) always receives pathValues already
-// ordered to match the column's current sort direction (see useTableData.js's
-// columnOptions) - walking them in that order naturally reproduces the same
-// ascending/descending order at every level of the tree, so the popover's
-// checkbox order stays consistent with the column header's sort, just like
-// every other filter popover's option list already does.
 const sortedNodes = (childMap) =>
     Array.from(childMap.values()).map((node) => ({
         key: node.key,
@@ -23,15 +16,6 @@ const sortedNodes = (childMap) =>
         children: sortedNodes(node.childMap),
     }))
 
-// Builds an ancestor-path tree (Country -> Region -> District -> Facility,
-// or however many levels a given path has) from a column's flat distinct
-// full-path values (e.g. '/ImspTQPwCqd/O6uvpzGd5pu/lc3eMKXaEfw'). Unlike
-// dateGroups.js's tree, an org unit's own id is naturally the tree's leaf -
-// no separate terminal "value" node is needed, since the path's last
-// segment already is the selectable unit. `name` starts null on every node;
-// callers resolve it asynchronously and re-render (see
-// src/hooks/useOrgUnitAncestorNames.js), falling back to the raw id label
-// until then.
 export const buildOrgUnitGroupTree = (pathValues) => {
     const rootMap = new Map()
 

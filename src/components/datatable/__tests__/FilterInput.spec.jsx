@@ -257,8 +257,7 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         const no = screen.getByLabelText('No')
         expect(yes).toBeInTheDocument()
         expect(no).toBeInTheDocument()
-        // The underlying dispatched filter value stays the raw stored
-        // string - only the checkbox label is reformatted for display.
+        // The underlying dispatched filter value stays the raw stored string
         fireEvent.click(yes)
         expect(store.getActions()).toContainEqual({
             type: DATA_FILTER_SET,
@@ -496,13 +495,6 @@ describe('FilterInput searchable popover — org-unit-flavored plain-text column
         ['facility2', 'Tihun CHC'],
     ])
 
-    // "Org unit" (and any custom ORGANISATION_UNIT-valued field) stores a
-    // raw path/id but is filtered via the plain "Contains" box, unlike the
-    // tree-filterable "Org unit hierarchy" column - typing a name must still
-    // resolve to the matching raw value(s) up front, not commit the typed
-    // text itself, so that map layers (which match dataFilters against the
-    // raw stored value with no name resolution of their own) stay in sync
-    // with what the table shows.
     test('resolves typed text to the matching raw value(s), not the raw typed text', () => {
         const { store } = renderFilterInput({
             dataKey: 'orgUnitOwn',

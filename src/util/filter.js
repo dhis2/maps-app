@@ -34,13 +34,6 @@ export const isDateGroupFilter = (filter) =>
 export const isOrgUnitGroupFilter = (filter) =>
     isPrefixGroupFilter(filter, ORG_UNIT_GROUPS_GRANULARITY)
 
-// A committed free-text search on an org-unit-flavored plain-text column
-// (see FilterInput.jsx's applyCustomFilter) - the search text is resolved
-// to matching raw stored values up front, at commit time, so the stored
-// filter is always a plain list of raw values. That keeps matching
-// consistent everywhere `filterData` is called (the data table AND every
-// map layer, which filter the same `dataFilters` state independently and
-// have no access to the id->name resolution used to interpret typed text).
 export const isOrgUnitValueFilter = (filter) =>
     filter != null &&
     typeof filter === 'object' &&
