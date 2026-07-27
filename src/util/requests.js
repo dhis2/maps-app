@@ -178,17 +178,6 @@ export const ORG_UNITS_COUNT_QUERY = {
     },
 }
 
-export const ORG_UNIT_DETAILS_QUERY = {
-    orgUnits: {
-        resource: 'organisationUnits',
-        params: ({ ids }) => ({
-            filter: `id:in:[${ids.join(',')}]`,
-            fields: 'id,level,parent[displayName~rename(name)]',
-            paging: false,
-        }),
-    },
-}
-
 export const ORG_UNIT_PATH_DETAILS_QUERY = {
     orgUnits: {
         resource: 'organisationUnits',
