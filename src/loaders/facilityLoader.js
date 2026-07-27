@@ -21,7 +21,7 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-const applyMissingCoordsCount = async (
+export const applyMissingCoordsCount = async (
     config,
     { engine, orgUnitIds, userId, features, legend, alerts }
 ) => {
