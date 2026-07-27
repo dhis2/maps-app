@@ -101,7 +101,8 @@ describe('data table', () => {
         checkTableCell({ row: 0, column: 2, expectedContent: 'Bargbe' })
         checkTableCell({ row: 6, column: 2, expectedContent: 'Upper Bambara' })
 
-        // Sort by name
+        // Sort by name (descending)
+        cy.getByDataTest('data-table-column-sort-button-Org unit').click()
         cy.getByDataTest('data-table-column-sort-button-Org unit').click()
 
         // Sorting can shift the virtualized table's scroll position
@@ -270,8 +271,8 @@ describe('data table', () => {
         // and "Last updated" column additions and was never re-verified
         // against a live instance (no working local Cypress in this sandbox)
         // - it is very likely stale. Re-check against a real run.
-        checkTableCell({ row: 0, column: 7, expectedContent: '6' })
-        checkTableCell({ row: 1, column: 7, expectedContent: '32' })
+        checkTableCell({ row: 0, column: 10, expectedContent: '6' })
+        checkTableCell({ row: 1, column: 10, expectedContent: '32' })
 
         // Right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
