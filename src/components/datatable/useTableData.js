@@ -239,11 +239,6 @@ export const useTableData = ({
         return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
     }, [columnDistinctValues, sortField, sortDirection])
 
-    // Every column whose cell needs an id/path resolved to a readable name -
-    // "Org unit hierarchy" (tree-filterable) plus "Org unit" and any custom
-    // ORGANISATION_UNIT-valued field (plain-text filterable, but their
-    // cells still resolve for display) - keyed by renderer rather than
-    // type, since only the hierarchy column is still TYPE_ORG_UNIT.
     const orgUnitPathValues = useMemo(
         () =>
             (headers ?? [])
