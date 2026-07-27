@@ -165,7 +165,7 @@ describe('data table', () => {
         assertMapPosition(expectedBottoms1, expectedHeights1)
     })
 
-    it('opens the data table for an Event layer', () => {
+    it('opens data table for an Event layer', () => {
         cy.visit('/')
 
         const EvenLayer = new EventLayer()
