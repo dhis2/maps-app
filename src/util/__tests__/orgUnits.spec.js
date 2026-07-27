@@ -137,6 +137,15 @@ describe('fetchOrgUnitDetails / fetchOrgUnitPaths error handling', () => {
             ou2: { name: 'Bo', level: 2 },
         })
     })
+
+    it('fetchOrgUnitPathDetails threads nameProperty through to the query fields', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({ orgUnits: {} }),
+        }
+        await fetchOrgUnitPathDetails(engine, ['ou1'], 'displayShortName')
+        const [, { variables }] = engine.query.mock.calls[0]
+        expect(variables.nameProperty).toBe('displayShortName')
+    })
 })
 
 describe('attachOrgUnitPaths', () => {

@@ -7,6 +7,10 @@ jest.mock('@dhis2/app-runtime', () => ({
 }))
 const mockEngine = {}
 
+jest.mock('../../components/cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: () => ({ nameProperty: 'displayShortName' }),
+}))
+
 jest.mock('../../util/orgUnits.js', () => ({
     fetchOrgUnitPathDetails: jest.fn(),
 }))
@@ -40,7 +44,8 @@ describe('useOrgUnitAncestorNames', () => {
                 'facility1',
                 'region2',
                 'facility2',
-            ])
+            ]),
+            'displayShortName'
         )
     })
 

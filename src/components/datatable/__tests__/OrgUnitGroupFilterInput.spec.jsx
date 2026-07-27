@@ -12,13 +12,7 @@ import {
     SENTINEL_NO_VALUE,
     ORG_UNIT_GROUPS_GRANULARITY,
 } from '../../../constants/dataTable.js'
-import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import OrgUnitGroupFilterInput from '../OrgUnitGroupFilterInput.jsx'
-
-jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
-    __esModule: true,
-    default: jest.fn(),
-}))
 
 const mockStore = configureMockStore()
 
@@ -40,6 +34,7 @@ const renderOrgUnitGroupFilter = (props) => {
                     name="Org unit"
                     layerId="layer1"
                     options={ORG_UNIT_VALUES}
+                    idToName={new Map()}
                     {...props}
                 />
             </VirtuosoMockContext.Provider>
@@ -54,13 +49,6 @@ const getInput = () =>
         .querySelector('input')
 
 const openPopover = () => fireEvent.focus(getInput())
-
-beforeEach(() => {
-    useOrgUnitAncestorNames.mockReturnValue({
-        idToName: new Map(),
-        loading: false,
-    })
-})
 
 describe('OrgUnitGroupFilterInput - default (collapsed) tree', () => {
     test('shows only root nodes by default', () => {
@@ -107,11 +95,9 @@ describe('OrgUnitGroupFilterInput - label resolution', () => {
     })
 
     test('shows the resolved name once idToName has it', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
+        renderOrgUnitGroupFilter({
             idToName: new Map([['country1', 'Sierra Leone']]),
-            loading: false,
         })
-        renderOrgUnitGroupFilter()
         openPopover()
         expect(screen.getByLabelText('Sierra Leone')).toBeInTheDocument()
         expect(screen.queryByLabelText('country1')).not.toBeInTheDocument()
@@ -251,11 +237,9 @@ describe('OrgUnitGroupFilterInput - search', () => {
     })
 
     test('also narrows by resolved name, not just raw id', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
+        renderOrgUnitGroupFilter({
             idToName: new Map([['country1', 'Sierra Leone']]),
-            loading: false,
         })
-        renderOrgUnitGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: 'Sierra' } })
         expect(screen.getByLabelText('Sierra Leone')).toBeInTheDocument()
@@ -280,11 +264,9 @@ describe('OrgUnitGroupFilterInput - search', () => {
     })
 
     test('committing a name-matched custom filter dispatches the matched nodes’ prefixes, not a raw substring match against the id path', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
+        const { store } = renderOrgUnitGroupFilter({
             idToName: new Map([['country1', 'Sierra Leone']]),
-            loading: false,
         })
-        const { store } = renderOrgUnitGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: 'Sierra' } })
         expect(store.getActions()).toContainEqual({
@@ -301,11 +283,8 @@ describe('OrgUnitGroupFilterInput - search', () => {
     })
 
     test('a committed name-matched search narrows the table live but does not show any checkbox as checked - same as every other column’s typed "Contains" filter', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
-            idToName: new Map([['country1', 'Sierra Leone']]),
-            loading: false,
-        })
         renderOrgUnitGroupFilter({
+            idToName: new Map([['country1', 'Sierra Leone']]),
             filterValue: {
                 granularity: ORG_UNIT_GROUPS_GRANULARITY,
                 prefixes: ['/country1'],
