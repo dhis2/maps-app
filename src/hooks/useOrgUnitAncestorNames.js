@@ -1,9 +1,11 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useEffect, useMemo, useState } from 'react'
+import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { fetchOrgUnitPathDetails } from '../util/orgUnits.js'
 
 const useOrgUnitAncestorNames = (distinctPathValues) => {
     const engine = useDataEngine()
+    const { nameProperty } = useCachedData()
     const ids = useMemo(
         () => [
             ...new Set(
@@ -25,7 +27,7 @@ const useOrgUnitAncestorNames = (distinctPathValues) => {
         }
         let cancelled = false
         setLoading(true)
-        fetchOrgUnitPathDetails(engine, ids).then((details) => {
+        fetchOrgUnitPathDetails(engine, ids, nameProperty).then((details) => {
             if (cancelled) {
                 return
             }
@@ -40,7 +42,7 @@ const useOrgUnitAncestorNames = (distinctPathValues) => {
         // idsKey is the stable, content-based dependency
         // `ids` is a new array identity every render
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [engine, idsKey])
+    }, [engine, idsKey, nameProperty])
 
     return { idToName, loading }
 }

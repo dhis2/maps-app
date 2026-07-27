@@ -358,10 +358,10 @@ export const fetchOrgUnitPaths = async (engine, ids) => {
     return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
 }
 
-export const fetchOrgUnitPathDetails = async (engine, ids) => {
+export const fetchOrgUnitPathDetails = async (engine, ids, nameProperty) => {
     const results = await fetchInBatches(engine, ids, {
         query: ORG_UNIT_PATH_DETAILS_QUERY,
-        buildVariables: (batch) => ({ ids: batch }),
+        buildVariables: (batch) => ({ ids: batch, nameProperty }),
     })
     return results.reduce((acc, result) => {
         result.orgUnits.organisationUnits?.forEach((ou) => {
