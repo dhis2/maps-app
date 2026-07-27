@@ -36,6 +36,7 @@ td.checkboxCell {
     max-width: 76px;
     text-align: center;
     padding: 0;
+    padding-top: 3px;
     vertical-align: middle;
 }
 

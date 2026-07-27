@@ -304,6 +304,9 @@ export const useTableData = ({
         }
 
         // Sort
+        const sortFieldRenderer = headers.find(
+            (h) => h.dataKey === sortField
+        )?.renderer
         filteredData.sort((a, b) =>
             compareRows(a, b, {
                 sortField,
