@@ -1,0 +1,31 @@
+.joinLayersPopover {
+    padding: var(--spacers-dp8);
+    min-width: 190px;
+    max-height: 260px;
+    overflow-y: auto;
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    box-shadow: var(--elevations-popover);
+}
+
+.layerRow {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    padding: var(--spacers-dp2) var(--spacers-dp4);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.layerRow:hover {
+    background: var(--colors-grey100);
+}
+
+.layerName {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 12px;
+}

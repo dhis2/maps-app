@@ -192,3 +192,158 @@ describe('BottomPanel tabs', () => {
         ])
     })
 })
+
+describe('BottomPanel Combined join controls', () => {
+    test('shows the join-level selector and layer picker, and hides per-layer-only controls, while Combined is active', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: twoEligibleLayers,
+        })
+
+        expect(screen.getByDisplayValue('Join by org unit')).toBeInTheDocument()
+        expect(
+            screen.getByLabelText('Choose layers to combine')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('Configure columns')
+        ).not.toBeInTheDocument()
+    })
+
+    test('offers and renders the spatial join point/polygon selects when point+polygon candidates exist', () => {
+        const pointAndPolygonLayers = [
+            {
+                id: 'points',
+                name: 'Points',
+                layer: THEMATIC_LAYER,
+                data: [{ geometry: { type: 'Point' } }],
+            },
+            {
+                id: 'polygons',
+                name: 'Polygons',
+                layer: THEMATIC_LAYER,
+                data: [{ geometry: { type: 'Polygon' } }],
+            },
+        ]
+
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['points', 'polygons'],
+                combinedView: true,
+                joinConfig: {
+                    level: 'spatial',
+                    layerIds: [],
+                    pointLayerId: null,
+                    polygonLayerId: null,
+                },
+            },
+            mapViews: pointAndPolygonLayers,
+        })
+
+        expect(
+            screen.getByText('Spatial: point inside polygon')
+        ).toBeInTheDocument()
+        expect(screen.getByText('Point layer')).toBeInTheDocument()
+        expect(screen.getByText('Polygon layer')).toBeInTheDocument()
+    })
+
+    test('choosing a point layer dispatches DATA_TABLE_JOIN_CONFIG_SET with pointLayerId set', () => {
+        const pointAndPolygonLayers = [
+            {
+                id: 'points',
+                name: 'Points',
+                layer: THEMATIC_LAYER,
+                data: [{ geometry: { type: 'Point' } }],
+            },
+            {
+                id: 'polygons',
+                name: 'Polygons',
+                layer: THEMATIC_LAYER,
+                data: [{ geometry: { type: 'Polygon' } }],
+            },
+        ]
+
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['points', 'polygons'],
+                combinedView: true,
+                joinConfig: {
+                    level: 'spatial',
+                    layerIds: [],
+                    pointLayerId: null,
+                    polygonLayerId: null,
+                },
+            },
+            mapViews: pointAndPolygonLayers,
+        })
+
+        fireEvent.change(screen.getByDisplayValue('Point layer'), {
+            target: { value: 'points' },
+        })
+
+        expect(store.getActions()).toEqual([
+            {
+                type: 'DATA_TABLE_JOIN_CONFIG_SET',
+                config: {
+                    level: 'spatial',
+                    layerIds: [],
+                    pointLayerId: 'points',
+                    polygonLayerId: null,
+                },
+            },
+        ])
+    })
+
+    test('does not offer the spatial join option when there is no point/polygon pair', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: twoEligibleLayers,
+        })
+
+        expect(
+            screen.queryByText('Spatial: point inside polygon')
+        ).not.toBeInTheDocument()
+        // Regression guard: `pointLayers.length && polygonLayers.length` can
+        // evaluate to the number 0 rather than a real boolean, and React
+        // renders a stray "0" text node for that instead of nothing.
+        expect(
+            screen.getByDisplayValue('Join by org unit')
+        ).not.toHaveTextContent('0')
+    })
+
+    test('changing the join level dispatches DATA_TABLE_JOIN_CONFIG_SET', () => {
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: twoEligibleLayers,
+        })
+
+        fireEvent.change(screen.getByDisplayValue('Join by org unit'), {
+            target: { value: 'parentOrgUnit' },
+        })
+
+        expect(store.getActions()).toEqual([
+            {
+                type: 'DATA_TABLE_JOIN_CONFIG_SET',
+                config: {
+                    level: 'parentOrgUnit',
+                    layerIds: [],
+                    pointLayerId: null,
+                    polygonLayerId: null,
+                },
+            },
+        ])
+    })
+})
