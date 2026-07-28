@@ -1,3 +1,5 @@
+import i18n from '@dhis2/d2-i18n'
+import { TabBar, Tab, IconCross16 } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
@@ -13,7 +15,10 @@ import {
     toggleShowOnlyFeaturesInView,
     setSelectionFilter,
     setHighlightColor,
+    toggleDataTable,
+    toggleCombinedView,
 } from '../../actions/dataTable.js'
+import { DATA_TABLE_LAYER_TYPES } from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import {
     getPanelHeights,
@@ -40,10 +45,26 @@ const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const activeLayerId = useSelector((state) => state.dataTable)
-    const activeLayer = useSelector((state) =>
-        state.map.mapViews.find((l) => l.id === activeLayerId)
+    const { openIds, combinedView } = useSelector((state) => state.dataTable)
+    const mapViews = useSelector((state) => state.map.mapViews)
+    const [activeLayerId, setActiveLayerId] = useState(null)
+
+    useEffect(() => {
+        if (openIds.length === 0) {
+            setActiveLayerId(null)
+        } else if (!openIds.includes(activeLayerId)) {
+            setActiveLayerId(openIds[openIds.length - 1])
+        }
+    }, [openIds, activeLayerId])
+
+    const openLayers = mapViews.filter((l) => openIds.includes(l.id))
+    const eligibleLayers = mapViews.filter(
+        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.data?.length
     )
+    const showCombinedTab = eligibleLayers.length >= 2
+    const showTabBar = openIds.length > 1 || showCombinedTab
+
+    const activeLayer = openLayers.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
@@ -217,16 +238,20 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <ActiveLayerControl name={activeLayer?.name} />
                 <span className={styles.divider} />
-                <HighlightColorControl
-                    color={highlightColor}
-                    onChange={onHighlightColorChange}
-                />
-                <ColumnPickerControl
-                    layerId={activeLayerId}
-                    allHeaders={allHeaders}
-                    columnConfig={activeLayer?.dataTableColumnConfig}
-                />
-                <span className={styles.divider} />
+                {!combinedView && (
+                    <>
+                        <HighlightColorControl
+                            color={highlightColor}
+                            onChange={onHighlightColorChange}
+                        />
+                        <ColumnPickerControl
+                            layerId={activeLayerId}
+                            allHeaders={allHeaders}
+                            columnConfig={activeLayer?.dataTableColumnConfig}
+                        />
+                        <span className={styles.divider} />
+                    </>
+                )}
                 <ResizeHandleControl
                     maxHeight={maxHeight}
                     minHeight={MIN_HEIGHT}
@@ -240,24 +265,82 @@ const BottomPanel = () => {
                     filteredCount={filteredCount}
                 />
                 <span className={styles.divider} />
-                <ClearFiltersControl
-                    disabled={!hasActiveFilters}
-                    onClick={onClearFilters}
-                />
-                <GlobalSearchControl
-                    value={globalSearch}
-                    onChange={setGlobalSearch}
-                />
-                <ShowInViewControl
-                    active={showOnlyFeaturesInView}
-                    onClick={onToggleShowOnlyFeaturesInView}
-                />
-                <span className={styles.divider} />
+                {!combinedView && (
+                    <>
+                        <ClearFiltersControl
+                            disabled={!hasActiveFilters}
+                            onClick={onClearFilters}
+                        />
+                        <GlobalSearchControl
+                            value={globalSearch}
+                            onChange={setGlobalSearch}
+                        />
+                        <ShowInViewControl
+                            active={showOnlyFeaturesInView}
+                            onClick={onToggleShowOnlyFeaturesInView}
+                        />
+                        <span className={styles.divider} />
+                    </>
+                )}
                 <CloseControl onClick={onCloseDataTable} />
             </div>
+            {showTabBar && (
+                <TabBar scrollable className={styles.tabBar}>
+                    {openLayers.map((lyr) => (
+                        <Tab
+                            key={lyr.id}
+                            selected={!combinedView && lyr.id === activeLayerId}
+                            onClick={() => {
+                                setActiveLayerId(lyr.id)
+                                if (combinedView) {
+                                    dispatch(toggleCombinedView())
+                                }
+                            }}
+                        >
+                            <span className={styles.tabLabel}>{lyr.name}</span>
+                            {/* A real <button> can't nest here - Tab's own
+                                root element is already a <button>. */}
+                            <span
+                                role="button"
+                                tabIndex={0}
+                                className={styles.tabCloseButton}
+                                aria-label={i18n.t('Close {{name}} tab', {
+                                    name: lyr.name,
+                                })}
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    dispatch(toggleDataTable(lyr.id))
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.stopPropagation()
+                                        e.preventDefault()
+                                        dispatch(toggleDataTable(lyr.id))
+                                    }
+                                }}
+                            >
+                                <IconCross16 />
+                            </span>
+                        </Tab>
+                    ))}
+                    {showCombinedTab && (
+                        <Tab
+                            selected={combinedView}
+                            onClick={() => {
+                                if (!combinedView) {
+                                    dispatch(toggleCombinedView())
+                                }
+                            }}
+                        >
+                            {i18n.t('Combined')}
+                        </Tab>
+                    )}
+                </TabBar>
+            )}
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
                     <DataTable
+                        activeLayerId={activeLayerId}
                         availableWidth={panelWidth}
                         onCountChange={onCountChange}
                         onHeadersChange={onHeadersChange}
