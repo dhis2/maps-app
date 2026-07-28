@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-28T08:41:25.486Z\n"
-"PO-Revision-Date: 2026-07-28T08:41:25.486Z\n"
+"POT-Creation-Date: 2026-07-28T10:06:28.667Z\n"
+"PO-Revision-Date: 2026-07-28T10:06:28.667Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -179,6 +179,12 @@ msgstr "Combined"
 msgid "No matching rows"
 msgstr "No matching rows"
 
+msgid "Search"
+msgstr "Search"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
+
 msgid "Spatial join over large datasets may be slow (over {{threshold}} features)"
 msgstr "Spatial join over large datasets may be slow (over {{threshold}} features)"
 
@@ -190,9 +196,6 @@ msgstr "Reverse selection of visible rows"
 
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
-
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
 
 msgid "Edit layer"
 msgstr "Edit layer"
@@ -235,9 +238,6 @@ msgstr "Use filter"
 
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
-
-msgid "Search"
-msgstr "Search"
 
 msgid "Reverse selection"
 msgstr "Reverse selection"

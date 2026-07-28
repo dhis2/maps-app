@@ -119,13 +119,16 @@ const BottomPanel = () => {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [globalSearch, setGlobalSearch] = useState('')
     const [headersByLayer, setHeadersByLayer] = useState(null)
+    const [combinedFilters, setCombinedFilters] = useState(EMPTY_FILTERS)
 
-    const hasActiveFilters = hasActiveDataTableFilters({
-        dataFilters,
-        globalSearch,
-        selectionFilter,
-        showOnlyFeaturesInView,
-    })
+    const hasActiveFilters = combinedView
+        ? Object.keys(combinedFilters).length > 0 || !!globalSearch.trim()
+        : hasActiveDataTableFilters({
+              dataFilters,
+              globalSearch,
+              selectionFilter,
+              showOnlyFeaturesInView,
+          })
 
     const { maxHeight, collapsedHeight, displayHeight } = getPanelHeights({
         windowHeight: height,
@@ -204,13 +207,17 @@ const BottomPanel = () => {
             : null
 
     const onClearFilters = useCallback(() => {
-        dispatch(clearDataFilters(activeLayerId))
-        dispatch(setSelectionFilter([]))
-        setGlobalSearch('')
-        if (showOnlyFeaturesInView) {
-            dispatch(toggleShowOnlyFeaturesInView())
+        if (combinedView) {
+            setCombinedFilters(EMPTY_FILTERS)
+        } else {
+            dispatch(clearDataFilters(activeLayerId))
+            dispatch(setSelectionFilter([]))
+            if (showOnlyFeaturesInView) {
+                dispatch(toggleShowOnlyFeaturesInView())
+            }
         }
-    }, [dispatch, activeLayerId, showOnlyFeaturesInView])
+        setGlobalSearch('')
+    }, [dispatch, activeLayerId, showOnlyFeaturesInView, combinedView])
 
     const onToggleShowOnlyFeaturesInView = useCallback(() => {
         dispatch(toggleShowOnlyFeaturesInView())
@@ -389,23 +396,21 @@ const BottomPanel = () => {
                     filteredCount={filteredCount}
                 />
                 <span className={styles.divider} />
+                <ClearFiltersControl
+                    disabled={!hasActiveFilters}
+                    onClick={onClearFilters}
+                />
+                <GlobalSearchControl
+                    value={globalSearch}
+                    onChange={setGlobalSearch}
+                />
                 {!combinedView && (
-                    <>
-                        <ClearFiltersControl
-                            disabled={!hasActiveFilters}
-                            onClick={onClearFilters}
-                        />
-                        <GlobalSearchControl
-                            value={globalSearch}
-                            onChange={setGlobalSearch}
-                        />
-                        <ShowInViewControl
-                            active={showOnlyFeaturesInView}
-                            onClick={onToggleShowOnlyFeaturesInView}
-                        />
-                        <span className={styles.divider} />
-                    </>
+                    <ShowInViewControl
+                        active={showOnlyFeaturesInView}
+                        onClick={onToggleShowOnlyFeaturesInView}
+                    />
                 )}
+                <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>
             {showTabBar && (
@@ -468,6 +473,9 @@ const BottomPanel = () => {
                             availableWidth={panelWidth}
                             layers={combinedLayers}
                             joinConfig={joinConfig}
+                            filters={combinedFilters}
+                            onFiltersChange={setCombinedFilters}
+                            globalSearch={globalSearch}
                             onCountChange={onCountChange}
                         />
                     ) : (

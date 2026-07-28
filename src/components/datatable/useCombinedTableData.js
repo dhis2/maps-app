@@ -4,17 +4,46 @@ import {
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_PATH_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
+    SORT_ASCENDING,
     TYPE_NUMBER,
     TYPE_STRING,
 } from '../../constants/dataTable.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
+import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { formatOrgUnitOwnName } from '../../util/orgUnitGroups.js'
 import { spatialJoin } from '../../util/spatialJoin.js'
+import { buildRowCells } from '../../util/tableColumns.js'
+import { compareRows } from '../../util/tableSort.js'
 
 const VALUE_KEY = 'rawValue'
 const LEGEND_KEY = 'legend'
 const LARGE_FEATURE_THRESHOLD = 10000
 const NO_PARENT_KEY = '__no_parent__'
+
+// Shared by all three join modes: apply Combined's own local filters/global
+// search (reusing the same utilities as the single-layer table), sort by
+// natural insertion order (via each flat row's index) when no sort column is
+// active, then build the final {dataKey, value, align, itemId} cell shape.
+const finalizeRows = (
+    flatRows,
+    headers,
+    { filters, globalSearch, sortField, sortDirection }
+) => {
+    let data = filterData(flatRows, filters)
+
+    if (globalSearch?.trim()) {
+        const stringDataKeys = headers
+            .filter((h) => h.type === TYPE_STRING)
+            .map((h) => h.dataKey)
+        data = filterByGlobalSearch(data, globalSearch, { stringDataKeys })
+    }
+
+    data = [...data].sort((a, b) =>
+        compareRows(a, b, { sortField, sortDirection })
+    )
+
+    return data.map((row) => buildRowCells(row, headers))
+}
 
 const getPathSegments = (path) =>
     path ? String(path).split('/').filter(Boolean) : []
@@ -36,7 +65,14 @@ const EMPTY_RESULT = {
     spatialWarning: false,
 }
 
-export const useCombinedTableData = ({ layers, joinConfig }) => {
+export const useCombinedTableData = ({
+    layers,
+    joinConfig,
+    sortField = null,
+    sortDirection = SORT_ASCENDING,
+    filters,
+    globalSearch,
+}) => {
     const { level, pointLayerId, polygonLayerId } = joinConfig
     const isSpatial = level === 'spatial'
     const isParentGrouped = level === 'parentOrgUnit'
@@ -155,41 +191,37 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
 
             const rowFeatureIds = new Map()
 
-            const rows = joined.map(({ pointProps, polygonProps }) => {
-                const path = pointProps[ORG_UNIT_PATH_DATA_KEY]
+            const flatRows = joined.map(
+                ({ pointProps, polygonProps }, index) => {
+                    const path = pointProps[ORG_UNIT_PATH_DATA_KEY]
 
-                if (pointProps.id != null) {
-                    const entry = { [pointLayer.id]: [pointProps.id] }
-                    if (polygonProps?.id != null) {
-                        entry[polygonLayer.id] = [polygonProps.id]
+                    if (pointProps.id != null) {
+                        const entry = { [pointLayer.id]: [pointProps.id] }
+                        if (polygonProps?.id != null) {
+                            entry[polygonLayer.id] = [polygonProps.id]
+                        }
+                        rowFeatureIds.set(pointProps.id, entry)
                     }
-                    rowFeatureIds.set(pointProps.id, entry)
-                }
 
-                return [
-                    {
-                        dataKey: 'id',
-                        value: pointProps.id ?? null,
-                        align: 'left',
-                    },
-                    {
-                        dataKey: 'name',
-                        value: path
+                    return {
+                        id: pointProps.id ?? null,
+                        name: path
                             ? formatOrgUnitOwnName(path, idToName)
                             : pointProps.name ?? pointProps.id ?? null,
-                        align: 'left',
-                    },
-                    {
-                        dataKey: `${polygonLayer.id}_${VALUE_KEY}`,
-                        value: polygonProps?.[VALUE_KEY] ?? null,
-                        align: 'right',
-                    },
-                    {
-                        dataKey: `${polygonLayer.id}_${LEGEND_KEY}`,
-                        value: polygonProps?.[LEGEND_KEY] ?? null,
-                        align: 'left',
-                    },
-                ]
+                        [`${polygonLayer.id}_${VALUE_KEY}`]:
+                            polygonProps?.[VALUE_KEY] ?? null,
+                        [`${polygonLayer.id}_${LEGEND_KEY}`]:
+                            polygonProps?.[LEGEND_KEY] ?? null,
+                        index,
+                    }
+                }
+            )
+
+            const rows = finalizeRows(flatRows, headers, {
+                filters,
+                globalSearch,
+                sortField,
+                sortDirection,
             })
 
             return { headers, rows, rowFeatureIds, spatialWarning }
@@ -238,11 +270,8 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
 
             const rowFeatureIds = new Map()
 
-            const rows = [...groups.values()].map((group) => {
-                const cells = [
-                    { dataKey: 'id', value: group.id, align: 'left' },
-                    { dataKey: 'name', value: group.name, align: 'left' },
-                ]
+            const flatRows = [...groups.values()].map((group, index) => {
+                const row = { id: group.id, name: group.name, index }
                 const featureIds = {}
                 layerMaps.forEach(
                     ({ layer, byOrgUnit, featureIdsByOrgUnit }) => {
@@ -252,16 +281,8 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                         const average = values.length
                             ? values.reduce((a, b) => a + b, 0) / values.length
                             : null
-                        cells.push({
-                            dataKey: `${layer.id}_${VALUE_KEY}`,
-                            value: average,
-                            align: 'right',
-                        })
-                        cells.push({
-                            dataKey: `${layer.id}_${LEGEND_KEY}`,
-                            value: null,
-                            align: 'left',
-                        })
+                        row[`${layer.id}_${VALUE_KEY}`] = average
+                        row[`${layer.id}_${LEGEND_KEY}`] = null
 
                         const ids = group.memberIds.flatMap(
                             (id) => featureIdsByOrgUnit[id] ?? []
@@ -272,7 +293,14 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                     }
                 )
                 rowFeatureIds.set(group.id, featureIds)
-                return cells
+                return row
+            })
+
+            const rows = finalizeRows(flatRows, headers, {
+                filters,
+                globalSearch,
+                sortField,
+                sortDirection,
             })
 
             return { headers, rows, rowFeatureIds, spatialWarning: false }
@@ -287,43 +315,35 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
 
         const rowFeatureIds = new Map()
 
-        const rows = allIds.map((id) => {
+        const flatRows = allIds.map((id, index) => {
             const baseProps =
                 layerMaps.find((lm) => lm.byOrgUnit[id])?.byOrgUnit[id] ?? {}
             const path = baseProps[ORG_UNIT_PATH_DATA_KEY]
-            const cells = [
-                { dataKey: 'id', value: id, align: 'left' },
-                {
-                    dataKey: 'name',
-                    value: path ? formatOrgUnitOwnName(path, idToName) : null,
-                    align: 'left',
-                },
-                {
-                    dataKey: 'level',
-                    value: baseProps[ORG_UNIT_LEVEL_DATA_KEY] ?? null,
-                    align: 'right',
-                },
-            ]
+            const row = {
+                id,
+                name: path ? formatOrgUnitOwnName(path, idToName) : null,
+                level: baseProps[ORG_UNIT_LEVEL_DATA_KEY] ?? null,
+                index,
+            }
             const featureIds = {}
             layerMaps.forEach(({ layer, byOrgUnit, featureIdsByOrgUnit }) => {
                 const props = byOrgUnit[id]
-                cells.push({
-                    dataKey: `${layer.id}_${VALUE_KEY}`,
-                    value: props?.[VALUE_KEY] ?? null,
-                    align: 'right',
-                })
-                cells.push({
-                    dataKey: `${layer.id}_${LEGEND_KEY}`,
-                    value: props?.[LEGEND_KEY] ?? null,
-                    align: 'left',
-                })
+                row[`${layer.id}_${VALUE_KEY}`] = props?.[VALUE_KEY] ?? null
+                row[`${layer.id}_${LEGEND_KEY}`] = props?.[LEGEND_KEY] ?? null
 
                 if (featureIdsByOrgUnit[id]?.length) {
                     featureIds[layer.id] = featureIdsByOrgUnit[id]
                 }
             })
             rowFeatureIds.set(id, featureIds)
-            return cells
+            return row
+        })
+
+        const rows = finalizeRows(flatRows, headers, {
+            filters,
+            globalSearch,
+            sortField,
+            sortDirection,
         })
 
         return { headers, rows, rowFeatureIds, spatialWarning: false }
@@ -336,5 +356,9 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         pointLayer,
         polygonLayer,
         idToName,
+        filters,
+        globalSearch,
+        sortField,
+        sortDirection,
     ])
 }

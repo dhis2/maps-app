@@ -388,14 +388,25 @@ describe('useCombinedTableData - spatial join', () => {
         ])
         expect(result.current.rows).toEqual([
             [
-                { dataKey: 'id', value: 'p1', align: 'left' },
-                { dataKey: 'name', value: 'Point One', align: 'left' },
+                { dataKey: 'id', value: 'p1', align: 'left', itemId: 'p1' },
+                {
+                    dataKey: 'name',
+                    value: 'Point One',
+                    align: 'left',
+                    itemId: 'p1',
+                },
                 {
                     dataKey: 'polygons_rawValue',
                     value: 42,
                     align: 'right',
+                    itemId: 'p1',
                 },
-                { dataKey: 'polygons_legend', value: 'High', align: 'left' },
+                {
+                    dataKey: 'polygons_legend',
+                    value: 'High',
+                    align: 'left',
+                    itemId: 'p1',
+                },
             ],
         ])
         expect(result.current.spatialWarning).toBe(false)
@@ -488,6 +499,90 @@ describe('useCombinedTableData - spatial join', () => {
         )
 
         expect(result.current.spatialWarning).toBe(true)
+    })
+})
+
+describe('useCombinedTableData - sorting and filtering', () => {
+    const layers = [
+        {
+            id: 'layerA',
+            name: 'Layer A',
+            data: [
+                feature({ id: 'ou1', rawValue: 30 }),
+                feature({ id: 'ou2', rawValue: 10 }),
+                feature({ id: 'ou3', rawValue: 20 }),
+            ],
+        },
+    ]
+    const joinConfig = {
+        level: 'orgUnit',
+        layerIds: ['layerA'],
+        pointLayerId: null,
+        polygonLayerId: null,
+    }
+
+    test('sorts rows by a numeric column ascending', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                joinConfig,
+                sortField: 'layerA_rawValue',
+                sortDirection: 'asc',
+            })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou2', 'ou3', 'ou1']
+        )
+    })
+
+    test('sorts rows by a numeric column descending', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                joinConfig,
+                sortField: 'layerA_rawValue',
+                sortDirection: 'desc',
+            })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou1', 'ou3', 'ou2']
+        )
+    })
+
+    test('preserves natural order when there is no sort field', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou1', 'ou2', 'ou3']
+        )
+    })
+
+    test('applies a per-column filter', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                joinConfig,
+                filters: { layerA_rawValue: '>15' },
+            })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou1', 'ou3']
+        )
+    })
+
+    test('applies global search across string columns', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig, globalSearch: 'ou2' })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou2']
+        )
     })
 })
 
