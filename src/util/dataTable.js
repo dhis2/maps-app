@@ -55,6 +55,23 @@ export const hasActiveDataTableFilters = ({
     selectionFilter?.length > 0 ||
     !!showOnlyFeaturesInView
 
+// state.dataTable.combinedView can legitimately stay true with openIds
+// empty (e.g. every single-layer tab was closed while Combined stayed
+// open) - the panel must stay open in that case too, not just when a
+// single-layer tab is open.
+export const isDataTableOpen = ({ openIds, combinedView }) =>
+    openIds.length > 0 || combinedView
+
+// A crossLayerIds selection has no single owning layerId (layerId: null),
+// so a layer's own selection can't be read off selection.ids alone once
+// Combined-originated selections exist - merges in whatever this layer is
+// named under in crossLayerIds too.
+export const getLayerSelectedIds = (selection, layerId) => {
+    const ownIds = selection?.layerId === layerId ? selection.ids ?? [] : []
+    const crossIds = selection?.crossLayerIds?.[layerId] ?? []
+    return crossIds.length ? [...new Set([...ownIds, ...crossIds])] : ownIds
+}
+
 export const buildFeatureIndex = (data) => {
     const index = new Map()
     data?.forEach((f) => {

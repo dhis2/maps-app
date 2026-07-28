@@ -104,7 +104,15 @@ export const useCombinedTableData = ({
             // just the one whose value happens to be shown.
             const featureIdsByOrgUnit = {}
 
-            const data = layer.data ?? []
+            // Mirrors util/tableRows.js's own data + dataWithoutCoords merge
+            // for the single-layer table - org units/facilities missing
+            // valid coordinates still belong in the join, they just can't
+            // render on the map (and so never contribute to zoom bounds,
+            // since getUnionBounds already skips features with no geometry).
+            const data = [
+                ...(layer.data ?? []),
+                ...(layer.dataWithoutCoords ?? []),
+            ]
             data.filter((d) => !d.properties?.hasAdditionalGeometry).forEach(
                 (d) => {
                     const props = d.properties || d

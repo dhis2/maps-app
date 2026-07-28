@@ -28,6 +28,7 @@ import {
 import { isDarkColor } from '../../util/colors.js'
 import {
     buildFeatureIndex,
+    getLayerSelectedIds,
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
@@ -144,7 +145,7 @@ const Table = ({
     )
 
     const selectedIds = useMemo(
-        () => (selection.layerId === layer.id ? selection.ids : []),
+        () => getLayerSelectedIds(selection, layer.id),
         [selection, layer.id]
     )
     const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])

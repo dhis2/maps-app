@@ -2,6 +2,7 @@ import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useLayersLoader } from '../../hooks/useLayersLoader.js'
+import { isDataTableOpen } from '../../util/dataTable.js'
 import BottomPanel from '../datatable/BottomPanel.jsx'
 import DownloadModeMenu from '../download/DownloadMenubar.jsx'
 import DownloadSettings from '../download/DownloadSettings.jsx'
@@ -35,8 +36,8 @@ const App = () => {
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
 
-    const dataTableOpen = useSelector(
-        (state) => state.dataTable.openIds.length > 0
+    const dataTableOpen = useSelector((state) =>
+        isDataTableOpen(state.dataTable)
     )
     const downloadModeOpen = useSelector((state) => !!state.ui.downloadMode)
     const detailsPanelOpen = useSelector(

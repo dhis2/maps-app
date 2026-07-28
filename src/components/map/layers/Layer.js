@@ -11,6 +11,7 @@ import {
     SELECTION_FILTER_SELECTED,
     SELECTION_FILTER_NOT_SELECTED,
 } from '../../../constants/selection.js'
+import { getLayerSelectedIds } from '../../../util/dataTable.js'
 
 export const idsEqual = (a, b) =>
     a.length === b.length && a.every((id, i) => id === b[i])
@@ -288,9 +289,7 @@ class Layer extends PureComponent {
     }
 
     getSelectedIds(selection = this.props.selection) {
-        const ownIds = selection?.layerId === this.props.id ? selection.ids : []
-        const crossIds = selection?.crossLayerIds?.[this.props.id] ?? []
-        return crossIds.length ? [...new Set([...ownIds, ...crossIds])] : ownIds
+        return getLayerSelectedIds(selection, this.props.id)
     }
 
     highlightFeature() {
@@ -305,7 +304,11 @@ class Layer extends PureComponent {
         selection = this.props.selection,
         selectionFilter = this.props.selectionFilter
     ) {
-        if (!selectionFilter?.length || selection?.layerId !== this.props.id) {
+        const isReferenced =
+            selection?.layerId === this.props.id ||
+            !!selection?.crossLayerIds?.[this.props.id]?.length
+
+        if (!selectionFilter?.length || !isReferenced) {
             return null
         }
 
