@@ -30,7 +30,6 @@ const mockStore = configureMockStore()
 
 const renderFilterInput = (props, dataFilters) => {
     const store = mockStore({
-        dataTable: 'layer1',
         map: {
             mapViews: [{ id: 'layer1', dataFilters: dataFilters || {} }],
         },
@@ -42,6 +41,7 @@ const renderFilterInput = (props, dataFilters) => {
                 value={{ viewportHeight: 300, itemHeight: 28 }}
             >
                 <FilterInput
+                    layerId="layer1"
                     dataKey="name"
                     name="Name"
                     type="string"

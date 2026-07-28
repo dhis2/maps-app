@@ -81,6 +81,7 @@ const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
 
 const Table = ({
+    activeLayerId,
     availableWidth,
     onCountChange,
     onHeadersChange,
@@ -93,7 +94,6 @@ const Table = ({
 
     const virtuosoRef = useRef(null)
     const { mapViews } = useSelector((state) => state.map)
-    const activeLayerId = useSelector((state) => state.dataTable)
 
     const dispatch = useDispatch()
     const feature = useSelector((state) => state.feature)
@@ -481,6 +481,7 @@ const Table = ({
                                 filter={
                                     isFilterable(dataKey, type) && (
                                         <FilterInput
+                                            layerId={activeLayerId}
                                             type={type}
                                             dataKey={dataKey}
                                             name={name}
@@ -533,6 +534,7 @@ const Table = ({
             </DataTableRow>
         ),
         [
+            activeLayerId,
             isCheckboxColumnPinned,
             selectionFilter,
             dispatch,
@@ -749,6 +751,7 @@ const Table = ({
 }
 
 Table.propTypes = {
+    activeLayerId: PropTypes.string,
     availableWidth: PropTypes.number,
     globalSearch: PropTypes.string,
     onClearFilters: PropTypes.func,

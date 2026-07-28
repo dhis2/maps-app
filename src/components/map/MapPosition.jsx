@@ -26,7 +26,9 @@ const MapPosition = () => {
     const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
     const { downloadMode, layersPanelOpen, rightPanelOpen, dataTableHeight } =
         useSelector((state) => state.ui)
-    const dataTableOpen = useSelector((state) => !!state.dataTable)
+    const dataTableOpen = useSelector(
+        (state) => state.dataTable.openIds.length > 0
+    )
 
     const downloadMapInfoOpen =
         downloadMode &&

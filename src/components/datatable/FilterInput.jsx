@@ -581,6 +581,7 @@ OptionSetSearchableFilter.propTypes = {
 }
 
 const FilterInput = React.memo(function FilterInput({
+    layerId,
     type,
     dataKey,
     name,
@@ -589,20 +590,12 @@ const FilterInput = React.memo(function FilterInput({
     renderer,
     orgUnitIdToName,
 }) {
-    const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
 
-    const overlay =
-        dataTable && map.mapViews.find((layer) => layer.id === dataTable)
+    const overlay = map.mapViews.find((layer) => layer.id === layerId)
+    const filters = overlay?.dataFilters || {}
 
-    let layerId
-    let filters
-    if (overlay) {
-        layerId = overlay.id
-        filters = overlay.dataFilters || {}
-    }
-
-    const filterValue = filters?.[dataKey]
+    const filterValue = filters[dataKey]
 
     const isDateType =
         type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
@@ -666,6 +659,7 @@ FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    layerId: PropTypes.string,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     orgUnitIdToName: PropTypes.instanceOf(Map),

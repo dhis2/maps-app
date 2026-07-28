@@ -30,7 +30,12 @@ const mockStore = configureMockStore()
 describe('OverlayCard', () => {
     const renderCard = (name) =>
         render(
-            <Provider store={mockStore({ dataTable: null, aggregations: {} })}>
+            <Provider
+                store={mockStore({
+                    dataTable: { openIds: [] },
+                    aggregations: {},
+                })}
+            >
                 <OverlayCard
                     layer={{
                         id: 'layer1',
