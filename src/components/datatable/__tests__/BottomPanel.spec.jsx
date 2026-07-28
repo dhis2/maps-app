@@ -281,7 +281,7 @@ describe('BottomPanel Combined join controls', () => {
         })
 
         expect(
-            screen.getByText('Spatial: point inside polygon')
+            screen.getByText('Spatial - point inside polygon')
         ).toBeInTheDocument()
         expect(screen.getByText('Point layer')).toBeInTheDocument()
         expect(screen.getByText('Polygon layer')).toBeInTheDocument()
@@ -346,7 +346,7 @@ describe('BottomPanel Combined join controls', () => {
         })
 
         expect(
-            screen.queryByText('Spatial: point inside polygon')
+            screen.queryByText('Spatial - point inside polygon')
         ).not.toBeInTheDocument()
         // Regression guard: `pointLayers.length && polygonLayers.length` can
         // evaluate to the number 0 rather than a real boolean, and React
