@@ -31,3 +31,28 @@
     font-size: 12px;
     border-bottom: 1px solid var(--colors-yellow300);
 }
+
+th.checkboxCell,
+td.checkboxCell {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+    text-align: center;
+    padding: 0;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+
+.checkboxCell input[type='checkbox'] {
+    accent-color: var(--colors-teal600);
+}
+
+td.selected,
+th.selected {
+    background-color: var(--colors-blue050);
+}
+
+td.hovered,
+th.hovered {
+    background-color: var(--colors-blue100);
+}
