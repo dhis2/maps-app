@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { TabBar, Tab, IconCross16 } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
@@ -16,15 +15,14 @@ import {
     toggleShowOnlyFeaturesInView,
     setSelectionFilter,
     setHighlightColor,
-    toggleDataTable,
     toggleCombinedView,
     setJoinConfig,
     setDataTableColumnConfig,
 } from '../../actions/dataTable.js'
 import { COMBINED_HEADERS_KEY } from '../../constants/dataTable.js'
-import { DATA_TABLE_LAYER_TYPES } from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import {
+    getEligibleDataTableLayers,
     getPanelHeights,
     hasActiveDataTableFilters,
 } from '../../util/dataTable.js'
@@ -36,7 +34,6 @@ import {
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import CombinedDataTable from './CombinedDataTable.jsx'
-import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
 import CollapseControl from './controls/CollapseControl.jsx'
@@ -44,6 +41,7 @@ import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
 import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
 import HighlightColorControl from './controls/HighlightColorControl.jsx'
 import JoinLayersControl from './controls/JoinLayersControl.jsx'
+import LayerSelectorControl from './controls/LayerSelectorControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
 import ShowInViewControl from './controls/ShowInViewControl.jsx'
@@ -80,11 +78,8 @@ const BottomPanel = () => {
             : openIds[openIds.length - 1] ?? null
 
     const openLayers = mapViews.filter((l) => openIds.includes(l.id))
-    const eligibleLayers = mapViews.filter(
-        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.data?.length
-    )
-    const showCombinedTab = eligibleLayers.length >= 2
-    const showTabBar = openIds.length > 1 || showCombinedTab
+    const eligibleLayers = getEligibleDataTableLayers(mapViews)
+    const combinedEnabled = eligibleLayers.length >= 2
 
     const pointLayers = eligibleLayers.filter(isPointLayer)
     const polygonLayers = eligibleLayers.filter(isPolygonLayer)
@@ -286,7 +281,23 @@ const BottomPanel = () => {
                     onClick={toggleCollapsed}
                 />
                 <span className={styles.divider} />
-                <ActiveLayerControl name={activeLayer?.name} />
+                <LayerSelectorControl
+                    openLayers={openLayers}
+                    activeLayerId={activeLayerId}
+                    combinedView={combinedView}
+                    combinedEnabled={combinedEnabled}
+                    onSelectLayer={(id) => {
+                        setManualActiveLayerId(id)
+                        if (combinedView) {
+                            dispatch(toggleCombinedView())
+                        }
+                    }}
+                    onSelectCombined={() => {
+                        if (!combinedView) {
+                            dispatch(toggleCombinedView())
+                        }
+                    }}
+                />
                 <span className={styles.divider} />
                 {combinedView ? (
                     <>
@@ -432,59 +443,6 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>
-            {showTabBar && (
-                <TabBar scrollable className={styles.tabBar}>
-                    {openLayers.map((lyr) => (
-                        <Tab
-                            key={lyr.id}
-                            selected={!combinedView && lyr.id === activeLayerId}
-                            onClick={() => {
-                                setManualActiveLayerId(lyr.id)
-                                if (combinedView) {
-                                    dispatch(toggleCombinedView())
-                                }
-                            }}
-                        >
-                            <span className={styles.tabLabel}>{lyr.name}</span>
-                            {/* A real <button> can't nest here - Tab's own
-                                root element is already a <button>. */}
-                            <span
-                                role="button"
-                                tabIndex={0}
-                                className={styles.tabCloseButton}
-                                aria-label={i18n.t('Close {{name}} tab', {
-                                    name: lyr.name,
-                                })}
-                                onClick={(e) => {
-                                    e.stopPropagation()
-                                    dispatch(toggleDataTable(lyr.id))
-                                }}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.stopPropagation()
-                                        e.preventDefault()
-                                        dispatch(toggleDataTable(lyr.id))
-                                    }
-                                }}
-                            >
-                                <IconCross16 />
-                            </span>
-                        </Tab>
-                    ))}
-                    {showCombinedTab && (
-                        <Tab
-                            selected={combinedView}
-                            onClick={() => {
-                                if (!combinedView) {
-                                    dispatch(toggleCombinedView())
-                                }
-                            }}
-                        >
-                            {i18n.t('Combined')}
-                        </Tab>
-                    )}
-                </TabBar>
-            )}
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
                     {combinedView ? (

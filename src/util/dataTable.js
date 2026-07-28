@@ -1,5 +1,6 @@
 import { bbox } from '@turf/bbox'
 import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
+import { DATA_TABLE_LAYER_TYPES } from '../constants/layers.js'
 
 export const isFilterable = (dataKey, type) => !!type
 
@@ -61,6 +62,15 @@ export const hasActiveDataTableFilters = ({
 // single-layer tab is open.
 export const isDataTableOpen = ({ openIds, combinedView }) =>
     openIds.length > 0 || combinedView
+
+// Map-wide, not scoped to which layers currently have an open tab - used
+// both for whether the Combined option/tab can be offered at all, and to
+// pick a sensible default when opening the panel from scratch (e.g. the
+// "Data Table" menu button).
+export const getEligibleDataTableLayers = (mapViews) =>
+    mapViews.filter(
+        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.data?.length
+    )
 
 // A crossLayerIds selection has no single owning layerId (layerId: null),
 // so a layer's own selection can't be read off selection.ids alone once
