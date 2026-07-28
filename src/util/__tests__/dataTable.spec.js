@@ -4,8 +4,10 @@ import {
     getPanelHeights,
     getRowClickAction,
     getRowId,
+    getUnionBounds,
     hasActiveDataTableFilters,
     isFilterable,
+    mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
 
@@ -203,6 +205,81 @@ describe('buildFeatureIndex', () => {
     test('returns an empty index for missing/empty data', () => {
         expect(buildFeatureIndex(undefined).size).toBe(0)
         expect(buildFeatureIndex([]).size).toBe(0)
+    })
+})
+
+describe('mergeCrossLayerIds', () => {
+    const rowFeatureIds = new Map([
+        ['ou1', { layerA: ['a1'], layerB: ['b1'] }],
+        ['ou2', { layerA: ['a2'] }],
+    ])
+
+    test('unions per-layer id sets across every named row', () => {
+        expect(mergeCrossLayerIds(['ou1', 'ou2'], rowFeatureIds)).toEqual({
+            layerA: ['a1', 'a2'],
+            layerB: ['b1'],
+        })
+    })
+
+    test('dedupes ids repeated across rows for the same layer', () => {
+        const withOverlap = new Map([
+            ['ou1', { layerA: ['a1'] }],
+            ['ou2', { layerA: ['a1', 'a2'] }],
+        ])
+        expect(mergeCrossLayerIds(['ou1', 'ou2'], withOverlap)).toEqual({
+            layerA: ['a1', 'a2'],
+        })
+    })
+
+    test('skips row keys with no entry', () => {
+        expect(mergeCrossLayerIds(['ou1', 'missing'], rowFeatureIds)).toEqual({
+            layerA: ['a1'],
+            layerB: ['b1'],
+        })
+    })
+
+    test('returns an empty object for no rows', () => {
+        expect(mergeCrossLayerIds([], rowFeatureIds)).toEqual({})
+    })
+})
+
+describe('getUnionBounds', () => {
+    const point = (id, coordinates) => ({
+        type: 'Feature',
+        properties: { id },
+        geometry: { type: 'Point', coordinates },
+    })
+
+    const layers = [
+        {
+            id: 'layerA',
+            data: [point('a1', [0, 0]), point('a2', [10, 10])],
+        },
+        { id: 'layerB', data: [point('b1', [5, -5])] },
+    ]
+
+    test('computes the union bbox across every named feature on every layer', () => {
+        expect(
+            getUnionBounds(layers, { layerA: ['a1', 'a2'], layerB: ['b1'] })
+        ).toEqual([
+            [0, -5],
+            [10, 10],
+        ])
+    })
+
+    test('ignores layers/ids not named in idsByLayerId', () => {
+        expect(getUnionBounds(layers, { layerA: ['a1'] })).toEqual([
+            [0, 0],
+            [0, 0],
+        ])
+    })
+
+    test('returns null when nothing matches', () => {
+        expect(getUnionBounds(layers, {})).toBeNull()
+    })
+
+    test('skips ids that have no matching feature or geometry', () => {
+        expect(getUnionBounds(layers, { layerA: ['missing'] })).toBeNull()
     })
 })
 

@@ -6,6 +6,7 @@ import {
     onFullscreenChange,
     resizeAndFitBounds,
     getLayerFeatureHighlight,
+    fitCrossLayerZoomBounds,
 } from '../../util/map.js'
 import {
     sortPeriodsByLevelAndStartDate,
@@ -163,9 +164,22 @@ class Map extends Component {
             onFullscreenChange(this.map, isFullscreen)
         }
 
+        this.handleCrossLayerZoom(prevProps)
+
         const overlays = this.getLoadedLayers(layers)
         const timelineOverlay = this.getTimelineOverlay(overlays)
         this.initializeTimelinePeriod(timelineOverlay)
+    }
+
+    // A crossLayerIds highlight/selection has no single owning layerId, so
+    // (unlike a single-layer zoom, which each Layer instance handles itself
+    // in handleFeatureUpdate) it can't be resolved by any one Layer without
+    // several instances racing independent fitBounds() calls. Its bounds
+    // are precomputed by the caller (CombinedDataTable.jsx, from the union
+    // of every matching feature across every participating layer) and fit
+    // here once, at the top level, instead.
+    handleCrossLayerZoom(prevProps) {
+        fitCrossLayerZoomBounds(this.map, this.props.feature, prevProps.feature)
     }
 
     // Remove map
