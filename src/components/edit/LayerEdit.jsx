@@ -11,7 +11,10 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
-import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import {
+    COMBINED_TABLE_REF_LAYER,
+    EARTH_ENGINE_LAYER,
+} from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { useOrgUnits } from '../OrgUnitsProvider.jsx'
@@ -95,7 +98,15 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         name = layer.name.toLowerCase()
     }
 
-    const title = layer.id
+    const isReferenceLayer = type === COMBINED_TABLE_REF_LAYER
+
+    // The reference org unit layer isn't really "a layer" from the user's
+    // perspective (it's never visible/rendered) - a single, state-agnostic
+    // title reads better than the generic Edit/Add wording every other
+    // layer type gets.
+    const title = isReferenceLayer
+        ? i18n.t('Configure reference org units')
+        : layer.id
         ? i18n.t('Edit {{name}} layer', { name })
         : i18n.t('Add new {{name}} layer', { name })
 
@@ -112,6 +123,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
+                        hideStyleTab={isReferenceLayer}
                     />
                 </div>
             </ModalContent>
