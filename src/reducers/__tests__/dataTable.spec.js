@@ -128,7 +128,7 @@ describe('dataTable reducer', () => {
             expect(state.joinConfig).toBe(prevState.joinConfig)
         })
 
-        it('resets combinedView and joinConfig when closing the last open tab', () => {
+        it('leaves combinedView and joinConfig untouched even when closing the last open tab', () => {
             const prevState = {
                 openIds: ['layer1'],
                 combinedView: true,
@@ -145,7 +145,9 @@ describe('dataTable reducer', () => {
                 id: 'layer1',
             })
 
-            expect(state).toEqual(initialState)
+            expect(state.openIds).toEqual([])
+            expect(state.combinedView).toBe(true)
+            expect(state.joinConfig).toBe(prevState.joinConfig)
         })
     })
 
