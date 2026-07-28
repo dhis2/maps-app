@@ -38,13 +38,17 @@ const dataTable = (state = initialState, action) => {
         case types.MAP_SET:
             return action.payload.dataTable ?? initialState
 
-        case types.DATA_TABLE_TOGGLE:
-            return {
-                ...state,
-                openIds: state.openIds.includes(action.id)
-                    ? state.openIds.filter((id) => id !== action.id)
-                    : [...state.openIds, action.id],
-            }
+        case types.DATA_TABLE_TOGGLE: {
+            const openIds = state.openIds.includes(action.id)
+                ? state.openIds.filter((id) => id !== action.id)
+                : [...state.openIds, action.id]
+            // Closing the last tab this way (rather than via DATA_TABLE_CLOSE)
+            // still means the panel is now fully closed (see App.jsx, which
+            // gates rendering it on openIds.length > 0) - so it gets the same
+            // full reset, or a stale combinedView/joinConfig would resurface
+            // the next time any single layer's table is reopened.
+            return openIds.length === 0 ? initialState : { ...state, openIds }
+        }
 
         case types.LAYER_REMOVE: {
             const joinConfig = clearJoinConfigRefs(state.joinConfig, action.id)

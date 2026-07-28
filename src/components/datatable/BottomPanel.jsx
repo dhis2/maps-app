@@ -3,6 +3,7 @@ import { TabBar, Tab, IconCross16 } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
+    useMemo,
     useState,
     useEffect,
     useLayoutEffect,
@@ -88,12 +89,16 @@ const BottomPanel = () => {
     const hasSpatialCandidates =
         pointLayers.length > 0 && polygonLayers.length > 0
 
-    const combinedLayers =
-        joinConfig.level === 'spatial'
-            ? [joinConfig.pointLayerId, joinConfig.polygonLayerId]
-                  .map((id) => mapViews.find((l) => l.id === id))
-                  .filter(Boolean)
-            : mapViews.filter((l) => joinConfig.layerIds.includes(l.id))
+    const { level, layerIds, pointLayerId, polygonLayerId } = joinConfig
+    const combinedLayers = useMemo(
+        () =>
+            level === 'spatial'
+                ? [pointLayerId, polygonLayerId]
+                      .map((id) => mapViews.find((l) => l.id === id))
+                      .filter(Boolean)
+                : mapViews.filter((l) => layerIds.includes(l.id)),
+        [level, layerIds, pointLayerId, polygonLayerId, mapViews]
+    )
 
     const activeLayer = openLayers.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
