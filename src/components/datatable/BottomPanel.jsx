@@ -32,6 +32,7 @@ import {
 } from '../../util/geojson.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import CombinedDataTable from './CombinedDataTable.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
@@ -64,15 +65,16 @@ const BottomPanel = () => {
         (state) => state.dataTable
     )
     const mapViews = useSelector((state) => state.map.mapViews)
-    const [activeLayerId, setActiveLayerId] = useState(null)
-
-    useEffect(() => {
-        if (openIds.length === 0) {
-            setActiveLayerId(null)
-        } else if (!openIds.includes(activeLayerId)) {
-            setActiveLayerId(openIds[openIds.length - 1])
-        }
-    }, [openIds, activeLayerId])
+    // Only tracks a user's explicit tab click - falls back to the most
+    // recently opened tab whenever it doesn't (yet) name an open layer, so
+    // there's no render where this is out of sync with openIds (unlike a
+    // useState+useEffect pair, which would flash a stale/null value for one
+    // render before the effect corrects it).
+    const [manualActiveLayerId, setManualActiveLayerId] = useState(null)
+    const activeLayerId =
+        manualActiveLayerId && openIds.includes(manualActiveLayerId)
+            ? manualActiveLayerId
+            : openIds[openIds.length - 1] ?? null
 
     const openLayers = mapViews.filter((l) => openIds.includes(l.id))
     const eligibleLayers = mapViews.filter(
@@ -85,6 +87,13 @@ const BottomPanel = () => {
     const polygonLayers = eligibleLayers.filter(isPolygonLayer)
     const hasSpatialCandidates =
         pointLayers.length > 0 && polygonLayers.length > 0
+
+    const combinedLayers =
+        joinConfig.level === 'spatial'
+            ? [joinConfig.pointLayerId, joinConfig.polygonLayerId]
+                  .map((id) => mapViews.find((l) => l.id === id))
+                  .filter(Boolean)
+            : mapViews.filter((l) => joinConfig.layerIds.includes(l.id))
 
     const activeLayer = openLayers.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
@@ -401,7 +410,7 @@ const BottomPanel = () => {
                             key={lyr.id}
                             selected={!combinedView && lyr.id === activeLayerId}
                             onClick={() => {
-                                setActiveLayerId(lyr.id)
+                                setManualActiveLayerId(lyr.id)
                                 if (combinedView) {
                                     dispatch(toggleCombinedView())
                                 }
@@ -449,14 +458,23 @@ const BottomPanel = () => {
             )}
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
-                    <DataTable
-                        activeLayerId={activeLayerId}
-                        availableWidth={panelWidth}
-                        onCountChange={onCountChange}
-                        onHeadersChange={onHeadersChange}
-                        globalSearch={globalSearch}
-                        onClearFilters={onClearFilters}
-                    />
+                    {combinedView ? (
+                        <CombinedDataTable
+                            availableWidth={panelWidth}
+                            layers={combinedLayers}
+                            joinConfig={joinConfig}
+                            onCountChange={onCountChange}
+                        />
+                    ) : (
+                        <DataTable
+                            activeLayerId={activeLayerId}
+                            availableWidth={panelWidth}
+                            onCountChange={onCountChange}
+                            onHeadersChange={onHeadersChange}
+                            globalSearch={globalSearch}
+                            onClearFilters={onClearFilters}
+                        />
+                    )}
                 </ErrorBoundary>
             </div>
         </div>

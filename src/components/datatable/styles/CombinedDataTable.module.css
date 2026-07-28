@@ -1,0 +1,33 @@
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.dataTable {
+    height: 1px;
+    border: none !important;
+}
+
+.dataTable > :global(thead) {
+    user-select: none;
+}
+
+.noResults {
+    display: flex;
+    color: var(--colors-grey600);
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-style: italic;
+    min-height: 40px;
+}
+
+.spatialWarning {
+    flex-shrink: 0;
+    padding: var(--spacers-dp4) var(--spacers-dp8);
+    background-color: var(--colors-yellow100);
+    color: var(--colors-yellow800);
+    font-size: 12px;
+    border-bottom: 1px solid var(--colors-yellow300);
+}
