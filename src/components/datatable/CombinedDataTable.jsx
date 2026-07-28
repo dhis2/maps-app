@@ -13,6 +13,8 @@ import {
     getRowId,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import CellValue from './CellValue.jsx'
 import FilterInput from './FilterInput.jsx'
 import {
     SelectionCheckboxHeaderCell,
@@ -77,6 +79,9 @@ const CombinedDataTable = ({
     onCountChange,
 }) => {
     const dispatch = useDispatch()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
 
     const { sortField, sortDirection, sortData } = useSortState('name')
 
@@ -89,6 +94,15 @@ const CombinedDataTable = ({
             filters,
             globalSearch,
         })
+
+    const rendererByDataKey = useMemo(
+        () => new Map(headers.map((h) => [h.dataKey, h.renderer])),
+        [headers]
+    )
+    const typeByDataKey = useMemo(
+        () => new Map(headers.map((h) => [h.dataKey, h.type])),
+        [headers]
+    )
 
     useEffect(() => {
         onCountChange?.(rows.length, rows.length)
@@ -321,7 +335,16 @@ const CombinedDataTable = ({
                                         [dataTableStyles.hovered]: isHovered,
                                     })}
                                 >
-                                    {value ?? '—'}
+                                    <CellValue
+                                        value={value}
+                                        renderer={rendererByDataKey.get(
+                                            dataKey
+                                        )}
+                                        type={typeByDataKey.get(dataKey)}
+                                        keyAnalysisDigitGroupSeparator={
+                                            keyAnalysisDigitGroupSeparator
+                                        }
+                                    />
                                 </DataTableCell>
                             ))}
                         </>

@@ -23,13 +23,6 @@ import {
 } from '../../actions/selection.js'
 import {
     SENTINEL_SELECTED_ROW,
-    RENDERER_COLOR,
-    RENDERER_ICON,
-    RENDERER_DATE,
-    RENDERER_ORG_UNIT,
-    RENDERER_ORG_UNIT_NAME,
-    RENDERER_BOOLEAN,
-    TYPE_DATE,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
@@ -41,22 +34,13 @@ import {
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import {
-    formatBoolean,
-    formatDate,
-    formatDatetime,
-} from '../../util/helpers.js'
-import { formatWithSeparator } from '../../util/numbers.js'
-import {
-    formatOrgUnitOwnName,
-    formatOrgUnitPathBreadcrumb,
-} from '../../util/orgUnitGroups.js'
-import {
     getPinnedCellProps,
     getPinnedCount,
     getPinnedLeftOffsets,
     getVisibleHeaders,
 } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import CellValue, { getCellRendererFlags } from './CellValue.jsx'
 import FilterInput from './FilterInput.jsx'
 import {
     SelectionCheckboxHeaderCell,
@@ -553,17 +537,11 @@ const Table = ({
                                         columnWidths,
                                     })
                                 const renderer = rendererByDataKey.get(dataKey)
-                                const isColorCell = renderer === RENDERER_COLOR
-                                const isIconCell = renderer === RENDERER_ICON
-                                const isDateCell = renderer === RENDERER_DATE
-                                const isDateOnlyCell =
-                                    typeByDataKey.get(dataKey) === TYPE_DATE
-                                const isOrgUnitHierarchyCell =
-                                    renderer === RENDERER_ORG_UNIT
-                                const isOrgUnitNameCell =
-                                    renderer === RENDERER_ORG_UNIT_NAME
-                                const isBooleanCell =
-                                    renderer === RENDERER_BOOLEAN
+                                const type = typeByDataKey.get(dataKey)
+                                const { isColorCell } = getCellRendererFlags(
+                                    renderer,
+                                    type
+                                )
                                 return (
                                     <DataTableCell
                                         key={`dtcell-${dataKey}`}
@@ -592,48 +570,15 @@ const Table = ({
                                         }
                                         align={align}
                                     >
-                                        {isColorCell && value?.toLowerCase()}
-                                        {isIconCell && value && (
-                                            <img
-                                                className={styles.iconCell}
-                                                src={value}
-                                                alt=""
-                                                onError={(e) => {
-                                                    e.target.style.visibility =
-                                                        'hidden'
-                                                }}
-                                            />
-                                        )}
-                                        {isDateCell &&
-                                            value &&
-                                            (isDateOnlyCell
-                                                ? formatDate(value)
-                                                : formatDatetime(value))}
-                                        {isOrgUnitHierarchyCell &&
-                                            value &&
-                                            formatOrgUnitPathBreadcrumb(
-                                                value,
-                                                orgUnitIdToName
-                                            )}
-                                        {isOrgUnitNameCell &&
-                                            value &&
-                                            formatOrgUnitOwnName(
-                                                value,
-                                                orgUnitIdToName
-                                            )}
-                                        {isBooleanCell &&
-                                            value != null &&
-                                            formatBoolean(value)}
-                                        {!isColorCell &&
-                                            !isIconCell &&
-                                            !isDateCell &&
-                                            !isOrgUnitHierarchyCell &&
-                                            !isOrgUnitNameCell &&
-                                            !isBooleanCell &&
-                                            formatWithSeparator(
-                                                value,
+                                        <CellValue
+                                            value={value}
+                                            renderer={renderer}
+                                            type={type}
+                                            orgUnitIdToName={orgUnitIdToName}
+                                            keyAnalysisDigitGroupSeparator={
                                                 keyAnalysisDigitGroupSeparator
-                                            )}
+                                            }
+                                        />
                                     </DataTableCell>
                                 )
                             })}
