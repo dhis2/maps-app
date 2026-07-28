@@ -10,6 +10,7 @@ import {
 } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import { toggleFeatureSelection } from '../../actions/selection.js'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import MapLoadingMask from './MapLoadingMask.jsx'
@@ -39,8 +40,16 @@ const MapContainer = ({ resizeCount, setMap }) => {
         dispatchHighlightFeature
     )
 
-    const loadedMapViews = mapViews.filter((layer) => layer.isLoaded)
-    const isLoading = loadedMapViews.length !== mapViews.length
+    // The Combined data table's reference org unit layer is hidden and
+    // never rendered on the map canvas - excluded from both the render
+    // list and the isLoading count (comparing against the raw
+    // mapViews.length here would leave isLoading permanently stuck true,
+    // since a reference layer is never included in loadedMapViews).
+    const renderableMapViews = mapViews.filter(
+        (layer) => layer.layer !== COMBINED_TABLE_REF_LAYER
+    )
+    const loadedMapViews = renderableMapViews.filter((layer) => layer.isLoaded)
+    const isLoading = loadedMapViews.length !== renderableMapViews.length
 
     return (
         <>

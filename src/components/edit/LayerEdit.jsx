@@ -30,6 +30,7 @@ const layerDialogs = {
     facility: FacilityDialog,
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
+    combinedTableRef: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
     geoJsonUrl: GeoJsonDialog,
 }
@@ -40,6 +41,7 @@ const getLayerNames = () => ({
     facility: i18n.t('facility'),
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
+    combinedTableRef: i18n.t('reference org units'),
     earthEngine: i18n.t('Earth Engine'),
     geoJsonUrl: i18n.t('feature'),
 })
