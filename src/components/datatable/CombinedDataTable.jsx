@@ -7,12 +7,21 @@ import { useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { setCrossLayerSelection } from '../../actions/selection.js'
-import { ORG_UNIT_ID_DATA_KEY } from '../../constants/dataTable.js'
+import {
+    COMBINED_HEADERS_KEY,
+    ORG_UNIT_ID_DATA_KEY,
+} from '../../constants/dataTable.js'
 import {
     isFilterable,
     getRowId,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
+import {
+    getPinnedCellProps,
+    getPinnedCount,
+    getPinnedLeftOffsets,
+    getVisibleHeaders,
+} from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import CellValue from './CellValue.jsx'
 import FilterInput from './FilterInput.jsx'
@@ -24,6 +33,7 @@ import SortableColumnHeader from './SortableColumnHeader.jsx'
 import styles from './styles/CombinedDataTable.module.css'
 import dataTableStyles from './styles/DataTable.module.css'
 import TableComponents from './TableVirtuosoComponents.jsx'
+import { useColumnWidths } from './useColumnWidths.js'
 import { useCombinedTableData } from './useCombinedTableData.js'
 import { useRowClickSelection } from './useRowClickSelection.js'
 import { useRowSelection } from './useRowSelection.js'
@@ -77,6 +87,8 @@ const CombinedDataTable = ({
     onFiltersChange,
     globalSearch,
     onCountChange,
+    onHeadersChange,
+    columnConfig,
 }) => {
     const dispatch = useDispatch()
     const {
@@ -95,14 +107,46 @@ const CombinedDataTable = ({
             globalSearch,
         })
 
+    useEffect(() => {
+        onHeadersChange?.(headers, COMBINED_HEADERS_KEY)
+    }, [onHeadersChange, headers])
+
+    const pinnedKeys = useMemo(
+        () => columnConfig?.pinnedKeys ?? [],
+        [columnConfig]
+    )
+
+    const visibleHeaders = useMemo(
+        () => getVisibleHeaders(headers, columnConfig) ?? [],
+        [headers, columnConfig]
+    )
+
     const rendererByDataKey = useMemo(
-        () => new Map(headers.map((h) => [h.dataKey, h.renderer])),
-        [headers]
+        () => new Map(visibleHeaders.map((h) => [h.dataKey, h.renderer])),
+        [visibleHeaders]
     )
     const typeByDataKey = useMemo(
-        () => new Map(headers.map((h) => [h.dataKey, h.type])),
-        [headers]
+        () => new Map(visibleHeaders.map((h) => [h.dataKey, h.type])),
+        [visibleHeaders]
     )
+
+    const { headerRowRef, columnWidths } = useColumnWidths({
+        availableWidth,
+        headers: visibleHeaders,
+    })
+
+    const pinnedColumnCount = useMemo(
+        () => getPinnedCount(visibleHeaders, pinnedKeys),
+        [visibleHeaders, pinnedKeys]
+    )
+
+    const pinnedLeftOffsets = useMemo(
+        () => getPinnedLeftOffsets(visibleHeaders, pinnedKeys, columnWidths),
+        [visibleHeaders, pinnedKeys, columnWidths]
+    )
+    const pinnedOffsetsReady = Object.keys(pinnedLeftOffsets).length > 0
+
+    const isCheckboxColumnPinned = pinnedColumnCount > 0 && pinnedOffsetsReady
 
     useEffect(() => {
         onCountChange?.(rows.length, rows.length)
@@ -239,48 +283,73 @@ const CombinedDataTable = ({
 
     const fixedHeaderContent = useCallback(
         () => (
-            <DataTableRow>
+            <DataTableRow ref={headerRowRef}>
                 <SelectionCheckboxHeaderCell
+                    fixed={isCheckboxColumnPinned}
+                    left={isCheckboxColumnPinned ? '0px' : undefined}
                     isAllSelected={isAllSelected}
                     onToggleSelectAll={onToggleSelectAll}
                     onReverseSelection={onReverseSelection}
                     disabled={allRowIds.length === 0}
                 />
-                {headers.map(({ name, dataKey, type }) => (
-                    <SortableColumnHeader
-                        key={dataKey}
-                        name={name}
-                        dataKey={dataKey}
-                        sortField={sortField}
-                        sortDirection={sortDirection}
-                        onSort={sortData}
-                        dataTestPrefix="combined-table-column-sort-button"
-                        className={dataTableStyles.columnHeader}
-                        onFilterIconClick={
-                            isFilterable(dataKey, type) && Function.prototype
-                        }
-                        showFilter={isFilterable(dataKey, type)}
-                        filter={
-                            isFilterable(dataKey, type) && (
-                                <FilterInput
-                                    type={type}
-                                    dataKey={dataKey}
-                                    name={name}
-                                    options={columnOptions[dataKey]}
-                                    filterValue={filters?.[dataKey]}
-                                    onChange={(value) =>
-                                        onFilterChange(dataKey, value)
-                                    }
-                                    onClear={() => onFilterClear(dataKey)}
-                                />
-                            )
-                        }
-                    />
-                ))}
+                {visibleHeaders.map(({ name, dataKey, type }, index) => {
+                    const { fixed, left, isLastPinned } = getPinnedCellProps(
+                        dataKey,
+                        index,
+                        { pinnedLeftOffsets, pinnedColumnCount, columnWidths }
+                    )
+                    return (
+                        <SortableColumnHeader
+                            key={dataKey}
+                            name={name}
+                            dataKey={dataKey}
+                            sortField={sortField}
+                            sortDirection={sortDirection}
+                            onSort={sortData}
+                            dataTestPrefix="combined-table-column-sort-button"
+                            className={cx(dataTableStyles.columnHeader, {
+                                [dataTableStyles.pinnedColumnShadow]:
+                                    isLastPinned,
+                            })}
+                            fixed={fixed}
+                            left={left}
+                            onFilterIconClick={
+                                isFilterable(dataKey, type) &&
+                                Function.prototype
+                            }
+                            showFilter={isFilterable(dataKey, type)}
+                            filter={
+                                isFilterable(dataKey, type) && (
+                                    <FilterInput
+                                        type={type}
+                                        dataKey={dataKey}
+                                        name={name}
+                                        options={columnOptions[dataKey]}
+                                        filterValue={filters?.[dataKey]}
+                                        onChange={(value) =>
+                                            onFilterChange(dataKey, value)
+                                        }
+                                        onClear={() => onFilterClear(dataKey)}
+                                    />
+                                )
+                            }
+                            width={
+                                columnWidths.length > 0
+                                    ? `${columnWidths[index]}px`
+                                    : 'auto'
+                            }
+                        />
+                    )
+                })}
             </DataTableRow>
         ),
         [
-            headers,
+            headerRowRef,
+            isCheckboxColumnPinned,
+            visibleHeaders,
+            pinnedLeftOffsets,
+            pinnedColumnCount,
+            columnWidths,
             filters,
             columnOptions,
             onFilterChange,
@@ -315,38 +384,72 @@ const CombinedDataTable = ({
                     const rowId = getRowId(row)
                     const isSelected = !!rowId && selectedIdSet.has(rowId)
                     const isHovered = !!rowId && rowId === hoveredRowId
+                    const cellsByDataKey = new Map(
+                        row.map((cell) => [cell.dataKey, cell])
+                    )
                     return (
                         <>
                             <SelectionCheckboxCell
+                                fixed={isCheckboxColumnPinned}
+                                left={
+                                    isCheckboxColumnPinned ? '0px' : undefined
+                                }
+                                width={
+                                    isCheckboxColumnPinned ? '76px' : undefined
+                                }
                                 isSelected={isSelected}
                                 isHovered={isHovered}
                                 onToggle={() => rowId && onToggleRow(rowId)}
                             />
-                            {row.map(({ dataKey, value, align }) => (
-                                <DataTableCell
-                                    key={dataKey}
-                                    staticStyle
-                                    align={align}
-                                    className={cx(dataTableStyles.dataCell, {
-                                        [dataTableStyles.monoCell]:
-                                            dataKey === 'id' ||
-                                            dataKey === ORG_UNIT_ID_DATA_KEY,
-                                        [dataTableStyles.selected]: isSelected,
-                                        [dataTableStyles.hovered]: isHovered,
-                                    })}
-                                >
-                                    <CellValue
-                                        value={value}
-                                        renderer={rendererByDataKey.get(
-                                            dataKey
+                            {visibleHeaders.map(({ dataKey }, index) => {
+                                const cell = cellsByDataKey.get(dataKey)
+                                if (!cell) {
+                                    return null
+                                }
+                                const { value, align } = cell
+                                const { fixed, left, width, isLastPinned } =
+                                    getPinnedCellProps(dataKey, index, {
+                                        pinnedLeftOffsets,
+                                        pinnedColumnCount,
+                                        columnWidths,
+                                    })
+                                return (
+                                    <DataTableCell
+                                        key={dataKey}
+                                        staticStyle
+                                        fixed={fixed}
+                                        left={left}
+                                        width={width}
+                                        align={align}
+                                        className={cx(
+                                            dataTableStyles.dataCell,
+                                            {
+                                                [dataTableStyles.monoCell]:
+                                                    dataKey === 'id' ||
+                                                    dataKey ===
+                                                        ORG_UNIT_ID_DATA_KEY,
+                                                [dataTableStyles.selected]:
+                                                    isSelected,
+                                                [dataTableStyles.hovered]:
+                                                    isHovered,
+                                                [dataTableStyles.pinnedColumnShadow]:
+                                                    isLastPinned,
+                                            }
                                         )}
-                                        type={typeByDataKey.get(dataKey)}
-                                        keyAnalysisDigitGroupSeparator={
-                                            keyAnalysisDigitGroupSeparator
-                                        }
-                                    />
-                                </DataTableCell>
-                            ))}
+                                    >
+                                        <CellValue
+                                            value={value}
+                                            renderer={rendererByDataKey.get(
+                                                dataKey
+                                            )}
+                                            type={typeByDataKey.get(dataKey)}
+                                            keyAnalysisDigitGroupSeparator={
+                                                keyAnalysisDigitGroupSeparator
+                                            }
+                                        />
+                                    </DataTableCell>
+                                )
+                            })}
                         </>
                     )
                 }}
@@ -364,10 +467,16 @@ CombinedDataTable.propTypes = {
     }).isRequired,
     layers: PropTypes.array.isRequired,
     availableWidth: PropTypes.number,
+    columnConfig: PropTypes.shape({
+        orderedKeys: PropTypes.arrayOf(PropTypes.string),
+        pinnedKeys: PropTypes.arrayOf(PropTypes.string),
+        visibleKeys: PropTypes.arrayOf(PropTypes.string),
+    }),
     filters: PropTypes.object,
     globalSearch: PropTypes.string,
     onCountChange: PropTypes.func,
     onFiltersChange: PropTypes.func,
+    onHeadersChange: PropTypes.func,
 }
 
 export default CombinedDataTable

@@ -2,6 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import { DATA_TABLE_COLUMN_CONFIG_SET } from '../../../constants/actionTypes.js'
 import ColumnPickerControl from '../controls/ColumnPickerControl.jsx'
 
@@ -13,13 +14,20 @@ const headers = [
     { name: 'Legend', dataKey: 'legend' },
 ]
 
+// ColumnPickerControl is dispatch-agnostic (columnConfig/onChange are
+// caller-supplied) - this helper reproduces exactly what BottomPanel.jsx's
+// real single-layer call site does (dispatch setDataTableColumnConfig for a
+// real layer), so every existing assertion against store.getActions() still
+// holds.
 const renderColumnPicker = (props) => {
     const store = mockStore({})
     const result = render(
         <Provider store={store}>
             <ColumnPickerControl
-                layerId="layer1"
                 allHeaders={headers}
+                onChange={(config) =>
+                    store.dispatch(setDataTableColumnConfig('layer1', config))
+                }
                 {...props}
             />
         </Provider>

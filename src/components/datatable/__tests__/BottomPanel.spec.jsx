@@ -232,8 +232,21 @@ describe('BottomPanel Combined join controls', () => {
             screen.getByLabelText('Choose layers to combine')
         ).toBeInTheDocument()
         expect(
-            screen.queryByLabelText('Configure columns')
+            screen.queryByLabelText('Highlight color')
         ).not.toBeInTheDocument()
+    })
+
+    test('still shows the column picker while Combined is active, session-only (not the per-layer one)', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: twoEligibleLayers,
+        })
+
+        expect(screen.getByLabelText('Configure columns')).toBeInTheDocument()
     })
 
     test('offers and renders the spatial join point/polygon selects when point+polygon candidates exist', () => {
