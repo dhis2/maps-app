@@ -43,3 +43,12 @@ export const setActiveTimelinePeriod = (period) => ({
     type: types.ACTIVE_TIMELINE_PERIOD_SET,
     period,
 })
+
+export const toggleCombinedView = () => ({
+    type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+})
+
+export const setJoinConfig = (config) => ({
+    type: types.DATA_TABLE_JOIN_CONFIG_SET,
+    config,
+})

@@ -4,6 +4,8 @@ import {
     toggleDataTable,
     resizeDataTable,
     setActiveTimelinePeriod,
+    toggleCombinedView,
+    setJoinConfig,
 } from '../dataTable.js'
 
 describe('closeDataTable', () => {
@@ -38,6 +40,29 @@ describe('setActiveTimelinePeriod', () => {
         expect(setActiveTimelinePeriod(period)).toEqual({
             type: types.ACTIVE_TIMELINE_PERIOD_SET,
             period,
+        })
+    })
+})
+
+describe('toggleCombinedView', () => {
+    it('creates a DATA_TABLE_COMBINED_VIEW_TOGGLE action', () => {
+        expect(toggleCombinedView()).toEqual({
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+    })
+})
+
+describe('setJoinConfig', () => {
+    it('creates a DATA_TABLE_JOIN_CONFIG_SET action', () => {
+        const config = {
+            level: 'spatial',
+            layerIds: [],
+            pointLayerId: 'layer1',
+            polygonLayerId: 'layer2',
+        }
+        expect(setJoinConfig(config)).toEqual({
+            type: types.DATA_TABLE_JOIN_CONFIG_SET,
+            config,
         })
     })
 })
