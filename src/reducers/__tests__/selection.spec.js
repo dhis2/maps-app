@@ -112,7 +112,6 @@ describe('selection reducer', () => {
         types.MAP_NEW,
         types.MAP_SET,
         types.DATA_TABLE_CLOSE,
-        types.DATA_TABLE_TOGGLE,
     ])('resets to default state on %s', (type) => {
         const state = selection(
             { layerId: 'layer-1', ids: ['a', 'b'] },
@@ -120,6 +119,25 @@ describe('selection reducer', () => {
         )
 
         expect(state).toEqual({ layerId: null, ids: [] })
+    })
+
+    it("resets to default state when the selected layer's data table tab is toggled (closed)", () => {
+        const state = selection(
+            { layerId: 'layer-1', ids: ['a', 'b'] },
+            { type: types.DATA_TABLE_TOGGLE, id: 'layer-1' }
+        )
+
+        expect(state).toEqual({ layerId: null, ids: [] })
+    })
+
+    it("keeps the selection when a different layer's data table tab is toggled", () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_TOGGLE,
+            id: 'layer-2',
+        })
+
+        expect(state).toBe(prevState)
     })
 
     it('resets to default state when the selected layer is removed', () => {
