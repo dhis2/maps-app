@@ -22,6 +22,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { sortLayers } from '../../actions/layers.js'
 import { layersSortingEnd, layersSortingStart } from '../../actions/ui.js'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.jsx'
 import LayersToggle from '../layers/LayersToggle.jsx'
 import { DragHandleCtx } from './dragHandleContext.js'
@@ -60,10 +61,33 @@ SortableLayer.propTypes = {
     layer: PropTypes.object.isRequired,
 }
 
+// LAYER_SORT's reducer (reducers/map.js) computes positions against the
+// full reversed mapViews, not the displayed/draggable list - which
+// excludes the Combined data table's hidden reference org unit layer, if
+// one exists. Looking indices up here instead keeps a present reference
+// layer from throwing off every index after its position.
+export const getSortIndices = (reversedMapViews, activeId, overId) => ({
+    oldIndex: reversedMapViews.findIndex((l) => l.id === activeId),
+    newIndex: reversedMapViews.findIndex((l) => l.id === overId),
+})
+
 const LayersPanel = () => {
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
-    // Reversed so the last map view (top layer) is shown first
-    const layers = useSelector((state) => [...state.map.mapViews].reverse())
+    // Reversed so the last map view (top layer) is shown first. The
+    // Combined data table's reference org unit layer is a hidden,
+    // non-rendered "ghost" - it never gets its own card, drag handle, or
+    // remove button here, so it's filtered out of the displayed/draggable
+    // list. reversedMapViews stays unfiltered - LAYER_SORT's reducer (see
+    // reducers/map.js) computes oldIndex/newIndex against the full reversed
+    // mapViews, so onDragEnd below must look indices up there, not in the
+    // filtered display list, or a present ghost layer would throw off every
+    // index after its position.
+    const reversedMapViews = useSelector((state) =>
+        [...state.map.mapViews].reverse()
+    )
+    const layers = reversedMapViews.filter(
+        (l) => l.layer !== COMBINED_TABLE_REF_LAYER
+    )
 
     const dispatch = useDispatch()
 
@@ -101,8 +125,11 @@ const LayersPanel = () => {
         stopSorting()
 
         if (over && active.id !== over.id) {
-            const oldIndex = layers.findIndex((l) => l.id === active.id)
-            const newIndex = layers.findIndex((l) => l.id === over.id)
+            const { oldIndex, newIndex } = getSortIndices(
+                reversedMapViews,
+                active.id,
+                over.id
+            )
 
             if (oldIndex !== -1 && newIndex !== -1) {
                 dispatch(sortLayers({ oldIndex, newIndex }))

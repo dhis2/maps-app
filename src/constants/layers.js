@@ -17,6 +17,11 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
+// A hidden, non-rendered org-unit layer backing the Combined data table's
+// join - deliberately its own type (not ORG_UNIT_LAYER) so it's excluded
+// from DOWNLOADABLE_LAYER_TYPES/DATA_TABLE_LAYER_TYPES and the "Add layer"
+// popover just by omission, with no separate flag to check everywhere.
+export const COMBINED_TABLE_REF_LAYER = 'combinedTableRef'
 
 export const MAP_SERVICE_KEY_TESTS = {
     keyBingMapsApiKey: [

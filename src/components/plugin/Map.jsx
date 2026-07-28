@@ -10,8 +10,10 @@ import React, {
     useState,
     useCallback,
     useEffect,
+    useMemo,
     useRef,
 } from 'react'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
@@ -37,19 +39,40 @@ const getFullscreenDoc = () => {
 const Map = forwardRef((props, ref) => {
     const { basemap, mapViews, controls, getResizeFunction } = props
 
+    // The Combined data table's reference org unit layer is a hidden,
+    // non-rendered layer with no meaning outside the standalone app's
+    // BottomPanel (which the dashboard plugin has no Redux store to
+    // render) - exclude it here rather than let its unregistered loader
+    // key reach LayerLoader. Memoized so it's only a new reference when
+    // mapViews itself changes, keeping the effect below from re-running
+    // (and resetting map state) on every render.
+    const renderableMapViews = useMemo(
+        () => mapViews.filter((v) => v.layer !== COMBINED_TABLE_REF_LAYER),
+        [mapViews]
+    )
+
     const layers = useRef(
-        mapViews.map((config) => ({ ...config, isLoaded: false }))
+        renderableMapViews.map((config) => ({ ...config, isLoaded: false }))
     )
 
     useEffect(() => {
-        if (didViewsChange(layers.current, mapViews)) {
-            layers.current = mapViews.map((v) => ({ ...v, isLoaded: false }))
+        if (didViewsChange(layers.current, renderableMapViews)) {
+            layers.current = renderableMapViews.map((v) => ({
+                ...v,
+                isLoaded: false,
+            }))
             setVisibilityOverrides({})
             setMapIsLoaded(false)
         }
-    }, [mapViews])
+    }, [renderableMapViews])
 
-    const [mapIsLoaded, setMapIsLoaded] = useState(mapViews.length === 0)
+    // Matches renderableMapViews, not the raw mapViews prop - a map
+    // containing only a hidden reference layer and no real layers has
+    // nothing for any <LayerLoader> to load, so nothing would ever call
+    // onLayerLoad to flip this true otherwise.
+    const [mapIsLoaded, setMapIsLoaded] = useState(
+        renderableMapViews.length === 0
+    )
     const [contextMenu, setContextMenu] = useState()
     const [visibilityOverrides, setVisibilityOverrides] = useState({})
     const [resizeCount, setResizeCount] = useState(0)
