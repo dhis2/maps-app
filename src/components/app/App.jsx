@@ -35,7 +35,9 @@ const App = () => {
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)
 
-    const dataTableOpen = useSelector((state) => !!state.dataTable)
+    const dataTableOpen = useSelector(
+        (state) => state.dataTable.openIds.length > 0
+    )
     const downloadModeOpen = useSelector((state) => !!state.ui.downloadMode)
     const detailsPanelOpen = useSelector(
         (state) => state.ui.rightPanelOpen && !state.orgUnitProfile
