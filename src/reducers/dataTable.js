@@ -42,12 +42,12 @@ const dataTable = (state = initialState, action) => {
             const openIds = state.openIds.includes(action.id)
                 ? state.openIds.filter((id) => id !== action.id)
                 : [...state.openIds, action.id]
-            // Closing the last tab this way (rather than via DATA_TABLE_CLOSE)
-            // still means the panel is now fully closed (see App.jsx, which
-            // gates rendering it on openIds.length > 0) - so it gets the same
-            // full reset, or a stale combinedView/joinConfig would resurface
-            // the next time any single layer's table is reopened.
-            return openIds.length === 0 ? initialState : { ...state, openIds }
+            // combinedView/joinConfig are fully decoupled from openIds -
+            // closing the last open tab this way doesn't touch them, even
+            // if that empties openIds. isDataTableOpen() (util/dataTable.js)
+            // is what decides whether the panel itself stays open, and it
+            // already accounts for combinedView independently of openIds.
+            return { ...state, openIds }
         }
 
         case types.LAYER_REMOVE: {
