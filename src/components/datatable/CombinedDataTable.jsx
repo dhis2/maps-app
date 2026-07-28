@@ -1,44 +1,36 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    DataTable,
-    DataTableBody,
-    DataTableHead,
-    DataTableRow,
-    DataTableColumnHeader,
-    DataTableCell,
-    Input,
-} from '@dhis2/ui'
+import { DataTableRow, DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, {
-    useCallback,
-    useEffect,
-    useMemo,
-    useReducer,
-    useRef,
-    useState,
-} from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { setCrossLayerSelection } from '../../actions/selection.js'
-import { SORT_ASCENDING } from '../../constants/dataTable.js'
+import { ORG_UNIT_ID_DATA_KEY } from '../../constants/dataTable.js'
 import {
-    getNextSorting,
-    getRowClickAction,
-    getRowId,
     isFilterable,
+    getRowId,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
-import { SortIcon } from '../core/icons.jsx'
+import FilterInput from './FilterInput.jsx'
+import {
+    SelectionCheckboxHeaderCell,
+    SelectionCheckboxCell,
+} from './SelectionCheckboxColumn.jsx'
+import SortableColumnHeader from './SortableColumnHeader.jsx'
 import styles from './styles/CombinedDataTable.module.css'
 import dataTableStyles from './styles/DataTable.module.css'
-import TopTooltip from './TopTooltip.jsx'
+import TableComponents from './TableVirtuosoComponents.jsx'
 import { useCombinedTableData } from './useCombinedTableData.js'
+import { useRowClickSelection } from './useRowClickSelection.js'
+import { useRowSelection } from './useRowSelection.js'
+import { useSortState } from './useSortState.js'
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const LARGE_FEATURE_THRESHOLD_LABEL = '10,000'
 const EMPTY_FILTERS = {}
+const NOOP = () => {}
 
 const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
     const merged = {}
@@ -54,34 +46,6 @@ const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
     return merged
 }
 
-const CombinedTable = (props) => (
-    <DataTable {...props} className={styles.dataTable} />
-)
-
-const CombinedTableRow = React.memo(function CombinedTableRow({
-    context,
-    item,
-    ...props
-}) {
-    return (
-        <DataTableRow
-            onMouseEnter={() => context.onMouseEnter(item)}
-            onMouseLeave={context.onMouseLeave}
-            onClick={(e) => context.onRowClick(item, e)}
-            {...props}
-        />
-    )
-})
-
-CombinedTableRow.propTypes = {
-    context: PropTypes.shape({
-        onMouseEnter: PropTypes.func,
-        onMouseLeave: PropTypes.func,
-        onRowClick: PropTypes.func,
-    }),
-    item: PropTypes.array,
-}
-
 const EmptyPlaceholder = () => (
     <tbody>
         <tr>
@@ -94,11 +58,12 @@ const EmptyPlaceholder = () => (
     </tbody>
 )
 
+// Reuse the same generic TableVirtuoso row/table wiring DataTable.jsx uses
+// (context-driven mouse/click callbacks) - only the empty-state message
+// differs, since Combined doesn't have DataTable's server-cluster/
+// clear-filters messaging needs yet.
 const CombinedTableComponents = {
-    Table: CombinedTable,
-    TableBody: DataTableBody,
-    TableHead: DataTableHead,
-    TableRow: CombinedTableRow,
+    ...TableComponents,
     EmptyPlaceholder,
 }
 
@@ -113,19 +78,9 @@ const CombinedDataTable = ({
 }) => {
     const dispatch = useDispatch()
 
-    const [{ sortField, sortDirection }, setSorting] = useReducer(
-        (sorting, newSorting) => ({ ...sorting, ...newSorting }),
-        { sortField: 'name', sortDirection: SORT_ASCENDING }
-    )
+    const { sortField, sortDirection, sortData } = useSortState('name')
 
-    const sortData = useCallback(
-        ({ name }) => {
-            setSorting(getNextSorting(name, { sortField, sortDirection }))
-        },
-        [sortField, sortDirection]
-    )
-
-    const { headers, rows, rowFeatureIds, spatialWarning } =
+    const { headers, rows, rowFeatureIds, columnOptions, spatialWarning } =
         useCombinedTableData({
             layers,
             joinConfig,
@@ -178,37 +133,24 @@ const CombinedDataTable = ({
         [dispatch, rowFeatureIds]
     )
 
-    const lastClickedRowIndexRef = useRef(null)
-
-    const onRowClick = useCallback(
-        (row, event) => {
-            const id = getRowId(row)
-            if (!id || !rows) {
-                return
-            }
-            const rowIndex = rows.findIndex((r) => getRowId(r) === id)
-            const action = getRowClickAction(event, {
-                id,
-                rowIndex,
-                rows,
-                lastClickedRowIndex: lastClickedRowIndexRef.current,
-            })
-            if (!action) {
-                return
-            }
-            if (action.type === 'range') {
-                applySelection([...new Set([...selectedIds, ...action.ids])])
-            } else {
-                applySelection(
-                    selectedIds.includes(action.id)
-                        ? selectedIds.filter((i) => i !== action.id)
-                        : [...selectedIds, action.id]
-                )
-            }
-            lastClickedRowIndexRef.current = rowIndex
-        },
-        [applySelection, selectedIds, rows]
+    const onToggleRow = useCallback(
+        (id) =>
+            applySelection(
+                selectedIds.includes(id)
+                    ? selectedIds.filter((i) => i !== id)
+                    : [...selectedIds, id]
+            ),
+        [applySelection, selectedIds]
     )
+    const onSelectRowRange = useCallback(
+        (ids) => applySelection([...new Set([...selectedIds, ...ids])]),
+        [applySelection, selectedIds]
+    )
+    const onRowClick = useRowClickSelection({
+        rows,
+        onToggle: onToggleRow,
+        onSelectRange: onSelectRowRange,
+    })
 
     const setFeatureHighlight = useCallback(
         (row) => {
@@ -242,34 +184,40 @@ const CombinedDataTable = ({
 
     const allRowIds = useMemo(() => rows.map(getRowId).filter(Boolean), [rows])
 
-    const isAllSelected =
-        allRowIds.length > 0 && allRowIds.every((id) => selectedIdSet.has(id))
-
-    const onToggleSelectAll = useCallback(() => {
-        applySelection(
-            isAllSelected
-                ? selectedIds.filter((id) => !allRowIds.includes(id))
-                : [...new Set([...selectedIds, ...allRowIds])]
-        )
-    }, [applySelection, isAllSelected, selectedIds, allRowIds])
+    const { isAllSelected, onToggleSelectAll, onReverseSelection } =
+        useRowSelection({
+            selectedIds,
+            selectedIdSet,
+            allRowIds,
+            onChange: applySelection,
+        })
 
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             onRowClick,
+            onContextMenu: NOOP,
+            onRowDoubleClick: NOOP,
+            layout: 'auto',
         }),
         [setFeatureHighlight, clearFeatureHighlight, onRowClick]
     )
 
     const onFilterChange = useCallback(
         (dataKey, value) => {
+            onFiltersChange?.({
+                ...(filters ?? EMPTY_FILTERS),
+                [dataKey]: value,
+            })
+        },
+        [filters, onFiltersChange]
+    )
+
+    const onFilterClear = useCallback(
+        (dataKey) => {
             const next = { ...(filters ?? EMPTY_FILTERS) }
-            if (value) {
-                next[dataKey] = value
-            } else {
-                delete next[dataKey]
-            }
+            delete next[dataKey]
             onFiltersChange?.(next)
         },
         [filters, onFiltersChange]
@@ -278,77 +226,58 @@ const CombinedDataTable = ({
     const fixedHeaderContent = useCallback(
         () => (
             <DataTableRow>
-                <DataTableColumnHeader className={styles.checkboxCell}>
-                    <TopTooltip content={i18n.t('Select all visible rows')}>
-                        <input
-                            type="checkbox"
-                            aria-label={i18n.t('Select all visible rows')}
-                            checked={isAllSelected}
-                            onChange={onToggleSelectAll}
-                        />
-                    </TopTooltip>
-                </DataTableColumnHeader>
+                <SelectionCheckboxHeaderCell
+                    isAllSelected={isAllSelected}
+                    onToggleSelectAll={onToggleSelectAll}
+                    onReverseSelection={onReverseSelection}
+                    disabled={allRowIds.length === 0}
+                />
                 {headers.map(({ name, dataKey, type }) => (
-                    <DataTableColumnHeader
+                    <SortableColumnHeader
                         key={dataKey}
-                        name={dataKey}
+                        name={name}
+                        dataKey={dataKey}
+                        sortField={sortField}
+                        sortDirection={sortDirection}
+                        onSort={sortData}
+                        dataTestPrefix="combined-table-column-sort-button"
+                        className={dataTableStyles.columnHeader}
                         onFilterIconClick={
                             isFilterable(dataKey, type) && Function.prototype
                         }
                         showFilter={isFilterable(dataKey, type)}
                         filter={
                             isFilterable(dataKey, type) && (
-                                <Input
-                                    dense
-                                    clearable
-                                    dataTest={`combined-table-column-filter-${name}`}
-                                    placeholder={i18n.t('Search')}
-                                    value={filters?.[dataKey] ?? ''}
-                                    onChange={({ value }) =>
+                                <FilterInput
+                                    type={type}
+                                    dataKey={dataKey}
+                                    name={name}
+                                    options={columnOptions[dataKey]}
+                                    filterValue={filters?.[dataKey]}
+                                    onChange={(value) =>
                                         onFilterChange(dataKey, value)
                                     }
+                                    onClear={() => onFilterClear(dataKey)}
                                 />
                             )
                         }
-                    >
-                        <span className={dataTableStyles.headerContent}>
-                            <span className={dataTableStyles.headerTitle}>
-                                {name}
-                            </span>
-                            <TopTooltip
-                                content={i18n.t('Sort by {{column}}', {
-                                    column: name,
-                                })}
-                            >
-                                <button
-                                    type="button"
-                                    className={dataTableStyles.sortButton}
-                                    data-test={`combined-table-column-sort-button-${name}`}
-                                    onClick={() => sortData({ name: dataKey })}
-                                >
-                                    <SortIcon
-                                        direction={
-                                            dataKey === sortField
-                                                ? sortDirection
-                                                : null
-                                        }
-                                    />
-                                </button>
-                            </TopTooltip>
-                        </span>
-                    </DataTableColumnHeader>
+                    />
                 ))}
             </DataTableRow>
         ),
         [
             headers,
             filters,
+            columnOptions,
             onFilterChange,
+            onFilterClear,
             sortData,
             sortField,
             sortDirection,
             isAllSelected,
             onToggleSelectAll,
+            onReverseSelection,
+            allRowIds,
         ]
     )
 
@@ -374,37 +303,22 @@ const CombinedDataTable = ({
                     const isHovered = !!rowId && rowId === hoveredRowId
                     return (
                         <>
-                            <DataTableCell
-                                staticStyle
-                                className={cx(styles.checkboxCell, {
-                                    [styles.selected]: isSelected,
-                                    [styles.hovered]: isHovered,
-                                })}
-                            >
-                                <input
-                                    type="checkbox"
-                                    checked={isSelected}
-                                    onChange={() =>
-                                        rowId &&
-                                        applySelection(
-                                            selectedIds.includes(rowId)
-                                                ? selectedIds.filter(
-                                                      (id) => id !== rowId
-                                                  )
-                                                : [...selectedIds, rowId]
-                                        )
-                                    }
-                                    onClick={(e) => e.stopPropagation()}
-                                />
-                            </DataTableCell>
+                            <SelectionCheckboxCell
+                                isSelected={isSelected}
+                                isHovered={isHovered}
+                                onToggle={() => rowId && onToggleRow(rowId)}
+                            />
                             {row.map(({ dataKey, value, align }) => (
                                 <DataTableCell
                                     key={dataKey}
                                     staticStyle
                                     align={align}
-                                    className={cx({
-                                        [styles.selected]: isSelected,
-                                        [styles.hovered]: isHovered,
+                                    className={cx(dataTableStyles.dataCell, {
+                                        [dataTableStyles.monoCell]:
+                                            dataKey === 'id' ||
+                                            dataKey === ORG_UNIT_ID_DATA_KEY,
+                                        [dataTableStyles.selected]: isSelected,
+                                        [dataTableStyles.hovered]: isHovered,
                                     })}
                                 >
                                     {value ?? '—'}

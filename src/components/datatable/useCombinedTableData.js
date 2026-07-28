@@ -12,7 +12,11 @@ import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { formatOrgUnitOwnName } from '../../util/orgUnitGroups.js'
 import { spatialJoin } from '../../util/spatialJoin.js'
-import { buildRowCells } from '../../util/tableColumns.js'
+import {
+    buildRowCells,
+    getColumnDistinctValues,
+    sortColumnOptions,
+} from '../../util/tableColumns.js'
 import { compareRows } from '../../util/tableSort.js'
 
 const VALUE_KEY = 'rawValue'
@@ -58,10 +62,13 @@ const getParentPath = (path) => {
     return segments.length > 1 ? segments.slice(0, -1).join('/') : null
 }
 
+const EMPTY_COLUMN_OPTIONS = {}
+
 const EMPTY_RESULT = {
     headers: [],
     rows: [],
     rowFeatureIds: new Map(),
+    columnOptions: EMPTY_COLUMN_OPTIONS,
     spatialWarning: false,
 }
 
@@ -223,8 +230,19 @@ export const useCombinedTableData = ({
                 sortField,
                 sortDirection,
             })
+            const columnOptions =
+                sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
+                    sortField,
+                    sortDirection,
+                }) ?? EMPTY_COLUMN_OPTIONS
 
-            return { headers, rows, rowFeatureIds, spatialWarning }
+            return {
+                headers,
+                rows,
+                rowFeatureIds,
+                columnOptions,
+                spatialWarning,
+            }
         }
 
         const layerHeaders = layerMaps.flatMap(({ layer }) => [
@@ -302,8 +320,19 @@ export const useCombinedTableData = ({
                 sortField,
                 sortDirection,
             })
+            const columnOptions =
+                sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
+                    sortField,
+                    sortDirection,
+                }) ?? EMPTY_COLUMN_OPTIONS
 
-            return { headers, rows, rowFeatureIds, spatialWarning: false }
+            return {
+                headers,
+                rows,
+                rowFeatureIds,
+                columnOptions,
+                spatialWarning: false,
+            }
         }
 
         const headers = [
@@ -345,8 +374,19 @@ export const useCombinedTableData = ({
             sortField,
             sortDirection,
         })
+        const columnOptions =
+            sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
+                sortField,
+                sortDirection,
+            }) ?? EMPTY_COLUMN_OPTIONS
 
-        return { headers, rows, rowFeatureIds, spatialWarning: false }
+        return {
+            headers,
+            rows,
+            rowFeatureIds,
+            columnOptions,
+            spatialWarning: false,
+        }
     }, [
         layers,
         layerMaps,

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-28T10:06:28.667Z\n"
-"PO-Revision-Date: 2026-07-28T10:06:28.667Z\n"
+"POT-Creation-Date: 2026-07-28T10:47:18.465Z\n"
+"PO-Revision-Date: 2026-07-28T10:47:18.465Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -179,23 +179,8 @@ msgstr "Combined"
 msgid "No matching rows"
 msgstr "No matching rows"
 
-msgid "Search"
-msgstr "Search"
-
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
-
 msgid "Spatial join over large datasets may be slow (over {{threshold}} features)"
 msgstr "Spatial join over large datasets may be slow (over {{threshold}} features)"
-
-msgid "Select all visible rows"
-msgstr "Select all visible rows"
-
-msgid "Reverse selection of visible rows"
-msgstr "Reverse selection of visible rows"
-
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
 
 msgid "Edit layer"
 msgstr "Edit layer"
@@ -239,6 +224,9 @@ msgstr "Use filter"
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
 
+msgid "Search"
+msgstr "Search"
+
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
@@ -269,6 +257,15 @@ msgstr "to match the rows under it, or type to search"
 msgid "Select matches"
 msgstr "Select matches"
 
+msgid "Select all visible rows"
+msgstr "Select all visible rows"
+
+msgid "Reverse selection of visible rows"
+msgstr "Reverse selection of visible rows"
+
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
+
 msgid "Selected"
 msgstr "Selected"
 
@@ -282,6 +279,9 @@ msgid "{{count}} selected"
 msgid_plural "{{count}} selected"
 msgstr[0] "{{count}} selected"
 msgstr[1] "{{count}} selected"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"

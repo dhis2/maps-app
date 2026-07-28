@@ -3,7 +3,6 @@ import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
     SENTINEL_SELECTED_ROW,
-    SORT_ASCENDING,
     TYPE_ORG_UNIT,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
@@ -24,6 +23,7 @@ import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
+    sortColumnOptions,
 } from '../../util/tableColumns.js'
 import {
     TYPE_STRING,
@@ -31,7 +31,7 @@ import {
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
 import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
-import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
+import { compareRows } from '../../util/tableSort.js'
 
 const ERROR_NO_HEADERS = 'NO_HEADERS'
 
@@ -214,30 +214,14 @@ export const useTableData = ({
     )
 
     // Cheap: just re-orders each column's already-known distinct-value list
-    const columnOptions = useMemo(() => {
-        if (!columnDistinctValues) {
-            return EMPTY_COLUMN_OPTIONS
-        }
-
-        const result = {}
-        Object.entries(columnDistinctValues).forEach(
-            ([dataKey, { values, type }]) => {
-                const direction =
-                    dataKey === sortField ? sortDirection : SORT_ASCENDING
-                result[dataKey] = [...values]
-                    .sort((a, b) =>
-                        compareColumnOptionValues(a, b, {
-                            dataKey,
-                            type,
-                            direction,
-                        })
-                    )
-                    .map((value) => ({ value }))
-            }
-        )
-
-        return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
-    }, [columnDistinctValues, sortField, sortDirection])
+    const columnOptions = useMemo(
+        () =>
+            sortColumnOptions(columnDistinctValues, {
+                sortField,
+                sortDirection,
+            }) ?? EMPTY_COLUMN_OPTIONS,
+        [columnDistinctValues, sortField, sortDirection]
+    )
 
     const orgUnitPathValues = useMemo(
         () =>

@@ -12,6 +12,7 @@ import {
     isPinnedGroupEnd,
     reorderHeaderKeys,
     reverseVisibleKeys,
+    sortColumnOptions,
     togglePinnedKey,
     toggleVisibleKey,
 } from '../tableColumns.js'
@@ -435,6 +436,38 @@ describe('getColumnDistinctValues', () => {
         const result = getColumnDistinctValues(typedHeaders, data)
         expect(result.name.values).toEqual([SENTINEL_NO_VALUE])
         expect(result.rawValue.values).toEqual([SENTINEL_NO_VALUE, '5'])
+    })
+})
+
+describe('sortColumnOptions', () => {
+    it('returns null when there are no distinct values', () => {
+        expect(sortColumnOptions(null)).toBe(null)
+    })
+
+    it('sorts each column ascending by default', () => {
+        const distinctValues = {
+            rawValue: { values: ['30', '10', '20'], type: TYPE_NUMBER },
+        }
+        expect(sortColumnOptions(distinctValues)).toEqual({
+            rawValue: [{ value: '10' }, { value: '20' }, { value: '30' }],
+        })
+    })
+
+    it('sorts the active sort field descending, leaving other columns ascending', () => {
+        const distinctValues = {
+            rawValue: { values: ['30', '10', '20'], type: TYPE_NUMBER },
+            name: { values: ['B', 'A'], type: 'string' },
+        }
+        const result = sortColumnOptions(distinctValues, {
+            sortField: 'rawValue',
+            sortDirection: 'desc',
+        })
+        expect(result.rawValue).toEqual([
+            { value: '30' },
+            { value: '20' },
+            { value: '10' },
+        ])
+        expect(result.name).toEqual([{ value: 'A' }, { value: 'B' }])
     })
 })
 

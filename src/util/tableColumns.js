@@ -1,5 +1,10 @@
 import { arrayMoveImmutable } from 'array-move'
-import { SENTINEL_NO_VALUE, TYPE_NUMBER } from '../constants/dataTable.js'
+import {
+    SENTINEL_NO_VALUE,
+    SORT_ASCENDING,
+    TYPE_NUMBER,
+} from '../constants/dataTable.js'
+import { compareColumnOptionValues } from './tableSort.js'
 
 const CHECKBOX_COLUMN_WIDTH = 76
 
@@ -139,6 +144,39 @@ export const getColumnDistinctValues = (headers, data) => {
     })
 
     return result
+}
+
+// Cheap: just re-orders each column's already-known distinct-value list from
+// getColumnDistinctValues into the {value} option list FilterInput expects.
+// Kept separate from the expensive scan above so re-sorting doesn't force a
+// re-scan - shared by DataTable.jsx and CombinedDataTable.jsx's filter
+// popovers.
+export const sortColumnOptions = (
+    columnDistinctValues,
+    { sortField, sortDirection } = {}
+) => {
+    if (!columnDistinctValues) {
+        return null
+    }
+
+    const result = {}
+    Object.entries(columnDistinctValues).forEach(
+        ([dataKey, { values, type }]) => {
+            const direction =
+                dataKey === sortField ? sortDirection : SORT_ASCENDING
+            result[dataKey] = [...values]
+                .sort((a, b) =>
+                    compareColumnOptionValues(a, b, {
+                        dataKey,
+                        type,
+                        direction,
+                    })
+                )
+                .map((value) => ({ value }))
+        }
+    )
+
+    return Object.keys(result).length ? result : null
 }
 
 export const buildRowCells = (item, headers) =>
