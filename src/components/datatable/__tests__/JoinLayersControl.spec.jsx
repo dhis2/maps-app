@@ -1,6 +1,10 @@
 import { render, fireEvent, screen, within } from '@testing-library/react'
 import React from 'react'
-import { GEOJSON_URL_LAYER, THEMATIC_LAYER } from '../../../constants/layers.js'
+import {
+    EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
+    THEMATIC_LAYER,
+} from '../../../constants/layers.js'
 import JoinLayersControl from '../controls/JoinLayersControl.jsx'
 
 const eligibleLayers = [
@@ -235,6 +239,75 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
 
         expect(onChange).toHaveBeenCalledWith({
             layer1: { type: 'orgUnit', aggregation: { rawValue: 'AVERAGE' } },
+        })
+    })
+
+    test('shows one labeled aggregation select per Earth Engine stat, and checking it defaults every stat to SUM', () => {
+        const onChange = jest.fn()
+        const eeLayer = {
+            id: 'ee',
+            name: 'NDVI',
+            layer: EARTH_ENGINE_LAYER,
+            aggregationType: ['mean', 'max'],
+            legend: { title: 'NDVI' },
+            data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
+        }
+        renderControl({
+            eligibleLayers: [eeLayer],
+            layersConfig: {},
+            onChange,
+        })
+        openPicker()
+
+        fireEvent.click(screen.getByRole('checkbox', { name: 'NDVI' }))
+
+        expect(onChange).toHaveBeenCalledWith({
+            ee: {
+                type: 'orgUnit',
+                aggregation: { mean: 'SUM', max: 'SUM' },
+            },
+        })
+    })
+
+    test('changing one Earth Engine stat column aggregation leaves the other stat column untouched', () => {
+        const onChange = jest.fn()
+        const eeLayer = {
+            id: 'ee',
+            name: 'NDVI',
+            layer: EARTH_ENGINE_LAYER,
+            aggregationType: ['mean', 'max'],
+            legend: { title: 'NDVI' },
+            data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
+        }
+        renderControl({
+            eligibleLayers: [eeLayer],
+            layersConfig: {
+                ee: {
+                    type: 'orgUnit',
+                    aggregation: { mean: 'SUM', max: 'SUM' },
+                },
+            },
+            onChange,
+        })
+        openPicker()
+
+        expect(
+            screen.getByLabelText('Aggregation type for Mean Ndvi (NDVI)')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByLabelText('Aggregation type for Max Ndvi (NDVI)')
+        ).toBeInTheDocument()
+
+        fireEvent.change(
+            screen.getByLabelText('Aggregation type for Mean Ndvi (NDVI)'),
+            { target: { value: 'AVERAGE' } }
+        )
+
+        expect(onChange).toHaveBeenCalledWith({
+            ee: {
+                type: 'orgUnit',
+                aggregation: { mean: 'AVERAGE', max: 'SUM' },
+            },
         })
     })
 })

@@ -3,7 +3,7 @@ import { DataTableRow, DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { setCrossLayerSelection } from '../../actions/selection.js'
@@ -83,6 +83,10 @@ const CombinedDataTable = ({
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
+    // Earth Engine layers compute their value(s) client-side into this
+    // slice rather than attaching them to the feature itself - see
+    // useCombinedTableData.js's own mergeAggregations.
+    const aggregations = useSelector((state) => state.aggregations)
 
     const { sortField, sortDirection, sortData } = useSortState('name')
 
@@ -95,6 +99,7 @@ const CombinedDataTable = ({
             sortDirection,
             filters,
             globalSearch,
+            aggregations,
         })
 
     useEffect(() => {

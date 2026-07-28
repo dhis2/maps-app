@@ -1,6 +1,11 @@
-import { THEMATIC_LAYER, EXTERNAL_LAYER } from '../../constants/layers.js'
+import {
+    EARTH_ENGINE_LAYER,
+    THEMATIC_LAYER,
+    EXTERNAL_LAYER,
+} from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getCombinedValueDataKeys,
     getEligibleDataTableLayers,
     getLayerSelectedIds,
     getNextSorting,
@@ -14,6 +19,55 @@ import {
     mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
+
+describe('getCombinedValueDataKeys', () => {
+    test('returns a single generic rawValue column for any non-Earth-Engine layer', () => {
+        expect(getCombinedValueDataKeys({ layer: THEMATIC_LAYER })).toEqual([
+            { dataKey: 'rawValue', name: null },
+        ])
+    })
+
+    test('returns one column per aggregation stat when aggregationType is an array', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual([
+            { dataKey: 'mean', name: 'Mean Ndvi' },
+            { dataKey: 'max', name: 'Max Ndvi' },
+        ])
+    })
+
+    test('returns one column per legend class when aggregationType is classified', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'percentage',
+                legend: {
+                    items: [
+                        { value: 1, name: 'Forest' },
+                        { value: 2, name: 'Water' },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '1', name: 'Forest' },
+            { dataKey: '2', name: 'Water' },
+        ])
+    })
+
+    test('returns no columns for an Earth Engine layer with neither shape configured yet', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: null,
+                legend: {},
+            })
+        ).toEqual([])
+    })
+})
 
 describe('shouldClearFeatureHighlight', () => {
     test('clears when leaving to no element (cursor exits the window)', () => {

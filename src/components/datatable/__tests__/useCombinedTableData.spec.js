@@ -1,5 +1,5 @@
 import { renderHook } from '@testing-library/react'
-import { EVENT_LAYER } from '../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER, EVENT_LAYER } from '../../../constants/layers.js'
 import { useCombinedTableData } from '../useCombinedTableData.js'
 
 const feature = (props) => ({ properties: props })
@@ -684,5 +684,111 @@ describe('useCombinedTableData - empty input', () => {
             'name',
             'level',
         ])
+    })
+})
+
+describe('useCombinedTableData - Earth Engine value columns', () => {
+    // Earth Engine layers never carry their value(s) directly on feature
+    // properties (unlike every other layer type) - they're computed
+    // client-side into state.aggregations, keyed by layer id then feature
+    // id, and merged in here (see mergeAggregations) exactly like
+    // util/tableRows.js already does for the single-layer table.
+    test('merges aggregation stats in and generates one joinable column per stat, with no generic legend column', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+                data: [feature({ id: 'f1', orgUnitPath: '/country1/ou1' })],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                layerA: {
+                    type: 'orgUnit',
+                    aggregation: { mean: 'SUM', max: 'SUM' },
+                },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                aggregations: { layerA: { f1: { mean: 12.3, max: 20 } } },
+            })
+        )
+
+        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
+            'id',
+            'name',
+            'level',
+            'layerA_mean',
+            'layerA_max',
+        ])
+        expect(
+            result.current.headers.find((h) => h.dataKey === 'layerA_mean').name
+        ).toBe('Mean Ndvi (Layer A)')
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_mean').value).toBe(12.3)
+        expect(findCell(row1, 'layerA_max').value).toBe(20)
+    })
+
+    test('merges classified aggregation values in and generates one column per legend class', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'percentage',
+                legend: {
+                    items: [
+                        { value: 1, name: 'Forest' },
+                        { value: 2, name: 'Water' },
+                    ],
+                },
+                data: [feature({ id: 'f1', orgUnitPath: '/country1/ou1' })],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                layerA: {
+                    type: 'orgUnit',
+                    aggregation: { 1: 'SUM', 2: 'SUM' },
+                },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                aggregations: { layerA: { f1: { 1: 45.2, 2: 12.1 } } },
+            })
+        )
+
+        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
+            'id',
+            'name',
+            'level',
+            'layerA_1',
+            'layerA_2',
+        ])
+        expect(
+            result.current.headers.find((h) => h.dataKey === 'layerA_1').name
+        ).toBe('Forest (Layer A)')
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_1').value).toBe(45.2)
+        expect(findCell(row1, 'layerA_2').value).toBe(12.1)
     })
 })
