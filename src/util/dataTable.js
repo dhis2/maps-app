@@ -1,6 +1,63 @@
 import { bbox } from '@turf/bbox'
 import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
-import { DATA_TABLE_LAYER_TYPES } from '../constants/layers.js'
+import {
+    DATA_TABLE_LAYER_TYPES,
+    EARTH_ENGINE_LAYER,
+} from '../constants/layers.js'
+
+export const COMBINED_VALUE_KEY = 'rawValue'
+
+// Duplicated from util/earthEngine.js's own classAggregation/hasClasses
+// rather than imported - that module's first import is MapApi.js, which
+// pulls in the entire @dhis2/maps-gl/maplibre-gl rendering stack (breaks in
+// jsdom without a MapApi.js mock). This file is a widely-shared, otherwise
+// dependency-light utility imported by most of the data table test suite,
+// so it deliberately doesn't take on that transitive weight for two
+// constant strings.
+const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = [
+    'percentage',
+    'hectares',
+    'acres',
+]
+
+const toTitleCase = (str) =>
+    str.replace(
+        /\w\S*/g,
+        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
+    )
+
+// The value column(s) a layer contributes to Combined - one aggregatable
+// dataKey per column. Every layer type except Earth Engine has exactly one
+// (COMBINED_VALUE_KEY, paired with a non-aggregatable 'legend' categorical
+// column handled separately in useCombinedTableData.js). Earth Engine's own
+// value shape is genuinely different (mirrors getEarthEngineHeaders in
+// tableHeaders.js, which drives its single-layer table headers the same
+// way): one column per legend class when aggregationType is classified
+// (percentage/hectares/acres), or one column per aggregation stat
+// (mean/min/max/etc) when aggregationType is an array of stat names.
+export const getCombinedValueDataKeys = (layer) => {
+    if (layer.layer !== EARTH_ENGINE_LAYER) {
+        return [{ dataKey: COMBINED_VALUE_KEY, name: null }]
+    }
+    if (
+        CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.includes(
+            layer.aggregationType
+        ) &&
+        layer.legend?.items
+    ) {
+        return layer.legend.items.map(({ value, name }) => ({
+            dataKey: String(value),
+            name,
+        }))
+    }
+    if (Array.isArray(layer.aggregationType) && layer.aggregationType.length) {
+        return layer.aggregationType.map((type) => ({
+            dataKey: type,
+            name: toTitleCase(`${type} ${layer.legend?.title ?? ''}`.trim()),
+        }))
+    }
+    return []
+}
 
 export const isFilterable = (dataKey, type) => !!type
 

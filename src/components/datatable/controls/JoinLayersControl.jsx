@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { getCombinedAggregationTypes } from '../../../constants/aggregationTypes.js'
 import { ORG_UNIT_PATH_DATA_KEY } from '../../../constants/dataTable.js'
+import { getCombinedValueDataKeys } from '../../../util/dataTable.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -12,8 +13,6 @@ import {
 import { FilterDropdownPopover } from '../FilterDropdownPopover.jsx'
 import styles from './styles/JoinLayersControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
-
-const VALUE_KEY = 'rawValue'
 
 // Spatial join means point-in-polygon against the reference org unit's own
 // boundary - offered for any layer whose features are literally points, or
@@ -41,7 +40,9 @@ const hasOrgUnitIdentity = (layer) => {
 
 const getDefaultSettings = (layer) => ({
     type: hasOrgUnitIdentity(layer) ? 'orgUnit' : 'spatial',
-    aggregation: { [VALUE_KEY]: 'SUM' },
+    aggregation: Object.fromEntries(
+        getCombinedValueDataKeys(layer).map(({ dataKey }) => [dataKey, 'SUM'])
+    ),
 })
 
 const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
@@ -136,35 +137,72 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                                                     </option>
                                                 )}
                                             </select>
-                                            <select
-                                                aria-label={i18n.t(
-                                                    'Aggregation type for {{layer}}',
-                                                    { layer: layer.name }
-                                                )}
-                                                value={
-                                                    settings.aggregation?.[
-                                                        VALUE_KEY
-                                                    ] ?? 'SUM'
-                                                }
-                                                onChange={(e) =>
-                                                    onAggregationChange(
-                                                        layer.id,
-                                                        VALUE_KEY,
-                                                        e.target.value
-                                                    )
-                                                }
-                                            >
-                                                {aggregationTypes.map(
-                                                    (type) => (
-                                                        <option
-                                                            key={type.id}
-                                                            value={type.id}
+                                            {getCombinedValueDataKeys(
+                                                layer
+                                            ).map(({ dataKey, name }) => (
+                                                <div
+                                                    key={dataKey}
+                                                    className={
+                                                        styles.aggregationRow
+                                                    }
+                                                >
+                                                    {name && (
+                                                        <span
+                                                            className={
+                                                                styles.aggregationRowLabel
+                                                            }
                                                         >
-                                                            {type.name}
-                                                        </option>
-                                                    )
-                                                )}
-                                            </select>
+                                                            {name}
+                                                        </span>
+                                                    )}
+                                                    <select
+                                                        aria-label={
+                                                            name
+                                                                ? i18n.t(
+                                                                      'Aggregation type for {{name}} ({{layer}})',
+                                                                      {
+                                                                          name,
+                                                                          layer: layer.name,
+                                                                      }
+                                                                  )
+                                                                : i18n.t(
+                                                                      'Aggregation type for {{layer}}',
+                                                                      {
+                                                                          layer: layer.name,
+                                                                      }
+                                                                  )
+                                                        }
+                                                        value={
+                                                            settings
+                                                                .aggregation?.[
+                                                                dataKey
+                                                            ] ?? 'SUM'
+                                                        }
+                                                        onChange={(e) =>
+                                                            onAggregationChange(
+                                                                layer.id,
+                                                                dataKey,
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                    >
+                                                        {aggregationTypes.map(
+                                                            (type) => (
+                                                                <option
+                                                                    key={
+                                                                        type.id
+                                                                    }
+                                                                    value={
+                                                                        type.id
+                                                                    }
+                                                                >
+                                                                    {type.name}
+                                                                </option>
+                                                            )
+                                                        )}
+                                                    </select>
+                                                </div>
+                                            ))}
                                         </div>
                                     )}
                                 </div>
