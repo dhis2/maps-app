@@ -3,6 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
 import configureMockStore from 'redux-mock-store'
+import { setDataFilter, clearDataFilter } from '../../../actions/dataFilters.js'
 import {
     DATA_FILTER_SET,
     DATA_FILTER_CLEAR,
@@ -28,12 +29,18 @@ jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
 
 const mockStore = configureMockStore()
 
+// FilterInput is dispatch-agnostic (filterValue/onChange/onClear are caller-
+// supplied) - this helper reproduces exactly what DataTable.jsx's real call
+// site does (dispatch setDataFilter/clearDataFilter against a real layer),
+// so every existing assertion against store.getActions() still holds.
 const renderFilterInput = (props, dataFilters) => {
     const store = mockStore({
         map: {
             mapViews: [{ id: 'layer1', dataFilters: dataFilters || {} }],
         },
     })
+    const dataKey = props?.dataKey ?? 'name'
+    const filterValue = (dataFilters || {})[dataKey]
     // The checkbox list is virtualized (react-virtuoso)
     const result = render(
         <Provider store={store}>
@@ -45,6 +52,13 @@ const renderFilterInput = (props, dataFilters) => {
                     dataKey="name"
                     name="Name"
                     type="string"
+                    filterValue={filterValue}
+                    onChange={(value) =>
+                        store.dispatch(setDataFilter('layer1', dataKey, value))
+                    }
+                    onClear={() =>
+                        store.dispatch(clearDataFilter('layer1', dataKey))
+                    }
                     {...props}
                 />
             </VirtuosoMockContext.Provider>

@@ -471,6 +471,7 @@ describe('useCombinedTableData - spatial join', () => {
             headers: [],
             rows: [],
             rowFeatureIds: new Map(),
+            columnOptions: {},
             spatialWarning: false,
         })
     })
@@ -584,6 +585,35 @@ describe('useCombinedTableData - sorting and filtering', () => {
             ['ou2']
         )
     })
+
+    test('exposes distinct column values for the filter popover, sorted ascending by default', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.columnOptions.layerA_rawValue).toEqual([
+            { value: '10' },
+            { value: '20' },
+            { value: '30' },
+        ])
+    })
+
+    test("sorts a column's distinct values descending when it is the active sort field", () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                joinConfig,
+                sortField: 'layerA_rawValue',
+                sortDirection: 'desc',
+            })
+        )
+
+        expect(result.current.columnOptions.layerA_rawValue).toEqual([
+            { value: '30' },
+            { value: '20' },
+            { value: '10' },
+        ])
+    })
 })
 
 describe('useCombinedTableData - empty input', () => {
@@ -603,6 +633,7 @@ describe('useCombinedTableData - empty input', () => {
             headers: [],
             rows: [],
             rowFeatureIds: new Map(),
+            columnOptions: {},
             spatialWarning: false,
         })
     })

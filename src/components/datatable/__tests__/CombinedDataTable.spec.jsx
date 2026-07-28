@@ -11,6 +11,12 @@ jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
     default: jest.fn(),
 }))
 
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: () => ({
+        systemSettings: { keyAnalysisDigitGroupSeparator: 'COMMA' },
+    }),
+}))
+
 const mockStore = configureMockStore()
 
 beforeEach(() => {
@@ -252,8 +258,9 @@ describe('CombinedDataTable', () => {
         })
 
         const input = screen
-            .getByTestId('combined-table-column-filter-ID')
+            .getByTestId('data-table-column-filter-search-ID')
             .querySelector('input')
+        fireEvent.focus(input)
         fireEvent.change(input, { target: { value: 'ou1' } })
 
         expect(onFiltersChange).toHaveBeenCalledWith({ id: 'ou1' })
