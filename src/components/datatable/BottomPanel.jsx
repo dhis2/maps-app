@@ -310,7 +310,7 @@ const BottomPanel = () => {
                             </option>
                             {hasSpatialCandidates && (
                                 <option value="spatial">
-                                    {i18n.t('Spatial: point inside polygon')}
+                                    {i18n.t('Spatial - point inside polygon')}
                                 </option>
                             )}
                         </select>
