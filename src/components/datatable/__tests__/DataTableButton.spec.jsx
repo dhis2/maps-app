@@ -15,6 +15,14 @@ const layer = (id, overrides = {}) => ({
     ...overrides,
 })
 
+const referenceLayer = (
+    rows = [{ dimension: 'ou', items: [{ id: 'country1' }] }]
+) => ({
+    id: 'ref1',
+    layer: 'combinedTableRef',
+    rows,
+})
+
 const renderButton = ({ dataTable, mapViews }) => {
     const store = mockStore({
         dataTable,
@@ -50,22 +58,24 @@ describe('DataTableButton', () => {
         ])
     })
 
-    test('opens Combined, pre-populated with every eligible layer, when 2+ are eligible', () => {
+    test('opens the first eligible layer, not Combined, when 2+ are eligible but no reference is configured yet', () => {
         const { store } = renderButton({
             dataTable: CLOSED,
             mapViews: [layer('a'), layer('b')],
         })
         fireEvent.click(screen.getByText('Data table'))
         expect(store.getActions()).toEqual([
-            {
-                type: 'DATA_TABLE_JOIN_CONFIG_SET',
-                config: {
-                    level: 'orgUnit',
-                    layerIds: ['a', 'b'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
-                },
-            },
+            { type: 'DATA_TABLE_TOGGLE', id: 'a' },
+        ])
+    })
+
+    test('opens Combined directly when a reference org unit set has already been configured', () => {
+        const { store } = renderButton({
+            dataTable: CLOSED,
+            mapViews: [layer('a'), layer('b'), referenceLayer()],
+        })
+        fireEvent.click(screen.getByText('Data table'))
+        expect(store.getActions()).toEqual([
             { type: 'DATA_TABLE_COMBINED_VIEW_TOGGLE' },
         ])
     })

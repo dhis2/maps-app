@@ -14,7 +14,12 @@ const eligibleLayers = [
         id: 'layer2',
         name: 'Layer 2',
         layer: THEMATIC_LAYER,
-        data: [{ geometry: { type: 'Point' } }],
+        data: [
+            {
+                properties: { orgUnitPath: '/country1/ou1' },
+                geometry: { type: 'Point' },
+            },
+        ],
     },
 ]
 
@@ -85,6 +90,29 @@ describe('JoinLayersControl popover — checkbox list', () => {
         expect(onChange).toHaveBeenCalledWith({
             layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
             layer2: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+        })
+    })
+
+    test('checking a layer with no org-unit identity of its own defaults to Spatial join, not Org unit', () => {
+        const onChange = jest.fn()
+        renderControl({
+            eligibleLayers: [
+                {
+                    id: 'geo',
+                    name: 'Zones',
+                    layer: GEOJSON_URL_LAYER,
+                    data: [{ geometry: { type: 'Point' } }],
+                },
+            ],
+            layersConfig: {},
+            onChange,
+        })
+        openPicker()
+
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Zones' }))
+
+        expect(onChange).toHaveBeenCalledWith({
+            geo: { type: 'spatial', aggregation: { rawValue: 'SUM' } },
         })
     })
 
