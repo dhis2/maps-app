@@ -191,6 +191,33 @@ describe('useCombinedTableData - org unit join', () => {
         expect(result.current.rows).toHaveLength(1)
         expect(findCell(result.current.rows[0], 'id').value).toBe('ou2')
     })
+
+    test('rowFeatureIds includes every feature sharing an org unit, not just the last one displayed', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({ id: 'evt1', orgUnitId: 'ou1', rawValue: 10 }),
+                    feature({ id: 'evt2', orgUnitId: 'ou1', rawValue: 20 }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            level: 'orgUnit',
+            layerIds: ['layerA'],
+            pointLayerId: null,
+            polygonLayerId: null,
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.rowFeatureIds.get('ou1')).toEqual({
+            layerA: ['evt1', 'evt2'],
+        })
+    })
 })
 
 describe('useCombinedTableData - parent org unit grouping', () => {
@@ -266,6 +293,41 @@ describe('useCombinedTableData - parent org unit grouping', () => {
         expect(findCell(result.current.rows[0], 'id').value).toBe(null)
         expect(findCell(result.current.rows[0], 'name').value).toBe('No parent')
     })
+
+    test("rowFeatureIds unions every member org unit's feature ids under the parent group", () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'ou1',
+                        orgUnitPath: '/country1/parent1/ou1',
+                        rawValue: 10,
+                    }),
+                    feature({
+                        id: 'ou2',
+                        orgUnitPath: '/country1/parent1/ou2',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            level: 'parentOrgUnit',
+            layerIds: ['layerA'],
+            pointLayerId: null,
+            polygonLayerId: null,
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.rowFeatureIds.get('parent1')).toEqual({
+            layerA: ['ou1', 'ou2'],
+        })
+    })
 })
 
 describe('useCombinedTableData - spatial join', () => {
@@ -337,6 +399,10 @@ describe('useCombinedTableData - spatial join', () => {
             ],
         ])
         expect(result.current.spatialWarning).toBe(false)
+        expect(result.current.rowFeatureIds.get('p1')).toEqual({
+            points: ['p1'],
+            polygons: ['poly1'],
+        })
     })
 
     test('resolves the org unit name when the point feature has an org unit path', () => {
@@ -393,6 +459,7 @@ describe('useCombinedTableData - spatial join', () => {
         expect(result.current).toEqual({
             headers: [],
             rows: [],
+            rowFeatureIds: new Map(),
             spatialWarning: false,
         })
     })
@@ -440,6 +507,7 @@ describe('useCombinedTableData - empty input', () => {
         expect(result.current).toEqual({
             headers: [],
             rows: [],
+            rowFeatureIds: new Map(),
             spatialWarning: false,
         })
     })

@@ -29,7 +29,12 @@ const getParentPath = (path) => {
     return segments.length > 1 ? segments.slice(0, -1).join('/') : null
 }
 
-const EMPTY_RESULT = { headers: [], rows: [], spatialWarning: false }
+const EMPTY_RESULT = {
+    headers: [],
+    rows: [],
+    rowFeatureIds: new Map(),
+    spatialWarning: false,
+}
 
 export const useCombinedTableData = ({ layers, joinConfig }) => {
     const { level, pointLayerId, polygonLayerId } = joinConfig
@@ -47,28 +52,41 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         if (isSpatial) {
             return []
         }
-        return layers.map((layer) => ({
-            layer,
-            byOrgUnit: Object.fromEntries(
-                (layer.data ?? [])
-                    .filter((d) => !d.properties?.hasAdditionalGeometry)
-                    .map((d) => {
-                        const props = d.properties || d
-                        // orgUnitId is only populated for layers where the
-                        // feature references an org unit it isn't itself
-                        // (events, tracked entities - via attachOrgUnitPaths
-                        // in util/orgUnits.js). For layers where the feature
-                        // IS the org unit (thematic, org unit, facility),
-                        // properties are built by toGeoJson() in
-                        // util/map.js, which never sets orgUnitId - the org
-                        // unit's own id is just the feature's plain id there.
-                        const orgUnitId =
-                            props[ORG_UNIT_ID_DATA_KEY] ?? props.id
-                        return [orgUnitId, props]
-                    })
-                    .filter(([id]) => id != null)
-            ),
-        }))
+        return layers.map((layer) => {
+            const byOrgUnit = {}
+            // Duplicate features can share one org unit (e.g. several events
+            // at the same facility) - byOrgUnit keeps only the last one for
+            // display purposes, but featureIdsByOrgUnit keeps every matching
+            // feature id so hover/selection can highlight all of them, not
+            // just the one whose value happens to be shown.
+            const featureIdsByOrgUnit = {}
+
+            const data = layer.data ?? []
+            data.filter((d) => !d.properties?.hasAdditionalGeometry).forEach(
+                (d) => {
+                    const props = d.properties || d
+                    // orgUnitId is only populated for layers where the
+                    // feature references an org unit it isn't itself
+                    // (events, tracked entities - via attachOrgUnitPaths
+                    // in util/orgUnits.js). For layers where the feature
+                    // IS the org unit (thematic, org unit, facility),
+                    // properties are built by toGeoJson() in
+                    // util/map.js, which never sets orgUnitId - the org
+                    // unit's own id is just the feature's plain id there.
+                    const orgUnitId = props[ORG_UNIT_ID_DATA_KEY] ?? props.id
+                    if (orgUnitId == null) {
+                        return
+                    }
+                    byOrgUnit[orgUnitId] = props
+                    if (!featureIdsByOrgUnit[orgUnitId]) {
+                        featureIdsByOrgUnit[orgUnitId] = []
+                    }
+                    featureIdsByOrgUnit[orgUnitId].push(props.id)
+                }
+            )
+
+            return { layer, byOrgUnit, featureIdsByOrgUnit }
+        })
     }, [layers, isSpatial])
 
     const allIds = useMemo(
@@ -135,8 +153,19 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                 },
             ]
 
+            const rowFeatureIds = new Map()
+
             const rows = joined.map(({ pointProps, polygonProps }) => {
                 const path = pointProps[ORG_UNIT_PATH_DATA_KEY]
+
+                if (pointProps.id != null) {
+                    const entry = { [pointLayer.id]: [pointProps.id] }
+                    if (polygonProps?.id != null) {
+                        entry[polygonLayer.id] = [polygonProps.id]
+                    }
+                    rowFeatureIds.set(pointProps.id, entry)
+                }
+
                 return [
                     {
                         dataKey: 'id',
@@ -163,7 +192,7 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                 ]
             })
 
-            return { headers, rows, spatialWarning }
+            return { headers, rows, rowFeatureIds, spatialWarning }
         }
 
         const layerHeaders = layerMaps.flatMap(({ layer }) => [
@@ -207,33 +236,46 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                 groups.get(key).memberIds.push(id)
             })
 
+            const rowFeatureIds = new Map()
+
             const rows = [...groups.values()].map((group) => {
                 const cells = [
                     { dataKey: 'id', value: group.id, align: 'left' },
                     { dataKey: 'name', value: group.name, align: 'left' },
                 ]
-                layerMaps.forEach(({ layer, byOrgUnit }) => {
-                    const values = group.memberIds
-                        .map((id) => byOrgUnit[id]?.[VALUE_KEY])
-                        .filter((v) => v != null)
-                    const average = values.length
-                        ? values.reduce((a, b) => a + b, 0) / values.length
-                        : null
-                    cells.push({
-                        dataKey: `${layer.id}_${VALUE_KEY}`,
-                        value: average,
-                        align: 'right',
-                    })
-                    cells.push({
-                        dataKey: `${layer.id}_${LEGEND_KEY}`,
-                        value: null,
-                        align: 'left',
-                    })
-                })
+                const featureIds = {}
+                layerMaps.forEach(
+                    ({ layer, byOrgUnit, featureIdsByOrgUnit }) => {
+                        const values = group.memberIds
+                            .map((id) => byOrgUnit[id]?.[VALUE_KEY])
+                            .filter((v) => v != null)
+                        const average = values.length
+                            ? values.reduce((a, b) => a + b, 0) / values.length
+                            : null
+                        cells.push({
+                            dataKey: `${layer.id}_${VALUE_KEY}`,
+                            value: average,
+                            align: 'right',
+                        })
+                        cells.push({
+                            dataKey: `${layer.id}_${LEGEND_KEY}`,
+                            value: null,
+                            align: 'left',
+                        })
+
+                        const ids = group.memberIds.flatMap(
+                            (id) => featureIdsByOrgUnit[id] ?? []
+                        )
+                        if (ids.length) {
+                            featureIds[layer.id] = ids
+                        }
+                    }
+                )
+                rowFeatureIds.set(group.id, featureIds)
                 return cells
             })
 
-            return { headers, rows, spatialWarning: false }
+            return { headers, rows, rowFeatureIds, spatialWarning: false }
         }
 
         const headers = [
@@ -242,6 +284,8 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
             { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
             ...layerHeaders,
         ]
+
+        const rowFeatureIds = new Map()
 
         const rows = allIds.map((id) => {
             const baseProps =
@@ -260,7 +304,8 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                     align: 'right',
                 },
             ]
-            layerMaps.forEach(({ layer, byOrgUnit }) => {
+            const featureIds = {}
+            layerMaps.forEach(({ layer, byOrgUnit, featureIdsByOrgUnit }) => {
                 const props = byOrgUnit[id]
                 cells.push({
                     dataKey: `${layer.id}_${VALUE_KEY}`,
@@ -272,11 +317,16 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                     value: props?.[LEGEND_KEY] ?? null,
                     align: 'left',
                 })
+
+                if (featureIdsByOrgUnit[id]?.length) {
+                    featureIds[layer.id] = featureIdsByOrgUnit[id]
+                }
             })
+            rowFeatureIds.set(id, featureIds)
             return cells
         })
 
-        return { headers, rows, spatialWarning: false }
+        return { headers, rows, rowFeatureIds, spatialWarning: false }
     }, [
         layers,
         layerMaps,
