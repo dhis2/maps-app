@@ -19,7 +19,9 @@ import {
     toggleDataTable,
     toggleCombinedView,
     setJoinConfig,
+    setDataTableColumnConfig,
 } from '../../actions/dataTable.js'
+import { COMBINED_HEADERS_KEY } from '../../constants/dataTable.js'
 import { DATA_TABLE_LAYER_TYPES } from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import {
@@ -120,6 +122,10 @@ const BottomPanel = () => {
     const [globalSearch, setGlobalSearch] = useState('')
     const [headersByLayer, setHeadersByLayer] = useState(null)
     const [combinedFilters, setCombinedFilters] = useState(EMPTY_FILTERS)
+    // Session-only, never persisted or dispatched to Redux - matches
+    // combinedFilters/joinConfig's existing ephemeral scope for the
+    // Combined view.
+    const [combinedColumnConfig, setCombinedColumnConfig] = useState(null)
 
     const hasActiveFilters = combinedView
         ? Object.keys(combinedFilters).length > 0 || !!globalSearch.trim()
@@ -202,7 +208,8 @@ const BottomPanel = () => {
     }, [])
 
     const allHeaders =
-        headersByLayer?.layerId === activeLayerId
+        headersByLayer?.layerId ===
+        (combinedView ? COMBINED_HEADERS_KEY : activeLayerId)
             ? headersByLayer.headers
             : null
 
@@ -367,6 +374,11 @@ const BottomPanel = () => {
                                 }
                             />
                         )}
+                        <ColumnPickerControl
+                            allHeaders={allHeaders}
+                            columnConfig={combinedColumnConfig}
+                            onChange={setCombinedColumnConfig}
+                        />
                         <span className={styles.divider} />
                     </>
                 ) : (
@@ -376,9 +388,16 @@ const BottomPanel = () => {
                             onChange={onHighlightColorChange}
                         />
                         <ColumnPickerControl
-                            layerId={activeLayerId}
                             allHeaders={allHeaders}
                             columnConfig={activeLayer?.dataTableColumnConfig}
+                            onChange={(config) =>
+                                dispatch(
+                                    setDataTableColumnConfig(
+                                        activeLayerId,
+                                        config
+                                    )
+                                )
+                            }
                         />
                         <span className={styles.divider} />
                     </>
@@ -477,6 +496,8 @@ const BottomPanel = () => {
                             onFiltersChange={setCombinedFilters}
                             globalSearch={globalSearch}
                             onCountChange={onCountChange}
+                            onHeadersChange={onHeadersChange}
+                            columnConfig={combinedColumnConfig}
                         />
                     ) : (
                         <DataTable

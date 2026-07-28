@@ -3,6 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
 import configureMockStore from 'redux-mock-store'
+import { COMBINED_HEADERS_KEY } from '../../../constants/dataTable.js'
 import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import CombinedDataTable from '../CombinedDataTable.jsx'
 
@@ -424,5 +425,86 @@ describe('CombinedDataTable', () => {
             type: 'SELECTION_SET_CROSS_LAYER',
             crossLayerIds: {},
         })
+    })
+
+    test('reports computed headers up via onHeadersChange, keyed by the combined sentinel', () => {
+        const onHeadersChange = jest.fn()
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [feature({ orgUnitId: 'ou1', rawValue: 1 })],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+            onHeadersChange,
+        })
+
+        expect(onHeadersChange).toHaveBeenCalledWith(
+            expect.arrayContaining([
+                expect.objectContaining({ dataKey: 'id' }),
+            ]),
+            COMBINED_HEADERS_KEY
+        )
+    })
+
+    test('hides a column excluded from columnConfig.visibleKeys', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [feature({ orgUnitId: 'ou1', rawValue: 20 })],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+            columnConfig: { visibleKeys: ['id', 'name'] },
+        })
+
+        expect(screen.getByText('ID')).toBeInTheDocument()
+        expect(screen.queryByText('Value (Layer A)')).not.toBeInTheDocument()
+        expect(screen.queryByText('20')).not.toBeInTheDocument()
+    })
+
+    test('reorders columns to put pinned keys first via columnConfig.pinnedKeys', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [feature({ orgUnitId: 'ou1', rawValue: 20 })],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+            columnConfig: { pinnedKeys: ['level'] },
+        })
+
+        const headerNames = screen
+            .getAllByRole('columnheader')
+            .map((el) => el.textContent)
+            .filter(Boolean)
+        expect(headerNames[0]).toBe('Level')
     })
 })

@@ -26,3 +26,7 @@ export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
 export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
 export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
 export const ORG_UNIT_LEVEL_DATA_KEY = 'level'
+
+// BottomPanel.jsx's headersByLayer cache is keyed by layer id - Combined
+// isn't a real layer, so it uses this sentinel key instead.
+export const COMBINED_HEADERS_KEY = '__combined__'
