@@ -1,5 +1,7 @@
+import { THEMATIC_LAYER, EXTERNAL_LAYER } from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getEligibleDataTableLayers,
     getLayerSelectedIds,
     getNextSorting,
     getPanelHeights,
@@ -207,6 +209,29 @@ describe('buildFeatureIndex', () => {
     test('returns an empty index for missing/empty data', () => {
         expect(buildFeatureIndex(undefined).size).toBe(0)
         expect(buildFeatureIndex([]).size).toBe(0)
+    })
+})
+
+describe('getEligibleDataTableLayers', () => {
+    test('includes data-table-capable layer types that have loaded data', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, data: [{}] },
+            { id: 'b', layer: THEMATIC_LAYER, data: [{}, {}] },
+        ]
+        expect(getEligibleDataTableLayers(mapViews).map((l) => l.id)).toEqual([
+            'a',
+            'b',
+        ])
+    })
+
+    test('excludes layer types with no data table support', () => {
+        const mapViews = [{ id: 'a', layer: EXTERNAL_LAYER, data: [{}] }]
+        expect(getEligibleDataTableLayers(mapViews)).toEqual([])
+    })
+
+    test('excludes a data-table-capable layer with no loaded data', () => {
+        const mapViews = [{ id: 'a', layer: THEMATIC_LAYER, data: [] }]
+        expect(getEligibleDataTableLayers(mapViews)).toEqual([])
     })
 })
 

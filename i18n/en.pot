@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-28T13:15:40.903Z\n"
-"PO-Revision-Date: 2026-07-28T13:15:40.903Z\n"
+"POT-Creation-Date: 2026-07-28T13:36:50.817Z\n"
+"PO-Revision-Date: 2026-07-28T13:36:50.817Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -173,12 +173,6 @@ msgstr "inside"
 msgid "Polygon layer"
 msgstr "Polygon layer"
 
-msgid "Close {{name}} tab"
-msgstr "Close {{name}} tab"
-
-msgid "Combined"
-msgstr "Combined"
-
 msgid "No matching rows"
 msgstr "No matching rows"
 
@@ -202,6 +196,9 @@ msgstr "Zoom to filtered features"
 
 msgid "Edit layer"
 msgstr "Edit layer"
+
+msgid "Data table"
+msgstr "Data table"
 
 msgid "Select a year, month, day or hour"
 msgstr "Select a year, month, day or hour"
@@ -360,6 +357,12 @@ msgstr "Highlight color"
 
 msgid "Choose layers to combine"
 msgstr "Choose layers to combine"
+
+msgid "Choose a data table to view"
+msgstr "Choose a data table to view"
+
+msgid "Combined"
+msgstr "Combined"
 
 msgid "{{filtered}} of {{total}} rows"
 msgstr "{{filtered}} of {{total}} rows"

@@ -105,14 +105,17 @@ const twoEligibleLayers = [
     { id: 'layer2', name: 'Layer 2', layer: THEMATIC_LAYER, data: [{}] },
 ]
 
-describe('BottomPanel tabs', () => {
-    test('renders no tab bar with a single open layer and no other eligible layers', () => {
+const getLayerSelector = () => screen.getByTestId('data-table-layer-selector')
+
+describe('BottomPanel layer selector', () => {
+    test('lists only the one open layer, Combined disabled, when no other eligible layers exist', () => {
         renderBottomPanel()
 
-        expect(screen.queryAllByRole('tab')).toHaveLength(0)
+        expect(screen.getByText('Layer 1')).toBeInTheDocument()
+        expect(screen.getByText('Combined')).toBeDisabled()
     })
 
-    test('renders a tab per open layer, and a Combined tab, once 2+ eligible layers exist', () => {
+    test('lists every open layer plus an enabled Combined option once 2+ eligible layers exist', () => {
         renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -121,30 +124,25 @@ describe('BottomPanel tabs', () => {
             mapViews: twoEligibleLayers,
         })
 
-        const tabs = screen.getAllByRole('tab')
-        expect(tabs.map((tab) => tab.textContent)).toEqual([
-            'Layer 1',
-            'Layer 2',
-            'Combined',
-        ])
+        expect(screen.getByText('Layer 1')).toBeInTheDocument()
+        expect(screen.getByText('Layer 2')).toBeInTheDocument()
+        expect(screen.getByText('Combined')).not.toBeDisabled()
     })
 
-    test('shows the Combined tab once 2+ eligible layers exist even with a single open tab', () => {
+    test('offers Combined (enabled) even with just a single open tab, once 2+ eligible layers exist', () => {
         renderBottomPanel({
             dataTable: DEFAULT_DATA_TABLE_STATE,
             mapViews: twoEligibleLayers,
         })
 
-        const tabs = screen.getAllByRole('tab')
-        // Only the open layer gets its own tab - the second eligible layer
-        // isn't open, so it shouldn't render a tab of its own.
-        expect(tabs.map((tab) => tab.textContent)).toEqual([
-            'Layer 1',
-            'Combined',
-        ])
+        // Only the open layer appears as its own option - the second
+        // eligible layer isn't open, so it shouldn't be listed.
+        expect(screen.getByText('Layer 1')).toBeInTheDocument()
+        expect(screen.queryByText('Layer 2')).not.toBeInTheDocument()
+        expect(screen.getByText('Combined')).not.toBeDisabled()
     })
 
-    test('clicking a different tab switches the active layer shown in the table', () => {
+    test('selecting a different layer switches the active layer shown in the table', () => {
         renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -155,7 +153,7 @@ describe('BottomPanel tabs', () => {
 
         expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer2')
 
-        fireEvent.click(screen.getByText('Layer 1'))
+        fireEvent.change(getLayerSelector(), { target: { value: 'layer1' } })
 
         expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer1')
     })
@@ -183,7 +181,7 @@ describe('BottomPanel tabs', () => {
         consoleError.mockRestore()
     })
 
-    test('closing a tab dispatches toggleDataTable for that layer without switching the active tab', () => {
+    test('selecting Combined from the dropdown dispatches DATA_TABLE_COMBINED_VIEW_TOGGLE', () => {
         const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -192,23 +190,9 @@ describe('BottomPanel tabs', () => {
             mapViews: twoEligibleLayers,
         })
 
-        fireEvent.click(screen.getByLabelText('Close Layer 1 tab'))
-
-        expect(store.getActions()).toEqual([
-            { type: 'DATA_TABLE_TOGGLE', id: 'layer1' },
-        ])
-    })
-
-    test('clicking the Combined tab dispatches DATA_TABLE_COMBINED_VIEW_TOGGLE', () => {
-        const { store } = renderBottomPanel({
-            dataTable: {
-                ...DEFAULT_DATA_TABLE_STATE,
-                openIds: ['layer1', 'layer2'],
-            },
-            mapViews: twoEligibleLayers,
+        fireEvent.change(getLayerSelector(), {
+            target: { value: '__combined__' },
         })
-
-        fireEvent.click(screen.getByText('Combined'))
 
         expect(store.getActions()).toEqual([
             { type: 'DATA_TABLE_COMBINED_VIEW_TOGGLE' },
