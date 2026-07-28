@@ -2,7 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import LayerSelectorControl from '../controls/LayerSelectorControl.jsx'
 
-const openLayers = [
+const layers = [
     { id: 'layer1', name: 'Layer 1' },
     { id: 'layer2', name: 'Layer 2' },
 ]
@@ -10,7 +10,7 @@ const openLayers = [
 const renderControl = (props) =>
     render(
         <LayerSelectorControl
-            openLayers={openLayers}
+            layers={layers}
             activeLayerId="layer1"
             combinedView={false}
             combinedEnabled={true}
@@ -23,7 +23,7 @@ const renderControl = (props) =>
 const getSelect = () => screen.getByTestId('data-table-layer-selector')
 
 describe('LayerSelectorControl', () => {
-    test('lists every open layer by name, plus a Combined option', () => {
+    test('lists every eligible layer by name, plus a Combined option', () => {
         renderControl()
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
         expect(screen.getByText('Layer 2')).toBeInTheDocument()

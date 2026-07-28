@@ -15,6 +15,7 @@ import {
     toggleShowOnlyFeaturesInView,
     setSelectionFilter,
     setHighlightColor,
+    toggleDataTable,
     toggleCombinedView,
     setJoinConfig,
     setDataTableColumnConfig,
@@ -77,7 +78,6 @@ const BottomPanel = () => {
             ? manualActiveLayerId
             : openIds[openIds.length - 1] ?? null
 
-    const openLayers = mapViews.filter((l) => openIds.includes(l.id))
     const eligibleLayers = getEligibleDataTableLayers(mapViews)
     const combinedEnabled = eligibleLayers.length >= 2
 
@@ -97,7 +97,7 @@ const BottomPanel = () => {
         [level, layerIds, pointLayerId, polygonLayerId, mapViews]
     )
 
-    const activeLayer = openLayers.find((l) => l.id === activeLayerId)
+    const activeLayer = mapViews.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
@@ -282,7 +282,7 @@ const BottomPanel = () => {
                 />
                 <span className={styles.divider} />
                 <LayerSelectorControl
-                    openLayers={openLayers}
+                    layers={eligibleLayers}
                     activeLayerId={activeLayerId}
                     combinedView={combinedView}
                     combinedEnabled={combinedEnabled}
@@ -290,6 +290,9 @@ const BottomPanel = () => {
                         setManualActiveLayerId(id)
                         if (combinedView) {
                             dispatch(toggleCombinedView())
+                        }
+                        if (!openIds.includes(id)) {
+                            dispatch(toggleDataTable(id))
                         }
                     }}
                     onSelectCombined={() => {
