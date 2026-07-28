@@ -117,7 +117,12 @@ class Layer extends PureComponent {
 
         this.handleFeatureUpdate(feature)
 
-        if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
+        if (
+            !idsEqual(
+                this.getHoverIds(prevProps.feature),
+                this.getHoverIds(feature)
+            )
+        ) {
             this.highlightFeature()
         }
     }
@@ -140,7 +145,7 @@ class Layer extends PureComponent {
             return
         }
 
-        if (this.getHoverId()) {
+        if (this.getHoverIds().length) {
             this.highlightFeature()
         }
         if (this.getSelectedIds().length) {
@@ -272,16 +277,24 @@ class Layer extends PureComponent {
         }
     }
 
-    getHoverId(feature = this.props.feature) {
-        return feature?.layerId === this.props.id ? feature.id : null
+    // crossLayerIds is populated only for cross-layer highlights/selections
+    // (e.g. a Combined-view row spanning multiple layers) - single-layer
+    // hover/selection dispatches never set it, so ownId/ownIds alone still
+    // fully determine the result for every existing call site.
+    getHoverIds(feature = this.props.feature) {
+        const ownId = feature?.layerId === this.props.id ? feature.id : null
+        const crossIds = feature?.crossLayerIds?.[this.props.id] ?? []
+        return ownId != null ? [ownId, ...crossIds] : crossIds
     }
 
     getSelectedIds(selection = this.props.selection) {
-        return selection?.layerId === this.props.id ? selection.ids : []
+        const ownIds = selection?.layerId === this.props.id ? selection.ids : []
+        const crossIds = selection?.crossLayerIds?.[this.props.id] ?? []
+        return crossIds.length ? [...new Set([...ownIds, ...crossIds])] : ownIds
     }
 
     highlightFeature() {
-        this.layer?.highlight?.(this.getHoverId(), this.props.highlightColor)
+        this.layer?.highlight?.(this.getHoverIds(), this.props.highlightColor)
     }
 
     selectFeatures() {

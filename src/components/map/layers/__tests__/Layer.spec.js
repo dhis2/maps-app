@@ -63,3 +63,88 @@ describe('Layer#getVisibleIds', () => {
         expect(layer.getVisibleIds()).toBe(null)
     })
 })
+
+describe('Layer#getHoverIds', () => {
+    test('returns an empty array when there is no feature', () => {
+        const layer = createLayer({ id: 'layer1', feature: null })
+        expect(layer.getHoverIds()).toEqual([])
+    })
+
+    test("returns this layer's own hover id when feature.layerId matches", () => {
+        const layer = createLayer({
+            id: 'layer1',
+            feature: { id: 'a', layerId: 'layer1' },
+        })
+        expect(layer.getHoverIds()).toEqual(['a'])
+    })
+
+    test("returns an empty array when the feature belongs to a different layer and there's no crossLayerIds entry", () => {
+        const layer = createLayer({
+            id: 'layer1',
+            feature: { id: 'a', layerId: 'other-layer' },
+        })
+        expect(layer.getHoverIds()).toEqual([])
+    })
+
+    test("merges this layer's crossLayerIds entry alongside its own hover id", () => {
+        const layer = createLayer({
+            id: 'layer1',
+            feature: {
+                id: 'a',
+                layerId: 'layer1',
+                crossLayerIds: { layer1: ['x', 'y'] },
+            },
+        })
+        expect(layer.getHoverIds()).toEqual(['a', 'x', 'y'])
+    })
+
+    test('returns only crossLayerIds when the feature has no own-layer match', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            feature: {
+                layerId: null,
+                crossLayerIds: { layer1: ['x', 'y'], layer2: ['z'] },
+            },
+        })
+        expect(layer.getHoverIds()).toEqual(['x', 'y'])
+    })
+})
+
+describe('Layer#getSelectedIds', () => {
+    test('returns an empty array when there is no selection', () => {
+        const layer = createLayer({ id: 'layer1', selection: null })
+        expect(layer.getSelectedIds()).toEqual([])
+    })
+
+    test("returns this layer's own selected ids when selection.layerId matches", () => {
+        const layer = createLayer({
+            id: 'layer1',
+            selection: { layerId: 'layer1', ids: ['a', 'b'] },
+        })
+        expect(layer.getSelectedIds()).toEqual(['a', 'b'])
+    })
+
+    test('merges crossLayerIds with a same-layer selection, deduping', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            selection: {
+                layerId: 'layer1',
+                ids: ['a'],
+                crossLayerIds: { layer1: ['a', 'b'] },
+            },
+        })
+        expect(layer.getSelectedIds()).toEqual(['a', 'b'])
+    })
+
+    test('returns only crossLayerIds when the selection has no own-layer match', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            selection: {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layer1: ['x'], layer2: ['y'] },
+            },
+        })
+        expect(layer.getSelectedIds()).toEqual(['x'])
+    })
+})
