@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-27T14:20:22.195Z\n"
-"PO-Revision-Date: 2026-07-27T14:20:22.195Z\n"
+"POT-Creation-Date: 2026-07-28T08:41:25.486Z\n"
+"PO-Revision-Date: 2026-07-28T08:41:25.486Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -154,6 +154,33 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
+
+msgid "Join by org unit"
+msgstr "Join by org unit"
+
+msgid "Join by parent org unit"
+msgstr "Join by parent org unit"
+
+msgid "Point layer"
+msgstr "Point layer"
+
+msgid "inside"
+msgstr "inside"
+
+msgid "Polygon layer"
+msgstr "Polygon layer"
+
+msgid "Close {{name}} tab"
+msgstr "Close {{name}} tab"
+
+msgid "Combined"
+msgstr "Combined"
+
+msgid "No matching rows"
+msgstr "No matching rows"
+
+msgid "Spatial join over large datasets may be slow (over {{threshold}} features)"
+msgstr "Spatial join over large datasets may be slow (over {{threshold}} features)"
 
 msgid "Select all visible rows"
 msgstr "Select all visible rows"
@@ -328,6 +355,9 @@ msgstr "Search all columns"
 msgid "Highlight color"
 msgstr "Highlight color"
 
+msgid "Choose layers to combine"
+msgstr "Choose layers to combine"
+
 msgid "{{filtered}} of {{total}} rows"
 msgstr "{{filtered}} of {{total}} rows"
 
@@ -336,6 +366,21 @@ msgstr "{{total}} rows"
 
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Value ({{layer}})"
+msgstr "Value ({{layer}})"
+
+msgid "Legend ({{layer}})"
+msgstr "Legend ({{layer}})"
+
+msgid "No parent"
+msgstr "No parent"
+
+msgid "Level"
+msgstr "Level"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -948,9 +993,6 @@ msgstr "Groups"
 msgid "Parent unit"
 msgstr "Parent unit"
 
-msgid "Level"
-msgstr "Level"
-
 msgid "Not set"
 msgstr "Not set"
 
@@ -1108,9 +1150,6 @@ msgstr "Address"
 
 msgid "Phone"
 msgstr "Phone"
-
-msgid "ID"
-msgstr "ID"
 
 msgid "Comment"
 msgstr "Comment"

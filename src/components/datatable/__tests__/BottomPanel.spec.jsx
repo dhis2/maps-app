@@ -160,6 +160,29 @@ describe('BottomPanel tabs', () => {
         expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer1')
     })
 
+    test('the active layer is correct on the very first render, with no transient null in between', () => {
+        // Regression guard: activeLayerId used to be seeded via
+        // useState(null) and only synced to openIds a render later via
+        // useEffect, so a child requiring a non-null layerId (e.g.
+        // ColumnPickerControl) would see `null` for one render and log a
+        // prop-types warning. It must now be derived synchronously.
+        const consoleError = jest
+            .spyOn(console, 'error')
+            .mockImplementation(() => {})
+
+        renderBottomPanel()
+
+        expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer1')
+        const layerIdWarnings = consoleError.mock.calls.filter((args) =>
+            args.some(
+                (arg) => typeof arg === 'string' && arg.includes('layerId')
+            )
+        )
+        expect(layerIdWarnings).toEqual([])
+
+        consoleError.mockRestore()
+    })
+
     test('closing a tab dispatches toggleDataTable for that layer without switching the active tab', () => {
         const { store } = renderBottomPanel({
             dataTable: {
