@@ -54,7 +54,17 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                     .filter((d) => !d.properties?.hasAdditionalGeometry)
                     .map((d) => {
                         const props = d.properties || d
-                        return [props[ORG_UNIT_ID_DATA_KEY], props]
+                        // orgUnitId is only populated for layers where the
+                        // feature references an org unit it isn't itself
+                        // (events, tracked entities - via attachOrgUnitPaths
+                        // in util/orgUnits.js). For layers where the feature
+                        // IS the org unit (thematic, org unit, facility),
+                        // properties are built by toGeoJson() in
+                        // util/map.js, which never sets orgUnitId - the org
+                        // unit's own id is just the feature's plain id there.
+                        const orgUnitId =
+                            props[ORG_UNIT_ID_DATA_KEY] ?? props.id
+                        return [orgUnitId, props]
                     })
                     .filter(([id]) => id != null)
             ),

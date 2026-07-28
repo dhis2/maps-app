@@ -19,12 +19,16 @@ const feature = (props) => ({ properties: props })
 const findCell = (row, dataKey) => row.find((c) => c.dataKey === dataKey)
 
 describe('useCombinedTableData - org unit join', () => {
-    test('joins two layers by org unit id, filling blanks for unmatched org units', () => {
-        // orgUnitOwn is a raw id path at the data layer (see
-        // src/util/orgUnits.js's attachOrgUnitPaths) - real display names
-        // only exist via useOrgUnitAncestorNames's idToName map, resolved
-        // through formatOrgUnitOwnName. Using pre-resolved strings here
-        // would mask a bug where that resolution step is skipped.
+    // Thematic/org unit/facility layers - where the feature IS the org unit
+    // - never get an orgUnitId property: their data is built by toGeoJson()
+    // in util/map.js, which only sets id/orgUnitPath/orgUnitOwn. Only
+    // event/tracked-entity layers (via attachOrgUnitPaths in
+    // util/orgUnits.js, referencing an org unit the feature isn't itself)
+    // get a real orgUnitId. This is the shape that actually appears in
+    // production for the two most common layer types in this join mode -
+    // using orgUnitId in the fixture here would mask exactly the bug this
+    // guards against.
+    test('joins two org-unit-identity layers (no orgUnitId property) by their own id, filling blanks for unmatched org units', () => {
         useOrgUnitAncestorNames.mockReturnValue({
             idToName: new Map([
                 ['ou1', 'Ou One'],
@@ -39,7 +43,7 @@ describe('useCombinedTableData - org unit join', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
+                        id: 'ou1',
                         orgUnitPath: '/country1/ou1',
                         level: 2,
                         rawValue: 10,
@@ -52,7 +56,7 @@ describe('useCombinedTableData - org unit join', () => {
                 name: 'Layer B',
                 data: [
                     feature({
-                        orgUnitId: 'ou2',
+                        id: 'ou2',
                         orgUnitPath: '/country1/ou2',
                         level: 2,
                         rawValue: 20,
@@ -98,6 +102,38 @@ describe('useCombinedTableData - org unit join', () => {
         expect(findCell(row2, 'layerB_rawValue').value).toBe(20)
     })
 
+    test('prefers orgUnitId over id when both are present (event/tracked-entity layer shape)', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    // The event's own id ('evt1') is not an org unit -
+                    // orgUnitId is the registering org unit and must win.
+                    feature({
+                        id: 'evt1',
+                        orgUnitId: 'ou1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 10,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            level: 'orgUnit',
+            layerIds: ['layerA'],
+            pointLayerId: null,
+            polygonLayerId: null,
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.rows).toHaveLength(1)
+        expect(findCell(result.current.rows[0], 'id').value).toBe('ou1')
+    })
+
     test('falls back to the raw org unit id when its name has not resolved yet', () => {
         const layers = [
             {
@@ -105,7 +141,7 @@ describe('useCombinedTableData - org unit join', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
+                        id: 'ou1',
                         orgUnitPath: '/country1/ou1',
                         rawValue: 10,
                     }),
@@ -133,11 +169,11 @@ describe('useCombinedTableData - org unit join', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
+                        id: 'ou1',
                         rawValue: 10,
                         hasAdditionalGeometry: true,
                     }),
-                    feature({ orgUnitId: 'ou2', rawValue: 20 }),
+                    feature({ id: 'ou2', rawValue: 20 }),
                 ],
             },
         ]
@@ -165,12 +201,12 @@ describe('useCombinedTableData - parent org unit grouping', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
+                        id: 'ou1',
                         orgUnitPath: '/country1/parent1/ou1',
                         rawValue: 10,
                     }),
                     feature({
-                        orgUnitId: 'ou2',
+                        id: 'ou2',
                         orgUnitPath: '/country1/parent1/ou2',
                         rawValue: 20,
                     }),
@@ -208,7 +244,7 @@ describe('useCombinedTableData - parent org unit grouping', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
+                        id: 'ou1',
                         orgUnitPath: '/ou1',
                         rawValue: 10,
                     }),
