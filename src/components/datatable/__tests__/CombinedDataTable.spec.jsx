@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import { VirtuosoMockContext } from 'react-virtuoso'
 import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
@@ -180,5 +180,73 @@ describe('CombinedDataTable', () => {
         })
 
         expect(onCountChange).toHaveBeenCalledWith(2, 2)
+    })
+
+    test('sorts rows when a column sort button is clicked', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({ orgUnitId: 'ou1', rawValue: 20 }),
+                    feature({ orgUnitId: 'ou2', rawValue: 10 }),
+                ],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+        })
+
+        const rowsBefore = screen.getAllByRole('row').slice(1)
+        expect(rowsBefore[0]).toHaveTextContent('ou1')
+
+        fireEvent.click(
+            screen.getByTestId(
+                'combined-table-column-sort-button-Value (Layer A)'
+            )
+        )
+
+        const rowsAfter = screen.getAllByRole('row').slice(1)
+        expect(rowsAfter[0]).toHaveTextContent('ou2')
+    })
+
+    test('applies a per-column filter via onFiltersChange', () => {
+        const onFiltersChange = jest.fn()
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({ orgUnitId: 'ou1', rawValue: 20 }),
+                    feature({ orgUnitId: 'ou2', rawValue: 10 }),
+                ],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+            filters: {},
+            onFiltersChange,
+        })
+
+        const input = screen
+            .getByTestId('combined-table-column-filter-ID')
+            .querySelector('input')
+        fireEvent.change(input, { target: { value: 'ou1' } })
+
+        expect(onFiltersChange).toHaveBeenCalledWith({ id: 'ou1' })
     })
 })
