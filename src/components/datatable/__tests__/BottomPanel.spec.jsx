@@ -34,16 +34,21 @@ const DEFAULT_DATA_TABLE_STATE = {
     openIds: ['layer1'],
     combinedView: false,
     joinConfig: {
-        level: 'orgUnit',
-        layerIds: [],
-        pointLayerId: null,
-        polygonLayerId: null,
+        layers: {},
     },
 }
 
 const DEFAULT_MAP_VIEWS = [
     { id: 'layer1', name: 'Layer 1', layer: THEMATIC_LAYER, data: [{}] },
 ]
+
+const referenceLayer = (
+    rows = [{ dimension: 'ou', items: [{ id: 'country1' }] }]
+) => ({
+    id: 'ref1',
+    layer: 'combinedTableRef',
+    rows,
+})
 
 const renderBottomPanel = ({
     dataTable = DEFAULT_DATA_TABLE_STATE,
@@ -110,14 +115,7 @@ const twoEligibleLayers = [
 const getLayerSelector = () => screen.getByTestId('data-table-layer-selector')
 
 describe('BottomPanel layer selector', () => {
-    test('lists only the one eligible layer, Combined disabled, when no other eligible layers exist', () => {
-        renderBottomPanel()
-
-        expect(screen.getByText('Layer 1')).toBeInTheDocument()
-        expect(screen.getByText('Combined')).toBeDisabled()
-    })
-
-    test('lists every eligible layer, whether or not its table is open, plus an enabled Combined option once 2+ eligible layers exist', () => {
+    test('lists every eligible layer, whether or not its table is open, plus a Combined option', () => {
         renderBottomPanel({
             dataTable: DEFAULT_DATA_TABLE_STATE,
             mapViews: twoEligibleLayers,
@@ -128,7 +126,7 @@ describe('BottomPanel layer selector', () => {
         // already-open tabs.
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
         expect(screen.getByText('Layer 2')).toBeInTheDocument()
-        expect(screen.getByText('Combined')).not.toBeDisabled()
+        expect(screen.getByText('Combined')).toBeInTheDocument()
     })
 
     test('selecting a different, already-open layer switches the active layer shown in the table', () => {
@@ -197,7 +195,25 @@ describe('BottomPanel layer selector', () => {
         consoleError.mockRestore()
     })
 
-    test('selecting Combined from the dropdown dispatches DATA_TABLE_COMBINED_VIEW_TOGGLE', () => {
+    test('selecting Combined dispatches DATA_TABLE_COMBINED_VIEW_TOGGLE, and nothing else, once a reference with org units already exists', () => {
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+            },
+            mapViews: [...twoEligibleLayers, referenceLayer()],
+        })
+
+        fireEvent.change(getLayerSelector(), {
+            target: { value: '__combined__' },
+        })
+
+        expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_COMBINED_VIEW_TOGGLE' },
+        ])
+    })
+
+    test('selecting Combined also opens a draft reference layer editor when none exists yet', () => {
         const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -212,22 +228,54 @@ describe('BottomPanel layer selector', () => {
 
         expect(store.getActions()).toEqual([
             { type: 'DATA_TABLE_COMBINED_VIEW_TOGGLE' },
+            {
+                type: 'LAYER_EDIT',
+                payload: {
+                    layer: 'combinedTableRef',
+                    isVisible: false,
+                    rows: [],
+                },
+            },
+        ])
+    })
+
+    test('selecting Combined opens the existing reference layer editor when it has no org units selected yet', () => {
+        const emptyReference = referenceLayer([])
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+            },
+            mapViews: [...twoEligibleLayers, emptyReference],
+        })
+
+        fireEvent.change(getLayerSelector(), {
+            target: { value: '__combined__' },
+        })
+
+        expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_COMBINED_VIEW_TOGGLE' },
+            { type: 'LAYER_EDIT', payload: emptyReference },
         ])
     })
 })
 
 describe('BottomPanel Combined join controls', () => {
-    test('shows the join-level selector and layer picker, and hides per-layer-only controls, while Combined is active', () => {
+    const combinedMapViews = [...twoEligibleLayers, referenceLayer()]
+
+    test('shows the reference org unit control and join layers control, and hides per-layer-only controls, while Combined is active', () => {
         renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
                 openIds: ['layer1', 'layer2'],
                 combinedView: true,
             },
-            mapViews: twoEligibleLayers,
+            mapViews: combinedMapViews,
         })
 
-        expect(screen.getByDisplayValue('Join by org unit')).toBeInTheDocument()
+        expect(
+            screen.getByLabelText('Configure reference org units')
+        ).toBeInTheDocument()
         expect(
             screen.getByLabelText('Choose layers to combine')
         ).toBeInTheDocument()
@@ -243,141 +291,75 @@ describe('BottomPanel Combined join controls', () => {
                 openIds: ['layer1', 'layer2'],
                 combinedView: true,
             },
-            mapViews: twoEligibleLayers,
+            mapViews: combinedMapViews,
         })
 
         expect(screen.getByLabelText('Configure columns')).toBeInTheDocument()
     })
 
-    test('offers and renders the spatial join point/polygon selects when point+polygon candidates exist', () => {
-        const pointAndPolygonLayers = [
-            {
-                id: 'points',
-                name: 'Points',
-                layer: THEMATIC_LAYER,
-                data: [{ geometry: { type: 'Point' } }],
-            },
-            {
-                id: 'polygons',
-                name: 'Polygons',
-                layer: THEMATIC_LAYER,
-                data: [{ geometry: { type: 'Polygon' } }],
-            },
-        ]
-
-        renderBottomPanel({
-            dataTable: {
-                ...DEFAULT_DATA_TABLE_STATE,
-                openIds: ['points', 'polygons'],
-                combinedView: true,
-                joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: null,
-                    polygonLayerId: null,
-                },
-            },
-            mapViews: pointAndPolygonLayers,
-        })
-
-        expect(
-            screen.getByText('Spatial - point inside polygon')
-        ).toBeInTheDocument()
-        expect(screen.getByText('Point layer')).toBeInTheDocument()
-        expect(screen.getByText('Polygon layer')).toBeInTheDocument()
-    })
-
-    test('choosing a point layer dispatches DATA_TABLE_JOIN_CONFIG_SET with pointLayerId set', () => {
-        const pointAndPolygonLayers = [
-            {
-                id: 'points',
-                name: 'Points',
-                layer: THEMATIC_LAYER,
-                data: [{ geometry: { type: 'Point' } }],
-            },
-            {
-                id: 'polygons',
-                name: 'Polygons',
-                layer: THEMATIC_LAYER,
-                data: [{ geometry: { type: 'Polygon' } }],
-            },
-        ]
-
+    test('toggling a layer on in the join-layers popover dispatches DATA_TABLE_JOIN_CONFIG_SET with that layer added', () => {
         const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
-                openIds: ['points', 'polygons'],
+                openIds: ['layer1', 'layer2'],
                 combinedView: true,
-                joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: null,
-                    polygonLayerId: null,
-                },
             },
-            mapViews: pointAndPolygonLayers,
+            mapViews: combinedMapViews,
         })
 
-        fireEvent.change(screen.getByDisplayValue('Point layer'), {
-            target: { value: 'points' },
-        })
+        fireEvent.click(screen.getByLabelText('Choose layers to combine'))
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Layer 1' }))
 
         expect(store.getActions()).toEqual([
             {
                 type: 'DATA_TABLE_JOIN_CONFIG_SET',
                 config: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: 'points',
-                    polygonLayerId: null,
+                    layers: {
+                        layer1: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                    },
                 },
             },
         ])
     })
 
-    test('does not offer the spatial join option when there is no point/polygon pair', () => {
-        renderBottomPanel({
-            dataTable: {
-                ...DEFAULT_DATA_TABLE_STATE,
-                openIds: ['layer1', 'layer2'],
-                combinedView: true,
-            },
-            mapViews: twoEligibleLayers,
-        })
-
-        expect(
-            screen.queryByText('Spatial - point inside polygon')
-        ).not.toBeInTheDocument()
-        // Regression guard: `pointLayers.length && polygonLayers.length` can
-        // evaluate to the number 0 rather than a real boolean, and React
-        // renders a stray "0" text node for that instead of nothing.
-        expect(
-            screen.getByDisplayValue('Join by org unit')
-        ).not.toHaveTextContent('0')
-    })
-
-    test('changing the join level dispatches DATA_TABLE_JOIN_CONFIG_SET', () => {
+    test('toggling an already-joined layer off dispatches DATA_TABLE_JOIN_CONFIG_SET with that layer removed', () => {
         const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
                 openIds: ['layer1', 'layer2'],
                 combinedView: true,
+                joinConfig: {
+                    layers: {
+                        layer1: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                        layer2: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                    },
+                },
             },
-            mapViews: twoEligibleLayers,
+            mapViews: combinedMapViews,
         })
 
-        fireEvent.change(screen.getByDisplayValue('Join by org unit'), {
-            target: { value: 'parentOrgUnit' },
-        })
+        fireEvent.click(screen.getByLabelText('Choose layers to combine'))
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Layer 1' }))
 
         expect(store.getActions()).toEqual([
             {
                 type: 'DATA_TABLE_JOIN_CONFIG_SET',
                 config: {
-                    level: 'parentOrgUnit',
-                    layerIds: [],
-                    pointLayerId: null,
-                    polygonLayerId: null,
+                    layers: {
+                        layer2: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                    },
                 },
             },
         ])

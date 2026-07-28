@@ -7,14 +7,16 @@ const COMBINED_VALUE = '__combined__'
 
 // Replaces the old per-layer tab strip - a single dropdown listing every
 // data-table-eligible layer on the map (whether or not its table has been
-// opened yet) plus Combined (greyed out unless the map has 2+ eligible
-// layers to join). Selecting a layer that isn't open yet is the caller's
-// job to also open (see BottomPanel.jsx's onSelectLayer).
+// opened yet) plus Combined. Selecting Combined before a reference org unit
+// set has been configured is the caller's job to handle (see
+// BottomPanel.jsx's onSelectCombined, which opens the reference layer's
+// editor in that case rather than disabling the option outright). Selecting
+// a layer that isn't open yet is likewise the caller's job to also open
+// (see BottomPanel.jsx's onSelectLayer).
 const LayerSelectorControl = ({
     layers,
     activeLayerId,
     combinedView,
-    combinedEnabled,
     onSelectLayer,
     onSelectCombined,
 }) => (
@@ -36,14 +38,11 @@ const LayerSelectorControl = ({
                 {layer.name}
             </option>
         ))}
-        <option value={COMBINED_VALUE} disabled={!combinedEnabled}>
-            {i18n.t('Combined')}
-        </option>
+        <option value={COMBINED_VALUE}>{i18n.t('Combined')}</option>
     </select>
 )
 
 LayerSelectorControl.propTypes = {
-    combinedEnabled: PropTypes.bool.isRequired,
     combinedView: PropTypes.bool.isRequired,
     layers: PropTypes.arrayOf(
         PropTypes.shape({

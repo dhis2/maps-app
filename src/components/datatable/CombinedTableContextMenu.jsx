@@ -12,13 +12,6 @@ import { useDispatch } from 'react-redux'
 import { highlightFeature } from '../../actions/feature.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
-    BOUNDARY_LAYER,
-    EVENT_LAYER,
-    FACILITY_LAYER,
-    GEOJSON_URL_LAYER,
-    TRACKED_ENTITY_LAYER,
-} from '../../constants/layers.js'
-import {
     buildFeatureIndex,
     getUnionBounds,
     mergeCrossLayerIds,
@@ -26,34 +19,10 @@ import {
 import { drillUpDown } from '../../util/map.js'
 import { IconZoomIn16 } from '../core/icons.jsx'
 
-const NON_DRILLABLE_LAYER_TYPES = [
-    BOUNDARY_LAYER,
-    FACILITY_LAYER,
-    EVENT_LAYER,
-    GEOJSON_URL_LAYER,
-    TRACKED_ENTITY_LAYER,
-]
-
-// Drill up/down only makes sense for a row that names a single org unit
-// (the 'orgUnit' join mode) - a parentOrgUnit row groups several org units
-// with no single org unit to drill from, and a spatial row's point/polygon
-// features aren't org units at all.
-const getDrillTargets = (layers, entry) =>
-    layers
-        .filter((layer) => !NON_DRILLABLE_LAYER_TYPES.includes(layer.layer))
-        .map((layer) => {
-            const id = entry?.[layer.id]?.[0]
-            const featureProps = id
-                ? buildFeatureIndex(layer.data).get(id)?.properties
-                : null
-            return { layer, featureProps }
-        })
-        .filter((target) => target.featureProps)
-
 const CombinedTableContextMenu = ({
     contextMenu,
+    referenceLayer,
     layers,
-    joinConfig,
     rowFeatureIds,
     selectedIds,
     filteredIds,
@@ -68,24 +37,27 @@ const CombinedTableContextMenu = ({
 
     const { x, y, rowId } = contextMenu
     const entry = rowFeatureIds.get(rowId) ?? {}
+    // getUnionBounds/zoom need the reference layer's own geometry alongside
+    // every participating layer's, since rowFeatureIds always names the
+    // reference org unit too (see useCombinedTableData.js) - it's the only
+    // guaranteed match for a row with no participating-layer data at all.
+    const allLayers = [referenceLayer, ...layers]
 
-    const canDrill = joinConfig.level === 'orgUnit'
-    const drillTargets = canDrill ? getDrillTargets(layers, entry) : []
-    const hasCoordinatesUp = drillTargets.some(
-        ({ featureProps }) => featureProps.hasCoordinatesUp
-    )
-    const hasCoordinatesDown = drillTargets.some(
-        ({ featureProps }) => featureProps.hasCoordinatesDown
-    )
+    // Drill up/down always targets the reference layer's own level - a row
+    // IS a reference org unit, so this is exactly TableContextMenu.jsx's
+    // own single-layer drill, just scoped to the reference layer instead of
+    // whichever layer a normal single-layer table belongs to.
+    const referenceFeatureProps = buildFeatureIndex(referenceLayer.data).get(
+        rowId
+    )?.properties
 
     const zoomTo = (idsByLayerId) => {
-        const bounds = getUnionBounds(layers, idsByLayerId)
         dispatch(
             highlightFeature({
                 layerId: null,
                 origin: 'table',
                 zoom: true,
-                bounds,
+                bounds: getUnionBounds(allLayers, idsByLayerId),
                 crossLayerIds: idsByLayerId,
             })
         )
@@ -112,62 +84,48 @@ const CombinedTableContextMenu = ({
                 onClickOutside={onClose}
             >
                 <Menu dense dataTest="combined-table-context-menu">
-                    {canDrill && (
+                    {referenceFeatureProps && (
                         <MenuItem
                             dataTest="combined-table-context-menu-drill-up"
                             label={i18n.t('Drill up one level')}
                             icon={<IconArrowUp16 />}
-                            disabled={!hasCoordinatesUp}
+                            disabled={!referenceFeatureProps.hasCoordinatesUp}
                             onClick={() => {
-                                drillTargets
-                                    .filter(
-                                        ({ featureProps }) =>
-                                            featureProps.hasCoordinatesUp
-                                    )
-                                    .forEach(({ layer, featureProps }) => {
-                                        dispatch(
-                                            updateLayer(
-                                                drillUpDown(
-                                                    layer,
-                                                    featureProps.grandParentId,
-                                                    featureProps.grandParentParentGraph,
-                                                    Number.parseInt(
-                                                        featureProps.level
-                                                    ) - 1
-                                                )
-                                            )
+                                dispatch(
+                                    updateLayer(
+                                        drillUpDown(
+                                            referenceLayer,
+                                            referenceFeatureProps.grandParentId,
+                                            referenceFeatureProps.grandParentParentGraph,
+                                            Number.parseInt(
+                                                referenceFeatureProps.level
+                                            ) - 1
                                         )
-                                    })
+                                    )
+                                )
                                 onClose()
                             }}
                         />
                     )}
-                    {canDrill && (
+                    {referenceFeatureProps && (
                         <MenuItem
                             dataTest="combined-table-context-menu-drill-down"
                             label={i18n.t('Drill down one level')}
                             icon={<IconArrowDown16 />}
-                            disabled={!hasCoordinatesDown}
+                            disabled={!referenceFeatureProps.hasCoordinatesDown}
                             onClick={() => {
-                                drillTargets
-                                    .filter(
-                                        ({ featureProps }) =>
-                                            featureProps.hasCoordinatesDown
-                                    )
-                                    .forEach(({ layer, featureProps }) => {
-                                        dispatch(
-                                            updateLayer(
-                                                drillUpDown(
-                                                    layer,
-                                                    featureProps.id,
-                                                    featureProps.parentGraph,
-                                                    Number.parseInt(
-                                                        featureProps.level
-                                                    ) + 1
-                                                )
-                                            )
+                                dispatch(
+                                    updateLayer(
+                                        drillUpDown(
+                                            referenceLayer,
+                                            referenceFeatureProps.id,
+                                            referenceFeatureProps.parentGraph,
+                                            Number.parseInt(
+                                                referenceFeatureProps.level
+                                            ) + 1
                                         )
-                                    })
+                                    )
+                                )
                                 onClose()
                             }}
                         />
@@ -176,7 +134,7 @@ const CombinedTableContextMenu = ({
                         dataTest="combined-table-context-menu-zoom-to-feature"
                         label={i18n.t('Zoom to feature')}
                         icon={<IconZoomIn16 />}
-                        disabled={!getUnionBounds(layers, entry)}
+                        disabled={!getUnionBounds(allLayers, entry)}
                         onClick={() => zoomTo(entry)}
                     />
                     <MenuItem
@@ -208,10 +166,8 @@ const CombinedTableContextMenu = ({
 }
 
 CombinedTableContextMenu.propTypes = {
-    joinConfig: PropTypes.shape({
-        level: PropTypes.string,
-    }).isRequired,
     layers: PropTypes.array.isRequired,
+    referenceLayer: PropTypes.object.isRequired,
     rowFeatureIds: PropTypes.instanceOf(Map).isRequired,
     onClose: PropTypes.func.isRequired,
     contextMenu: PropTypes.shape({

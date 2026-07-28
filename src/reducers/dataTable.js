@@ -1,31 +1,17 @@
 import * as types from '../constants/actionTypes.js'
 
+// joinConfig.layers is keyed by participating layer id: { type: 'orgUnit' |
+// 'spatial', aggregation: { [dataKey]: aggregationTypeId } }. The reference
+// org unit set itself isn't stored here at all - it's derived from
+// state.map.mapViews (the one layer with layer === COMBINED_TABLE_REF_LAYER),
+// same as any other layer lookup, rather than duplicated into this slice.
 const initialState = {
     openIds: [],
     combinedView: false,
     joinConfig: {
-        level: 'orgUnit',
-        layerIds: [],
-        pointLayerId: null,
-        polygonLayerId: null,
+        layers: {},
     },
 }
-
-const isJoinConfigSufficient = (joinConfig) =>
-    joinConfig.level === 'spatial'
-        ? !!joinConfig.pointLayerId && !!joinConfig.polygonLayerId
-        : joinConfig.layerIds.length >= 2
-
-const clearJoinConfigRefs = (joinConfig, removedId) => ({
-    ...joinConfig,
-    layerIds: joinConfig.layerIds.filter((id) => id !== removedId),
-    pointLayerId:
-        joinConfig.pointLayerId === removedId ? null : joinConfig.pointLayerId,
-    polygonLayerId:
-        joinConfig.polygonLayerId === removedId
-            ? null
-            : joinConfig.polygonLayerId,
-})
 
 const dataTable = (state = initialState, action) => {
     switch (action.type) {
@@ -51,13 +37,21 @@ const dataTable = (state = initialState, action) => {
         }
 
         case types.LAYER_REMOVE: {
-            const joinConfig = clearJoinConfigRefs(state.joinConfig, action.id)
+            // Only prunes a removed *participating* layer's own join
+            // settings - this reducer only sees its own slice, not
+            // state.map.mapViews, so it can't tell here whether the removed
+            // layer was instead the reference layer itself. Not a gap in
+            // practice yet: the reference layer has no delete affordance of
+            // its own (it's hidden from the normal layer list/cards), so
+            // that case has no way to be triggered today. A future
+            // "reset reference" action would need to turn combinedView off
+            // itself when it removes the reference layer.
+            const layers = { ...state.joinConfig.layers }
+            delete layers[action.id]
             return {
                 ...state,
                 openIds: state.openIds.filter((id) => id !== action.id),
-                joinConfig,
-                combinedView:
-                    state.combinedView && isJoinConfigSufficient(joinConfig),
+                joinConfig: { ...state.joinConfig, layers },
             }
         }
 

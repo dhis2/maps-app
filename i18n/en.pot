@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-28T13:36:50.817Z\n"
-"PO-Revision-Date: 2026-07-28T13:36:50.817Z\n"
+"POT-Creation-Date: 2026-07-28T14:57:10.660Z\n"
+"PO-Revision-Date: 2026-07-28T14:57:10.661Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -154,24 +154,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Join by org unit"
-msgstr "Join by org unit"
-
-msgid "Join by parent org unit"
-msgstr "Join by parent org unit"
-
-msgid "Spatial - point inside polygon"
-msgstr "Spatial - point inside polygon"
-
-msgid "Point layer"
-msgstr "Point layer"
-
-msgid "inside"
-msgstr "inside"
-
-msgid "Polygon layer"
-msgstr "Polygon layer"
 
 msgid "No matching rows"
 msgstr "No matching rows"
@@ -358,11 +340,26 @@ msgstr "Highlight color"
 msgid "Choose layers to combine"
 msgstr "Choose layers to combine"
 
+msgid "Join type for {{layer}}"
+msgstr "Join type for {{layer}}"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Spatial"
+msgstr "Spatial"
+
+msgid "Aggregation type for {{layer}}"
+msgstr "Aggregation type for {{layer}}"
+
 msgid "Choose a data table to view"
 msgstr "Choose a data table to view"
 
 msgid "Combined"
 msgstr "Combined"
+
+msgid "Configure reference org units"
+msgstr "Configure reference org units"
 
 msgid "{{filtered}} of {{total}} rows"
 msgstr "{{filtered}} of {{total}} rows"
@@ -376,17 +373,14 @@ msgstr "Show only features in current map view"
 msgid "ID"
 msgstr "ID"
 
+msgid "Level"
+msgstr "Level"
+
 msgid "Value ({{layer}})"
 msgstr "Value ({{layer}})"
 
 msgid "Legend ({{layer}})"
 msgstr "Legend ({{layer}})"
-
-msgid "No parent"
-msgstr "No parent"
-
-msgid "Level"
-msgstr "Level"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -487,6 +481,9 @@ msgstr "thematic"
 
 msgid "org unit"
 msgstr "org unit"
+
+msgid "reference org units"
+msgstr "reference org units"
 
 msgid "Earth Engine"
 msgstr "Earth Engine"
@@ -2115,9 +2112,6 @@ msgstr "Id"
 
 msgid "Org unit Id"
 msgstr "Org unit Id"
-
-msgid "Org unit"
-msgstr "Org unit"
 
 msgid "Org unit level"
 msgstr "Org unit level"

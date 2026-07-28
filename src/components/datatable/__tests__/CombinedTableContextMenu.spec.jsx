@@ -6,7 +6,7 @@ import {
     FEATURE_HIGHLIGHT,
     LAYER_UPDATE,
 } from '../../../constants/actionTypes.js'
-import { EVENT_LAYER, THEMATIC_LAYER } from '../../../constants/layers.js'
+import { THEMATIC_LAYER } from '../../../constants/layers.js'
 import CombinedTableContextMenu from '../CombinedTableContextMenu.jsx'
 
 const mockStore = configureMockStore()
@@ -17,31 +17,33 @@ const point = (id, coordinates, properties = {}) => ({
     geometry: { type: 'Point', coordinates },
 })
 
+const referenceLayer = {
+    id: 'ref1',
+    layer: 'combinedTableRef',
+    data: [
+        point('ou1', [0, 0], {
+            level: '3',
+            hasCoordinatesUp: true,
+            hasCoordinatesDown: false,
+            grandParentId: 'gp1',
+            grandParentParentGraph: '/country1',
+            parentGraph: '/country1/region1',
+        }),
+    ],
+}
+
 const layers = [
     {
         id: 'layerA',
         layer: THEMATIC_LAYER,
-        data: [
-            point('ou1', [0, 0], {
-                level: '3',
-                hasCoordinatesUp: true,
-                hasCoordinatesDown: false,
-                grandParentId: 'gp1',
-                grandParentParentGraph: '/country1',
-                parentGraph: '/country1/region1',
-            }),
-        ],
-    },
-    {
-        id: 'layerB',
-        layer: EVENT_LAYER, // not drillable
-        data: [point('evt1', [5, 5])],
+        data: [point('a1', [5, 5])],
     },
 ]
 
-const rowFeatureIds = new Map([['ou1', { layerA: ['ou1'], layerB: ['evt1'] }]])
+// rowFeatureIds always names the reference layer's own feature id alongside
+// whichever participating layers matched - see useCombinedTableData.js.
+const rowFeatureIds = new Map([['ou1', { ref1: ['ou1'], layerA: ['a1'] }]])
 
-const orgUnitJoinConfig = { level: 'orgUnit' }
 const contextMenu = { x: 10, y: 10, rowId: 'ou1' }
 
 const getLink = (testId) => screen.getByTestId(testId).querySelector('a')
@@ -52,8 +54,8 @@ const renderMenu = (props) => {
         <Provider store={store}>
             <CombinedTableContextMenu
                 contextMenu={contextMenu}
+                referenceLayer={referenceLayer}
                 layers={layers}
-                joinConfig={orgUnitJoinConfig}
                 rowFeatureIds={rowFeatureIds}
                 onClose={jest.fn()}
                 {...props}
@@ -64,7 +66,7 @@ const renderMenu = (props) => {
 }
 
 describe('CombinedTableContextMenu — drill up/down', () => {
-    test('is offered in orgUnit join mode, enabled per the drillable layer(s) capability', () => {
+    test('is enabled/disabled per the reference layer own hasCoordinatesUp/hasCoordinatesDown', () => {
         renderMenu()
         expect(
             getLink('combined-table-context-menu-drill-up')
@@ -74,14 +76,7 @@ describe('CombinedTableContextMenu — drill up/down', () => {
         ).toHaveAttribute('aria-disabled', 'true')
     })
 
-    test('is not offered in parentOrgUnit join mode (no single org unit to drill from)', () => {
-        renderMenu({ joinConfig: { level: 'parentOrgUnit' } })
-        expect(
-            screen.queryByTestId('combined-table-context-menu-drill-up')
-        ).not.toBeInTheDocument()
-    })
-
-    test('drilling up dispatches updateLayer for the drillable layer only, using its own feature props', () => {
+    test('drilling up dispatches updateLayer for the reference layer, using its own feature props', () => {
         const onClose = jest.fn()
         const { store } = renderMenu({ onClose })
         fireEvent.click(getLink('combined-table-context-menu-drill-up'))
@@ -90,17 +85,47 @@ describe('CombinedTableContextMenu — drill up/down', () => {
             .getActions()
             .filter((a) => a.type === LAYER_UPDATE)
         expect(layerUpdates).toHaveLength(1)
-        expect(layerUpdates[0].payload.id).toBe('layerA')
+        expect(layerUpdates[0].payload.id).toBe('ref1')
         expect(layerUpdates[0].payload.rows[0].items).toEqual([
             { id: 'gp1', path: '/country1/gp1' },
             { id: 'LEVEL-2' },
         ])
         expect(onClose).toHaveBeenCalled()
     })
+
+    test('drilling down dispatches updateLayer for the reference layer, using its own feature props', () => {
+        const onClose = jest.fn()
+        const { store } = renderMenu({
+            onClose,
+            referenceLayer: {
+                ...referenceLayer,
+                data: [
+                    point('ou1', [0, 0], {
+                        level: '3',
+                        hasCoordinatesUp: false,
+                        hasCoordinatesDown: true,
+                        parentGraph: '/country1/region1',
+                    }),
+                ],
+            },
+        })
+        fireEvent.click(getLink('combined-table-context-menu-drill-down'))
+
+        const layerUpdates = store
+            .getActions()
+            .filter((a) => a.type === LAYER_UPDATE)
+        expect(layerUpdates).toHaveLength(1)
+        expect(layerUpdates[0].payload.id).toBe('ref1')
+        expect(layerUpdates[0].payload.rows[0].items).toEqual([
+            { id: 'ou1', path: '/country1/region1/ou1' },
+            { id: 'LEVEL-4' },
+        ])
+        expect(onClose).toHaveBeenCalled()
+    })
 })
 
 describe('CombinedTableContextMenu — zoom actions', () => {
-    test('zoom to feature dispatches a crossLayerIds highlight with the union bounds', () => {
+    test('zoom to feature dispatches a crossLayerIds highlight with the union bounds across the reference and participating layers', () => {
         const onClose = jest.fn()
         const { store } = renderMenu({ onClose })
         fireEvent.click(getLink('combined-table-context-menu-zoom-to-feature'))
@@ -114,7 +139,7 @@ describe('CombinedTableContextMenu — zoom actions', () => {
                     [0, 0],
                     [5, 5],
                 ],
-                crossLayerIds: { layerA: ['ou1'], layerB: ['evt1'] },
+                crossLayerIds: { ref1: ['ou1'], layerA: ['a1'] },
             },
         })
         expect(onClose).toHaveBeenCalled()
@@ -134,7 +159,7 @@ describe('CombinedTableContextMenu — zoom actions', () => {
             expect.objectContaining({
                 type: FEATURE_HIGHLIGHT,
                 payload: expect.objectContaining({
-                    crossLayerIds: { layerA: ['ou1'], layerB: ['evt1'] },
+                    crossLayerIds: { ref1: ['ou1'], layerA: ['a1'] },
                 }),
             })
         )

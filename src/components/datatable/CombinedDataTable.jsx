@@ -70,6 +70,7 @@ const CombinedTableComponents = {
 const CombinedDataTable = ({
     availableWidth,
     layers,
+    referenceLayer,
     joinConfig,
     filters,
     onFiltersChange,
@@ -88,6 +89,7 @@ const CombinedDataTable = ({
     const { headers, rows, rowFeatureIds, columnOptions, spatialWarning } =
         useCombinedTableData({
             layers,
+            referenceLayer,
             joinConfig,
             sortField,
             sortDirection,
@@ -465,7 +467,7 @@ const CombinedDataTable = ({
             <CombinedTableContextMenu
                 contextMenu={tableContextMenu}
                 layers={layers}
-                joinConfig={joinConfig}
+                referenceLayer={referenceLayer}
                 rowFeatureIds={rowFeatureIds}
                 selectedIds={selectedIds}
                 filteredIds={hasActiveFilters ? allRowIds : null}
@@ -477,12 +479,10 @@ const CombinedDataTable = ({
 
 CombinedDataTable.propTypes = {
     joinConfig: PropTypes.shape({
-        layerIds: PropTypes.arrayOf(PropTypes.string),
-        level: PropTypes.string,
-        pointLayerId: PropTypes.string,
-        polygonLayerId: PropTypes.string,
+        layers: PropTypes.object,
     }).isRequired,
     layers: PropTypes.array.isRequired,
+    referenceLayer: PropTypes.object.isRequired,
     availableWidth: PropTypes.number,
     columnConfig: PropTypes.shape({
         orderedKeys: PropTypes.arrayOf(PropTypes.string),

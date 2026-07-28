@@ -6,19 +6,22 @@ import { editLayer } from '../../../actions/layers.js'
 import { COMBINED_TABLE_REF_LAYER } from '../../../constants/layers.js'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
-// Opens the Combined data table's reference org unit layer for editing via
-// the same editLayer/LayerEdit.jsx flow every other layer uses - creating
-// it first (as a draft, no id yet) if it doesn't already exist in
-// mapViews. See CLAUDE.md/map-layer-architecture: LayerEdit.jsx routes to
-// addLayer or updateLayer on save based on whether the object passed here
-// has an id, so this component itself never dispatches either directly.
-const ReferenceOrgUnitControl = () => {
+// Shared by ReferenceOrgUnitControl (the toolbar button) and BottomPanel.jsx
+// (which also needs to open the same dialog when "Combined" is selected
+// before a reference has been configured yet) - both open the reference
+// layer for editing via the same editLayer/LayerEdit.jsx flow every other
+// layer uses, creating it first (as a draft, no id yet) if it doesn't
+// already exist in mapViews. See CLAUDE.md/map-layer-architecture:
+// LayerEdit.jsx routes to addLayer or updateLayer on save based on whether
+// the object passed here has an id, so neither caller dispatches either
+// directly.
+export const useReferenceLayer = () => {
     const dispatch = useDispatch()
     const referenceLayer = useSelector((state) =>
         state.map.mapViews.find((l) => l.layer === COMBINED_TABLE_REF_LAYER)
     )
 
-    const onClick = () =>
+    const openReferenceLayerEditor = () =>
         dispatch(
             editLayer(
                 referenceLayer ?? {
@@ -29,12 +32,18 @@ const ReferenceOrgUnitControl = () => {
             )
         )
 
+    return { referenceLayer, openReferenceLayerEditor }
+}
+
+const ReferenceOrgUnitControl = () => {
+    const { openReferenceLayerEditor } = useReferenceLayer()
+
     return (
         <ToolbarIconButton
             tooltip={i18n.t('Configure reference org units')}
             ariaLabel={i18n.t('Configure reference org units')}
             dataTest="data-table-reference-org-unit-button"
-            onClick={onClick}
+            onClick={openReferenceLayerEditor}
         >
             <IconLocation16 />
         </ToolbarIconButton>
