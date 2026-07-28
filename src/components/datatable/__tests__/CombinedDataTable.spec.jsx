@@ -94,6 +94,34 @@ describe('CombinedDataTable', () => {
         expect(screen.getByText('Low')).toBeInTheDocument()
     })
 
+    test('formats numeric values with the system digit group separator, matching DataTable', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        orgUnitId: 'ou1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 1234567,
+                    }),
+                ],
+            },
+        ]
+
+        renderCombinedDataTable({
+            layers,
+            joinConfig: {
+                level: 'orgUnit',
+                layerIds: ['layerA'],
+                pointLayerId: null,
+                polygonLayerId: null,
+            },
+        })
+
+        expect(screen.getByText('1,234,567')).toBeInTheDocument()
+    })
+
     test('renders an em-dash for blank cell values', () => {
         const layers = [
             {
