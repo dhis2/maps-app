@@ -14,12 +14,7 @@ describe('dataTable reducer', () => {
         expect(dataTable(undefined, {})).toEqual(initialState)
     })
 
-    it.each([
-        types.DATA_TABLE_CLOSE,
-        types.MAP_NEW,
-        types.DOWNLOAD_MODE_CLOSE,
-        types.DOWNLOAD_MODE_OPEN,
-    ])('resets to the initial state on %s', (type) => {
+    it('resets fully to the initial state on MAP_NEW', () => {
         const state = {
             openIds: ['layer1', 'layer2'],
             combinedView: true,
@@ -30,8 +25,34 @@ describe('dataTable reducer', () => {
             },
         }
 
-        expect(dataTable(state, { type })).toEqual(initialState)
+        expect(dataTable(state, { type: types.MAP_NEW })).toEqual(initialState)
     })
+
+    it.each([
+        types.DATA_TABLE_CLOSE,
+        types.DOWNLOAD_MODE_CLOSE,
+        types.DOWNLOAD_MODE_OPEN,
+    ])(
+        'resets openIds/combinedView but preserves joinConfig on %s - it is savable configuration, not throwaway display state',
+        (type) => {
+            const joinConfig = {
+                layers: {
+                    layer1: { type: 'orgUnit', aggregation: {} },
+                },
+            }
+            const state = {
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+                joinConfig,
+            }
+
+            expect(dataTable(state, { type })).toEqual({
+                openIds: [],
+                combinedView: false,
+                joinConfig,
+            })
+        }
+    )
 
     describe('MAP_SET', () => {
         it('restores dataTable state from the payload when present', () => {

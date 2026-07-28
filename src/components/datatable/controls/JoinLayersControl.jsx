@@ -3,6 +3,7 @@ import { IconVisualizationColumnMulti16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { getCombinedAggregationTypes } from '../../../constants/aggregationTypes.js'
+import { ORG_UNIT_PATH_DATA_KEY } from '../../../constants/dataTable.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -13,10 +14,6 @@ import styles from './styles/JoinLayersControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const VALUE_KEY = 'rawValue'
-const DEFAULT_SETTINGS = {
-    type: 'orgUnit',
-    aggregation: { [VALUE_KEY]: 'SUM' },
-}
 
 // Spatial join means point-in-polygon against the reference org unit's own
 // boundary - offered for any layer whose features are literally points, or
@@ -32,17 +29,32 @@ const isSpatialEligible = (layer) => {
     )
 }
 
+// A layer with no org-unit path on its own features (e.g. GeoJSON URL) can
+// never match anything under "Org unit" join - defaulting a newly-checked
+// layer to that mode would silently leave every cell blank until the user
+// happens to switch it to Spatial themselves. Default to whichever mode can
+// actually match instead.
+const hasOrgUnitIdentity = (layer) => {
+    const feature = layer.data?.[0]
+    return !!(feature?.properties ?? feature)?.[ORG_UNIT_PATH_DATA_KEY]
+}
+
+const getDefaultSettings = (layer) => ({
+    type: hasOrgUnitIdentity(layer) ? 'orgUnit' : 'spatial',
+    aggregation: { [VALUE_KEY]: 'SUM' },
+})
+
 const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const aggregationTypes = getCombinedAggregationTypes()
 
-    const onToggle = (layerId) => {
+    const onToggle = (layer) => {
         const next = { ...layersConfig }
-        if (next[layerId]) {
-            delete next[layerId]
+        if (next[layer.id]) {
+            delete next[layer.id]
         } else {
-            next[layerId] = DEFAULT_SETTINGS
+            next[layer.id] = getDefaultSettings(layer)
         }
         onChange(next)
     }
@@ -94,7 +106,7 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                                         <input
                                             type="checkbox"
                                             checked={!!settings}
-                                            onChange={() => onToggle(layer.id)}
+                                            onChange={() => onToggle(layer)}
                                         />
                                         <span className={styles.layerName}>
                                             {layer.name}

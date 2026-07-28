@@ -15,10 +15,20 @@ const initialState = {
 
 const dataTable = (state = initialState, action) => {
     switch (action.type) {
+        // Closes the whole panel (or leaves the data table view while
+        // entering/exiting download mode) - resets which tab(s) are open
+        // and whether Combined is the active view, but preserves joinConfig
+        // itself. joinConfig is real, savable configuration now (see
+        // favorites.js/FileMenu.jsx), not just session-only display state -
+        // wiping it here would silently discard it the moment a user closes
+        // the panel before saving, an extremely common, low-stakes action
+        // that has nothing to do with abandoning their join setup.
         case types.DATA_TABLE_CLOSE:
-        case types.MAP_NEW:
         case types.DOWNLOAD_MODE_CLOSE:
         case types.DOWNLOAD_MODE_OPEN:
+            return { ...initialState, joinConfig: state.joinConfig }
+
+        case types.MAP_NEW:
             return initialState
 
         case types.MAP_SET:

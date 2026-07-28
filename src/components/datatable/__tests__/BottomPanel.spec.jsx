@@ -108,8 +108,18 @@ describe('BottomPanel resize cancel', () => {
 })
 
 const twoEligibleLayers = [
-    { id: 'layer1', name: 'Layer 1', layer: THEMATIC_LAYER, data: [{}] },
-    { id: 'layer2', name: 'Layer 2', layer: THEMATIC_LAYER, data: [{}] },
+    {
+        id: 'layer1',
+        name: 'Layer 1',
+        layer: THEMATIC_LAYER,
+        data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
+    },
+    {
+        id: 'layer2',
+        name: 'Layer 2',
+        layer: THEMATIC_LAYER,
+        data: [{ properties: { orgUnitPath: '/country1/ou2' } }],
+    },
 ]
 
 const getLayerSelector = () => screen.getByTestId('data-table-layer-selector')
