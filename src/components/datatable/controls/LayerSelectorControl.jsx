@@ -6,10 +6,12 @@ import styles from '../styles/BottomPanel.module.css'
 const COMBINED_VALUE = '__combined__'
 
 // Replaces the old per-layer tab strip - a single dropdown listing every
-// currently open layer plus Combined (greyed out unless the map has 2+
-// eligible layers to join), rather than one tab per open layer.
+// data-table-eligible layer on the map (whether or not its table has been
+// opened yet) plus Combined (greyed out unless the map has 2+ eligible
+// layers to join). Selecting a layer that isn't open yet is the caller's
+// job to also open (see BottomPanel.jsx's onSelectLayer).
 const LayerSelectorControl = ({
-    openLayers,
+    layers,
     activeLayerId,
     combinedView,
     combinedEnabled,
@@ -29,7 +31,7 @@ const LayerSelectorControl = ({
             }
         }}
     >
-        {openLayers.map((layer) => (
+        {layers.map((layer) => (
             <option key={layer.id} value={layer.id}>
                 {layer.name}
             </option>
@@ -43,7 +45,7 @@ const LayerSelectorControl = ({
 LayerSelectorControl.propTypes = {
     combinedEnabled: PropTypes.bool.isRequired,
     combinedView: PropTypes.bool.isRequired,
-    openLayers: PropTypes.arrayOf(
+    layers: PropTypes.arrayOf(
         PropTypes.shape({
             id: PropTypes.string.isRequired,
             name: PropTypes.string,

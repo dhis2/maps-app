@@ -41,7 +41,9 @@ const DEFAULT_DATA_TABLE_STATE = {
     },
 }
 
-const DEFAULT_MAP_VIEWS = [{ id: 'layer1', name: 'Layer 1' }]
+const DEFAULT_MAP_VIEWS = [
+    { id: 'layer1', name: 'Layer 1', layer: THEMATIC_LAYER, data: [{}] },
+]
 
 const renderBottomPanel = ({
     dataTable = DEFAULT_DATA_TABLE_STATE,
@@ -108,41 +110,28 @@ const twoEligibleLayers = [
 const getLayerSelector = () => screen.getByTestId('data-table-layer-selector')
 
 describe('BottomPanel layer selector', () => {
-    test('lists only the one open layer, Combined disabled, when no other eligible layers exist', () => {
+    test('lists only the one eligible layer, Combined disabled, when no other eligible layers exist', () => {
         renderBottomPanel()
 
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
         expect(screen.getByText('Combined')).toBeDisabled()
     })
 
-    test('lists every open layer plus an enabled Combined option once 2+ eligible layers exist', () => {
-        renderBottomPanel({
-            dataTable: {
-                ...DEFAULT_DATA_TABLE_STATE,
-                openIds: ['layer1', 'layer2'],
-            },
-            mapViews: twoEligibleLayers,
-        })
-
-        expect(screen.getByText('Layer 1')).toBeInTheDocument()
-        expect(screen.getByText('Layer 2')).toBeInTheDocument()
-        expect(screen.getByText('Combined')).not.toBeDisabled()
-    })
-
-    test('offers Combined (enabled) even with just a single open tab, once 2+ eligible layers exist', () => {
+    test('lists every eligible layer, whether or not its table is open, plus an enabled Combined option once 2+ eligible layers exist', () => {
         renderBottomPanel({
             dataTable: DEFAULT_DATA_TABLE_STATE,
             mapViews: twoEligibleLayers,
         })
 
-        // Only the open layer appears as its own option - the second
-        // eligible layer isn't open, so it shouldn't be listed.
+        // layer1 is the only one open, but layer2 is still listed since it's
+        // eligible - the dropdown covers every eligible map layer, not just
+        // already-open tabs.
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
-        expect(screen.queryByText('Layer 2')).not.toBeInTheDocument()
+        expect(screen.getByText('Layer 2')).toBeInTheDocument()
         expect(screen.getByText('Combined')).not.toBeDisabled()
     })
 
-    test('selecting a different layer switches the active layer shown in the table', () => {
+    test('selecting a different, already-open layer switches the active layer shown in the table', () => {
         renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -156,6 +145,33 @@ describe('BottomPanel layer selector', () => {
         fireEvent.change(getLayerSelector(), { target: { value: 'layer1' } })
 
         expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer1')
+    })
+
+    test('selecting a layer that has not been opened yet opens it and makes it active', () => {
+        const { store } = renderBottomPanel({
+            dataTable: DEFAULT_DATA_TABLE_STATE,
+            mapViews: twoEligibleLayers,
+        })
+
+        fireEvent.change(getLayerSelector(), { target: { value: 'layer2' } })
+
+        expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_TOGGLE', id: 'layer2' },
+        ])
+    })
+
+    test('does not re-dispatch toggleDataTable when selecting an already-open layer', () => {
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+            },
+            mapViews: twoEligibleLayers,
+        })
+
+        fireEvent.change(getLayerSelector(), { target: { value: 'layer1' } })
+
+        expect(store.getActions()).toEqual([])
     })
 
     test('the active layer is correct on the very first render, with no transient null in between', () => {
