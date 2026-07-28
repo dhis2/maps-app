@@ -17,6 +17,7 @@ import {
     setHighlightColor,
     toggleDataTable,
     toggleCombinedView,
+    setJoinConfig,
 } from '../../actions/dataTable.js'
 import { DATA_TABLE_LAYER_TYPES } from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
@@ -24,6 +25,11 @@ import {
     getPanelHeights,
     hasActiveDataTableFilters,
 } from '../../util/dataTable.js'
+import {
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+} from '../../util/geojson.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
@@ -33,6 +39,7 @@ import CollapseControl from './controls/CollapseControl.jsx'
 import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
 import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
 import HighlightColorControl from './controls/HighlightColorControl.jsx'
+import JoinLayersControl from './controls/JoinLayersControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
 import ShowInViewControl from './controls/ShowInViewControl.jsx'
@@ -43,9 +50,19 @@ import styles from './styles/BottomPanel.module.css'
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
+const isPointLayer = (layer) =>
+    layer.data?.[0]?.geometry?.type === GEO_TYPE_POINT
+
+const isPolygonLayer = (layer) =>
+    [GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON].includes(
+        layer.data?.[0]?.geometry?.type
+    )
+
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const { openIds, combinedView } = useSelector((state) => state.dataTable)
+    const { openIds, combinedView, joinConfig } = useSelector(
+        (state) => state.dataTable
+    )
     const mapViews = useSelector((state) => state.map.mapViews)
     const [activeLayerId, setActiveLayerId] = useState(null)
 
@@ -63,6 +80,11 @@ const BottomPanel = () => {
     )
     const showCombinedTab = eligibleLayers.length >= 2
     const showTabBar = openIds.length > 1 || showCombinedTab
+
+    const pointLayers = eligibleLayers.filter(isPointLayer)
+    const polygonLayers = eligibleLayers.filter(isPolygonLayer)
+    const hasSpatialCandidates =
+        pointLayers.length > 0 && polygonLayers.length > 0
 
     const activeLayer = openLayers.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
@@ -238,7 +260,95 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <ActiveLayerControl name={activeLayer?.name} />
                 <span className={styles.divider} />
-                {!combinedView && (
+                {combinedView ? (
+                    <>
+                        <select
+                            className={styles.joinSelect}
+                            value={joinConfig.level}
+                            onChange={(e) =>
+                                dispatch(
+                                    setJoinConfig({
+                                        ...joinConfig,
+                                        level: e.target.value,
+                                    })
+                                )
+                            }
+                        >
+                            <option value="orgUnit">
+                                {i18n.t('Join by org unit')}
+                            </option>
+                            <option value="parentOrgUnit">
+                                {i18n.t('Join by parent org unit')}
+                            </option>
+                            {hasSpatialCandidates && (
+                                <option value="spatial">
+                                    {i18n.t('Spatial: point inside polygon')}
+                                </option>
+                            )}
+                        </select>
+                        {joinConfig.level === 'spatial' ? (
+                            <>
+                                <select
+                                    className={styles.joinSelect}
+                                    value={joinConfig.pointLayerId ?? ''}
+                                    onChange={(e) =>
+                                        dispatch(
+                                            setJoinConfig({
+                                                ...joinConfig,
+                                                pointLayerId: e.target.value,
+                                            })
+                                        )
+                                    }
+                                >
+                                    <option value="" disabled>
+                                        {i18n.t('Point layer')}
+                                    </option>
+                                    {pointLayers.map((lyr) => (
+                                        <option key={lyr.id} value={lyr.id}>
+                                            {lyr.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                <span>{i18n.t('inside')}</span>
+                                <select
+                                    className={styles.joinSelect}
+                                    value={joinConfig.polygonLayerId ?? ''}
+                                    onChange={(e) =>
+                                        dispatch(
+                                            setJoinConfig({
+                                                ...joinConfig,
+                                                polygonLayerId: e.target.value,
+                                            })
+                                        )
+                                    }
+                                >
+                                    <option value="" disabled>
+                                        {i18n.t('Polygon layer')}
+                                    </option>
+                                    {polygonLayers.map((lyr) => (
+                                        <option key={lyr.id} value={lyr.id}>
+                                            {lyr.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </>
+                        ) : (
+                            <JoinLayersControl
+                                eligibleLayers={eligibleLayers}
+                                selectedIds={joinConfig.layerIds}
+                                onChange={(layerIds) =>
+                                    dispatch(
+                                        setJoinConfig({
+                                            ...joinConfig,
+                                            layerIds,
+                                        })
+                                    )
+                                }
+                            />
+                        )}
+                        <span className={styles.divider} />
+                    </>
+                ) : (
                     <>
                         <HighlightColorControl
                             color={highlightColor}
