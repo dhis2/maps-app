@@ -5,10 +5,7 @@ const initialState = {
     openIds: [],
     combinedView: false,
     joinConfig: {
-        level: 'orgUnit',
-        layerIds: [],
-        pointLayerId: null,
-        polygonLayerId: null,
+        layers: {},
     },
 }
 
@@ -27,10 +24,9 @@ describe('dataTable reducer', () => {
             openIds: ['layer1', 'layer2'],
             combinedView: true,
             joinConfig: {
-                level: 'spatial',
-                layerIds: [],
-                pointLayerId: 'layer1',
-                polygonLayerId: 'layer2',
+                layers: {
+                    layer1: { type: 'orgUnit', aggregation: {} },
+                },
             },
         }
 
@@ -43,10 +39,12 @@ describe('dataTable reducer', () => {
                 openIds: ['layer1'],
                 combinedView: false,
                 joinConfig: {
-                    level: 'parentOrgUnit',
-                    layerIds: ['layer1', 'layer3'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
+                    layers: {
+                        layer1: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                    },
                 },
             }
 
@@ -63,10 +61,7 @@ describe('dataTable reducer', () => {
                 openIds: ['layer1'],
                 combinedView: false,
                 joinConfig: {
-                    level: 'orgUnit',
-                    layerIds: ['layer1', 'layer2'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
+                    layers: { layer1: { type: 'orgUnit', aggregation: {} } },
                 },
             }
 
@@ -112,10 +107,7 @@ describe('dataTable reducer', () => {
                 openIds: ['layer1'],
                 combinedView: true,
                 joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: 'layerA',
-                    polygonLayerId: 'layerB',
+                    layers: { layerA: { type: 'spatial', aggregation: {} } },
                 },
             }
 
@@ -133,10 +125,7 @@ describe('dataTable reducer', () => {
                 openIds: ['layer1'],
                 combinedView: true,
                 joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: 'layerA',
-                    polygonLayerId: 'layerB',
+                    layers: { layerA: { type: 'spatial', aggregation: {} } },
                 },
             }
 
@@ -161,33 +150,14 @@ describe('dataTable reducer', () => {
             expect(state.openIds).toEqual(['layer2'])
         })
 
-        it('clears the removed layer from joinConfig.layerIds', () => {
+        it("prunes the removed layer's own entry from joinConfig.layers", () => {
             const prevState = {
                 ...initialState,
                 joinConfig: {
-                    level: 'orgUnit',
-                    layerIds: ['layer1', 'layer2', 'layer3'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
-                },
-            }
-
-            const state = dataTable(prevState, {
-                type: types.LAYER_REMOVE,
-                id: 'layer2',
-            })
-
-            expect(state.joinConfig.layerIds).toEqual(['layer1', 'layer3'])
-        })
-
-        it('clears a dangling pointLayerId/polygonLayerId reference', () => {
-            const prevState = {
-                ...initialState,
-                joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: 'layer1',
-                    polygonLayerId: 'layer2',
+                    layers: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                        layer2: { type: 'spatial', aggregation: {} },
+                    },
                 },
             }
 
@@ -196,19 +166,16 @@ describe('dataTable reducer', () => {
                 id: 'layer1',
             })
 
-            expect(state.joinConfig.pointLayerId).toBe(null)
-            expect(state.joinConfig.polygonLayerId).toBe('layer2')
+            expect(state.joinConfig.layers).toEqual({
+                layer2: { type: 'spatial', aggregation: {} },
+            })
         })
 
-        it('turns combinedView off when the removal makes an orgUnit/parentOrgUnit join insufficient', () => {
+        it('is a no-op on joinConfig.layers when the removed layer was never a participant', () => {
             const prevState = {
-                openIds: [],
-                combinedView: true,
+                ...initialState,
                 joinConfig: {
-                    level: 'orgUnit',
-                    layerIds: ['layer1', 'layer2'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
+                    layers: { layer2: { type: 'orgUnit', aggregation: {} } },
                 },
             }
 
@@ -217,38 +184,17 @@ describe('dataTable reducer', () => {
                 id: 'layer1',
             })
 
-            expect(state.combinedView).toBe(false)
-        })
-
-        it('turns combinedView off when the removal makes a spatial join insufficient', () => {
-            const prevState = {
-                openIds: [],
-                combinedView: true,
-                joinConfig: {
-                    level: 'spatial',
-                    layerIds: [],
-                    pointLayerId: 'layer1',
-                    polygonLayerId: 'layer2',
-                },
-            }
-
-            const state = dataTable(prevState, {
-                type: types.LAYER_REMOVE,
-                id: 'layer2',
+            expect(state.joinConfig.layers).toEqual({
+                layer2: { type: 'orgUnit', aggregation: {} },
             })
-
-            expect(state.combinedView).toBe(false)
         })
 
-        it('keeps combinedView on when the removal leaves the join sufficient', () => {
+        it('leaves combinedView untouched (no cross-slice knowledge of the reference layer here)', () => {
             const prevState = {
                 openIds: [],
                 combinedView: true,
                 joinConfig: {
-                    level: 'orgUnit',
-                    layerIds: ['layer1', 'layer2', 'layer3'],
-                    pointLayerId: null,
-                    polygonLayerId: null,
+                    layers: { layer1: { type: 'orgUnit', aggregation: {} } },
                 },
             }
 
@@ -258,7 +204,7 @@ describe('dataTable reducer', () => {
             })
 
             expect(state.combinedView).toBe(true)
-            expect(state.joinConfig.layerIds).toEqual(['layer2', 'layer3'])
+            expect(state.joinConfig.layers).toEqual({})
         })
     })
 
@@ -284,10 +230,12 @@ describe('dataTable reducer', () => {
     describe('DATA_TABLE_JOIN_CONFIG_SET', () => {
         it('replaces joinConfig wholesale', () => {
             const config = {
-                level: 'spatial',
-                layerIds: [],
-                pointLayerId: 'layer1',
-                polygonLayerId: 'layer2',
+                layers: {
+                    layer1: {
+                        type: 'spatial',
+                        aggregation: { rawValue: 'AVERAGE' },
+                    },
+                },
             }
 
             const state = dataTable(initialState, {

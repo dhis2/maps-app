@@ -1,42 +1,31 @@
 import { renderHook } from '@testing-library/react'
-import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
+import { EVENT_LAYER } from '../../../constants/layers.js'
 import { useCombinedTableData } from '../useCombinedTableData.js'
-
-jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
-    __esModule: true,
-    default: jest.fn(),
-}))
-
-beforeEach(() => {
-    useOrgUnitAncestorNames.mockReturnValue({
-        idToName: new Map(),
-        loading: false,
-    })
-})
 
 const feature = (props) => ({ properties: props })
 
 const findCell = (row, dataKey) => row.find((c) => c.dataKey === dataKey)
 
-describe('useCombinedTableData - org unit join', () => {
-    // Thematic/org unit/facility layers - where the feature IS the org unit
-    // - never get an orgUnitId property: their data is built by toGeoJson()
-    // in util/map.js, which only sets id/orgUnitPath/orgUnitOwn. Only
-    // event/tracked-entity layers (via attachOrgUnitPaths in
-    // util/orgUnits.js, referencing an org unit the feature isn't itself)
-    // get a real orgUnitId. This is the shape that actually appears in
-    // production for the two most common layer types in this join mode -
-    // using orgUnitId in the fixture here would mask exactly the bug this
-    // guards against.
-    test('joins two org-unit-identity layers (no orgUnitId property) by their own id, filling blanks for unmatched org units', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
-            idToName: new Map([
-                ['ou1', 'Ou One'],
-                ['ou2', 'Ou Two'],
-            ]),
-            loading: false,
-        })
+const referenceLayer = {
+    id: 'ref1',
+    data: [
+        feature({
+            id: 'ou1',
+            name: 'Ou One',
+            orgUnitPath: '/country1/ou1',
+            level: 2,
+        }),
+        feature({
+            id: 'ou2',
+            name: 'Ou Two',
+            orgUnitPath: '/country1/ou2',
+            level: 2,
+        }),
+    ],
+}
 
+describe('useCombinedTableData - org unit join', () => {
+    test('joins a direct match by exact org unit path, filling blanks for unmatched reference rows', () => {
         const layers = [
             {
                 id: 'layerA',
@@ -45,35 +34,20 @@ describe('useCombinedTableData - org unit join', () => {
                     feature({
                         id: 'ou1',
                         orgUnitPath: '/country1/ou1',
-                        level: 2,
                         rawValue: 10,
                         legend: 'Low',
                     }),
                 ],
             },
-            {
-                id: 'layerB',
-                name: 'Layer B',
-                data: [
-                    feature({
-                        id: 'ou2',
-                        orgUnitPath: '/country1/ou2',
-                        level: 2,
-                        rawValue: 20,
-                        legend: 'High',
-                    }),
-                ],
-            },
         ]
         const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA', 'layerB'],
-            pointLayerId: null,
-            polygonLayerId: null,
+            layers: {
+                layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
         }
 
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
         )
 
         expect(result.current.headers.map((h) => h.dataKey)).toEqual([
@@ -82,8 +56,6 @@ describe('useCombinedTableData - org unit join', () => {
             'level',
             'layerA_rawValue',
             'layerA_legend',
-            'layerB_rawValue',
-            'layerB_legend',
         ])
         expect(result.current.rows).toHaveLength(2)
 
@@ -92,14 +64,167 @@ describe('useCombinedTableData - org unit join', () => {
         )
         expect(findCell(row1, 'name').value).toBe('Ou One')
         expect(findCell(row1, 'layerA_rawValue').value).toBe(10)
-        expect(findCell(row1, 'layerB_rawValue').value).toBe(null)
+        expect(findCell(row1, 'layerA_legend').value).toBe('Low')
 
         const row2 = result.current.rows.find(
             (r) => findCell(r, 'id').value === 'ou2'
         )
-        expect(findCell(row2, 'name').value).toBe('Ou Two')
         expect(findCell(row2, 'layerA_rawValue').value).toBe(null)
-        expect(findCell(row2, 'layerB_rawValue').value).toBe(20)
+    })
+
+    test('takes the row name/level directly from the reference layer, not from the participating layer', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'ou1',
+                        name: 'Some other name',
+                        orgUnitPath: '/country1/ou1',
+                        level: 99,
+                        rawValue: 10,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'name').value).toBe('Ou One')
+        expect(findCell(row1, 'level').value).toBe(2)
+    })
+
+    test('aggregates several descendant features under the reference org unit using the chosen aggregation type', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'evt1',
+                        orgUnitPath: '/country1/ou1/facility1',
+                        rawValue: 10,
+                    }),
+                    feature({
+                        id: 'evt2',
+                        orgUnitPath: '/country1/ou1/facility2',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                layerA: {
+                    type: 'orgUnit',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(15)
+    })
+
+    test('shows blank for a feature whose org unit is an ancestor of the reference, not a descendant', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'country1',
+                        orgUnitPath: '/country1',
+                        rawValue: 10,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
+        )
+
+        result.current.rows.forEach((row) => {
+            expect(findCell(row, 'layerA_rawValue').value).toBe(null)
+        })
+    })
+
+    test('resolves legend to the shared value when every match agrees, otherwise blank', () => {
+        const agreeingLayer = {
+            id: 'layerA',
+            name: 'Layer A',
+            data: [
+                feature({
+                    id: 'evt1',
+                    orgUnitPath: '/country1/ou1/f1',
+                    legend: 'Low',
+                }),
+                feature({
+                    id: 'evt2',
+                    orgUnitPath: '/country1/ou1/f2',
+                    legend: 'Low',
+                }),
+            ],
+        }
+        const disagreeingLayer = {
+            id: 'layerB',
+            name: 'Layer B',
+            data: [
+                feature({
+                    id: 'evt3',
+                    orgUnitPath: '/country1/ou2/f1',
+                    legend: 'Low',
+                }),
+                feature({
+                    id: 'evt4',
+                    orgUnitPath: '/country1/ou2/f2',
+                    legend: 'High',
+                }),
+            ],
+        }
+        const joinConfig = {
+            layers: {
+                layerA: { type: 'orgUnit', aggregation: {} },
+                layerB: { type: 'orgUnit', aggregation: {} },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [agreeingLayer, disagreeingLayer],
+                referenceLayer,
+                joinConfig,
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_legend').value).toBe('Low')
+
+        const row2 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou2'
+        )
+        expect(findCell(row2, 'layerB_legend').value).toBe(null)
     })
 
     test('includes rows from layer.dataWithoutCoords, matching the single-layer table', () => {
@@ -107,79 +232,9 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [
-                    feature({
-                        id: 'ou1',
-                        orgUnitPath: '/country1/ou1',
-                        rawValue: 10,
-                    }),
-                ],
+                data: [],
                 dataWithoutCoords: [
                     feature({
-                        id: 'ou2',
-                        orgUnitPath: '/country1/ou2',
-                        rawValue: 20,
-                    }),
-                ],
-            },
-        ]
-        const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rows).toHaveLength(2)
-        const withoutCoordsRow = result.current.rows.find(
-            (r) => findCell(r, 'id').value === 'ou2'
-        )
-        expect(findCell(withoutCoordsRow, 'layerA_rawValue').value).toBe(20)
-    })
-
-    test('prefers orgUnitId over id when both are present (event/tracked-entity layer shape)', () => {
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    // The event's own id ('evt1') is not an org unit -
-                    // orgUnitId is the registering org unit and must win.
-                    feature({
-                        id: 'evt1',
-                        orgUnitId: 'ou1',
-                        orgUnitPath: '/country1/ou1',
-                        rawValue: 10,
-                    }),
-                ],
-            },
-        ]
-        const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rows).toHaveLength(1)
-        expect(findCell(result.current.rows[0], 'id').value).toBe('ou1')
-    })
-
-    test('falls back to the raw org unit id when its name has not resolved yet', () => {
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({
                         id: 'ou1',
                         orgUnitPath: '/country1/ou1',
                         rawValue: 10,
@@ -188,17 +243,17 @@ describe('useCombinedTableData - org unit join', () => {
             },
         ]
         const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
         }
 
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
         )
 
-        expect(findCell(result.current.rows[0], 'name').value).toBe('ou1')
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(10)
     })
 
     test('excludes features with hasAdditionalGeometry set', () => {
@@ -208,186 +263,74 @@ describe('useCombinedTableData - org unit join', () => {
                 name: 'Layer A',
                 data: [
                     feature({
-                        id: 'ou1',
-                        rawValue: 10,
+                        id: 'extra',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 999,
                         hasAdditionalGeometry: true,
                     }),
-                    feature({ id: 'ou2', rawValue: 20 }),
                 ],
             },
         ]
         const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
         }
 
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
         )
 
-        expect(result.current.rows).toHaveLength(1)
-        expect(findCell(result.current.rows[0], 'id').value).toBe('ou2')
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(null)
     })
 
-    test('rowFeatureIds includes every feature sharing an org unit, not just the last one displayed', () => {
+    test('rowFeatureIds always includes the reference layer itself, plus every matching participating feature', () => {
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
-                    feature({ id: 'evt1', orgUnitId: 'ou1', rawValue: 10 }),
-                    feature({ id: 'evt2', orgUnitId: 'ou1', rawValue: 20 }),
+                    feature({
+                        id: 'evt1',
+                        orgUnitPath: '/country1/ou1/f1',
+                        rawValue: 10,
+                    }),
+                    feature({
+                        id: 'evt2',
+                        orgUnitPath: '/country1/ou1/f2',
+                        rawValue: 20,
+                    }),
                 ],
             },
         ]
         const joinConfig = {
-            level: 'orgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
         }
 
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
         )
 
         expect(result.current.rowFeatureIds.get('ou1')).toEqual({
+            ref1: ['ou1'],
             layerA: ['evt1', 'evt2'],
         })
-    })
-})
-
-describe('useCombinedTableData - parent org unit grouping', () => {
-    test('groups rows by parent org unit and averages numeric values', () => {
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({
-                        id: 'ou1',
-                        orgUnitPath: '/country1/parent1/ou1',
-                        rawValue: 10,
-                    }),
-                    feature({
-                        id: 'ou2',
-                        orgUnitPath: '/country1/parent1/ou2',
-                        rawValue: 20,
-                    }),
-                ],
-            },
-        ]
-        const joinConfig = {
-            level: 'parentOrgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
-
-        useOrgUnitAncestorNames.mockReturnValue({
-            idToName: new Map([['parent1', 'Parent One']]),
-            loading: false,
-        })
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rows).toHaveLength(1)
-        const row = result.current.rows[0]
-        expect(findCell(row, 'id').value).toBe('parent1')
-        expect(findCell(row, 'name').value).toBe('Parent One')
-        expect(findCell(row, 'layerA_rawValue').value).toBe(15)
-        expect(findCell(row, 'layerA_legend').value).toBe(null)
-    })
-
-    test('groups org units with no parent path under a single "No parent" row', () => {
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({
-                        id: 'ou1',
-                        orgUnitPath: '/ou1',
-                        rawValue: 10,
-                    }),
-                ],
-            },
-        ]
-        const joinConfig = {
-            level: 'parentOrgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rows).toHaveLength(1)
-        expect(findCell(result.current.rows[0], 'id').value).toBe(null)
-        expect(findCell(result.current.rows[0], 'name').value).toBe('No parent')
-    })
-
-    test("rowFeatureIds unions every member org unit's feature ids under the parent group", () => {
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({
-                        id: 'ou1',
-                        orgUnitPath: '/country1/parent1/ou1',
-                        rawValue: 10,
-                    }),
-                    feature({
-                        id: 'ou2',
-                        orgUnitPath: '/country1/parent1/ou2',
-                        rawValue: 20,
-                    }),
-                ],
-            },
-        ]
-        const joinConfig = {
-            level: 'parentOrgUnit',
-            layerIds: ['layerA'],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rowFeatureIds.get('parent1')).toEqual({
-            layerA: ['ou1', 'ou2'],
+        // ou2 has no participating match, but the reference feature id is
+        // still present so "zoom to feature" always has real bounds.
+        expect(result.current.rowFeatureIds.get('ou2')).toEqual({
+            ref1: ['ou2'],
         })
     })
 })
 
 describe('useCombinedTableData - spatial join', () => {
-    const pointLayer = {
-        id: 'points',
-        name: 'Points',
+    const referenceOrgUnitsAsPolygons = {
+        id: 'ref1',
         data: [
             {
                 type: 'Feature',
-                properties: { id: 'p1', name: 'Point One' },
-                geometry: { type: 'Point', coordinates: [1, 1] },
-            },
-        ],
-    }
-    const polygonLayer = {
-        id: 'polygons',
-        name: 'Polygons',
-        data: [
-            {
-                type: 'Feature',
-                properties: { id: 'poly1', rawValue: 42, legend: 'High' },
+                properties: { id: 'ou1', name: 'Ou One', level: 2 },
                 geometry: {
                     type: 'Polygon',
                     coordinates: [
@@ -404,136 +347,204 @@ describe('useCombinedTableData - spatial join', () => {
         ],
     }
 
-    test("falls back to the feature's own name when it has no org unit path", () => {
-        const joinConfig = {
-            level: 'spatial',
-            layerIds: [],
-            pointLayerId: 'points',
-            polygonLayerId: 'polygons',
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({
-                layers: [pointLayer, polygonLayer],
-                joinConfig,
-            })
-        )
-
-        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
-            'id',
-            'name',
-            'polygons_rawValue',
-            'polygons_legend',
-        ])
-        expect(result.current.rows).toEqual([
-            [
-                { dataKey: 'id', value: 'p1', align: 'left', itemId: 'p1' },
-                {
-                    dataKey: 'name',
-                    value: 'Point One',
-                    align: 'left',
-                    itemId: 'p1',
-                },
-                {
-                    dataKey: 'polygons_rawValue',
-                    value: 42,
-                    align: 'right',
-                    itemId: 'p1',
-                },
-                {
-                    dataKey: 'polygons_legend',
-                    value: 'High',
-                    align: 'left',
-                    itemId: 'p1',
-                },
-            ],
-        ])
-        expect(result.current.spatialWarning).toBe(false)
-        expect(result.current.rowFeatureIds.get('p1')).toEqual({
-            points: ['p1'],
-            polygons: ['poly1'],
-        })
-    })
-
-    test('resolves the org unit name when the point feature has an org unit path', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
-            idToName: new Map([['p1', 'Resolved Point Name']]),
-            loading: false,
-        })
-
-        const pointLayerWithOrgUnit = {
-            ...pointLayer,
-            data: [
-                {
-                    type: 'Feature',
-                    properties: {
-                        id: 'p1',
-                        name: 'Point One',
-                        orgUnitPath: '/country1/p1',
+    test('joins a point feature to the reference org unit whose polygon contains it', () => {
+        const layers = [
+            {
+                id: 'points',
+                name: 'Points',
+                layer: 'event',
+                data: [
+                    {
+                        type: 'Feature',
+                        properties: { id: 'p1', rawValue: 42, legend: 'High' },
+                        geometry: { type: 'Point', coordinates: [1, 1] },
                     },
-                    geometry: { type: 'Point', coordinates: [1, 1] },
-                },
-            ],
-        }
+                ],
+            },
+        ]
         const joinConfig = {
-            level: 'spatial',
-            layerIds: [],
-            pointLayerId: 'points',
-            polygonLayerId: 'polygons',
+            layers: {
+                points: {
+                    type: 'spatial',
+                    aggregation: { rawValue: 'SUM' },
+                },
+            },
         }
 
         const { result } = renderHook(() =>
             useCombinedTableData({
-                layers: [pointLayerWithOrgUnit, polygonLayer],
+                layers,
+                referenceLayer: referenceOrgUnitsAsPolygons,
                 joinConfig,
             })
         )
 
-        expect(findCell(result.current.rows[0], 'name').value).toBe(
-            'Resolved Point Name'
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
         )
-    })
-
-    test('returns an empty result when the point or polygon layer is not found', () => {
-        const joinConfig = {
-            level: 'spatial',
-            layerIds: [],
-            pointLayerId: 'points',
-            polygonLayerId: null,
-        }
-
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers: [pointLayer], joinConfig })
-        )
-
-        expect(result.current).toEqual({
-            headers: [],
-            rows: [],
-            rowFeatureIds: new Map(),
-            columnOptions: {},
-            spatialWarning: false,
+        expect(findCell(row1, 'points_rawValue').value).toBe(42)
+        expect(result.current.rowFeatureIds.get('ou1')).toEqual({
+            ref1: ['ou1'],
+            points: ['p1'],
         })
     })
 
-    test('sets spatialWarning when either layer exceeds the large-feature threshold', () => {
-        const bigPointLayer = {
-            ...pointLayer,
-            data: Array.from({ length: 10001 }, (_, i) => ({
-                type: 'Feature',
-                properties: { id: `p${i}` },
-                geometry: { type: 'Point', coordinates: [1, 1] },
-            })),
-        }
+    test('matches an event feature via its centroid when its geometry is a polygon', () => {
+        const layers = [
+            {
+                id: 'events',
+                name: 'Events',
+                layer: EVENT_LAYER,
+                data: [
+                    {
+                        type: 'Feature',
+                        properties: { id: 'e1', rawValue: 7 },
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
+                                [
+                                    [0.5, 0.5],
+                                    [1.5, 0.5],
+                                    [1.5, 1.5],
+                                    [0.5, 1.5],
+                                    [0.5, 0.5],
+                                ],
+                            ],
+                        },
+                    },
+                ],
+            },
+        ]
         const joinConfig = {
-            level: 'spatial',
-            layerIds: [],
-            pointLayerId: 'points',
-            polygonLayerId: 'polygons',
+            layers: {
+                events: { type: 'spatial', aggregation: { rawValue: 'SUM' } },
+            },
         }
 
         const { result } = renderHook(() =>
             useCombinedTableData({
-                layers: [bigPointLayer, polygonLayer],
+                layers,
+                referenceLayer: referenceOrgUnitsAsPolygons,
+                joinConfig,
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'events_rawValue').value).toBe(7)
+    })
+
+    test('matches via centroid regardless of layer type - not just Event/TrackedEntity', () => {
+        const layers = [
+            {
+                id: 'zones',
+                name: 'Zones',
+                layer: 'geoJsonUrl',
+                data: [
+                    {
+                        type: 'Feature',
+                        properties: { id: 'z1', rawValue: 3 },
+                        geometry: {
+                            type: 'Polygon',
+                            coordinates: [
+                                [
+                                    [0.5, 0.5],
+                                    [1.5, 0.5],
+                                    [1.5, 1.5],
+                                    [0.5, 1.5],
+                                    [0.5, 0.5],
+                                ],
+                            ],
+                        },
+                    },
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                zones: { type: 'spatial', aggregation: { rawValue: 'SUM' } },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer: referenceOrgUnitsAsPolygons,
+                joinConfig,
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'zones_rawValue').value).toBe(3)
+    })
+
+    test('averages several points falling inside the same reference polygon', () => {
+        const layers = [
+            {
+                id: 'points',
+                name: 'Points',
+                layer: 'event',
+                data: [
+                    {
+                        type: 'Feature',
+                        properties: { id: 'p1', rawValue: 10 },
+                        geometry: { type: 'Point', coordinates: [0.5, 0.5] },
+                    },
+                    {
+                        type: 'Feature',
+                        properties: { id: 'p2', rawValue: 20 },
+                        geometry: { type: 'Point', coordinates: [1.5, 1.5] },
+                    },
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                points: {
+                    type: 'spatial',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer: referenceOrgUnitsAsPolygons,
+                joinConfig,
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'points_rawValue').value).toBe(15)
+    })
+
+    test('sets spatialWarning when a spatially-joined layer exceeds the large-feature threshold', () => {
+        const layers = [
+            {
+                id: 'points',
+                name: 'Points',
+                layer: 'event',
+                data: Array.from({ length: 10001 }, (_, i) => ({
+                    type: 'Feature',
+                    properties: { id: `p${i}` },
+                    geometry: { type: 'Point', coordinates: [1, 1] },
+                })),
+            },
+        ]
+        const joinConfig = {
+            layers: { points: { type: 'spatial', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer: referenceOrgUnitsAsPolygons,
                 joinConfig,
             })
         )
@@ -548,23 +559,28 @@ describe('useCombinedTableData - sorting and filtering', () => {
             id: 'layerA',
             name: 'Layer A',
             data: [
-                feature({ id: 'ou1', rawValue: 30 }),
-                feature({ id: 'ou2', rawValue: 10 }),
-                feature({ id: 'ou3', rawValue: 20 }),
+                feature({
+                    id: 'ou1',
+                    orgUnitPath: '/country1/ou1',
+                    rawValue: 30,
+                }),
+                feature({
+                    id: 'ou2',
+                    orgUnitPath: '/country1/ou2',
+                    rawValue: 10,
+                }),
             ],
         },
     ]
     const joinConfig = {
-        level: 'orgUnit',
-        layerIds: ['layerA'],
-        pointLayerId: null,
-        polygonLayerId: null,
+        layers: { layerA: { type: 'orgUnit', aggregation: {} } },
     }
 
     test('sorts rows by a numeric column ascending', () => {
         const { result } = renderHook(() =>
             useCombinedTableData({
                 layers,
+                referenceLayer,
                 joinConfig,
                 sortField: 'layerA_rawValue',
                 sortDirection: 'asc',
@@ -572,7 +588,7 @@ describe('useCombinedTableData - sorting and filtering', () => {
         )
 
         expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
-            ['ou2', 'ou3', 'ou1']
+            ['ou2', 'ou1']
         )
     })
 
@@ -580,6 +596,7 @@ describe('useCombinedTableData - sorting and filtering', () => {
         const { result } = renderHook(() =>
             useCombinedTableData({
                 layers,
+                referenceLayer,
                 joinConfig,
                 sortField: 'layerA_rawValue',
                 sortDirection: 'desc',
@@ -587,17 +604,7 @@ describe('useCombinedTableData - sorting and filtering', () => {
         )
 
         expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
-            ['ou1', 'ou3', 'ou2']
-        )
-    })
-
-    test('preserves natural order when there is no sort field', () => {
-        const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
-        )
-
-        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
-            ['ou1', 'ou2', 'ou3']
+            ['ou1', 'ou2']
         )
     })
 
@@ -605,19 +612,25 @@ describe('useCombinedTableData - sorting and filtering', () => {
         const { result } = renderHook(() =>
             useCombinedTableData({
                 layers,
+                referenceLayer,
                 joinConfig,
                 filters: { layerA_rawValue: '>15' },
             })
         )
 
         expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
-            ['ou1', 'ou3']
+            ['ou1']
         )
     })
 
     test('applies global search across string columns', () => {
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig, globalSearch: 'ou2' })
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                globalSearch: 'Ou Two',
+            })
         )
 
         expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
@@ -627,45 +640,26 @@ describe('useCombinedTableData - sorting and filtering', () => {
 
     test('exposes distinct column values for the filter popover, sorted ascending by default', () => {
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers, joinConfig })
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
         )
 
         expect(result.current.columnOptions.layerA_rawValue).toEqual([
             { value: '10' },
-            { value: '20' },
             { value: '30' },
-        ])
-    })
-
-    test("sorts a column's distinct values descending when it is the active sort field", () => {
-        const { result } = renderHook(() =>
-            useCombinedTableData({
-                layers,
-                joinConfig,
-                sortField: 'layerA_rawValue',
-                sortDirection: 'desc',
-            })
-        )
-
-        expect(result.current.columnOptions.layerA_rawValue).toEqual([
-            { value: '30' },
-            { value: '20' },
-            { value: '10' },
         ])
     })
 })
 
 describe('useCombinedTableData - empty input', () => {
-    test('returns an empty result when there are no layers', () => {
-        const joinConfig = {
-            level: 'orgUnit',
-            layerIds: [],
-            pointLayerId: null,
-            polygonLayerId: null,
-        }
+    test('returns an empty result when the reference layer has no org units', () => {
+        const joinConfig = { layers: {} }
 
         const { result } = renderHook(() =>
-            useCombinedTableData({ layers: [], joinConfig })
+            useCombinedTableData({
+                layers: [],
+                referenceLayer: { id: 'ref1', data: [] },
+                joinConfig,
+            })
         )
 
         expect(result.current).toEqual({
@@ -675,5 +669,20 @@ describe('useCombinedTableData - empty input', () => {
             columnOptions: {},
             spatialWarning: false,
         })
+    })
+
+    test('still returns one row per reference org unit when there are no participating layers', () => {
+        const joinConfig = { layers: {} }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers: [], referenceLayer, joinConfig })
+        )
+
+        expect(result.current.rows).toHaveLength(2)
+        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
+            'id',
+            'name',
+            'level',
+        ])
     })
 })

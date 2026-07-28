@@ -4,13 +4,7 @@ import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
 import configureMockStore from 'redux-mock-store'
 import { COMBINED_HEADERS_KEY } from '../../../constants/dataTable.js'
-import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import CombinedDataTable from '../CombinedDataTable.jsx'
-
-jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
-    __esModule: true,
-    default: jest.fn(),
-}))
 
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
     useCachedData: () => ({
@@ -20,14 +14,16 @@ jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
 
 const mockStore = configureMockStore()
 
-beforeEach(() => {
-    useOrgUnitAncestorNames.mockReturnValue({
-        idToName: new Map(),
-        loading: false,
-    })
-})
-
 const feature = (props) => ({ properties: props })
+
+const referenceFeature = (id, name, path) =>
+    feature({ id, name, orgUnitPath: path, level: 2 })
+
+const EMPTY_REFERENCE_LAYER = {
+    id: 'ref1',
+    layer: 'combinedTableRef',
+    data: [],
+}
 
 const renderCombinedDataTable = (props) => {
     const store = mockStore({})
@@ -39,12 +35,8 @@ const renderCombinedDataTable = (props) => {
                 <CombinedDataTable
                     availableWidth={800}
                     layers={[]}
-                    joinConfig={{
-                        level: 'orgUnit',
-                        layerIds: [],
-                        pointLayerId: null,
-                        polygonLayerId: null,
-                    }}
+                    referenceLayer={EMPTY_REFERENCE_LAYER}
+                    joinConfig={{ layers: {} }}
                     {...props}
                 />
             </VirtuosoMockContext.Provider>
@@ -55,20 +47,17 @@ const renderCombinedDataTable = (props) => {
 
 describe('CombinedDataTable', () => {
     test('renders a column header per computed header and a cell per row', () => {
-        useOrgUnitAncestorNames.mockReturnValue({
-            idToName: new Map([['ou1', 'Ou One']]),
-            loading: false,
-        })
-
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
                         orgUnitPath: '/country1/ou1',
-                        level: 2,
                         rawValue: 10,
                         legend: 'Low',
                     }),
@@ -77,12 +66,15 @@ describe('CombinedDataTable', () => {
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -96,13 +88,16 @@ describe('CombinedDataTable', () => {
     })
 
     test('formats numeric values with the system digit group separator, matching DataTable', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
                     feature({
-                        orgUnitId: 'ou1',
                         orgUnitPath: '/country1/ou1',
                         rawValue: 1234567,
                     }),
@@ -111,12 +106,15 @@ describe('CombinedDataTable', () => {
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -124,21 +122,28 @@ describe('CombinedDataTable', () => {
     })
 
     test('renders an em-dash for blank cell values', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ orgUnitId: 'ou1' })],
+                data: [feature({ orgUnitPath: '/country1/ou1' })],
             },
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -146,28 +151,23 @@ describe('CombinedDataTable', () => {
     })
 
     test('shows the empty-results placeholder when there are no rows', () => {
-        renderCombinedDataTable({ layers: [] })
+        renderCombinedDataTable()
 
         expect(screen.getByText('No matching rows')).toBeInTheDocument()
     })
 
     test('shows the spatial warning banner when a spatial join exceeds the large-feature threshold', () => {
-        const pointLayer = {
-            id: 'points',
-            name: 'Points',
-            data: Array.from({ length: 10001 }, (_, i) => ({
-                type: 'Feature',
-                properties: { id: `p${i}` },
-                geometry: { type: 'Point', coordinates: [1, 1] },
-            })),
-        }
-        const polygonLayer = {
-            id: 'polygons',
-            name: 'Polygons',
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
             data: [
                 {
                     type: 'Feature',
-                    properties: { id: 'poly1', rawValue: 1 },
+                    properties: {
+                        id: 'poly1',
+                        name: 'Region',
+                        orgUnitPath: '/country1/poly1',
+                        level: 2,
+                    },
                     geometry: {
                         type: 'Polygon',
                         coordinates: [
@@ -183,14 +183,26 @@ describe('CombinedDataTable', () => {
                 },
             ],
         }
+        const pointLayer = {
+            id: 'points',
+            name: 'Points',
+            data: Array.from({ length: 10001 }, (_, i) => ({
+                type: 'Feature',
+                properties: { id: `p${i}` },
+                geometry: { type: 'Point', coordinates: [1, 1] },
+            })),
+        }
 
         renderCombinedDataTable({
-            layers: [pointLayer, polygonLayer],
+            referenceLayer,
+            layers: [pointLayer],
             joinConfig: {
-                level: 'spatial',
-                layerIds: [],
-                pointLayerId: 'points',
-                polygonLayerId: 'polygons',
+                layers: {
+                    points: {
+                        type: 'spatial',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -201,25 +213,16 @@ describe('CombinedDataTable', () => {
 
     test('calls onCountChange with the row count', () => {
         const onCountChange = jest.fn()
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({ orgUnitId: 'ou1' }),
-                    feature({ orgUnitId: 'ou2' }),
-                ],
-            },
-        ]
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeature('ou1', 'Ou One', '/country1/ou1'),
+                referenceFeature('ou2', 'Ou Two', '/country1/ou2'),
+            ],
+        }
 
         renderCombinedDataTable({
-            layers,
-            joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
-            },
+            referenceLayer,
             onCountChange,
         })
 
@@ -227,24 +230,34 @@ describe('CombinedDataTable', () => {
     })
 
     test('sorts rows when a column sort button is clicked', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeature('ou1', 'Ou One', '/country1/ou1'),
+                referenceFeature('ou2', 'Ou Two', '/country1/ou2'),
+            ],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
-                    feature({ orgUnitId: 'ou1', rawValue: 20 }),
-                    feature({ orgUnitId: 'ou2', rawValue: 10 }),
+                    feature({ orgUnitPath: '/country1/ou1', rawValue: 20 }),
+                    feature({ orgUnitPath: '/country1/ou2', rawValue: 10 }),
                 ],
             },
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -263,25 +276,16 @@ describe('CombinedDataTable', () => {
 
     test('applies a per-column filter via onFiltersChange', () => {
         const onFiltersChange = jest.fn()
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                data: [
-                    feature({ orgUnitId: 'ou1', rawValue: 20 }),
-                    feature({ orgUnitId: 'ou2', rawValue: 10 }),
-                ],
-            },
-        ]
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeature('ou1', 'Ou One', '/country1/ou1'),
+                referenceFeature('ou2', 'Ou Two', '/country1/ou2'),
+            ],
+        }
 
         renderCombinedDataTable({
-            layers,
-            joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
-            },
+            referenceLayer,
             filters: {},
             onFiltersChange,
         })
@@ -296,28 +300,49 @@ describe('CombinedDataTable', () => {
     })
 
     test('dispatches a cross-layer highlight on row hover, and clears it on mouse leave', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
-                    feature({ id: 'evtA1', orgUnitId: 'ou1', rawValue: 20 }),
+                    feature({
+                        id: 'evtA1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
                 ],
             },
             {
                 id: 'layerB',
                 name: 'Layer B',
-                data: [feature({ id: 'evtB1', orgUnitId: 'ou1', rawValue: 5 })],
+                data: [
+                    feature({
+                        id: 'evtB1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 5,
+                    }),
+                ],
             },
         ]
 
         const { store } = renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA', 'layerB'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                    layerB: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -329,7 +354,11 @@ describe('CombinedDataTable', () => {
             payload: {
                 layerId: null,
                 origin: 'table',
-                crossLayerIds: { layerA: ['evtA1'], layerB: ['evtB1'] },
+                crossLayerIds: {
+                    ref1: ['ou1'],
+                    layerA: ['evtA1'],
+                    layerB: ['evtB1'],
+                },
             },
         })
 
@@ -342,24 +371,42 @@ describe('CombinedDataTable', () => {
     })
 
     test('dispatches a merged cross-layer selection when rows are checked', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeature('ou1', 'Ou One', '/country1/ou1'),
+                referenceFeature('ou2', 'Ou Two', '/country1/ou2'),
+            ],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
                 data: [
-                    feature({ id: 'evt1', orgUnitId: 'ou1', rawValue: 20 }),
-                    feature({ id: 'evt2', orgUnitId: 'ou2', rawValue: 10 }),
+                    feature({
+                        id: 'evt1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
+                    feature({
+                        id: 'evt2',
+                        orgUnitPath: '/country1/ou2',
+                        rawValue: 10,
+                    }),
                 ],
             },
         ]
 
         const { store } = renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -369,26 +416,33 @@ describe('CombinedDataTable', () => {
 
         expect(store.getActions()).toContainEqual({
             type: 'SELECTION_SET_CROSS_LAYER',
-            crossLayerIds: { layerA: ['evt1'] },
+            crossLayerIds: { ref1: ['ou1'], layerA: ['evt1'] },
         })
     })
 
     test('does not clear selection on unmount when nothing was ever selected here', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ id: 'evt1', orgUnitId: 'ou1' })],
+                data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
             },
         ]
 
         const { store, unmount } = renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -400,21 +454,28 @@ describe('CombinedDataTable', () => {
     })
 
     test('clears the cross-layer selection on unmount after selecting a row', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ id: 'evt1', orgUnitId: 'ou1' })],
+                data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
             },
         ]
 
         const { store, unmount } = renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
         })
 
@@ -429,21 +490,28 @@ describe('CombinedDataTable', () => {
 
     test('reports computed headers up via onHeadersChange, keyed by the combined sentinel', () => {
         const onHeadersChange = jest.fn()
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ orgUnitId: 'ou1', rawValue: 1 })],
+                data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 1 })],
             },
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
             onHeadersChange,
         })
@@ -457,21 +525,28 @@ describe('CombinedDataTable', () => {
     })
 
     test('hides a column excluded from columnConfig.visibleKeys', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ orgUnitId: 'ou1', rawValue: 20 })],
+                data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 20 })],
             },
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
             columnConfig: { visibleKeys: ['id', 'name'] },
         })
@@ -482,21 +557,28 @@ describe('CombinedDataTable', () => {
     })
 
     test('reorders columns to put pinned keys first via columnConfig.pinnedKeys', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
         const layers = [
             {
                 id: 'layerA',
                 name: 'Layer A',
-                data: [feature({ orgUnitId: 'ou1', rawValue: 20 })],
+                data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 20 })],
             },
         ]
 
         renderCombinedDataTable({
+            referenceLayer,
             layers,
             joinConfig: {
-                level: 'orgUnit',
-                layerIds: ['layerA'],
-                pointLayerId: null,
-                polygonLayerId: null,
+                layers: {
+                    layerA: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
+                    },
+                },
             },
             columnConfig: { pinnedKeys: ['level'] },
         })

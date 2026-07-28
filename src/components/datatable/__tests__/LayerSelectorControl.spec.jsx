@@ -13,7 +13,6 @@ const renderControl = (props) =>
             layers={layers}
             activeLayerId="layer1"
             combinedView={false}
-            combinedEnabled={true}
             onSelectLayer={jest.fn()}
             onSelectCombined={jest.fn()}
             {...props}
@@ -30,13 +29,8 @@ describe('LayerSelectorControl', () => {
         expect(screen.getByText('Combined')).toBeInTheDocument()
     })
 
-    test('the Combined option is disabled when combinedEnabled is false', () => {
-        renderControl({ combinedEnabled: false })
-        expect(screen.getByText('Combined')).toBeDisabled()
-    })
-
-    test('the Combined option is enabled when combinedEnabled is true', () => {
-        renderControl({ combinedEnabled: true })
+    test("the Combined option is never disabled - selecting it before a reference is configured is the caller's job to handle", () => {
+        renderControl()
         expect(screen.getByText('Combined')).not.toBeDisabled()
     })
 

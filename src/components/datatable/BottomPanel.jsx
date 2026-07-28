@@ -1,4 +1,3 @@
-import i18n from '@dhis2/d2-i18n'
 import React, {
     useRef,
     useCallback,
@@ -22,16 +21,12 @@ import {
 } from '../../actions/dataTable.js'
 import { COMBINED_HEADERS_KEY } from '../../constants/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import { getOrgUnitsFromRows } from '../../util/analytics.js'
 import {
     getEligibleDataTableLayers,
     getPanelHeights,
     hasActiveDataTableFilters,
 } from '../../util/dataTable.js'
-import {
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-} from '../../util/geojson.js'
 import { getCssVar } from '../../util/helpers.js'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import CombinedDataTable from './CombinedDataTable.jsx'
@@ -43,6 +38,9 @@ import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
 import HighlightColorControl from './controls/HighlightColorControl.jsx'
 import JoinLayersControl from './controls/JoinLayersControl.jsx'
 import LayerSelectorControl from './controls/LayerSelectorControl.jsx'
+import ReferenceOrgUnitControl, {
+    useReferenceLayer,
+} from './controls/ReferenceOrgUnitControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
 import ShowInViewControl from './controls/ShowInViewControl.jsx'
@@ -52,14 +50,7 @@ import styles from './styles/BottomPanel.module.css'
 
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
-
-const isPointLayer = (layer) =>
-    layer.data?.[0]?.geometry?.type === GEO_TYPE_POINT
-
-const isPolygonLayer = (layer) =>
-    [GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON].includes(
-        layer.data?.[0]?.geometry?.type
-    )
+const EMPTY_JOIN_LAYERS = {}
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
@@ -79,22 +70,14 @@ const BottomPanel = () => {
             : openIds[openIds.length - 1] ?? null
 
     const eligibleLayers = getEligibleDataTableLayers(mapViews)
-    const combinedEnabled = eligibleLayers.length >= 2
+    const { referenceLayer, openReferenceLayerEditor } = useReferenceLayer()
+    const combinedEnabled =
+        !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0
 
-    const pointLayers = eligibleLayers.filter(isPointLayer)
-    const polygonLayers = eligibleLayers.filter(isPolygonLayer)
-    const hasSpatialCandidates =
-        pointLayers.length > 0 && polygonLayers.length > 0
-
-    const { level, layerIds, pointLayerId, polygonLayerId } = joinConfig
+    const joinLayersConfig = joinConfig.layers ?? EMPTY_JOIN_LAYERS
     const combinedLayers = useMemo(
-        () =>
-            level === 'spatial'
-                ? [pointLayerId, polygonLayerId]
-                      .map((id) => mapViews.find((l) => l.id === id))
-                      .filter(Boolean)
-                : mapViews.filter((l) => layerIds.includes(l.id)),
-        [level, layerIds, pointLayerId, polygonLayerId, mapViews]
+        () => mapViews.filter((l) => joinLayersConfig[l.id]),
+        [mapViews, joinLayersConfig]
     )
 
     const activeLayer = mapViews.find((l) => l.id === activeLayerId)
@@ -285,7 +268,6 @@ const BottomPanel = () => {
                     layers={eligibleLayers}
                     activeLayerId={activeLayerId}
                     combinedView={combinedView}
-                    combinedEnabled={combinedEnabled}
                     onSelectLayer={(id) => {
                         setManualActiveLayerId(id)
                         if (combinedView) {
@@ -299,95 +281,27 @@ const BottomPanel = () => {
                         if (!combinedView) {
                             dispatch(toggleCombinedView())
                         }
+                        if (!combinedEnabled) {
+                            // No reference configured yet (or it has no org
+                            // units selected) - there'd be nothing to show,
+                            // so open its editor right away instead of
+                            // landing on an empty table with no obvious way
+                            // to fix it.
+                            openReferenceLayerEditor()
+                        }
                     }}
                 />
                 <span className={styles.divider} />
                 {combinedView ? (
                     <>
-                        <select
-                            className={styles.joinSelect}
-                            value={joinConfig.level}
-                            onChange={(e) =>
-                                dispatch(
-                                    setJoinConfig({
-                                        ...joinConfig,
-                                        level: e.target.value,
-                                    })
-                                )
+                        <ReferenceOrgUnitControl />
+                        <JoinLayersControl
+                            eligibleLayers={eligibleLayers}
+                            layersConfig={joinLayersConfig}
+                            onChange={(layers) =>
+                                dispatch(setJoinConfig({ layers }))
                             }
-                        >
-                            <option value="orgUnit">
-                                {i18n.t('Join by org unit')}
-                            </option>
-                            <option value="parentOrgUnit">
-                                {i18n.t('Join by parent org unit')}
-                            </option>
-                            {hasSpatialCandidates && (
-                                <option value="spatial">
-                                    {i18n.t('Spatial - point inside polygon')}
-                                </option>
-                            )}
-                        </select>
-                        {joinConfig.level === 'spatial' ? (
-                            <>
-                                <select
-                                    className={styles.joinSelect}
-                                    value={joinConfig.pointLayerId ?? ''}
-                                    onChange={(e) =>
-                                        dispatch(
-                                            setJoinConfig({
-                                                ...joinConfig,
-                                                pointLayerId: e.target.value,
-                                            })
-                                        )
-                                    }
-                                >
-                                    <option value="" disabled>
-                                        {i18n.t('Point layer')}
-                                    </option>
-                                    {pointLayers.map((lyr) => (
-                                        <option key={lyr.id} value={lyr.id}>
-                                            {lyr.name}
-                                        </option>
-                                    ))}
-                                </select>
-                                <span>{i18n.t('inside')}</span>
-                                <select
-                                    className={styles.joinSelect}
-                                    value={joinConfig.polygonLayerId ?? ''}
-                                    onChange={(e) =>
-                                        dispatch(
-                                            setJoinConfig({
-                                                ...joinConfig,
-                                                polygonLayerId: e.target.value,
-                                            })
-                                        )
-                                    }
-                                >
-                                    <option value="" disabled>
-                                        {i18n.t('Polygon layer')}
-                                    </option>
-                                    {polygonLayers.map((lyr) => (
-                                        <option key={lyr.id} value={lyr.id}>
-                                            {lyr.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </>
-                        ) : (
-                            <JoinLayersControl
-                                eligibleLayers={eligibleLayers}
-                                selectedIds={joinConfig.layerIds}
-                                onChange={(layerIds) =>
-                                    dispatch(
-                                        setJoinConfig({
-                                            ...joinConfig,
-                                            layerIds,
-                                        })
-                                    )
-                                }
-                            />
-                        )}
+                        />
                         <ColumnPickerControl
                             allHeaders={allHeaders}
                             columnConfig={combinedColumnConfig}
@@ -452,6 +366,7 @@ const BottomPanel = () => {
                         <CombinedDataTable
                             availableWidth={panelWidth}
                             layers={combinedLayers}
+                            referenceLayer={referenceLayer}
                             joinConfig={joinConfig}
                             filters={combinedFilters}
                             onFiltersChange={setCombinedFilters}

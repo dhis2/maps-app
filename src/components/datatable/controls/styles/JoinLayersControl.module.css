@@ -1,7 +1,7 @@
 .joinLayersPopover {
     padding: var(--spacers-dp8);
-    min-width: 190px;
-    max-height: 260px;
+    min-width: 220px;
+    max-height: 320px;
     overflow-y: auto;
     background-color: var(--colors-white);
     border-radius: 4px;
@@ -9,16 +9,19 @@
 }
 
 .layerRow {
-    display: flex;
-    align-items: center;
-    gap: var(--spacers-dp4);
     padding: var(--spacers-dp2) var(--spacers-dp4);
     border-radius: 3px;
-    cursor: pointer;
 }
 
 .layerRow:hover {
     background: var(--colors-grey100);
+}
+
+.layerCheckboxLabel {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    cursor: pointer;
 }
 
 .layerName {
@@ -28,4 +31,21 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     font-size: 12px;
+}
+
+.layerSettings {
+    display: flex;
+    gap: var(--spacers-dp4);
+    padding: var(--spacers-dp4) 0 var(--spacers-dp4) var(--spacers-dp20);
+}
+
+.layerSettings select {
+    flex: 1;
+    min-width: 0;
+    height: 24px;
+    padding: 0 var(--spacers-dp4);
+    font-size: 12px;
+    border: 1px solid var(--colors-grey500);
+    border-radius: 3px;
+    background-color: var(--colors-white);
 }
