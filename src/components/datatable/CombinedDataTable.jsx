@@ -14,6 +14,7 @@ import {
 import {
     isFilterable,
     getRowId,
+    mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import {
@@ -24,6 +25,7 @@ import {
 } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import CellValue from './CellValue.jsx'
+import CombinedTableContextMenu from './CombinedTableContextMenu.jsx'
 import FilterInput from './FilterInput.jsx'
 import {
     SelectionCheckboxHeaderCell,
@@ -43,20 +45,6 @@ const TABLE_STYLE = { height: '100%', width: '100%' }
 const LARGE_FEATURE_THRESHOLD_LABEL = '10,000'
 const EMPTY_FILTERS = {}
 const NOOP = () => {}
-
-const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
-    const merged = {}
-    rowKeys.forEach((key) => {
-        const entry = rowFeatureIds.get(key)
-        if (!entry) {
-            return
-        }
-        Object.entries(entry).forEach(([layerId, ids]) => {
-            merged[layerId] = [...new Set([...(merged[layerId] ?? []), ...ids])]
-        })
-    })
-    return merged
-}
 
 const EmptyPlaceholder = () => (
     <tbody>
@@ -250,16 +238,36 @@ const CombinedDataTable = ({
             onChange: applySelection,
         })
 
+    const hasActiveFilters =
+        Object.keys(filters ?? EMPTY_FILTERS).length > 0 ||
+        !!globalSearch?.trim()
+
+    const [tableContextMenu, setTableContextMenu] = useState(null)
+
+    const onRowContextMenu = useCallback((e, row) => {
+        e.preventDefault()
+        const rowId = getRowId(row)
+        if (!rowId) {
+            return
+        }
+        setTableContextMenu({ x: e.clientX, y: e.clientY, rowId })
+    }, [])
+
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             onRowClick,
-            onContextMenu: NOOP,
+            onContextMenu: onRowContextMenu,
             onRowDoubleClick: NOOP,
             layout: 'auto',
         }),
-        [setFeatureHighlight, clearFeatureHighlight, onRowClick]
+        [
+            setFeatureHighlight,
+            clearFeatureHighlight,
+            onRowClick,
+            onRowContextMenu,
+        ]
     )
 
     const onFilterChange = useCallback(
@@ -453,6 +461,15 @@ const CombinedDataTable = ({
                         </>
                     )
                 }}
+            />
+            <CombinedTableContextMenu
+                contextMenu={tableContextMenu}
+                layers={layers}
+                joinConfig={joinConfig}
+                rowFeatureIds={rowFeatureIds}
+                selectedIds={selectedIds}
+                filteredIds={hasActiveFilters ? allRowIds : null}
+                onClose={() => setTableContextMenu(null)}
             />
         </div>
     )

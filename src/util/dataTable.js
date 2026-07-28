@@ -1,3 +1,4 @@
+import { bbox } from '@turf/bbox'
 import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
 
 export const isFilterable = (dataKey, type) => !!type
@@ -63,6 +64,54 @@ export const buildFeatureIndex = (data) => {
         }
     })
     return index
+}
+
+// Merges the per-layer feature id sets of several Combined rows (e.g. every
+// selected row, or every currently filtered row) into one map suitable for
+// a single crossLayerIds highlight/selection/zoom dispatch.
+export const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
+    const merged = {}
+    rowKeys.forEach((key) => {
+        const entry = rowFeatureIds.get(key)
+        if (!entry) {
+            return
+        }
+        Object.entries(entry).forEach(([layerId, ids]) => {
+            merged[layerId] = [...new Set([...(merged[layerId] ?? []), ...ids])]
+        })
+    })
+    return merged
+}
+
+// Same bbox-of-matching-features computation Layer.js's own panToFeature
+// does for a single layer, generalized across every layer named in
+// crossLayerIds - used for Combined row/selection/filtered-set zoom, where
+// no single Layer instance owns the feature set being zoomed to.
+export const getUnionBounds = (layers, idsByLayerId) => {
+    const features = layers.flatMap((layer) => {
+        const ids = idsByLayerId[layer.id]
+        if (!ids?.length) {
+            return []
+        }
+        const index = buildFeatureIndex(layer.data)
+        return ids.map((id) => index.get(id)).filter((f) => f?.geometry)
+    })
+
+    if (!features.length) {
+        return null
+    }
+
+    const [minLng, minLat, maxLng, maxLat] = bbox({
+        type: 'FeatureCollection',
+        features,
+    })
+
+    return Number.isFinite(minLng)
+        ? [
+              [minLng, minLat],
+              [maxLng, maxLat],
+          ]
+        : null
 }
 
 export const getPanelHeights = ({
