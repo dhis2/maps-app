@@ -40,3 +40,29 @@
     background-color: var(--colors-grey300);
     flex-shrink: 0;
 }
+
+.tabBar {
+    flex-shrink: 0;
+}
+
+.tabLabel {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tabCloseButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    margin-left: var(--spacers-dp4);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.tabCloseButton:hover {
+    background-color: var(--colors-grey300);
+}
