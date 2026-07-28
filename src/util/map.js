@@ -65,6 +65,18 @@ export const toGeoJson = (organisationUnits) =>
                 geometry.coordinates.flat().length
         )
 
+// Map.jsx passes each Layer instance only the slice of state.feature it
+// owns, rather than the raw global value, so a highlight never re-triggers
+// componentDidUpdate on unrelated layers. A crossLayerIds-based highlight
+// (layerId: null, set only by CombinedDataTable) has no single owning
+// layerId, so it must be forwarded to every layer named in crossLayerIds
+// instead of matched by layerId alone - Layer.js's own getHoverIds already
+// narrows it down further, to just the ids belonging to that layer.
+export const getLayerFeatureHighlight = (feature, layerId) =>
+    feature && (feature.layerId === layerId || feature.crossLayerIds?.[layerId])
+        ? feature
+        : null
+
 //eslint-disable-next-line max-params
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ...layerConfig,
