@@ -74,6 +74,7 @@ const orgUnitLoader = async ({
         countFeaturesWithoutCoordinates,
         unclassifiedLegend,
         dataTableColumnConfig,
+        combinedJoinConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -83,6 +84,12 @@ const orgUnitLoader = async ({
     }
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
+    }
+    if (combinedJoinConfig) {
+        // Only ever set on the combinedTableRef layer - see FileMenu.jsx,
+        // which stamps state.dataTable.joinConfig.layers onto it just
+        // before save.
+        config.combinedJoinConfig = combinedJoinConfig
     }
     delete config.config
 

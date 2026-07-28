@@ -1018,6 +1018,30 @@ describe('cleanMapConfig', () => {
         expect(mapView).not.toHaveProperty('dataTableColumnConfig')
     })
 
+    test('serializes combinedJoinConfig into config JSON for the combinedTableRef layer', () => {
+        const combinedJoinConfig = {
+            layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+        }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'combinedTableRef',
+                    name: 'Reference org units',
+                    rows: [],
+                    combinedJoinConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.combinedJoinConfig).toEqual(combinedJoinConfig)
+        expect(mapView).not.toHaveProperty('combinedJoinConfig')
+    })
+
     test('serializes dataTableColumnConfig into config JSON for geojson layer', () => {
         const dataTableColumnConfig = { orderedKeys: ['name', 'id'] }
         const config = {

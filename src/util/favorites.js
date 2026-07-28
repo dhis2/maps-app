@@ -1,5 +1,6 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
+    COMBINED_TABLE_REF_LAYER,
     EARTH_ENGINE_LAYER,
     EVENT_LAYER,
     FACILITY_LAYER,
@@ -35,6 +36,7 @@ const validLayerProperties = [
     'colorLow', // Deprecated
     'colorScale',
     'columns',
+    'combinedJoinConfig', // only ever set on the combinedTableRef layer
     'config',
     'created',
     'dataTableColumnConfig',
@@ -184,6 +186,9 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.dataTableColumnConfig) {
         configData.dataTableColumnConfig = layer.dataTableColumnConfig
     }
+    if (layer.combinedJoinConfig) {
+        configData.combinedJoinConfig = layer.combinedJoinConfig
+    }
     return configData
 }
 
@@ -199,6 +204,7 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
     delete layer.dataTableColumnConfig
+    delete layer.combinedJoinConfig
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {
@@ -301,7 +307,8 @@ const models2objects = (layer, cleanMapviewConfig) => {
         layerType === EVENT_LAYER ||
         layerType === THEMATIC_LAYER ||
         layerType === ORG_UNIT_LAYER ||
-        layerType === FACILITY_LAYER
+        layerType === FACILITY_LAYER ||
+        layerType === COMBINED_TABLE_REF_LAYER
     ) {
         if (cleanMapviewConfig) {
             const configData = buildCommonLayerConfigData(layer)

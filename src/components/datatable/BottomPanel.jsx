@@ -247,6 +247,24 @@ const BottomPanel = () => {
         return () => observer.disconnect()
     }, [])
 
+    // Restores a saved map's per-layer join type/aggregation choices once,
+    // the moment the reference layer finishes loading and its persisted
+    // combinedJoinConfig comes in (see favorites.js/orgUnitLoader.js) - the
+    // ref guard means it never re-fires and clobbers a live in-session edit
+    // (e.g. after the reference layer is later re-edited/reloaded).
+    const hasHydratedJoinConfigRef = useRef(false)
+    useEffect(() => {
+        if (
+            hasHydratedJoinConfigRef.current ||
+            !referenceLayer?.isLoaded ||
+            !referenceLayer.combinedJoinConfig
+        ) {
+            return
+        }
+        hasHydratedJoinConfigRef.current = true
+        dispatch(setJoinConfig({ layers: referenceLayer.combinedJoinConfig }))
+    }, [referenceLayer, dispatch])
+
     useKeyDown('Escape', onCloseDataTable, true)
 
     return (

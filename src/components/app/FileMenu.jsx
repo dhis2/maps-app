@@ -18,6 +18,7 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
@@ -63,8 +64,23 @@ const getSaveFailureMessage = (message) =>
         nsSeparator: ';',
     })
 
+// state.dataTable.joinConfig.layers lives in its own Redux slice, not on the
+// combinedTableRef mapView itself, so (unlike dataTableColumnConfig, which
+// is already stamped directly onto its layer as it's edited) it needs an
+// explicit copy onto that layer right before cleanMapConfig runs, or it
+// would never reach favorites.js's packing logic at all.
+const stampCombinedJoinConfig = (map, joinConfig) => ({
+    ...map,
+    mapViews: map.mapViews.map((view) =>
+        view.layer === COMBINED_TABLE_REF_LAYER
+            ? { ...view, combinedJoinConfig: joinConfig.layers }
+            : view
+    ),
+})
+
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
+    const joinConfig = useSelector((state) => state.dataTable.joinConfig)
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { serverVersion } = useConfig()
@@ -118,7 +134,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
         const cleanedMap = cleanMapConfig({
-            config: map,
+            config: stampCombinedJoinConfig(map, joinConfig),
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })
@@ -190,7 +206,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onSaveAs = async ({ name, description }) => {
         const cleanedMap = cleanMapConfig({
-            config: map,
+            config: stampCombinedJoinConfig(map, joinConfig),
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })

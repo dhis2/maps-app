@@ -365,3 +365,57 @@ describe('BottomPanel Combined join controls', () => {
         ])
     })
 })
+
+describe('BottomPanel joinConfig hydration from a saved reference layer', () => {
+    const persistedJoinConfig = {
+        layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+    }
+
+    test("restores a loaded reference layer's persisted combinedJoinConfig once", () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                {
+                    ...referenceLayer(),
+                    isLoaded: true,
+                    combinedJoinConfig: persistedJoinConfig,
+                },
+            ],
+        })
+
+        expect(store.getActions()).toContainEqual({
+            type: 'DATA_TABLE_JOIN_CONFIG_SET',
+            config: { layers: persistedJoinConfig },
+        })
+    })
+
+    test('does not restore anything when the reference layer has not finished loading yet', () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                {
+                    ...referenceLayer(),
+                    isLoaded: false,
+                    combinedJoinConfig: persistedJoinConfig,
+                },
+            ],
+        })
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({ type: 'DATA_TABLE_JOIN_CONFIG_SET' })
+        )
+    })
+
+    test('does not restore anything when the reference layer has no persisted combinedJoinConfig', () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                { ...referenceLayer(), isLoaded: true },
+            ],
+        })
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({ type: 'DATA_TABLE_JOIN_CONFIG_SET' })
+        )
+    })
+})
