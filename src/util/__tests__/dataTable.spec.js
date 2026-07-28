@@ -1,11 +1,13 @@
 import {
     buildFeatureIndex,
+    getLayerSelectedIds,
     getNextSorting,
     getPanelHeights,
     getRowClickAction,
     getRowId,
     getUnionBounds,
     hasActiveDataTableFilters,
+    isDataTableOpen,
     isFilterable,
     mergeCrossLayerIds,
     shouldClearFeatureHighlight,
@@ -205,6 +207,74 @@ describe('buildFeatureIndex', () => {
     test('returns an empty index for missing/empty data', () => {
         expect(buildFeatureIndex(undefined).size).toBe(0)
         expect(buildFeatureIndex([]).size).toBe(0)
+    })
+})
+
+describe('isDataTableOpen', () => {
+    test('is open when at least one tab is open', () => {
+        expect(
+            isDataTableOpen({ openIds: ['layer1'], combinedView: false })
+        ).toBe(true)
+    })
+
+    test('is open when Combined is active, even with no open tabs', () => {
+        expect(isDataTableOpen({ openIds: [], combinedView: true })).toBe(true)
+    })
+
+    test('is closed when there are no open tabs and Combined is not active', () => {
+        expect(isDataTableOpen({ openIds: [], combinedView: false })).toBe(
+            false
+        )
+    })
+})
+
+describe('getLayerSelectedIds', () => {
+    test('returns an empty array when there is no selection', () => {
+        expect(getLayerSelectedIds(null, 'layer1')).toEqual([])
+    })
+
+    test("returns this layer's own selected ids when selection.layerId matches", () => {
+        expect(
+            getLayerSelectedIds(
+                { layerId: 'layer1', ids: ['a', 'b'] },
+                'layer1'
+            )
+        ).toEqual(['a', 'b'])
+    })
+
+    test('returns crossLayerIds ids when selection.layerId belongs to no single layer (Combined)', () => {
+        expect(
+            getLayerSelectedIds(
+                { layerId: null, ids: [], crossLayerIds: { layer1: ['x'] } },
+                'layer1'
+            )
+        ).toEqual(['x'])
+    })
+
+    test('merges crossLayerIds with a same-layer selection, deduping', () => {
+        expect(
+            getLayerSelectedIds(
+                {
+                    layerId: 'layer1',
+                    ids: ['a'],
+                    crossLayerIds: { layer1: ['a', 'b'] },
+                },
+                'layer1'
+            )
+        ).toEqual(['a', 'b'])
+    })
+
+    test('ignores a selection/crossLayerIds entry belonging to another layer', () => {
+        expect(
+            getLayerSelectedIds(
+                {
+                    layerId: 'other-layer',
+                    ids: ['a'],
+                    crossLayerIds: { 'other-layer': ['a'] },
+                },
+                'layer1'
+            )
+        ).toEqual([])
     })
 })
 

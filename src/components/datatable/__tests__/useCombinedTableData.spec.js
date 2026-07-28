@@ -102,6 +102,45 @@ describe('useCombinedTableData - org unit join', () => {
         expect(findCell(row2, 'layerB_rawValue').value).toBe(20)
     })
 
+    test('includes rows from layer.dataWithoutCoords, matching the single-layer table', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'ou1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 10,
+                    }),
+                ],
+                dataWithoutCoords: [
+                    feature({
+                        id: 'ou2',
+                        orgUnitPath: '/country1/ou2',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            level: 'orgUnit',
+            layerIds: ['layerA'],
+            pointLayerId: null,
+            polygonLayerId: null,
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(result.current.rows).toHaveLength(2)
+        const withoutCoordsRow = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou2'
+        )
+        expect(findCell(withoutCoordsRow, 'layerA_rawValue').value).toBe(20)
+    })
+
     test('prefers orgUnitId over id when both are present (event/tracked-entity layer shape)', () => {
         const layers = [
             {

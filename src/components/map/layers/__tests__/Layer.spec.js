@@ -62,6 +62,34 @@ describe('Layer#getVisibleIds', () => {
         })
         expect(layer.getVisibleIds()).toBe(null)
     })
+
+    test('recognizes a crossLayerIds-only selection (no own-layer selection.layerId)', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            selection: {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layer1: ['a', 'c'] },
+            },
+            selectionFilter: ['selected'],
+        })
+        expect(layer.getVisibleIds()).toEqual(['a', 'c'])
+    })
+
+    test('returns null when this layer has no entry in crossLayerIds either', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            selection: {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { 'other-layer': ['a'] },
+            },
+            selectionFilter: ['selected'],
+        })
+        expect(layer.getVisibleIds()).toBe(null)
+    })
 })
 
 describe('Layer#getHoverIds', () => {
