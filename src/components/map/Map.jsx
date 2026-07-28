@@ -2,7 +2,11 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
 import { RENDERING_STRATEGY_TIMELINE } from '../../constants/layers.js'
-import { onFullscreenChange, resizeAndFitBounds } from '../../util/map.js'
+import {
+    onFullscreenChange,
+    resizeAndFitBounds,
+    getLayerFeatureHighlight,
+} from '../../util/map.js'
 import {
     sortPeriodsByLevelAndStartDate,
     addPeriodsDetails,
@@ -227,10 +231,10 @@ class Map extends Component {
                         )}
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer
-                            const highlight =
-                                feature && feature.layerId === config.id
-                                    ? feature
-                                    : null
+                            const highlight = getLayerFeatureHighlight(
+                                feature,
+                                config.id
+                            )
 
                             return (
                                 <Overlay

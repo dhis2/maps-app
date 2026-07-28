@@ -1,4 +1,9 @@
-import { onFullscreenChange, resizeAndFitBounds, toGeoJson } from '../map.js'
+import {
+    getLayerFeatureHighlight,
+    onFullscreenChange,
+    resizeAndFitBounds,
+    toGeoJson,
+} from '../map.js'
 
 const bounds = [
     [0, 0],
@@ -65,6 +70,39 @@ describe('toGeoJson', () => {
         expect(feature.properties.orgUnitOwn).toBe(
             '/country1/region1/facility1'
         )
+    })
+})
+
+describe('getLayerFeatureHighlight', () => {
+    it('returns null when there is no active highlight', () => {
+        expect(getLayerFeatureHighlight(null, 'layerA')).toBeNull()
+    })
+
+    it("passes through a single-layer highlight for that layer's own id", () => {
+        const feature = { id: 'f1', layerId: 'layerA' }
+        expect(getLayerFeatureHighlight(feature, 'layerA')).toBe(feature)
+    })
+
+    it("hides a single-layer highlight from a layer that doesn't own it", () => {
+        const feature = { id: 'f1', layerId: 'layerA' }
+        expect(getLayerFeatureHighlight(feature, 'layerB')).toBeNull()
+    })
+
+    it('passes a crossLayerIds highlight through to every layer it names, despite layerId being null', () => {
+        const feature = {
+            layerId: null,
+            crossLayerIds: { layerA: ['f1'], layerB: ['f2'] },
+        }
+        expect(getLayerFeatureHighlight(feature, 'layerA')).toBe(feature)
+        expect(getLayerFeatureHighlight(feature, 'layerB')).toBe(feature)
+    })
+
+    it('hides a crossLayerIds highlight from a layer not named in it', () => {
+        const feature = {
+            layerId: null,
+            crossLayerIds: { layerA: ['f1'] },
+        }
+        expect(getLayerFeatureHighlight(feature, 'layerC')).toBeNull()
     })
 })
 
