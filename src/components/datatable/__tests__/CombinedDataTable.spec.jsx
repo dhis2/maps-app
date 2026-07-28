@@ -1,7 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import React from 'react'
 import { VirtuosoMockContext } from 'react-virtuoso'
+import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import CombinedDataTable from '../CombinedDataTable.jsx'
+
+jest.mock('../../../hooks/useOrgUnitAncestorNames.js', () => ({
+    __esModule: true,
+    default: jest.fn(),
+}))
+
+beforeEach(() => {
+    useOrgUnitAncestorNames.mockReturnValue({
+        idToName: new Map(),
+        loading: false,
+    })
+})
 
 const feature = (props) => ({ properties: props })
 
@@ -26,6 +39,11 @@ const renderCombinedDataTable = (props) =>
 
 describe('CombinedDataTable', () => {
     test('renders a column header per computed header and a cell per row', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map([['ou1', 'Ou One']]),
+            loading: false,
+        })
+
         const layers = [
             {
                 id: 'layerA',
@@ -33,7 +51,7 @@ describe('CombinedDataTable', () => {
                 data: [
                     feature({
                         orgUnitId: 'ou1',
-                        orgUnitOwn: 'Ou One',
+                        orgUnitPath: '/country1/ou1',
                         level: 2,
                         rawValue: 10,
                         legend: 'Low',

@@ -127,6 +127,26 @@ describe('dataTable reducer', () => {
             expect(state.combinedView).toBe(true)
             expect(state.joinConfig).toBe(prevState.joinConfig)
         })
+
+        it('resets combinedView and joinConfig when closing the last open tab', () => {
+            const prevState = {
+                openIds: ['layer1'],
+                combinedView: true,
+                joinConfig: {
+                    level: 'spatial',
+                    layerIds: [],
+                    pointLayerId: 'layerA',
+                    polygonLayerId: 'layerB',
+                },
+            }
+
+            const state = dataTable(prevState, {
+                type: types.DATA_TABLE_TOGGLE,
+                id: 'layer1',
+            })
+
+            expect(state).toEqual(initialState)
+        })
     })
 
     describe('LAYER_REMOVE', () => {

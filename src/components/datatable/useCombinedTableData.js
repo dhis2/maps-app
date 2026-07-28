@@ -3,12 +3,12 @@ import { useMemo } from 'react'
 import {
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_PATH_DATA_KEY,
-    ORG_UNIT_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
     TYPE_NUMBER,
     TYPE_STRING,
 } from '../../constants/dataTable.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
+import { formatOrgUnitOwnName } from '../../util/orgUnitGroups.js'
 import { spatialJoin } from '../../util/spatialJoin.js'
 
 const VALUE_KEY = 'rawValue'
@@ -36,6 +36,13 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
     const isSpatial = level === 'spatial'
     const isParentGrouped = level === 'parentOrgUnit'
 
+    const pointLayer = isSpatial
+        ? layers.find((l) => l.id === pointLayerId)
+        : null
+    const polygonLayer = isSpatial
+        ? layers.find((l) => l.id === polygonLayerId)
+        : null
+
     const layerMaps = useMemo(() => {
         if (isSpatial) {
             return []
@@ -61,25 +68,27 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         [layerMaps]
     )
 
-    const parentPaths = useMemo(() => {
-        if (!isParentGrouped) {
-            return []
+    // useOrgUnitAncestorNames resolves every id along each path it's given
+    // (not just the leaf), so passing each matched org unit's own full path
+    // also resolves its parent's name for free in parentOrgUnit mode - no
+    // need for a separate parent-path-only list.
+    const orgUnitPaths = useMemo(() => {
+        if (isSpatial) {
+            return (pointLayer?.data ?? [])
+                .map((d) => (d.properties || d)[ORG_UNIT_PATH_DATA_KEY])
+                .filter(Boolean)
         }
-        const paths = new Set()
-        allIds.forEach((id) => {
-            const baseProps = layerMaps.find((lm) => lm.byOrgUnit[id])
-                ?.byOrgUnit[id]
-            const parentPath = getParentPath(
-                baseProps?.[ORG_UNIT_PATH_DATA_KEY]
+        return allIds
+            .map(
+                (id) =>
+                    layerMaps.find((lm) => lm.byOrgUnit[id])?.byOrgUnit[id]?.[
+                        ORG_UNIT_PATH_DATA_KEY
+                    ]
             )
-            if (parentPath) {
-                paths.add(parentPath)
-            }
-        })
-        return [...paths]
-    }, [layerMaps, allIds, isParentGrouped])
+            .filter(Boolean)
+    }, [isSpatial, pointLayer, layerMaps, allIds])
 
-    const { idToName: parentIdToName } = useOrgUnitAncestorNames(parentPaths)
+    const { idToName } = useOrgUnitAncestorNames(orgUnitPaths)
 
     return useMemo(() => {
         if (!layers?.length) {
@@ -87,8 +96,6 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         }
 
         if (isSpatial) {
-            const pointLayer = layers.find((l) => l.id === pointLayerId)
-            const polygonLayer = layers.find((l) => l.id === polygonLayerId)
             if (!pointLayer || !polygonLayer) {
                 return EMPTY_RESULT
             }
@@ -118,28 +125,33 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                 },
             ]
 
-            const rows = joined.map(({ pointProps, polygonProps }) => [
-                { dataKey: 'id', value: pointProps.id ?? null, align: 'left' },
-                {
-                    dataKey: 'name',
-                    value:
-                        pointProps[ORG_UNIT_DATA_KEY] ??
-                        pointProps.name ??
-                        pointProps.id ??
-                        null,
-                    align: 'left',
-                },
-                {
-                    dataKey: `${polygonLayer.id}_${VALUE_KEY}`,
-                    value: polygonProps?.[VALUE_KEY] ?? null,
-                    align: 'right',
-                },
-                {
-                    dataKey: `${polygonLayer.id}_${LEGEND_KEY}`,
-                    value: polygonProps?.[LEGEND_KEY] ?? null,
-                    align: 'left',
-                },
-            ])
+            const rows = joined.map(({ pointProps, polygonProps }) => {
+                const path = pointProps[ORG_UNIT_PATH_DATA_KEY]
+                return [
+                    {
+                        dataKey: 'id',
+                        value: pointProps.id ?? null,
+                        align: 'left',
+                    },
+                    {
+                        dataKey: 'name',
+                        value: path
+                            ? formatOrgUnitOwnName(path, idToName)
+                            : pointProps.name ?? pointProps.id ?? null,
+                        align: 'left',
+                    },
+                    {
+                        dataKey: `${polygonLayer.id}_${VALUE_KEY}`,
+                        value: polygonProps?.[VALUE_KEY] ?? null,
+                        align: 'right',
+                    },
+                    {
+                        dataKey: `${polygonLayer.id}_${LEGEND_KEY}`,
+                        value: polygonProps?.[LEGEND_KEY] ?? null,
+                        align: 'left',
+                    },
+                ]
+            })
 
             return { headers, rows, spatialWarning }
         }
@@ -177,7 +189,7 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
                     groups.set(key, {
                         id: parentId,
                         name: parentId
-                            ? parentIdToName.get(parentId) ?? parentId
+                            ? idToName.get(parentId) ?? parentId
                             : i18n.t('No parent'),
                         memberIds: [],
                     })
@@ -224,11 +236,12 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         const rows = allIds.map((id) => {
             const baseProps =
                 layerMaps.find((lm) => lm.byOrgUnit[id])?.byOrgUnit[id] ?? {}
+            const path = baseProps[ORG_UNIT_PATH_DATA_KEY]
             const cells = [
                 { dataKey: 'id', value: id, align: 'left' },
                 {
                     dataKey: 'name',
-                    value: baseProps[ORG_UNIT_DATA_KEY] ?? null,
+                    value: path ? formatOrgUnitOwnName(path, idToName) : null,
                     align: 'left',
                 },
                 {
@@ -260,8 +273,8 @@ export const useCombinedTableData = ({ layers, joinConfig }) => {
         allIds,
         isSpatial,
         isParentGrouped,
-        pointLayerId,
-        polygonLayerId,
-        parentIdToName,
+        pointLayer,
+        polygonLayer,
+        idToName,
     ])
 }

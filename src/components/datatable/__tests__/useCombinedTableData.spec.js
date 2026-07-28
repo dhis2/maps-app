@@ -20,6 +20,19 @@ const findCell = (row, dataKey) => row.find((c) => c.dataKey === dataKey)
 
 describe('useCombinedTableData - org unit join', () => {
     test('joins two layers by org unit id, filling blanks for unmatched org units', () => {
+        // orgUnitOwn is a raw id path at the data layer (see
+        // src/util/orgUnits.js's attachOrgUnitPaths) - real display names
+        // only exist via useOrgUnitAncestorNames's idToName map, resolved
+        // through formatOrgUnitOwnName. Using pre-resolved strings here
+        // would mask a bug where that resolution step is skipped.
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map([
+                ['ou1', 'Ou One'],
+                ['ou2', 'Ou Two'],
+            ]),
+            loading: false,
+        })
+
         const layers = [
             {
                 id: 'layerA',
@@ -27,7 +40,7 @@ describe('useCombinedTableData - org unit join', () => {
                 data: [
                     feature({
                         orgUnitId: 'ou1',
-                        orgUnitOwn: 'Country / Ou 1',
+                        orgUnitPath: '/country1/ou1',
                         level: 2,
                         rawValue: 10,
                         legend: 'Low',
@@ -40,7 +53,7 @@ describe('useCombinedTableData - org unit join', () => {
                 data: [
                     feature({
                         orgUnitId: 'ou2',
-                        orgUnitOwn: 'Country / Ou 2',
+                        orgUnitPath: '/country1/ou2',
                         level: 2,
                         rawValue: 20,
                         legend: 'High',
@@ -73,15 +86,44 @@ describe('useCombinedTableData - org unit join', () => {
         const row1 = result.current.rows.find(
             (r) => findCell(r, 'id').value === 'ou1'
         )
-        expect(findCell(row1, 'name').value).toBe('Country / Ou 1')
+        expect(findCell(row1, 'name').value).toBe('Ou One')
         expect(findCell(row1, 'layerA_rawValue').value).toBe(10)
         expect(findCell(row1, 'layerB_rawValue').value).toBe(null)
 
         const row2 = result.current.rows.find(
             (r) => findCell(r, 'id').value === 'ou2'
         )
+        expect(findCell(row2, 'name').value).toBe('Ou Two')
         expect(findCell(row2, 'layerA_rawValue').value).toBe(null)
         expect(findCell(row2, 'layerB_rawValue').value).toBe(20)
+    })
+
+    test('falls back to the raw org unit id when its name has not resolved yet', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        orgUnitId: 'ou1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 10,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            level: 'orgUnit',
+            layerIds: ['layerA'],
+            pointLayerId: null,
+            polygonLayerId: null,
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, joinConfig })
+        )
+
+        expect(findCell(result.current.rows[0], 'name').value).toBe('ou1')
     })
 
     test('excludes features with hasAdditionalGeometry set', () => {
@@ -197,7 +239,7 @@ describe('useCombinedTableData - spatial join', () => {
         data: [
             {
                 type: 'Feature',
-                properties: { id: 'p1', orgUnitOwn: 'Point One' },
+                properties: { id: 'p1', name: 'Point One' },
                 geometry: { type: 'Point', coordinates: [1, 1] },
             },
         ],
@@ -225,7 +267,7 @@ describe('useCombinedTableData - spatial join', () => {
         ],
     }
 
-    test('joins a point layer to a polygon layer by spatial containment', () => {
+    test("falls back to the feature's own name when it has no org unit path", () => {
         const joinConfig = {
             level: 'spatial',
             layerIds: [],
@@ -259,6 +301,45 @@ describe('useCombinedTableData - spatial join', () => {
             ],
         ])
         expect(result.current.spatialWarning).toBe(false)
+    })
+
+    test('resolves the org unit name when the point feature has an org unit path', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map([['p1', 'Resolved Point Name']]),
+            loading: false,
+        })
+
+        const pointLayerWithOrgUnit = {
+            ...pointLayer,
+            data: [
+                {
+                    type: 'Feature',
+                    properties: {
+                        id: 'p1',
+                        name: 'Point One',
+                        orgUnitPath: '/country1/p1',
+                    },
+                    geometry: { type: 'Point', coordinates: [1, 1] },
+                },
+            ],
+        }
+        const joinConfig = {
+            level: 'spatial',
+            layerIds: [],
+            pointLayerId: 'points',
+            polygonLayerId: 'polygons',
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [pointLayerWithOrgUnit, polygonLayer],
+                joinConfig,
+            })
+        )
+
+        expect(findCell(result.current.rows[0], 'name').value).toBe(
+            'Resolved Point Name'
+        )
     })
 
     test('returns an empty result when the point or polygon layer is not found', () => {
