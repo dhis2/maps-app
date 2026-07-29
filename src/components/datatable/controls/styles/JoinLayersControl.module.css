@@ -1,11 +1,16 @@
 .joinLayersPopover {
     padding: var(--spacers-dp8);
     min-width: 220px;
-    max-height: 320px;
-    overflow-y: auto;
     background-color: var(--colors-white);
     border-radius: 4px;
     box-shadow: var(--elevations-popover);
+}
+
+.layerList {
+    display: flex;
+    flex-direction: column;
+    max-height: 320px;
+    overflow-y: auto;
 }
 
 .layerRow {
@@ -17,15 +22,15 @@
     background: var(--colors-grey100);
 }
 
-.layerCheckboxLabel {
-    display: flex;
-    align-items: center;
-    gap: var(--spacers-dp4);
-    cursor: pointer;
+.layerCheckbox {
+    margin: 0;
+}
+
+.layerCheckbox :global(label) {
+    min-width: 0;
 }
 
 .layerName {
-    flex: 1;
     min-width: 0;
     overflow: hidden;
     white-space: nowrap;

@@ -26,9 +26,13 @@ const MapContainer = ({ resizeCount, setMap }) => {
     )
     const feature = useSelector((state) => state.feature)
     const selection = useSelector((state) => state.selection)
-    const { layersSorting, highlightColor, selectionFilter } = useSelector(
-        (state) => state.ui
-    )
+    const combinedView = useSelector((state) => state.dataTable.combinedView)
+    const {
+        layersSorting,
+        highlightColor,
+        selectionFilter,
+        combinedVisibleIds,
+    } = useSelector((state) => state.ui)
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
 
@@ -40,11 +44,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
         dispatchHighlightFeature
     )
 
-    // The Combined data table's reference org unit layer is hidden and
-    // never rendered on the map canvas - excluded from both the render
-    // list and the isLoading count (comparing against the raw
-    // mapViews.length here would leave isLoading permanently stuck true,
-    // since a reference layer is never included in loadedMapViews).
     const renderableMapViews = mapViews.filter(
         (layer) => layer.layer !== COMBINED_TABLE_REF_LAYER
     )
@@ -63,11 +62,14 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 selection={selection}
                 highlightColor={highlightColor}
                 selectionFilter={selectionFilter}
+                combinedVisibleIds={combinedVisibleIds}
                 highlightFeature={debouncedHighlightFeature}
                 clickFeature={(payload) => dispatch(clickFeature(payload))}
-                toggleFeatureSelection={(id, layerId) =>
-                    dispatch(toggleFeatureSelection(id, layerId))
-                }
+                toggleFeatureSelection={(id, layerId) => {
+                    if (!combinedView) {
+                        dispatch(toggleFeatureSelection(id, layerId))
+                    }
+                }}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
                 coordinatePopup={coordinatePopup}
                 interpretationModalOpen={interpretationModalOpen}

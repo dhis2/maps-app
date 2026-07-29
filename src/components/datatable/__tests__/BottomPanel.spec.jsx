@@ -53,6 +53,7 @@ const referenceLayer = (
 const renderBottomPanel = ({
     dataTable = DEFAULT_DATA_TABLE_STATE,
     mapViews = DEFAULT_MAP_VIEWS,
+    ui = {},
 } = {}) => {
     const store = mockStore({
         ui: {
@@ -60,6 +61,7 @@ const renderBottomPanel = ({
             showOnlyFeaturesInView: false,
             selectionFilter: [],
             highlightColor: null,
+            ...ui,
         },
         dataTable,
         map: { mapViews },
@@ -71,7 +73,11 @@ const renderBottomPanel = ({
             </WindowDimensionsProvider>
         </Provider>
     )
-    return { handle: container.querySelector('.resizeHandle'), store }
+    return {
+        handle: container.querySelector('.resizeHandle'),
+        container,
+        store,
+    }
 }
 
 const getDisplayHeight = () =>
@@ -107,6 +113,26 @@ describe('BottomPanel resize cancel', () => {
     })
 })
 
+describe('BottomPanel double-click to collapse', () => {
+    test('double-clicking empty toolbar space toggles the collapsed state', () => {
+        const { container } = renderBottomPanel()
+        expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+
+        fireEvent.doubleClick(container.querySelector('.dataTableControls'))
+
+        expect(getDisplayHeight()).not.toBe(`${DATA_TABLE_HEIGHT}px`)
+    })
+
+    test('double-clicking the layer selector does not toggle the collapsed state', () => {
+        renderBottomPanel()
+        expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+
+        fireEvent.doubleClick(getLayerSelector())
+
+        expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+    })
+})
+
 const twoEligibleLayers = [
     {
         id: 'layer1',
@@ -131,9 +157,6 @@ describe('BottomPanel layer selector', () => {
             mapViews: twoEligibleLayers,
         })
 
-        // layer1 is the only one open, but layer2 is still listed since it's
-        // eligible - the dropdown covers every eligible map layer, not just
-        // already-open tabs.
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
         expect(screen.getByText('Layer 2')).toBeInTheDocument()
         expect(screen.getByText('Combined')).toBeInTheDocument()
@@ -183,11 +206,6 @@ describe('BottomPanel layer selector', () => {
     })
 
     test('the active layer is correct on the very first render, with no transient null in between', () => {
-        // Regression guard: activeLayerId used to be seeded via
-        // useState(null) and only synced to openIds a render later via
-        // useEffect, so a child requiring a non-null layerId (e.g.
-        // ColumnPickerControl) would see `null` for one render and log a
-        // prop-types warning. It must now be derived synchronously.
         const consoleError = jest
             .spyOn(console, 'error')
             .mockImplementation(() => {})
@@ -273,7 +291,7 @@ describe('BottomPanel layer selector', () => {
 describe('BottomPanel Combined join controls', () => {
     const combinedMapViews = [...twoEligibleLayers, referenceLayer()]
 
-    test('shows the reference org unit control and join layers control, and hides per-layer-only controls, while Combined is active', () => {
+    test('shows the reference org unit control and join layers control while Combined is active', () => {
         renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -289,9 +307,65 @@ describe('BottomPanel Combined join controls', () => {
         expect(
             screen.getByLabelText('Choose layers to combine')
         ).toBeInTheDocument()
+    })
+
+    test('still shows the highlight color and show-in-view controls while Combined is active - they are not per-layer-only', () => {
+        const { container } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: combinedMapViews,
+        })
+
         expect(
-            screen.queryByLabelText('Highlight color')
-        ).not.toBeInTheDocument()
+            container.querySelector('input[type="color"]')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByLabelText('Show only features in current map view')
+        ).toBeInTheDocument()
+    })
+
+    test('the Clear filters button is enabled in Combined mode when "show only features in view" is active, and clicking it turns that off too', () => {
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: combinedMapViews,
+            ui: { showOnlyFeaturesInView: true },
+        })
+
+        expect(screen.getByLabelText('Clear filters')).not.toBeDisabled()
+
+        fireEvent.click(screen.getByLabelText('Clear filters'))
+
+        expect(store.getActions()).toContainEqual({
+            type: 'TOGGLE_SHOW_ONLY_IN_VIEW',
+        })
+    })
+
+    test('the Clear filters button is enabled in Combined mode when a selection filter is active, and clicking it clears that too', () => {
+        const { store } = renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: combinedMapViews,
+            ui: { selectionFilter: ['selected'] },
+        })
+
+        expect(screen.getByLabelText('Clear filters')).not.toBeDisabled()
+
+        fireEvent.click(screen.getByLabelText('Clear filters'))
+
+        expect(store.getActions()).toContainEqual({
+            type: 'SELECTION_FILTER_SET',
+            value: [],
+        })
     })
 
     test('still shows the column picker while Combined is active, session-only (not the per-layer one)', () => {

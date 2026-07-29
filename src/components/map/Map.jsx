@@ -47,6 +47,7 @@ class Map extends Component {
         bounds: PropTypes.array,
         clickFeature: PropTypes.func,
         closeCoordinatePopup: PropTypes.func,
+        combinedVisibleIds: PropTypes.object,
         controls: PropTypes.array,
         coordinatePopup: PropTypes.array,
         engine: PropTypes.object,
@@ -205,6 +206,7 @@ class Map extends Component {
             highlightFeature,
             highlightColor,
             selectionFilter,
+            combinedVisibleIds,
             clickFeature,
             toggleFeatureSelection,
             coordinatePopup: coordinates,
@@ -259,6 +261,7 @@ class Map extends Component {
                                     highlightFeature={highlightFeature}
                                     highlightColor={highlightColor}
                                     selectionFilter={selectionFilter}
+                                    combinedVisibleIds={combinedVisibleIds}
                                     clickFeature={clickFeature}
                                     toggleFeatureSelection={
                                         toggleFeatureSelection

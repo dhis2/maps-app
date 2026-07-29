@@ -90,6 +90,44 @@ describe('Layer#getVisibleIds', () => {
         })
         expect(layer.getVisibleIds()).toBe(null)
     })
+
+    test('returns null (show everything) when combinedVisibleIds has no entry for this layer', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            combinedVisibleIds: null,
+        })
+        expect(layer.getVisibleIds()).toBe(null)
+    })
+
+    test("returns only this layer's own combinedVisibleIds entry, ignoring other layers'", () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            combinedVisibleIds: { layer1: ['a', 'b'], layer2: ['c'] },
+        })
+        expect(layer.getVisibleIds()).toEqual(['a', 'b'])
+    })
+
+    test('returns an empty array (hide everything) when combinedVisibleIds keys this layer in with no ids', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            combinedVisibleIds: { layer1: [] },
+        })
+        expect(layer.getVisibleIds()).toEqual([])
+    })
+
+    test('intersects selectionFilter and combinedVisibleIds when both apply', () => {
+        const layer = createLayer({
+            id: 'layer1',
+            data,
+            selection: { layerId: 'layer1', ids: ['a', 'b'] },
+            selectionFilter: ['selected'],
+            combinedVisibleIds: { layer1: ['b', 'c'] },
+        })
+        expect(layer.getVisibleIds()).toEqual(['b'])
+    })
 })
 
 describe('Layer#getHoverIds', () => {
@@ -174,5 +212,84 @@ describe('Layer#getSelectedIds', () => {
             },
         })
         expect(layer.getSelectedIds()).toEqual(['x'])
+    })
+})
+
+describe('Layer#onFeatureLeftClick', () => {
+    const clickEvent = (id, keys = {}) => ({
+        feature: { properties: { id } },
+        ...keys,
+    })
+
+    test('a plain click reports clickFeature with multiSelect: false and does not toggle selection', () => {
+        const clickFeature = jest.fn()
+        const toggleFeatureSelection = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            clickFeature,
+            toggleFeatureSelection,
+        })
+
+        layer.onFeatureLeftClick(clickEvent('a'))
+
+        expect(clickFeature).toHaveBeenCalledWith({
+            id: 'a',
+            layerId: 'layer1',
+            multiSelect: false,
+        })
+        expect(toggleFeatureSelection).not.toHaveBeenCalled()
+    })
+
+    test('a ctrl-click reports clickFeature with multiSelect: true and also toggles selection', () => {
+        const clickFeature = jest.fn()
+        const toggleFeatureSelection = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            clickFeature,
+            toggleFeatureSelection,
+        })
+
+        layer.onFeatureLeftClick(clickEvent('a', { ctrlKey: true }))
+
+        expect(clickFeature).toHaveBeenCalledWith({
+            id: 'a',
+            layerId: 'layer1',
+            multiSelect: true,
+        })
+        expect(toggleFeatureSelection).toHaveBeenCalledWith('a', 'layer1')
+    })
+
+    test('a meta-click (cmd on macOS) also counts as multiSelect', () => {
+        const clickFeature = jest.fn()
+        const toggleFeatureSelection = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            clickFeature,
+            toggleFeatureSelection,
+        })
+
+        layer.onFeatureLeftClick(clickEvent('a', { metaKey: true }))
+
+        expect(clickFeature).toHaveBeenCalledWith({
+            id: 'a',
+            layerId: 'layer1',
+            multiSelect: true,
+        })
+        expect(toggleFeatureSelection).toHaveBeenCalledWith('a', 'layer1')
+    })
+
+    test('does nothing when the clicked feature has no id', () => {
+        const clickFeature = jest.fn()
+        const toggleFeatureSelection = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            clickFeature,
+            toggleFeatureSelection,
+        })
+
+        layer.onFeatureLeftClick({ feature: { properties: {} } })
+
+        expect(clickFeature).not.toHaveBeenCalled()
+        expect(toggleFeatureSelection).not.toHaveBeenCalled()
     })
 })

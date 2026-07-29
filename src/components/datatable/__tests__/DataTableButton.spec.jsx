@@ -80,21 +80,21 @@ describe('DataTableButton', () => {
         ])
     })
 
-    test('is a no-op when a single-layer table is already open', () => {
+    test('closes the panel when a single-layer table is already open', () => {
         const { store } = renderButton({
             dataTable: { openIds: ['a'], combinedView: false },
             mapViews: [layer('a'), layer('b')],
         })
         fireEvent.click(screen.getByText('Data table'))
-        expect(store.getActions()).toEqual([])
+        expect(store.getActions()).toEqual([{ type: 'DATA_TABLE_CLOSE' }])
     })
 
-    test('is a no-op when Combined is already open', () => {
+    test('closes the panel when Combined is already open', () => {
         const { store } = renderButton({
             dataTable: { openIds: [], combinedView: true },
             mapViews: [layer('a'), layer('b')],
         })
         fireEvent.click(screen.getByText('Data table'))
-        expect(store.getActions()).toEqual([])
+        expect(store.getActions()).toEqual([{ type: 'DATA_TABLE_CLOSE' }])
     })
 })

@@ -19,6 +19,12 @@ const feature = (props) => ({ properties: props })
 const referenceFeature = (id, name, path) =>
     feature({ id, name, orgUnitPath: path, level: 2 })
 
+const referenceFeatureWithGeometry = ({ id, name, path, coordinates }) => ({
+    type: 'Feature',
+    properties: { id, name, orgUnitPath: path, level: 2 },
+    geometry: { type: 'Point', coordinates },
+})
+
 const EMPTY_REFERENCE_LAYER = {
     id: 'ref1',
     layer: 'combinedTableRef',
@@ -26,7 +32,7 @@ const EMPTY_REFERENCE_LAYER = {
 }
 
 const renderCombinedDataTable = (props) => {
-    const store = mockStore({})
+    const store = mockStore({ ui: {} })
     const result = render(
         <Provider store={store}>
             <VirtuosoMockContext.Provider
@@ -78,8 +84,8 @@ describe('CombinedDataTable', () => {
             },
         })
 
-        expect(screen.getByText('ID')).toBeInTheDocument()
-        expect(screen.getByText('Name')).toBeInTheDocument()
+        expect(screen.getByText('Org unit Id')).toBeInTheDocument()
+        expect(screen.getByText('Org unit')).toBeInTheDocument()
         expect(screen.getByText('Value (Layer A)')).toBeInTheDocument()
         expect(screen.getByText('Legend (Layer A)')).toBeInTheDocument()
         expect(screen.getByText('Ou One')).toBeInTheDocument()
@@ -291,7 +297,7 @@ describe('CombinedDataTable', () => {
         })
 
         const input = screen
-            .getByTestId('data-table-column-filter-search-ID')
+            .getByTestId('data-table-column-filter-search-Org unit Id')
             .querySelector('input')
         fireEvent.focus(input)
         fireEvent.change(input, { target: { value: 'ou1' } })
@@ -551,7 +557,7 @@ describe('CombinedDataTable', () => {
             columnConfig: { visibleKeys: ['id', 'name'] },
         })
 
-        expect(screen.getByText('ID')).toBeInTheDocument()
+        expect(screen.getByText('Org unit Id')).toBeInTheDocument()
         expect(screen.queryByText('Value (Layer A)')).not.toBeInTheDocument()
         expect(screen.queryByText('20')).not.toBeInTheDocument()
     })
@@ -587,6 +593,432 @@ describe('CombinedDataTable', () => {
             .getAllByRole('columnheader')
             .map((el) => el.textContent)
             .filter(Boolean)
-        expect(headerNames[0]).toBe('Level')
+        // headerNames[0] is the selection column's own filter button label
+        // ("All"/"N selected") - the first real data column follows it.
+        expect(headerNames[1]).toBe('Level')
+    })
+
+    test('dispatches setSelectionFilter when a selection-filter option is toggled', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+
+        const { store } = renderCombinedDataTable({ referenceLayer })
+
+        fireEvent.click(
+            screen.getByTestId('data-table-selection-filter-button')
+        )
+        fireEvent.click(screen.getByText('Selected'))
+
+        expect(store.getActions()).toContainEqual({
+            type: 'SELECTION_FILTER_SET',
+            value: ['selected'],
+        })
+    })
+
+    test('zooms to the row union bounds on row double-click', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeatureWithGeometry({
+                    id: 'ou1',
+                    name: 'Ou One',
+                    path: '/country1/ou1',
+                    coordinates: [10, 20],
+                }),
+            ],
+        }
+
+        const { store } = renderCombinedDataTable({ referenceLayer })
+
+        const dataRow = screen.getAllByRole('row')[1]
+        fireEvent.doubleClick(dataRow)
+
+        expect(store.getActions()).toContainEqual({
+            type: 'FEATURE_HIGHLIGHT',
+            payload: {
+                layerId: null,
+                origin: 'table',
+                zoom: true,
+                bounds: [
+                    [10, 20],
+                    [10, 20],
+                ],
+                crossLayerIds: { ref1: ['ou1'] },
+            },
+        })
+    })
+
+    test('highlights the table row matching a feature hovered directly on the map', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'evtA1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+
+        const store = mockStore({
+            ui: {},
+            feature: { id: 'evtA1', layerId: 'layerA', origin: 'map' },
+        })
+        render(
+            <Provider store={store}>
+                <VirtuosoMockContext.Provider
+                    value={{ viewportHeight: 300, itemHeight: 28 }}
+                >
+                    <CombinedDataTable
+                        availableWidth={800}
+                        layers={layers}
+                        referenceLayer={referenceLayer}
+                        joinConfig={{
+                            layers: {
+                                layerA: {
+                                    type: 'orgUnit',
+                                    aggregation: { rawValue: 'SUM' },
+                                },
+                            },
+                        }}
+                    />
+                </VirtuosoMockContext.Provider>
+            </Provider>
+        )
+
+        const dataRow = screen.getAllByRole('row')[1]
+        expect(dataRow.querySelector('.hovered')).toBeInTheDocument()
+    })
+
+    test('ignores a stale single-layer table hover left over in state.feature', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'evtA1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+
+        const store = mockStore({
+            ui: {},
+            feature: { id: 'evtA1', layerId: 'layerA', origin: 'table' },
+        })
+        render(
+            <Provider store={store}>
+                <VirtuosoMockContext.Provider
+                    value={{ viewportHeight: 300, itemHeight: 28 }}
+                >
+                    <CombinedDataTable
+                        availableWidth={800}
+                        layers={layers}
+                        referenceLayer={referenceLayer}
+                        joinConfig={{
+                            layers: {
+                                layerA: {
+                                    type: 'orgUnit',
+                                    aggregation: { rawValue: 'SUM' },
+                                },
+                            },
+                        }}
+                    />
+                </VirtuosoMockContext.Provider>
+            </Provider>
+        )
+
+        const dataRow = screen.getAllByRole('row')[1]
+        expect(dataRow.querySelector('.hovered')).not.toBeInTheDocument()
+    })
+
+    test('a plain map click on a joined feature does not select its row', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'evtA1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+
+        const store = mockStore({
+            ui: {
+                lastClickedFeature: {
+                    id: 'evtA1',
+                    layerId: 'layerA',
+                    multiSelect: false,
+                },
+            },
+        })
+        render(
+            <Provider store={store}>
+                <VirtuosoMockContext.Provider
+                    value={{ viewportHeight: 300, itemHeight: 28 }}
+                >
+                    <CombinedDataTable
+                        availableWidth={800}
+                        layers={layers}
+                        referenceLayer={referenceLayer}
+                        joinConfig={{
+                            layers: {
+                                layerA: {
+                                    type: 'orgUnit',
+                                    aggregation: { rawValue: 'SUM' },
+                                },
+                            },
+                        }}
+                    />
+                </VirtuosoMockContext.Provider>
+            </Provider>
+        )
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({ type: 'SELECTION_SET_CROSS_LAYER' })
+        )
+    })
+
+    test('a ctrl/multiSelect map click on a joined feature selects its row', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                data: [
+                    feature({
+                        id: 'evtA1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+
+        const store = mockStore({
+            ui: {
+                lastClickedFeature: {
+                    id: 'evtA1',
+                    layerId: 'layerA',
+                    multiSelect: true,
+                },
+            },
+        })
+        render(
+            <Provider store={store}>
+                <VirtuosoMockContext.Provider
+                    value={{ viewportHeight: 300, itemHeight: 28 }}
+                >
+                    <CombinedDataTable
+                        availableWidth={800}
+                        layers={layers}
+                        referenceLayer={referenceLayer}
+                        joinConfig={{
+                            layers: {
+                                layerA: {
+                                    type: 'orgUnit',
+                                    aggregation: { rawValue: 'SUM' },
+                                },
+                            },
+                        }}
+                    />
+                </VirtuosoMockContext.Provider>
+            </Provider>
+        )
+
+        expect(store.getActions()).toContainEqual({
+            type: 'SELECTION_SET_CROSS_LAYER',
+            crossLayerIds: { ref1: ['ou1'], layerA: ['evtA1'] },
+        })
+    })
+
+    test('a map click on a feature belonging to no joined row does nothing', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+
+        const store = mockStore({
+            ui: {
+                lastClickedFeature: {
+                    id: 'unrelated',
+                    layerId: 'someOtherLayer',
+                    multiSelect: true,
+                },
+            },
+        })
+        render(
+            <Provider store={store}>
+                <VirtuosoMockContext.Provider
+                    value={{ viewportHeight: 300, itemHeight: 28 }}
+                >
+                    <CombinedDataTable
+                        availableWidth={800}
+                        layers={[]}
+                        referenceLayer={referenceLayer}
+                        joinConfig={{ layers: {} }}
+                    />
+                </VirtuosoMockContext.Provider>
+            </Provider>
+        )
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({ type: 'SELECTION_SET_CROSS_LAYER' })
+        )
+    })
+
+    describe('map visibility from column filters and global search', () => {
+        const twoOuReferenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [
+                referenceFeature('ou1', 'Ou One', '/country1/ou1'),
+                referenceFeature('ou2', 'Ou Two', '/country1/ou2'),
+            ],
+        }
+        const layerA = {
+            id: 'layerA',
+            name: 'Layer A',
+            data: [
+                feature({
+                    id: 'evtA1',
+                    orgUnitPath: '/country1/ou1',
+                    rawValue: 10,
+                }),
+                feature({
+                    id: 'evtA2',
+                    orgUnitPath: '/country1/ou2',
+                    rawValue: 20,
+                }),
+            ],
+        }
+        const joinConfig = {
+            layers: {
+                layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        }
+
+        test('dispatches combinedVisibleIds narrowed to the filtered rows when a column filter is active', () => {
+            const { store } = renderCombinedDataTable({
+                referenceLayer: twoOuReferenceLayer,
+                layers: [layerA],
+                joinConfig,
+                filters: { id: 'ou1' },
+            })
+
+            expect(store.getActions()).toContainEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: { ref1: ['ou1'], layerA: ['evtA1'] },
+            })
+        })
+
+        test('dispatches an empty array (hide everything) for a layer with no surviving matches', () => {
+            const { store } = renderCombinedDataTable({
+                referenceLayer: twoOuReferenceLayer,
+                layers: [layerA],
+                joinConfig,
+                filters: { id: 'ou2' },
+            })
+
+            expect(store.getActions()).toContainEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: { ref1: ['ou2'], layerA: ['evtA2'] },
+            })
+        })
+
+        test('narrows by global search too', () => {
+            const { store } = renderCombinedDataTable({
+                referenceLayer: twoOuReferenceLayer,
+                layers: [layerA],
+                joinConfig,
+                globalSearch: 'Ou One',
+            })
+
+            expect(store.getActions()).toContainEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: { ref1: ['ou1'], layerA: ['evtA1'] },
+            })
+        })
+
+        test('dispatches null (show everything) when no column filter or search is active', () => {
+            const { store } = renderCombinedDataTable({
+                referenceLayer: twoOuReferenceLayer,
+                layers: [layerA],
+                joinConfig,
+            })
+
+            expect(store.getActions()).toContainEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: null,
+            })
+        })
+
+        test('does not narrow map visibility from the selection filter alone', () => {
+            const store = mockStore({
+                ui: { selectionFilter: ['selected'] },
+            })
+            render(
+                <Provider store={store}>
+                    <VirtuosoMockContext.Provider
+                        value={{ viewportHeight: 300, itemHeight: 28 }}
+                    >
+                        <CombinedDataTable
+                            availableWidth={800}
+                            layers={[layerA]}
+                            referenceLayer={twoOuReferenceLayer}
+                            joinConfig={joinConfig}
+                        />
+                    </VirtuosoMockContext.Provider>
+                </Provider>
+            )
+
+            expect(store.getActions()).toContainEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: null,
+            })
+        })
+
+        test('resets combinedVisibleIds to null on unmount', () => {
+            const { store, unmount } = renderCombinedDataTable({
+                referenceLayer: twoOuReferenceLayer,
+                layers: [layerA],
+                joinConfig,
+                filters: { id: 'ou1' },
+            })
+
+            unmount()
+
+            const actions = store.getActions()
+            expect(actions[actions.length - 1]).toEqual({
+                type: 'COMBINED_VISIBLE_IDS_SET',
+                idsByLayer: null,
+            })
+        })
     })
 })
