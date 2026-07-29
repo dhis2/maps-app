@@ -139,6 +139,8 @@ export const useLoadMap = () => {
                 return
             }
 
+            setLocationToConfirm(null)
+
             if (action === 'REPLACE' || isSwitchingMap) {
                 loadMap(location)
                 return

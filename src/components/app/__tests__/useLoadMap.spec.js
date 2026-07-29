@@ -16,22 +16,26 @@ jest.mock('react-redux', () => ({
         selector({ map: mockMapState, savedMap: mockSavedMapState }),
 }))
 
+const mockEngine = {
+    query: jest.fn().mockResolvedValue({}),
+    mutate: jest.fn().mockResolvedValue({}),
+}
+
 jest.mock('@dhis2/app-runtime', () => ({
-    useDataEngine: () => ({
-        query: jest.fn().mockResolvedValue({}),
-        mutate: jest.fn().mockResolvedValue({}),
-    }),
+    useDataEngine: () => mockEngine,
 }))
 
 jest.mock('@dhis2/app-service-alerts', () => ({
     useAlert: () => ({ show: jest.fn() }),
 }))
 
+const mockCachedData = {
+    systemSettings: { keyDefaultBaseMap: 'osm' },
+    basemaps: [{ id: 'osm' }],
+}
+
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
-    useCachedData: () => ({
-        systemSettings: { keyDefaultBaseMap: 'osm' },
-        basemaps: [{ id: 'osm' }],
-    }),
+    useCachedData: () => mockCachedData,
 }))
 
 jest.mock('../../../util/requests.js', () => ({
@@ -156,5 +160,22 @@ describe('useLoadMap - unsaved changes guard', () => {
 
         expect(result.current.locationToConfirm).toBeNull()
         await waitFor(() => expect(mockDispatch).toHaveBeenCalled())
+    })
+
+    it('clears a pending confirm when the browser Back button reverts the navigation itself', async () => {
+        mockMapState = dirtyMap
+        const { result } = await mountOnMap('map1')
+
+        act(() => {
+            history.push('/map2')
+        })
+        expect(result.current.locationToConfirm).not.toBeNull()
+
+        act(() => {
+            history.back()
+        })
+        await waitFor(() => expect(history.location.pathname).toBe('/map1'))
+
+        expect(result.current.locationToConfirm).toBeNull()
     })
 })
