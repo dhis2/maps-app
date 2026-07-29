@@ -41,27 +41,27 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
 
     const onToggle = (layer) => {
         const next = { ...layersConfig }
-        if (next[layer.id]) {
-            delete next[layer.id]
+        if (next[layer.combinedLayerKey]) {
+            delete next[layer.combinedLayerKey]
         } else {
-            next[layer.id] = getDefaultSettings(layer)
+            next[layer.combinedLayerKey] = getDefaultSettings(layer)
         }
         onChange(next)
     }
 
-    const onTypeChange = (layerId, type) =>
+    const onTypeChange = (layerKey, type) =>
         onChange({
             ...layersConfig,
-            [layerId]: { ...layersConfig[layerId], type },
+            [layerKey]: { ...layersConfig[layerKey], type },
         })
 
-    const onAggregationChange = (layerId, dataKey, aggregationType) =>
+    const onAggregationChange = (layerKey, dataKey, aggregationType) =>
         onChange({
             ...layersConfig,
-            [layerId]: {
-                ...layersConfig[layerId],
+            [layerKey]: {
+                ...layersConfig[layerKey],
                 aggregation: {
-                    ...layersConfig[layerId].aggregation,
+                    ...layersConfig[layerKey].aggregation,
                     [dataKey]: aggregationType,
                 },
             },
@@ -88,7 +88,8 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                     <div className={styles.joinLayersPopover}>
                         <div className={styles.layerList}>
                             {eligibleLayers.map((layer) => {
-                                const settings = layersConfig[layer.id]
+                                const settings =
+                                    layersConfig[layer.combinedLayerKey]
                                 return (
                                     <div
                                         key={layer.id}
@@ -119,7 +120,7 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                                                     value={settings.type}
                                                     onChange={(e) =>
                                                         onTypeChange(
-                                                            layer.id,
+                                                            layer.combinedLayerKey,
                                                             e.target.value
                                                         )
                                                     }
@@ -178,7 +179,7 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                                                             }
                                                             onChange={(e) =>
                                                                 onAggregationChange(
-                                                                    layer.id,
+                                                                    layer.combinedLayerKey,
                                                                     dataKey,
                                                                     e.target
                                                                         .value
@@ -220,6 +221,7 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
 JoinLayersControl.propTypes = {
     eligibleLayers: PropTypes.arrayOf(
         PropTypes.shape({
+            combinedLayerKey: PropTypes.string,
             data: PropTypes.array,
             id: PropTypes.string,
             layer: PropTypes.string,

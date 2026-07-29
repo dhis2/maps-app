@@ -36,7 +36,9 @@ const validLayerProperties = [
     'colorLow', // Deprecated
     'colorScale',
     'columns',
+    'combinedColumnConfig', // only ever set on the combinedTableRef layer
     'combinedJoinConfig', // only ever set on the combinedTableRef layer
+    'combinedLayerKey', // stable cross-save id, set on every layer type
     'config',
     'created',
     'dataTableColumnConfig',
@@ -189,6 +191,12 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.combinedJoinConfig) {
         configData.combinedJoinConfig = layer.combinedJoinConfig
     }
+    if (layer.combinedColumnConfig) {
+        configData.combinedColumnConfig = layer.combinedColumnConfig
+    }
+    if (layer.combinedLayerKey) {
+        configData.combinedLayerKey = layer.combinedLayerKey
+    }
     return configData
 }
 
@@ -205,6 +213,8 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.labelDataItem
     delete layer.dataTableColumnConfig
     delete layer.combinedJoinConfig
+    delete layer.combinedColumnConfig
+    delete layer.combinedLayerKey
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {
@@ -215,6 +225,7 @@ const buildEarthEngineLayerConfigData = (layer) => {
         aggregationType,
         period,
         dataTableColumnConfig,
+        combinedLayerKey,
     } = layer
     return omitBy(isNil, {
         id,
@@ -223,6 +234,7 @@ const buildEarthEngineLayerConfigData = (layer) => {
         aggregationType,
         period,
         dataTableColumnConfig,
+        combinedLayerKey,
     })
 }
 
@@ -237,6 +249,7 @@ const deleteEarthEngineLayerProps = (layer) => {
     delete layer.aggregationType
     delete layer.band
     delete layer.dataTableColumnConfig
+    delete layer.combinedLayerKey
 }
 
 const buildTrackedEntityLayerConfigData = (layer) => ({
@@ -251,6 +264,7 @@ const buildTrackedEntityLayerConfigData = (layer) => ({
         : null,
     periodType: layer.periodType,
     dataTableColumnConfig: layer.dataTableColumnConfig,
+    combinedLayerKey: layer.combinedLayerKey,
 })
 
 const deleteTrackedEntityLayerProps = (layer) => {
@@ -261,6 +275,7 @@ const deleteTrackedEntityLayerProps = (layer) => {
     delete layer.relationshipOutsideProgram
     delete layer.periodType
     delete layer.dataTableColumnConfig
+    delete layer.combinedLayerKey
 }
 
 // TODO: This feels hacky, find better way to clean map configs before saving
@@ -299,10 +314,14 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 ...(layer.dataTableColumnConfig !== undefined && {
                     dataTableColumnConfig: layer.dataTableColumnConfig,
                 }),
+                ...(layer.combinedLayerKey !== undefined && {
+                    combinedLayerKey: layer.combinedLayerKey,
+                }),
             }
         }
         delete layer.featureStyle
         delete layer.dataTableColumnConfig
+        delete layer.combinedLayerKey
     } else if (
         layerType === EVENT_LAYER ||
         layerType === THEMATIC_LAYER ||

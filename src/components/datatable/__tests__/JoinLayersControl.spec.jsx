@@ -11,12 +11,14 @@ const eligibleLayers = [
     {
         id: 'layer1',
         name: 'Layer 1',
+        combinedLayerKey: 'layer1',
         layer: THEMATIC_LAYER,
         data: [],
     },
     {
         id: 'layer2',
         name: 'Layer 2',
+        combinedLayerKey: 'layer2',
         layer: THEMATIC_LAYER,
         data: [
             {
@@ -104,6 +106,7 @@ describe('JoinLayersControl popover — checkbox list', () => {
                 {
                     id: 'geo',
                     name: 'Zones',
+                    combinedLayerKey: 'geo',
                     layer: GEOJSON_URL_LAYER,
                     data: [{ geometry: { type: 'Point' } }],
                 },
@@ -186,6 +189,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
                 {
                     id: 'geo',
                     name: 'Zones',
+                    combinedLayerKey: 'geo',
                     layer: GEOJSON_URL_LAYER,
                     data: [{ geometry: { type: 'Polygon' } }],
                 },
@@ -247,6 +251,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
         const eeLayer = {
             id: 'ee',
             name: 'NDVI',
+            combinedLayerKey: 'ee',
             layer: EARTH_ENGINE_LAYER,
             aggregationType: ['mean', 'max'],
             legend: { title: 'NDVI' },
@@ -274,6 +279,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
         const eeLayer = {
             id: 'ee',
             name: 'NDVI',
+            combinedLayerKey: 'ee',
             layer: EARTH_ENGINE_LAYER,
             aggregationType: ['mean', 'max'],
             legend: { title: 'NDVI' },

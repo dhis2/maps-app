@@ -148,7 +148,7 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
 
     valueDataKeys.forEach(({ dataKey }) => {
         const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
-        row[`${layer.id}_${dataKey}`] = applyAggregation(
+        row[`${layer.combinedLayerKey}_${dataKey}`] = applyAggregation(
             settings.aggregation?.[dataKey] ?? DEFAULT_AGGREGATION,
             values
         )
@@ -158,7 +158,7 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
         const legends = matches
             .map((p) => p[LEGEND_KEY])
             .filter((v) => v != null)
-        row[`${layer.id}_${LEGEND_KEY}`] =
+        row[`${layer.combinedLayerKey}_${LEGEND_KEY}`] =
             legends.length && legends.every((l) => l === legends[0])
                 ? legends[0]
                 : null
@@ -223,7 +223,7 @@ export const useCombinedTableData = ({
     const layerMatches = useMemo(
         () =>
             layers.map((layer) => {
-                const settings = joinConfig.layers[layer.id] ?? {
+                const settings = joinConfig.layers[layer.combinedLayerKey] ?? {
                     type: 'orgUnit',
                     aggregation: {},
                 }
@@ -268,7 +268,11 @@ export const useCombinedTableData = ({
         const headers = [
             { name: i18n.t('Org unit Id'), dataKey: 'id', type: TYPE_STRING },
             { name: i18n.t('Org unit'), dataKey: 'name', type: TYPE_STRING },
-            { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
+            {
+                name: i18n.t('Org unit level'),
+                dataKey: 'level',
+                type: TYPE_NUMBER,
+            },
             ...layerMatches.flatMap(({ layer, valueDataKeys }) => [
                 ...valueDataKeys.map(({ dataKey, name }) => ({
                     name: name
@@ -277,7 +281,7 @@ export const useCombinedTableData = ({
                               layer: layer.name,
                           })
                         : i18n.t('Value ({{layer}})', { layer: layer.name }),
-                    dataKey: `${layer.id}_${dataKey}`,
+                    dataKey: `${layer.combinedLayerKey}_${dataKey}`,
                     type: TYPE_NUMBER,
                 })),
                 // Earth Engine has no separate categorical "legend" concept
@@ -289,7 +293,7 @@ export const useCombinedTableData = ({
                               name: i18n.t('Legend ({{layer}})', {
                                   layer: layer.name,
                               }),
-                              dataKey: `${layer.id}_${LEGEND_KEY}`,
+                              dataKey: `${layer.combinedLayerKey}_${LEGEND_KEY}`,
                               type: TYPE_STRING,
                           },
                       ]

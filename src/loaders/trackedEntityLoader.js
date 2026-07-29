@@ -27,6 +27,7 @@ import {
     TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
     TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
 } from '../util/trackedEntity.js'
+import { generateUid } from '../util/uid.js'
 
 const fields = [
     'trackedEntity~rename(id)',
@@ -232,8 +233,12 @@ const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
 }
 
 export const applyParsedConfig = (config) => {
-    const { relationships, periodType, dataTableColumnConfig } =
-        parseJsonConfig(config.config)
+    const {
+        relationships,
+        periodType,
+        dataTableColumnConfig,
+        combinedLayerKey,
+    } = parseJsonConfig(config.config)
 
     if (relationships) {
         config.relationshipType = relationships.type
@@ -249,6 +254,8 @@ export const applyParsedConfig = (config) => {
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+
+    config.combinedLayerKey = combinedLayerKey ?? generateUid()
 
     delete config.config
 }

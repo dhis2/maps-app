@@ -137,12 +137,14 @@ const twoEligibleLayers = [
     {
         id: 'layer1',
         name: 'Layer 1',
+        combinedLayerKey: 'layer1',
         layer: THEMATIC_LAYER,
         data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
     },
     {
         id: 'layer2',
         name: 'Layer 2',
+        combinedLayerKey: 'layer2',
         layer: THEMATIC_LAYER,
         data: [{ properties: { orgUnitPath: '/country1/ou2' } }],
     },
@@ -500,6 +502,62 @@ describe('BottomPanel joinConfig hydration from a saved reference layer', () => 
 
         expect(store.getActions()).not.toContainEqual(
             expect.objectContaining({ type: 'DATA_TABLE_JOIN_CONFIG_SET' })
+        )
+    })
+})
+
+describe('BottomPanel combinedColumnConfig hydration from a saved reference layer', () => {
+    const persistedColumnConfig = { pinnedKeys: ['layerA_rawValue'] }
+
+    test("restores a loaded reference layer's persisted combinedColumnConfig once", () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                {
+                    ...referenceLayer(),
+                    isLoaded: true,
+                    combinedColumnConfig: persistedColumnConfig,
+                },
+            ],
+        })
+
+        expect(store.getActions()).toContainEqual({
+            type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
+            config: persistedColumnConfig,
+        })
+    })
+
+    test('does not restore anything when the reference layer has not finished loading yet', () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                {
+                    ...referenceLayer(),
+                    isLoaded: false,
+                    combinedColumnConfig: persistedColumnConfig,
+                },
+            ],
+        })
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({
+                type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
+            })
+        )
+    })
+
+    test('does not restore anything when the reference layer has no persisted combinedColumnConfig', () => {
+        const { store } = renderBottomPanel({
+            mapViews: [
+                ...DEFAULT_MAP_VIEWS,
+                { ...referenceLayer(), isLoaded: true },
+            ],
+        })
+
+        expect(store.getActions()).not.toContainEqual(
+            expect.objectContaining({
+                type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
+            })
         )
     })
 })

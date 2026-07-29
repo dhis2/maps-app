@@ -113,7 +113,7 @@ const OverlayCard = ({
                 }
                 onDuplicate={() => duplicateLayer(id)}
                 onRemove={() => {
-                    removeLayer(id)
+                    removeLayer(id, layer.combinedLayerKey)
                     layerRemovedAlert.show({
                         msg: i18n.t('{{- name}} deleted.', { name }),
                     })
