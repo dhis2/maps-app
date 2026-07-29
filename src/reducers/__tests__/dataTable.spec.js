@@ -7,6 +7,7 @@ const initialState = {
     joinConfig: {
         layers: {},
     },
+    combinedColumnConfig: null,
 }
 
 describe('dataTable reducer', () => {
@@ -33,23 +34,26 @@ describe('dataTable reducer', () => {
         types.DOWNLOAD_MODE_CLOSE,
         types.DOWNLOAD_MODE_OPEN,
     ])(
-        'resets openIds/combinedView but preserves joinConfig on %s - it is savable configuration, not throwaway display state',
+        'resets openIds/combinedView but preserves joinConfig/combinedColumnConfig on %s - both are savable configuration, not throwaway display state',
         (type) => {
             const joinConfig = {
                 layers: {
                     layer1: { type: 'orgUnit', aggregation: {} },
                 },
             }
+            const combinedColumnConfig = { pinnedKeys: ['layer1_value'] }
             const state = {
                 openIds: ['layer1', 'layer2'],
                 combinedView: true,
                 joinConfig,
+                combinedColumnConfig,
             }
 
             expect(dataTable(state, { type })).toEqual({
                 openIds: [],
                 combinedView: false,
                 joinConfig,
+                combinedColumnConfig,
             })
         }
     )
@@ -171,13 +175,13 @@ describe('dataTable reducer', () => {
             expect(state.openIds).toEqual(['layer2'])
         })
 
-        it("prunes the removed layer's own entry from joinConfig.layers", () => {
+        it("prunes the removed layer's own entry from joinConfig.layers, keyed by combinedLayerKey not id", () => {
             const prevState = {
                 ...initialState,
                 joinConfig: {
                     layers: {
-                        layer1: { type: 'orgUnit', aggregation: {} },
-                        layer2: { type: 'spatial', aggregation: {} },
+                        layer1Key: { type: 'orgUnit', aggregation: {} },
+                        layer2Key: { type: 'spatial', aggregation: {} },
                     },
                 },
             }
@@ -185,10 +189,11 @@ describe('dataTable reducer', () => {
             const state = dataTable(prevState, {
                 type: types.LAYER_REMOVE,
                 id: 'layer1',
+                combinedLayerKey: 'layer1Key',
             })
 
             expect(state.joinConfig.layers).toEqual({
-                layer2: { type: 'spatial', aggregation: {} },
+                layer2Key: { type: 'spatial', aggregation: {} },
             })
         })
 
@@ -196,17 +201,20 @@ describe('dataTable reducer', () => {
             const prevState = {
                 ...initialState,
                 joinConfig: {
-                    layers: { layer2: { type: 'orgUnit', aggregation: {} } },
+                    layers: {
+                        layer2Key: { type: 'orgUnit', aggregation: {} },
+                    },
                 },
             }
 
             const state = dataTable(prevState, {
                 type: types.LAYER_REMOVE,
                 id: 'layer1',
+                combinedLayerKey: 'layer1Key',
             })
 
             expect(state.joinConfig.layers).toEqual({
-                layer2: { type: 'orgUnit', aggregation: {} },
+                layer2Key: { type: 'orgUnit', aggregation: {} },
             })
         })
 
@@ -215,13 +223,16 @@ describe('dataTable reducer', () => {
                 openIds: [],
                 combinedView: true,
                 joinConfig: {
-                    layers: { layer1: { type: 'orgUnit', aggregation: {} } },
+                    layers: {
+                        layer1Key: { type: 'orgUnit', aggregation: {} },
+                    },
                 },
             }
 
             const state = dataTable(prevState, {
                 type: types.LAYER_REMOVE,
                 id: 'layer1',
+                combinedLayerKey: 'layer1Key',
             })
 
             expect(state.combinedView).toBe(true)
@@ -265,6 +276,19 @@ describe('dataTable reducer', () => {
             })
 
             expect(state.joinConfig).toEqual(config)
+        })
+    })
+
+    describe('DATA_TABLE_COMBINED_COLUMN_CONFIG_SET', () => {
+        it('replaces combinedColumnConfig wholesale', () => {
+            const config = { pinnedKeys: ['layer1Key_value'] }
+
+            const state = dataTable(initialState, {
+                type: types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET,
+                config,
+            })
+
+            expect(state.combinedColumnConfig).toEqual(config)
         })
     })
 

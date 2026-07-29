@@ -30,6 +30,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'ou1',
@@ -79,6 +80,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'ou1',
@@ -110,6 +112,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evt1',
@@ -148,6 +151,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'country1',
@@ -174,6 +178,7 @@ describe('useCombinedTableData - org unit join', () => {
         const agreeingLayer = {
             id: 'layerA',
             name: 'Layer A',
+            combinedLayerKey: 'layerA',
             data: [
                 feature({
                     id: 'evt1',
@@ -190,6 +195,7 @@ describe('useCombinedTableData - org unit join', () => {
         const disagreeingLayer = {
             id: 'layerB',
             name: 'Layer B',
+            combinedLayerKey: 'layerB',
             data: [
                 feature({
                     id: 'evt3',
@@ -234,6 +240,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [],
                 dataWithoutCoords: [
                     feature({
@@ -263,6 +270,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'extra',
@@ -292,6 +300,7 @@ describe('useCombinedTableData - org unit join', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evt1',
@@ -354,6 +363,7 @@ describe('useCombinedTableData - spatial join', () => {
             {
                 id: 'points',
                 name: 'Points',
+                combinedLayerKey: 'points',
                 layer: 'event',
                 data: [
                     {
@@ -396,6 +406,7 @@ describe('useCombinedTableData - spatial join', () => {
             {
                 id: 'events',
                 name: 'Events',
+                combinedLayerKey: 'events',
                 layer: EVENT_LAYER,
                 data: [
                     {
@@ -442,6 +453,7 @@ describe('useCombinedTableData - spatial join', () => {
             {
                 id: 'zones',
                 name: 'Zones',
+                combinedLayerKey: 'zones',
                 layer: 'geoJsonUrl',
                 data: [
                     {
@@ -488,6 +500,7 @@ describe('useCombinedTableData - spatial join', () => {
             {
                 id: 'points',
                 name: 'Points',
+                combinedLayerKey: 'points',
                 layer: 'event',
                 data: [
                     {
@@ -531,6 +544,7 @@ describe('useCombinedTableData - spatial join', () => {
             {
                 id: 'points',
                 name: 'Points',
+                combinedLayerKey: 'points',
                 layer: 'event',
                 data: Array.from({ length: 10001 }, (_, i) => ({
                     type: 'Feature',
@@ -560,6 +574,7 @@ describe('useCombinedTableData - sorting and filtering', () => {
         {
             id: 'layerA',
             name: 'Layer A',
+            combinedLayerKey: 'layerA',
             data: [
                 feature({
                     id: 'ou1',
@@ -700,6 +715,7 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 layer: EARTH_ENGINE_LAYER,
                 aggregationType: ['mean', 'max'],
                 legend: { title: 'NDVI' },
@@ -747,6 +763,7 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 layer: EARTH_ENGINE_LAYER,
                 aggregationType: 'percentage',
                 legend: {

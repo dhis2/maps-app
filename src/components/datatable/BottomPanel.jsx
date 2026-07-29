@@ -17,6 +17,7 @@ import {
     toggleDataTable,
     toggleCombinedView,
     setJoinConfig,
+    setCombinedColumnConfig,
     setDataTableColumnConfig,
 } from '../../actions/dataTable.js'
 import { COMBINED_HEADERS_KEY } from '../../constants/dataTable.js'
@@ -54,9 +55,8 @@ const EMPTY_JOIN_LAYERS = {}
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const { openIds, combinedView, joinConfig } = useSelector(
-        (state) => state.dataTable
-    )
+    const { openIds, combinedView, joinConfig, combinedColumnConfig } =
+        useSelector((state) => state.dataTable)
     const mapViews = useSelector((state) => state.map.mapViews)
     // Only tracks a user's explicit tab click - falls back to the most
     // recently opened tab whenever it doesn't (yet) name an open layer, so
@@ -76,7 +76,7 @@ const BottomPanel = () => {
 
     const joinLayersConfig = joinConfig.layers ?? EMPTY_JOIN_LAYERS
     const combinedLayers = useMemo(
-        () => mapViews.filter((l) => joinLayersConfig[l.id]),
+        () => mapViews.filter((l) => joinLayersConfig[l.combinedLayerKey]),
         [mapViews, joinLayersConfig]
     )
 
@@ -100,10 +100,6 @@ const BottomPanel = () => {
     const [globalSearch, setGlobalSearch] = useState('')
     const [headersByLayer, setHeadersByLayer] = useState(null)
     const [combinedFilters, setCombinedFilters] = useState(EMPTY_FILTERS)
-    // Session-only, never persisted or dispatched to Redux - matches
-    // combinedFilters/joinConfig's existing ephemeral scope for the
-    // Combined view.
-    const [combinedColumnConfig, setCombinedColumnConfig] = useState(null)
 
     const hasActiveFilters = combinedView
         ? Object.keys(combinedFilters).length > 0 ||
@@ -271,6 +267,19 @@ const BottomPanel = () => {
         dispatch(setJoinConfig({ layers: referenceLayer.combinedJoinConfig }))
     }, [referenceLayer, dispatch])
 
+    const hasHydratedColumnConfigRef = useRef(false)
+    useEffect(() => {
+        if (
+            hasHydratedColumnConfigRef.current ||
+            !referenceLayer?.isLoaded ||
+            !referenceLayer.combinedColumnConfig
+        ) {
+            return
+        }
+        hasHydratedColumnConfigRef.current = true
+        dispatch(setCombinedColumnConfig(referenceLayer.combinedColumnConfig))
+    }, [referenceLayer, dispatch])
+
     useKeyDown('Escape', onCloseDataTable, true)
 
     return (
@@ -320,7 +329,9 @@ const BottomPanel = () => {
                         <ColumnPickerControl
                             allHeaders={allHeaders}
                             columnConfig={combinedColumnConfig}
-                            onChange={setCombinedColumnConfig}
+                            onChange={(config) =>
+                                dispatch(setCombinedColumnConfig(config))
+                            }
                         />
                         <JoinLayersControl
                             eligibleLayers={eligibleLayers}

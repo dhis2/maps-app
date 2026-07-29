@@ -11,22 +11,28 @@ const initialState = {
     joinConfig: {
         layers: {},
     },
+    combinedColumnConfig: null,
 }
 
 const dataTable = (state = initialState, action) => {
     switch (action.type) {
         // Closes the whole panel (or leaves the data table view while
         // entering/exiting download mode) - resets which tab(s) are open
-        // and whether Combined is the active view, but preserves joinConfig
-        // itself. joinConfig is real, savable configuration now (see
-        // favorites.js/FileMenu.jsx), not just session-only display state -
-        // wiping it here would silently discard it the moment a user closes
-        // the panel before saving, an extremely common, low-stakes action
-        // that has nothing to do with abandoning their join setup.
+        // and whether Combined is the active view, but preserves joinConfig/
+        // combinedColumnConfig themselves. Both are real, savable
+        // configuration now (see favorites.js/FileMenu.jsx), not just
+        // session-only display state - wiping them here would silently
+        // discard them the moment a user closes the panel before saving, an
+        // extremely common, low-stakes action that has nothing to do with
+        // abandoning their join/column setup.
         case types.DATA_TABLE_CLOSE:
         case types.DOWNLOAD_MODE_CLOSE:
         case types.DOWNLOAD_MODE_OPEN:
-            return { ...initialState, joinConfig: state.joinConfig }
+            return {
+                ...initialState,
+                joinConfig: state.joinConfig,
+                combinedColumnConfig: state.combinedColumnConfig,
+            }
 
         case types.MAP_NEW:
             return initialState
@@ -56,8 +62,12 @@ const dataTable = (state = initialState, action) => {
             // that case has no way to be triggered today. A future
             // "reset reference" action would need to turn combinedView off
             // itself when it removes the reference layer.
+            //
+            // Pruned by combinedLayerKey, not the volatile mapView id - see
+            // util/favorites.js/reducers/map.js for why joinConfig.layers is
+            // keyed that way.
             const layers = { ...state.joinConfig.layers }
-            delete layers[action.id]
+            delete layers[action.combinedLayerKey]
             return {
                 ...state,
                 openIds: state.openIds.filter((id) => id !== action.id),
@@ -70,6 +80,9 @@ const dataTable = (state = initialState, action) => {
 
         case types.DATA_TABLE_JOIN_CONFIG_SET:
             return { ...state, joinConfig: action.config }
+
+        case types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET:
+            return { ...state, combinedColumnConfig: action.config }
 
         default:
             return state

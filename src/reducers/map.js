@@ -94,6 +94,8 @@ const layer = (state, action) => {
                     state.dataTableColumnConfig ??
                     action.payload.dataTableColumnConfig,
                 dataFilters: state.dataFilters ?? action.payload.dataFilters,
+                combinedLayerKey:
+                    state.combinedLayerKey ?? action.payload.combinedLayerKey,
             }
 
         case types.LAYER_CHANGE_OPACITY:
@@ -279,6 +281,8 @@ const map = (state = defaultState, action) => {
                         ...action.payload,
                         id: generateUid(),
                         isVisible: action.payload.isVisible ?? true,
+                        combinedLayerKey:
+                            action.payload.combinedLayerKey ?? generateUid(),
                     },
                 ],
             }
@@ -301,6 +305,7 @@ const map = (state = defaultState, action) => {
             const duplicate = {
                 ...state.mapViews[sourceIndex],
                 id: generateUid(),
+                combinedLayerKey: generateUid(),
             }
             delete duplicate.isLoading
             delete duplicate.coordinate

@@ -64,16 +64,21 @@ const getSaveFailureMessage = (message) =>
         nsSeparator: ';',
     })
 
-// state.dataTable.joinConfig.layers lives in its own Redux slice, not on the
-// combinedTableRef mapView itself, so (unlike dataTableColumnConfig, which
-// is already stamped directly onto its layer as it's edited) it needs an
-// explicit copy onto that layer right before cleanMapConfig runs, or it
-// would never reach favorites.js's packing logic at all.
-const stampCombinedJoinConfig = (map, joinConfig) => ({
+// state.dataTable.joinConfig.layers/combinedColumnConfig live in their own
+// Redux slice, not on the combinedTableRef mapView itself, so (unlike
+// dataTableColumnConfig, which is already stamped directly onto its layer as
+// it's edited) they need an explicit copy onto that layer right before
+// cleanMapConfig runs, or they'd never reach favorites.js's packing logic at
+// all.
+const stampCombinedConfig = (map, joinConfig, combinedColumnConfig) => ({
     ...map,
     mapViews: map.mapViews.map((view) =>
         view.layer === COMBINED_TABLE_REF_LAYER
-            ? { ...view, combinedJoinConfig: joinConfig.layers }
+            ? {
+                  ...view,
+                  combinedJoinConfig: joinConfig.layers,
+                  combinedColumnConfig,
+              }
             : view
     ),
 })
@@ -81,6 +86,9 @@ const stampCombinedJoinConfig = (map, joinConfig) => ({
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
     const joinConfig = useSelector((state) => state.dataTable.joinConfig)
+    const combinedColumnConfig = useSelector(
+        (state) => state.dataTable.combinedColumnConfig
+    )
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { serverVersion } = useConfig()
@@ -134,7 +142,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
         const cleanedMap = cleanMapConfig({
-            config: stampCombinedJoinConfig(map, joinConfig),
+            config: stampCombinedConfig(map, joinConfig, combinedColumnConfig),
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })
@@ -206,7 +214,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onSaveAs = async ({ name, description }) => {
         const cleanedMap = cleanMapConfig({
-            config: stampCombinedJoinConfig(map, joinConfig),
+            config: stampCombinedConfig(map, joinConfig, combinedColumnConfig),
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })

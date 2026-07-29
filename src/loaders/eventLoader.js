@@ -41,7 +41,7 @@ import {
 import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
-import { isValidUid } from '../util/uid.js'
+import { generateUid, isValidUid } from '../util/uid.js'
 
 // OU dimension value is always an ID; property key depends on outputIdScheme
 const getEventOuId = (feature) =>
@@ -185,6 +185,7 @@ const loadEventLayer = async ({
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
         dataTableColumnConfig,
+        combinedLayerKey,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -223,6 +224,7 @@ const loadEventLayer = async ({
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+    config.combinedLayerKey = combinedLayerKey ?? generateUid()
     if (config.noDataColor) {
         config.noDataLegend = {
             ...noDataLegendFromConfig,

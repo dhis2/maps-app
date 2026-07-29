@@ -61,6 +61,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         orgUnitPath: '/country1/ou1',
@@ -102,6 +103,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         orgUnitPath: '/country1/ou1',
@@ -136,6 +138,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ orgUnitPath: '/country1/ou1' })],
             },
         ]
@@ -192,6 +195,7 @@ describe('CombinedDataTable', () => {
         const pointLayer = {
             id: 'points',
             name: 'Points',
+            combinedLayerKey: 'points',
             data: Array.from({ length: 10001 }, (_, i) => ({
                 type: 'Feature',
                 properties: { id: `p${i}` },
@@ -247,6 +251,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({ orgUnitPath: '/country1/ou1', rawValue: 20 }),
                     feature({ orgUnitPath: '/country1/ou2', rawValue: 10 }),
@@ -314,6 +319,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evtA1',
@@ -325,6 +331,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerB',
                 name: 'Layer B',
+                combinedLayerKey: 'layerB',
                 data: [
                     feature({
                         id: 'evtB1',
@@ -388,6 +395,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evt1',
@@ -435,6 +443,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
             },
         ]
@@ -468,6 +477,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
             },
         ]
@@ -504,6 +514,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 1 })],
             },
         ]
@@ -539,6 +550,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 20 })],
             },
         ]
@@ -571,6 +583,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [feature({ orgUnitPath: '/country1/ou1', rawValue: 20 })],
             },
         ]
@@ -595,7 +608,7 @@ describe('CombinedDataTable', () => {
             .filter(Boolean)
         // headerNames[0] is the selection column's own filter button label
         // ("All"/"N selected") - the first real data column follows it.
-        expect(headerNames[1]).toBe('Level')
+        expect(headerNames[1]).toBe('Org unit level')
     })
 
     test('dispatches setSelectionFilter when a selection-filter option is toggled', () => {
@@ -659,6 +672,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evtA1',
@@ -708,6 +722,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evtA1',
@@ -757,6 +772,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evtA1',
@@ -812,6 +828,7 @@ describe('CombinedDataTable', () => {
             {
                 id: 'layerA',
                 name: 'Layer A',
+                combinedLayerKey: 'layerA',
                 data: [
                     feature({
                         id: 'evtA1',
@@ -905,6 +922,7 @@ describe('CombinedDataTable', () => {
         const layerA = {
             id: 'layerA',
             name: 'Layer A',
+            combinedLayerKey: 'layerA',
             data: [
                 feature({
                     id: 'evtA1',

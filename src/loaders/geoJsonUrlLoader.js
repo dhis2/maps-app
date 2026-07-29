@@ -7,6 +7,7 @@ import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
 } from '../util/geojson.js'
+import { generateUid } from '../util/uid.js'
 
 // Stamps each feature with its geometry type's legend color, unless the feature already has its own
 // (maps-gl's colorExpr prefers a per-feature color, so the data table must match).
@@ -73,6 +74,7 @@ const geoJsonUrlLoader = async ({
     let newConfig
     let featureStyle
     let dataTableColumnConfig
+    let combinedLayerKey
     const alerts = []
     // keep featureStyle and dataTableColumnConfig properties outside of config while in app
     if (typeof config === 'string') {
@@ -87,13 +89,17 @@ const geoJsonUrlLoader = async ({
         }
         featureStyle = { ...newConfig.featureStyle } || EMPTY_FEATURE_STYLE
         dataTableColumnConfig = newConfig.dataTableColumnConfig
+        combinedLayerKey = newConfig.combinedLayerKey
         delete newConfig.featureStyle
         delete newConfig.dataTableColumnConfig
+        delete newConfig.combinedLayerKey
     } else {
         newConfig = { ...config }
         featureStyle = layer.featureStyle || EMPTY_FEATURE_STYLE
         dataTableColumnConfig = layer.dataTableColumnConfig
+        combinedLayerKey = layer.combinedLayerKey
     }
+    combinedLayerKey = combinedLayerKey ?? generateUid()
 
     let geoJson
     let loadError
@@ -158,6 +164,7 @@ const geoJsonUrlLoader = async ({
         config: newConfig,
         featureStyle,
         dataTableColumnConfig,
+        combinedLayerKey,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,

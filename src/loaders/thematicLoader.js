@@ -54,6 +54,7 @@ import {
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
+import { generateUid } from '../util/uid.js'
 
 const thematicLoader = async ({
     config,
@@ -87,6 +88,7 @@ const thematicLoader = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         dataTableColumnConfig,
+        combinedLayerKey,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -106,6 +108,7 @@ const thematicLoader = async ({
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+    config.combinedLayerKey = combinedLayerKey ?? generateUid()
     if (config.noDataColor) {
         config.noDataLegend = {
             ...noDataLegendFromConfig,

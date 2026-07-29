@@ -193,10 +193,13 @@ describe('applyParsedConfig', () => {
         expect(config.config).toBeUndefined()
     })
 
-    it('does nothing when config.config is absent', () => {
+    it('mints a combinedLayerKey but otherwise does nothing when config.config is absent', () => {
         const config = { layer: 'trackedEntity' }
         applyParsedConfig(config)
-        expect(config).toEqual({ layer: 'trackedEntity' })
+        expect(config).toEqual({
+            layer: 'trackedEntity',
+            combinedLayerKey: expect.any(String),
+        })
     })
 
     it('does not throw and leaves config intact on malformed JSON', () => {
