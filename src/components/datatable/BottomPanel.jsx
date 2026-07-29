@@ -106,7 +106,10 @@ const BottomPanel = () => {
     const [combinedColumnConfig, setCombinedColumnConfig] = useState(null)
 
     const hasActiveFilters = combinedView
-        ? Object.keys(combinedFilters).length > 0 || !!globalSearch.trim()
+        ? Object.keys(combinedFilters).length > 0 ||
+          !!globalSearch.trim() ||
+          showOnlyFeaturesInView ||
+          !!selectionFilter?.length
         : hasActiveDataTableFilters({
               dataFilters,
               globalSearch,
@@ -130,7 +133,7 @@ const BottomPanel = () => {
 
     const onControlsDoubleClick = useCallback(
         (e) => {
-            if (e.target.closest('button, input, label')) {
+            if (e.target.closest('button, input, label, select')) {
                 return
             }
             toggleCollapsed()
@@ -185,9 +188,9 @@ const BottomPanel = () => {
         setHeadersByLayer({ layerId, headers })
     }, [])
 
+    const activeHeadersKey = combinedView ? COMBINED_HEADERS_KEY : activeLayerId
     const allHeaders =
-        headersByLayer?.layerId ===
-        (combinedView ? COMBINED_HEADERS_KEY : activeLayerId)
+        headersByLayer?.layerId === activeHeadersKey
             ? headersByLayer.headers
             : null
 
@@ -196,13 +199,21 @@ const BottomPanel = () => {
             setCombinedFilters(EMPTY_FILTERS)
         } else {
             dispatch(clearDataFilters(activeLayerId))
+        }
+        if (showOnlyFeaturesInView) {
+            dispatch(toggleShowOnlyFeaturesInView())
+        }
+        if (selectionFilter?.length) {
             dispatch(setSelectionFilter([]))
-            if (showOnlyFeaturesInView) {
-                dispatch(toggleShowOnlyFeaturesInView())
-            }
         }
         setGlobalSearch('')
-    }, [dispatch, activeLayerId, showOnlyFeaturesInView, combinedView])
+    }, [
+        dispatch,
+        activeLayerId,
+        showOnlyFeaturesInView,
+        selectionFilter,
+        combinedView,
+    ])
 
     const onToggleShowOnlyFeaturesInView = useCallback(() => {
         dispatch(toggleShowOnlyFeaturesInView())
@@ -247,11 +258,6 @@ const BottomPanel = () => {
         return () => observer.disconnect()
     }, [])
 
-    // Restores a saved map's per-layer join type/aggregation choices once,
-    // the moment the reference layer finishes loading and its persisted
-    // combinedJoinConfig comes in (see favorites.js/orgUnitLoader.js) - the
-    // ref guard means it never re-fires and clobbers a live in-session edit
-    // (e.g. after the reference layer is later re-edited/reloaded).
     const hasHydratedJoinConfigRef = useRef(false)
     useEffect(() => {
         if (
@@ -300,19 +306,22 @@ const BottomPanel = () => {
                             dispatch(toggleCombinedView())
                         }
                         if (!combinedEnabled) {
-                            // No reference configured yet (or it has no org
-                            // units selected) - there'd be nothing to show,
-                            // so open its editor right away instead of
-                            // landing on an empty table with no obvious way
-                            // to fix it.
                             openReferenceLayerEditor()
                         }
                     }}
                 />
                 <span className={styles.divider} />
+                <HighlightColorControl
+                    color={highlightColor}
+                    onChange={onHighlightColorChange}
+                />
                 {combinedView ? (
                     <>
-                        <ReferenceOrgUnitControl />
+                        <ColumnPickerControl
+                            allHeaders={allHeaders}
+                            columnConfig={combinedColumnConfig}
+                            onChange={setCombinedColumnConfig}
+                        />
                         <JoinLayersControl
                             eligibleLayers={eligibleLayers}
                             layersConfig={joinLayersConfig}
@@ -320,19 +329,11 @@ const BottomPanel = () => {
                                 dispatch(setJoinConfig({ layers }))
                             }
                         />
-                        <ColumnPickerControl
-                            allHeaders={allHeaders}
-                            columnConfig={combinedColumnConfig}
-                            onChange={setCombinedColumnConfig}
-                        />
+                        <ReferenceOrgUnitControl />
                         <span className={styles.divider} />
                     </>
                 ) : (
                     <>
-                        <HighlightColorControl
-                            color={highlightColor}
-                            onChange={onHighlightColorChange}
-                        />
                         <ColumnPickerControl
                             allHeaders={allHeaders}
                             columnConfig={activeLayer?.dataTableColumnConfig}
@@ -369,12 +370,10 @@ const BottomPanel = () => {
                     value={globalSearch}
                     onChange={setGlobalSearch}
                 />
-                {!combinedView && (
-                    <ShowInViewControl
-                        active={showOnlyFeaturesInView}
-                        onClick={onToggleShowOnlyFeaturesInView}
-                    />
-                )}
+                <ShowInViewControl
+                    active={showOnlyFeaturesInView}
+                    onClick={onToggleShowOnlyFeaturesInView}
+                />
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>

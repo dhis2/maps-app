@@ -57,6 +57,8 @@ describe('useCombinedTableData - org unit join', () => {
             'layerA_rawValue',
             'layerA_legend',
         ])
+        expect(result.current.headers[0].name).toBe('Org unit Id')
+        expect(result.current.headers[1].name).toBe('Org unit')
         expect(result.current.rows).toHaveLength(2)
 
         const row1 = result.current.rows.find(
@@ -790,5 +792,61 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
         )
         expect(findCell(row1, 'layerA_1').value).toBe(45.2)
         expect(findCell(row1, 'layerA_2').value).toBe(12.1)
+    })
+})
+
+describe('useCombinedTableData - show only features in view', () => {
+    const referenceFeature = ({ id, name, path, coordinates }) => ({
+        type: 'Feature',
+        properties: { id, name, orgUnitPath: path, level: 2 },
+        geometry: { type: 'Point', coordinates },
+    })
+
+    const referenceLayerWithGeometry = {
+        id: 'ref1',
+        data: [
+            referenceFeature({
+                id: 'ou1',
+                name: 'Ou One',
+                path: '/country1/ou1',
+                coordinates: [1, 1],
+            }),
+            referenceFeature({
+                id: 'ou2',
+                name: 'Ou Two',
+                path: '/country1/ou2',
+                coordinates: [10, 10],
+            }),
+        ],
+    }
+
+    test('includes every reference org unit when showOnlyFeaturesInView is false, regardless of mapBounds', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [],
+                referenceLayer: referenceLayerWithGeometry,
+                joinConfig: { layers: {} },
+                showOnlyFeaturesInView: false,
+                mapBounds: [0, 0, 2, 2],
+            })
+        )
+
+        expect(result.current.rows).toHaveLength(2)
+    })
+
+    test('only includes reference org units within mapBounds when showOnlyFeaturesInView is true', () => {
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [],
+                referenceLayer: referenceLayerWithGeometry,
+                joinConfig: { layers: {} },
+                showOnlyFeaturesInView: true,
+                mapBounds: [0, 0, 2, 2],
+            })
+        )
+
+        expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
+            ['ou1']
+        )
     })
 })

@@ -8,6 +8,8 @@ import ToolbarIconButton from './ToolbarIconButton.jsx'
 const ClearFiltersControl = ({ disabled, onClick }) => (
     <ToolbarIconButton
         tooltip={i18n.t('Clear filters')}
+        ariaLabel={i18n.t('Clear filters')}
+        dataTest="data-table-clear-filters-button"
         onClick={onClick}
         disabled={disabled}
     >

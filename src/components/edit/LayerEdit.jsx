@@ -100,15 +100,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
 
     const isReferenceLayer = type === COMBINED_TABLE_REF_LAYER
 
-    // The reference org unit layer isn't really "a layer" from the user's
-    // perspective (it's never visible/rendered) - a single, state-agnostic
-    // title reads better than the generic Edit/Add wording every other
-    // layer type gets.
-    const title = isReferenceLayer
-        ? i18n.t('Configure reference org units')
-        : layer.id
+    // The reference org unit layer isn't really "a layer" from the user's perspective
+    const editOrAddTitle = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
         : i18n.t('Add new {{name}} layer', { name })
+    const title = isReferenceLayer
+        ? i18n.t('Configure reference org units')
+        : editOrAddTitle
 
     return (
         <Modal position="top" dataTest="layeredit" fluid onClose={cancelLayer}>

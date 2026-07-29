@@ -25,6 +25,7 @@ class Layer extends PureComponent {
     static propTypes = {
         id: PropTypes.string.isRequired,
         clickFeature: PropTypes.func,
+        combinedVisibleIds: PropTypes.object,
         config: PropTypes.object,
         data: PropTypes.array,
         dataFilters: PropTypes.object,
@@ -155,14 +156,19 @@ class Layer extends PureComponent {
     }
 
     handleVisibleIdsChange(prevProps) {
-        const { selection, selectionFilter } = this.props
+        const { selection, selectionFilter, combinedVisibleIds } = this.props
         if (
             !idsEqual(
                 this.getVisibleIds(
                     prevProps.selection,
-                    prevProps.selectionFilter
+                    prevProps.selectionFilter,
+                    prevProps.combinedVisibleIds
                 ) ?? [],
-                this.getVisibleIds(selection, selectionFilter) ?? []
+                this.getVisibleIds(
+                    selection,
+                    selectionFilter,
+                    combinedVisibleIds
+                ) ?? []
             )
         ) {
             this.updateVisibleIds()
@@ -300,10 +306,8 @@ class Layer extends PureComponent {
         this.layer?.select?.(this.getSelectedIds(), this.props.highlightColor)
     }
 
-    getVisibleIds(
-        selection = this.props.selection,
-        selectionFilter = this.props.selectionFilter
-    ) {
+    // null means "no restriction from this source, show everything".
+    getSelectionFilterIds(selection, selectionFilter) {
         const isReferenced =
             selection?.layerId === this.props.id ||
             !!selection?.crossLayerIds?.[this.props.id]?.length
@@ -335,6 +339,25 @@ class Layer extends PureComponent {
             .filter((id) => id != null && !selectedIdSet.has(id))
     }
 
+    getVisibleIds(
+        selection = this.props.selection,
+        selectionFilter = this.props.selectionFilter,
+        combinedVisibleIds = this.props.combinedVisibleIds
+    ) {
+        const selectionIds = this.getSelectionFilterIds(
+            selection,
+            selectionFilter
+        )
+        const combinedIds = combinedVisibleIds?.[this.props.id] ?? null
+
+        if (selectionIds && combinedIds) {
+            const combinedIdSet = new Set(combinedIds)
+            return selectionIds.filter((id) => combinedIdSet.has(id))
+        }
+
+        return selectionIds ?? combinedIds
+    }
+
     updateVisibleIds() {
         this.layer?.setVisibleIds?.(this.getVisibleIds())
     }
@@ -346,9 +369,10 @@ class Layer extends PureComponent {
             return
         }
 
-        this.props.clickFeature?.({ id, layerId: this.props.id })
+        const multiSelect = this.isMultiSelectClick(evt)
+        this.props.clickFeature?.({ id, layerId: this.props.id, multiSelect })
 
-        if (this.isMultiSelectClick(evt)) {
+        if (multiSelect) {
             this.props.toggleFeatureSelection?.(id, this.props.id)
         }
     }

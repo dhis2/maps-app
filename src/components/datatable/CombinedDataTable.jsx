@@ -5,6 +5,10 @@ import PropTypes from 'prop-types'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
+import {
+    setCombinedVisibleIds,
+    setSelectionFilter,
+} from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import { setCrossLayerSelection } from '../../actions/selection.js'
 import {
@@ -14,6 +18,7 @@ import {
 import {
     isFilterable,
     getRowId,
+    getUnionBounds,
     mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
@@ -31,6 +36,7 @@ import {
     SelectionCheckboxHeaderCell,
     SelectionCheckboxCell,
 } from './SelectionCheckboxColumn.jsx'
+import SelectionFilterButton from './SelectionFilterButton.jsx'
 import SortableColumnHeader from './SortableColumnHeader.jsx'
 import styles from './styles/CombinedDataTable.module.css'
 import dataTableStyles from './styles/DataTable.module.css'
@@ -44,7 +50,6 @@ import { useSortState } from './useSortState.js'
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const LARGE_FEATURE_THRESHOLD_LABEL = '10,000'
 const EMPTY_FILTERS = {}
-const NOOP = () => {}
 
 const EmptyPlaceholder = () => (
     <tbody>
@@ -58,10 +63,6 @@ const EmptyPlaceholder = () => (
     </tbody>
 )
 
-// Reuse the same generic TableVirtuoso row/table wiring DataTable.jsx uses
-// (context-driven mouse/click callbacks) - only the empty-state message
-// differs, since Combined doesn't have DataTable's server-cluster/
-// clear-filters messaging needs yet.
 const CombinedTableComponents = {
     ...TableComponents,
     EmptyPlaceholder,
@@ -83,12 +84,21 @@ const CombinedDataTable = ({
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
-    // Earth Engine layers compute their value(s) client-side into this
-    // slice rather than attaching them to the feature itself - see
-    // useCombinedTableData.js's own mergeAggregations.
     const aggregations = useSelector((state) => state.aggregations)
+    const showOnlyFeaturesInView = useSelector(
+        (state) => state.ui.showOnlyFeaturesInView
+    )
+    const mapBounds = useSelector((state) => state.ui.mapBounds)
+    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
+    const currentFeature = useSelector((state) => state.feature)
+    const lastClickedFeature = useSelector(
+        (state) => state.ui.lastClickedFeature
+    )
 
     const { sortField, sortDirection, sortData } = useSortState('name')
+
+    const [selectedIds, setSelectedIds] = useState([])
+    const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
     const { headers, rows, rowFeatureIds, columnOptions, spatialWarning } =
         useCombinedTableData({
@@ -100,11 +110,34 @@ const CombinedDataTable = ({
             filters,
             globalSearch,
             aggregations,
+            showOnlyFeaturesInView,
+            mapBounds,
+            selectionFilter,
+            selectedIdSet,
         })
 
     useEffect(() => {
         onHeadersChange?.(headers, COMBINED_HEADERS_KEY)
     }, [onHeadersChange, headers])
+
+    const rowIdByLayerFeature = useMemo(() => {
+        const index = new Map()
+        rowFeatureIds.forEach((entry, rowId) => {
+            Object.entries(entry).forEach(([layerId, ids]) => {
+                ids.forEach((id) => index.set(`${layerId}:${id}`, rowId))
+            })
+        })
+        return index
+    }, [rowFeatureIds])
+
+    const mapHoveredRowId =
+        currentFeature?.origin === 'map' &&
+        currentFeature?.id != null &&
+        currentFeature?.layerId != null
+            ? rowIdByLayerFeature.get(
+                  `${currentFeature.layerId}:${currentFeature.id}`
+              ) ?? null
+            : null
 
     const pinnedKeys = useMemo(
         () => columnConfig?.pinnedKeys ?? [],
@@ -147,21 +180,8 @@ const CombinedDataTable = ({
         onCountChange?.(rows.length, rows.length)
     }, [onCountChange, rows.length])
 
-    // Combined rows don't belong to any single layer, so selection/hover
-    // here can't reuse state.selection/state.feature's single-layerId shape
-    // directly - it dispatches the same actions but with crossLayerIds (a
-    // per-layer id map merged from every affected row), and layerId: null so
-    // Layer.js's own-layer check never matches. The in-table
-    // selected/hovered highlighting stays local state; only the map-facing
-    // dispatch goes through Redux.
-    const [selectedIds, setSelectedIds] = useState([])
-    const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
     const [hoveredRowId, setHoveredRowId] = useState(null)
 
-    // Only clear state.selection on unmount if this table ever actually set
-    // a cross-layer selection - otherwise merely opening and closing the
-    // Combined tab without selecting anything would wipe out an unrelated,
-    // pre-existing single-layer selection made in another tab.
     const hasAppliedSelectionRef = useRef(false)
 
     useEffect(
@@ -205,6 +225,39 @@ const CombinedDataTable = ({
         onSelectRange: onSelectRowRange,
     })
 
+    const virtuosoRef = useRef(null)
+    const rowsRef = useRef(rows)
+    rowsRef.current = rows
+    const rowIdByLayerFeatureRef = useRef(rowIdByLayerFeature)
+    rowIdByLayerFeatureRef.current = rowIdByLayerFeature
+    const onToggleRowRef = useRef(onToggleRow)
+    onToggleRowRef.current = onToggleRow
+
+    useEffect(() => {
+        if (!lastClickedFeature) {
+            return
+        }
+        const rowId = rowIdByLayerFeatureRef.current.get(
+            `${lastClickedFeature.layerId}:${lastClickedFeature.id}`
+        )
+        if (!rowId) {
+            return
+        }
+        if (lastClickedFeature.multiSelect) {
+            onToggleRowRef.current(rowId)
+        }
+        const rowIndex = rowsRef.current.findIndex(
+            (row) => getRowId(row) === rowId
+        )
+        if (rowIndex !== -1) {
+            virtuosoRef.current?.scrollToIndex({
+                index: rowIndex,
+                align: 'center',
+                behavior: 'smooth',
+            })
+        }
+    }, [lastClickedFeature])
+
     const setFeatureHighlight = useCallback(
         (row) => {
             const id = getRowId(row)
@@ -235,6 +288,61 @@ const CombinedDataTable = ({
         [dispatch]
     )
 
+    const onRowDoubleClick = useCallback(
+        (row) => {
+            const id = getRowId(row)
+            if (!id) {
+                return
+            }
+            const entry = rowFeatureIds.get(id) ?? {}
+            dispatch(
+                highlightFeature({
+                    layerId: null,
+                    origin: 'table',
+                    zoom: true,
+                    bounds: getUnionBounds([referenceLayer, ...layers], entry),
+                    crossLayerIds: entry,
+                })
+            )
+        },
+        [dispatch, rowFeatureIds, referenceLayer, layers]
+    )
+
+    const hasColumnOrSearchFilters =
+        Object.keys(filters ?? EMPTY_FILTERS).length > 0 ||
+        !!globalSearch?.trim()
+
+    const combinedVisibleIdsByLayer = useMemo(() => {
+        if (!hasColumnOrSearchFilters) {
+            return null
+        }
+        const idsByLayer = Object.fromEntries(
+            [referenceLayer, ...layers].map((layer) => [layer.id, []])
+        )
+        rows.forEach((row) => {
+            const rowId = getRowId(row)
+            const entry = rowId ? rowFeatureIds.get(rowId) : null
+            if (!entry) {
+                return
+            }
+            Object.entries(entry).forEach(([layerId, ids]) => {
+                idsByLayer[layerId]?.push(...ids)
+            })
+        })
+        return idsByLayer
+    }, [hasColumnOrSearchFilters, rows, rowFeatureIds, referenceLayer, layers])
+
+    useEffect(() => {
+        dispatch(setCombinedVisibleIds(combinedVisibleIdsByLayer))
+    }, [dispatch, combinedVisibleIdsByLayer])
+
+    useEffect(
+        () => () => {
+            dispatch(setCombinedVisibleIds(null))
+        },
+        [dispatch]
+    )
+
     const allRowIds = useMemo(() => rows.map(getRowId).filter(Boolean), [rows])
 
     const { isAllSelected, onToggleSelectAll, onReverseSelection } =
@@ -247,7 +355,8 @@ const CombinedDataTable = ({
 
     const hasActiveFilters =
         Object.keys(filters ?? EMPTY_FILTERS).length > 0 ||
-        !!globalSearch?.trim()
+        !!globalSearch?.trim() ||
+        !!selectionFilter?.length
 
     const [tableContextMenu, setTableContextMenu] = useState(null)
 
@@ -266,7 +375,7 @@ const CombinedDataTable = ({
             onMouseLeave: clearFeatureHighlight,
             onRowClick,
             onContextMenu: onRowContextMenu,
-            onRowDoubleClick: NOOP,
+            onRowDoubleClick,
             layout: 'auto',
         }),
         [
@@ -274,6 +383,7 @@ const CombinedDataTable = ({
             clearFeatureHighlight,
             onRowClick,
             onRowContextMenu,
+            onRowDoubleClick,
         ]
     )
 
@@ -306,6 +416,16 @@ const CombinedDataTable = ({
                     onToggleSelectAll={onToggleSelectAll}
                     onReverseSelection={onReverseSelection}
                     disabled={allRowIds.length === 0}
+                    onFilterIconClick={Function.prototype}
+                    showFilter={true}
+                    filter={
+                        <SelectionFilterButton
+                            value={selectionFilter ?? []}
+                            onChange={(next) =>
+                                dispatch(setSelectionFilter(next))
+                            }
+                        />
+                    }
                 />
                 {visibleHeaders.map(({ name, dataKey, type }, index) => {
                     const { fixed, left, isLastPinned } = getPinnedCellProps(
@@ -376,6 +496,8 @@ const CombinedDataTable = ({
             onToggleSelectAll,
             onReverseSelection,
             allRowIds,
+            selectionFilter,
+            dispatch,
         ]
     )
 
@@ -390,6 +512,7 @@ const CombinedDataTable = ({
                 </div>
             )}
             <TableVirtuoso
+                ref={virtuosoRef}
                 context={tableContext}
                 components={CombinedTableComponents}
                 style={TABLE_STYLE}
@@ -398,7 +521,9 @@ const CombinedDataTable = ({
                 itemContent={(_, row) => {
                     const rowId = getRowId(row)
                     const isSelected = !!rowId && selectedIdSet.has(rowId)
-                    const isHovered = !!rowId && rowId === hoveredRowId
+                    const isHovered =
+                        !!rowId &&
+                        (rowId === hoveredRowId || rowId === mapHoveredRowId)
                     const cellsByDataKey = new Map(
                         row.map((cell) => [cell.dataKey, cell])
                     )

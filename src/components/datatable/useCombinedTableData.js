@@ -8,9 +8,14 @@ import {
     TYPE_STRING,
 } from '../../constants/dataTable.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
 import { applyAggregation } from '../../util/aggregation.js'
 import { getCombinedValueDataKeys } from '../../util/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
+import { isFeatureInBounds } from '../../util/geojson.js'
 import { matchFeaturesToReferenceOrgUnits } from '../../util/spatialJoin.js'
 import {
     buildRowCells,
@@ -24,9 +29,6 @@ const LARGE_FEATURE_THRESHOLD = 10000
 const DEFAULT_AGGREGATION = 'SUM'
 const EMPTY_AGGREGATIONS = {}
 
-// Mirrors util/tableRows.js's own data + dataWithoutCoords merge for the
-// single-layer table - org units/facilities missing valid coordinates
-// still belong in the join, they just can't render on the map.
 const getJoinableFeatures = (layer) =>
     [...(layer?.data ?? []), ...(layer?.dataWithoutCoords ?? [])].filter(
         (d) => !d.properties?.hasAdditionalGeometry
@@ -34,12 +36,6 @@ const getJoinableFeatures = (layer) =>
 
 const getProps = (feature) => feature.properties || feature
 
-// Earth Engine layers compute their value(s) client-side into their own
-// Redux slice (state.aggregations, keyed by feature id) rather than
-// attaching them to the feature itself - util/tableRows.js's buildTableData
-// does this same merge for the single-layer table. Every other layer type
-// already carries its value(s) directly on properties from its loader, so
-// this is a no-op for them.
 const mergeAggregations = (layer, aggregationsForLayer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER || !aggregationsForLayer) {
         return layer
@@ -58,11 +54,6 @@ const mergeAggregations = (layer, aggregationsForLayer) => {
     }
 }
 
-// A feature belongs to a reference org unit if it IS that org unit, or is
-// one of its descendants (a path-prefix match) - "the reference OU or
-// lower, using the hierarchy". Reference org units are usually all one
-// level, so most features hit the direct-match Map; only a genuine
-// descendant needs the O(referenceOrgUnits) prefix scan.
 const matchOrgUnitReference = (
     features,
     referenceOrgUnits,
@@ -92,12 +83,6 @@ const matchOrgUnitReference = (
     return byReferenceId
 }
 
-// useCentroid: true unconditionally - getTestPoint (spatialJoin.js) already
-// tests a feature as-is when it's literally a Point, so this only takes
-// effect for non-point geometry, regardless of layer type (see
-// isSpatialEligible in JoinLayersControl.jsx, which is what actually
-// decides whether "Spatial" is offered for a given layer in the first
-// place).
 const matchSpatialReference = (features, referenceOrgUnits) => {
     const byReferenceId = new Map()
     const matched = matchFeaturesToReferenceOrgUnits(
@@ -117,14 +102,17 @@ const matchSpatialReference = (features, referenceOrgUnits) => {
     return byReferenceId
 }
 
-// Shared across every row: apply Combined's own local filters/global
-// search (reusing the same utilities as the single-layer table), sort by
-// natural insertion order (via each flat row's index) when no sort column is
-// active, then build the final {dataKey, value, align, itemId} cell shape.
 const finalizeRows = (
     flatRows,
     headers,
-    { filters, globalSearch, sortField, sortDirection }
+    {
+        filters,
+        globalSearch,
+        sortField,
+        sortDirection,
+        selectionFilter,
+        selectedIdSet,
+    }
 ) => {
     let data = filterData(flatRows, filters)
 
@@ -135,11 +123,51 @@ const finalizeRows = (
         data = filterByGlobalSearch(data, globalSearch, { stringDataKeys })
     }
 
+    if (selectionFilter?.length) {
+        const wantSelected = selectionFilter.includes(SELECTION_FILTER_SELECTED)
+        const wantNotSelected = selectionFilter.includes(
+            SELECTION_FILTER_NOT_SELECTED
+        )
+        if (wantSelected !== wantNotSelected) {
+            data = data.filter(
+                (item) => !!selectedIdSet?.has(item.id) === wantSelected
+            )
+        }
+    }
+
     data = [...data].sort((a, b) =>
         compareRows(a, b, { sortField, sortDirection })
     )
 
     return data.map((row) => buildRowCells(row, headers))
+}
+
+const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
+    const { layer, settings, byReferenceId, valueDataKeys } = layerMatch
+    const matches = byReferenceId.get(refProps.id) ?? []
+
+    valueDataKeys.forEach(({ dataKey }) => {
+        const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
+        row[`${layer.id}_${dataKey}`] = applyAggregation(
+            settings.aggregation?.[dataKey] ?? DEFAULT_AGGREGATION,
+            values
+        )
+    })
+
+    if (layer.layer !== EARTH_ENGINE_LAYER) {
+        const legends = matches
+            .map((p) => p[LEGEND_KEY])
+            .filter((v) => v != null)
+        row[`${layer.id}_${LEGEND_KEY}`] =
+            legends.length && legends.every((l) => l === legends[0])
+                ? legends[0]
+                : null
+    }
+
+    const ids = matches.map((p) => p.id).filter((id) => id != null)
+    if (ids.length) {
+        featureIds[layer.id] = ids
+    }
 }
 
 const EMPTY_COLUMN_OPTIONS = {}
@@ -152,15 +180,6 @@ const EMPTY_RESULT = {
     spatialWarning: false,
 }
 
-// layers: the participating layers (each with joinConfig.layers[layer.id] =
-// {type, aggregation}), NOT including the reference layer itself.
-// referenceLayer: the hidden combinedTableRef layer backing the join - its
-// own fetched org units are the row set, always, regardless of whether any
-// participating layer has data for a given one.
-// aggregations: state.aggregations, keyed by layer id - passed in rather
-// than read via useSelector here so this hook stays fully prop-driven (and
-// trivially testable without a Redux Provider), matching every other input.
-// Only Earth Engine layers ever have an entry (see mergeAggregations).
 export const useCombinedTableData = ({
     layers,
     referenceLayer,
@@ -170,10 +189,24 @@ export const useCombinedTableData = ({
     filters,
     globalSearch,
     aggregations: allAggregations = EMPTY_AGGREGATIONS,
+    showOnlyFeaturesInView = false,
+    mapBounds,
+    selectionFilter,
+    selectedIdSet,
 }) => {
     const referenceOrgUnits = useMemo(
         () => getJoinableFeatures(referenceLayer),
         [referenceLayer]
+    )
+
+    const visibleReferenceOrgUnits = useMemo(
+        () =>
+            showOnlyFeaturesInView && mapBounds
+                ? referenceOrgUnits.filter((f) =>
+                      isFeatureInBounds(f, mapBounds)
+                  )
+                : referenceOrgUnits,
+        [referenceOrgUnits, showOnlyFeaturesInView, mapBounds]
     )
 
     const referenceByPath = useMemo(
@@ -233,8 +266,8 @@ export const useCombinedTableData = ({
             )
 
         const headers = [
-            { name: i18n.t('ID'), dataKey: 'id', type: TYPE_STRING },
-            { name: i18n.t('Name'), dataKey: 'name', type: TYPE_STRING },
+            { name: i18n.t('Org unit Id'), dataKey: 'id', type: TYPE_STRING },
+            { name: i18n.t('Org unit'), dataKey: 'name', type: TYPE_STRING },
             { name: i18n.t('Level'), dataKey: 'level', type: TYPE_NUMBER },
             ...layerMatches.flatMap(({ layer, valueDataKeys }) => [
                 ...valueDataKeys.map(({ dataKey, name }) => ({
@@ -266,64 +299,37 @@ export const useCombinedTableData = ({
 
         const rowFeatureIds = new Map()
 
-        const flatRows = referenceOrgUnits.map((referenceFeature, index) => {
-            const refProps = getProps(referenceFeature)
-            const row = {
-                id: refProps.id,
-                name: refProps.name ?? null,
-                level: refProps[ORG_UNIT_LEVEL_DATA_KEY] ?? null,
-                index,
-            }
-
-            // Always includes the reference org unit's own feature, so
-            // "zoom to feature" has real bounds even when no participating
-            // layer has a match for this row.
-            const featureIds = { [referenceLayer.id]: [refProps.id] }
-
-            layerMatches.forEach(
-                ({ layer, settings, byReferenceId, valueDataKeys }) => {
-                    const matches = byReferenceId.get(refProps.id) ?? []
-
-                    valueDataKeys.forEach(({ dataKey }) => {
-                        const values = matches
-                            .map((p) => p[dataKey])
-                            .filter((v) => v != null)
-                        row[`${layer.id}_${dataKey}`] = applyAggregation(
-                            settings.aggregation?.[dataKey] ??
-                                DEFAULT_AGGREGATION,
-                            values
-                        )
-                    })
-
-                    if (layer.layer !== EARTH_ENGINE_LAYER) {
-                        const legends = matches
-                            .map((p) => p[LEGEND_KEY])
-                            .filter((v) => v != null)
-                        row[`${layer.id}_${LEGEND_KEY}`] =
-                            legends.length &&
-                            legends.every((l) => l === legends[0])
-                                ? legends[0]
-                                : null
-                    }
-
-                    const ids = matches
-                        .map((p) => p.id)
-                        .filter((id) => id != null)
-                    if (ids.length) {
-                        featureIds[layer.id] = ids
-                    }
+        const flatRows = visibleReferenceOrgUnits.map(
+            (referenceFeature, index) => {
+                const refProps = getProps(referenceFeature)
+                const row = {
+                    id: refProps.id,
+                    name: refProps.name ?? null,
+                    level: refProps[ORG_UNIT_LEVEL_DATA_KEY] ?? null,
+                    index,
                 }
-            )
 
-            rowFeatureIds.set(refProps.id, featureIds)
-            return row
-        })
+                const featureIds = { [referenceLayer.id]: [refProps.id] }
+
+                layerMatches.forEach((layerMatch) =>
+                    applyLayerMatchToRow(
+                        { row, featureIds, refProps },
+                        layerMatch
+                    )
+                )
+
+                rowFeatureIds.set(refProps.id, featureIds)
+                return row
+            }
+        )
 
         const rows = finalizeRows(flatRows, headers, {
             filters,
             globalSearch,
             sortField,
             sortDirection,
+            selectionFilter,
+            selectedIdSet,
         })
         const columnOptions =
             sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
@@ -340,11 +346,14 @@ export const useCombinedTableData = ({
         }
     }, [
         referenceOrgUnits,
+        visibleReferenceOrgUnits,
         referenceLayer,
         layerMatches,
         filters,
         globalSearch,
         sortField,
         sortDirection,
+        selectionFilter,
+        selectedIdSet,
     ])
 }

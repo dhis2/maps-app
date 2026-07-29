@@ -1,7 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { toggleDataTable, toggleCombinedView } from '../../actions/dataTable.js'
+import {
+    closeDataTable,
+    toggleDataTable,
+    toggleCombinedView,
+} from '../../actions/dataTable.js'
 import { getOrgUnitsFromRows } from '../../util/analytics.js'
 import {
     getEligibleDataTableLayers,
@@ -20,15 +24,14 @@ const DataTableButton = () => {
         !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0
 
     const onClick = () => {
-        // Only a quick-open shortcut for the closed state - if a table is
-        // already showing (single-layer or Combined), this is a no-op; the
-        // panel's own Close button is the only way to close it. Combined
-        // is only auto-opened here when a reference org unit set has
-        // already been configured (mirrors BottomPanel.jsx's own
-        // combinedEnabled gate) - otherwise there'd be nothing to show, so
-        // this shortcut falls back to just opening the first eligible
-        // layer's own table instead.
+        // Toggles the panel: closes it if a table is already showing
+        // (single-layer or Combined), otherwise opens one. Combined is only
+        // auto-opened here when a reference org unit set has already been
+        // configured (mirrors BottomPanel.jsx's own combinedEnabled gate) -
+        // otherwise there'd be nothing to show, so this shortcut falls back
+        // to just opening the first eligible layer's own table instead.
         if (isDataTableOpen(dataTable)) {
+            dispatch(closeDataTable())
             return
         }
         if (combinedEnabled) {

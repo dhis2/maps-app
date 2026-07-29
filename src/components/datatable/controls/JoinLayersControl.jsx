@@ -1,5 +1,4 @@
 import i18n from '@dhis2/d2-i18n'
-import { IconVisualizationColumnMulti16 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { getCombinedAggregationTypes } from '../../../constants/aggregationTypes.js'
@@ -10,17 +9,12 @@ import {
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
 } from '../../../util/geojson.js'
+import Checkbox from '../../core/Checkbox.jsx'
+import { IconLayersStack16 } from '../../core/icons.jsx'
 import { FilterDropdownPopover } from '../FilterDropdownPopover.jsx'
 import styles from './styles/JoinLayersControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
-// Spatial join means point-in-polygon against the reference org unit's own
-// boundary - offered for any layer whose features are literally points, or
-// whose geometry is a polygon/multipolygon (matched via its centroid
-// instead - see util/spatialJoin.js). Geometry-based, not layer-type-based:
-// this is what makes a GeoJSON URL layer (or any other layer type with no
-// org-unit identity of its own) still joinable in Combined even though
-// "Org unit" join can never match anything for it.
 const isSpatialEligible = (layer) => {
     const geometryType = layer.data?.[0]?.geometry?.type
     return [GEO_TYPE_POINT, GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON].includes(
@@ -28,11 +22,6 @@ const isSpatialEligible = (layer) => {
     )
 }
 
-// A layer with no org-unit path on its own features (e.g. GeoJSON URL) can
-// never match anything under "Org unit" join - defaulting a newly-checked
-// layer to that mode would silently leave every cell blank until the user
-// happens to switch it to Spatial themselves. Default to whichever mode can
-// actually match instead.
 const hasOrgUnitIdentity = (layer) => {
     const feature = layer.data?.[0]
     return !!(feature?.properties ?? feature)?.[ORG_UNIT_PATH_DATA_KEY]
@@ -88,7 +77,7 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                 disabled={!eligibleLayers.length}
                 onClick={() => setIsOpen((o) => !o)}
             >
-                <IconVisualizationColumnMulti16 />
+                <IconLayersStack16 />
             </ToolbarIconButton>
             {isOpen && (
                 <FilterDropdownPopover
@@ -97,117 +86,130 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                     onClickOutside={() => setIsOpen(false)}
                 >
                     <div className={styles.joinLayersPopover}>
-                        {eligibleLayers.map((layer) => {
-                            const settings = layersConfig[layer.id]
-                            return (
-                                <div key={layer.id} className={styles.layerRow}>
-                                    <label
-                                        className={styles.layerCheckboxLabel}
+                        <div className={styles.layerList}>
+                            {eligibleLayers.map((layer) => {
+                                const settings = layersConfig[layer.id]
+                                return (
+                                    <div
+                                        key={layer.id}
+                                        className={styles.layerRow}
                                     >
-                                        <input
-                                            type="checkbox"
+                                        <Checkbox
+                                            label={
+                                                <span
+                                                    className={styles.layerName}
+                                                >
+                                                    {layer.name}
+                                                </span>
+                                            }
                                             checked={!!settings}
                                             onChange={() => onToggle(layer)}
+                                            className={styles.layerCheckbox}
+                                            dataTest={`data-table-join-layer-${layer.id}`}
                                         />
-                                        <span className={styles.layerName}>
-                                            {layer.name}
-                                        </span>
-                                    </label>
-                                    {settings && (
-                                        <div className={styles.layerSettings}>
-                                            <select
-                                                aria-label={i18n.t(
-                                                    'Join type for {{layer}}',
-                                                    { layer: layer.name }
-                                                )}
-                                                value={settings.type}
-                                                onChange={(e) =>
-                                                    onTypeChange(
-                                                        layer.id,
-                                                        e.target.value
-                                                    )
-                                                }
+                                        {settings && (
+                                            <div
+                                                className={styles.layerSettings}
                                             >
-                                                <option value="orgUnit">
-                                                    {i18n.t('Org unit')}
-                                                </option>
-                                                {isSpatialEligible(layer) && (
-                                                    <option value="spatial">
-                                                        {i18n.t('Spatial')}
-                                                    </option>
-                                                )}
-                                            </select>
-                                            {getCombinedValueDataKeys(
-                                                layer
-                                            ).map(({ dataKey, name }) => (
-                                                <div
-                                                    key={dataKey}
-                                                    className={
-                                                        styles.aggregationRow
+                                                <select
+                                                    aria-label={i18n.t(
+                                                        'Join type for {{layer}}',
+                                                        { layer: layer.name }
+                                                    )}
+                                                    value={settings.type}
+                                                    onChange={(e) =>
+                                                        onTypeChange(
+                                                            layer.id,
+                                                            e.target.value
+                                                        )
                                                     }
                                                 >
-                                                    {name && (
-                                                        <span
-                                                            className={
-                                                                styles.aggregationRowLabel
-                                                            }
-                                                        >
-                                                            {name}
-                                                        </span>
+                                                    <option value="orgUnit">
+                                                        {i18n.t('Org unit')}
+                                                    </option>
+                                                    {isSpatialEligible(
+                                                        layer
+                                                    ) && (
+                                                        <option value="spatial">
+                                                            {i18n.t('Spatial')}
+                                                        </option>
                                                     )}
-                                                    <select
-                                                        aria-label={
-                                                            name
-                                                                ? i18n.t(
-                                                                      'Aggregation type for {{name}} ({{layer}})',
-                                                                      {
-                                                                          name,
-                                                                          layer: layer.name,
-                                                                      }
-                                                                  )
-                                                                : i18n.t(
-                                                                      'Aggregation type for {{layer}}',
-                                                                      {
-                                                                          layer: layer.name,
-                                                                      }
-                                                                  )
-                                                        }
-                                                        value={
-                                                            settings
-                                                                .aggregation?.[
-                                                                dataKey
-                                                            ] ?? 'SUM'
-                                                        }
-                                                        onChange={(e) =>
-                                                            onAggregationChange(
-                                                                layer.id,
-                                                                dataKey,
-                                                                e.target.value
-                                                            )
+                                                </select>
+                                                {getCombinedValueDataKeys(
+                                                    layer
+                                                ).map(({ dataKey, name }) => (
+                                                    <div
+                                                        key={dataKey}
+                                                        className={
+                                                            styles.aggregationRow
                                                         }
                                                     >
-                                                        {aggregationTypes.map(
-                                                            (type) => (
-                                                                <option
-                                                                    key={
-                                                                        type.id
-                                                                    }
-                                                                    value={
-                                                                        type.id
-                                                                    }
-                                                                >
-                                                                    {type.name}
-                                                                </option>
-                                                            )
+                                                        {name && (
+                                                            <span
+                                                                className={
+                                                                    styles.aggregationRowLabel
+                                                                }
+                                                            >
+                                                                {name}
+                                                            </span>
                                                         )}
-                                                    </select>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            )
-                        })}
+                                                        <select
+                                                            aria-label={
+                                                                name
+                                                                    ? i18n.t(
+                                                                          'Aggregation type for {{name}} ({{layer}})',
+                                                                          {
+                                                                              name,
+                                                                              layer: layer.name,
+                                                                          }
+                                                                      )
+                                                                    : i18n.t(
+                                                                          'Aggregation type for {{layer}}',
+                                                                          {
+                                                                              layer: layer.name,
+                                                                          }
+                                                                      )
+                                                            }
+                                                            value={
+                                                                settings
+                                                                    .aggregation?.[
+                                                                    dataKey
+                                                                ] ?? 'SUM'
+                                                            }
+                                                            onChange={(e) =>
+                                                                onAggregationChange(
+                                                                    layer.id,
+                                                                    dataKey,
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                        >
+                                                            {aggregationTypes.map(
+                                                                (type) => (
+                                                                    <option
+                                                                        key={
+                                                                            type.id
+                                                                        }
+                                                                        value={
+                                                                            type.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            type.name
+                                                                        }
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                )
+                            })}
+                        </div>
                     </div>
                 </FilterDropdownPopover>
             )}

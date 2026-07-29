@@ -52,3 +52,8 @@ export const setJoinConfig = (config) => ({
     type: types.DATA_TABLE_JOIN_CONFIG_SET,
     config,
 })
+
+export const setCombinedVisibleIds = (idsByLayer) => ({
+    type: types.COMBINED_VISIBLE_IDS_SET,
+    idsByLayer,
+})

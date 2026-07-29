@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-28T14:57:10.660Z\n"
-"PO-Revision-Date: 2026-07-28T14:57:10.661Z\n"
+"POT-Creation-Date: 2026-07-29T08:31:24.085Z\n"
+"PO-Revision-Date: 2026-07-29T08:31:24.085Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -349,6 +349,9 @@ msgstr "Org unit"
 msgid "Spatial"
 msgstr "Spatial"
 
+msgid "Aggregation type for {{name}} ({{layer}})"
+msgstr "Aggregation type for {{name}} ({{layer}})"
+
 msgid "Aggregation type for {{layer}}"
 msgstr "Aggregation type for {{layer}}"
 
@@ -370,11 +373,14 @@ msgstr "{{total}} rows"
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
 
-msgid "ID"
-msgstr "ID"
+msgid "Org unit Id"
+msgstr "Org unit Id"
 
 msgid "Level"
 msgstr "Level"
+
+msgid "{{name}} ({{layer}})"
+msgstr "{{name}} ({{layer}})"
 
 msgid "Value ({{layer}})"
 msgstr "Value ({{layer}})"
@@ -1153,6 +1159,9 @@ msgstr "Address"
 
 msgid "Phone"
 msgstr "Phone"
+
+msgid "ID"
+msgstr "ID"
 
 msgid "Comment"
 msgstr "Comment"
@@ -2109,9 +2118,6 @@ msgstr "GroupSet used for styling was not found"
 
 msgid "Id"
 msgstr "Id"
-
-msgid "Org unit Id"
-msgstr "Org unit Id"
 
 msgid "Org unit level"
 msgstr "Org unit level"

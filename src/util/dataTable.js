@@ -14,11 +14,11 @@ export const COMBINED_VALUE_KEY = 'rawValue'
 // dependency-light utility imported by most of the data table test suite,
 // so it deliberately doesn't take on that transitive weight for two
 // constant strings.
-const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = [
+const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = new Set([
     'percentage',
     'hectares',
     'acres',
-]
+])
 
 const toTitleCase = (str) =>
     str.replace(
@@ -26,23 +26,12 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-// The value column(s) a layer contributes to Combined - one aggregatable
-// dataKey per column. Every layer type except Earth Engine has exactly one
-// (COMBINED_VALUE_KEY, paired with a non-aggregatable 'legend' categorical
-// column handled separately in useCombinedTableData.js). Earth Engine's own
-// value shape is genuinely different (mirrors getEarthEngineHeaders in
-// tableHeaders.js, which drives its single-layer table headers the same
-// way): one column per legend class when aggregationType is classified
-// (percentage/hectares/acres), or one column per aggregation stat
-// (mean/min/max/etc) when aggregationType is an array of stat names.
 export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [{ dataKey: COMBINED_VALUE_KEY, name: null }]
     }
     if (
-        CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.includes(
-            layer.aggregationType
-        ) &&
+        CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.has(layer.aggregationType) &&
         layer.legend?.items
     ) {
         return layer.legend.items.map(({ value, name }) => ({
@@ -113,26 +102,14 @@ export const hasActiveDataTableFilters = ({
     selectionFilter?.length > 0 ||
     !!showOnlyFeaturesInView
 
-// state.dataTable.combinedView can legitimately stay true with openIds
-// empty (e.g. every single-layer tab was closed while Combined stayed
-// open) - the panel must stay open in that case too, not just when a
-// single-layer tab is open.
 export const isDataTableOpen = ({ openIds, combinedView }) =>
     openIds.length > 0 || combinedView
 
-// Map-wide, not scoped to which layers currently have an open tab - used
-// both for whether the Combined option/tab can be offered at all, and to
-// pick a sensible default when opening the panel from scratch (e.g. the
-// "Data Table" menu button).
 export const getEligibleDataTableLayers = (mapViews) =>
     mapViews.filter(
         (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.data?.length
     )
 
-// A crossLayerIds selection has no single owning layerId (layerId: null),
-// so a layer's own selection can't be read off selection.ids alone once
-// Combined-originated selections exist - merges in whatever this layer is
-// named under in crossLayerIds too.
 export const getLayerSelectedIds = (selection, layerId) => {
     const ownIds = selection?.layerId === layerId ? selection.ids ?? [] : []
     const crossIds = selection?.crossLayerIds?.[layerId] ?? []
@@ -150,9 +127,6 @@ export const buildFeatureIndex = (data) => {
     return index
 }
 
-// Merges the per-layer feature id sets of several Combined rows (e.g. every
-// selected row, or every currently filtered row) into one map suitable for
-// a single crossLayerIds highlight/selection/zoom dispatch.
 export const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
     const merged = {}
     rowKeys.forEach((key) => {
@@ -167,10 +141,6 @@ export const mergeCrossLayerIds = (rowKeys, rowFeatureIds) => {
     return merged
 }
 
-// Same bbox-of-matching-features computation Layer.js's own panToFeature
-// does for a single layer, generalized across every layer named in
-// crossLayerIds - used for Combined row/selection/filtered-set zoom, where
-// no single Layer instance owns the feature set being zoomed to.
 export const getUnionBounds = (layers, idsByLayerId) => {
     const features = layers.flatMap((layer) => {
         const ids = idsByLayerId[layer.id]
