@@ -63,7 +63,7 @@ const BottomPanel = () => {
             ? manualActiveLayerId
             : openIds[openIds.length - 1] ?? null
 
-    const eligibleLayers = getEligibleDataTableLayers(mapViews)
+    const eligibleLayers = getEligibleDataTableLayers(mapViews).reverse()
     const { referenceLayer, openReferenceLayerEditor } = useReferenceLayer()
     const combinedEnabled =
         !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0
