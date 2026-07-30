@@ -3,28 +3,63 @@ import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
 import {
     DATA_TABLE_LAYER_TYPES,
     EARTH_ENGINE_LAYER,
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    FACILITY_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
+import {
+    getDefaultCombinedAggregationType,
+    getDefaultCombinedAggregationTypeFromEarthEngineStat,
+} from './aggregation.js'
+import { getDataItemFromColumns, getOrgUnitsFromRows } from './analytics.js'
+import { getJoinableFeatures } from './combinedJoinMatch.js'
 
 export const COMBINED_VALUE_KEY = 'rawValue'
 
-// Duplicated from util/earthEngine.js's own classAggregation/hasClasses
-// rather than imported - that module's first import is MapApi.js, which
-// pulls in the entire @dhis2/maps-gl/maplibre-gl rendering stack (breaks in
-// jsdom without a MapApi.js mock). This file is a widely-shared, otherwise
-// dependency-light utility imported by most of the data table test suite,
-// so it deliberately doesn't take on that transitive weight for two
-// constant strings.
 const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = new Set([
     'percentage',
     'hectares',
     'acres',
 ])
 
+const CLASSIFIED_EARTH_ENGINE_DEFAULT_AGGREGATION_TYPE = {
+    percentage: 'AVERAGE',
+    hectares: 'SUM',
+    acres: 'SUM',
+}
+
 const toTitleCase = (str) =>
     str.replace(
         /\w\S*/g,
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
+
+export const getDefaultCombinedAggregation = (layer) => {
+    let type
+    if (Array.isArray(layer.aggregationType)) {
+        type = getDefaultCombinedAggregationTypeFromEarthEngineStat(
+            layer.aggregationType[0]
+        )
+    } else if (
+        CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.has(layer.aggregationType)
+    ) {
+        type =
+            CLASSIFIED_EARTH_ENGINE_DEFAULT_AGGREGATION_TYPE[
+                layer.aggregationType
+            ]
+    } else {
+        const dataItem = getDataItemFromColumns(layer.columns)
+        type = getDefaultCombinedAggregationType(
+            dataItem?.aggregationType,
+            dataItem?.dimensionItemType
+        )
+    }
+    return Object.fromEntries(
+        getCombinedValueDataKeys(layer).map(({ dataKey }) => [dataKey, type])
+    )
+}
 
 export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER) {
@@ -44,6 +79,67 @@ export const getCombinedValueDataKeys = (layer) => {
             dataKey: type,
             name: toTitleCase(`${type} ${layer.legend?.title ?? ''}`.trim()),
         }))
+    }
+    return []
+}
+
+const REFERENCE_ROWS_LEVEL_COMPARABLE_TYPES = [
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    EARTH_ENGINE_LAYER,
+    FACILITY_LAYER,
+]
+
+const REFERENCE_ROWS_FALLBACK_TYPES = [EVENT_LAYER, TRACKED_ENTITY_LAYER]
+
+const getMinFeatureLevel = (mapView) => {
+    const levels = getJoinableFeatures(mapView)
+        .map((f) => (f.properties ?? f).level)
+        .filter((level) => typeof level === 'number')
+    return levels.length ? Math.min(...levels) : null
+}
+
+const isBetterReferenceCandidate = (a, b) => {
+    if (a.level !== null && b.level !== null && a.level !== b.level) {
+        return a.level < b.level
+    }
+    if (a.priority !== b.priority) {
+        return a.priority < b.priority
+    }
+    return a.index < b.index
+}
+
+export const getDefaultReferenceRows = (mapViews = []) => {
+    const candidates = mapViews
+        .map((mapView, index) => ({ mapView, index }))
+        .filter(
+            ({ mapView }) =>
+                REFERENCE_ROWS_LEVEL_COMPARABLE_TYPES.includes(mapView.layer) &&
+                getOrgUnitsFromRows(mapView.rows).length
+        )
+        .map(({ mapView, index }) => ({
+            mapView,
+            index,
+            priority: REFERENCE_ROWS_LEVEL_COMPARABLE_TYPES.indexOf(
+                mapView.layer
+            ),
+            level: getMinFeatureLevel(mapView),
+        }))
+
+    if (candidates.length) {
+        return candidates.reduce((best, candidate) =>
+            isBetterReferenceCandidate(candidate, best) ? candidate : best
+        ).mapView.rows
+    }
+
+    for (const layerType of REFERENCE_ROWS_FALLBACK_TYPES) {
+        const layer = mapViews.find(
+            (mv) =>
+                mv.layer === layerType && getOrgUnitsFromRows(mv.rows).length
+        )
+        if (layer) {
+            return layer.rows
+        }
     }
     return []
 }

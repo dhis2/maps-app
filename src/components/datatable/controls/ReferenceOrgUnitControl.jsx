@@ -4,6 +4,7 @@ import React from 'react'
 import { useDispatch, useSelector, useStore } from 'react-redux'
 import { editLayer } from '../../../actions/layers.js'
 import { COMBINED_TABLE_REF_LAYER } from '../../../constants/layers.js'
+import { getDefaultReferenceRows } from '../../../util/dataTable.js'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const findReferenceLayer = (mapViews) =>
@@ -16,16 +17,18 @@ export const useReferenceLayer = () => {
         findReferenceLayer(state.map.mapViews)
     )
 
-    const openReferenceLayerEditor = () =>
+    const openReferenceLayerEditor = () => {
+        const mapViews = store.getState().map.mapViews
         dispatch(
             editLayer(
-                findReferenceLayer(store.getState().map.mapViews) ?? {
+                findReferenceLayer(mapViews) ?? {
                     layer: COMBINED_TABLE_REF_LAYER,
                     isVisible: false,
-                    rows: [],
+                    rows: getDefaultReferenceRows(mapViews),
                 }
             )
         )
+    }
 
     return { referenceLayer, openReferenceLayerEditor }
 }

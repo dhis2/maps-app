@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import { useMemo } from 'react'
 import {
-    ORG_UNIT_PATH_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
     SORT_ASCENDING,
     TYPE_NUMBER,
@@ -13,10 +12,17 @@ import {
     SELECTION_FILTER_NOT_SELECTED,
 } from '../../constants/selection.js'
 import { applyAggregation } from '../../util/aggregation.js'
-import { getCombinedValueDataKeys } from '../../util/dataTable.js'
+import {
+    getByReferenceId,
+    getJoinableFeatures,
+    getProps,
+} from '../../util/combinedJoinMatch.js'
+import {
+    getCombinedValueDataKeys,
+    getDefaultCombinedAggregation,
+} from '../../util/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { isFeatureInBounds } from '../../util/geojson.js'
-import { matchFeaturesToReferenceOrgUnits } from '../../util/spatialJoin.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
@@ -26,15 +32,7 @@ import { compareRows } from '../../util/tableSort.js'
 
 const LEGEND_KEY = 'legend'
 const LARGE_FEATURE_THRESHOLD = 10000
-const DEFAULT_AGGREGATION = 'SUM'
 const EMPTY_AGGREGATIONS = {}
-
-const getJoinableFeatures = (layer) =>
-    [...(layer?.data ?? []), ...(layer?.dataWithoutCoords ?? [])].filter(
-        (d) => !d.properties?.hasAdditionalGeometry
-    )
-
-const getProps = (feature) => feature.properties || feature
 
 const mergeAggregations = (layer, aggregationsForLayer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER || !aggregationsForLayer) {
@@ -52,54 +50,6 @@ const mergeAggregations = (layer, aggregationsForLayer) => {
         data: layer.data?.map(mergeFeature),
         dataWithoutCoords: layer.dataWithoutCoords?.map(mergeFeature),
     }
-}
-
-const matchOrgUnitReference = (
-    features,
-    referenceOrgUnits,
-    referenceByPath
-) => {
-    const byReferenceId = new Map()
-    features.forEach((feature) => {
-        const props = getProps(feature)
-        const path = props[ORG_UNIT_PATH_DATA_KEY]
-        if (!path) {
-            return
-        }
-        const reference =
-            referenceByPath.get(path) ??
-            referenceOrgUnits.find((ref) =>
-                path.startsWith(`${getProps(ref)[ORG_UNIT_PATH_DATA_KEY]}/`)
-            )
-        if (!reference) {
-            return
-        }
-        const referenceId = getProps(reference).id
-        if (!byReferenceId.has(referenceId)) {
-            byReferenceId.set(referenceId, [])
-        }
-        byReferenceId.get(referenceId).push(props)
-    })
-    return byReferenceId
-}
-
-const matchSpatialReference = (features, referenceOrgUnits) => {
-    const byReferenceId = new Map()
-    const matched = matchFeaturesToReferenceOrgUnits(
-        features,
-        referenceOrgUnits,
-        { useCentroid: true }
-    )
-    matched.forEach(({ featureProps, referenceId }) => {
-        if (referenceId == null) {
-            return
-        }
-        if (!byReferenceId.has(referenceId)) {
-            byReferenceId.set(referenceId, [])
-        }
-        byReferenceId.get(referenceId).push(featureProps)
-    })
-    return byReferenceId
 }
 
 const finalizeRows = (
@@ -149,7 +99,8 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
     valueDataKeys.forEach(({ dataKey }) => {
         const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
         row[`${layer.combinedLayerKey}_${dataKey}`] = applyAggregation(
-            settings.aggregation?.[dataKey] ?? DEFAULT_AGGREGATION,
+            settings.aggregation?.[dataKey] ??
+                getDefaultCombinedAggregation(layer)[dataKey],
             values
         )
     })
@@ -209,17 +160,6 @@ export const useCombinedTableData = ({
         [referenceOrgUnits, showOnlyFeaturesInView, mapBounds]
     )
 
-    const referenceByPath = useMemo(
-        () =>
-            new Map(
-                referenceOrgUnits.map((ref) => [
-                    getProps(ref)[ORG_UNIT_PATH_DATA_KEY],
-                    ref,
-                ])
-            ),
-        [referenceOrgUnits]
-    )
-
     const layerMatches = useMemo(
         () =>
             layers.map((layer) => {
@@ -233,23 +173,14 @@ export const useCombinedTableData = ({
                 )
                 const features = getJoinableFeatures(mergedLayer)
                 const valueDataKeys = getCombinedValueDataKeys(layer)
-                const byReferenceId =
-                    settings.type === 'spatial'
-                        ? matchSpatialReference(features, referenceOrgUnits)
-                        : matchOrgUnitReference(
-                              features,
-                              referenceOrgUnits,
-                              referenceByPath
-                          )
+                const byReferenceId = getByReferenceId(
+                    features,
+                    referenceOrgUnits,
+                    settings.type
+                )
                 return { layer, settings, byReferenceId, valueDataKeys }
             }),
-        [
-            layers,
-            joinConfig,
-            referenceOrgUnits,
-            referenceByPath,
-            allAggregations,
-        ]
+        [layers, joinConfig, referenceOrgUnits, allAggregations]
     )
 
     return useMemo(() => {

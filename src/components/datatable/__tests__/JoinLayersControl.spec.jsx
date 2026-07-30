@@ -99,6 +99,45 @@ describe('JoinLayersControl popover — checkbox list', () => {
         })
     })
 
+    test("checking a layer defaults its aggregation to the data item's own aggregation type, not SUM", () => {
+        const onChange = jest.fn()
+        renderControl({
+            eligibleLayers: [
+                {
+                    id: 'layer3',
+                    name: 'Layer 3',
+                    combinedLayerKey: 'layer3',
+                    layer: THEMATIC_LAYER,
+                    data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
+                    columns: [
+                        {
+                            dimension: 'dx',
+                            items: [
+                                {
+                                    id: 'de1',
+                                    name: 'DE 1',
+                                    aggregationType: 'AVERAGE',
+                                },
+                            ],
+                        },
+                    ],
+                },
+            ],
+            layersConfig: {},
+            onChange,
+        })
+        openPicker()
+
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Layer 3' }))
+
+        expect(onChange).toHaveBeenCalledWith({
+            layer3: {
+                type: 'orgUnit',
+                aggregation: { rawValue: 'AVERAGE' },
+            },
+        })
+    })
+
     test('checking a layer with no org-unit identity of its own defaults to Spatial join, not Org unit', () => {
         const onChange = jest.fn()
         renderControl({
@@ -246,7 +285,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
         })
     })
 
-    test('shows one labeled aggregation select per Earth Engine stat, and checking it defaults every stat to SUM', () => {
+    test("shows one labeled aggregation select per Earth Engine stat, and checking it defaults every stat to the first selected stat's own equivalent", () => {
         const onChange = jest.fn()
         const eeLayer = {
             id: 'ee',
@@ -269,7 +308,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
         expect(onChange).toHaveBeenCalledWith({
             ee: {
                 type: 'orgUnit',
-                aggregation: { mean: 'SUM', max: 'SUM' },
+                aggregation: { mean: 'AVERAGE', max: 'AVERAGE' },
             },
         })
     })
@@ -315,5 +354,189 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
                 aggregation: { mean: 'AVERAGE', max: 'SUM' },
             },
         })
+    })
+})
+
+describe('JoinLayersControl popover — aggregation rollup warning', () => {
+    const referenceLayer = {
+        data: [
+            {
+                properties: {
+                    id: 'ref1',
+                    name: 'Ref 1',
+                    orgUnitPath: '/country1/ref1',
+                    level: 2,
+                },
+            },
+        ],
+    }
+
+    const rollupLayer = {
+        id: 'layer1',
+        name: 'Layer 1',
+        combinedLayerKey: 'layer1',
+        layer: THEMATIC_LAYER,
+        data: [
+            { properties: { orgUnitPath: '/country1/ref1/child1' } },
+            { properties: { orgUnitPath: '/country1/ref1/child2' } },
+        ],
+    }
+
+    const noRollupLayer = {
+        id: 'layer1',
+        name: 'Layer 1',
+        combinedLayerKey: 'layer1',
+        layer: THEMATIC_LAYER,
+        data: [{ properties: { orgUnitPath: '/country1/ref1' } }],
+    }
+
+    const getWarning = () =>
+        screen.queryByTestId(
+            'data-table-join-aggregation-warning-layer1-rawValue'
+        )
+
+    test('shows a warning when the layer rolls up into the reference and the aggregation is non-composable (AVERAGE)', () => {
+        renderControl({
+            eligibleLayers: [rollupLayer],
+            referenceLayer,
+            layersConfig: {
+                layer1: {
+                    type: 'orgUnit',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).toBeInTheDocument()
+    })
+
+    test('does not show a warning when the layer rolls up but the aggregation is composable (SUM)', () => {
+        renderControl({
+            eligibleLayers: [rollupLayer],
+            referenceLayer,
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).not.toBeInTheDocument()
+    })
+
+    test('does not show a warning when the aggregation is non-composable but every reference org unit matches at most one feature', () => {
+        renderControl({
+            eligibleLayers: [noRollupLayer],
+            referenceLayer,
+            layersConfig: {
+                layer1: {
+                    type: 'orgUnit',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).not.toBeInTheDocument()
+    })
+
+    test('does not show a warning when no reference layer is available yet', () => {
+        renderControl({
+            eligibleLayers: [rollupLayer],
+            referenceLayer: undefined,
+            layersConfig: {
+                layer1: {
+                    type: 'orgUnit',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).not.toBeInTheDocument()
+    })
+})
+
+describe('JoinLayersControl popover — unmatched features warning', () => {
+    const referenceLayer = {
+        data: [
+            {
+                properties: {
+                    id: 'ref1',
+                    name: 'Ref 1',
+                    orgUnitPath: '/country1/ref1',
+                    level: 2,
+                },
+            },
+        ],
+    }
+
+    const getWarning = () =>
+        screen.queryByTestId('data-table-join-unmatched-warning-layer1')
+
+    test('shows a warning when some of the layer features could not be matched to any reference org unit', () => {
+        renderControl({
+            eligibleLayers: [
+                {
+                    id: 'layer1',
+                    name: 'Layer 1',
+                    combinedLayerKey: 'layer1',
+                    layer: THEMATIC_LAYER,
+                    data: [
+                        { properties: { orgUnitPath: '/country1/ref1' } },
+                        { properties: { orgUnitPath: '/country2/other' } },
+                    ],
+                },
+            ],
+            referenceLayer,
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).toBeInTheDocument()
+    })
+
+    test('does not show a warning when every layer feature matches a reference org unit', () => {
+        renderControl({
+            eligibleLayers: [
+                {
+                    id: 'layer1',
+                    name: 'Layer 1',
+                    combinedLayerKey: 'layer1',
+                    layer: THEMATIC_LAYER,
+                    data: [{ properties: { orgUnitPath: '/country1/ref1' } }],
+                },
+            ],
+            referenceLayer,
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).not.toBeInTheDocument()
+    })
+
+    test('does not show a warning when no reference layer is available yet', () => {
+        renderControl({
+            eligibleLayers: [
+                {
+                    id: 'layer1',
+                    name: 'Layer 1',
+                    combinedLayerKey: 'layer1',
+                    layer: THEMATIC_LAYER,
+                    data: [{ properties: { orgUnitPath: '/country2/other' } }],
+                },
+            ],
+            referenceLayer: undefined,
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expect(getWarning()).not.toBeInTheDocument()
     })
 })

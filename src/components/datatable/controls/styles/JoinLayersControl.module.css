@@ -80,3 +80,10 @@
     border-radius: 3px;
     background-color: var(--colors-white);
 }
+
+.aggregationWarning {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    color: var(--colors-yellow600);
+}
