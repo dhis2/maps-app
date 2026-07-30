@@ -1,5 +1,9 @@
 import { bbox } from '@turf/bbox'
-import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
+import {
+    DATA_KEY_KIND_VALUE,
+    SORT_ASCENDING,
+    SORT_DESCENDING,
+} from '../constants/dataTable.js'
 import {
     DATA_TABLE_LAYER_TYPES,
     EARTH_ENGINE_LAYER,
@@ -36,28 +40,36 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-export const getDefaultCombinedAggregation = (layer) => {
-    let type
+// Only meaningful for DATA_KEY_KIND_VALUE dataKeys - a real numeric value's
+// own aggregation strategy. Count/category dataKeys (added by later
+// per-layer-type branches in getCombinedValueDataKeys) always default to
+// 'COUNT' instead, handled uniformly in getDefaultCombinedAggregation below
+// rather than here.
+const getValueAggregationType = (layer) => {
     if (Array.isArray(layer.aggregationType)) {
-        type = getDefaultCombinedAggregationTypeFromEarthEngineStat(
+        return getDefaultCombinedAggregationTypeFromEarthEngineStat(
             layer.aggregationType[0]
         )
-    } else if (
-        CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.has(layer.aggregationType)
-    ) {
-        type =
-            CLASSIFIED_EARTH_ENGINE_DEFAULT_AGGREGATION_TYPE[
-                layer.aggregationType
-            ]
-    } else {
-        const dataItem = getDataItemFromColumns(layer.columns)
-        type = getDefaultCombinedAggregationType(
-            dataItem?.aggregationType,
-            dataItem?.dimensionItemType
-        )
     }
+    if (CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.has(layer.aggregationType)) {
+        return CLASSIFIED_EARTH_ENGINE_DEFAULT_AGGREGATION_TYPE[
+            layer.aggregationType
+        ]
+    }
+    const dataItem = getDataItemFromColumns(layer.columns)
+    return getDefaultCombinedAggregationType(
+        dataItem?.aggregationType,
+        dataItem?.dimensionItemType
+    )
+}
+
+export const getDefaultCombinedAggregation = (layer) => {
+    const valueType = getValueAggregationType(layer)
     return Object.fromEntries(
-        getCombinedValueDataKeys(layer).map(({ dataKey }) => [dataKey, type])
+        getCombinedValueDataKeys(layer).map(({ dataKey, kind }) => [
+            dataKey,
+            kind === DATA_KEY_KIND_VALUE ? valueType : 'COUNT',
+        ])
     )
 }
 
@@ -73,10 +85,18 @@ const getEarthEngineBandValueDataKeys = (layer) => {
         layer.bands.list?.filter((b) => layer.band.includes(b.id)) ?? []
     return selectedBands.flatMap(({ id: bandId, name: bandName }) =>
         layer.aggregationType.length === 1
-            ? [{ dataKey: bandId, name: bandName, defaultHidden: true }]
+            ? [
+                  {
+                      dataKey: bandId,
+                      name: bandName,
+                      kind: DATA_KEY_KIND_VALUE,
+                      defaultHidden: true,
+                  },
+              ]
             : layer.aggregationType.map((type) => ({
                   dataKey: `${bandId}_${type}`,
                   name: toTitleCase(`${type} ${bandName}`),
+                  kind: DATA_KEY_KIND_VALUE,
                   defaultHidden: true,
               }))
     )
@@ -84,7 +104,13 @@ const getEarthEngineBandValueDataKeys = (layer) => {
 
 export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER) {
-        return [{ dataKey: COMBINED_VALUE_KEY, name: null }]
+        return [
+            {
+                dataKey: COMBINED_VALUE_KEY,
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ]
     }
     if (
         CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES.has(layer.aggregationType) &&
@@ -93,6 +119,7 @@ export const getCombinedValueDataKeys = (layer) => {
         return layer.legend.items.map(({ value, name }) => ({
             dataKey: String(value),
             name,
+            kind: DATA_KEY_KIND_VALUE,
         }))
     }
     if (Array.isArray(layer.aggregationType) && layer.aggregationType.length) {
@@ -102,6 +129,7 @@ export const getCombinedValueDataKeys = (layer) => {
                 name: toTitleCase(
                     `${type} ${layer.legend?.title ?? ''}`.trim()
                 ),
+                kind: DATA_KEY_KIND_VALUE,
             }))
             .concat(getEarthEngineBandValueDataKeys(layer))
     }

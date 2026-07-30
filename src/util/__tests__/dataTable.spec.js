@@ -1,3 +1,4 @@
+import { DATA_KEY_KIND_VALUE } from '../../constants/dataTable.js'
 import {
     EARTH_ENGINE_LAYER,
     THEMATIC_LAYER,
@@ -39,7 +40,7 @@ const withDataItem = (aggregationType) => ({
 describe('getCombinedValueDataKeys', () => {
     test('returns a single generic rawValue column for any non-Earth-Engine layer', () => {
         expect(getCombinedValueDataKeys({ layer: THEMATIC_LAYER })).toEqual([
-            { dataKey: 'rawValue', name: null },
+            { dataKey: 'rawValue', name: null, kind: DATA_KEY_KIND_VALUE },
         ])
     })
 
@@ -51,8 +52,8 @@ describe('getCombinedValueDataKeys', () => {
                 legend: { title: 'NDVI' },
             })
         ).toEqual([
-            { dataKey: 'mean', name: 'Mean Ndvi' },
-            { dataKey: 'max', name: 'Max Ndvi' },
+            { dataKey: 'mean', name: 'Mean Ndvi', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: 'max', name: 'Max Ndvi', kind: DATA_KEY_KIND_VALUE },
         ])
     })
 
@@ -69,8 +70,8 @@ describe('getCombinedValueDataKeys', () => {
                 },
             })
         ).toEqual([
-            { dataKey: '1', name: 'Forest' },
-            { dataKey: '2', name: 'Water' },
+            { dataKey: '1', name: 'Forest', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: '2', name: 'Water', kind: DATA_KEY_KIND_VALUE },
         ])
     })
 
@@ -103,8 +104,16 @@ describe('getCombinedValueDataKeys', () => {
                 band: ['m_00'],
             })
         ).toEqual([
-            { dataKey: 'sum', name: 'Sum Population' },
-            { dataKey: 'mean', name: 'Mean Population' },
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'mean',
+                name: 'Mean Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
         ])
     })
 
@@ -118,11 +127,21 @@ describe('getCombinedValueDataKeys', () => {
                 band: ['m_00', 'f_00'],
             })
         ).toEqual([
-            { dataKey: 'sum', name: 'Sum Population' },
-            { dataKey: 'm_00', name: 'Male 0 - 1 years', defaultHidden: true },
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'm_00',
+                name: 'Male 0 - 1 years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
             {
                 dataKey: 'f_00',
                 name: 'Female 0 - 1 years',
+                kind: DATA_KEY_KIND_VALUE,
                 defaultHidden: true,
             },
         ])
@@ -138,26 +157,38 @@ describe('getCombinedValueDataKeys', () => {
                 band: ['m_00', 'f_00'],
             })
         ).toEqual([
-            { dataKey: 'sum', name: 'Sum Population' },
-            { dataKey: 'mean', name: 'Mean Population' },
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'mean',
+                name: 'Mean Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
             {
                 dataKey: 'm_00_sum',
                 name: 'Sum Male 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
                 defaultHidden: true,
             },
             {
                 dataKey: 'm_00_mean',
                 name: 'Mean Male 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
                 defaultHidden: true,
             },
             {
                 dataKey: 'f_00_sum',
                 name: 'Sum Female 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
                 defaultHidden: true,
             },
             {
                 dataKey: 'f_00_mean',
                 name: 'Mean Female 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
                 defaultHidden: true,
             },
         ])
@@ -171,8 +202,8 @@ describe('getCombinedValueDataKeys', () => {
                 legend: { title: 'NDVI' },
             })
         ).toEqual([
-            { dataKey: 'mean', name: 'Mean Ndvi' },
-            { dataKey: 'max', name: 'Max Ndvi' },
+            { dataKey: 'mean', name: 'Mean Ndvi', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: 'max', name: 'Max Ndvi', kind: DATA_KEY_KIND_VALUE },
         ])
     })
 })
