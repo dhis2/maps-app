@@ -1,6 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import { useMemo } from 'react'
 import {
+    DATA_KEY_KIND_CATEGORY,
+    DATA_KEY_KIND_COUNT,
     ORG_UNIT_LEVEL_DATA_KEY,
     SORT_ASCENDING,
     TYPE_NUMBER,
@@ -20,9 +22,11 @@ import {
 import {
     getCombinedValueDataKeys,
     getDefaultCombinedAggregation,
+    getFeatureCategoryKey,
 } from '../../util/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { isFeatureInBounds } from '../../util/geojson.js'
+import { getRoundToPrecisionFn } from '../../util/numbers.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
@@ -96,13 +100,36 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
     const { layer, settings, byReferenceId, valueDataKeys } = layerMatch
     const matches = byReferenceId.get(refProps.id) ?? []
 
-    valueDataKeys.forEach(({ dataKey }) => {
-        const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
-        row[`${layer.combinedLayerKey}_${dataKey}`] = applyAggregation(
+    valueDataKeys.forEach(({ dataKey, kind }) => {
+        const rowKey = `${layer.combinedLayerKey}_${dataKey}`
+        const effectiveType =
             settings.aggregation?.[dataKey] ??
-                getDefaultCombinedAggregation(layer)[dataKey],
-            values
-        )
+            getDefaultCombinedAggregation(layer)[dataKey]
+
+        if (kind === DATA_KEY_KIND_COUNT) {
+            // A rollup that matched nothing reads as "no data" (null, same
+            // as every other column), not a real business zero.
+            row[rowKey] = matches.length || null
+            return
+        }
+
+        if (kind === DATA_KEY_KIND_CATEGORY) {
+            if (!matches.length) {
+                row[rowKey] = null
+                return
+            }
+            const inCategory = matches.filter(
+                (p) => getFeatureCategoryKey(layer, p) === dataKey
+            ).length
+            row[rowKey] =
+                effectiveType === 'PERCENTAGE'
+                    ? (inCategory / matches.length) * 100
+                    : inCategory
+            return
+        }
+
+        const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
+        row[rowKey] = applyAggregation(effectiveType, values)
     })
 
     if (layer.layer !== EARTH_ENGINE_LAYER) {
@@ -118,6 +145,50 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
     const ids = matches.map((p) => p.id).filter((id) => id != null)
     if (ids.length) {
         featureIds[layer.id] = ids
+    }
+}
+
+const getValueDataKeyHeader = (
+    layer,
+    settings,
+    { dataKey, name, kind, defaultHidden }
+) => {
+    const rowKey = `${layer.combinedLayerKey}_${dataKey}`
+
+    if (kind === DATA_KEY_KIND_COUNT) {
+        return {
+            name: i18n.t('Count ({{layer}})', { layer: layer.name }),
+            dataKey: rowKey,
+            type: TYPE_NUMBER,
+            defaultHidden,
+        }
+    }
+
+    if (kind === DATA_KEY_KIND_CATEGORY) {
+        const effectiveType =
+            settings.aggregation?.[dataKey] ??
+            getDefaultCombinedAggregation(layer)[dataKey]
+        const isPercentage = effectiveType === 'PERCENTAGE'
+        return {
+            name: i18n.t('{{name}} ({{unit}}) ({{layer}})', {
+                name,
+                unit: isPercentage ? i18n.t('%') : i18n.t('count'),
+                layer: layer.name,
+            }),
+            dataKey: rowKey,
+            type: TYPE_NUMBER,
+            defaultHidden,
+            ...(isPercentage ? { roundFn: getRoundToPrecisionFn(1) } : {}),
+        }
+    }
+
+    return {
+        name: name
+            ? i18n.t('{{name}} ({{layer}})', { name, layer: layer.name })
+            : i18n.t('Value ({{layer}})', { layer: layer.name }),
+        dataKey: rowKey,
+        type: TYPE_NUMBER,
+        defaultHidden,
     }
 }
 
@@ -202,18 +273,10 @@ export const useCombinedTableData = ({
                 type: TYPE_NUMBER,
                 defaultHidden: true,
             },
-            ...layerMatches.flatMap(({ layer, valueDataKeys }) => [
-                ...valueDataKeys.map(({ dataKey, name, defaultHidden }) => ({
-                    name: name
-                        ? i18n.t('{{name}} ({{layer}})', {
-                              name,
-                              layer: layer.name,
-                          })
-                        : i18n.t('Value ({{layer}})', { layer: layer.name }),
-                    dataKey: `${layer.combinedLayerKey}_${dataKey}`,
-                    type: TYPE_NUMBER,
-                    defaultHidden,
-                })),
+            ...layerMatches.flatMap(({ layer, settings, valueDataKeys }) => [
+                ...valueDataKeys.map((valueDataKey) =>
+                    getValueDataKeyHeader(layer, settings, valueDataKey)
+                ),
                 // Earth Engine has no separate categorical "legend" concept
                 ...(layer.layer !== EARTH_ENGINE_LAYER
                     ? [
