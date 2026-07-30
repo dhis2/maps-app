@@ -1,4 +1,8 @@
-import { applyAggregation } from '../aggregation.js'
+import {
+    applyAggregation,
+    getDefaultCombinedAggregationType,
+    getDefaultCombinedAggregationTypeFromEarthEngineStat,
+} from '../aggregation.js'
 
 describe('applyAggregation', () => {
     test('returns null for an empty input (no matching feature)', () => {
@@ -42,5 +46,80 @@ describe('applyAggregation', () => {
 
     test('returns null for an unknown aggregation type', () => {
         expect(applyAggregation('NOT_A_TYPE', [1, 2, 3])).toBeNull()
+    })
+})
+
+describe('getDefaultCombinedAggregationType', () => {
+    test('maps directly for types with a 1:1 equivalent', () => {
+        expect(getDefaultCombinedAggregationType('SUM')).toBe('SUM')
+        expect(getDefaultCombinedAggregationType('AVERAGE')).toBe('AVERAGE')
+        expect(getDefaultCombinedAggregationType('COUNT')).toBe('COUNT')
+        expect(getDefaultCombinedAggregationType('MIN')).toBe('MIN')
+        expect(getDefaultCombinedAggregationType('MAX')).toBe('MAX')
+        expect(getDefaultCombinedAggregationType('STDDEV')).toBe('STDDEV')
+        expect(getDefaultCombinedAggregationType('VARIANCE')).toBe('VARIANCE')
+    })
+
+    test('maps AVERAGE_SUM_ORG_UNIT to SUM - Combined only ever rolls up across org units', () => {
+        expect(getDefaultCombinedAggregationType('AVERAGE_SUM_ORG_UNIT')).toBe(
+            'SUM'
+        )
+    })
+
+    test('falls back to SUM for NONE, CUSTOM, unrecognized, or missing types', () => {
+        expect(getDefaultCombinedAggregationType('NONE')).toBe('SUM')
+        expect(getDefaultCombinedAggregationType('CUSTOM')).toBe('SUM')
+        expect(getDefaultCombinedAggregationType('NOT_A_TYPE')).toBe('SUM')
+        expect(getDefaultCombinedAggregationType(undefined)).toBe('SUM')
+    })
+
+    test('defaults a plain Indicator to AVERAGE regardless of aggregationType - it has none of its own, and its value is a ratio not meaningfully summed across org units', () => {
+        expect(getDefaultCombinedAggregationType(undefined, 'INDICATOR')).toBe(
+            'AVERAGE'
+        )
+        expect(getDefaultCombinedAggregationType('SUM', 'INDICATOR')).toBe(
+            'AVERAGE'
+        )
+    })
+
+    test('defaults Reporting rate to AVERAGE - same reasoning as Indicators, it has no aggregationType of its own and its value is always a ratio', () => {
+        expect(
+            getDefaultCombinedAggregationType(undefined, 'REPORTING_RATE')
+        ).toBe('AVERAGE')
+    })
+})
+
+describe('getDefaultCombinedAggregationTypeFromEarthEngineStat', () => {
+    test('maps each Earth Engine stat id to its equivalent', () => {
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('count')
+        ).toBe('COUNT')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('min')
+        ).toBe('MIN')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('max')
+        ).toBe('MAX')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('mean')
+        ).toBe('AVERAGE')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('sum')
+        ).toBe('SUM')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('stdDev')
+        ).toBe('STDDEV')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('variance')
+        ).toBe('VARIANCE')
+    })
+
+    test('falls back to SUM for median (no equivalent reducer) or an unrecognized stat', () => {
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('median')
+        ).toBe('SUM')
+        expect(
+            getDefaultCombinedAggregationTypeFromEarthEngineStat('not-a-stat')
+        ).toBe('SUM')
     })
 })

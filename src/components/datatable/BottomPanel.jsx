@@ -317,6 +317,7 @@ const BottomPanel = () => {
                         <JoinLayersControl
                             eligibleLayers={eligibleLayers}
                             layersConfig={joinLayersConfig}
+                            referenceLayer={referenceLayer}
                             onChange={(layers) =>
                                 dispatch(
                                     setJoinConfig(referenceLayer.id, layers)

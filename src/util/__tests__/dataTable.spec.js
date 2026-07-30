@@ -1,11 +1,17 @@
 import {
     EARTH_ENGINE_LAYER,
     THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    FACILITY_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
     EXTERNAL_LAYER,
 } from '../../constants/layers.js'
 import {
     buildFeatureIndex,
     getCombinedValueDataKeys,
+    getDefaultCombinedAggregation,
+    getDefaultReferenceRows,
     getEligibleDataTableLayers,
     getLayerSelectedIds,
     getNextSorting,
@@ -19,6 +25,16 @@ import {
     mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
+
+const withDataItem = (aggregationType) => ({
+    layer: THEMATIC_LAYER,
+    columns: [
+        {
+            dimension: 'dx',
+            items: [{ id: 'de1', name: 'DE 1', aggregationType }],
+        },
+    ],
+})
 
 describe('getCombinedValueDataKeys', () => {
     test('returns a single generic rawValue column for any non-Earth-Engine layer', () => {
@@ -66,6 +82,169 @@ describe('getCombinedValueDataKeys', () => {
                 legend: {},
             })
         ).toEqual([])
+    })
+})
+
+describe('getDefaultCombinedAggregation', () => {
+    test("defaults to the data item's own aggregation type", () => {
+        expect(getDefaultCombinedAggregation(withDataItem('AVERAGE'))).toEqual({
+            rawValue: 'AVERAGE',
+        })
+    })
+
+    test('maps AVERAGE_SUM_ORG_UNIT to SUM', () => {
+        expect(
+            getDefaultCombinedAggregation(withDataItem('AVERAGE_SUM_ORG_UNIT'))
+        ).toEqual({ rawValue: 'SUM' })
+    })
+
+    test('falls back to SUM when the data item has no aggregationType', () => {
+        expect(getDefaultCombinedAggregation(withDataItem(undefined))).toEqual({
+            rawValue: 'SUM',
+        })
+    })
+
+    test('falls back to SUM for a layer with no data item at all (non-Thematic types)', () => {
+        expect(
+            getDefaultCombinedAggregation({ layer: EARTH_ENGINE_LAYER })
+        ).toEqual({})
+    })
+
+    test('defaults a plain Indicator data item to AVERAGE - it has no aggregationType of its own, and its value is a ratio not meaningfully summed across org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: THEMATIC_LAYER,
+                columns: [
+                    {
+                        dimension: 'dx',
+                        items: [
+                            {
+                                id: 'in1',
+                                name: 'Indicator 1',
+                                dimensionItemType: 'INDICATOR',
+                            },
+                        ],
+                    },
+                ],
+            })
+        ).toEqual({ rawValue: 'AVERAGE' })
+    })
+
+    test("Earth Engine: defaults every stat column to the first selected stat's own equivalent", () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual({ mean: 'AVERAGE', max: 'AVERAGE' })
+    })
+
+    test('Earth Engine: classified percentage (e.g. Landcover) defaults to AVERAGE - a relative proportion is not meaningfully summed across differently-sized org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'percentage',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'AVERAGE' })
+    })
+
+    test('Earth Engine: classified hectares/acres default to SUM - an absolute area is correctly additive across joined org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'hectares',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'SUM' })
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'acres',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'SUM' })
+    })
+})
+
+const withOrgUnitRows = (layer, id) => ({
+    layer,
+    rows: [{ dimension: 'ou', items: [{ id, name: id }] }],
+})
+
+describe('getDefaultReferenceRows', () => {
+    test('returns an empty array when no map view has an org unit selection', () => {
+        expect(
+            getDefaultReferenceRows([{ layer: THEMATIC_LAYER, rows: [] }])
+        ).toEqual([])
+    })
+
+    test('prefers a Thematic layer over every other type', () => {
+        const thematic = withOrgUnitRows(THEMATIC_LAYER, 'thematicOu')
+        expect(
+            getDefaultReferenceRows([
+                withOrgUnitRows(TRACKED_ENTITY_LAYER, 'teOu'),
+                withOrgUnitRows(ORG_UNIT_LAYER, 'orgUnitOu'),
+                thematic,
+                withOrgUnitRows(EARTH_ENGINE_LAYER, 'eeOu'),
+            ])
+        ).toBe(thematic.rows)
+    })
+
+    test('falls through to the next type in priority order when a higher-priority layer has no org units selected', () => {
+        const facility = withOrgUnitRows(FACILITY_LAYER, 'facilityOu')
+        expect(
+            getDefaultReferenceRows([
+                { layer: THEMATIC_LAYER, rows: [] },
+                { layer: ORG_UNIT_LAYER, rows: [] },
+                { layer: EARTH_ENGINE_LAYER, rows: [] },
+                facility,
+                withOrgUnitRows(EVENT_LAYER, 'eventOu'),
+            ])
+        ).toBe(facility.rows)
+    })
+
+    test('defaults to an empty array when no map views are given', () => {
+        expect(getDefaultReferenceRows()).toEqual([])
+    })
+
+    const withLevel = (layer, id, level) => ({
+        ...withOrgUnitRows(layer, id),
+        data: [{ properties: { id, level } }],
+    })
+
+    test('prefers the coarser (lower) org unit level over the type priority order', () => {
+        const facility = withLevel(FACILITY_LAYER, 'facilityOu', 1)
+        const thematic = withLevel(THEMATIC_LAYER, 'thematicOu', 3)
+        expect(getDefaultReferenceRows([thematic, facility])).toBe(
+            facility.rows
+        )
+    })
+
+    test('breaks a level tie using the type priority order', () => {
+        const orgUnit = withLevel(ORG_UNIT_LAYER, 'orgUnitOu', 2)
+        const thematic = withLevel(THEMATIC_LAYER, 'thematicOu', 2)
+        expect(getDefaultReferenceRows([orgUnit, thematic])).toBe(thematic.rows)
+    })
+
+    test('prefers the coarser of two layers of the same type', () => {
+        const fineThematic = withLevel(THEMATIC_LAYER, 'fine', 3)
+        const coarseThematic = withLevel(THEMATIC_LAYER, 'coarse', 1)
+        expect(getDefaultReferenceRows([fineThematic, coarseThematic])).toBe(
+            coarseThematic.rows
+        )
+    })
+
+    test('falls back to type priority when a candidate has no loaded data to compare a level from yet', () => {
+        const thematicNotYetLoaded = withOrgUnitRows(
+            THEMATIC_LAYER,
+            'thematicOu'
+        )
+        const facility = withLevel(FACILITY_LAYER, 'facilityOu', 1)
+        expect(getDefaultReferenceRows([facility, thematicNotYetLoaded])).toBe(
+            thematicNotYetLoaded.rows
+        )
     })
 })
 

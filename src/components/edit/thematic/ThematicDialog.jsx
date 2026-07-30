@@ -30,7 +30,7 @@ import {
     PREDEFINED_PERIODS,
     START_END_DATES,
 } from '../../../constants/periods.js'
-import useDataItemLegendSet from '../../../hooks/useDataItemLegendSet.js'
+import useDataItemMetadata from '../../../hooks/useDataItemMetadata.js'
 import useLayersPeriodSync from '../../../hooks/useLayersPeriodSync.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
@@ -92,7 +92,7 @@ const ThematicDialog = ({
         syncToOtherLayers,
         trySyncFromOtherLayersOnce,
     } = useLayersPeriodSync()
-    const fetchLegendSet = useDataItemLegendSet()
+    const fetchDataItemMetadata = useDataItemMetadata()
 
     // State management
     // -----
@@ -362,12 +362,15 @@ const ThematicDialog = ({
                                 }
                                 onSelect={async ({ items }) => {
                                     const selected = items.at(-1) ?? {}
-                                    const legendSet = await fetchLegendSet(
-                                        selected
-                                    )
+                                    const { legendSet, aggregationType } =
+                                        await fetchDataItemMetadata(selected)
                                     dispatch(
                                         setDataItem(
-                                            { ...selected, legendSet },
+                                            {
+                                                ...selected,
+                                                legendSet,
+                                                aggregationType,
+                                            },
                                             selected.type
                                         )
                                     )

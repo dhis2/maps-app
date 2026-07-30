@@ -1,9 +1,18 @@
 import i18n from '@dhis2/d2-i18n'
+import { IconWarningFilled16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef, useState } from 'react'
 import { getCombinedAggregationTypes } from '../../../constants/aggregationTypes.js'
 import { ORG_UNIT_PATH_DATA_KEY } from '../../../constants/dataTable.js'
-import { getCombinedValueDataKeys } from '../../../util/dataTable.js'
+import { NON_COMPOSABLE_AGGREGATION_TYPES } from '../../../util/aggregation.js'
+import {
+    getUnmatchedFeatureCount,
+    hasCombinedRollup,
+} from '../../../util/combinedJoinMatch.js'
+import {
+    getCombinedValueDataKeys,
+    getDefaultCombinedAggregation,
+} from '../../../util/dataTable.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -29,12 +38,15 @@ const hasOrgUnitIdentity = (layer) => {
 
 const getDefaultSettings = (layer) => ({
     type: hasOrgUnitIdentity(layer) ? 'orgUnit' : 'spatial',
-    aggregation: Object.fromEntries(
-        getCombinedValueDataKeys(layer).map(({ dataKey }) => [dataKey, 'SUM'])
-    ),
+    aggregation: getDefaultCombinedAggregation(layer),
 })
 
-const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
+const JoinLayersControl = ({
+    eligibleLayers,
+    layersConfig,
+    onChange,
+    referenceLayer,
+}) => {
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const aggregationTypes = getCombinedAggregationTypes()
@@ -90,6 +102,22 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                             {eligibleLayers.map((layer) => {
                                 const settings =
                                     layersConfig[layer.combinedLayerKey]
+                                const defaultAggregation =
+                                    getDefaultCombinedAggregation(layer)
+                                const hasRollup =
+                                    !!settings &&
+                                    hasCombinedRollup(
+                                        layer,
+                                        referenceLayer,
+                                        settings.type
+                                    )
+                                const unmatchedCount = settings
+                                    ? getUnmatchedFeatureCount(
+                                          layer,
+                                          referenceLayer,
+                                          settings.type
+                                      )
+                                    : 0
                                 return (
                                     <div
                                         key={layer.id}
@@ -112,99 +140,160 @@ const JoinLayersControl = ({ eligibleLayers, layersConfig, onChange }) => {
                                             <div
                                                 className={styles.layerSettings}
                                             >
-                                                <select
-                                                    aria-label={i18n.t(
-                                                        'Join type for {{layer}}',
-                                                        { layer: layer.name }
-                                                    )}
-                                                    value={settings.type}
-                                                    onChange={(e) =>
-                                                        onTypeChange(
-                                                            layer.combinedLayerKey,
-                                                            e.target.value
-                                                        )
+                                                <div
+                                                    className={
+                                                        styles.aggregationRow
                                                     }
                                                 >
-                                                    <option value="orgUnit">
-                                                        {i18n.t('Org unit')}
-                                                    </option>
-                                                    {isSpatialEligible(
-                                                        layer
-                                                    ) && (
-                                                        <option value="spatial">
-                                                            {i18n.t('Spatial')}
-                                                        </option>
-                                                    )}
-                                                </select>
-                                                {getCombinedValueDataKeys(
-                                                    layer
-                                                ).map(({ dataKey, name }) => (
-                                                    <div
-                                                        key={dataKey}
-                                                        className={
-                                                            styles.aggregationRow
+                                                    <select
+                                                        aria-label={i18n.t(
+                                                            'Join type for {{layer}}',
+                                                            {
+                                                                layer: layer.name,
+                                                            }
+                                                        )}
+                                                        value={settings.type}
+                                                        onChange={(e) =>
+                                                            onTypeChange(
+                                                                layer.combinedLayerKey,
+                                                                e.target.value
+                                                            )
                                                         }
                                                     >
-                                                        {name && (
+                                                        <option value="orgUnit">
+                                                            {i18n.t('Org unit')}
+                                                        </option>
+                                                        {isSpatialEligible(
+                                                            layer
+                                                        ) && (
+                                                            <option value="spatial">
+                                                                {i18n.t(
+                                                                    'Spatial'
+                                                                )}
+                                                            </option>
+                                                        )}
+                                                    </select>
+                                                    {unmatchedCount > 0 && (
+                                                        <Tooltip
+                                                            content={i18n.t(
+                                                                '{{count}} feature(s) from {{layer}} could not be matched to a reference org unit (wrong level, no matching parent, or outside every boundary) and will be excluded from the Combined table.',
+                                                                {
+                                                                    count: unmatchedCount,
+                                                                    layer: layer.name,
+                                                                }
+                                                            )}
+                                                        >
                                                             <span
                                                                 className={
-                                                                    styles.aggregationRowLabel
+                                                                    styles.aggregationWarning
                                                                 }
+                                                                data-test={`data-table-join-unmatched-warning-${layer.id}`}
                                                             >
-                                                                {name}
+                                                                <IconWarningFilled16 />
                                                             </span>
-                                                        )}
-                                                        <select
-                                                            aria-label={
-                                                                name
-                                                                    ? i18n.t(
-                                                                          'Aggregation type for {{name}} ({{layer}})',
-                                                                          {
-                                                                              name,
-                                                                              layer: layer.name,
-                                                                          }
-                                                                      )
-                                                                    : i18n.t(
-                                                                          'Aggregation type for {{layer}}',
-                                                                          {
-                                                                              layer: layer.name,
-                                                                          }
-                                                                      )
-                                                            }
-                                                            value={
-                                                                settings
-                                                                    .aggregation?.[
-                                                                    dataKey
-                                                                ] ?? 'SUM'
-                                                            }
-                                                            onChange={(e) =>
-                                                                onAggregationChange(
-                                                                    layer.combinedLayerKey,
-                                                                    dataKey,
-                                                                    e.target
-                                                                        .value
-                                                                )
+                                                        </Tooltip>
+                                                    )}
+                                                </div>
+                                                {getCombinedValueDataKeys(
+                                                    layer
+                                                ).map(({ dataKey, name }) => {
+                                                    const effectiveType =
+                                                        settings.aggregation?.[
+                                                            dataKey
+                                                        ] ??
+                                                        defaultAggregation[
+                                                            dataKey
+                                                        ]
+                                                    const showWarning =
+                                                        hasRollup &&
+                                                        NON_COMPOSABLE_AGGREGATION_TYPES.has(
+                                                            effectiveType
+                                                        )
+                                                    return (
+                                                        <div
+                                                            key={dataKey}
+                                                            className={
+                                                                styles.aggregationRow
                                                             }
                                                         >
-                                                            {aggregationTypes.map(
-                                                                (type) => (
-                                                                    <option
-                                                                        key={
-                                                                            type.id
-                                                                        }
-                                                                        value={
-                                                                            type.id
-                                                                        }
-                                                                    >
-                                                                        {
-                                                                            type.name
-                                                                        }
-                                                                    </option>
-                                                                )
+                                                            {name && (
+                                                                <span
+                                                                    className={
+                                                                        styles.aggregationRowLabel
+                                                                    }
+                                                                >
+                                                                    {name}
+                                                                </span>
                                                             )}
-                                                        </select>
-                                                    </div>
-                                                ))}
+                                                            <select
+                                                                aria-label={
+                                                                    name
+                                                                        ? i18n.t(
+                                                                              'Aggregation type for {{name}} ({{layer}})',
+                                                                              {
+                                                                                  name,
+                                                                                  layer: layer.name,
+                                                                              }
+                                                                          )
+                                                                        : i18n.t(
+                                                                              'Aggregation type for {{layer}}',
+                                                                              {
+                                                                                  layer: layer.name,
+                                                                              }
+                                                                          )
+                                                                }
+                                                                value={
+                                                                    effectiveType
+                                                                }
+                                                                onChange={(e) =>
+                                                                    onAggregationChange(
+                                                                        layer.combinedLayerKey,
+                                                                        dataKey,
+                                                                        e.target
+                                                                            .value
+                                                                    )
+                                                                }
+                                                            >
+                                                                {aggregationTypes.map(
+                                                                    (type) => (
+                                                                        <option
+                                                                            key={
+                                                                                type.id
+                                                                            }
+                                                                            value={
+                                                                                type.id
+                                                                            }
+                                                                        >
+                                                                            {
+                                                                                type.name
+                                                                            }
+                                                                        </option>
+                                                                    )
+                                                                )}
+                                                            </select>
+                                                            {showWarning && (
+                                                                <Tooltip
+                                                                    content={i18n.t(
+                                                                        'Several {{layer}} features roll up into each reference org unit here - {{type}} is an approximation of the values you can see joined in, not a recomputation over the combined area.',
+                                                                        {
+                                                                            layer: layer.name,
+                                                                            type: effectiveType,
+                                                                        }
+                                                                    )}
+                                                                >
+                                                                    <span
+                                                                        className={
+                                                                            styles.aggregationWarning
+                                                                        }
+                                                                        data-test={`data-table-join-aggregation-warning-${layer.id}-${dataKey}`}
+                                                                    >
+                                                                        <IconWarningFilled16 />
+                                                                    </span>
+                                                                </Tooltip>
+                                                            )}
+                                                        </div>
+                                                    )
+                                                })}
                                             </div>
                                         )}
                                     </div>
@@ -230,6 +319,7 @@ JoinLayersControl.propTypes = {
     ).isRequired,
     layersConfig: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
+    referenceLayer: PropTypes.object,
 }
 
 export default JoinLayersControl
