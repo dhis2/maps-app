@@ -33,19 +33,25 @@ const OpenAsMapDialog = () => {
     const allDataDimensions = getDataDimensionsFromAnalyticalObject(currentAO)
     const firstDimensionId = allDataDimensions[0]?.id
 
-    const [selectedDataDims, setSelectedDataDims] = useState([firstDimensionId])
-    const hasAutoAdded = useRef(false)
-    const isAddingRef = useRef(false)
+    const [selectedDataDims, setSelectedDataDims] = useState(() =>
+        firstDimensionId ? [firstDimensionId] : []
+    )
+    const [isAdding, setIsAdding] = useState(false)
+
+    // Adding always ends in clearAnalyticalObject(), which unmounts this
+    // dialog, so the guard never needs resetting (DHIS2-15762)
+    const hasAddedRef = useRef(false)
 
     const addLayersToMap = async () => {
-        if (isAddingRef.current) {
+        if (hasAddedRef.current) {
             return
         }
-        isAddingRef.current = true
+        hasAddedRef.current = true
+        setIsAdding(true)
 
         try {
             const selectedDimensions = [...selectedDataDims].reverse()
-            const lastDataId = allDataDimensions[selectedDimensions.length - 1]
+            const lastDataId = selectedDimensions[selectedDimensions.length - 1]
 
             // Call in sequence
             for (const dataId of selectedDimensions) {
@@ -62,44 +68,42 @@ const OpenAsMapDialog = () => {
             }
         } finally {
             dispatch(clearAnalyticalObject())
-            isAddingRef.current = false
         }
     }
 
-    const addEarthEngineLayersToMap = () => {
-        try {
-            const layerSource = getEarthEngineLayers().find(
-                ({ layerId: id }) => layerId === id
-            )
-            const layer = getEarthEngineLayerFromAnalyticalObject({
-                ao: currentAO,
-            })
-            const consolidatedLayer = {
-                ...layerSource,
-                aggregationType: layerSource.defaultAggregations,
-                ...layer,
-            }
-            if (layerSource && layer) {
-                dispatch(addLayer(consolidatedLayer))
-            }
-        } finally {
-            dispatch(clearAnalyticalObject())
-        }
-    }
-
-    // Ref-guarded: without it, a re-render mid-fetch re-dispatches and duplicates the layer (DHIS2-15762)
-    useEffect(() => {
-        if (hasAutoAdded.current) {
+    const addEarthEngineLayerToMap = () => {
+        if (hasAddedRef.current) {
             return
         }
+        hasAddedRef.current = true
 
+        const layerSource = getEarthEngineLayers().find(
+            ({ layerId: id }) => layerId === id
+        )
+        const layer = getEarthEngineLayerFromAnalyticalObject({
+            ao: currentAO,
+        })
+
+        if (layerSource && layer) {
+            dispatch(
+                addLayer({
+                    ...layerSource,
+                    aggregationType: layerSource.defaultAggregations,
+                    ...layer,
+                })
+            )
+        }
+
+        dispatch(clearAnalyticalObject())
+    }
+
+    useEffect(() => {
         if (type === EARTH_ENGINE_LAYER) {
             if (!layerId) {
                 log.info('No earth engine layer id found in analytical object')
                 return
             }
-            hasAutoAdded.current = true
-            addEarthEngineLayersToMap()
+            addEarthEngineLayerToMap()
             return
         }
 
@@ -109,11 +113,21 @@ const OpenAsMapDialog = () => {
         }
 
         if (allDataDimensions.length === 1) {
-            hasAutoAdded.current = true
             addLayersToMap()
         }
+        // The deps matter: the early returns above leave hasAddedRef unset, so
+        // the effect has to run again if the analytical object resolves late
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type, layerId, allDataDimensions.length])
+
+    // The analytical object may resolve after mount, leaving nothing preselected
+    useEffect(() => {
+        if (firstDimensionId) {
+            setSelectedDataDims((dims) =>
+                dims.length ? dims : [firstDimensionId]
+            )
+        }
+    }, [firstDimensionId])
 
     if (type === EARTH_ENGINE_LAYER || allDataDimensions.length <= 1) {
         return null
@@ -150,7 +164,7 @@ const OpenAsMapDialog = () => {
                         {i18n.t('Cancel')}
                     </Button>
                     <Button
-                        disabled={!selectedDataDims.length}
+                        disabled={!selectedDataDims.length || isAdding}
                         primary
                         onClick={addLayersToMap}
                     >
