@@ -61,10 +61,6 @@ export const getDefaultCombinedAggregation = (layer) => {
     )
 }
 
-// One column per selected band the layer's own bandReducer combines into
-// its main value (e.g. Population's age/sex groups) - mirrors
-// tableHeaders.js's getBandFields for the single-layer table. A no-op
-// unless 2+ bands are actually selected.
 const getEarthEngineBandValueDataKeys = (layer) => {
     if (
         !layer.bands?.multiple ||
