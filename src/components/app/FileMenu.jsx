@@ -18,7 +18,6 @@ import {
     ALERT_OPTIONS_DYNAMIC,
     ALERT_SUCCESS_DELAY,
 } from '../../constants/alerts.js'
-import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import { cleanMapConfig } from '../../util/favorites.js'
 import { addOrgUnitPaths } from '../../util/helpers.js'
 import history from '../../util/history.js'
@@ -64,37 +63,15 @@ const getSaveFailureMessage = (message) =>
         nsSeparator: ';',
     })
 
-// state.dataTable.joinConfig.layers/combinedColumnConfig live in their own
-// Redux slice, not on the combinedTableRef mapView itself, so (unlike
-// dataTableColumnConfig, which is already stamped directly onto its layer as
-// it's edited) they need an explicit copy onto that layer right before
-// cleanMapConfig runs, or they'd never reach favorites.js's packing logic at
-// all.
-const stampCombinedConfig = (map, joinConfig, combinedColumnConfig) => ({
-    ...map,
-    mapViews: map.mapViews.map((view) =>
-        view.layer === COMBINED_TABLE_REF_LAYER
-            ? {
-                  ...view,
-                  combinedJoinConfig: joinConfig.layers,
-                  combinedColumnConfig,
-              }
-            : view
-    ),
-})
-
 const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
-    const joinConfig = useSelector((state) => state.dataTable.joinConfig)
-    const combinedColumnConfig = useSelector(
-        (state) => state.dataTable.combinedColumnConfig
-    )
     const dispatch = useDispatch()
     const engine = useDataEngine()
     const { serverVersion } = useConfig()
     const { systemSettings, currentUser } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
-    //alerts
+
+    // Alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const renameFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
     const renameSuccessAlert = useAlert(
@@ -142,7 +119,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         })
 
         const cleanedMap = cleanMapConfig({
-            config: stampCombinedConfig(map, joinConfig, combinedColumnConfig),
+            config: map,
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })
@@ -169,7 +146,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        // fetch the original Map
+        // Fetch the original Map
         const fetchedMap = await fetchMap({
             id: map.id,
             engine,
@@ -214,7 +191,7 @@ const FileMenu = ({ onFileMenuAction }) => {
 
     const onSaveAs = async ({ name, description }) => {
         const cleanedMap = cleanMapConfig({
-            config: stampCombinedConfig(map, joinConfig, combinedColumnConfig),
+            config: map,
             defaultBasemapId: defaultBasemap,
             serverVersion,
         })

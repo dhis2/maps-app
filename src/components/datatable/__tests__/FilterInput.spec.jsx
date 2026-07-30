@@ -29,10 +29,6 @@ jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
 
 const mockStore = configureMockStore()
 
-// FilterInput is dispatch-agnostic (filterValue/onChange/onClear are caller-
-// supplied) - this helper reproduces exactly what DataTable.jsx's real call
-// site does (dispatch setDataFilter/clearDataFilter against a real layer),
-// so every existing assertion against store.getActions() still holds.
 const renderFilterInput = (props, dataFilters) => {
     const store = mockStore({
         map: {

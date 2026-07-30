@@ -6,6 +6,7 @@ import {
     setActiveTimelinePeriod,
     toggleCombinedView,
     setJoinConfig,
+    setCombinedColumnConfig,
 } from '../dataTable.js'
 
 describe('closeDataTable', () => {
@@ -54,14 +55,23 @@ describe('toggleCombinedView', () => {
 
 describe('setJoinConfig', () => {
     it('creates a DATA_TABLE_JOIN_CONFIG_SET action', () => {
-        const config = {
-            level: 'spatial',
-            layerIds: [],
-            pointLayerId: 'layer1',
-            polygonLayerId: 'layer2',
+        const layers = {
+            layer1: { type: 'orgUnit', aggregation: {} },
         }
-        expect(setJoinConfig(config)).toEqual({
+        expect(setJoinConfig('ref1', layers)).toEqual({
             type: types.DATA_TABLE_JOIN_CONFIG_SET,
+            layerId: 'ref1',
+            layers,
+        })
+    })
+})
+
+describe('setCombinedColumnConfig', () => {
+    it('creates a DATA_TABLE_COMBINED_COLUMN_CONFIG_SET action', () => {
+        const config = { pinnedKeys: ['name'] }
+        expect(setCombinedColumnConfig('ref1', config)).toEqual({
+            type: types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET,
+            layerId: 'ref1',
             config,
         })
     })

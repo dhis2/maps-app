@@ -54,10 +54,6 @@
     background-color: var(--colors-white);
 }
 
-/* One per value column a layer contributes - usually just one (most layer
-   types have a single value), but Earth Engine can contribute several
-   (one per aggregation stat or legend class), each needing its own
-   aggregation-type choice and a label to tell them apart. */
 .aggregationRow {
     display: flex;
     align-items: center;

@@ -55,14 +55,8 @@ const EMPTY_JOIN_LAYERS = {}
 
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const { openIds, combinedView, joinConfig, combinedColumnConfig } =
-        useSelector((state) => state.dataTable)
+    const { openIds, combinedView } = useSelector((state) => state.dataTable)
     const mapViews = useSelector((state) => state.map.mapViews)
-    // Only tracks a user's explicit tab click - falls back to the most
-    // recently opened tab whenever it doesn't (yet) name an open layer, so
-    // there's no render where this is out of sync with openIds (unlike a
-    // useState+useEffect pair, which would flash a stale/null value for one
-    // render before the effect corrects it).
     const [manualActiveLayerId, setManualActiveLayerId] = useState(null)
     const activeLayerId =
         manualActiveLayerId && openIds.includes(manualActiveLayerId)
@@ -74,7 +68,9 @@ const BottomPanel = () => {
     const combinedEnabled =
         !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0
 
-    const joinLayersConfig = joinConfig.layers ?? EMPTY_JOIN_LAYERS
+    const joinLayersConfig =
+        referenceLayer?.combinedJoinConfig ?? EMPTY_JOIN_LAYERS
+    const combinedColumnConfig = referenceLayer?.combinedColumnConfig ?? null
     const combinedLayers = useMemo(
         () => mapViews.filter((l) => joinLayersConfig[l.combinedLayerKey]),
         [mapViews, joinLayersConfig]
@@ -254,32 +250,6 @@ const BottomPanel = () => {
         return () => observer.disconnect()
     }, [])
 
-    const hasHydratedJoinConfigRef = useRef(false)
-    useEffect(() => {
-        if (
-            hasHydratedJoinConfigRef.current ||
-            !referenceLayer?.isLoaded ||
-            !referenceLayer.combinedJoinConfig
-        ) {
-            return
-        }
-        hasHydratedJoinConfigRef.current = true
-        dispatch(setJoinConfig({ layers: referenceLayer.combinedJoinConfig }))
-    }, [referenceLayer, dispatch])
-
-    const hasHydratedColumnConfigRef = useRef(false)
-    useEffect(() => {
-        if (
-            hasHydratedColumnConfigRef.current ||
-            !referenceLayer?.isLoaded ||
-            !referenceLayer.combinedColumnConfig
-        ) {
-            return
-        }
-        hasHydratedColumnConfigRef.current = true
-        dispatch(setCombinedColumnConfig(referenceLayer.combinedColumnConfig))
-    }, [referenceLayer, dispatch])
-
     useKeyDown('Escape', onCloseDataTable, true)
 
     return (
@@ -330,14 +300,21 @@ const BottomPanel = () => {
                             allHeaders={allHeaders}
                             columnConfig={combinedColumnConfig}
                             onChange={(config) =>
-                                dispatch(setCombinedColumnConfig(config))
+                                dispatch(
+                                    setCombinedColumnConfig(
+                                        referenceLayer.id,
+                                        config
+                                    )
+                                )
                             }
                         />
                         <JoinLayersControl
                             eligibleLayers={eligibleLayers}
                             layersConfig={joinLayersConfig}
                             onChange={(layers) =>
-                                dispatch(setJoinConfig({ layers }))
+                                dispatch(
+                                    setJoinConfig(referenceLayer.id, layers)
+                                )
                             }
                         />
                         <ReferenceOrgUnitControl />
@@ -395,7 +372,7 @@ const BottomPanel = () => {
                             availableWidth={panelWidth}
                             layers={combinedLayers}
                             referenceLayer={referenceLayer}
-                            joinConfig={joinConfig}
+                            joinConfig={{ layers: joinLayersConfig }}
                             filters={combinedFilters}
                             onFiltersChange={setCombinedFilters}
                             globalSearch={globalSearch}

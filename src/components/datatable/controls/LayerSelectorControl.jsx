@@ -5,14 +5,6 @@ import styles from '../styles/BottomPanel.module.css'
 
 const COMBINED_VALUE = '__combined__'
 
-// Replaces the old per-layer tab strip - a single dropdown listing every
-// data-table-eligible layer on the map (whether or not its table has been
-// opened yet) plus Combined. Selecting Combined before a reference org unit
-// set has been configured is the caller's job to handle (see
-// BottomPanel.jsx's onSelectCombined, which opens the reference layer's
-// editor in that case rather than disabling the option outright). Selecting
-// a layer that isn't open yet is likewise the caller's job to also open
-// (see BottomPanel.jsx's onSelectLayer).
 const LayerSelectorControl = ({
     layers,
     activeLayerId,
