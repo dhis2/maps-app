@@ -83,6 +83,98 @@ describe('getCombinedValueDataKeys', () => {
             })
         ).toEqual([])
     })
+
+    // Real band ids/names from src/constants/earthEngineLayers/population_age_sex_Worldpop-Global2.js
+    const populationBands = {
+        multiple: true,
+        list: [
+            { id: 'm_00', name: 'Male 0 - 1 years' },
+            { id: 'f_00', name: 'Female 0 - 1 years' },
+        ],
+    }
+
+    test('only 1 band selected: no extra band columns', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00'],
+            })
+        ).toEqual([
+            { dataKey: 'sum', name: 'Sum Population' },
+            { dataKey: 'mean', name: 'Mean Population' },
+        ])
+    })
+
+    test('2+ bands, exactly 1 stat: one bare-band-id column per band, hidden by default', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual([
+            { dataKey: 'sum', name: 'Sum Population' },
+            { dataKey: 'm_00', name: 'Male 0 - 1 years', defaultHidden: true },
+            {
+                dataKey: 'f_00',
+                name: 'Female 0 - 1 years',
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('2+ bands, 2+ stats: one title-cased ${band}_${type} column per band per stat, hidden by default', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual([
+            { dataKey: 'sum', name: 'Sum Population' },
+            { dataKey: 'mean', name: 'Mean Population' },
+            {
+                dataKey: 'm_00_sum',
+                name: 'Sum Male 0 - 1 Years',
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'm_00_mean',
+                name: 'Mean Male 0 - 1 Years',
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'f_00_sum',
+                name: 'Sum Female 0 - 1 Years',
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'f_00_mean',
+                name: 'Mean Female 0 - 1 Years',
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('no bands config at all: unaffected, same as an ordinary non-multi-band EE layer', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual([
+            { dataKey: 'mean', name: 'Mean Ndvi' },
+            { dataKey: 'max', name: 'Max Ndvi' },
+        ])
+    })
 })
 
 describe('getDefaultCombinedAggregation', () => {
@@ -165,6 +257,31 @@ describe('getDefaultCombinedAggregation', () => {
                 legend: { items: [{ value: 1, name: 'Forest' }] },
             })
         ).toEqual({ 1: 'SUM' })
+    })
+
+    test('Earth Engine: per-band columns pick up the same default aggregation type as the main stat columns, with no extra mapping needed', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: {
+                    multiple: true,
+                    list: [
+                        { id: 'm_00', name: 'Male 0 - 1 years' },
+                        { id: 'f_00', name: 'Female 0 - 1 years' },
+                    ],
+                },
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual({
+            sum: 'SUM',
+            mean: 'SUM',
+            m_00_sum: 'SUM',
+            m_00_mean: 'SUM',
+            f_00_sum: 'SUM',
+            f_00_mean: 'SUM',
+        })
     })
 })
 

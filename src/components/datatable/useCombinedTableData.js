@@ -203,7 +203,7 @@ export const useCombinedTableData = ({
                 defaultHidden: true,
             },
             ...layerMatches.flatMap(({ layer, valueDataKeys }) => [
-                ...valueDataKeys.map(({ dataKey, name }) => ({
+                ...valueDataKeys.map(({ dataKey, name, defaultHidden }) => ({
                     name: name
                         ? i18n.t('{{name}} ({{layer}})', {
                               name,
@@ -212,6 +212,7 @@ export const useCombinedTableData = ({
                         : i18n.t('Value ({{layer}})', { layer: layer.name }),
                     dataKey: `${layer.combinedLayerKey}_${dataKey}`,
                     type: TYPE_NUMBER,
+                    defaultHidden,
                 })),
                 // Earth Engine has no separate categorical "legend" concept
                 ...(layer.layer !== EARTH_ENGINE_LAYER

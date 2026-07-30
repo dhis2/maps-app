@@ -61,6 +61,31 @@ export const getDefaultCombinedAggregation = (layer) => {
     )
 }
 
+// One column per selected band the layer's own bandReducer combines into
+// its main value (e.g. Population's age/sex groups) - mirrors
+// tableHeaders.js's getBandFields for the single-layer table. A no-op
+// unless 2+ bands are actually selected.
+const getEarthEngineBandValueDataKeys = (layer) => {
+    if (
+        !layer.bands?.multiple ||
+        !Array.isArray(layer.band) ||
+        layer.band.length < 2
+    ) {
+        return []
+    }
+    const selectedBands =
+        layer.bands.list?.filter((b) => layer.band.includes(b.id)) ?? []
+    return selectedBands.flatMap(({ id: bandId, name: bandName }) =>
+        layer.aggregationType.length === 1
+            ? [{ dataKey: bandId, name: bandName, defaultHidden: true }]
+            : layer.aggregationType.map((type) => ({
+                  dataKey: `${bandId}_${type}`,
+                  name: toTitleCase(`${type} ${bandName}`),
+                  defaultHidden: true,
+              }))
+    )
+}
+
 export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [{ dataKey: COMBINED_VALUE_KEY, name: null }]
@@ -75,10 +100,14 @@ export const getCombinedValueDataKeys = (layer) => {
         }))
     }
     if (Array.isArray(layer.aggregationType) && layer.aggregationType.length) {
-        return layer.aggregationType.map((type) => ({
-            dataKey: type,
-            name: toTitleCase(`${type} ${layer.legend?.title ?? ''}`.trim()),
-        }))
+        return layer.aggregationType
+            .map((type) => ({
+                dataKey: type,
+                name: toTitleCase(
+                    `${type} ${layer.legend?.title ?? ''}`.trim()
+                ),
+            }))
+            .concat(getEarthEngineBandValueDataKeys(layer))
     }
     return []
 }
