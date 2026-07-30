@@ -1,5 +1,9 @@
 import { renderHook } from '@testing-library/react'
-import { EARTH_ENGINE_LAYER, EVENT_LAYER } from '../../../constants/layers.js'
+import {
+    EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
+    FACILITY_LAYER,
+} from '../../../constants/layers.js'
 import { useCombinedTableData } from '../useCombinedTableData.js'
 
 const feature = (props) => ({ properties: props })
@@ -364,7 +368,7 @@ describe('useCombinedTableData - spatial join', () => {
                 id: 'points',
                 name: 'Points',
                 combinedLayerKey: 'points',
-                layer: 'event',
+                layer: 'geoJsonUrl',
                 data: [
                     {
                         type: 'Feature',
@@ -411,7 +415,7 @@ describe('useCombinedTableData - spatial join', () => {
                 data: [
                     {
                         type: 'Feature',
-                        properties: { id: 'e1', rawValue: 7 },
+                        properties: { id: 'e1' },
                         geometry: {
                             type: 'Polygon',
                             coordinates: [
@@ -430,7 +434,7 @@ describe('useCombinedTableData - spatial join', () => {
         ]
         const joinConfig = {
             layers: {
-                events: { type: 'spatial', aggregation: { rawValue: 'SUM' } },
+                events: { type: 'spatial', aggregation: {} },
             },
         }
 
@@ -445,7 +449,8 @@ describe('useCombinedTableData - spatial join', () => {
         const row1 = result.current.rows.find(
             (r) => findCell(r, 'id').value === 'ou1'
         )
-        expect(findCell(row1, 'events_rawValue').value).toBe(7)
+        // An unstyled Event layer is count-only (see getCombinedValueDataKeys)
+        expect(findCell(row1, 'events_count').value).toBe(1)
     })
 
     test('matches via centroid regardless of layer type - not just Event/TrackedEntity', () => {
@@ -501,7 +506,7 @@ describe('useCombinedTableData - spatial join', () => {
                 id: 'points',
                 name: 'Points',
                 combinedLayerKey: 'points',
-                layer: 'event',
+                layer: 'geoJsonUrl',
                 data: [
                     {
                         type: 'Feature',
@@ -894,5 +899,185 @@ describe('useCombinedTableData - show only features in view', () => {
         expect(result.current.rows.map((r) => findCell(r, 'id').value)).toEqual(
             ['ou1']
         )
+    })
+})
+
+describe('useCombinedTableData - categorical/count value columns', () => {
+    const facilityLayer = (data) => ({
+        id: 'facility1',
+        name: 'Facilities',
+        combinedLayerKey: 'facility1',
+        layer: FACILITY_LAYER,
+        organisationUnitGroupSet: { id: 'groupSet1' },
+        legend: {
+            items: [
+                { id: 'group1', name: 'Hospital' },
+                { id: 'group2', name: 'Clinic' },
+            ],
+        },
+        data,
+    })
+
+    test('a category column reflects the matched-feature count for that category, and switches to a percentage when the setting is PERCENTAGE', () => {
+        const layer = facilityLayer([
+            feature({
+                id: 'f1',
+                orgUnitPath: '/country1/ou1',
+                dimensions: { groupSet1: 'group1' },
+            }),
+            feature({
+                id: 'f2',
+                orgUnitPath: '/country1/ou1',
+                dimensions: { groupSet1: 'group2' },
+            }),
+        ])
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: { facility1: { type: 'orgUnit', aggregation: {} } },
+                },
+            })
+        )
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'facility1_group1').value).toBe(1)
+
+        const { result: percentResult } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: {
+                        facility1: {
+                            type: 'orgUnit',
+                            aggregation: { group1: 'PERCENTAGE' },
+                        },
+                    },
+                },
+            })
+        )
+        const percentRow1 = percentResult.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(percentRow1, 'facility1_group1').value).toBe(50)
+    })
+
+    test('a row with 0 matched features: both category columns are null, not NaN/0', () => {
+        const layer = facilityLayer([])
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: { facility1: { type: 'orgUnit', aggregation: {} } },
+                },
+            })
+        )
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'facility1_group1').value).toBe(null)
+        expect(findCell(row1, 'facility1_group2').value).toBe(null)
+    })
+
+    test('an Event count-only column reflects raw matches.length for a matched row, and null for an unmatched row', () => {
+        const layer = {
+            id: 'events1',
+            name: 'Events',
+            combinedLayerKey: 'events1',
+            layer: EVENT_LAYER,
+            legend: { items: [{ name: 'Event' }] },
+            data: [
+                feature({ id: 'e1', orgUnitPath: '/country1/ou1' }),
+                feature({ id: 'e2', orgUnitPath: '/country1/ou1' }),
+            ],
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: { events1: { type: 'orgUnit', aggregation: {} } },
+                },
+            })
+        )
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        const row2 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou2'
+        )
+        expect(findCell(row1, 'events1_count').value).toBe(2)
+        expect(findCell(row2, 'events1_count').value).toBe(null)
+    })
+
+    test('header name for a count-only Facility column', () => {
+        const layer = {
+            id: 'facility1',
+            name: 'My Facilities',
+            combinedLayerKey: 'facility1',
+            layer: FACILITY_LAYER,
+            legend: { items: [{ name: 'Facility' }] },
+            data: [],
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: { facility1: { type: 'orgUnit', aggregation: {} } },
+                },
+            })
+        )
+        const header = result.current.headers.find(
+            (h) => h.dataKey === 'facility1_count'
+        )
+        expect(header.name).toBe('Count (My Facilities)')
+    })
+
+    test('header name for a category column: count mode vs percentage mode, including rounding', () => {
+        const layer = facilityLayer([])
+
+        const { result: countResult } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: { facility1: { type: 'orgUnit', aggregation: {} } },
+                },
+            })
+        )
+        const countHeader = countResult.current.headers.find(
+            (h) => h.dataKey === 'facility1_group1'
+        )
+        expect(countHeader.name).toBe('Hospital (count) (Facilities)')
+        expect(countHeader.roundFn).toBeUndefined()
+
+        const { result: percentResult } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: {
+                        facility1: {
+                            type: 'orgUnit',
+                            aggregation: { group1: 'PERCENTAGE' },
+                        },
+                    },
+                },
+            })
+        )
+        const percentHeader = percentResult.current.headers.find(
+            (h) => h.dataKey === 'facility1_group1'
+        )
+        expect(percentHeader.name).toBe('Hospital (%) (Facilities)')
+        expect(percentHeader.roundFn(33.456)).toBe(33.5)
     })
 })
