@@ -35,51 +35,59 @@ const OpenAsMapDialog = () => {
 
     const [selectedDataDims, setSelectedDataDims] = useState([firstDimensionId])
     const hasAutoAdded = useRef(false)
+    const isAddingRef = useRef(false)
 
     const addLayersToMap = async () => {
-        const selectedDimensions = [...selectedDataDims].reverse()
-        const lastDataId = allDataDimensions[selectedDimensions.length - 1]
-
-        // Call in sequence
-        for (const dataId of selectedDimensions) {
-            const layer = await getThematicLayerFromAnalyticalObject({
-                ao: currentAO,
-                dataId,
-                isVisible: dataId === lastDataId,
-                engine,
-            })
-
-            if (layer) {
-                dispatch(addLayer(layer))
-            }
+        if (isAddingRef.current) {
+            return
         }
+        isAddingRef.current = true
 
-        dispatch(clearAnalyticalObject())
+        try {
+            const selectedDimensions = [...selectedDataDims].reverse()
+            const lastDataId = allDataDimensions[selectedDimensions.length - 1]
+
+            // Call in sequence
+            for (const dataId of selectedDimensions) {
+                const layer = await getThematicLayerFromAnalyticalObject({
+                    ao: currentAO,
+                    dataId,
+                    isVisible: dataId === lastDataId,
+                    engine,
+                })
+
+                if (layer) {
+                    dispatch(addLayer(layer))
+                }
+            }
+        } finally {
+            dispatch(clearAnalyticalObject())
+            isAddingRef.current = false
+        }
     }
 
     const addEarthEngineLayersToMap = () => {
-        const layerSource = getEarthEngineLayers().find(
-            ({ layerId: id }) => layerId === id
-        )
-        const layer = getEarthEngineLayerFromAnalyticalObject({
-            ao: currentAO,
-        })
-        const consolidatedLayer = {
-            ...layerSource,
-            aggregationType: layerSource.defaultAggregations,
-            ...layer,
+        try {
+            const layerSource = getEarthEngineLayers().find(
+                ({ layerId: id }) => layerId === id
+            )
+            const layer = getEarthEngineLayerFromAnalyticalObject({
+                ao: currentAO,
+            })
+            const consolidatedLayer = {
+                ...layerSource,
+                aggregationType: layerSource.defaultAggregations,
+                ...layer,
+            }
+            if (layerSource && layer) {
+                dispatch(addLayer(consolidatedLayer))
+            }
+        } finally {
+            dispatch(clearAnalyticalObject())
         }
-        if (layerSource && layer) {
-            dispatch(addLayer(consolidatedLayer))
-        }
-
-        dispatch(clearAnalyticalObject())
     }
 
-    // Auto-add layers for the cases that need no user input. This must run in
-    // an effect, not the render body -- dispatching here directly re-added
-    // layers on every re-render (e.g. while useSetting/legend fetches resolve),
-    // producing duplicate layers.
+    // Ref-guarded: without it, a re-render mid-fetch re-dispatches and duplicates the layer (DHIS2-15762)
     useEffect(() => {
         if (hasAutoAdded.current) {
             return
@@ -135,7 +143,10 @@ const OpenAsMapDialog = () => {
             </ModalContent>
             <ModalActions>
                 <ButtonStrip end>
-                    <Button secondary onClick={clearAnalyticalObject}>
+                    <Button
+                        secondary
+                        onClick={() => dispatch(clearAnalyticalObject())}
+                    >
                         {i18n.t('Cancel')}
                     </Button>
                     <Button

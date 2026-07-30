@@ -1,4 +1,4 @@
-import { render, waitFor } from '@testing-library/react'
+import { render, waitFor, fireEvent } from '@testing-library/react'
 import React from 'react'
 import * as types from '../../../constants/actionTypes.js'
 import { THEMATIC_LAYER } from '../../../constants/layers.js'
@@ -26,21 +26,38 @@ const singleItemAO = {
     filters: [{ dimension: 'pe', items: [{ id: 'THIS_YEAR' }] }],
 }
 
+const multiItemAO = {
+    columns: [
+        {
+            dimension: 'dx',
+            items: [{ id: 'dataItem1' }, { id: 'dataItem2' }],
+        },
+    ],
+    rows: [{ dimension: 'ou', items: [{ id: 'ImspTQPwCqd' }] }],
+    filters: [{ dimension: 'pe', items: [{ id: 'THIS_YEAR' }] }],
+}
+
+const addLayerCallsFrom = (calls) =>
+    calls.filter(([action]) => action.type === types.LAYER_ADD)
+
 describe('OpenAsMapDialog', () => {
     beforeEach(() => {
         mockDispatch.mockClear()
     })
 
-    it('auto-adds a single-dimension layer only once, even across re-renders before the add completes', async () => {
+    it('auto-adds a single-dimension layer only once under React 18 StrictMode double-invocation', async () => {
         mockCurrentAO = singleItemAO
-        const { rerender } = render(<OpenAsMapDialog />)
 
         // Regression (DHIS2-15762): the auto-add used to run in the render
-        // body, so every extra re-render while the async add was still in
-        // flight dispatched another (duplicate) layer.
-        rerender(<OpenAsMapDialog />)
-        rerender(<OpenAsMapDialog />)
-        rerender(<OpenAsMapDialog />)
+        // body, so any extra invocation while the async add was still in
+        // flight dispatched another (duplicate) layer. StrictMode
+        // deliberately mount->cleanup->mounts effects in dev to surface
+        // exactly this kind of bug.
+        render(
+            <React.StrictMode>
+                <OpenAsMapDialog />
+            </React.StrictMode>
+        )
 
         await waitFor(() =>
             expect(mockDispatch).toHaveBeenCalledWith({
@@ -48,9 +65,7 @@ describe('OpenAsMapDialog', () => {
             })
         )
 
-        const addLayerCalls = mockDispatch.mock.calls.filter(
-            ([action]) => action.type === types.LAYER_ADD
-        )
+        const addLayerCalls = addLayerCallsFrom(mockDispatch.mock.calls)
         expect(addLayerCalls).toHaveLength(1)
         expect(addLayerCalls[0][0].payload).toEqual(
             expect.objectContaining({ layer: THEMATIC_LAYER })
@@ -58,20 +73,40 @@ describe('OpenAsMapDialog', () => {
     })
 
     it('shows the picker dialog for multiple data dimensions without auto-adding a layer', () => {
-        mockCurrentAO = {
-            columns: [
-                {
-                    dimension: 'dx',
-                    items: [{ id: 'dataItem1' }, { id: 'dataItem2' }],
-                },
-            ],
-            rows: [{ dimension: 'ou', items: [{ id: 'ImspTQPwCqd' }] }],
-            filters: [{ dimension: 'pe', items: [{ id: 'THIS_YEAR' }] }],
-        }
+        mockCurrentAO = multiItemAO
 
         const { getByText } = render(<OpenAsMapDialog />)
 
         expect(getByText('Open as map')).toBeInTheDocument()
         expect(mockDispatch).not.toHaveBeenCalled()
+    })
+
+    it('only adds one layer when Proceed is clicked twice before the add completes', async () => {
+        mockCurrentAO = multiItemAO
+
+        const { getByText } = render(<OpenAsMapDialog />)
+        const proceedButton = getByText('Proceed')
+
+        fireEvent.click(proceedButton)
+        fireEvent.click(proceedButton)
+
+        await waitFor(() =>
+            expect(mockDispatch).toHaveBeenCalledWith({
+                type: types.ANALYTICAL_OBJECT_CLEAR,
+            })
+        )
+
+        expect(addLayerCallsFrom(mockDispatch.mock.calls)).toHaveLength(1)
+    })
+
+    it('dispatches clearAnalyticalObject when Cancel is clicked', () => {
+        mockCurrentAO = multiItemAO
+
+        const { getByText } = render(<OpenAsMapDialog />)
+        fireEvent.click(getByText('Cancel'))
+
+        expect(mockDispatch).toHaveBeenCalledWith({
+            type: types.ANALYTICAL_OBJECT_CLEAR,
+        })
     })
 })
