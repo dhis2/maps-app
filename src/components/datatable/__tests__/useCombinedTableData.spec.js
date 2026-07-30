@@ -1017,6 +1017,44 @@ describe('useCombinedTableData - categorical/count value columns', () => {
         expect(findCell(row2, 'events1_count').value).toBe(null)
     })
 
+    test("a numeric Event value column ignores 'Not set' features instead of corrupting the aggregation - styleByNumeric (styleByDataItem.js) stamps that literal string on no-data features when 'No data' styling is enabled", () => {
+        const layer = {
+            id: 'events1',
+            name: 'Events',
+            combinedLayerKey: 'events1',
+            layer: EVENT_LAYER,
+            styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+            legend: { items: [{ name: 'Low' }, { name: 'High' }] },
+            data: [
+                feature({ id: 'e1', orgUnitPath: '/country1/ou1', value: 10 }),
+                feature({
+                    id: 'e2',
+                    orgUnitPath: '/country1/ou1',
+                    value: 'Not set',
+                }),
+            ],
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers: [layer],
+                referenceLayer,
+                joinConfig: {
+                    layers: {
+                        events1: {
+                            type: 'orgUnit',
+                            aggregation: { value: 'SUM' },
+                        },
+                    },
+                },
+            })
+        )
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'events1_value').value).toBe(10)
+    })
+
     test('header name for a count-only Facility column', () => {
         const layer = {
             id: 'facility1',

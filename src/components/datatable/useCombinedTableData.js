@@ -128,7 +128,15 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
             return
         }
 
-        const values = matches.map((p) => p[dataKey]).filter((v) => v != null)
+        // Number.isFinite, not just != null: an Event layer styled by a
+        // numeric data item stamps properties.value with the literal
+        // string i18n.t('Not set') for features with no value when "No
+        // data" styling is enabled (styleByDataItem.js's styleByNumeric) -
+        // letting that string reach applyAggregation would silently
+        // corrupt SUM into string concatenation and AVERAGE/etc. into NaN.
+        const values = matches
+            .map((p) => p[dataKey])
+            .filter((v) => Number.isFinite(v))
         row[rowKey] = applyAggregation(effectiveType, values)
     })
 
