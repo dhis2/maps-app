@@ -403,6 +403,96 @@ describe('getHeadersForLayer - earth engine', () => {
         expect(meanHeader.name).toBe('Mean Rainfall')
         expect(meanHeader.type).toBe(TYPE_NUMBER)
     })
+
+    // Real band ids/names from src/constants/earthEngineLayers/population_age_sex_Worldpop-Global2.js
+    const populationBands = {
+        multiple: true,
+        list: [
+            { id: 'm_00', name: 'Male 0 - 1 years' },
+            { id: 'f_00', name: 'Female 0 - 1 years' },
+        ],
+    }
+
+    test('only 1 band selected: no per-band columns, even with a multi-stat bands.multiple layer', () => {
+        const result = getHeadersForLayer(EARTH_ENGINE_LAYER, {
+            aggregationType: ['sum', 'mean'],
+            legend: { title: 'Population', items: [] },
+            bands: populationBands,
+            band: ['m_00'],
+            data: [{ sum: 100, mean: 10 }],
+        })
+        expect(dataKeys(result)).toEqual(
+            expect.arrayContaining(['sum', 'mean'])
+        )
+        expect(dataKeys(result)).not.toEqual(
+            expect.arrayContaining(['m_00', 'm_00_sum'])
+        )
+    })
+
+    test('2+ bands, exactly 1 stat: one bare-band-id column per band, hidden by default', () => {
+        const result = getHeadersForLayer(EARTH_ENGINE_LAYER, {
+            aggregationType: ['sum'],
+            legend: { title: 'Population', items: [] },
+            bands: populationBands,
+            band: ['m_00', 'f_00'],
+            data: [{ sum: 100, m_00: 60, f_00: 40 }],
+        })
+        expect(dataKeys(result)).toEqual(
+            expect.arrayContaining(['sum', 'm_00', 'f_00'])
+        )
+        const maleHeader = result.headers.find((h) => h.dataKey === 'm_00')
+        expect(maleHeader.name).toBe('Male 0 - 1 years')
+        expect(maleHeader.defaultHidden).toBe(true)
+        expect(maleHeader.type).toBe(TYPE_NUMBER)
+    })
+
+    test('band columns get a null roundFn (not a rounds-to-whole-numbers function) before any data has loaded', () => {
+        const result = getHeadersForLayer(EARTH_ENGINE_LAYER, {
+            aggregationType: ['sum'],
+            legend: { title: 'Population', items: [] },
+            bands: populationBands,
+            band: ['m_00', 'f_00'],
+            data: undefined,
+        })
+        const maleHeader = result.headers.find((h) => h.dataKey === 'm_00')
+        expect(maleHeader.roundFn).toBe(null)
+    })
+
+    test('2+ bands, 2+ stats: one title-cased ${band}_${type} column per band per stat, hidden by default', () => {
+        const result = getHeadersForLayer(EARTH_ENGINE_LAYER, {
+            aggregationType: ['sum', 'mean'],
+            legend: { title: 'Population', items: [] },
+            bands: populationBands,
+            band: ['m_00', 'f_00'],
+            data: [{ sum: 100, mean: 10, m_00_sum: 60, m_00_mean: 6 }],
+        })
+        expect(dataKeys(result)).toEqual(
+            expect.arrayContaining([
+                'sum',
+                'mean',
+                'm_00_sum',
+                'm_00_mean',
+                'f_00_sum',
+                'f_00_mean',
+            ])
+        )
+        const header = result.headers.find((h) => h.dataKey === 'm_00_sum')
+        expect(header.name).toBe('Sum Male 0 - 1 Years')
+        expect(header.defaultHidden).toBe(true)
+        expect(header.roundFn(6.7891234)).toBe(6.789)
+    })
+
+    test('no bands config at all: unaffected, same as an ordinary non-multi-band EE layer', () => {
+        const result = getHeadersForLayer(EARTH_ENGINE_LAYER, {
+            aggregationType: ['sum', 'mean'],
+            legend: { title: 'NDVI', items: [] },
+            data: [{ sum: 100, mean: 10 }],
+        })
+        expect(dataKeys(result)).toEqual(
+            expect.arrayContaining(['sum', 'mean'])
+        )
+        expect(result.headers).toHaveLength(7)
+    })
 })
 
 describe('getHeadersForLayer - geoJsonUrl', () => {
