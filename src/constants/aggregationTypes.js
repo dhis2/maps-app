@@ -16,6 +16,12 @@ export const getThematicAggregationTypes = () => [
 export const getCombinedAggregationTypes = () =>
     getThematicAggregationTypes().filter((type) => type.id !== 'DEFAULT')
 
+// Combined data table join - categorical value columns (DATA_KEY_KIND_CATEGORY)
+export const getCategoryValueDisplayTypes = () => [
+    { id: 'PERCENTAGE', name: i18n.t('Percentage') },
+    { id: 'COUNT', name: i18n.t('Count') },
+]
+
 // Earth Engine layer
 export const getEarthEngineStatisticTypes = () => [
     { id: 'percentage', name: i18n.t('Percentage') },
