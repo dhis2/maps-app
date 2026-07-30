@@ -12,7 +12,10 @@ import React, { useCallback, useMemo, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
-import { setSelectionFilter } from '../../actions/dataTable.js'
+import {
+    setCombinedVisibleIds,
+    setSelectionFilter,
+} from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
@@ -326,6 +329,22 @@ const Table = ({
     const allRowIds = useMemo(
         () => rows?.map(getRowId).filter(Boolean) ?? [],
         [rows]
+    )
+
+    const hasGlobalSearch = !!globalSearch?.trim()
+    useEffect(() => {
+        dispatch(
+            setCombinedVisibleIds(
+                hasGlobalSearch ? { [layer.id]: allRowIds } : null
+            )
+        )
+    }, [dispatch, hasGlobalSearch, allRowIds, layer.id])
+
+    useEffect(
+        () => () => {
+            dispatch(setCombinedVisibleIds(null))
+        },
+        [dispatch]
     )
 
     const onSelectionChange = useCallback(

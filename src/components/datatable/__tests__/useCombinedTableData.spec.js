@@ -665,6 +665,38 @@ describe('useCombinedTableData - sorting and filtering', () => {
             { value: '30' },
         ])
     })
+
+    test('keeps the same headers array reference across filter/sort/selection-only changes - a changed reference makes useColumnWidths.js reset and re-measure column widths on every keystroke', () => {
+        const { result, rerender } = renderHook(
+            (props) => useCombinedTableData(props),
+            {
+                initialProps: {
+                    layers,
+                    referenceLayer,
+                    joinConfig,
+                    sortField: null,
+                    sortDirection: 'asc',
+                    filters: {},
+                    globalSearch: '',
+                    selectedIdSet: new Set(),
+                },
+            }
+        )
+        const firstHeaders = result.current.headers
+
+        rerender({
+            layers,
+            referenceLayer,
+            joinConfig,
+            sortField: 'layerA_rawValue',
+            sortDirection: 'desc',
+            filters: { layerA_rawValue: '>15' },
+            globalSearch: 'ou',
+            selectedIdSet: new Set(['ou1']),
+        })
+
+        expect(result.current.headers).toBe(firstHeaders)
+    })
 })
 
 describe('useCombinedTableData - empty input', () => {
