@@ -289,10 +289,6 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
                 onEnterKey()
                 closePopover()
                 break
-            case 'Escape':
-                event.preventDefault()
-                closePopover()
-                break
             default:
                 break
         }
