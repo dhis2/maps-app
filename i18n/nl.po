@@ -4,14 +4,14 @@
 # Philip Larsen Donnelly, 2024
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
 # Charel van den Elsen <zobeadzorg@gmail.com>, 2025
-# Rica, 2025
+# Rica, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Rica, 2025\n"
+"Last-Translator: Rica, 2026\n"
 "Language-Team: Dutch (https://app.transifex.com/hisp-uio/teams/100509/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -49,17 +49,35 @@ msgstr "Classificatie"
 msgid "Classes"
 msgstr "Klassen"
 
-msgid "Legend set"
-msgstr "Legendereeks"
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr "Max. moet groter zijn dan min."
 
 msgid "Color"
 msgstr "Kleur"
 
-msgid "Size"
-msgstr "Grootte"
-
 msgid "Name"
 msgstr "Naam"
+
+msgid "Legend set"
+msgstr "Legendereeks"
+
+msgid "Size"
+msgstr "Grootte"
 
 msgid "Name and value"
 msgstr "Naam en waarde"
@@ -94,11 +112,8 @@ msgstr "Inschrijvingslocatie"
 msgid "Tracked entity location"
 msgstr "Gevolgde entiteitslocatie"
 
-msgid "Fallback coordinate field"
-msgstr "Terugvalcoördinatenveld"
-
-msgid "Coordinate field"
-msgstr "Coördinatenveld"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Inschrijving > evenement > gevolgde entiteit > coördinaat org-eenheid"
@@ -106,14 +121,26 @@ msgstr "Inschrijving > evenement > gevolgde entiteit > coördinaat org-eenheid"
 msgid "Event > org unit coordinate"
 msgstr "Evenement > coördinaat org-eenheid"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "Terugvalcoördinatenveld"
+
+msgid "Coordinate field"
+msgstr "Coördinatenveld"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
 msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
 
 msgid "Add filter"
 msgstr "Voeg filter toe"
@@ -193,6 +220,9 @@ msgstr "Bereik"
 msgid "Org unit"
 msgstr "Organisatieëenheid"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "Tijd van gebeurtenis"
 
@@ -263,6 +293,9 @@ msgstr "Organisatieëenheden"
 
 msgid "Style"
 msgstr "Stijl"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "Puntkleur"
@@ -371,43 +404,17 @@ msgstr "Min. waarde is verplicht"
 msgid "Max value is required"
 msgstr "Max. waarde is verplicht"
 
-msgid "Max should be greater than min"
-msgstr "Max. moet groter zijn dan min."
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Geldige stappen zijn {{minSteps}} tot {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Stappen"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr "Faciliteitsbuffer"
 
-msgid "Org Units"
-msgstr "Organisatieëenheden"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "Group events"
-msgstr "Groepsgebeurtenissen"
-
-msgid "View all events"
-msgstr "Bekijk alle gebeurtenissen"
-
-msgid "Radius"
-msgstr "Radius"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
-"U kan gebeurtenissen stileren per gegevenselementen nadat een programma "
-"geselecteerd is."
 
 msgid "Program is required"
 msgstr "Programma is verplicht."
@@ -420,6 +427,44 @@ msgstr "Geen organisatieëenheden zijn geselecteerd."
 
 msgid "No legend set is selected"
 msgstr "Geen legendareeks is geselecteerd."
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Organisatieëenheden"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Choose from presets"
+msgstr "Kies uit voorinstellingen"
+
+msgid "Define start - end dates"
+msgstr "Definieer begin- en einddatums"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filteren is beschikbaar nadat een programmastadium geselecteerd is."
+
+msgid "Group events"
+msgstr "Groepsgebeurtenissen"
+
+msgid "View all events"
+msgstr "Bekijk alle gebeurtenissen"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"U kan gebeurtenissen stileren per gegevenselementen nadat een programma "
+"geselecteerd is."
 
 msgid "Event status"
 msgstr "Gebeurtenisstatus"
@@ -466,14 +511,34 @@ msgstr ""
 msgid "Labels"
 msgstr "Labels"
 
+msgid "Include org units with no data"
+msgstr "Omvat organisatieëenheden met geen data"
+
+msgid "No data"
+msgstr "Geen gegevens"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Periode is verplicht"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Aggregatietype"
 
 msgid "Only show completed events"
 msgstr "Toon alleen voltooide evenementen"
-
-msgid "Include org units with no data"
-msgstr "Omvat organisatieëenheden met geen data"
 
 msgid "Low radius"
 msgstr "Lage radius"
@@ -487,12 +552,6 @@ msgstr "Hoge radius moet groter zijn dan lage radius"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius moet tussen {{min}} en {{max}} zijn"
 
-msgid "Choose from presets"
-msgstr "Kies uit voorinstellingen"
-
-msgid "Define start - end dates"
-msgstr "Definieer begin- en einddatums"
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -503,17 +562,6 @@ msgid "Choose periods for all split layers"
 msgstr ""
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "Periode is verplicht"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
 msgid "Specified radius values are invalid"
@@ -534,17 +582,14 @@ msgstr ""
 msgid "Program status"
 msgstr "Programmastatus"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr "Relaties"
 
 msgid "Follow up"
 msgstr "Volg op"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-"Selecteer a.u.b. een Getraceerde Entiteitssoort voordat u een Relatiesoort "
-"selecteert"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -553,6 +598,12 @@ msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr "Toon Getraceerde Entiteitsrelaties"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+"Selecteer a.u.b. een Getraceerde Entiteitssoort voordat u een Relatiesoort "
+"selecteert"
 
 msgid "Tracked entity style"
 msgstr "Stijl van getraceerde entiteit"
@@ -565,9 +616,6 @@ msgstr "Stijl van gerelateerde entiteit"
 
 msgid "Line Color"
 msgstr "Lijnkleur"
-
-msgid "Tracked Entity Type is required"
-msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -619,8 +667,8 @@ msgstr "Basiskaart"
 msgid "Download Layer Data"
 msgstr "Download Laaggegevens"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "GeoJSON-gegevens voor \"{{layerName}}\" zijn aan het downloaden"
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -641,14 +689,11 @@ msgstr "Downloaden van gegevens mislukt."
 msgid "External layer"
 msgstr "Externe laag"
 
-msgid "Failed to load layer"
-msgstr "Laden van laag mislukt"
-
 msgid "Loading layer"
 msgstr "Laag aan het laden"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} verwijderd."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Bewerk"
@@ -683,20 +728,78 @@ msgstr "Download gegevens"
 msgid "Edit layer"
 msgstr "Bewerk laag"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Verwijder laag"
 
 msgid "Filters"
 msgstr "Filters"
 
+msgid "Failed to load layer"
+msgstr "Laden van laag mislukt"
+
 msgid "No data found"
 msgstr "Geen gegevens gevonden"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Geselecteerde organisatieëenheden: Geen coördinaten gevonden"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Geen coördinaten gevonden"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "Geselecteerde organisatieëenheden: Geen coördinaten gevonden"
 
 msgid "Error"
 msgstr "Fout"
@@ -741,9 +844,6 @@ msgstr "Groepen"
 
 msgid "Parent unit"
 msgstr "Boveliggende eenheid"
-
-msgid "No data"
-msgstr "Geen gegevens"
 
 msgid "Not set"
 msgstr "Niet vastgesteld"
@@ -933,9 +1033,6 @@ msgstr "Vorig jaar"
 msgid "Next year"
 msgstr "Volgend jaar"
 
-msgid "Start/end dates"
-msgstr "Start-/einddatums"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -990,6 +1087,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1638,6 +1741,18 @@ msgstr "Gelijke intervallen"
 msgid "Equal counts"
 msgstr "Gelijke aantallen"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Symbool"
 
@@ -1686,8 +1801,14 @@ msgstr "Financieel jaar (Start juli)"
 msgid "Financial year (Start April)"
 msgstr "Financieel jaar (Start april)"
 
+msgid "Start/end dates"
+msgstr "Start-/einddatums"
+
 msgid "Cancelled"
 msgstr "Geannuleerd"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "Earth Engine-laag"
@@ -1708,17 +1829,17 @@ msgstr "Toon de eerste {{pageSize}} evenementen van de {{total}}"
 msgid "Event"
 msgstr "Gebeurtenis"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Instellingen"
 
 msgid "an error occurred"
 msgstr ""
 
-msgid "GroupSet used for styling was not found"
+msgid "No point locations found for selected facilities"
 msgstr ""
-
-msgid "No coordinates found for selected facilities"
-msgstr "Geen coördinaten gevonden voor geselecteerde faciliteiten"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "Er is een probleem met deze laag. Contacteer een systeembeheerder."
@@ -1747,11 +1868,11 @@ msgstr ""
 msgid "Thematic layer"
 msgstr "Thematische laag"
 
-msgid "Tracked entity"
-msgstr "Getraceerde entiteit"
-
 msgid "related"
 msgstr "gerelateerd"
+
+msgid "Tracked entity"
+msgstr "Getraceerde entiteit"
 
 msgid "not one of"
 msgstr "niet één van"
@@ -1802,8 +1923,8 @@ msgstr "Organisatieëenheden"
 msgid "Facility"
 msgstr "Faciliteit"
 
-msgid "Other"
-msgstr "Anders"
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Startdatum is ongeldig"
@@ -1813,3 +1934,11 @@ msgstr "Einddatum is ongeldig"
 
 msgid "End date cannot be earlier than start date"
 msgstr "Einddatum kan niet vroeger zijn dat startdatum"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Kaarten"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""
