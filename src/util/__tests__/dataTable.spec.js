@@ -327,6 +327,140 @@ describe('getFeatureCategoryKey - Facility/OrgUnit', () => {
     })
 })
 
+describe('getCombinedValueDataKeys - Event layers', () => {
+    test('no styleDataItem: count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                legend: { items: [{ name: 'Event', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('styleDataItem on a numeric value type: single value-kind entry, even when its own legend has 2+ classification bins', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+                legend: {
+                    items: [
+                        { name: 'Low', colorGroup: 0 },
+                        { name: 'High', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([{ dataKey: 'value', name: null, kind: DATA_KEY_KIND_VALUE }])
+    })
+
+    test('styleDataItem.optionSet with 3 options: 3 category entries keyed by colorGroup', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Option B', colorGroup: 1 },
+                        { name: 'Option C', colorGroup: 2 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Option A', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'Option B', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '2', name: 'Option C', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('boolean styleDataItem (Yes/No): 2 category entries', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'BOOLEAN' },
+                legend: {
+                    items: [
+                        { name: 'Yes', colorGroup: 0 },
+                        { name: 'No', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Yes', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'No', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('optionSet + Unclassified/No data legends configured: extra category entries keyed by their own colorGroup, not by name', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Unclassified', colorGroup: 1 },
+                        { name: 'No data', colorGroup: 2 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Option A', kind: DATA_KEY_KIND_CATEGORY },
+            {
+                dataKey: '1',
+                name: 'Unclassified',
+                kind: DATA_KEY_KIND_CATEGORY,
+            },
+            { dataKey: '2', name: 'No data', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('styleDataItem on a TEXT value type with No data legend configured (2-item legend): 2 category columns, not count-only (resolved carve-out)', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'TEXT' },
+                legend: {
+                    items: [
+                        { name: 'Event', colorGroup: 0 },
+                        { name: 'No data', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Event', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'No data', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('styleDataItem on a TEXT value type with no No data legend (1-item legend): count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'TEXT' },
+                legend: { items: [{ name: 'Event', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('single-option optionSet: falls back to count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: { items: [{ name: 'Option A', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+})
+
+describe('getFeatureCategoryKey - Event', () => {
+    const layer = { layer: EVENT_LAYER }
+
+    test("returns the feature's own colorGroup, stringified", () => {
+        expect(getFeatureCategoryKey(layer, { colorGroup: 1 })).toBe('1')
+    })
+})
+
 describe('getDefaultCombinedAggregation', () => {
     test("defaults to the data item's own aggregation type", () => {
         expect(getDefaultCombinedAggregation(withDataItem('AVERAGE'))).toEqual({
@@ -432,6 +566,53 @@ describe('getDefaultCombinedAggregation', () => {
             f_00_sum: 'SUM',
             f_00_mean: 'SUM',
         })
+    })
+
+    test('Facility/OrgUnit: count-only and category dataKeys both default to COUNT', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: FACILITY_LAYER,
+                legend: { items: [{ name: 'Facility' }] },
+            })
+        ).toEqual({ count: 'COUNT' })
+
+        expect(
+            getDefaultCombinedAggregation({
+                layer: ORG_UNIT_LAYER,
+                organisationUnitGroupSet: { id: 'groupSet1' },
+                legend: {
+                    items: [
+                        { id: 'group1', name: 'Hospital' },
+                        { id: 'group2', name: 'Clinic' },
+                    ],
+                },
+            })
+        ).toEqual({ group1: 'COUNT', group2: 'COUNT' })
+    })
+
+    test('Event: a numeric styleDataItem defaults to SUM - there is no per-data-item aggregationType metadata for event data elements the way there is for Thematic', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+                legend: { items: [{ name: 'Low' }, { name: 'High' }] },
+            })
+        ).toEqual({ value: 'SUM' })
+    })
+
+    test('Event: category dataKeys default to COUNT', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Option B', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual({ 0: 'COUNT', 1: 'COUNT' })
     })
 })
 

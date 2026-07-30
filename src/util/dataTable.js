@@ -15,6 +15,7 @@ import {
     EVENT_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
+import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getDefaultCombinedAggregationType,
     getDefaultCombinedAggregationTypeFromEarthEngineStat,
@@ -25,6 +26,7 @@ import { getJoinableFeatures } from './combinedJoinMatch.js'
 export const COMBINED_VALUE_KEY = 'rawValue'
 export const COMBINED_COUNT_KEY = 'count'
 export const UNCLASSIFIED_CATEGORY_KEY = 'unclassified'
+export const EVENT_STYLE_VALUE_KEY = 'value'
 
 const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = new Set([
     'percentage',
@@ -133,6 +135,42 @@ const getOrgUnitGroupValueDataKeys = (layer) => {
     }))
 }
 
+// Event's own numeric-styled value takes priority over its legend's item
+// count: a numeric styleDataItem's legend is just classification bins for
+// coloring, not real discrete categories, so it stays on the standard
+// aggregation-type path like Thematic - regardless of how many bins that
+// legend happens to have. Anything else with more than one legend item
+// (option-set, boolean, or a plain/text styleDataItem with a "No data"
+// legend enabled - styleByDataItem.js) is a real category breakdown,
+// keyed by colorGroup (the one property stampLegendItems/addFeature stamp
+// identically onto both the legend item and every feature styled with it,
+// unlike the display value/legend name which can diverge - see e.g. the
+// "No data" bucket's value ("Not set") vs. its legend name ("No data")).
+const getEventValueDataKeys = (layer) => {
+    if (
+        layer.styleDataItem &&
+        numberValueTypes.includes(layer.styleDataItem.valueType)
+    ) {
+        return [
+            {
+                dataKey: EVENT_STYLE_VALUE_KEY,
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ]
+    }
+    if ((layer.legend?.items?.length ?? 0) > 1) {
+        return layer.legend.items.map(({ colorGroup, name }) => ({
+            dataKey: String(colorGroup),
+            name,
+            kind: DATA_KEY_KIND_CATEGORY,
+        }))
+    }
+    return [
+        { dataKey: COMBINED_COUNT_KEY, name: null, kind: DATA_KEY_KIND_COUNT },
+    ]
+}
+
 // Given a layer and a matched feature's properties, returns the category
 // dataKey that feature belongs to (see getCombinedValueDataKeys' per-type
 // branches for how that dataKey set is built). Only meaningful for
@@ -144,12 +182,18 @@ export const getFeatureCategoryKey = (layer, props) => {
             UNCLASSIFIED_CATEGORY_KEY
         )
     }
+    if (layer.layer === EVENT_LAYER) {
+        return String(props.colorGroup)
+    }
     return UNCLASSIFIED_CATEGORY_KEY
 }
 
 export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer === FACILITY_LAYER || layer.layer === ORG_UNIT_LAYER) {
         return getOrgUnitGroupValueDataKeys(layer)
+    }
+    if (layer.layer === EVENT_LAYER) {
+        return getEventValueDataKeys(layer)
     }
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [
