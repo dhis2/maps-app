@@ -14,11 +14,6 @@ const headers = [
     { name: 'Legend', dataKey: 'legend' },
 ]
 
-// ColumnPickerControl is dispatch-agnostic (columnConfig/onChange are
-// caller-supplied) - this helper reproduces exactly what BottomPanel.jsx's
-// real single-layer call site does (dispatch setDataTableColumnConfig for a
-// real layer), so every existing assertion against store.getActions() still
-// holds.
 const renderColumnPicker = (props) => {
     const store = mockStore({})
     const result = render(

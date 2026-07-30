@@ -9,6 +9,7 @@ import {
     THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
+import { getOrgUnitsFromRows } from './analytics.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -36,8 +37,8 @@ const validLayerProperties = [
     'colorLow', // Deprecated
     'colorScale',
     'columns',
-    'combinedColumnConfig', // only ever set on the combinedTableRef layer
-    'combinedJoinConfig', // only ever set on the combinedTableRef layer
+    'combinedColumnConfig', // used by combinedTableRef layer
+    'combinedJoinConfig', // used by combinedTableRef layer
     'combinedLayerKey', // stable cross-save id, set on every layer type
     'config',
     'created',
@@ -123,9 +124,15 @@ export const cleanMapConfig = ({
 }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
     ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
-    mapViews: config.mapViews.map((view) =>
-        cleanLayerConfig(view, cleanMapviewConfig)
-    ),
+    // An untouched combinedTableRef placeholder gets cleaned-up
+    mapViews: config.mapViews
+        .filter(
+            (view) =>
+                view.layer !== COMBINED_TABLE_REF_LAYER ||
+                getOrgUnitsFromRows(view.rows).length > 0 ||
+                Object.keys(view.combinedJoinConfig ?? {}).length > 0
+        )
+        .map((view) => cleanLayerConfig(view, cleanMapviewConfig)),
 })
 
 // VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417

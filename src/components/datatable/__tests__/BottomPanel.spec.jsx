@@ -33,9 +33,6 @@ const DATA_TABLE_HEIGHT = 300
 const DEFAULT_DATA_TABLE_STATE = {
     openIds: ['layer1'],
     combinedView: false,
-    joinConfig: {
-        layers: {},
-    },
 }
 
 const DEFAULT_MAP_VIEWS = [
@@ -399,12 +396,11 @@ describe('BottomPanel Combined join controls', () => {
         expect(store.getActions()).toEqual([
             {
                 type: 'DATA_TABLE_JOIN_CONFIG_SET',
-                config: {
-                    layers: {
-                        layer1: {
-                            type: 'orgUnit',
-                            aggregation: { rawValue: 'SUM' },
-                        },
+                layerId: 'ref1',
+                layers: {
+                    layer1: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
                     },
                 },
             },
@@ -417,8 +413,12 @@ describe('BottomPanel Combined join controls', () => {
                 ...DEFAULT_DATA_TABLE_STATE,
                 openIds: ['layer1', 'layer2'],
                 combinedView: true,
-                joinConfig: {
-                    layers: {
+            },
+            mapViews: [
+                ...twoEligibleLayers,
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
                         layer1: {
                             type: 'orgUnit',
                             aggregation: { rawValue: 'SUM' },
@@ -429,8 +429,7 @@ describe('BottomPanel Combined join controls', () => {
                         },
                     },
                 },
-            },
-            mapViews: combinedMapViews,
+            ],
         })
 
         fireEvent.click(screen.getByLabelText('Choose layers to combine'))
@@ -439,125 +438,14 @@ describe('BottomPanel Combined join controls', () => {
         expect(store.getActions()).toEqual([
             {
                 type: 'DATA_TABLE_JOIN_CONFIG_SET',
-                config: {
-                    layers: {
-                        layer2: {
-                            type: 'orgUnit',
-                            aggregation: { rawValue: 'SUM' },
-                        },
+                layerId: 'ref1',
+                layers: {
+                    layer2: {
+                        type: 'orgUnit',
+                        aggregation: { rawValue: 'SUM' },
                     },
                 },
             },
         ])
-    })
-})
-
-describe('BottomPanel joinConfig hydration from a saved reference layer', () => {
-    const persistedJoinConfig = {
-        layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
-    }
-
-    test("restores a loaded reference layer's persisted combinedJoinConfig once", () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                {
-                    ...referenceLayer(),
-                    isLoaded: true,
-                    combinedJoinConfig: persistedJoinConfig,
-                },
-            ],
-        })
-
-        expect(store.getActions()).toContainEqual({
-            type: 'DATA_TABLE_JOIN_CONFIG_SET',
-            config: { layers: persistedJoinConfig },
-        })
-    })
-
-    test('does not restore anything when the reference layer has not finished loading yet', () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                {
-                    ...referenceLayer(),
-                    isLoaded: false,
-                    combinedJoinConfig: persistedJoinConfig,
-                },
-            ],
-        })
-
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({ type: 'DATA_TABLE_JOIN_CONFIG_SET' })
-        )
-    })
-
-    test('does not restore anything when the reference layer has no persisted combinedJoinConfig', () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                { ...referenceLayer(), isLoaded: true },
-            ],
-        })
-
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({ type: 'DATA_TABLE_JOIN_CONFIG_SET' })
-        )
-    })
-})
-
-describe('BottomPanel combinedColumnConfig hydration from a saved reference layer', () => {
-    const persistedColumnConfig = { pinnedKeys: ['layerA_rawValue'] }
-
-    test("restores a loaded reference layer's persisted combinedColumnConfig once", () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                {
-                    ...referenceLayer(),
-                    isLoaded: true,
-                    combinedColumnConfig: persistedColumnConfig,
-                },
-            ],
-        })
-
-        expect(store.getActions()).toContainEqual({
-            type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
-            config: persistedColumnConfig,
-        })
-    })
-
-    test('does not restore anything when the reference layer has not finished loading yet', () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                {
-                    ...referenceLayer(),
-                    isLoaded: false,
-                    combinedColumnConfig: persistedColumnConfig,
-                },
-            ],
-        })
-
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({
-                type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
-            })
-        )
-    })
-
-    test('does not restore anything when the reference layer has no persisted combinedColumnConfig', () => {
-        const { store } = renderBottomPanel({
-            mapViews: [
-                ...DEFAULT_MAP_VIEWS,
-                { ...referenceLayer(), isLoaded: true },
-            ],
-        })
-
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({
-                type: 'DATA_TABLE_COMBINED_COLUMN_CONFIG_SET',
-            })
-        )
     })
 })
