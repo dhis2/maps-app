@@ -68,9 +68,9 @@ describe('OpenAsMapDialog', () => {
         mockDispatch.mockClear()
     })
 
-    // Regression test for DHIS2-15762: the auto-add used to run in the render
-    // body, so an extra invocation while it was in flight added a second layer.
-    // StrictMode double-invokes render and effects to surface exactly this.
+    // The auto-add used to run in the render body, so an extra invocation
+    // while it was in flight added a second layer. StrictMode double-invokes
+    // render and effects to surface exactly this.
     it('auto-adds a single-dimension layer only once under StrictMode', async () => {
         mockCurrentAO = singleItemAO
 

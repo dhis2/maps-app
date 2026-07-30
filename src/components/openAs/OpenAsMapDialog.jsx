@@ -39,7 +39,7 @@ const OpenAsMapDialog = () => {
     const [isAdding, setIsAdding] = useState(false)
 
     // Adding always ends in clearAnalyticalObject(), which unmounts this
-    // dialog, so the guard never needs resetting (DHIS2-15762)
+    // dialog, so the guard never needs resetting
     const hasAddedRef = useRef(false)
 
     const addLayersToMap = async () => {
