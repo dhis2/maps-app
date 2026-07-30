@@ -51,7 +51,7 @@ const OpenAsMapDialog = () => {
 
         try {
             const selectedDimensions = [...selectedDataDims].reverse()
-            const lastDataId = selectedDimensions[selectedDimensions.length - 1]
+            const lastDataId = selectedDimensions.at(-1)
 
             // Call in sequence
             for (const dataId of selectedDimensions) {
