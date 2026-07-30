@@ -63,7 +63,13 @@ const BottomPanel = () => {
             ? manualActiveLayerId
             : openIds[openIds.length - 1] ?? null
 
-    const eligibleLayers = getEligibleDataTableLayers(mapViews).reverse()
+    const eligibleLayers = useMemo(() => {
+        const loaded = getEligibleDataTableLayers(mapViews).reverse()
+        const stillOpen = openIds
+            .map((id) => mapViews.find((l) => l.id === id))
+            .filter((l) => l && !loaded.some((el) => el.id === l.id))
+        return [...loaded, ...stillOpen]
+    }, [mapViews, openIds])
     const { referenceLayer, openReferenceLayerEditor } = useReferenceLayer()
     const combinedEnabled =
         !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0

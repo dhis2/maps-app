@@ -11,6 +11,7 @@ const layer = (id, overrides = {}) => ({
     id,
     name: id,
     layer: THEMATIC_LAYER,
+    isLoaded: true,
     data: [{}],
     ...overrides,
 })

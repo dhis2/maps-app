@@ -37,7 +37,13 @@ const DEFAULT_DATA_TABLE_STATE = {
 }
 
 const DEFAULT_MAP_VIEWS = [
-    { id: 'layer1', name: 'Layer 1', layer: THEMATIC_LAYER, data: [{}] },
+    {
+        id: 'layer1',
+        name: 'Layer 1',
+        layer: THEMATIC_LAYER,
+        isLoaded: true,
+        data: [{}],
+    },
 ]
 
 const referenceLayer = (
@@ -137,6 +143,7 @@ const twoEligibleLayers = [
         name: 'Layer 1',
         combinedLayerKey: 'layer1',
         layer: THEMATIC_LAYER,
+        isLoaded: true,
         data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
     },
     {
@@ -144,6 +151,7 @@ const twoEligibleLayers = [
         name: 'Layer 2',
         combinedLayerKey: 'layer2',
         layer: THEMATIC_LAYER,
+        isLoaded: true,
         data: [{ properties: { orgUnitPath: '/country1/ou2' } }],
     },
 ]
@@ -160,6 +168,26 @@ describe('BottomPanel layer selector', () => {
         expect(screen.getByText('Layer 1')).toBeInTheDocument()
         expect(screen.getByText('Layer 2')).toBeInTheDocument()
         expect(screen.getByText('Combined')).toBeInTheDocument()
+    })
+
+    test('keeps an already-open tab listed even if its config is edited into a state where isLoaded gets stuck false', () => {
+        const stuckLayer = {
+            id: 'layer1',
+            name: 'Layer 1',
+            layer: THEMATIC_LAYER,
+            isLoaded: false,
+            data: [],
+        }
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1'],
+            },
+            mapViews: [stuckLayer, twoEligibleLayers[1]],
+        })
+
+        expect(screen.getByText('Layer 1')).toBeInTheDocument()
+        expect(screen.getByText('Layer 2')).toBeInTheDocument()
     })
 
     test('selecting a different, already-open layer switches the active layer shown in the table', () => {

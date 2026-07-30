@@ -267,10 +267,15 @@ describe('buildFeatureIndex', () => {
 })
 
 describe('getEligibleDataTableLayers', () => {
-    test('includes data-table-capable layer types that have loaded data', () => {
+    test('includes data-table-capable layer types that have finished loading', () => {
         const mapViews = [
-            { id: 'a', layer: THEMATIC_LAYER, data: [{}] },
-            { id: 'b', layer: THEMATIC_LAYER, data: [{}, {}] },
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: true, data: [{}] },
+            {
+                id: 'b',
+                layer: THEMATIC_LAYER,
+                isLoaded: true,
+                data: [{}, {}],
+            },
         ]
         expect(getEligibleDataTableLayers(mapViews).map((l) => l.id)).toEqual([
             'a',
@@ -279,13 +284,26 @@ describe('getEligibleDataTableLayers', () => {
     })
 
     test('excludes layer types with no data table support', () => {
-        const mapViews = [{ id: 'a', layer: EXTERNAL_LAYER, data: [{}] }]
+        const mapViews = [
+            { id: 'a', layer: EXTERNAL_LAYER, isLoaded: true, data: [{}] },
+        ]
         expect(getEligibleDataTableLayers(mapViews)).toEqual([])
     })
 
-    test('excludes a data-table-capable layer with no loaded data', () => {
-        const mapViews = [{ id: 'a', layer: THEMATIC_LAYER, data: [] }]
+    test('excludes a data-table-capable layer that has not finished loading yet', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: false, data: [{}] },
+        ]
         expect(getEligibleDataTableLayers(mapViews)).toEqual([])
+    })
+
+    test('includes a loaded, data-table-capable layer with no valid data - the caller shows an explanatory message instead of hiding it', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: true, data: [] },
+        ]
+        expect(getEligibleDataTableLayers(mapViews).map((l) => l.id)).toEqual([
+            'a',
+        ])
     })
 })
 
