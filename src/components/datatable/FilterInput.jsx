@@ -574,11 +574,6 @@ OptionSetSearchableFilter.propTypes = {
     optionSetId: PropTypes.string.isRequired,
 }
 
-// filterValue/onChange/onClear are supplied by the caller (dispatch-agnostic,
-// like useRowSelection) - a real layer's Redux dataFilters for DataTable.jsx,
-// or local session-only state for CombinedDataTable.jsx. layerId is only
-// used by the date/org-unit group filter paths, which still dispatch
-// directly since Combined never produces those column types today.
 const FilterInput = React.memo(function FilterInput({
     layerId,
     type,

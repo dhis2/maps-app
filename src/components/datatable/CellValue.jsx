@@ -21,11 +21,6 @@ import {
 } from '../../util/orgUnitGroups.js'
 import styles from './styles/DataTable.module.css'
 
-// Shared between DataTable.jsx and CombinedDataTable.jsx - which renderer a
-// column uses determines both its cell content (CellValue, below) and its
-// DataTableCell className (isDarkColor/monoCell/backgroundColor - computed
-// by each caller since those touch component-specific selected/hovered/
-// pinned state too), so both need these same flags.
 export const getCellRendererFlags = (renderer, type) => ({
     isColorCell: renderer === RENDERER_COLOR,
     isIconCell: renderer === RENDERER_ICON,

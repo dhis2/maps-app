@@ -64,10 +64,6 @@ describe('LayersPanel — reference org unit layer exclusion', () => {
 })
 
 describe('getSortIndices', () => {
-    // Matches LAYER_SORT's own reducer math (reducers/map.js): indices are
-    // computed against the full reversed mapViews, not a filtered display
-    // list, so a hidden reference layer anywhere in the array doesn't
-    // throw off the position of every layer after it.
     const reversedMapViews = [
         { id: 'layer2' },
         { id: 'ref1' },

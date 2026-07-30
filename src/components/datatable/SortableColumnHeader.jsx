@@ -6,9 +6,6 @@ import { SortIcon } from '../core/icons.jsx'
 import styles from './styles/DataTable.module.css'
 import TopTooltip from './TopTooltip.jsx'
 
-// Shared between DataTable.jsx and CombinedDataTable.jsx - both produce the
-// same {name, dataKey} header shape and the same sort-button interaction,
-// so only the surrounding column-header props (pinning, filter) differ.
 const SortableColumnHeader = ({
     name,
     dataKey,

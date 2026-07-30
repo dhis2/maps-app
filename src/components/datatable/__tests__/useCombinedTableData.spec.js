@@ -706,10 +706,7 @@ describe('useCombinedTableData - empty input', () => {
 
 describe('useCombinedTableData - Earth Engine value columns', () => {
     // Earth Engine layers never carry their value(s) directly on feature
-    // properties (unlike every other layer type) - they're computed
-    // client-side into state.aggregations, keyed by layer id then feature
-    // id, and merged in here (see mergeAggregations) exactly like
-    // util/tableRows.js already does for the single-layer table.
+    // properties they're computed client-side into state.aggregations
     test('merges aggregation stats in and generates one joinable column per stat, with no generic legend column', () => {
         const layers = [
             {

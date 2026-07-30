@@ -146,11 +146,7 @@ export const getColumnDistinctValues = (headers, data) => {
     return result
 }
 
-// Cheap: just re-orders each column's already-known distinct-value list from
-// getColumnDistinctValues into the {value} option list FilterInput expects.
-// Kept separate from the expensive scan above so re-sorting doesn't force a
-// re-scan - shared by DataTable.jsx and CombinedDataTable.jsx's filter
-// popovers.
+// Cheap: just re-orders each column's already-known distinct-value list
 export const sortColumnOptions = (
     columnDistinctValues,
     { sortField, sortDirection } = {}

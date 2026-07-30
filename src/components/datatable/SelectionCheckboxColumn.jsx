@@ -8,9 +8,6 @@ import { SortIcon } from '../core/icons.jsx'
 import styles from './styles/DataTable.module.css'
 import TopTooltip from './TopTooltip.jsx'
 
-// Shared between DataTable.jsx and CombinedDataTable.jsx - the checkbox
-// column's markup and select-all/reverse-selection/sort-by-selected
-// interactions are identical, only where the selection itself lives differs.
 export const SelectionCheckboxHeaderCell = ({
     fixed,
     left,

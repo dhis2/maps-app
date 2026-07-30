@@ -2,9 +2,6 @@ import { useCallback, useReducer } from 'react'
 import { SORT_ASCENDING } from '../../constants/dataTable.js'
 import { getNextSorting } from '../../util/dataTable.js'
 
-// Shared between DataTable.jsx and CombinedDataTable.jsx - each keeps its
-// own independent sort state (neither is persisted), driven by the same
-// three-click asc/desc/none cycle.
 export const useSortState = (initialSortField = 'name') => {
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),

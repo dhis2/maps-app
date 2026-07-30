@@ -12,9 +12,7 @@ export const getThematicAggregationTypes = () => [
     { id: 'MAX', name: i18n.t('Max') },
 ]
 
-// Combined data table join - same set as the thematic layer's own
-// aggregation types, minus DEFAULT ("by data element"), which has no
-// meaning outside a thematic layer's own data element config.
+// Combined data table join
 export const getCombinedAggregationTypes = () =>
     getThematicAggregationTypes().filter((type) => type.id !== 'DEFAULT')
 
