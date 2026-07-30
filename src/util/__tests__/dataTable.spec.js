@@ -461,6 +461,26 @@ describe('getFeatureCategoryKey - Event', () => {
     })
 })
 
+describe('getCombinedValueDataKeys - TrackedEntity layers', () => {
+    test('always count-only, regardless of legend shape (TE has no classification support today)', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: TRACKED_ENTITY_LAYER,
+                legend: { items: [{ name: 'Person' }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('still count-only even given a multi-item legend, defending against future drift', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: TRACKED_ENTITY_LAYER,
+                legend: { items: [{ name: 'Type A' }, { name: 'Type B' }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+})
+
 describe('getDefaultCombinedAggregation', () => {
     test("defaults to the data item's own aggregation type", () => {
         expect(getDefaultCombinedAggregation(withDataItem('AVERAGE'))).toEqual({
