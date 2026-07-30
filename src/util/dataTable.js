@@ -195,6 +195,20 @@ export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer === EVENT_LAYER) {
         return getEventValueDataKeys(layer)
     }
+    // Tracked entity layers have no classification/styling support today
+    // (trackedEntityLoader.js never consumes styleDataItem, despite
+    // TrackedEntityDialog.jsx rendering the control for it) - always
+    // count-only, regardless of legend shape, until that's built as its
+    // own feature.
+    if (layer.layer === TRACKED_ENTITY_LAYER) {
+        return [
+            {
+                dataKey: COMBINED_COUNT_KEY,
+                name: null,
+                kind: DATA_KEY_KIND_COUNT,
+            },
+        ]
+    }
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [
             {
