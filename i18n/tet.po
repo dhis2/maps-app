@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2025\n"
 "Language-Team: Tetum (Tetun) (https://app.transifex.com/hisp-uio/teams/100509/tet/)\n"
@@ -45,17 +45,35 @@ msgstr ""
 msgid "Classes"
 msgstr ""
 
-msgid "Legend set"
-msgstr "Pakote lejendas"
+msgid "Auto"
+msgstr ""
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr ""
 
 msgid "Color"
 msgstr ""
 
-msgid "Size"
-msgstr ""
-
 msgid "Name"
 msgstr "Naran"
+
+msgid "Legend set"
+msgstr "Pakote lejendas"
+
+msgid "Size"
+msgstr ""
 
 msgid "Name and value"
 msgstr ""
@@ -90,10 +108,7 @@ msgstr ""
 msgid "Tracked entity location"
 msgstr ""
 
-msgid "Fallback coordinate field"
-msgstr ""
-
-msgid "Coordinate field"
+msgid "Select a program stage to see additional coordinate options"
 msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
@@ -102,13 +117,25 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
+
+msgid "Coordinate field"
+msgstr ""
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
@@ -185,6 +212,9 @@ msgstr ""
 msgid "Org unit"
 msgstr ""
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr ""
 
@@ -249,6 +279,9 @@ msgstr "Unidades Organizasionais"
 
 msgid "Style"
 msgstr "Estilu"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr ""
@@ -353,40 +386,16 @@ msgstr ""
 msgid "Max value is required"
 msgstr ""
 
-msgid "Max should be greater than min"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr ""
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
+msgid "Use custom legend"
 msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
 
-msgid "Org Units"
-msgstr ""
-
-msgid "Filter"
-msgstr "Filtru"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
 
 msgid "Program is required"
@@ -399,6 +408,42 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "No legend set is selected"
+msgstr ""
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr ""
+
+msgid "Filter"
+msgstr "Filtru"
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Event status"
@@ -446,13 +491,33 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
+msgid "Include org units with no data"
+msgstr ""
+
+msgid "No data"
+msgstr "Laiha dadus"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Tipu agregasaun"
 
 msgid "Only show completed events"
-msgstr ""
-
-msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -467,12 +532,6 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
-msgid "Choose from presets"
-msgstr ""
-
-msgid "Define start - end dates"
-msgstr ""
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -483,17 +542,6 @@ msgid "Choose periods for all split layers"
 msgstr ""
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr ""
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
 msgid "Specified radius values are invalid"
@@ -511,6 +559,9 @@ msgstr ""
 msgid "Program status"
 msgstr ""
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr ""
 
@@ -518,14 +569,14 @@ msgid "Follow up"
 msgstr ""
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "Tracked entity style"
@@ -538,9 +589,6 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
-
-msgid "Tracked Entity Type is required"
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
@@ -590,7 +638,7 @@ msgstr ""
 msgid "Download Layer Data"
 msgstr ""
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
 msgstr ""
 
 msgid ""
@@ -610,13 +658,10 @@ msgstr ""
 msgid "External layer"
 msgstr ""
 
-msgid "Failed to load layer"
-msgstr ""
-
 msgid "Loading layer"
 msgstr ""
 
-msgid "{{name}} deleted."
+msgid "{{- name}} deleted."
 msgstr ""
 
 msgid "Edit"
@@ -652,19 +697,72 @@ msgstr ""
 msgid "Edit layer"
 msgstr ""
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr ""
 
 msgid "Filters"
 msgstr "Filtrus"
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "No data found"
 msgstr ""
 
-msgid "Selected org units: No coordinates found"
+msgid "All events outside org unit boundaries"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+
+msgid "Selected org units: No coordinates found"
 msgstr ""
 
 msgid "Error"
@@ -710,9 +808,6 @@ msgstr ""
 
 msgid "Parent unit"
 msgstr ""
-
-msgid "No data"
-msgstr "Laiha dadus"
 
 msgid "Not set"
 msgstr "Seidauk define"
@@ -895,9 +990,6 @@ msgstr ""
 msgid "Next year"
 msgstr "Tinan oin"
 
-msgid "Start/end dates"
-msgstr ""
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -952,6 +1044,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1586,6 +1684,18 @@ msgstr ""
 msgid "Equal counts"
 msgstr ""
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr ""
 
@@ -1634,7 +1744,13 @@ msgstr "Jullu finanseiru"
 msgid "Financial year (Start April)"
 msgstr "Abril finanseiru"
 
+msgid "Start/end dates"
+msgstr ""
+
 msgid "Cancelled"
+msgstr ""
+
+msgid "Could not count org units without coordinates"
 msgstr ""
 
 msgid "Earth Engine layer"
@@ -1655,16 +1771,16 @@ msgstr ""
 msgid "Event"
 msgstr ""
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
 msgid "an error occurred"
 msgstr ""
 
-msgid "GroupSet used for styling was not found"
-msgstr ""
-
-msgid "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1694,10 +1810,10 @@ msgstr ""
 msgid "Thematic layer"
 msgstr ""
 
-msgid "Tracked entity"
+msgid "related"
 msgstr ""
 
-msgid "related"
+msgid "Tracked entity"
 msgstr ""
 
 msgid "not one of"
@@ -1747,8 +1863,8 @@ msgstr ""
 msgid "Facility"
 msgstr ""
 
-msgid "Other"
-msgstr "Seluk"
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""
@@ -1757,4 +1873,12 @@ msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
+msgstr ""
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr ""
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
 msgstr ""
