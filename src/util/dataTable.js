@@ -1,5 +1,7 @@
 import { bbox } from '@turf/bbox'
 import {
+    DATA_KEY_KIND_CATEGORY,
+    DATA_KEY_KIND_COUNT,
     DATA_KEY_KIND_VALUE,
     SORT_ASCENDING,
     SORT_DESCENDING,
@@ -21,6 +23,8 @@ import { getDataItemFromColumns, getOrgUnitsFromRows } from './analytics.js'
 import { getJoinableFeatures } from './combinedJoinMatch.js'
 
 export const COMBINED_VALUE_KEY = 'rawValue'
+export const COMBINED_COUNT_KEY = 'count'
+export const UNCLASSIFIED_CATEGORY_KEY = 'unclassified'
 
 const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = new Set([
     'percentage',
@@ -102,7 +106,51 @@ const getEarthEngineBandValueDataKeys = (layer) => {
     )
 }
 
+// True only when the layer is actually styled by a real organisation unit
+// group set with 2+ resulting legend buckets - NOT when Facility/OrgUnit
+// happen to have a multi-item legend for another reason (OrgUnit's
+// no-group-set fallback styles by level instead, which also produces
+// legend.items.length > 1 but is a structural hierarchy artifact, not a
+// meaningful join category - see getStyledOrgUnits, util/orgUnits.js).
+const isOrgUnitGroupSetCategorical = (layer) =>
+    !!layer.organisationUnitGroupSet?.id &&
+    (layer.legend?.items?.length ?? 0) > 1
+
+const getOrgUnitGroupValueDataKeys = (layer) => {
+    if (!isOrgUnitGroupSetCategorical(layer)) {
+        return [
+            {
+                dataKey: COMBINED_COUNT_KEY,
+                name: null,
+                kind: DATA_KEY_KIND_COUNT,
+            },
+        ]
+    }
+    return layer.legend.items.map(({ id, name }) => ({
+        dataKey: id ?? UNCLASSIFIED_CATEGORY_KEY,
+        name,
+        kind: DATA_KEY_KIND_CATEGORY,
+    }))
+}
+
+// Given a layer and a matched feature's properties, returns the category
+// dataKey that feature belongs to (see getCombinedValueDataKeys' per-type
+// branches for how that dataKey set is built). Only meaningful for
+// DATA_KEY_KIND_CATEGORY columns.
+export const getFeatureCategoryKey = (layer, props) => {
+    if (layer.layer === FACILITY_LAYER || layer.layer === ORG_UNIT_LAYER) {
+        return (
+            props.dimensions?.[layer.organisationUnitGroupSet?.id] ??
+            UNCLASSIFIED_CATEGORY_KEY
+        )
+    }
+    return UNCLASSIFIED_CATEGORY_KEY
+}
+
 export const getCombinedValueDataKeys = (layer) => {
+    if (layer.layer === FACILITY_LAYER || layer.layer === ORG_UNIT_LAYER) {
+        return getOrgUnitGroupValueDataKeys(layer)
+    }
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [
             {

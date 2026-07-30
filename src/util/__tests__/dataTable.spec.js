@@ -1,4 +1,8 @@
-import { DATA_KEY_KIND_VALUE } from '../../constants/dataTable.js'
+import {
+    DATA_KEY_KIND_CATEGORY,
+    DATA_KEY_KIND_COUNT,
+    DATA_KEY_KIND_VALUE,
+} from '../../constants/dataTable.js'
 import {
     EARTH_ENGINE_LAYER,
     THEMATIC_LAYER,
@@ -14,6 +18,7 @@ import {
     getDefaultCombinedAggregation,
     getDefaultReferenceRows,
     getEligibleDataTableLayers,
+    getFeatureCategoryKey,
     getLayerSelectedIds,
     getNextSorting,
     getPanelHeights,
@@ -205,6 +210,120 @@ describe('getCombinedValueDataKeys', () => {
             { dataKey: 'mean', name: 'Mean Ndvi', kind: DATA_KEY_KIND_VALUE },
             { dataKey: 'max', name: 'Max Ndvi', kind: DATA_KEY_KIND_VALUE },
         ])
+    })
+
+    describe('Facility/OrgUnit group-set categorical columns', () => {
+        const groupedLayer = (layer, items) => ({
+            layer,
+            organisationUnitGroupSet: { id: 'groupSet1' },
+            legend: { items },
+        })
+
+        test('grouped Facility with 2+ groups: one category column per group, keyed by id', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(FACILITY_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                        { id: 'group2', name: 'Clinic' },
+                    ])
+                )
+            ).toEqual([
+                {
+                    dataKey: 'group1',
+                    name: 'Hospital',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+                {
+                    dataKey: 'group2',
+                    name: 'Clinic',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+            ])
+        })
+
+        test('grouped OrgUnit with an Unclassified item present: keyed as the unclassified sentinel', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(ORG_UNIT_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                        { name: 'Unclassified' },
+                    ])
+                )
+            ).toEqual([
+                {
+                    dataKey: 'group1',
+                    name: 'Hospital',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+                {
+                    dataKey: 'unclassified',
+                    name: 'Unclassified',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+            ])
+        })
+
+        test('grouped with exactly 1 group: falls back to count-only', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(FACILITY_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                    ])
+                )
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+
+        test('ungrouped Facility: count-only', () => {
+            expect(
+                getCombinedValueDataKeys({
+                    layer: FACILITY_LAYER,
+                    legend: { items: [{ name: 'Facility' }] },
+                })
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+
+        test('ungrouped OrgUnit with a level-fallback legend (items.length > 1, no group set): count-only, not one column per level', () => {
+            expect(
+                getCombinedValueDataKeys({
+                    layer: ORG_UNIT_LAYER,
+                    legend: {
+                        items: [
+                            { name: 'Level 1' },
+                            { name: 'Level 2' },
+                            { name: 'Level 3' },
+                        ],
+                    },
+                })
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+    })
+})
+
+describe('getFeatureCategoryKey - Facility/OrgUnit', () => {
+    const layer = {
+        layer: FACILITY_LAYER,
+        organisationUnitGroupSet: { id: 'groupSet1' },
+    }
+
+    test("returns the feature's own group id for the layer's group set dimension", () => {
+        expect(
+            getFeatureCategoryKey(layer, {
+                dimensions: { groupSet1: 'group1' },
+            })
+        ).toBe('group1')
+    })
+
+    test('returns the unclassified sentinel when the feature has no value for that dimension', () => {
+        expect(getFeatureCategoryKey(layer, { dimensions: {} })).toBe(
+            'unclassified'
+        )
+        expect(getFeatureCategoryKey(layer, {})).toBe('unclassified')
     })
 })
 
