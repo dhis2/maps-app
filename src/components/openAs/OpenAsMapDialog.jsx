@@ -10,7 +10,7 @@ import {
     ButtonStrip,
 } from '@dhis2/ui'
 import log from 'loglevel'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearAnalyticalObject } from '../../actions/analyticalObject.js'
 import { addLayer } from '../../actions/layers.js'
@@ -34,6 +34,7 @@ const OpenAsMapDialog = () => {
     const firstDimensionId = allDataDimensions[0]?.id
 
     const [selectedDataDims, setSelectedDataDims] = useState([firstDimensionId])
+    const hasAutoAdded = useRef(false)
 
     const addLayersToMap = async () => {
         const selectedDimensions = [...selectedDataDims].reverse()
@@ -75,26 +76,39 @@ const OpenAsMapDialog = () => {
         dispatch(clearAnalyticalObject())
     }
 
-    switch (type) {
-        case EARTH_ENGINE_LAYER:
+    // Auto-add layers for the cases that need no user input. This must run in
+    // an effect, not the render body -- dispatching here directly re-added
+    // layers on every re-render (e.g. while useSetting/legend fetches resolve),
+    // producing duplicate layers.
+    useEffect(() => {
+        if (hasAutoAdded.current) {
+            return
+        }
+
+        if (type === EARTH_ENGINE_LAYER) {
             if (!layerId) {
                 log.info('No earth engine layer id found in analytical object')
-                return null // TODO show error
+                return
             }
+            hasAutoAdded.current = true
             addEarthEngineLayersToMap()
-            return null
+            return
+        }
 
-        default:
-            if (!allDataDimensions.length) {
-                log.info('No data items found in analytical object')
-                return null // TODO show error
-            }
+        if (!allDataDimensions.length) {
+            log.info('No data items found in analytical object')
+            return
+        }
 
-            if (allDataDimensions.length === 1) {
-                addLayersToMap()
-                return null
-            }
-            break
+        if (allDataDimensions.length === 1) {
+            hasAutoAdded.current = true
+            addLayersToMap()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [type, layerId, allDataDimensions.length])
+
+    if (type === EARTH_ENGINE_LAYER || allDataDimensions.length <= 1) {
+        return null
     }
 
     return (
