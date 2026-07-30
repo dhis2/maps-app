@@ -58,7 +58,7 @@ describe('useCombinedTableData - org unit join', () => {
             'layerA_rawValue',
             'layerA_legend',
         ])
-        expect(result.current.headers[0].name).toBe('Org unit Id')
+        expect(result.current.headers[0].name).toBe('Org unit id')
         expect(result.current.headers[1].name).toBe('Org unit')
         expect(result.current.rows).toHaveLength(2)
 

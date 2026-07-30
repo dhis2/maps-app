@@ -96,11 +96,17 @@ const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
 export const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const defaultFieldsMap = () => ({
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
+    [ID]: {
+        name: i18n.t('Id'),
+        dataKey: ID,
+        type: TYPE_STRING,
+        defaultHidden: true,
+    },
     [ORG_UNIT_ID]: {
-        name: i18n.t('Org unit Id'),
+        name: i18n.t('Org unit id'),
         dataKey: ORG_UNIT_ID,
         type: TYPE_STRING,
+        defaultHidden: true,
     },
     [ORG_UNIT]: {
         name: i18n.t('Org unit'),
@@ -112,8 +118,14 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Org unit level'),
         dataKey: LEVEL,
         type: TYPE_NUMBER,
+        defaultHidden: true,
     },
-    [TYPE]: { name: i18n.t('Geometry type'), dataKey: TYPE, type: TYPE_STRING },
+    [TYPE]: {
+        name: i18n.t('Geometry type'),
+        dataKey: TYPE,
+        type: TYPE_STRING,
+        defaultHidden: true,
+    },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
     [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
     [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
@@ -204,7 +216,7 @@ const getStyleHeaders = ({
 }
 
 const getThematicHeaders = () =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(defaultFieldsMap()[VALUE])
         .concat(
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
@@ -307,7 +319,7 @@ const getOrgUnitStyleHeaders = (data) => {
 }
 
 const getFixedFieldsWithOrgUnitStyle = (data) =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(getOrgUnitStyleHeaders(data))
         .concat(defaultFieldsMap()[TYPE])
 
@@ -374,7 +386,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    return getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(customFields)
         .concat(defaultFieldsMap()[TYPE])
 }

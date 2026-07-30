@@ -266,12 +266,18 @@ export const useCombinedTableData = ({
             )
 
         const headers = [
-            { name: i18n.t('Org unit Id'), dataKey: 'id', type: TYPE_STRING },
+            {
+                name: i18n.t('Org unit id'),
+                dataKey: 'id',
+                type: TYPE_STRING,
+                defaultHidden: true,
+            },
             { name: i18n.t('Org unit'), dataKey: 'name', type: TYPE_STRING },
             {
                 name: i18n.t('Org unit level'),
                 dataKey: 'level',
                 type: TYPE_NUMBER,
+                defaultHidden: true,
             },
             ...layerMatches.flatMap(({ layer, valueDataKeys }) => [
                 ...valueDataKeys.map(({ dataKey, name }) => ({

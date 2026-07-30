@@ -27,6 +27,22 @@ jest.mock('../../components/map/MapApi.js', () => ({
 }))
 
 const dataKeys = (result) => result.headers.map((h) => h.dataKey)
+const defaultHiddenKeys = (result) =>
+    result.headers.filter((h) => h.defaultHidden).map((h) => h.dataKey)
+
+describe('getHeadersForLayer - defaultHidden', () => {
+    test('Id, Org unit id, Org unit level, and Geometry type are hidden by default; Org unit and Org unit hierarchy are not', () => {
+        const result = getHeadersForLayer(THEMATIC_LAYER, {
+            isMultiPeriodThematic: false,
+        })
+        expect(defaultHiddenKeys(result)).toEqual(
+            expect.arrayContaining(['id', 'level', 'type'])
+        )
+        expect(defaultHiddenKeys(result)).not.toEqual(
+            expect.arrayContaining(['orgUnitOwn', 'orgUnitPath'])
+        )
+    })
+})
 
 describe('getHeadersForLayer - thematic', () => {
     test('single-period: fixed fields plus legend/range/color', () => {

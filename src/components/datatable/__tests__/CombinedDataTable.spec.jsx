@@ -83,9 +83,12 @@ describe('CombinedDataTable', () => {
                     },
                 },
             },
+            columnConfig: {
+                visibleKeys: ['id', 'name', 'layerA_rawValue', 'layerA_legend'],
+            },
         })
 
-        expect(screen.getByText('Org unit Id')).toBeInTheDocument()
+        expect(screen.getByText('Org unit id')).toBeInTheDocument()
         expect(screen.getByText('Org unit')).toBeInTheDocument()
         expect(screen.getByText('Value (Layer A)')).toBeInTheDocument()
         expect(screen.getByText('Legend (Layer A)')).toBeInTheDocument()
@@ -273,7 +276,7 @@ describe('CombinedDataTable', () => {
         })
 
         const rowsBefore = screen.getAllByRole('row').slice(1)
-        expect(rowsBefore[0]).toHaveTextContent('ou1')
+        expect(rowsBefore[0]).toHaveTextContent('Ou One')
 
         fireEvent.click(
             screen.getByTestId(
@@ -282,7 +285,7 @@ describe('CombinedDataTable', () => {
         )
 
         const rowsAfter = screen.getAllByRole('row').slice(1)
-        expect(rowsAfter[0]).toHaveTextContent('ou2')
+        expect(rowsAfter[0]).toHaveTextContent('Ou Two')
     })
 
     test('applies a per-column filter via onFiltersChange', () => {
@@ -299,10 +302,11 @@ describe('CombinedDataTable', () => {
             referenceLayer,
             filters: {},
             onFiltersChange,
+            columnConfig: { visibleKeys: ['id', 'name'] },
         })
 
         const input = screen
-            .getByTestId('data-table-column-filter-search-Org unit Id')
+            .getByTestId('data-table-column-filter-search-Org unit id')
             .querySelector('input')
         fireEvent.focus(input)
         fireEvent.change(input, { target: { value: 'ou1' } })
@@ -569,9 +573,22 @@ describe('CombinedDataTable', () => {
             columnConfig: { visibleKeys: ['id', 'name'] },
         })
 
-        expect(screen.getByText('Org unit Id')).toBeInTheDocument()
+        expect(screen.getByText('Org unit id')).toBeInTheDocument()
         expect(screen.queryByText('Value (Layer A)')).not.toBeInTheDocument()
         expect(screen.queryByText('20')).not.toBeInTheDocument()
+    })
+
+    test('hides Org unit id and Org unit level by default when no columnConfig is given', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+
+        renderCombinedDataTable({ referenceLayer })
+
+        expect(screen.getByText('Org unit')).toBeInTheDocument()
+        expect(screen.queryByText('Org unit id')).not.toBeInTheDocument()
+        expect(screen.queryByText('Org unit level')).not.toBeInTheDocument()
     })
 
     test('reorders columns to put pinned keys first via columnConfig.pinnedKeys', () => {
@@ -599,7 +616,15 @@ describe('CombinedDataTable', () => {
                     },
                 },
             },
-            columnConfig: { pinnedKeys: ['level'] },
+            columnConfig: {
+                pinnedKeys: ['level'],
+                visibleKeys: [
+                    'level',
+                    'name',
+                    'layerA_rawValue',
+                    'layerA_legend',
+                ],
+            },
         })
 
         const headerNames = screen
