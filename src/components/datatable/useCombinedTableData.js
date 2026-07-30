@@ -122,9 +122,10 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
 }
 
 const EMPTY_COLUMN_OPTIONS = {}
+const EMPTY_HEADERS = []
 
 const EMPTY_RESULT = {
-    headers: [],
+    headers: EMPTY_HEADERS,
     rows: [],
     rowFeatureIds: new Map(),
     columnOptions: EMPTY_COLUMN_OPTIONS,
@@ -183,20 +184,11 @@ export const useCombinedTableData = ({
         [layers, joinConfig, referenceOrgUnits, allAggregations]
     )
 
-    return useMemo(() => {
+    const headers = useMemo(() => {
         if (!referenceOrgUnits.length) {
-            return EMPTY_RESULT
+            return EMPTY_HEADERS
         }
-
-        const spatialWarning =
-            referenceOrgUnits.length > LARGE_FEATURE_THRESHOLD ||
-            layerMatches.some(
-                ({ layer, settings }) =>
-                    settings.type === 'spatial' &&
-                    (layer.data?.length ?? 0) > LARGE_FEATURE_THRESHOLD
-            )
-
-        const headers = [
+        return [
             {
                 name: i18n.t('Org unit id'),
                 dataKey: 'id',
@@ -235,6 +227,20 @@ export const useCombinedTableData = ({
                     : []),
             ]),
         ]
+    }, [referenceOrgUnits, layerMatches])
+
+    return useMemo(() => {
+        if (!referenceOrgUnits.length) {
+            return EMPTY_RESULT
+        }
+
+        const spatialWarning =
+            referenceOrgUnits.length > LARGE_FEATURE_THRESHOLD ||
+            layerMatches.some(
+                ({ layer, settings }) =>
+                    settings.type === 'spatial' &&
+                    (layer.data?.length ?? 0) > LARGE_FEATURE_THRESHOLD
+            )
 
         const rowFeatureIds = new Map()
 
@@ -288,6 +294,7 @@ export const useCombinedTableData = ({
         visibleReferenceOrgUnits,
         referenceLayer,
         layerMatches,
+        headers,
         filters,
         globalSearch,
         sortField,

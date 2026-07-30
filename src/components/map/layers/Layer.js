@@ -16,6 +16,13 @@ import { getLayerSelectedIds } from '../../../util/dataTable.js'
 export const idsEqual = (a, b) =>
     a.length === b.length && a.every((id, i) => id === b[i])
 
+export const visibleIdsEqual = (a, b) => {
+    if (a === null || b === null) {
+        return a === b
+    }
+    return idsEqual(a, b)
+}
+
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
@@ -158,17 +165,17 @@ class Layer extends PureComponent {
     handleVisibleIdsChange(prevProps) {
         const { selection, selectionFilter, combinedVisibleIds } = this.props
         if (
-            !idsEqual(
+            !visibleIdsEqual(
                 this.getVisibleIds(
                     prevProps.selection,
                     prevProps.selectionFilter,
                     prevProps.combinedVisibleIds
-                ) ?? [],
+                ),
                 this.getVisibleIds(
                     selection,
                     selectionFilter,
                     combinedVisibleIds
-                ) ?? []
+                )
             )
         ) {
             this.updateVisibleIds()

@@ -1,4 +1,4 @@
-import Layer from '../Layer.js'
+import Layer, { visibleIdsEqual } from '../Layer.js'
 
 const createLayer = (props) => {
     const instance = Object.create(Layer.prototype)
@@ -127,6 +127,63 @@ describe('Layer#getVisibleIds', () => {
             combinedVisibleIds: { layer1: ['b', 'c'] },
         })
         expect(layer.getVisibleIds()).toEqual(['b'])
+    })
+})
+
+describe('visibleIdsEqual', () => {
+    test('null and an empty array are not equal - null means "show everything", [] means "show nothing"', () => {
+        expect(visibleIdsEqual(null, [])).toBe(false)
+        expect(visibleIdsEqual([], null)).toBe(false)
+    })
+
+    test('null and null are equal', () => {
+        expect(visibleIdsEqual(null, null)).toBe(true)
+    })
+
+    test('two empty arrays are equal', () => {
+        expect(visibleIdsEqual([], [])).toBe(true)
+    })
+
+    test('two arrays with the same ids in the same order are equal', () => {
+        expect(visibleIdsEqual(['a', 'b'], ['a', 'b'])).toBe(true)
+    })
+
+    test('two arrays with different ids are not equal', () => {
+        expect(visibleIdsEqual(['a'], ['b'])).toBe(false)
+    })
+})
+
+describe('Layer#handleVisibleIdsChange', () => {
+    test('calls setVisibleIds when combinedVisibleIds clears from an all-excluded entry back to no restriction - the bug where a table filter that hid every feature left the map stuck once filters were cleared', () => {
+        const setVisibleIds = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            data: [{ properties: { id: 'a' } }],
+            combinedVisibleIds: null,
+        })
+        layer.layer = { setVisibleIds }
+
+        layer.handleVisibleIdsChange({
+            combinedVisibleIds: { layer1: [] },
+        })
+
+        expect(setVisibleIds).toHaveBeenCalledWith(null)
+    })
+
+    test('does not call setVisibleIds when the visible ids are unchanged', () => {
+        const setVisibleIds = jest.fn()
+        const layer = createLayer({
+            id: 'layer1',
+            data: [{ properties: { id: 'a' } }],
+            combinedVisibleIds: { layer1: ['a'] },
+        })
+        layer.layer = { setVisibleIds }
+
+        layer.handleVisibleIdsChange({
+            combinedVisibleIds: { layer1: ['a'] },
+        })
+
+        expect(setVisibleIds).not.toHaveBeenCalled()
     })
 })
 
