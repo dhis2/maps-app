@@ -358,7 +358,58 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
+// Mirrors the roundFn derivation in the per-stat branch just above (only
+// compute one once real data is available - getPrecision([]) returns 0,
+// not undefined, so skipping this guard would round every value to whole
+// numbers before any data has loaded).
+const getFieldRoundFn = (data, dataKey) => {
+    if (!data?.length) {
+        return null
+    }
+    return getRoundToPrecisionFn(getPrecision(data.map((d) => d[dataKey])))
+}
+
+// One column per selected band the layer's own bandReducer combines into
+// its main value (e.g. Population's age/sex groups) - maps-gl separately
+// computes and returns these already (keyed `${bandId}_${type}`, or bare
+// `${bandId}` when only one stat is selected), only surfacing them as
+// columns is new here. A no-op unless 2+ bands are actually selected.
+const getBandFields = ({ bands, band, aggregationType, data }) => {
+    if (!bands?.multiple || !Array.isArray(band) || band.length < 2) {
+        return []
+    }
+    const selectedBands = bands.list?.filter((b) => band.includes(b.id)) ?? []
+    return selectedBands.flatMap(({ id: bandId, name: bandName }) =>
+        aggregationType.length === 1
+            ? [
+                  {
+                      name: bandName,
+                      dataKey: bandId,
+                      roundFn: getFieldRoundFn(data, bandId),
+                      type: TYPE_NUMBER,
+                      defaultHidden: true,
+                  },
+              ]
+            : aggregationType.map((type) => {
+                  const dataKey = `${bandId}_${type}`
+                  return {
+                      name: toTitleCase(`${type} ${bandName}`),
+                      dataKey,
+                      roundFn: getFieldRoundFn(data, dataKey),
+                      type: TYPE_NUMBER,
+                      defaultHidden: true,
+                  }
+              })
+    )
+}
+
+const getEarthEngineHeaders = ({
+    aggregationType,
+    legend,
+    data,
+    bands,
+    band,
+}) => {
     const { title, items } = legend
 
     let customFields = []
@@ -371,19 +422,21 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
             type: TYPE_NUMBER,
         }))
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
-        customFields = aggregationType.map((type) => {
-            let roundFn = null
-            if (data?.length) {
-                const precision = getPrecision(data.map((d) => d[type]))
-                roundFn = getRoundToPrecisionFn(precision)
-            }
-            return {
-                name: toTitleCase(`${type} ${title}`),
-                dataKey: type,
-                roundFn,
-                type: TYPE_NUMBER,
-            }
-        })
+        customFields = aggregationType
+            .map((type) => {
+                let roundFn = null
+                if (data?.length) {
+                    const precision = getPrecision(data.map((d) => d[type]))
+                    roundFn = getRoundToPrecisionFn(precision)
+                }
+                return {
+                    name: toTitleCase(`${type} ${title}`),
+                    dataKey: type,
+                    roundFn,
+                    type: TYPE_NUMBER,
+                }
+            })
+            .concat(getBandFields({ bands, band, aggregationType, data }))
     }
 
     return getOrgUnitCoreFields(i18n.t('Org unit id'))
@@ -430,6 +483,8 @@ export const getHeadersForLayer = (layerType, ctx) => {
                     aggregationType: ctx.aggregationType,
                     legend: ctx.legend,
                     data: ctx.data,
+                    bands: ctx.bands,
+                    band: ctx.band,
                 }),
             }
         case FACILITY_LAYER:
