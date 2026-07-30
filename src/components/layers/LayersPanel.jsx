@@ -61,11 +61,6 @@ SortableLayer.propTypes = {
     layer: PropTypes.object.isRequired,
 }
 
-// LAYER_SORT's reducer (reducers/map.js) computes positions against the
-// full reversed mapViews, not the displayed/draggable list - which
-// excludes the Combined data table's hidden reference org unit layer, if
-// one exists. Looking indices up here instead keeps a present reference
-// layer from throwing off every index after its position.
 export const getSortIndices = (reversedMapViews, activeId, overId) => ({
     oldIndex: reversedMapViews.findIndex((l) => l.id === activeId),
     newIndex: reversedMapViews.findIndex((l) => l.id === overId),
@@ -73,15 +68,7 @@ export const getSortIndices = (reversedMapViews, activeId, overId) => ({
 
 const LayersPanel = () => {
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
-    // Reversed so the last map view (top layer) is shown first. The
-    // Combined data table's reference org unit layer is a hidden,
-    // non-rendered "ghost" - it never gets its own card, drag handle, or
-    // remove button here, so it's filtered out of the displayed/draggable
-    // list. reversedMapViews stays unfiltered - LAYER_SORT's reducer (see
-    // reducers/map.js) computes oldIndex/newIndex against the full reversed
-    // mapViews, so onDragEnd below must look indices up there, not in the
-    // filtered display list, or a present ghost layer would throw off every
-    // index after its position.
+    // Reversed so the last map view (top layer) is shown first
     const reversedMapViews = useSelector((state) =>
         [...state.map.mapViews].reverse()
     )
