@@ -66,25 +66,11 @@ export const toGeoJson = (organisationUnits) =>
                 geometry.coordinates.flat().length
         )
 
-// Map.jsx passes each Layer instance only the slice of state.feature it
-// owns, rather than the raw global value, so a highlight never re-triggers
-// componentDidUpdate on unrelated layers. A crossLayerIds-based highlight
-// (layerId: null, set only by CombinedDataTable) has no single owning
-// layerId, so it must be forwarded to every layer named in crossLayerIds
-// instead of matched by layerId alone - Layer.js's own getHoverIds already
-// narrows it down further, to just the ids belonging to that layer.
 export const getLayerFeatureHighlight = (feature, layerId) =>
     feature && (feature.layerId === layerId || feature.crossLayerIds?.[layerId])
         ? feature
         : null
 
-// The crossLayerIds counterpart to each Layer instance's own
-// handleFeatureUpdate/fitBounds - a crossLayerIds zoom has no single owning
-// layerId, so several Layer instances would otherwise race independent
-// fitBounds() calls. Map.jsx calls this once at the top level instead, with
-// bounds precomputed by the caller (CombinedDataTable.jsx, via
-// getUnionBounds) from every matching feature across every participating
-// layer.
 export const fitCrossLayerZoomBounds = (map, feature, prevFeature) => {
     if (feature === prevFeature || !feature?.zoom || !feature.bounds) {
         return
@@ -97,7 +83,7 @@ export const fitCrossLayerZoomBounds = (map, feature, prevFeature) => {
     })
 }
 
-//eslint-disable-next-line max-params
+// eslint-disable-next-line max-params
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ...layerConfig,
     rows: [

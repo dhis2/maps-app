@@ -1,5 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
+import { SENTINEL_COMBINED_VALUE } from '../../../constants/dataTable.js'
 import LayerSelectorControl from '../controls/LayerSelectorControl.jsx'
 
 const layers = [
@@ -41,7 +42,7 @@ describe('LayerSelectorControl', () => {
 
     test('shows Combined as the selected value when combinedView is true', () => {
         renderControl({ combinedView: true })
-        expect(getSelect()).toHaveValue('__combined__')
+        expect(getSelect()).toHaveValue(SENTINEL_COMBINED_VALUE)
     })
 
     test('selecting a different layer calls onSelectLayer with its id', () => {
@@ -54,7 +55,9 @@ describe('LayerSelectorControl', () => {
     test('selecting Combined calls onSelectCombined', () => {
         const onSelectCombined = jest.fn()
         renderControl({ onSelectCombined })
-        fireEvent.change(getSelect(), { target: { value: '__combined__' } })
+        fireEvent.change(getSelect(), {
+            target: { value: SENTINEL_COMBINED_VALUE },
+        })
         expect(onSelectCombined).toHaveBeenCalled()
     })
 })

@@ -284,10 +284,6 @@ class Layer extends PureComponent {
         }
     }
 
-    // crossLayerIds is populated only for cross-layer highlights/selections
-    // (e.g. a Combined-view row spanning multiple layers) - single-layer
-    // hover/selection dispatches never set it, so ownId/ownIds alone still
-    // fully determine the result for every existing call site.
     getHoverIds(feature = this.props.feature) {
         const ownId = feature?.layerId === this.props.id ? feature.id : null
         const crossIds = feature?.crossLayerIds?.[this.props.id] ?? []

@@ -2,6 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import { SENTINEL_COMBINED_VALUE } from '../../../constants/dataTable.js'
 import { THEMATIC_LAYER } from '../../../constants/layers.js'
 import WindowDimensionsProvider from '../../WindowDimensionsProvider.jsx'
 import BottomPanel from '../BottomPanel.jsx'
@@ -232,7 +233,7 @@ describe('BottomPanel layer selector', () => {
         })
 
         fireEvent.change(getLayerSelector(), {
-            target: { value: '__combined__' },
+            target: { value: SENTINEL_COMBINED_VALUE },
         })
 
         expect(store.getActions()).toEqual([
@@ -250,7 +251,7 @@ describe('BottomPanel layer selector', () => {
         })
 
         fireEvent.change(getLayerSelector(), {
-            target: { value: '__combined__' },
+            target: { value: SENTINEL_COMBINED_VALUE },
         })
 
         expect(store.getActions()).toEqual([
@@ -277,7 +278,7 @@ describe('BottomPanel layer selector', () => {
         })
 
         fireEvent.change(getLayerSelector(), {
-            target: { value: '__combined__' },
+            target: { value: SENTINEL_COMBINED_VALUE },
         })
 
         expect(store.getActions()).toEqual([

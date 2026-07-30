@@ -285,8 +285,6 @@ export const useCombinedTableData = ({
                     type: TYPE_NUMBER,
                 })),
                 // Earth Engine has no separate categorical "legend" concept
-                // of its own - its per-class values are already expressed
-                // as their own value columns above, one per legend class.
                 ...(layer.layer !== EARTH_ENGINE_LAYER
                     ? [
                           {

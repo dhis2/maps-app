@@ -37,16 +37,8 @@ const CombinedTableContextMenu = ({
 
     const { x, y, rowId } = contextMenu
     const entry = rowFeatureIds.get(rowId) ?? {}
-    // getUnionBounds/zoom need the reference layer's own geometry alongside
-    // every participating layer's, since rowFeatureIds always names the
-    // reference org unit too (see useCombinedTableData.js) - it's the only
-    // guaranteed match for a row with no participating-layer data at all.
     const allLayers = [referenceLayer, ...layers]
 
-    // Drill up/down always targets the reference layer's own level - a row
-    // IS a reference org unit, so this is exactly TableContextMenu.jsx's
-    // own single-layer drill, just scoped to the reference layer instead of
-    // whichever layer a normal single-layer table belongs to.
     const referenceFeatureProps = buildFeatureIndex(referenceLayer.data).get(
         rowId
     )?.properties

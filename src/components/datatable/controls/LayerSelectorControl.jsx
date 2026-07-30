@@ -1,9 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { SENTINEL_COMBINED_VALUE } from '../../../constants/dataTable.js'
 import styles from '../styles/BottomPanel.module.css'
-
-const COMBINED_VALUE = '__combined__'
 
 const LayerSelectorControl = ({
     layers,
@@ -16,9 +15,9 @@ const LayerSelectorControl = ({
         className={styles.layerSelect}
         aria-label={i18n.t('Choose a data table to view')}
         data-test="data-table-layer-selector"
-        value={combinedView ? COMBINED_VALUE : activeLayerId ?? ''}
+        value={combinedView ? SENTINEL_COMBINED_VALUE : activeLayerId ?? ''}
         onChange={(e) => {
-            if (e.target.value === COMBINED_VALUE) {
+            if (e.target.value === SENTINEL_COMBINED_VALUE) {
                 onSelectCombined()
             } else {
                 onSelectLayer(e.target.value)
@@ -30,7 +29,7 @@ const LayerSelectorControl = ({
                 {layer.name}
             </option>
         ))}
-        <option value={COMBINED_VALUE}>{i18n.t('Combined')}</option>
+        <option value={SENTINEL_COMBINED_VALUE}>{i18n.t('Combined')}</option>
     </select>
 )
 

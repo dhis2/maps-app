@@ -13,10 +13,6 @@ jest.mock('../../OrgUnitsProvider.jsx', () => ({
     useOrgUnits: () => ({}),
 }))
 
-// A function declaration (not a const arrow function) - jest.mock() factory
-// calls are hoisted above regular variable declarations, so a const here
-// would throw a "Cannot access before initialization" error; a hoisted
-// function declaration is safe to call from those factories.
 function mockDialog(testId) {
     const Mock = ({ hideStyleTab }) => (
         <div data-test={testId}>{String(!!hideStyleTab)}</div>

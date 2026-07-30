@@ -8,10 +8,6 @@ export const getReversedSelection = (selectedIds, allRowIds) => {
     return [...offViewSelected, ...invertedVisible]
 }
 
-// onChange receives the full next selection (possibly empty) - the caller
-// decides how to apply it (dispatch to a single layer's Redux selection,
-// set local state, etc), so this hook has no opinion on where selection
-// state actually lives.
 export const useRowSelection = ({
     selectedIds,
     selectedIdSet,

@@ -24,12 +24,6 @@ const DataTableButton = () => {
         !!referenceLayer && getOrgUnitsFromRows(referenceLayer.rows).length > 0
 
     const onClick = () => {
-        // Toggles the panel: closes it if a table is already showing
-        // (single-layer or Combined), otherwise opens one. Combined is only
-        // auto-opened here when a reference org unit set has already been
-        // configured (mirrors BottomPanel.jsx's own combinedEnabled gate) -
-        // otherwise there'd be nothing to show, so this shortcut falls back
-        // to just opening the first eligible layer's own table instead.
         if (isDataTableOpen(dataTable)) {
             dispatch(closeDataTable())
             return

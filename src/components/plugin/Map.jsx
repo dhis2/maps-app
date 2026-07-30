@@ -39,13 +39,6 @@ const getFullscreenDoc = () => {
 const Map = forwardRef((props, ref) => {
     const { basemap, mapViews, controls, getResizeFunction } = props
 
-    // The Combined data table's reference org unit layer is a hidden,
-    // non-rendered layer with no meaning outside the standalone app's
-    // BottomPanel (which the dashboard plugin has no Redux store to
-    // render) - exclude it here rather than let its unregistered loader
-    // key reach LayerLoader. Memoized so it's only a new reference when
-    // mapViews itself changes, keeping the effect below from re-running
-    // (and resetting map state) on every render.
     const renderableMapViews = useMemo(
         () => mapViews.filter((v) => v.layer !== COMBINED_TABLE_REF_LAYER),
         [mapViews]
@@ -66,10 +59,6 @@ const Map = forwardRef((props, ref) => {
         }
     }, [renderableMapViews])
 
-    // Matches renderableMapViews, not the raw mapViews prop - a map
-    // containing only a hidden reference layer and no real layers has
-    // nothing for any <LayerLoader> to load, so nothing would ever call
-    // onLayerLoad to flip this true otherwise.
     const [mapIsLoaded, setMapIsLoaded] = useState(
         renderableMapViews.length === 0
     )

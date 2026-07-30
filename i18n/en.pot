@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-29T08:31:24.085Z\n"
-"PO-Revision-Date: 2026-07-29T08:31:24.085Z\n"
+"POT-Creation-Date: 2026-07-30T10:04:16.069Z\n"
+"PO-Revision-Date: 2026-07-30T10:04:16.069Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -376,8 +376,8 @@ msgstr "Show only features in current map view"
 msgid "Org unit Id"
 msgstr "Org unit Id"
 
-msgid "Level"
-msgstr "Level"
+msgid "Org unit level"
+msgstr "Org unit level"
 
 msgid "{{name}} ({{layer}})"
 msgstr "{{name}} ({{layer}})"
@@ -1001,6 +1001,9 @@ msgstr "Groups"
 
 msgid "Parent unit"
 msgstr "Parent unit"
+
+msgid "Level"
+msgstr "Level"
 
 msgid "Not set"
 msgstr "Not set"
@@ -2118,9 +2121,6 @@ msgstr "GroupSet used for styling was not found"
 
 msgid "Id"
 msgstr "Id"
-
-msgid "Org unit level"
-msgstr "Org unit level"
 
 msgid "Geometry type"
 msgstr "Geometry type"
