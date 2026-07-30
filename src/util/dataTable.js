@@ -107,7 +107,7 @@ export const isDataTableOpen = ({ openIds, combinedView }) =>
 
 export const getEligibleDataTableLayers = (mapViews) =>
     mapViews.filter(
-        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.data?.length
+        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.isLoaded
     )
 
 export const getLayerSelectedIds = (selection, layerId) => {
