@@ -358,10 +358,6 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-// Mirrors the roundFn derivation in the per-stat branch just above (only
-// compute one once real data is available - getPrecision([]) returns 0,
-// not undefined, so skipping this guard would round every value to whole
-// numbers before any data has loaded).
 const getFieldRoundFn = (data, dataKey) => {
     if (!data?.length) {
         return null
@@ -369,11 +365,6 @@ const getFieldRoundFn = (data, dataKey) => {
     return getRoundToPrecisionFn(getPrecision(data.map((d) => d[dataKey])))
 }
 
-// One column per selected band the layer's own bandReducer combines into
-// its main value (e.g. Population's age/sex groups) - maps-gl separately
-// computes and returns these already (keyed `${bandId}_${type}`, or bare
-// `${bandId}` when only one stat is selected), only surfacing them as
-// columns is new here. A no-op unless 2+ bands are actually selected.
 const getBandFields = ({ bands, band, aggregationType, data }) => {
     if (!bands?.multiple || !Array.isArray(band) || band.length < 2) {
         return []
