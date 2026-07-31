@@ -30,11 +30,6 @@ export const ORG_UNIT_LEVEL_DATA_KEY = 'level'
 
 export const COMBINED_HEADERS_KEY = '__combined__'
 
-// Combined table value-column kinds - see getCombinedValueDataKeys()
-// (util/dataTable.js): a layer's per-dataKey Value column is either a real
-// numeric value (existing aggregation-type dropdown), a plain feature
-// count (no classification to break down), or a per-category count/%
-// breakdown (the layer is styled by a discrete classification).
 export const DATA_KEY_KIND_VALUE = 'value'
 export const DATA_KEY_KIND_COUNT = 'count'
 export const DATA_KEY_KIND_CATEGORY = 'category'
