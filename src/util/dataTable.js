@@ -46,11 +46,6 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-// Only meaningful for DATA_KEY_KIND_VALUE dataKeys - a real numeric value's
-// own aggregation strategy. Count/category dataKeys (added by later
-// per-layer-type branches in getCombinedValueDataKeys) always default to
-// 'COUNT' instead, handled uniformly in getDefaultCombinedAggregation below
-// rather than here.
 const getValueAggregationType = (layer) => {
     if (Array.isArray(layer.aggregationType)) {
         return getDefaultCombinedAggregationTypeFromEarthEngineStat(
@@ -108,12 +103,6 @@ const getEarthEngineBandValueDataKeys = (layer) => {
     )
 }
 
-// True only when the layer is actually styled by a real organisation unit
-// group set with 2+ resulting legend buckets - NOT when Facility/OrgUnit
-// happen to have a multi-item legend for another reason (OrgUnit's
-// no-group-set fallback styles by level instead, which also produces
-// legend.items.length > 1 but is a structural hierarchy artifact, not a
-// meaningful join category - see getStyledOrgUnits, util/orgUnits.js).
 const isOrgUnitGroupSetCategorical = (layer) =>
     !!layer.organisationUnitGroupSet?.id &&
     (layer.legend?.items?.length ?? 0) > 1
@@ -135,17 +124,6 @@ const getOrgUnitGroupValueDataKeys = (layer) => {
     }))
 }
 
-// Event's own numeric-styled value takes priority over its legend's item
-// count: a numeric styleDataItem's legend is just classification bins for
-// coloring, not real discrete categories, so it stays on the standard
-// aggregation-type path like Thematic - regardless of how many bins that
-// legend happens to have. Anything else with more than one legend item
-// (option-set, boolean, or a plain/text styleDataItem with a "No data"
-// legend enabled - styleByDataItem.js) is a real category breakdown,
-// keyed by colorGroup (the one property stampLegendItems/addFeature stamp
-// identically onto both the legend item and every feature styled with it,
-// unlike the display value/legend name which can diverge - see e.g. the
-// "No data" bucket's value ("Not set") vs. its legend name ("No data")).
 const getEventValueDataKeys = (layer) => {
     if (
         layer.styleDataItem &&
@@ -171,10 +149,6 @@ const getEventValueDataKeys = (layer) => {
     ]
 }
 
-// Given a layer and a matched feature's properties, returns the category
-// dataKey that feature belongs to (see getCombinedValueDataKeys' per-type
-// branches for how that dataKey set is built). Only meaningful for
-// DATA_KEY_KIND_CATEGORY columns.
 export const getFeatureCategoryKey = (layer, props) => {
     if (layer.layer === FACILITY_LAYER || layer.layer === ORG_UNIT_LAYER) {
         return (
@@ -195,11 +169,6 @@ export const getCombinedValueDataKeys = (layer) => {
     if (layer.layer === EVENT_LAYER) {
         return getEventValueDataKeys(layer)
     }
-    // Tracked entity layers have no classification/styling support today
-    // (trackedEntityLoader.js never consumes styleDataItem, despite
-    // TrackedEntityDialog.jsx rendering the control for it) - always
-    // count-only, regardless of legend shape, until that's built as its
-    // own feature.
     if (layer.layer === TRACKED_ENTITY_LAYER) {
         return [
             {
@@ -286,8 +255,10 @@ export const getDefaultReferenceRows = (mapViews = []) => {
         }))
 
     if (candidates.length) {
-        return candidates.reduce((best, candidate) =>
-            isBetterReferenceCandidate(candidate, best) ? candidate : best
+        return candidates.reduce(
+            (best, candidate) =>
+                isBetterReferenceCandidate(candidate, best) ? candidate : best,
+            candidates[0]
         ).mapView.rows
     }
 
