@@ -918,7 +918,7 @@ describe('useCombinedTableData - categorical/count value columns', () => {
         data,
     })
 
-    test('a category column reflects the matched-feature count for that category, and switches to a percentage when the setting is PERCENTAGE', () => {
+    test('a category column reflects the matched-feature count for that category, and the shared categoryDisplayType setting switches every category column to a percentage together', () => {
         const layer = facilityLayer([
             feature({
                 id: 'f1',
@@ -954,7 +954,7 @@ describe('useCombinedTableData - categorical/count value columns', () => {
                     layers: {
                         facility1: {
                             type: 'orgUnit',
-                            aggregation: { group1: 'PERCENTAGE' },
+                            aggregation: { categoryDisplayType: 'PERCENTAGE' },
                         },
                     },
                 },
@@ -964,6 +964,7 @@ describe('useCombinedTableData - categorical/count value columns', () => {
             (r) => findCell(r, 'id').value === 'ou1'
         )
         expect(findCell(percentRow1, 'facility1_group1').value).toBe(50)
+        expect(findCell(percentRow1, 'facility1_group2').value).toBe(50)
     })
 
     test('a row with 0 matched features: both category columns are null, not NaN/0', () => {
@@ -1106,7 +1107,7 @@ describe('useCombinedTableData - categorical/count value columns', () => {
                     layers: {
                         facility1: {
                             type: 'orgUnit',
-                            aggregation: { group1: 'PERCENTAGE' },
+                            aggregation: { categoryDisplayType: 'PERCENTAGE' },
                         },
                     },
                 },

@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { IconWarningFilled16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useRef, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import {
     getCategoryValueDisplayTypes,
     getCombinedAggregationTypes,
@@ -11,12 +11,19 @@ import {
     DATA_KEY_KIND_COUNT,
     ORG_UNIT_PATH_DATA_KEY,
 } from '../../../constants/dataTable.js'
+import {
+    FACILITY_LAYER,
+    ORG_UNIT_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
+} from '../../../constants/layers.js'
 import { NON_COMPOSABLE_AGGREGATION_TYPES } from '../../../util/aggregation.js'
 import {
     getUnmatchedFeatureCount,
     hasCombinedRollup,
 } from '../../../util/combinedJoinMatch.js'
 import {
+    CATEGORY_DISPLAY_TYPE_KEY,
     getCombinedValueDataKeys,
     getDefaultCombinedAggregation,
 } from '../../../util/dataTable.js'
@@ -48,6 +55,16 @@ const getDefaultSettings = (layer) => ({
     aggregation: getDefaultCombinedAggregation(layer),
 })
 
+const COUNT_LABEL_BY_LAYER_TYPE = {
+    [FACILITY_LAYER]: () => i18n.t('Facilities count'),
+    [ORG_UNIT_LAYER]: () => i18n.t('Org units count'),
+    [EVENT_LAYER]: () => i18n.t('Events count'),
+    [TRACKED_ENTITY_LAYER]: () => i18n.t('Tracked entities count'),
+}
+
+const getCountLabel = (layer) =>
+    COUNT_LABEL_BY_LAYER_TYPE[layer.layer]?.() ?? i18n.t('Count')
+
 const JoinLayersControl = ({
     eligibleLayers,
     layersConfig,
@@ -57,6 +74,29 @@ const JoinLayersControl = ({
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const aggregationTypes = getCombinedAggregationTypes()
+
+    const joinQualityByLayerKey = useMemo(() => {
+        const result = {}
+        eligibleLayers.forEach((layer) => {
+            const settings = layersConfig[layer.combinedLayerKey]
+            if (!settings) {
+                return
+            }
+            result[layer.combinedLayerKey] = {
+                hasRollup: hasCombinedRollup(
+                    layer,
+                    referenceLayer,
+                    settings.type
+                ),
+                unmatchedCount: getUnmatchedFeatureCount(
+                    layer,
+                    referenceLayer,
+                    settings.type
+                ),
+            }
+        })
+        return result
+    }, [eligibleLayers, layersConfig, referenceLayer])
 
     const onToggle = (layer) => {
         const next = { ...layersConfig }
@@ -111,20 +151,23 @@ const JoinLayersControl = ({
                                     layersConfig[layer.combinedLayerKey]
                                 const defaultAggregation =
                                     getDefaultCombinedAggregation(layer)
-                                const hasRollup =
-                                    !!settings &&
-                                    hasCombinedRollup(
-                                        layer,
-                                        referenceLayer,
-                                        settings.type
-                                    )
-                                const unmatchedCount = settings
-                                    ? getUnmatchedFeatureCount(
-                                          layer,
-                                          referenceLayer,
-                                          settings.type
-                                      )
-                                    : 0
+                                const {
+                                    hasRollup = false,
+                                    unmatchedCount = 0,
+                                } =
+                                    joinQualityByLayerKey[
+                                        layer.combinedLayerKey
+                                    ] ?? {}
+                                const valueDataKeys =
+                                    getCombinedValueDataKeys(layer)
+                                const categoryDataKeys = valueDataKeys.filter(
+                                    ({ kind }) =>
+                                        kind === DATA_KEY_KIND_CATEGORY
+                                )
+                                const otherDataKeys = valueDataKeys.filter(
+                                    ({ kind }) =>
+                                        kind !== DATA_KEY_KIND_CATEGORY
+                                )
                                 return (
                                     <div
                                         key={layer.id}
@@ -201,9 +244,7 @@ const JoinLayersControl = ({
                                                         </Tooltip>
                                                     )}
                                                 </div>
-                                                {getCombinedValueDataKeys(
-                                                    layer
-                                                ).map(
+                                                {otherDataKeys.map(
                                                     ({
                                                         dataKey,
                                                         name,
@@ -227,8 +268,8 @@ const JoinLayersControl = ({
                                                                             styles.aggregationRowLabel
                                                                         }
                                                                     >
-                                                                        {i18n.t(
-                                                                            'Count'
+                                                                        {getCountLabel(
+                                                                            layer
                                                                         )}
                                                                     </span>
                                                                 </div>
@@ -248,11 +289,6 @@ const JoinLayersControl = ({
                                                             NON_COMPOSABLE_AGGREGATION_TYPES.has(
                                                                 effectiveType
                                                             )
-                                                        const options =
-                                                            kind ===
-                                                            DATA_KEY_KIND_CATEGORY
-                                                                ? getCategoryValueDisplayTypes()
-                                                                : aggregationTypes
 
                                                         return (
                                                             <div
@@ -302,7 +338,7 @@ const JoinLayersControl = ({
                                                                         )
                                                                     }
                                                                 >
-                                                                    {options.map(
+                                                                    {aggregationTypes.map(
                                                                         (
                                                                             type
                                                                         ) => (
@@ -344,6 +380,68 @@ const JoinLayersControl = ({
                                                             </div>
                                                         )
                                                     }
+                                                )}
+                                                {categoryDataKeys.length >
+                                                    0 && (
+                                                    <div
+                                                        className={
+                                                            styles.aggregationRow
+                                                        }
+                                                    >
+                                                        <span
+                                                            className={
+                                                                styles.aggregationRowLabel
+                                                            }
+                                                        >
+                                                            {layer.legend
+                                                                ?.unit ??
+                                                                i18n.t(
+                                                                    'Categories'
+                                                                )}
+                                                        </span>
+                                                        <select
+                                                            aria-label={i18n.t(
+                                                                'Category display for {{layer}}',
+                                                                {
+                                                                    layer: layer.name,
+                                                                }
+                                                            )}
+                                                            value={
+                                                                settings
+                                                                    .aggregation?.[
+                                                                    CATEGORY_DISPLAY_TYPE_KEY
+                                                                ] ??
+                                                                defaultAggregation[
+                                                                    CATEGORY_DISPLAY_TYPE_KEY
+                                                                ]
+                                                            }
+                                                            onChange={(e) =>
+                                                                onAggregationChange(
+                                                                    layer.combinedLayerKey,
+                                                                    CATEGORY_DISPLAY_TYPE_KEY,
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            }
+                                                        >
+                                                            {getCategoryValueDisplayTypes().map(
+                                                                (type) => (
+                                                                    <option
+                                                                        key={
+                                                                            type.id
+                                                                        }
+                                                                        value={
+                                                                            type.id
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            type.name
+                                                                        }
+                                                                    </option>
+                                                                )
+                                                            )}
+                                                        </select>
+                                                    </div>
                                                 )}
                                             </div>
                                         )}

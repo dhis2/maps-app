@@ -76,6 +76,10 @@ const BottomPanel = () => {
 
     const joinLayersConfig =
         referenceLayer?.combinedJoinConfig ?? EMPTY_JOIN_LAYERS
+    const combinedJoinConfig = useMemo(
+        () => ({ layers: joinLayersConfig }),
+        [joinLayersConfig]
+    )
     const combinedColumnConfig = referenceLayer?.combinedColumnConfig ?? null
     const combinedLayers = useMemo(
         () => mapViews.filter((l) => joinLayersConfig[l.combinedLayerKey]),
@@ -131,7 +135,10 @@ const BottomPanel = () => {
 
     const onControlsDoubleClick = useCallback(
         (e) => {
-            if (e.target.closest('button, input, label, select')) {
+            if (
+                e.target.closest('button, input, label, select') ||
+                !e.currentTarget.contains(e.target)
+            ) {
                 return
             }
             toggleCollapsed()
@@ -246,9 +253,13 @@ const BottomPanel = () => {
 
     useEffect(() => {
         const observer = new ResizeObserver(() => {
-            if (panelRef.current) {
-                setPanelWidth(panelRef.current.getBoundingClientRect().width)
+            if (!panelRef.current) {
+                return
             }
+            const width = Math.round(
+                panelRef.current.getBoundingClientRect().width
+            )
+            setPanelWidth((prev) => (prev === width ? prev : width))
         })
         if (panelRef.current) {
             observer.observe(panelRef.current)
@@ -379,7 +390,7 @@ const BottomPanel = () => {
                             availableWidth={panelWidth}
                             layers={combinedLayers}
                             referenceLayer={referenceLayer}
-                            joinConfig={{ layers: joinLayersConfig }}
+                            joinConfig={combinedJoinConfig}
                             filters={combinedFilters}
                             onFiltersChange={setCombinedFilters}
                             globalSearch={globalSearch}

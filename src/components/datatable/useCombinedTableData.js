@@ -20,6 +20,7 @@ import {
     getProps,
 } from '../../util/combinedJoinMatch.js'
 import {
+    CATEGORY_DISPLAY_TYPE_KEY,
     getCombinedValueDataKeys,
     getDefaultCombinedAggregation,
     getFeatureCategoryKey,
@@ -102,13 +103,8 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
 
     valueDataKeys.forEach(({ dataKey, kind }) => {
         const rowKey = `${layer.combinedLayerKey}_${dataKey}`
-        const effectiveType =
-            settings.aggregation?.[dataKey] ??
-            getDefaultCombinedAggregation(layer)[dataKey]
 
         if (kind === DATA_KEY_KIND_COUNT) {
-            // A rollup that matched nothing reads as "no data" (null, same
-            // as every other column), not a real business zero.
             row[rowKey] = matches.length || null
             return
         }
@@ -118,16 +114,22 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
                 row[rowKey] = null
                 return
             }
+            const displayType =
+                settings.aggregation?.[CATEGORY_DISPLAY_TYPE_KEY] ??
+                getDefaultCombinedAggregation(layer)[CATEGORY_DISPLAY_TYPE_KEY]
             const inCategory = matches.filter(
                 (p) => getFeatureCategoryKey(layer, p) === dataKey
             ).length
             row[rowKey] =
-                effectiveType === 'PERCENTAGE'
+                displayType === 'PERCENTAGE'
                     ? (inCategory / matches.length) * 100
                     : inCategory
             return
         }
 
+        const effectiveType =
+            settings.aggregation?.[dataKey] ??
+            getDefaultCombinedAggregation(layer)[dataKey]
         const values = matches
             .map((p) => p[dataKey])
             .filter((v) => Number.isFinite(v))
@@ -167,10 +169,10 @@ const getValueDataKeyHeader = (
     }
 
     if (kind === DATA_KEY_KIND_CATEGORY) {
-        const effectiveType =
-            settings.aggregation?.[dataKey] ??
-            getDefaultCombinedAggregation(layer)[dataKey]
-        const isPercentage = effectiveType === 'PERCENTAGE'
+        const displayType =
+            settings.aggregation?.[CATEGORY_DISPLAY_TYPE_KEY] ??
+            getDefaultCombinedAggregation(layer)[CATEGORY_DISPLAY_TYPE_KEY]
+        const isPercentage = displayType === 'PERCENTAGE'
         return {
             name: i18n.t('{{name}} ({{unit}}) ({{layer}})', {
                 name,
@@ -279,7 +281,6 @@ export const useCombinedTableData = ({
                 ...valueDataKeys.map((valueDataKey) =>
                     getValueDataKeyHeader(layer, settings, valueDataKey)
                 ),
-                // Earth Engine has no separate categorical "legend" concept
                 ...(layer.layer !== EARTH_ENGINE_LAYER
                     ? [
                           {
@@ -288,6 +289,7 @@ export const useCombinedTableData = ({
                               }),
                               dataKey: `${layer.combinedLayerKey}_${LEGEND_KEY}`,
                               type: TYPE_STRING,
+                              defaultHidden: true,
                           },
                       ]
                     : []),
