@@ -27,6 +27,7 @@ export const COMBINED_VALUE_KEY = 'rawValue'
 export const COMBINED_COUNT_KEY = 'count'
 export const UNCLASSIFIED_CATEGORY_KEY = 'unclassified'
 export const EVENT_STYLE_VALUE_KEY = 'value'
+export const CATEGORY_DISPLAY_TYPE_KEY = 'categoryDisplayType'
 
 const CLASSIFIED_EARTH_ENGINE_AGGREGATION_TYPES = new Set([
     'percentage',
@@ -66,12 +67,17 @@ const getValueAggregationType = (layer) => {
 
 export const getDefaultCombinedAggregation = (layer) => {
     const valueType = getValueAggregationType(layer)
-    return Object.fromEntries(
-        getCombinedValueDataKeys(layer).map(({ dataKey, kind }) => [
+    const dataKeys = getCombinedValueDataKeys(layer)
+    const entries = dataKeys
+        .filter(({ kind }) => kind !== DATA_KEY_KIND_CATEGORY)
+        .map(({ dataKey, kind }) => [
             dataKey,
             kind === DATA_KEY_KIND_VALUE ? valueType : 'COUNT',
         ])
-    )
+    if (dataKeys.some(({ kind }) => kind === DATA_KEY_KIND_CATEGORY)) {
+        entries.push([CATEGORY_DISPLAY_TYPE_KEY, 'COUNT'])
+    }
+    return Object.fromEntries(entries)
 }
 
 const getEarthEngineBandValueDataKeys = (layer) => {

@@ -16,6 +16,17 @@ jest.mock('../DataTable.jsx', () => {
     return DataTableMock
 })
 
+const mockJoinConfigCalls = []
+jest.mock('../CombinedDataTable.jsx', () => {
+    // eslint-disable-next-line react/prop-types
+    const CombinedDataTableMock = ({ joinConfig }) => {
+        mockJoinConfigCalls.push(joinConfig)
+        return <div data-test="combined-datatable-mock" />
+    }
+    CombinedDataTableMock.displayName = 'CombinedDataTableMock'
+    return CombinedDataTableMock
+})
+
 const mockStore = configureMockStore()
 
 // jsdom doesn't implement pointer capture or ResizeObserver
@@ -132,6 +143,27 @@ describe('BottomPanel double-click to collapse', () => {
         expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
 
         fireEvent.doubleClick(getLayerSelector())
+
+        expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+    })
+
+    test('double-clicking inside an open popover (e.g. Join layers) does not toggle the collapsed state, even on non-control content like the popover background', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [...twoEligibleLayers, referenceLayer()],
+        })
+        expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+
+        fireEvent.click(screen.getByLabelText('Choose layers to combine'))
+        // Rendered via a portal, outside renderBottomPanel()'s own container
+        const popover = document.querySelector('.joinLayersPopover')
+        expect(popover).toBeInTheDocument()
+
+        fireEvent.doubleClick(popover)
 
         expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
     })
@@ -476,5 +508,31 @@ describe('BottomPanel Combined join controls', () => {
                 },
             },
         ])
+    })
+})
+
+describe('BottomPanel Combined joinConfig prop stability', () => {
+    test('passes CombinedDataTable the same joinConfig object reference across an unrelated re-render, instead of a fresh {layers: ...} wrapper every time', () => {
+        mockJoinConfigCalls.length = 0
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [...twoEligibleLayers, referenceLayer()],
+        })
+
+        fireEvent.change(screen.getByPlaceholderText('Search all columns'), {
+            target: { value: 'a' },
+        })
+        fireEvent.change(screen.getByPlaceholderText('Search all columns'), {
+            target: { value: 'ab' },
+        })
+
+        expect(mockJoinConfigCalls.length).toBeGreaterThan(1)
+        expect(
+            mockJoinConfigCalls.every((c) => c === mockJoinConfigCalls[0])
+        ).toBe(true)
     })
 })

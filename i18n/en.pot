@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-30T12:27:53.587Z\n"
-"PO-Revision-Date: 2026-07-30T12:27:53.587Z\n"
+"POT-Creation-Date: 2026-07-31T15:09:46.348Z\n"
+"PO-Revision-Date: 2026-07-31T15:09:46.349Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -349,11 +349,46 @@ msgstr "Org unit"
 msgid "Spatial"
 msgstr "Spatial"
 
+msgid ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgid_plural ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgstr[0] ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgstr[1] ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+
+msgid "Count"
+msgstr "Count"
+
 msgid "Aggregation type for {{name}} ({{layer}})"
 msgstr "Aggregation type for {{name}} ({{layer}})"
 
 msgid "Aggregation type for {{layer}}"
 msgstr "Aggregation type for {{layer}}"
+
+msgid ""
+"Several {{layer}} features roll up into each reference org unit here - "
+"{{type}} is an approximation of the values you can see joined in, not a "
+"recomputation over the combined area."
+msgstr ""
+"Several {{layer}} features roll up into each reference org unit here - "
+"{{type}} is an approximation of the values you can see joined in, not a "
+"recomputation over the combined area."
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Category display for {{layer}}"
+msgstr "Category display for {{layer}}"
 
 msgid "Choose a data table to view"
 msgstr "Choose a data table to view"
@@ -373,17 +408,29 @@ msgstr "{{total}} rows"
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
 
-msgid "Org unit id"
-msgstr "Org unit id"
+msgid "Count ({{layer}})"
+msgstr "Count ({{layer}})"
 
-msgid "Org unit level"
-msgstr "Org unit level"
+msgid "{{name}} ({{unit}}) ({{layer}})"
+msgstr "{{name}} ({{unit}}) ({{layer}})"
+
+msgid "%"
+msgstr "%"
+
+msgid "count"
+msgstr "count"
 
 msgid "{{name}} ({{layer}})"
 msgstr "{{name}} ({{layer}})"
 
 msgid "Value ({{layer}})"
 msgstr "Value ({{layer}})"
+
+msgid "Org unit id"
+msgstr "Org unit id"
+
+msgid "Org unit level"
+msgstr "Org unit level"
 
 msgid "Legend ({{layer}})"
 msgstr "Legend ({{layer}})"
@@ -1275,9 +1322,6 @@ msgstr "Tracked Entity Type"
 
 msgid "By data element"
 msgstr "By data element"
-
-msgid "Count"
-msgstr "Count"
 
 msgid "Average"
 msgstr "Average"

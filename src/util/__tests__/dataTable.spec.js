@@ -588,7 +588,7 @@ describe('getDefaultCombinedAggregation', () => {
         })
     })
 
-    test('Facility/OrgUnit: count-only and category dataKeys both default to COUNT', () => {
+    test('Facility/OrgUnit: count-only defaults to COUNT, category defaults to a single shared categoryDisplayType of COUNT', () => {
         expect(
             getDefaultCombinedAggregation({
                 layer: FACILITY_LAYER,
@@ -607,7 +607,7 @@ describe('getDefaultCombinedAggregation', () => {
                     ],
                 },
             })
-        ).toEqual({ group1: 'COUNT', group2: 'COUNT' })
+        ).toEqual({ categoryDisplayType: 'COUNT' })
     })
 
     test('Event: a numeric styleDataItem defaults to SUM - there is no per-data-item aggregationType metadata for event data elements the way there is for Thematic', () => {
@@ -620,7 +620,7 @@ describe('getDefaultCombinedAggregation', () => {
         ).toEqual({ value: 'SUM' })
     })
 
-    test('Event: category dataKeys default to COUNT', () => {
+    test('Event: category dataKeys default to a single shared categoryDisplayType of COUNT', () => {
         expect(
             getDefaultCombinedAggregation({
                 layer: EVENT_LAYER,
@@ -632,7 +632,7 @@ describe('getDefaultCombinedAggregation', () => {
                     ],
                 },
             })
-        ).toEqual({ 0: 'COUNT', 1: 'COUNT' })
+        ).toEqual({ categoryDisplayType: 'COUNT' })
     })
 })
 

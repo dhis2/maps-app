@@ -559,6 +559,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
         layer: FACILITY_LAYER,
         organisationUnitGroupSet: { id: 'groupSet1' },
         legend: {
+            unit: 'Facility Type',
             items: [
                 { id: 'group1', name: 'Hospital' },
                 { id: 'group2', name: 'Clinic' },
@@ -567,7 +568,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
         data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
     }
 
-    test('a count-only layer shows a static "Count" label, not an aggregation-type select', () => {
+    test('a count-only layer shows a static, layer-type-specific count label, not an aggregation-type select', () => {
         renderControl({
             eligibleLayers: [countOnlyFacility],
             layersConfig: {
@@ -579,42 +580,66 @@ describe('JoinLayersControl popover — count/category value columns', () => {
         })
         openPicker()
 
-        expect(screen.getByText('Count')).toBeInTheDocument()
+        expect(screen.getByText('Facilities count')).toBeInTheDocument()
         expect(
             screen.queryByLabelText('Aggregation type for Facilities')
         ).not.toBeInTheDocument()
     })
 
-    test('a category layer shows a Count/Percentage select per legend item, and changing it updates only that dataKey', () => {
+    test('a category layer shows a single shared Count/Percentage select governing every category column, not one per category', () => {
         const onChange = jest.fn()
         renderControl({
             eligibleLayers: [categoricalFacility],
             layersConfig: {
                 facility1: {
                     type: 'orgUnit',
-                    aggregation: { group1: 'COUNT', group2: 'COUNT' },
+                    aggregation: { categoryDisplayType: 'COUNT' },
                 },
             },
             onChange,
         })
         openPicker()
 
-        const hospitalSelect = screen.getByLabelText(
-            'Aggregation type for Hospital (Facilities)'
+        expect(
+            screen.queryByLabelText(
+                'Aggregation type for Hospital (Facilities)'
+            )
+        ).not.toBeInTheDocument()
+        expect(screen.getByText('Facility Type')).toBeInTheDocument()
+
+        const categorySelect = screen.getByLabelText(
+            'Category display for Facilities'
         )
         expect(
-            within(hospitalSelect).getByText('Percentage')
+            within(categorySelect).getByText('Percentage')
         ).toBeInTheDocument()
-        expect(within(hospitalSelect).getByText('Count')).toBeInTheDocument()
+        expect(within(categorySelect).getByText('Count')).toBeInTheDocument()
 
-        fireEvent.change(hospitalSelect, { target: { value: 'PERCENTAGE' } })
+        fireEvent.change(categorySelect, { target: { value: 'PERCENTAGE' } })
 
         expect(onChange).toHaveBeenCalledWith({
             facility1: {
                 type: 'orgUnit',
-                aggregation: { group1: 'PERCENTAGE', group2: 'COUNT' },
+                aggregation: { categoryDisplayType: 'PERCENTAGE' },
             },
         })
+    })
+
+    test('falls back to a generic "Categories" label when the layer has no legend.unit', () => {
+        renderControl({
+            eligibleLayers: [
+                {
+                    ...categoricalFacility,
+                    legend: { items: categoricalFacility.legend.items },
+                },
+            ],
+            layersConfig: {
+                facility1: { type: 'orgUnit', aggregation: {} },
+            },
+        })
+        openPicker()
+
+        expect(screen.getByText('Categories')).toBeInTheDocument()
     })
 
     test('a value-kind layer (Thematic/Earth Engine) is unaffected - keeps the full aggregation-type select', () => {
