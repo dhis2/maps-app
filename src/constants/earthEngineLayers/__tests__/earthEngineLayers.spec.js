@@ -255,13 +255,31 @@ const configSchema = {
                     items: { type: 'string' },
                     minItems: 1,
                 },
+                ranges: {
+                    type: 'array',
+                    items: {
+                        type: 'object',
+                        required: ['name', 'from', 'to'],
+                        properties: {
+                            name: { type: 'string' },
+                            from: { type: 'number' },
+                            to: { type: 'number' },
+                        },
+                    },
+                    minItems: 1,
+                },
             },
+        },
+        bandPeriodReducerType: {
+            type: 'object',
+            additionalProperties: { type: 'string' },
         },
         popup: { type: 'string' },
         maskOperator: { type: 'string', enum: ['gte', 'gt'] },
         opacity: { type: 'number' },
         mosaic: { type: 'boolean' },
         tileScale: { type: 'number' },
+        customColorScaleName: { type: 'string' },
     },
 }
 

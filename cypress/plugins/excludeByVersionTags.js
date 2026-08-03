@@ -15,7 +15,9 @@ Allowed tag comparisons are ">", ">=", "<", "<="
 const getString = (v) => (typeof v === 'number' ? v.toString() : v)
 
 const extractMinorVersion = (v) =>
-    v.indexOf('2.') === 0 ? parseInt(v.slice(2, 4)) : parseInt(v.slice(0, 2))
+    v.indexOf('2.') === 0
+        ? Number.parseInt(v.slice(2, 4))
+        : Number.parseInt(v.slice(0, 2))
 
 const MIN_DHIS2_VERSION = extractMinorVersion(
     getString(d2config.minDHIS2Version)

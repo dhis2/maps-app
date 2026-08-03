@@ -1,10 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import MapApi, {
-    layerTypes,
-    controlTypes,
-    loadEarthEngineWorker,
-    poleOfInaccessibility,
-} from '@dhis2/maps-gl'
+import MapApi from '@dhis2/maps-gl'
 import getMapLocale from './mapLocale.js'
 
 // Returns a new map instance
@@ -45,6 +40,6 @@ export {
     controlTypes,
     loadEarthEngineWorker,
     poleOfInaccessibility,
-}
+} from '@dhis2/maps-gl'
 
 export default map

@@ -1,8 +1,10 @@
+import { PeriodDimension } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
+import { NoticeBox, IconErrorFilled24, SegmentedControl } from '@dhis2/ui'
+import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { useState, useEffect, useCallback, useMemo } from 'react'
+import { useDispatch } from 'react-redux'
 import {
     setProgram,
     setProgramStage,
@@ -12,11 +14,13 @@ import {
     setEventPointColor,
     setEventPointRadius,
     // setFallbackCoordinateField,
-    setPeriod,
+    setPeriods,
+    setPeriodType,
     setStartDate,
     setEndDate,
     setBackupPeriodsDates,
-    setOrgUnits,
+    setCountFeaturesWithoutCoordinates,
+    setCountEventsOutsideOrgUnits,
 } from '../../../actions/layerEdit.js'
 import {
     EVENT_COLOR,
@@ -26,228 +30,244 @@ import {
     MIN_RADIUS,
     MAX_RADIUS,
 } from '../../../constants/layers.js'
-import { START_END_DATES } from '../../../constants/periods.js'
 import {
-    getPeriodFromFilters,
+    PREDEFINED_PERIODS,
+    START_END_DATES,
+} from '../../../constants/periods.js'
+import usePrevious from '../../../hooks/usePrevious.js'
+import {
+    getPeriodsFromFilters,
     getOrgUnitsFromRows,
+    splitFilterColumns,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
-import { getDefaultDatesInCalendar } from '../../../util/date.js'
-import { isPeriodAvailable } from '../../../util/periods.js'
-import { getStartEndDateError } from '../../../util/time.js'
+import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
     Tab,
     Tabs,
     NumberField,
     ImageSelect,
     ColorPicker,
+    Checkbox,
 } from '../../core/index.js'
 import CoordinateField from '../../dataItem/CoordinateField.jsx'
+import EventDataItemsProvider from '../../dataItem/EventDataItemsProvider.jsx'
 import FilterGroup from '../../dataItem/filter/FilterGroup.jsx'
 import StyleByDataItem from '../../dataItem/StyleByDataItem.jsx'
 import OrgUnitSelect from '../../orgunits/OrgUnitSelect.jsx'
-import RelativePeriodSelect from '../../periods/RelativePeriodSelect.jsx'
 import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import ProgramStageSelect from '../../program/ProgramStageSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
 import GeometryCentroid from '../shared/GeometryCentroid.jsx'
+import { getPeriodValidationRules } from '../shared/validatePeriod.js'
 import styles from '../styles/LayerDialog.module.css'
 import EventStatusSelect from './EventStatusSelect.jsx'
+import { initializeEventLayer } from './initializeEventLayer.js'
+import LabelFieldSelect from './LabelFieldSelect.jsx'
 
-class EventDialog extends Component {
-    static propTypes = {
-        setBackupPeriodsDates: PropTypes.func.isRequired,
-        setEndDate: PropTypes.func.isRequired,
-        setEventClustering: PropTypes.func.isRequired,
-        setEventCoordinateField: PropTypes.func.isRequired,
-        setEventPointColor: PropTypes.func.isRequired,
-        setEventPointRadius: PropTypes.func.isRequired,
-        setEventStatus: PropTypes.func.isRequired,
-        // setFallbackCoordinateField: PropTypes.func.isRequired,
-        setOrgUnits: PropTypes.func.isRequired,
-        setPeriod: PropTypes.func.isRequired,
-        setProgram: PropTypes.func.isRequired,
-        setProgramStage: PropTypes.func.isRequired,
-        setStartDate: PropTypes.func.isRequired,
-        validateLayer: PropTypes.bool.isRequired,
-        onLayerValidation: PropTypes.func.isRequired,
-        backupPeriodsDates: PropTypes.object,
-        columns: PropTypes.array,
-        endDate: PropTypes.string,
-        eventClustering: PropTypes.bool,
-        eventCoordinateField: PropTypes.string,
-        eventCoordinateFieldType: PropTypes.string,
-        eventPointColor: PropTypes.string,
-        eventPointRadius: PropTypes.number,
-        eventStatus: PropTypes.string,
-        // fallbackCoordinateField: PropTypes.string,
-        filters: PropTypes.array,
-        legendSet: PropTypes.object,
-        method: PropTypes.number,
-        orgUnits: PropTypes.object,
-        periodsSettings: PropTypes.object,
-        program: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            trackedEntityType: PropTypes.object,
-        }),
-        programStage: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-        }),
-        rows: PropTypes.array,
-        startDate: PropTypes.string,
-        styleDataItem: PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            optionSet: PropTypes.shape({
-                options: PropTypes.array,
-            }),
-        }),
-        systemSettings: PropTypes.object,
-    }
+const DEFAULT_NO_COLUMNS = []
 
-    constructor(props, context) {
-        super(props, context)
-        this.state = {
-            tab: 'data',
-        }
-    }
+const EventDialog = ({
+    backupPeriodsDates,
+    columns = DEFAULT_NO_COLUMNS,
+    countEventsOutsideOrgUnits,
+    countFeaturesWithoutCoordinates,
+    endDate,
+    eventClustering,
+    eventCoordinateField,
+    eventCoordinateFieldType,
+    eventPointColor,
+    eventPointRadius,
+    eventStatus,
+    filters,
+    legendIsolated,
+    legendSet,
+    method,
+    orgUnits,
+    periodType,
+    periodsSettings,
+    program,
+    programStage,
+    rows,
+    startDate,
+    styleDataItem,
+    systemSettings,
+    validateLayer,
+    onLayerValidation,
+}) => {
+    const dispatch = useDispatch()
+    const [tab, setTab] = useState('data')
+    const [programError, setProgramError] = useState()
+    const [programStageError, setProgramStageError] = useState()
+    const [periodError, setPeriodError] = useState()
+    const [orgUnitsError, setOrgUnitsError] = useState()
+    const [legendSetError, setLegendSetError] = useState()
+    const [, setIsolatedClassError] = useState()
+    const [, setStyleDataItemError] = useState()
 
-    componentDidMount() {
-        const {
-            rows,
-            filters,
-            systemSettings,
-            startDate,
-            endDate,
-            orgUnits,
-            setPeriod,
-            setStartDate,
-            setEndDate,
-            setOrgUnits,
-            backupPeriodsDates,
-        } = this.props
+    const prevPeriodType = usePrevious(periodType)
+    const prevStartDate = usePrevious(startDate)
+    const prevEndDate = usePrevious(endDate)
+    const prevFilters = usePrevious(filters)
 
-        const period = getPeriodFromFilters(filters)
-        const { keyAnalysisRelativePeriod: defaultPeriod, hiddenPeriods } =
-            systemSettings
+    const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
 
-        const hasDate = startDate !== undefined && endDate !== undefined
-
-        // Set default period from system settings
-        if (
-            !period &&
-            !hasDate &&
-            defaultPeriod &&
-            isPeriodAvailable(defaultPeriod, hiddenPeriods)
-        ) {
-            setPeriod({
-                id: defaultPeriod,
+    useEffect(() => {
+        dispatch(
+            initializeEventLayer({
+                periodType,
+                startDate,
+                endDate,
+                filters,
+                systemSettings,
+                rows,
+                orgUnits,
             })
-        }
+        )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-        // Set default dates
-        if (!backupPeriodsDates) {
-            const defaultDates = getDefaultDatesInCalendar()
-            setStartDate(defaultDates.startDate)
-            setEndDate(defaultDates.endDate)
-        }
-
-        // Set org unit tree roots as default
-        if (!rows && orgUnits.roots) {
-            setOrgUnits({
-                dimension: 'ou',
-                items: orgUnits.roots,
-            })
-        }
-    }
-
-    componentDidUpdate(prev) {
-        const {
-            validateLayer,
-            onLayerValidation,
-            filters,
-            startDate,
-            endDate,
-            setBackupPeriodsDates,
-            setStartDate,
-            setEndDate,
-            backupPeriodsDates,
-        } = this.props
-        const { periodError } = this.state
-
-        if (validateLayer && validateLayer !== prev.validateLayer) {
-            onLayerValidation(this.validate())
-        }
-
-        const prevPeriod = getPeriodFromFilters(prev.filters)
-        const currentPeriod = getPeriodFromFilters(filters)
-
-        if (prevPeriod === undefined && currentPeriod !== undefined) {
-            setBackupPeriodsDates({ startDate, endDate })
-            setStartDate()
-            setEndDate()
-        } else if (prevPeriod !== undefined && currentPeriod === undefined) {
-            setStartDate(backupPeriodsDates?.startDate)
-            setEndDate(backupPeriodsDates?.endDate)
-        }
-
-        if (
+    // Handle period type change
+    useEffect(() => {
+        if (prevPeriodType && periodType !== prevPeriodType) {
+            switch (periodType) {
+                case PREDEFINED_PERIODS:
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: START_END_DATES,
+                            startDate,
+                            endDate,
+                        })
+                    )
+                    dispatch(setPeriods(backupPeriodsDates?.periods || []))
+                    dispatch(setStartDate())
+                    dispatch(setEndDate())
+                    break
+                case START_END_DATES:
+                    dispatch(
+                        setBackupPeriodsDates({
+                            ...backupPeriodsDates,
+                            type: PREDEFINED_PERIODS,
+                            periods: getPeriodsFromFilters(filters),
+                        })
+                    )
+                    dispatch(setStartDate(backupPeriodsDates?.startDate))
+                    dispatch(setEndDate(backupPeriodsDates?.endDate))
+                    dispatch(setPeriods([]))
+                    break
+            }
+        } else if (
             periodError &&
-            (startDate !== prev.startDate ||
-                endDate !== prev.endDate ||
-                currentPeriod !== prevPeriod)
+            (periodType !== prevPeriodType ||
+                startDate !== prevStartDate ||
+                endDate !== prevEndDate ||
+                getPeriodsFromFilters(filters).length !==
+                    getPeriodsFromFilters(prevFilters).length)
         ) {
-            this.setErrorState('periodError', null, 'period')
+            setPeriodError(undefined)
         }
-    }
+    }, [
+        periodType,
+        prevPeriodType,
+        startDate,
+        prevStartDate,
+        endDate,
+        prevEndDate,
+        backupPeriodsDates,
+        periodError,
+        filters,
+        prevFilters,
+        dispatch,
+    ])
 
-    render() {
-        const {
-            // layer options
-            columns = [],
-            eventClustering,
-            eventStatus,
-            eventCoordinateField,
-            eventCoordinateFieldType,
-            eventPointColor,
-            eventPointRadius,
-            // fallbackCoordinateField,
-            filters = [],
-            program,
-            programStage,
-            legendSet,
-            periodsSettings,
-        } = this.props
-
-        const {
-            // handlers
-            setProgram,
-            setProgramStage,
-            setEventStatus,
-            setEventCoordinateField,
-            setEventClustering,
-            setEventPointColor,
-            setEventPointRadius,
-            // setFallbackCoordinateField,
-            setPeriod,
-        } = this.props
-
-        const {
-            tab,
-            programError,
-            programStageError,
-            periodError,
-            orgUnitsError,
-            legendSetError,
-        } = this.state
-
-        const period = getPeriodFromFilters(filters) || {
-            id: START_END_DATES,
+    // Layer validation function
+    const validate = useCallback(() => {
+        if (!program) {
+            setProgramError(i18n.t('Program is required'))
+            setTab('data')
+            return false
         }
 
-        return (
+        if (!programStage) {
+            setProgramStageError(i18n.t('Program stage is required'))
+            setTab('data')
+            return false
+        }
+
+        const periodRule = getPeriodValidationRules({
+            periodType,
+            startDate,
+            endDate,
+            periods,
+        }).find((rule) => rule.condition)
+        if (periodRule) {
+            setPeriodError(periodRule.msg)
+            setTab('period')
+            return false
+        }
+
+        if (!getOrgUnitsFromRows(rows).length) {
+            setOrgUnitsError(i18n.t('No organisation units are selected.'))
+            setTab('orgunits')
+            return false
+        }
+
+        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
+            setLegendSetError(i18n.t('No legend set is selected'))
+            setTab('style')
+            return false
+        }
+
+        if (!isValidIsolatedClass(legendIsolated)) {
+            setIsolatedClassError(
+                i18n.t('Isolated class max should be greater than min')
+            )
+            setTab('style')
+            return false
+        }
+
+        if (
+            styleDataItem &&
+            styleDataItem.optionSet &&
+            !styleDataItem.optionSet.options
+        ) {
+            // Occurs when there are too many options
+            setStyleDataItemError('')
+            setTab('style')
+            return false
+        }
+
+        return true
+    }, [
+        program,
+        programStage,
+        periodType,
+        startDate,
+        endDate,
+        periods,
+        rows,
+        method,
+        legendSet,
+        legendIsolated,
+        styleDataItem,
+    ])
+
+    // Run layer validation
+    useEffect(() => {
+        if (validateLayer) {
+            onLayerValidation(validate())
+        }
+    }, [validateLayer, onLayerValidation, validate])
+
+    return (
+        <EventDataItemsProvider
+            programId={program?.id}
+            programStageId={programStage?.id}
+        >
             <div className={styles.content} data-test="eventdialog">
-                <Tabs value={tab} onChange={(tab) => this.setState({ tab })}>
+                <Tabs value={tab} onChange={setTab}>
                     <Tab value="data">{i18n.t('Data')}</Tab>
                     <Tab value="period">{i18n.t('Period')}</Tab>
                     <Tab value="orgunits">{i18n.t('Org Units')}</Tab>
@@ -265,7 +285,7 @@ class EventDialog extends Component {
                         >
                             <ProgramSelect
                                 program={program}
-                                onChange={setProgram}
+                                onChange={(val) => dispatch(setProgram(val))}
                                 className={styles.select}
                                 errorText={programError}
                                 data-test="eventdialog-programselect"
@@ -274,7 +294,9 @@ class EventDialog extends Component {
                                 <ProgramStageSelect
                                     program={program}
                                     programStage={programStage}
-                                    onChange={setProgramStage}
+                                    onChange={(val) =>
+                                        dispatch(setProgramStage(val))
+                                    }
                                     className={styles.select}
                                     errorText={programStageError}
                                 />
@@ -284,24 +306,33 @@ class EventDialog extends Component {
                                 programStage={programStage}
                                 value={eventCoordinateField}
                                 type={eventCoordinateFieldType}
-                                onChange={setEventCoordinateField}
+                                onChange={(fieldId, fieldType) =>
+                                    dispatch(
+                                        setEventCoordinateField(
+                                            fieldId,
+                                            fieldType
+                                        )
+                                    )
+                                }
                                 className={styles.select}
                                 data-test="eventdialog-coordinatefield"
                             />
                             <GeometryCentroid tab={'data'} />
                             {/* eventCoordinateField && (
-                                <CoordinateField
-                                    program={program}
-                                    programStage={programStage}
-                                    value={fallbackCoordinateField}
-                                    eventCoordinateField={eventCoordinateField}
-                                    onChange={setFallbackCoordinateField}
-                                    className={styles.select}
-                                />
-                            ) */}
+                            <CoordinateField
+                                program={program}
+                                programStage={programStage}
+                                value={fallbackCoordinateField}
+                                eventCoordinateField={eventCoordinateField}
+                                onChange={setFallbackCoordinateField}
+                                className={styles.select}
+                            />
+                        ) */}
                             <EventStatusSelect
                                 value={eventStatus}
-                                onChange={setEventStatus}
+                                onChange={(val) =>
+                                    dispatch(setEventStatus(val))
+                                }
                                 className={styles.select}
                             />
                         </div>
@@ -311,25 +342,67 @@ class EventDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="eventdialog-periodtab"
                         >
-                            <RelativePeriodSelect
-                                period={period}
-                                startEndDates={true}
-                                onChange={setPeriod}
-                                className={styles.select}
-                            />
-                            {period && period.id === START_END_DATES && (
-                                <StartEndDate
-                                    onSelectStartDate={setStartDate}
-                                    onSelectEndDate={setEndDate}
-                                    periodsSettings={periodsSettings}
-                                />
-                            )}
-                            {periodError && (
-                                <div className={styles.error}>
-                                    <IconErrorFilled24 />
-                                    {periodError}
+                            <div className={styles.background}>
+                                <div
+                                    className={cx(
+                                        styles.navigation,
+                                        styles.periodBox
+                                    )}
+                                >
+                                    <SegmentedControl
+                                        className={styles.flexRowFlow}
+                                        options={[
+                                            {
+                                                label: i18n.t(
+                                                    'Choose from presets'
+                                                ),
+                                                value: PREDEFINED_PERIODS,
+                                            },
+                                            {
+                                                label: i18n.t(
+                                                    'Define start - end dates'
+                                                ),
+                                                value: START_END_DATES,
+                                            },
+                                        ]}
+                                        selected={periodType}
+                                        onChange={({ value }) =>
+                                            dispatch(
+                                                setPeriodType({ value }, true)
+                                            )
+                                        }
+                                    />
                                 </div>
-                            )}
+                                {periodType === PREDEFINED_PERIODS && (
+                                    <PeriodDimension
+                                        selectedPeriods={periods}
+                                        onSelect={({ items }) =>
+                                            dispatch(setPeriods(items))
+                                        }
+                                        excludedPeriodTypes={
+                                            systemSettings.hiddenPeriods
+                                        }
+                                        height="324px"
+                                    />
+                                )}
+                                {periodType === START_END_DATES && (
+                                    <StartEndDate
+                                        onSelectStartDate={(val) =>
+                                            dispatch(setStartDate(val))
+                                        }
+                                        onSelectEndDate={(val) =>
+                                            dispatch(setEndDate(val))
+                                        }
+                                        periodsSettings={periodsSettings}
+                                    />
+                                )}
+                                {periodError && (
+                                    <div className={styles.error}>
+                                        <IconErrorFilled24 />
+                                        {periodError}
+                                    </div>
+                                )}
+                            </div>
                         </div>
                     )}
                     {tab === 'orgunits' && (
@@ -345,13 +418,23 @@ class EventDialog extends Component {
                             className={styles.flexRowFlow}
                             data-test="eventdialog-filtertab"
                         >
-                            <FilterGroup
-                                program={program}
-                                programStage={programStage}
-                                filters={columns.filter(
-                                    (c) => c.filter !== undefined
-                                )}
-                            />
+                            {programStage ? (
+                                <FilterGroup
+                                    filters={splitFilterColumns(
+                                        columns.filter(
+                                            (c) => c.filter !== undefined
+                                        )
+                                    )}
+                                />
+                            ) : (
+                                <div className={styles.notice}>
+                                    <NoticeBox>
+                                        {i18n.t(
+                                            'Filtering is available after selecting a program stage.'
+                                        )}
+                                    </NoticeBox>
+                                </div>
+                            )}
                         </div>
                     )}
                     {tab === 'style' && (
@@ -365,7 +448,9 @@ class EventDialog extends Component {
                                         id="cluster"
                                         img="images/cluster.png"
                                         title={i18n.t('Group events')}
-                                        onClick={() => setEventClustering(true)}
+                                        onClick={() =>
+                                            dispatch(setEventClustering(true))
+                                        }
                                         isSelected={eventClustering}
                                         className={styles.flexInnerColumn}
                                     />
@@ -374,20 +459,27 @@ class EventDialog extends Component {
                                         img="images/nocluster.png"
                                         title={i18n.t('View all events')}
                                         onClick={() =>
-                                            setEventClustering(false)
+                                            dispatch(setEventClustering(false))
                                         }
                                         isSelected={!eventClustering}
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>
-                                <div className={styles.flexInnerColumnFlow}>
+                                <div
+                                    className={cx(
+                                        styles.flexInnerColumnFlow,
+                                        styles.pointStyle
+                                    )}
+                                >
                                     <ColorPicker
                                         label={i18n.t('Color')}
                                         color={
                                             cssColor(eventPointColor) ||
                                             EVENT_COLOR
                                         }
-                                        onChange={setEventPointColor}
+                                        onChange={(val) =>
+                                            dispatch(setEventPointColor(val))
+                                        }
                                         className={styles.flexInnerColumn}
                                     />
                                     <NumberField
@@ -395,7 +487,9 @@ class EventDialog extends Component {
                                         min={MIN_RADIUS}
                                         max={MAX_RADIUS}
                                         value={eventPointRadius || EVENT_RADIUS}
-                                        onChange={setEventPointRadius}
+                                        onChange={(val) =>
+                                            dispatch(setEventPointRadius(val))
+                                        }
                                     />
                                 </div>
                                 <GeometryCentroid tab={'style'} />
@@ -403,12 +497,37 @@ class EventDialog extends Component {
                                     disabled={eventClustering}
                                     defaultRadius={EVENT_BUFFER}
                                 />
+                                <LabelFieldSelect />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Count events without coordinates'
+                                    )}
+                                    checked={!!countFeaturesWithoutCoordinates}
+                                    onChange={(checked) =>
+                                        dispatch(
+                                            setCountFeaturesWithoutCoordinates(
+                                                checked
+                                            )
+                                        )
+                                    }
+                                />
+                                <Checkbox
+                                    label={i18n.t(
+                                        'Filter and count events outside org unit boundaries'
+                                    )}
+                                    checked={!!countEventsOutsideOrgUnits}
+                                    onChange={(checked) =>
+                                        dispatch(
+                                            setCountEventsOutsideOrgUnits(
+                                                checked
+                                            )
+                                        )
+                                    }
+                                />
                             </div>
                             <div className={styles.flexColumn}>
                                 {program ? (
                                     <StyleByDataItem
-                                        program={program}
-                                        programStage={programStage}
                                         error={!legendSet && legendSetError}
                                     />
                                 ) : (
@@ -425,107 +544,48 @@ class EventDialog extends Component {
                     )}
                 </div>
             </div>
-        )
-    }
-
-    // TODO: Add to parent class?
-    setErrorState(key, message, tab) {
-        this.setState({
-            [key]: message,
-            tab,
-        })
-
-        return false
-    }
-
-    validate() {
-        const {
-            program,
-            programStage,
-            rows,
-            filters,
-            startDate,
-            endDate,
-            method,
-            legendSet,
-            styleDataItem,
-        } = this.props
-
-        const period = getPeriodFromFilters(filters) || {
-            id: START_END_DATES,
-        }
-
-        if (!program) {
-            return this.setErrorState(
-                'programError',
-                i18n.t('Program is required'),
-                'data'
-            )
-        }
-
-        if (!programStage) {
-            return this.setErrorState(
-                'programStageError',
-                i18n.t('Program stage is required'),
-                'data'
-            )
-        }
-
-        if (period.id === START_END_DATES) {
-            const error = getStartEndDateError(startDate, endDate)
-            if (error) {
-                return this.setErrorState('periodError', error, 'period')
-            }
-        }
-
-        if (!getOrgUnitsFromRows(rows).length) {
-            return this.setErrorState(
-                'orgUnitsError',
-                i18n.t('No organisation units are selected.'),
-                'orgunits'
-            )
-        }
-
-        if (method === CLASSIFICATION_PREDEFINED && !legendSet) {
-            return this.setErrorState(
-                'legendSetError',
-                i18n.t('No legend set is selected'),
-                'style'
-            )
-        }
-
-        if (
-            styleDataItem &&
-            styleDataItem.optionSet &&
-            !styleDataItem.optionSet.options
-        ) {
-            // Occurs when there are too many options
-            return this.setErrorState('styleDataItemError', '', 'style')
-        }
-
-        return true
-    }
+        </EventDataItemsProvider>
+    )
 }
 
-export default connect(
-    null,
-    {
-        setProgram,
-        setProgramStage,
-        setEventStatus,
-        setEventCoordinateField,
-        setEventClustering,
-        setEventPointColor,
-        setEventPointRadius,
-        // setFallbackCoordinateField,
-        setPeriod,
-        setBackupPeriodsDates,
-        setStartDate,
-        setEndDate,
-        setOrgUnits,
-    },
-    null,
-    {
-        forwardRef: true,
-    }
-)(EventDialog)
+EventDialog.propTypes = {
+    validateLayer: PropTypes.bool.isRequired,
+    onLayerValidation: PropTypes.func.isRequired,
+    backupPeriodsDates: PropTypes.object,
+    columns: PropTypes.array,
+    countEventsOutsideOrgUnits: PropTypes.bool,
+    countFeaturesWithoutCoordinates: PropTypes.bool,
+    endDate: PropTypes.string,
+    eventClustering: PropTypes.bool,
+    eventCoordinateField: PropTypes.string,
+    eventCoordinateFieldType: PropTypes.string,
+    eventPointColor: PropTypes.string,
+    eventPointRadius: PropTypes.number,
+    eventStatus: PropTypes.string,
+    // fallbackCoordinateField: PropTypes.string,
+    filters: PropTypes.array,
+    legendIsolated: PropTypes.object,
+    legendSet: PropTypes.object,
+    method: PropTypes.number,
+    orgUnits: PropTypes.object,
+    periodType: PropTypes.string,
+    periodsSettings: PropTypes.object,
+    program: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        trackedEntityType: PropTypes.object,
+    }),
+    programStage: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+    rows: PropTypes.array,
+    startDate: PropTypes.string,
+    styleDataItem: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        optionSet: PropTypes.shape({
+            options: PropTypes.array,
+        }),
+    }),
+    systemSettings: PropTypes.object,
+}
+
+export default EventDialog

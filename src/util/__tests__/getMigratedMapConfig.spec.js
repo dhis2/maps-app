@@ -30,6 +30,8 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                 id: 'Basemap id',
                 mapLayerPosition: 'BASEMAP',
                 name: 'Basemap name',
+                opacity: 1,
+                isVisible: true,
             },
             mapViews: [
                 {
@@ -39,11 +41,52 @@ test('getMigratedMapConfig when basemap in mapViews', () => {
                     config: {
                         mapLayerPosition: 'OVERLAY',
                     },
+                    isVisible: true,
                 },
             ],
         })
     )
 })
+
+test.each([
+    ['empty string config', ''],
+    ['missing config', undefined],
+    ['null config', null],
+    ['malformed config string', '{not valid json'],
+])(
+    'getMigratedMapConfig does not throw for external layer with %s',
+    (_label, externalConfig) => {
+        const config = {
+            id: 'mapId',
+            name: 'map name',
+            mapViews: [
+                { layer: 'external', config: externalConfig },
+                { layer: 'thematic', name: 'All the pretty colors' },
+            ],
+        }
+
+        let result
+        expect(() => {
+            result = getMigratedMapConfig(config, defaultBasemapId)
+        }).not.toThrow()
+
+        // The external view is not treated as a basemap, so it is retained
+        // and the default basemap is applied.
+        expect(result.basemap).toEqual({
+            id: defaultBasemapId,
+            opacity: 1,
+            isVisible: true,
+        })
+        expect(result.mapViews).toEqual([
+            { layer: 'external', config: externalConfig, isVisible: true },
+            {
+                layer: 'thematic',
+                name: 'All the pretty colors',
+                isVisible: true,
+            },
+        ])
+    }
+)
 
 test('getMigratedMapConfig when basemap is a string but not "none"', () => {
     const config = {
@@ -60,10 +103,18 @@ test('getMigratedMapConfig when basemap is a string but not "none"', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'TheRainbowBasemap' },
+            basemap: { id: 'TheRainbowBasemap', opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -84,13 +135,18 @@ test('getMigratedMapConfig when basemap is string "none"', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: {
-                id: defaultBasemapId,
-                isVisible: false,
-            },
+            basemap: { id: defaultBasemapId, opacity: 1, isVisible: false },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -114,10 +170,23 @@ test('getMigratedMapConfig when basemap is an object', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet', displayName: 'Basemap name' },
+            basemap: {
+                id: 'osmStreet',
+                displayName: 'Basemap name',
+                opacity: 1,
+                isVisible: true,
+            },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -137,10 +206,18 @@ test('getMigratedMapConfig when no basemap in config', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: defaultBasemapId },
+            basemap: { id: defaultBasemapId, opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'All the pretty colors' },
-                { layer: 'facilities', name: 'All the facilities' },
+                {
+                    layer: 'thematic',
+                    name: 'All the pretty colors',
+                    isVisible: true,
+                },
+                {
+                    layer: 'facilities',
+                    name: 'All the facilities',
+                    isVisible: true,
+                },
             ],
         })
     )
@@ -163,11 +240,19 @@ test('getMigratedMapConfig with old GIS app format and Boundary layer', () => {
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
-                { layer: 'thematic', name: 'Thematic layer 2' },
-                { layer: 'thematic', name: 'Thematic layer 1' },
-                { layer: 'orgUnit', name: 'Boundary layer' },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 2',
+                    isVisible: true,
+                },
+                {
+                    layer: 'thematic',
+                    name: 'Thematic layer 1',
+                    isVisible: true,
+                },
+                { layer: 'orgUnit', name: 'Boundary layer', isVisible: true },
             ],
         })
     )
@@ -191,7 +276,7 @@ test('getMigratedMapConfig with colorScale with multiple values converted to an 
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
                 {
                     layer: 'thematic',
@@ -204,6 +289,7 @@ test('getMigratedMapConfig with colorScale with multiple values converted to an 
                         '#de2d26',
                         '#a50f15',
                     ],
+                    isVisible: true,
                 },
             ],
         })
@@ -228,14 +314,121 @@ test('getMigratedMapConfig with colorScale with single value returns value', () 
         expect.objectContaining({
             id: 'mapId',
             name: 'map name',
-            basemap: { id: 'osmStreet' },
+            basemap: { id: 'osmStreet', opacity: 1, isVisible: true },
             mapViews: [
                 {
                     layer: 'thematic',
                     name: 'Thematic layer',
                     colorScale: '#fee5d9',
+                    isVisible: true,
                 },
             ],
         })
     )
+})
+
+test('getMigratedMapConfig with hidden: true mapView sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: { id: 'osmStreet' },
+        mapViews: [{ layer: 'thematic', name: 'Hidden layer', hidden: true }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].isVisible).toBe(false)
+})
+
+test('getMigratedMapConfig with hidden: false mapView sets isVisible: true', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: { id: 'osmStreet' },
+        mapViews: [{ layer: 'thematic', name: 'Visible layer', hidden: false }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].isVisible).toBe(true)
+})
+
+test('getMigratedMapConfig with JSON basemap string restores opacity and isVisible', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: JSON.stringify({
+            id: 'osmLight',
+            opacity: 0.5,
+            hidden: false,
+        }),
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap).toEqual({
+        id: 'osmLight',
+        opacity: 0.5,
+        isVisible: true,
+    })
+})
+
+test('getMigratedMapConfig with JSON basemap string with hidden: true sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemap: JSON.stringify({ id: 'osmLight', opacity: 1, hidden: true }),
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap.isVisible).toBe(false)
+    expect(result.basemap.id).toBe('osmLight')
+})
+
+test('getMigratedMapConfig with v43 basemaps array restores opacity and isVisible', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemaps: [{ id: 'osmLight', opacity: 0.7, hidden: false }],
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap).toEqual({
+        id: 'osmLight',
+        opacity: 0.7,
+        isVisible: true,
+    })
+})
+
+test('getMigratedMapConfig with v43 basemaps array with hidden: true sets isVisible: false', () => {
+    const config = {
+        id: 'mapId',
+        name: 'map name',
+        basemaps: [{ id: 'osmLight', opacity: 1, hidden: true }],
+        mapViews: [{ layer: 'thematic', name: 'Layer' }],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.basemap.isVisible).toBe(false)
+    expect(result.basemap.id).toBe('osmLight')
+})
+
+test('passes compact event filter column through unchanged', () => {
+    const config = {
+        basemap: 'osmLight',
+        mapViews: [
+            {
+                layer: 'event',
+                columns: [
+                    {
+                        dimension: 'qrur9Dvnyt5',
+                        name: 'Age in years',
+                        filter: 'GT:50:LT:60',
+                    },
+                ],
+            },
+        ],
+    }
+    const result = getMigratedMapConfig(config, defaultBasemapId)
+    expect(result.mapViews[0].columns).toEqual([
+        {
+            dimension: 'qrur9Dvnyt5',
+            name: 'Age in years',
+            filter: 'GT:50:LT:60',
+        },
+    ])
 })

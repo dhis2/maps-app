@@ -2,7 +2,6 @@ import { useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
-import { NoticeBox } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
@@ -10,6 +9,7 @@ import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,
@@ -17,6 +17,7 @@ import {
 import {
     ALERT_SUCCESS,
     ALERT_MESSAGE_DYNAMIC,
+    ERROR_CRITICAL,
 } from '../../../constants/alerts.js'
 import {
     DOWNLOADABLE_LAYER_TYPES,
@@ -30,6 +31,7 @@ import {
     CURRENT_AO_KEY,
 } from '../../../util/analyticalObject.js'
 import Legend from '../../legend/Legend.jsx'
+import LegendAlert from '../../legend/LegendAlert.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
 import styles from './styles/OverlayCard.module.css'
@@ -38,6 +40,7 @@ const OverlayCard = ({
     layer,
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,
@@ -70,11 +73,11 @@ const OverlayCard = ({
             return (
                 <div
                     data-test="load-error-noticebox"
-                    className={styles.noticebox}
+                    className={styles.loadError}
                 >
-                    <NoticeBox error title={i18n.t('Failed to load layer')}>
-                        <p>{loadError}</p>
-                    </NoticeBox>
+                    <LegendAlert
+                        alert={{ code: ERROR_CRITICAL, message: loadError }}
+                    />
                 </div>
             )
         }
@@ -108,10 +111,11 @@ const OverlayCard = ({
                 onOpacityChange={(newOpacity) =>
                     changeLayerOpacity(id, newOpacity)
                 }
+                onDuplicate={() => duplicateLayer(id)}
                 onRemove={() => {
                     removeLayer(id)
                     layerRemovedAlert.show({
-                        msg: i18n.t('{{name}} deleted.', { name }),
+                        msg: i18n.t('{{- name}} deleted.', { name }),
                     })
                 }}
                 downloadData={
@@ -152,6 +156,7 @@ const OverlayCard = ({
 
 OverlayCard.propTypes = {
     changeLayerOpacity: PropTypes.func.isRequired,
+    duplicateLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
     removeLayer: PropTypes.func.isRequired,
@@ -163,6 +168,7 @@ OverlayCard.propTypes = {
 export default connect(null, {
     editLayer,
     removeLayer,
+    duplicateLayer,
     changeLayerOpacity,
     toggleLayerExpand,
     toggleLayerVisibility,

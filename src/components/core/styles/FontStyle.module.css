@@ -1,8 +1,8 @@
 .fontStyle {
     display: flex;
     align-items: flex-end;
-    margin-bottom: var(--spacers-dp8);
     padding-left: var(--spacers-dp24);
+    margin-bottom: var(--spacers-dp8);
 }
 
 .fontStyle > * {

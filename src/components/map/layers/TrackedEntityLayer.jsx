@@ -134,13 +134,15 @@ class TrackedEntityLayer extends Layer {
 
         this.layer = group
         map.addLayer(this.layer)
+        this.setLayerVisibility()
 
         // Fit map to layer bounds once (when first created)
         this.fitBoundsOnce()
     }
 
     render() {
-        const { program, nameProperty } = this.props
+        const { program, nameProperty, keyAnalysisDigitGroupSeparator } =
+            this.props
         const { popup, displayAttributes } = this.state
 
         return popup ? (
@@ -148,6 +150,7 @@ class TrackedEntityLayer extends Layer {
                 {...popup}
                 program={program}
                 nameProperty={nameProperty}
+                keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayAttributes={displayAttributes || []}
                 onClose={this.onPopupClose}
             />

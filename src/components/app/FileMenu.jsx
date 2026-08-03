@@ -4,7 +4,7 @@ import {
     preparePayloadForSaveAs,
     VIS_TYPE_MAP,
 } from '@dhis2/analytics'
-import { useDataMutation, useDataEngine } from '@dhis2/app-runtime'
+import { useDataMutation, useDataEngine, useConfig } from '@dhis2/app-runtime'
 import { useAlert } from '@dhis2/app-service-alerts'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
@@ -67,6 +67,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     const map = useSelector((state) => state.map)
     const dispatch = useDispatch()
     const engine = useDataEngine()
+    const { serverVersion } = useConfig()
     const { systemSettings, currentUser } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
     //alerts
@@ -119,6 +120,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
+            serverVersion,
         })
 
         const config = preparePayloadForSave({
@@ -160,6 +162,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             config: latestMap,
             defaultBasemapId: defaultBasemap,
             cleanMapviewConfig: false,
+            serverVersion,
         })
 
         const config = preparePayloadForSave({
@@ -189,6 +192,7 @@ const FileMenu = ({ onFileMenuAction }) => {
         const cleanedMap = cleanMapConfig({
             config: map,
             defaultBasemapId: defaultBasemap,
+            serverVersion,
         })
 
         const config = preparePayloadForSaveAs({

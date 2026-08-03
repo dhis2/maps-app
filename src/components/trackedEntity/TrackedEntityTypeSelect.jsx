@@ -2,16 +2,17 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { SelectField } from '../core/index.js'
 
 // Load all tracked entity types
 const TRACKED_ENTITY_TYPES_QUERY = {
     types: {
         resource: 'trackedEntityTypes',
-        params: {
-            fields: ['id', 'displayName~rename(name)'],
+        params: ({ nameProperty }) => ({
+            fields: ['id', `${nameProperty}~rename(name)`],
             paging: false,
-        },
+        }),
     },
 }
 
@@ -21,7 +22,10 @@ const TrackedEntityTypeSelect = ({
     className,
     errorText,
 }) => {
-    const { loading, error, data } = useDataQuery(TRACKED_ENTITY_TYPES_QUERY)
+    const { nameProperty } = useCachedData()
+    const { loading, error, data } = useDataQuery(TRACKED_ENTITY_TYPES_QUERY, {
+        variables: { nameProperty },
+    })
 
     return (
         <SelectField

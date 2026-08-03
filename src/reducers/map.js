@@ -73,6 +73,7 @@ const basemap = (state, action) => {
                 isVisible: !state.isVisible,
             }
 
+        // TODO: unreachable
         default:
             return state
     }
@@ -242,6 +243,7 @@ const map = (state = defaultState, action) => {
                     {
                         ...action.payload,
                         id: generateUid(),
+                        isVisible: action.payload.isVisible ?? true,
                     },
                 ],
             }
@@ -253,6 +255,29 @@ const map = (state = defaultState, action) => {
                     (layer) => layer.id !== action.id
                 ),
             }
+
+        case types.LAYER_DUPLICATE: {
+            const sourceIndex = state.mapViews.findIndex(
+                (l) => l.id === action.id
+            )
+            if (sourceIndex === -1) {
+                return state
+            }
+            const duplicate = {
+                ...state.mapViews[sourceIndex],
+                id: generateUid(),
+            }
+            delete duplicate.isLoading
+            delete duplicate.coordinate
+            return {
+                ...state,
+                mapViews: [
+                    ...state.mapViews.slice(0, sourceIndex + 1),
+                    duplicate,
+                    ...state.mapViews.slice(sourceIndex + 1),
+                ],
+            }
+        }
 
         case types.LAYER_SORT:
             mapViews = [...state.mapViews].reverse() // TODO: Refactor

@@ -1,5 +1,5 @@
 .checkbox {
-    margin: var(--spacers-dp12) 0 var(--spacers-dp8);
+    margin: var(--spacers-dp16) 0 var(--spacers-dp8);
     display: flex;
     align-items: center;
 }

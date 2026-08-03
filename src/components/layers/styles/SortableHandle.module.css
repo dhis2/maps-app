@@ -6,9 +6,12 @@
     height: 24px;
     border-radius: 3px;
     color: var(--colors-grey600);
-    cursor: ns-resize;
+    cursor: grab;
 }
 .handle:hover {
     background-color: var(--colors-grey200);
     color: var(--colors-grey900);
+}
+.handle:active {
+    cursor: grabbing;
 }

@@ -34,9 +34,7 @@ const BasemapCard = (props) => {
                 </ComponentCover>
             ) : (
                 <LayerCard
-                    hasOpacity={
-                        basemap.config.type === VECTOR_STYLE ? false : true
-                    }
+                    hasOpacity={basemap.config.type !== VECTOR_STYLE}
                     title={basemap.name}
                     subtitle={subtitle}
                     opacity={basemap.opacity}

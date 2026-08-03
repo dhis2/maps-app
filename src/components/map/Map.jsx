@@ -2,7 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
 import { RENDERING_STRATEGY_TIMELINE } from '../../constants/layers.js'
-import { onFullscreenChange } from '../../util/map.js'
+import { onFullscreenChange, resizeAndFitBounds } from '../../util/map.js'
 import {
     sortPeriodsByLevelAndStartDate,
     addPeriodsDetails,
@@ -85,9 +85,12 @@ class Map extends Component {
         if (isPlugin) {
             map.toggleMultiTouch(true)
             map.on('fullscreenchange', this.onFullscreenChange)
-            window.addEventListener('resize', () => {
-                this.onFullscreenChange({ isFullscreen: false })
-            })
+            this._onWindowResize = () => {
+                if (this.map) {
+                    resizeAndFitBounds(this.map)
+                }
+            }
+            window.addEventListener('resize', this._onWindowResize)
         } else {
             map.on('contextmenu', this.onRightClick, this)
         }
@@ -145,7 +148,6 @@ class Map extends Component {
             this.map.setMouseMoveEnabled(!layersSorting)
         }
 
-        // From map plugin resize method
         if (isPlugin && isFullscreen !== prevProps.isFullscreen) {
             onFullscreenChange(this.map, isFullscreen)
         }
@@ -157,6 +159,9 @@ class Map extends Component {
 
     // Remove map
     componentWillUnmount() {
+        if (this._onWindowResize) {
+            window.removeEventListener('resize', this._onWindowResize)
+        }
         if (this.map) {
             this.map.off('ready', this.onMapReady)
             this.map.remove()
@@ -222,9 +227,9 @@ class Map extends Component {
                                     setFeatureProfile={setFeatureProfile}
                                     engine={engine}
                                     nameProperty={nameProperty}
-                                    externalPeriod={period}
                                     resizeCount={resizeCount}
                                     {...config}
+                                    externalPeriod={period} // Timeline period from state takes precedence over config
                                 />
                             )
                         })}

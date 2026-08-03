@@ -22,7 +22,7 @@ export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
         return i18n.t('Max should be greater than min')
     }
     if (!ranges && steps && (steps < minSteps || steps > maxSteps)) {
-        return i18n.t('Valid steps are {{minSteps}} to {{maxSteps}}', {
+        return i18n.t('Valid classes are {{minSteps}} to {{maxSteps}}', {
             minSteps,
             maxSteps,
         })
@@ -30,7 +30,7 @@ export const getStyleSelectError = ({ min, max, steps, palette, ranges }) => {
     return undefined
 }
 
-const StyleSelect = ({ unit, style, setStyle }) => {
+const StyleSelect = ({ style, setStyle }) => {
     const { min, max, palette } = style
     const [steps, setSteps] = useState(palette.length)
 
@@ -58,9 +58,6 @@ const StyleSelect = ({ unit, style, setStyle }) => {
 
     return (
         <div>
-            <p>
-                {i18n.t('Unit')}: {unit}
-            </p>
             <div key="minmax" className={styles.flexInnerColumnFlow}>
                 <NumberField
                     label={i18n.t('Min')}
@@ -75,7 +72,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                     className={styles.flexInnerColumn}
                 />
                 <NumberField
-                    label={i18n.t('Steps')}
+                    label={i18n.t('Classes')}
                     value={steps}
                     min={minSteps}
                     max={maxSteps}
@@ -85,6 +82,7 @@ const StyleSelect = ({ unit, style, setStyle }) => {
                 {errorText && <div className={styles.eeError}>{errorText}</div>}
                 <div className={styles.scale}>
                     <ColorScaleSelect
+                        className={styles.colorScaleSelect}
                         palette={style.palette}
                         onChange={(palette) => setStyle({ palette })}
                         width={260}
@@ -97,7 +95,6 @@ const StyleSelect = ({ unit, style, setStyle }) => {
 
 StyleSelect.propTypes = {
     setStyle: PropTypes.func.isRequired,
-    unit: PropTypes.string.isRequired,
     style: PropTypes.shape({
         max: PropTypes.number.isRequired,
         min: PropTypes.number.isRequired,

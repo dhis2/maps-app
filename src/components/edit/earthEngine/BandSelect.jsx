@@ -29,8 +29,8 @@ BandSelect.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        band: layerEdit.band,
-        bands: layerEdit.bands,
+        band: layerEdit?.band,
+        bands: layerEdit?.bands,
     }),
     { setBand }
 )(BandSelect)

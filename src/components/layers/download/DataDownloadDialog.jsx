@@ -80,7 +80,7 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
             <ModalTitle>{i18n.t('Download Layer Data')}</ModalTitle>
             <ModalContent>
                 <div className={styles.contentDiv}>
-                    {i18n.t('Downloading GeoJSON data for "{{layerName}}"', {
+                    {i18n.t('Downloading GeoJSON data for "{{- layerName}}"', {
                         layerName: layer.name,
                     })}
                 </div>
@@ -91,25 +91,23 @@ const DataDownloadDialog = ({ layer, onCloseDialog }) => {
                 </Help>
                 {layer.layer === EVENT_LAYER && (
                     <div className={styles.inputContainer}>
-                        <>
-                            <div className={styles.headingDiv}>
-                                {i18n.t('GeoJSON Properties:')}
-                            </div>
-                            <div className={styles.selectField}>
-                                <SelectField
-                                    label={i18n.t('ID Format')}
-                                    items={formatOptions}
-                                    value={selectedFormat?.id}
-                                    onChange={onChangeFormat}
-                                />
-                            </div>
-                            <Checkbox
-                                className={styles.checkboxRoot}
-                                label={i18n.t('Use human-readable keys')}
-                                checked={humanReadable}
-                                onChange={onChangeHumanReadable}
+                        <div className={styles.headingDiv}>
+                            {i18n.t('GeoJSON Properties:')}
+                        </div>
+                        <div className={styles.selectField}>
+                            <SelectField
+                                label={i18n.t('ID Format')}
+                                items={formatOptions}
+                                value={selectedFormat?.id}
+                                onChange={onChangeFormat}
                             />
-                        </>
+                        </div>
+                        <Checkbox
+                            className={styles.checkboxRoot}
+                            label={i18n.t('Use human-readable keys')}
+                            checked={humanReadable}
+                            onChange={onChangeHumanReadable}
+                        />
                     </div>
                 )}
                 {error && (

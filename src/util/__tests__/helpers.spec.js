@@ -1,4 +1,39 @@
-import { formatValueForDisplay, sumObjectValues } from '../helpers.js'
+import {
+    DIGIT_GROUP_SEPARATOR_COMMA,
+    DIGIT_GROUP_SEPARATOR_NONE,
+    DIGIT_GROUP_SEPARATOR_SPACE,
+} from '../../constants/settings.js'
+import { formatValueForDisplay, hasValue, sumObjectValues } from '../helpers.js'
+
+describe('hasValue', () => {
+    it('returns false for undefined', () => {
+        expect(hasValue(undefined)).toBe(false)
+    })
+
+    it('returns false for null', () => {
+        expect(hasValue(null)).toBe(false)
+    })
+
+    it('returns false for an empty string', () => {
+        expect(hasValue('')).toBe(false)
+    })
+
+    it('returns false for the "Not set" sentinel string', () => {
+        expect(hasValue('Not set')).toBe(false)
+    })
+
+    it('returns true for 0 (a real value, not missing data)', () => {
+        expect(hasValue(0)).toBe(true)
+    })
+
+    it('returns true for NaN (invalid/corrupt data is not the same as missing data)', () => {
+        expect(hasValue(NaN)).toBe(true)
+    })
+
+    it('returns true for a non-empty string', () => {
+        expect(hasValue('some value')).toBe(true)
+    })
+})
 
 describe('formatValueForDisplay', () => {
     it.each([
@@ -13,24 +48,24 @@ describe('formatValueForDisplay', () => {
             expected: '1',
         },
         {
-            desc: 'returns "Not set" for null',
+            desc: 'returns empty string for null',
             input: { value: null },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for undefined',
+            desc: 'returns empty string for undefined',
             input: { value: undefined },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for empty string',
+            desc: 'returns empty string for empty string',
             input: { value: '' },
-            expected: 'Not set',
+            expected: '',
         },
         {
-            desc: 'returns "Not set" for string "Not set"',
+            desc: 'returns empty string for string "Not set"',
             input: { value: 'Not set' },
-            expected: 'Not set',
+            expected: '',
         },
         {
             desc: 'returns option label if present in options',
@@ -136,6 +171,66 @@ describe('formatValueForDisplay', () => {
         },
     ])('$desc', ({ input, expected }) => {
         expect(formatValueForDisplay(input)).toBe(expected)
+    })
+
+    describe('formats number value types with digit group separator', () => {
+        it.each([
+            'NUMBER',
+            'INTEGER',
+            'INTEGER_POSITIVE',
+            'INTEGER_NEGATIVE',
+            'INTEGER_ZERO_OR_POSITIVE',
+            'PERCENTAGE',
+            'UNIT_INTERVAL',
+        ])('formats %s with COMMA separator', (valueType) => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType,
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1,234,567')
+        })
+
+        it('formats NUMBER with SPACE separator', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_SPACE,
+                })
+            ).toBe('1 234 567')
+        })
+
+        it('returns plain value with NONE separator', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_NONE,
+                })
+            ).toBe('1234567')
+        })
+
+        it('preserves decimal part', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234.56',
+                    valueType: 'NUMBER',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1,234.56')
+        })
+
+        it('does not apply separator to non-number types like TEXT', () => {
+            expect(
+                formatValueForDisplay({
+                    value: '1234567',
+                    valueType: 'TEXT',
+                    keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+                })
+            ).toBe('1234567')
+        })
     })
 
     it('returns raw value for other DHIS2 types not specially handled', () => {

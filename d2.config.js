@@ -1,7 +1,7 @@
 const omitPatterns = [
     // User info
     'me/authorization',
-    'me\\?fields',
+    String.raw`me\?fields`,
 
     // Settings
     'systemSettings',
@@ -48,6 +48,33 @@ const config = {
 
     viteConfigExtensions: {
         optimizeDeps: {
+            // Excluded so Vite serves maps-gl via /@fs/... with its full
+            // transform pipeline, which lets the EE worker URL resolve to the
+            // actual source file (rather than /.vite/earthengine/... where
+            // bare imports are not rewritten).
+            exclude: ['@dhis2/maps-gl'],
+            // maps-gl's CJS deps must be listed explicitly; Vite's scanner
+            // won't traverse an excluded package to discover them.
+            include: [
+                'maplibre-gl',
+                'fetch-jsonp',
+                'lodash.throttle',
+                '@mapbox/sphericalmercator',
+                '@turf/area',
+                '@turf/bbox',
+                '@turf/buffer',
+                '@turf/center-of-mass',
+                '@turf/centroid',
+                '@turf/circle',
+                '@turf/jsts',
+                '@turf/length',
+                'comlink',
+                'concaveman',
+                'polylabel',
+                'pretty-bytes',
+                'suggestions',
+                'uuid',
+            ],
             esbuildOptions: {
                 target: 'es2022',
             },

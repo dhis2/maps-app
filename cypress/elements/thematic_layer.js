@@ -1,7 +1,22 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { Layer } from './layer.js'
 
 export class ThematicLayer extends Layer {
     selectItemType(itemType) {
+        cy.intercept(
+            'GET',
+            /\/(indicatorGroups|dataElementGroups|dataSets|programs)\b/
+        ).as('fetchGroups')
+        this._groupsFetchPending = true
+
+        // Calculations bypasses GroupSelector/ItemSelector entirely (see
+        // @dhis2/analytics's DataDimension.js) - its item list is fetched
+        // directly once this type is chosen, consumed in selectDataItem().
+        if (itemType === 'Calculations') {
+            cy.intercept('GET', /\/dataItems\b/).as('fetchDataItems')
+            this._dataItemsFetchPending = true
+        }
+
         cy.getByDataTest(
             'data-dimension-left-header-data-types-select-field-content'
         ).click()
@@ -9,12 +24,26 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectGroup(group) {
+        if (this._groupsFetchPending) {
+            cy.wait('@fetchGroups', EXTENDED_TIMEOUT)
+            this._groupsFetchPending = false
+        }
+
         cy.getByDataTest(
             'data-dimension-left-header-groups-select-field-content'
         ).click()
+
+        cy.intercept(
+            'GET',
+            /\/(indicators|dataElements|dataElementOperands|dataSets|dataItems)\b/
+        ).as('fetchItems')
+
         cy.getByDataTest('dhis2-uicore-select-menu-menuwrapper')
             .contains(group)
             .click()
+
+        cy.wait('@fetchItems', EXTENDED_TIMEOUT)
+
         return this
     }
     selectSubGroup(subGroup) {
@@ -27,6 +56,11 @@ export class ThematicLayer extends Layer {
         return this
     }
     selectDataItem(dataItem) {
+        if (this._dataItemsFetchPending) {
+            cy.wait('@fetchDataItems', EXTENDED_TIMEOUT)
+            this._dataItemsFetchPending = false
+        }
+
         cy.getByDataTest('data-dimension-transfer-sourceoptions')
             .contains(dataItem)
             .click()
@@ -53,92 +87,6 @@ export class ThematicLayer extends Layer {
         return this.selectDataItem(dataElement)
     }
 
-    selectRelativePeriod(period) {
-        cy.get('[data-test="relative-period-select"]').click()
-        cy.contains(period).click()
-
-        return this
-    }
-
-    removeAllPeriods() {
-        cy.getByDataTest('period-dimension-transfer-actions-removeall').click()
-
-        return this
-    }
-
-    selectPeriodType({
-        periodType,
-        periodDimension = 'fixed',
-        n = 'last',
-        y = '',
-        removeAll = true,
-    } = {}) {
-        if (!periodType) {
-            throw new Error("The 'periodType' parameter is required.")
-        }
-
-        // Select fixed / relative periods
-        cy.getByDataTest(
-            `period-dimension-${periodDimension}-periods-button`
-        ).click()
-        // Open dropdown for period type
-        cy.getByDataTest(
-            `period-dimension-${periodDimension}-period-filter${
-                periodDimension === 'fixed' ? '-period-type' : ''
-            }`
-        ).click()
-        // Select period type in dropdown if not active already
-        cy.get(`[data-value="${periodType}"]`).then(($el) => {
-            if ($el.hasClass('active')) {
-                cy.get('body').click('topLeft')
-            } else {
-                cy.wrap($el).click()
-            }
-        })
-
-        if (removeAll) {
-            cy.getByDataTest(
-                'period-dimension-transfer-actions-removeall'
-            ).click()
-        }
-
-        if (y !== '') {
-            cy.getByDataTest(
-                'period-dimension-fixed-period-filter-year-content'
-            )
-                .get('input[type="number"]')
-                .clear()
-            cy.getByDataTest(
-                'period-dimension-fixed-period-filter-year-content'
-            )
-                .get('input[type="number"]')
-                .type(y)
-        }
-        if (n === 'last') {
-            cy.getByDataTest('period-dimension-transfer-option-content')
-                .last()
-                .dblclick()
-        } else {
-            cy.getByDataTest('period-dimension-transfer-option-content')
-                .eq(n)
-                .dblclick()
-        }
-
-        return this
-    }
-
-    selectPresets() {
-        cy.contains('Choose from presets').click()
-
-        return this
-    }
-
-    selectStartEndDates() {
-        cy.contains('Define start - end dates').click()
-
-        return this
-    }
-
     selectChoropleth() {
         cy.contains('Choropleth').click()
 
@@ -147,6 +95,12 @@ export class ThematicLayer extends Layer {
 
     selectBubbleMap() {
         cy.contains('Bubble map').click()
+
+        return this
+    }
+
+    selectIncludeUnclassifiedOU() {
+        cy.contains('Include unclassified org units').click()
 
         return this
     }

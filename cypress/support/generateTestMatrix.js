@@ -1,71 +1,8 @@
-const fs = require('fs')
-const path = require('path')
+const fs = require('node:fs')
+const path = require('node:path')
+const CYPRESS_FILES = require('./cypressFiles.json')
 
 const NUMBER_OF_GROUPS = 5
-const CYPRESS_FILES = {
-    'cypress/integration/basemaps.cy.js': { include: true, duration: 60 },
-    'cypress/integration/dataDownload.cy.js': { include: true, duration: 45 },
-    'cypress/integration/dataTable.cy.js': { include: true, duration: 60 },
-    'cypress/integration/fetcherrors.cy.js': { include: true, duration: 15 },
-    'cypress/integration/filemenu.cy.js': { include: true, duration: 90 },
-    'cypress/integration/interpretations.cy.js': {
-        include: true,
-        duration: 45,
-    },
-    'cypress/integration/keyboard.cy.js': { include: true, duration: 30 },
-    'cypress/integration/manageLayerSources.cy.js': {
-        include: true,
-        duration: 45,
-    },
-    'cypress/integration/mapDownload.cy.js': { include: true, duration: 15 },
-    'cypress/integration/orgUnitInfo.cy.js': { include: true, duration: 15 },
-    'cypress/integration/plugin.cy.js': { include: false, duration: 15 },
-    'cypress/integration/pushAnalytics.cy.js': { include: true, duration: 15 },
-    'cypress/integration/requests.cy.js': { include: false, duration: 120 }, // TODO: E2E DB fix
-    'cypress/integration/requestsErrors.cy.js': {
-        include: false,
-        duration: 480,
-    },
-    'cypress/integration/routes.cy.js': { include: true, duration: 150 },
-    'cypress/integration/systemsettings.cy.js': {
-        include: true,
-        duration: 45,
-    },
-    'cypress/integration/ui.cy.js': { include: true, duration: 30 },
-    'cypress/integration/usersettings.cy.js': { include: true, duration: 45 },
-    'cypress/integration/layers/eventlayer.cy.js': {
-        include: true,
-        duration: 120,
-    },
-    'cypress/integration/layers/multilayers.cy.js': {
-        include: true,
-        duration: 15,
-    },
-    'cypress/integration/layers/externallayer.cy.js': {
-        include: true,
-        duration: 15,
-    },
-    'cypress/integration/layers/orgunitlayer.cy.js': {
-        include: true,
-        duration: 30,
-    },
-    'cypress/integration/layers/facilitylayer.cy.js': {
-        include: true,
-        duration: 30,
-    },
-    'cypress/integration/layers/thematiclayer.cy.js': {
-        include: true,
-        duration: 270,
-    },
-    'cypress/integration/layers/geojsonlayer.cy.js': {
-        include: true,
-        duration: 30,
-    },
-    'cypress/integration/layers/trackedentitylayer.cy.js': {
-        include: true,
-        duration: 45,
-    },
-}
 
 const filterFn = (fullPath) =>
     CYPRESS_FILES[fullPath] ? CYPRESS_FILES[fullPath].include : true // include files by default
@@ -103,7 +40,7 @@ const createGroupsStandard = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
 const createGroupsByDuration = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
     const durations = Object.values(CYPRESS_FILES)
         .map((f) => f.duration)
-        .filter((d) => typeof d === 'number' && !isNaN(d))
+        .filter((d) => typeof d === 'number' && !Number.isNaN(d))
     const avgDuration =
         durations.reduce((sum, d) => sum + d, 0) / durations.length
 
@@ -138,7 +75,7 @@ const createGroups = (files, numberOfGroups = NUMBER_OF_GROUPS) => {
 
     const durations = Object.values(CYPRESS_FILES)
         .map((f) => f.duration)
-        .filter((d) => typeof d === 'number' && !isNaN(d))
+        .filter((d) => typeof d === 'number' && !Number.isNaN(d))
     const adjustedNumberOfGroups = Math.min(files.length, numberOfGroups)
 
     if (durations.length === 0) {

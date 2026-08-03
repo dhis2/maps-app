@@ -29,7 +29,7 @@ CompletedOnlyCheckbox.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        completedOnly: layerEdit.eventStatus === EVENT_STATUS_COMPLETED,
+        completedOnly: layerEdit?.eventStatus === EVENT_STATUS_COMPLETED,
     }),
     { setEventStatus }
 )(CompletedOnlyCheckbox)

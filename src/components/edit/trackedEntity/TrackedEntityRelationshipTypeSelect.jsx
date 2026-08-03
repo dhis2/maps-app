@@ -45,7 +45,8 @@ const TrackedEntityRelationshipTypeSelect = ({
             <div
                 style={{
                     fontSize: 14,
-                    marginLeft: 12,
+                    fontStyle: 'italic',
+                    marginLeft: 24,
                 }}
             >
                 {i18n.t(

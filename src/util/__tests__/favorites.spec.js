@@ -16,8 +16,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'thedefaultBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"thedefaultBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -48,8 +49,9 @@ describe('cleanMapConfig', () => {
         })
         expect(cleanedConfig).toEqual(
             expect.objectContaining({
-                basemap: 'myUniqueBasemap',
-                mapViews: [{ layer: 'layer1' }],
+                basemap:
+                    '{"id":"myUniqueBasemap","opacity":0.9,"hidden":false}',
+                mapViews: [{ hidden: false, layer: 'layer1' }],
                 name: 'my new map',
             })
         )
@@ -176,10 +178,11 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     areaRadius: 5000,
+                    hidden: false,
                     layer: 'earthEngine',
                     name: 'Population',
                     opacity: 0.9,
@@ -274,16 +277,332 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     config: '{"id":"CSYRWeK81E7","type":"geoJson","url":"https://debug.dhis2.org/analytics-dev/api/routes/aaa11122233/run","name":"Bo catchment areas","tms":false,"format":"image/png","featureStyle":{"color":"transparent","strokeColor":"#333333","weight":1,"pointSize":5}}',
+                    hidden: false,
                     layer: 'geoJsonUrl',
                     name: 'Bo catchment areas',
                     opacity: 1,
                 },
             ],
         })
+    })
+
+    test('serializes legendDecimalPlaces into config JSON for thematic layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'ANC 1 Coverage',
+                    opacity: 1,
+                    legendDecimalPlaces: 2,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0].config).toBe(
+            '{"legendDecimalPlaces":2}'
+        )
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
+    test('serializes legendDecimalPlaces into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'Birth weight',
+                    opacity: 1,
+                    legendDecimalPlaces: 0,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0].config).toBe(
+            '{"legendDecimalPlaces":0}'
+        )
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
+    test('serializes noDataLegend into config JSON and writes noDataColor for backward compat', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        noDataLegend: { color: '#aaaaaa', name: 'No data' },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).noDataLegend).toEqual({
+            color: '#aaaaaa',
+            name: 'No data',
+        })
+        expect(view.noDataColor).toBe('#aaaaaa')
+        expect(view).not.toHaveProperty('noDataLegend')
+    })
+
+    test('serializes unclassifiedLegend into config JSON and removes it from the layer', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        unclassifiedLegend: {
+                            color: '#bbbbbb',
+                            name: 'Unclassified',
+                        },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).unclassifiedLegend).toEqual({
+            color: '#bbbbbb',
+            name: 'Unclassified',
+        })
+        expect(view).not.toHaveProperty('unclassifiedLegend')
+    })
+
+    test('serializes legendIsolated into config JSON and removes it from the layer', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        legendIsolated: {
+                            min: 40,
+                            max: 60,
+                            color: '#888888',
+                            name: 'Mid',
+                        },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).legendIsolated).toEqual({
+            min: 40,
+            max: 60,
+            color: '#888888',
+            name: 'Mid',
+        })
+        expect(view).not.toHaveProperty('legendIsolated')
+    })
+
+    test('combines all serializable config fields into a single config JSON', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Test',
+                        opacity: 1,
+                        legendDecimalPlaces: 2,
+                        legendIsolated: { min: 40, max: 60, color: '#888' },
+                        noDataLegend: { color: '#aaaaaa' },
+                        unclassifiedLegend: { color: '#bbbbbb' },
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const view = cleanedConfig.mapViews[0]
+        const parsed = JSON.parse(view.config)
+        expect(parsed.legendDecimalPlaces).toBe(2)
+        expect(parsed.legendIsolated).toEqual({
+            min: 40,
+            max: 60,
+            color: '#888',
+        })
+        expect(parsed.noDataLegend).toEqual({ color: '#aaaaaa' })
+        expect(parsed.unclassifiedLegend).toEqual({ color: '#bbbbbb' })
+        expect(view).not.toHaveProperty('legendDecimalPlaces')
+        expect(view).not.toHaveProperty('legendIsolated')
+        expect(view).not.toHaveProperty('noDataLegend')
+        expect(view).not.toHaveProperty('unclassifiedLegend')
+        expect(view.noDataColor).toBe('#aaaaaa')
+    })
+
+    test('does not add config for thematic layer without legendDecimalPlaces', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'ANC 1 Coverage',
+                    opacity: 1,
+                    isLoaded: true,
+                    isLoading: false,
+                    isExpanded: true,
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('config')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty(
+            'legendDecimalPlaces'
+        )
+    })
+
+    test('writes hidden: true for a layer with isVisible: false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Hidden layer',
+                        opacity: 1,
+                        isVisible: false,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(true)
+    })
+
+    test('writes hidden: false for a layer with isVisible: true', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'Visible layer',
+                        opacity: 1,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: false for a layer with no explicit isVisible', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'thematic',
+                        name: 'No-visibility layer',
+                        opacity: 1,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        expect(cleanedConfig.mapViews[0].hidden).toBe(false)
+    })
+
+    test('writes hidden: true in legacy basemap JSON when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.hidden).toBe(true)
+        expect(parsed.id).toBe('osmLight')
+    })
+
+    test('writes opacity in legacy basemap JSON', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.4, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+        const parsed = JSON.parse(cleanedConfig.basemap)
+        expect(parsed.opacity).toBe(0.4)
+        expect(parsed.hidden).toBe(false)
+    })
+
+    test('uses basemaps array for v43+', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 0.5, isVisible: true },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps).toEqual([
+            { id: 'osmLight', opacity: 0.5, hidden: false },
+        ])
+        expect(cleanedConfig).not.toHaveProperty('basemap')
+    })
+
+    test('writes hidden: true in basemaps array for v43+ when basemap isVisible is false', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                basemap: { id: 'osmLight', opacity: 1, isVisible: false },
+                mapViews: [],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        expect(cleanedConfig.basemaps[0].hidden).toBe(true)
+        expect(cleanedConfig.basemaps[0].id).toBe('osmLight')
     })
 
     test('correctly converts TEI mapview', () => {
@@ -382,11 +701,12 @@ describe('cleanMapConfig', () => {
         })
 
         expect(cleanedConfig).toEqual({
-            basemap: 'thedefaultBasemap',
+            basemap: '{"id":"thedefaultBasemap","opacity":1,"hidden":false}',
             mapViews: [
                 {
                     startDate: '2018-02-19',
                     endDate: '2024-02-19',
+                    hidden: false,
                     layer: 'trackedEntity',
                     name: 'Tracked entity',
                     opacity: 0.5,
@@ -413,5 +733,192 @@ describe('cleanMapConfig', () => {
                 },
             ],
         })
+    })
+
+    test('includes period in earthengine config JSON when defined', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'earthEngine',
+                    layerId: 'MODIS/006/MOD13A2',
+                    band: 'NDVI',
+                    period: '2023',
+                    rows: [],
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const parsedConfig = JSON.parse(cleanedConfig.mapViews[0].config)
+        expect(parsedConfig.id).toBe('MODIS/006/MOD13A2')
+        expect(parsedConfig.band).toBe('NDVI')
+        expect(parsedConfig.period).toBe('2023')
+    })
+
+    test('sets relationships to null in TEI config JSON when no relationshipType', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'trackedEntity',
+                    name: 'Tracked entity',
+                    rows: [],
+                    relationshipType: null,
+                    periodType: 'MONTHLY',
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const parsedConfig = JSON.parse(cleanedConfig.mapViews[0].config)
+        expect(parsedConfig.relationships).toBeNull()
+        expect(parsedConfig.periodType).toBe('MONTHLY')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('relationshipType')
+        expect(cleanedConfig.mapViews[0]).not.toHaveProperty('periodType')
+    })
+
+    test('serializes countFeaturesWithoutCoordinates into config JSON for thematic layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'My Thematic',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBe(true)
+        expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('serializes countFeaturesWithoutCoordinates into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBe(true)
+        expect(mapView.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('serializes labelDataItem into config JSON for event layer', () => {
+        const labelDataItem = {
+            id: 'qrur9Dvnyt5',
+            name: 'Age',
+            valueType: 'NUMBER',
+        }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    labelDataItem,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.labelDataItem).toEqual(labelDataItem)
+        expect(mapView).not.toHaveProperty('labelDataItem')
+    })
+
+    test('serializes countEventsOutsideOrgUnits into config JSON for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    countEventsOutsideOrgUnits: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countEventsOutsideOrgUnits).toBe(true)
+        expect(mapView.countEventsOutsideOrgUnits).toBeUndefined()
+    })
+
+    test('preserves countFeaturesWithoutCoordinates as top-level property for earth engine layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'earthEngine',
+                    layerId: 'NASA/FIRMS',
+                    name: 'Fire',
+                    rows: [],
+                    countFeaturesWithoutCoordinates: true,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        expect(mapView.countFeaturesWithoutCoordinates).toBe(true)
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.countFeaturesWithoutCoordinates).toBeUndefined()
+    })
+
+    test('preserves compact filter column in columns for event layer', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'event',
+                    name: 'My Events',
+                    rows: [],
+                    columns: [
+                        {
+                            dimension: 'qrur9Dvnyt5',
+                            name: 'Age in years',
+                            filter: 'GT:50:LT:60',
+                        },
+                    ],
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        expect(cleanedConfig.mapViews[0].columns).toEqual([
+            {
+                dimension: 'qrur9Dvnyt5',
+                name: 'Age in years',
+                filter: 'GT:50:LT:60',
+            },
+        ])
+        expect(cleanedConfig.mapViews[0].config).toBeUndefined()
     })
 })

@@ -1,16 +1,16 @@
 .buffer {
-    margin: 0 -8px;
+    margin: 0;
     clear: both;
     align-items: center;
-    min-height: 76px;
 }
 
-.buffer > span > div {
-    margin: var(--spacers-dp8);
+.labelOnly {
+    margin-bottom: var(--spacers-dp4);
 }
 
 .numberField {
     padding-left: 23px;
+    margin-top: var(--spacers-dp8);
 }
 
 .info {

@@ -27,7 +27,7 @@ export const toGeoJson = (organisationUnits) =>
 
                 // Grand parent parent graph
                 if (ids.length > 2) {
-                    gppg = '/' + ids.slice(0, ids.length - 2).join('/')
+                    gppg = '/' + ids.slice(0, -2).join('/')
                 }
             }
 
@@ -77,18 +77,19 @@ export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     isLoading: false,
 })
 
+export const resizeAndFitBounds = (map) => {
+    map.resize()
+    const bounds = map.getLayersBounds()
+    if (Array.isArray(bounds)) {
+        map.fitBounds(bounds)
+    }
+}
+
 // Called when plugin maps enter or exit fullscreen
 export const onFullscreenChange = (map, isFullscreen = false) => {
-    map.resize()
-
-    if (!isFullscreen) {
-        const bounds = map.getLayersBounds()
-
-        if (Array.isArray(bounds)) {
-            map.fitBounds(bounds)
-        }
-    }
-
     map.toggleMultiTouch(!isFullscreen)
     map.toggleScrollZoom(isFullscreen)
+    requestAnimationFrame(() =>
+        requestAnimationFrame(() => resizeAndFitBounds(map))
+    )
 }

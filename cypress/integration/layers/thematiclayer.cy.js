@@ -11,8 +11,12 @@ import {
     CURRENT_YEAR,
     getApiBaseUrl,
     EXTENDED_TIMEOUT,
-    POPUP_WAIT,
+    uniqueId,
 } from '../../support/util.js'
+
+const MAP_TIMEOUT = { timeout: 40000 }
+// Extra buffer on top of waitForMap()
+const POPUP_WAIT_BUFFER = 1000
 
 const HIV_INDICATOR_GROUP = 'HIV'
 const HIV_INDICATOR_NAME = 'VCCT post-test counselling rate'
@@ -82,12 +86,14 @@ context('Thematic Layers', () => {
         // "3.2 - 7.5 (100)"
         // "No data (0)"
         const choroplethLegendTextPattern =
-            /^\s*(\d+(\.\d+)?\s*-\s*\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
+            /^\s*(\d+(\.\d+)?[-–]\d+(\.\d+)?|No data)\s*\(\d+\)\s*$/
 
         // Examples of bubble labels:
         // "10.5"
         // "No data"
-        const bubbleLabelTextPattern = /^(\d+(\.\d+)?|No data)$/
+        // "(2)"
+        const bubbleLabelTextPattern =
+            /^(\d+(\.\d+)?|No data|\(\d+\))(\s*\(\d+\))?$/
 
         // Choropleth
         Layer.openDialog('Thematic')
@@ -177,14 +183,13 @@ context('Thematic Layers', () => {
 
         cy.getByDataTest('dhis2-uicore-checkbox').eq(1).click()
 
-        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken').addToMap()
+        Layer.openOu('Tonkolili').selectOu('Gbonkonlenken')
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         getMaps().click('center')
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
 
         getMaps().click('center')
         Layer.validatePopupContents(['Gbonkonlenken'])
@@ -237,10 +242,9 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: 0'])
 
@@ -253,10 +257,9 @@ context('Thematic Layers', () => {
 
         Layer.validateDialogClosed(true)
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center') //Click in the middle of the map
         Layer.validatePopupContents(['Value: No data'])
     })
@@ -282,7 +285,8 @@ context('Thematic Layers', () => {
                 n: 7,
                 removeAll: false,
             })
-            .addToMap()
+
+        Layer.selectTab('Style').selectIncludeUnclassifiedOU().addToMap()
 
         Layer.validateDialogClosed(true)
 
@@ -292,11 +296,13 @@ context('Thematic Layers', () => {
             `${CURRENT_YEAR - 1} March, ${CURRENT_YEAR - 1} September`,
         ])
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step1Text) => {
@@ -315,11 +321,13 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`March ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step2Text) => {
@@ -338,11 +346,13 @@ context('Thematic Layers', () => {
 
         Layer.validateCardTitle(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait(POPUP_WAIT)
+        cy.waitForMap(MAP_TIMEOUT)
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(POPUP_WAIT_BUFFER)
         getMaps().click('center')
 
         Layer.validatePopupContents(['Tonkolili'])
-        cy.get('.maplibregl-popup')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
             .contains('Value:')
             .invoke('text')
             .then((step3Text) => {
@@ -490,8 +500,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap(MAP_TIMEOUT)
 
         // check that the first timeline period is shown in blue
         cy.get('.dhis2-map-period').should('be.visible')
@@ -510,16 +519,16 @@ context('Thematic Layers', () => {
 
         cy.get('.play-icon').click()
         cy.get('.pause-icon').should('be.visible')
-        cy.wait((5 - 1) * 1500)
 
         // check that the last timeline period is shown in blue
-        cy.get('svg.dhis2-map-timeline')
+        // (EXTENDED_TIMEOUT lets this retry until the animation reaches its final period)
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .first()
             .should('have.css', 'fill', 'rgb(255, 255, 255)')
             .and('have.css', 'fill-opacity', '0.8')
 
-        cy.get('svg.dhis2-map-timeline')
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT)
             .find('rect')
             .last()
             .should('have.css', 'fill', 'rgb(20, 124, 215)')
@@ -532,6 +541,95 @@ context('Thematic Layers', () => {
             { name: VIEW_PROFILE },
             { name: SHOW_LONG_LAT },
         ])
+    })
+
+    it('timeline period updates in popup after drilling down', () => {
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'QUARTERLY',
+                periodDimension: 'relative',
+                n: 2,
+            })
+
+        cy.get('[type="radio"]').check('TIMELINE')
+        cy.getByDataTest('dhis2-uicore-modalactions')
+            .contains('Add layer')
+            .click()
+
+        Layer.validateDialogClosed(true)
+
+        cy.get('svg.dhis2-map-timeline', EXTENDED_TIMEOUT).should('be.visible')
+        cy.waitForMap(MAP_TIMEOUT)
+
+        // Drill down
+        getMaps()
+            .first()
+            .then(($el) => {
+                getMaps()
+                    .first()
+                    .rightclick($el.width() / 2, $el.height() / 2)
+            })
+        cy.getByDataTest(DRILL_DOWN, EXTENDED_TIMEOUT).click()
+
+        cy.waitForMap(MAP_TIMEOUT)
+        // fitBounds animation after drilling down
+        // eslint-disable-next-line cypress/no-unnecessary-waiting
+        cy.wait(1000)
+        getMaps().click('center')
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT).should('be.visible')
+        cy.get('.maplibregl-popup').invoke('text').as('popupTextBeforePlay')
+
+        cy.get('.play-icon').click()
+
+        cy.get('@popupTextBeforePlay').then((textBefore) => {
+            cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
+                .invoke('text')
+                .should('not.eq', textBefore)
+        })
+    })
+
+    it('does not inherit period when adding a new thematic layer after single thematic layer', () => {
+        const SPECIFIC_YEAR = CURRENT_YEAR - 3
+
+        // Add first thematic layer with a specific non-default fixed period
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(HIV_INDICATOR_GROUP)
+            .selectIndicator(HIV_INDICATOR_NAME)
+            .selectTab('Period')
+            .selectPeriodType({
+                periodType: 'YEARLY',
+                periodDimension: 'fixed',
+                n: 0,
+                y: SPECIFIC_YEAR + 9,
+            })
+            .selectTab('Org Units')
+            .selectOu('Sierra Leone')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardTitle(HIV_INDICATOR_NAME)
+        Layer.validateCardPeriod(`${SPECIFIC_YEAR}`)
+
+        // Open dialog for second thematic layer and go to Period tab
+        Layer.openDialog('Thematic')
+            .selectItemType('Indicators')
+            .selectIndicatorGroup(ANC_INDICATOR_GROUP)
+            .selectIndicator(ANC_INDICATOR_NAME)
+            .selectTab('Period')
+
+        // Rendering should be SINGLE (not inherited from layer 1)
+        cy.get('input[value="SINGLE"]').should('be.checked')
+
+        // The specific year from layer 1 should NOT be pre-selected in the
+        // picked area (before the fix it would be inherited)
+        cy.getByDataTest('period-dimension-transfer-pickedoptions')
+            .contains(`${SPECIFIC_YEAR}`)
+            .should('not.exist')
     })
 
     it('adds two thematic layer with split view period', () => {
@@ -619,8 +717,7 @@ context('Thematic Layers', () => {
             .children()
             .should('have.length', 2)
 
-        // wait to make sure the maps are loaded
-        cy.wait(2000) // eslint-disable-line cypress/no-unnecessary-waiting
+        cy.waitForMap(MAP_TIMEOUT)
 
         expectContextMenuOptions([
             { name: DRILL_UP, disabled: true },
@@ -631,8 +728,7 @@ context('Thematic Layers', () => {
 
     // TODO - update demo database with calculations instead of creating on the fly
     it('adds a thematic layer with a calculation', () => {
-        const timestamp = new Date().toUTCString().slice(-24, -4)
-        const calculationName = `map calc ${timestamp}`
+        const calculationName = `map calc ${uniqueId()}`
 
         // add a calculation
         cy.request('POST', `${getApiBaseUrl()}/api/expressionDimensionItems`, {
@@ -710,10 +806,9 @@ context('Thematic Layers', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'Organisation unit or organisation unit level is not valid'
             )
@@ -725,6 +820,8 @@ context('Thematic Layers', () => {
             .unselectOuLevel('National')
             .selectOuLevel('Chiefdom')
             .updateMap()
+
+        cy.waitForMap(MAP_TIMEOUT)
 
         // confirm that the map is valid now
         cy.getByDataTest('layerlegend-item').should('have.length', 5)

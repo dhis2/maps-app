@@ -62,7 +62,10 @@ const BufferRadius = ({
                     onChange={(value) =>
                         setBufferRadius(
                             value !== ''
-                                ? Math.max(parseInt(value, 10), MIN_RADIUS)
+                                ? Math.max(
+                                      Number.parseInt(value, 10),
+                                      MIN_RADIUS
+                                  )
                                 : ''
                         )
                     }
@@ -93,7 +96,7 @@ BufferRadius.propTypes = {
 
 export default connect(
     ({ layerEdit }) => ({
-        radius: layerEdit.areaRadius,
+        radius: layerEdit?.areaRadius,
     }),
     { setBufferRadius }
 )(BufferRadius)

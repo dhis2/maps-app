@@ -1,5 +1,5 @@
-const { existsSync, readdirSync, lstatSync } = require('fs')
-const path = require('path')
+const { existsSync, readdirSync, lstatSync } = require('node:fs')
+const path = require('node:path')
 const fsExtra = require('fs-extra')
 
 const downloadsDirPath = 'cypress/downloads'
@@ -20,7 +20,7 @@ const getLastDownloadFilePath = () => {
     }
 
     // TODO: this works only for chrome family browsers
-    if (filesOrdered[0].fileName.indexOf('crdownload') > -1) {
+    if (filesOrdered[0].fileName.includes('crdownload')) {
         return null
     }
 

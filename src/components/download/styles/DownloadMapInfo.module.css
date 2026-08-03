@@ -1,7 +1,7 @@
 .downloadMapInfo {
     background-color: #fff;
     height: 100%;
-    width: calc(var(--right-panel-width) - var(--spacers-dp24));
+    width: calc(var(--right-panel-width) - var(--spacers-dp96));
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -23,15 +23,4 @@
 .downloadMapInfo div a:link,
 .downloadMapInfo div a:visited {
     color: var(--colors-grey900);
-}
-
-.downloadMapInfo table {
-    table-layout: fixed;
-}
-
-.downloadMapInfo table td {
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 330px;
 }

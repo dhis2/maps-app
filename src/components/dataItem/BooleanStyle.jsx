@@ -5,10 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setBooleanStyle } from '../../actions/layerEdit.js'
 import { qualitativeColors } from '../../constants/colors.js'
 import OptionStyle from '../optionSet/OptionStyle.jsx'
-
-const style = {
-    marginTop: 20,
-}
+import styles from './styles/BooleanStyle.module.css'
 
 const BooleanStyle = ({ valueType, values }) => {
     const dispatch = useDispatch()
@@ -28,7 +25,7 @@ const BooleanStyle = ({ valueType, values }) => {
     }
 
     return (
-        <div style={style}>
+        <div className={styles.booleanStyle}>
             <OptionStyle
                 name={i18n.t('Yes')}
                 color={values.true}

@@ -30,6 +30,7 @@ class MapItem extends PureComponent {
         isFullscreen: PropTypes.bool,
         isPlugin: PropTypes.bool,
         layersSorting: PropTypes.bool,
+        resizeCount: PropTypes.number,
     }
 
     static defaultProps = {
@@ -79,7 +80,8 @@ class MapItem extends PureComponent {
     }
 
     componentDidUpdate(prevProps) {
-        const { count, isFullscreen, isPlugin, layersSorting } = this.props
+        const { count, isFullscreen, isPlugin, layersSorting, resizeCount } =
+            this.props
 
         if (count !== prevProps.count) {
             this.fitLayerBounds()
@@ -93,7 +95,9 @@ class MapItem extends PureComponent {
             onFullscreenChange(this.map, isFullscreen)
         }
 
-        this.map.resize()
+        if (resizeCount !== prevProps.resizeCount) {
+            this.map.resize()
+        }
     }
 
     componentWillUnmount() {

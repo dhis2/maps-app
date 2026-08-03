@@ -3,7 +3,6 @@ import { getMaps } from '../../elements/map_canvas.js'
 import {
     CURRENT_YEAR,
     EXTENDED_TIMEOUT,
-    POPUP_WAIT,
     getDhis2Version,
 } from '../../support/util.js'
 
@@ -11,7 +10,7 @@ const programE2E = {
     name: 'E2E program',
     stage: 'Stage 1 - Repeatable',
     de: 'E2E - Yes/no',
-    options: ['Yes', 'No', 'Other'],
+    options: ['Yes', 'No', 'Unclassified', 'No data'],
 }
 
 const programIP = {
@@ -97,10 +96,7 @@ const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
     Layer.validateDialogClosed(true)
 
     // Wait for map to load
-    cy.wait(POPUP_WAIT)
-    cy.get('#dhis2-map-container')
-        .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-        .should('not.exist')
+    cy.waitForMap()
 
     // Check popup
     getMaps().click('center') // Click in the middle of the map
@@ -111,35 +107,63 @@ const testCoordinate = (Layer, coordinates, reOpenDialog = true) => {
     Layer.validateCardContents(['Coordinate field', `${coordinates.name}`])
 }
 
-const selectProgramAndStage = (Layer, programName, stageName) => {
+const selectProgramAndStage = (
+    Layer,
+    programName,
+    { stageName, validateOnly = false } = {}
+) => {
+    cy.intercept('GET', /\/programs\?/).as('getPrograms')
+    cy.intercept('GET', /\/programs\/[a-zA-Z0-9]{11}\?fields=programStages/).as(
+        'getProgramStages'
+    )
+    cy.intercept(
+        'GET',
+        /\/programs\/[a-zA-Z0-9]{11}\?fields=trackedEntityType/
+    ).as('getProgramTrackedEntityAttributes')
     cy.intercept(
         'GET',
         /\/programStages\/[a-zA-Z0-9]{11}\?fields=programStageDataElements/
     ).as('getProgramStageDataElements')
 
-    Layer.openDialog('Events').selectProgram(programName).selectStage(stageName)
-
-    cy.wait('@getProgramStageDataElements')
+    Layer.openDialog('Events')
+    cy.wait('@getPrograms', EXTENDED_TIMEOUT)
+    Layer.selectProgram(programName)
+    cy.wait(
+        ['@getProgramStages', '@getProgramTrackedEntityAttributes'],
+        EXTENDED_TIMEOUT
+    )
+    if (validateOnly) {
+        Layer.validateStage(stageName)
+    } else {
+        Layer.selectStage(stageName)
+    }
+    cy.wait('@getProgramStageDataElements', EXTENDED_TIMEOUT)
 }
 
 context('Event Layers', () => {
     beforeEach(() => {
         cy.visit('/')
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
     const Layer = new EventLayer()
 
     it('adds an event layer and applies style for boolean data element', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programE2E.name)
-            .validateStage(programE2E.stage)
-            .selectTab('Style')
+        selectProgramAndStage(Layer, programE2E.name, {
+            stageName: programE2E.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Style')
 
         cy.getByDataTest('style-by-data-item-select').click()
 
         cy.getByDataTest('dhis2-uicore-singleselectoption')
             .contains(programE2E.de)
             .click()
+
+        Layer.selectIncludeUnclassifiedEvents()
+        Layer.selectIncludeNoDataEvents()
 
         Layer.addToMap()
 
@@ -158,13 +182,12 @@ context('Event Layers', () => {
     })
 
     it('shows error if no endDate is specified', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programIP.name)
-            .validateStage(programIP.stage)
-            .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
-            .typeEndDate()
-            .addToMap()
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Period').selectStartEndDates().typeEndDate().addToMap()
 
         Layer.validateDialogClosed(false)
         cy.contains('End date is invalid').should('be.visible')
@@ -177,10 +200,12 @@ context('Event Layers', () => {
     })
 
     it('adds an event layer - relative period', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programIP.name)
-            .validateStage(programIP.stage)
-            .selectTab('Org Units')
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Org Units')
             .selectOu(programIP.ous[0])
             .selectOu(programIP.ous[1])
             .addToMap()
@@ -192,11 +217,13 @@ context('Event Layers', () => {
     })
 
     it('adds an event layer - start-end dates', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programIP.name)
-            .validateStage(programIP.stage)
-            .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Period')
+            .selectStartEndDates()
             .typeStartDate(programIP.startDate)
             .typeEndDate(programIP.endDate)
             .selectTab('Org Units')
@@ -214,12 +241,81 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('adds an event layer with multiple periods', () => {
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Period')
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 2,
+                y: CURRENT_YEAR - 1,
+            })
+            .selectPeriodType({
+                periodType: 'MONTHLY',
+                periodDimension: 'fixed',
+                n: 7,
+                removeAll: false,
+            })
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        Layer.validateCardTitle(programIP.name)
+        Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
+        Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
+
+        cy.waitForMap()
+
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
+        getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
+        Layer.validatePopupContents(['Event location'])
+    })
+
+    it('preserves start/end dates when editing a saved event layer', () => {
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Period')
+            .selectStartEndDates()
+            .typeStartDate(programIP.startDate)
+            .typeEndDate(programIP.endDate)
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectTab('Style')
+            .selectViewAllEvents()
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+        Layer.validateCardPeriod(programIP.periodText)
+
+        // Open edit dialog and immediately save without changing anything
+        cy.getByDataTest('layer-edit-button').click()
+        Layer.updateMap()
+        Layer.validateDialogClosed(true)
+
+        // Dates must still be the original ones (the fix)
+        Layer.validateCardPeriod(programIP.periodText)
+    })
+
     it('opens an event popup', () => {
-        Layer.openDialog('Events')
-            .selectProgram(programIP.name)
-            .validateStage(programIP.stage)
-            .selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Period')
+            .selectStartEndDates()
             .typeStartDate(programIP.startDate)
             .typeEndDate(programIP.endDate)
             .selectTab('Style')
@@ -231,12 +327,11 @@ context('Event Layers', () => {
             .selectOu(programIP.ousAlt[2])
             .addToMap()
 
-        cy.wait(POPUP_WAIT)
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
 
+        cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
         getMaps().click('center')
+        cy.wait('@getEventPopupData', EXTENDED_TIMEOUT)
         Layer.validatePopupContents([
             'Event location',
             '-13.188339, 8.405215',
@@ -250,15 +345,73 @@ context('Event Layers', () => {
         Layer.validateCardItems(['Event'])
     })
 
+    it('sends multiple filters on the same dimension with colon separator [DHIS2-19696]', () => {
+        cy.intercept('GET', /analytics\/events\/query\//).as('analyticsQuery')
+
+        selectProgramAndStage(Layer, programIP.name, {
+            stageName: programIP.stage,
+            validateOnly: true,
+        })
+
+        Layer.selectTab('Style')
+            .selectViewAllEvents()
+            .selectTab('Org Units')
+            .selectOu(programIP.ous[0])
+            .selectOu(programIP.ous[1])
+
+        Layer.selectTab('Filter')
+
+        // First filter: Age in years > 50
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains('Age in years')
+            .click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(/^>$/)
+            .click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .last()
+            .find('input')
+            .type('50')
+
+        // Second filter: Age in years < 60
+        cy.contains('Add filter').click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains('Age in years')
+            .click()
+        cy.getByDataTest('dhis2-uicore-select-input').last().click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(/^<$/)
+            .click()
+        cy.getByDataTest('dhis2-uiwidgets-inputfield-content')
+            .last()
+            .find('input')
+            .type('60')
+
+        Layer.addToMap()
+        Layer.validateDialogClosed(true)
+
+        cy.wait('@analyticsQuery').then(({ request }) => {
+            expect(decodeURIComponent(request.url)).to.include(
+                'qrur9Dvnyt5:GT:50:LT:60'
+            )
+        })
+    })
+
     it.skip('change coordinate field - de/tea coordinate', () => {
         // TODO: E2E DB fix
         // Event layer config
 
-        selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+        selectProgramAndStage(Layer, programGeowR.name, {
+            stageName: programGeowR.stage,
+        })
 
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programGeowR.startDate)
             .typeEndDate(programGeowR.endDate)
         Layer.selectTab('Style').selectViewAllEvents()
@@ -286,10 +439,12 @@ context('Event Layers', () => {
     it.skip('change coordinate field - event orgunit', () => {
         // TODO: E2E DB fix
         // Event layer config
-        selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+        selectProgramAndStage(Layer, programGeowR.name, {
+            stageName: programGeowR.stage,
+        })
         Layer.selectCoordinate(programGeowR.scenarios[0].coordinates[0].name)
         Layer.selectTab('Period')
-            .selectPeriodType({ periodType: 'Start/end dates' })
+            .selectStartEndDates()
             .typeStartDate(programGeowR.startDate)
             .typeEndDate(programGeowR.endDate)
         Layer.selectTab('Style').selectViewAllEvents()
@@ -326,12 +481,14 @@ context('Event Layers', () => {
             serverVersion.minor >= 42
         ) {
             // Event layer config
-            selectProgramAndStage(Layer, programGeowR.name, programGeowR.stage)
+            selectProgramAndStage(Layer, programGeowR.name, {
+                stageName: programGeowR.stage,
+            })
             Layer.selectCoordinate(
                 programGeowR.scenarios[0].coordinates[0].name
             )
             Layer.selectTab('Period')
-                .selectPeriodType({ periodType: 'Start/end dates' })
+                .selectStartEndDates()
                 .typeStartDate(programGeowR.startDate)
                 .typeEndDate(programGeowR.endDate)
             Layer.selectTab('Style').selectViewAllEvents()

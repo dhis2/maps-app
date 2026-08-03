@@ -25,7 +25,7 @@ const NorthArrow = ({
     useEffect(() => {
         map.on('rotate', onMapRotate)
         return () => {
-            map.on('rotate', onMapRotate)
+            map.off('rotate', onMapRotate)
         }
     }, [map, onMapRotate])
 

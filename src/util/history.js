@@ -40,18 +40,18 @@ const getHashUrlParam = (key) => {
 }
 
 const openDownloadMode = () => {
-    if (history.location.pathname === '/') {
-        history.push(`/${DOWNLOAD}`)
-    } else {
-        history.push(`${history.location.pathname}/${DOWNLOAD}`)
-    }
+    const pathname = history.location.pathname.replace(/\/+$/, '')
+    history.push(pathname ? `${pathname}/${DOWNLOAD}` : `/${DOWNLOAD}`)
 }
 
 const closeDownloadMode = () => {
     if (history.location.pathname === `/${DOWNLOAD}`) {
         history.push('/')
     } else {
-        const rootPath = history.location.pathname.split(`/${DOWNLOAD}`)[0]
+        const rootPath =
+            history.location.pathname
+                .split(`/${DOWNLOAD}`)[0]
+                .replace(/\/+$/, '') || '/'
         history.push(rootPath)
     }
 }

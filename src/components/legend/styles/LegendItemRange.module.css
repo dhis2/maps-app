@@ -1,5 +1,108 @@
-.legendItemRange {
-    line-height: 24px;
+.legendItemRange,
+.legendName,
+.legendNameEmpty,
+.legendStart,
+.legendEnd,
+.legendDash,
+.legendCount {
+    line-height: 22px;
+}
+
+.legendItemRange,
+.legendName {
+    overflow: hidden;
     padding-left: var(--spacers-dp8);
+    padding-right: var(--spacers-dp2);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.legendItemRange {
+    color: var(--colors-grey900);
+    max-width: 10em;
+    padding-right: 0;
+}
+
+@keyframes tooltipExpandRight {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0% 0 0);
+    }
+}
+
+.legendTooltip {
+    animation: tooltipExpandRight 160ms ease-out;
+    background: var(--colors-white);
+    border-radius: 3px;
+    -webkit-mask-image: linear-gradient(to left, transparent, black 2em);
+    mask-image: linear-gradient(to left, transparent, black 2em);
+    padding: 0 2em 0 0;
+    pointer-events: none;
+    position: fixed;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.legendRangeTooltip,
+.legendCountTooltip {
+    font-variant-numeric: tabular-nums;
+}
+
+.legendNameEmpty {
+    padding-left: var(--spacers-dp4);
+}
+
+.legendStart,
+.legendEnd {
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+    text-align: right;
+    white-space: nowrap;
+}
+
+.legendNameSpacer ~ .legendStart,
+.legendNameSpacer ~ .legendEnd,
+.legendNameSpacer ~ .legendDash {
+    color: var(--colors-grey800);
+}
+
+.legendName:has(+ .legendNameSpacer) {
+    max-width: var(--legend-name-max-width);
+    padding-right: var(--spacers-dp4);
+}
+
+.legendNameSpacer ~ .legendCount {
+    padding-left: var(--spacers-dp4);
+}
+
+.legendDash {
+    color: var(--colors-grey600);
+    padding: 0 2px;
+    text-align: center;
+}
+
+.legendNameSpacer,
+.legendSpacer {
+    width: 100%;
+}
+
+.legendValueButton {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: default;
+    display: inline;
+    font: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.legendCount {
+    color: var(--colors-grey600);
+    padding-left: var(--spacers-dp2);
+    text-align: right;
     white-space: nowrap;
 }

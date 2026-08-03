@@ -144,11 +144,17 @@ export const EE_BUFFER = 5000
 export const CLASSIFICATION_PREDEFINED = 1
 export const CLASSIFICATION_EQUAL_INTERVALS = 2
 export const CLASSIFICATION_EQUAL_COUNTS = 3
+export const CLASSIFICATION_NATURAL_BREAKS_RANGES = 4
+export const CLASSIFICATION_NATURAL_BREAKS_CLUSTERS = 5
+export const CLASSIFICATION_PRETTY_BREAKS = 6
+export const CLASSIFICATION_LOGARITHMIC = 7
+export const CLASSIFICATION_STANDARD_DEVIATION = 8
 export const CLASSIFICATION_SINGLE_COLOR = 10
+export const CLASSIFICATION_AUTO_DEFAULT = CLASSIFICATION_EQUAL_INTERVALS
 
 export const getLegendTypes = (isBubble) => [
     {
-        id: CLASSIFICATION_EQUAL_INTERVALS,
+        id: CLASSIFICATION_AUTO_DEFAULT,
         name: i18n.t('Automatic color legend'),
     },
     {
@@ -174,6 +180,26 @@ export const getClassificationTypes = () => [
         id: CLASSIFICATION_EQUAL_COUNTS,
         name: i18n.t('Equal counts'),
     },
+    {
+        id: CLASSIFICATION_NATURAL_BREAKS_RANGES,
+        name: i18n.t('Natural breaks (intervals)'),
+    },
+    {
+        id: CLASSIFICATION_NATURAL_BREAKS_CLUSTERS,
+        name: i18n.t('Natural breaks (clusters)'),
+    },
+    {
+        id: CLASSIFICATION_PRETTY_BREAKS,
+        name: i18n.t('Pretty breaks'),
+    },
+    {
+        id: CLASSIFICATION_LOGARITHMIC,
+        name: i18n.t('Logarithmic scale'),
+    },
+    {
+        id: CLASSIFICATION_STANDARD_DEVIATION,
+        name: i18n.t('Standard deviation'),
+    },
 ]
 
 export const STYLE_TYPE_COLOR = 'COLOR'
@@ -194,6 +220,7 @@ export const getGroupSetStyleTypes = () => [
 export const LABEL_TEMPLATE_NAME_ONLY = '{name}'
 export const LABEL_TEMPLATE_NAME_AND_VALUE = '{name}\n{value}'
 export const LABEL_TEMPLATE_VALUE_ONLY = '{value}'
+export const LABEL_TEMPLATE_TOOLTIP_ONLY = '{tooltip}'
 
 /* LABEL STYLES */
 export const LABEL_FONT_SIZE = '14px'

@@ -4,8 +4,8 @@ import { connect } from 'react-redux'
 import { setClassification } from '../../actions/layerEdit.js'
 import {
     getLegendTypes,
-    CLASSIFICATION_EQUAL_INTERVALS,
-    CLASSIFICATION_EQUAL_COUNTS,
+    getClassificationTypes,
+    CLASSIFICATION_AUTO_DEFAULT,
 } from '../../constants/layers.js'
 import { Radio, RadioGroup } from '../core/index.js'
 
@@ -13,15 +13,17 @@ import { Radio, RadioGroup } from '../core/index.js'
 const LegendTypeSelect = ({ mapType, method, setClassification }) =>
     method ? (
         <RadioGroup
-            value={
-                method === CLASSIFICATION_EQUAL_COUNTS
-                    ? CLASSIFICATION_EQUAL_INTERVALS
+            value={String(
+                getClassificationTypes()
+                    .map(({ id }) => id)
+                    .includes(method)
+                    ? CLASSIFICATION_AUTO_DEFAULT
                     : method
-            }
+            )}
             onChange={(method) => setClassification(Number(method))}
         >
             {getLegendTypes(mapType === 'BUBBLE').map(({ id, name }) => (
-                <Radio key={id} value={id} label={name} />
+                <Radio key={id} value={String(id)} label={name} />
             ))}
         </RadioGroup>
     ) : null

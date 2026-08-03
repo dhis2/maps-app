@@ -1,7 +1,13 @@
 export const EXTENDED_TIMEOUT = { timeout: 25000 }
-export const POPUP_WAIT = 2500
 
 export const CURRENT_YEAR = new Date().getFullYear()
+
+const randomHex = (byteLength) =>
+    Array.from(crypto.getRandomValues(new Uint8Array(byteLength)))
+        .map((byte) => byte.toString(16).padStart(2, '0'))
+        .join('')
+
+export const uniqueId = () => `${Date.now()}-${randomHex(4)}`
 
 export const getApiBaseUrl = () => {
     const baseUrl = Cypress.env('dhis2BaseUrl') || ''
@@ -293,7 +299,7 @@ export const assertIntercepts = ({
             // Trigger the requests
             const fn = triggerFn || commonTriggerFn
             if (typeof fn !== 'function') {
-                throw new Error(
+                throw new TypeError(
                     `[${n}] Missing triggerFn for intercepts group: ${alias}`
                 )
             }
@@ -331,7 +337,7 @@ export const assertIntercepts = ({
                 // Trigger the request
                 const fn = triggerFn || commonTriggerFn
                 if (typeof fn !== 'function') {
-                    throw new Error(
+                    throw new TypeError(
                         `[${n}] Missing triggerFn for single intercept: ${alias}`
                     )
                 }

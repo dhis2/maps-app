@@ -1,3 +1,8 @@
+import {
+    USER_ORG_UNIT,
+    USER_ORG_UNIT_CHILDREN,
+    USER_ORG_UNIT_GRANDCHILDREN,
+} from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { uniqBy } from 'lodash/fp'
 import { qualitativeColors } from '../constants/colors.js'
@@ -10,6 +15,27 @@ import {
     NONE,
 } from '../constants/layers.js'
 import { getUniqueColor } from './colors.js'
+import { toGeoJson } from './map.js'
+import {
+    FIRST_DATA_ELEMENT_QUERY,
+    GEOFEATURES_QUERY,
+    ORG_UNITS_COUNT_QUERY,
+    ORG_UNITS_PATHS_QUERY,
+    ORG_UNIT_DETAILS_QUERY,
+} from './requests.js'
+
+// Expands the user's org unit tree into USER_ORGUNIT keyword id lists.
+export const getUserOrgUnitIdsByKeyword = (organisationUnits = []) => ({
+    [USER_ORG_UNIT]: organisationUnits.map((ou) => ou.id),
+    [USER_ORG_UNIT_CHILDREN]: organisationUnits.flatMap(
+        (ou) => ou.children?.map((c) => c.id) ?? []
+    ),
+    [USER_ORG_UNIT_GRANDCHILDREN]: organisationUnits.flatMap(
+        (ou) =>
+            ou.children?.flatMap((c) => c.children?.map((g) => g.id) ?? []) ??
+            []
+    ),
+})
 
 const getGroupColor = (groups) => {
     const groupsWithoutColors = groups.filter((g) => !g.color)
@@ -67,27 +93,26 @@ export const getPointItems = (data) => data.filter((d) => d.ty === 1)
 export const getPolygonItems = (data) => data.filter((d) => d.ty === 2)
 
 export const getOrgUnitStyle = (dimensions, groupSet) =>
-    groupSet &&
-    groupSet.organisationUnitGroups &&
-    dimensions &&
-    dimensions[groupSet.id]
+    groupSet?.organisationUnitGroups && dimensions?.[groupSet.id]
         ? groupSet.organisationUnitGroups.find(
               (g) => g.id === dimensions[groupSet.id]
           )
         : {}
 
 export const getOrgUnitGroupLegendItems = (
-    groups = [],
     useColor,
-    contextPath
+    contextPath,
+    groups = []
 ) =>
-    groups.map(({ name, color = true, symbol }) =>
+    groups.map(({ id, name, color = true, symbol }) =>
         useColor
             ? {
+                  id,
                   name,
                   color,
               }
             : {
+                  id,
                   name,
                   image: `${contextPath}/images/orgunitgroup/${symbol}`,
               }
@@ -99,6 +124,7 @@ export const getStyledOrgUnits = ({
     config: {
         organisationUnitColor = ORG_UNIT_COLOR,
         radiusLow = ORG_UNIT_RADIUS,
+        unclassifiedLegend,
     },
     baseUrl,
     orgUnitLevels,
@@ -129,52 +155,65 @@ export const getStyledOrgUnits = ({
 
     const useColor = styleType === STYLE_TYPE_COLOR
 
-    let styledFeatures = features.map((f) => {
-        const isPoint = f.geometry.type === 'Point'
-        const { hasAdditionalGeometry } = f.properties
-        const { color, symbol } = getOrgUnitStyle(
-            f.properties.dimensions,
-            groupSet
+    const styledFeatures = features
+        .map((f) => {
+            const isPoint = f.geometry.type === 'Point'
+            const { hasAdditionalGeometry } = f.properties
+            const { color, symbol } = getOrgUnitStyle(
+                f.properties.dimensions,
+                groupSet
+            )
+            const isUnclassified = !!groupSet.id && !color && !symbol
+            let radius
+
+            if (isPoint) {
+                radius = hasAdditionalGeometry
+                    ? ORG_UNIT_RADIUS_SMALL + 1
+                    : radiusLow
+            }
+
+            const properties = {
+                ...f.properties,
+                radius,
+            }
+
+            if (isUnclassified && unclassifiedLegend) {
+                properties.color = unclassifiedLegend.color
+            } else if (useColor && color) {
+                properties.color = hasAdditionalGeometry
+                    ? ORG_UNIT_COLOR
+                    : color
+            } else if (symbol) {
+                properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
+            }
+
+            if (properties.level && levelWeight) {
+                properties.weight = levelWeight(f.properties.level)
+            }
+
+            return {
+                ...f,
+                properties,
+            }
+        })
+        .filter(
+            (f) =>
+                !groupSet.id || !!f.properties.iconUrl || !!f.properties.color
         )
-        let radius
-
-        if (isPoint) {
-            radius = hasAdditionalGeometry
-                ? ORG_UNIT_RADIUS_SMALL + 1
-                : radiusLow
-        }
-
-        const properties = {
-            ...f.properties,
-            radius,
-        }
-
-        if (useColor && color) {
-            properties.color = hasAdditionalGeometry ? ORG_UNIT_COLOR : color
-        } else if (symbol) {
-            properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
-        }
-
-        if (properties.level && levelWeight) {
-            properties.weight = levelWeight(f.properties.level)
-        }
-
-        return {
-            ...f,
-            properties,
-        }
-    })
-
-    // Only include facilities having a group membership
-    if (isFacilityLayer && groupSet.id && !useColor) {
-        styledFeatures = styledFeatures.filter((f) => f.properties.iconUrl)
-    }
 
     const groupItems = getOrgUnitGroupLegendItems(
-        organisationUnitGroups,
         useColor,
-        baseUrl
+        baseUrl,
+        organisationUnitGroups
     )
+
+    if (unclassifiedLegend && groupSet.id) {
+        groupItems.push({
+            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            color: unclassifiedLegend.color,
+            ...(isFacilityLayer && !useColor ? { radius: radiusLow } : {}),
+        })
+    }
 
     const facilityItems =
         isFacilityLayer && !groupSet.id
@@ -191,7 +230,9 @@ export const getStyledOrgUnits = ({
         styledFeatures,
         legend: {
             unit: name,
-            items: [...levelItems, ...groupItems, ...facilityItems],
+            items: groupItems.length
+                ? groupItems
+                : [...levelItems, ...facilityItems],
         },
     }
 }
@@ -201,7 +242,7 @@ export const translateOrgUnitLevels = (orgUnits, orgUnitLevels = []) => {
     const items = orgUnits?.items || []
 
     return items.map((item) => {
-        const levelNumber = item.id.match(/^LEVEL-([0-9])+$/)
+        const levelNumber = item.id.match(/^LEVEL-(\d)+$/)
 
         if (levelNumber) {
             const level = orgUnitLevels.find(
@@ -223,6 +264,174 @@ export const getCoordinateField = ({ orgUnitField, orgUnitFieldDisplayName }) =>
     orgUnitField && orgUnitField !== NONE
         ? { id: orgUnitField, name: orgUnitFieldDisplayName }
         : null
+
+export const getOrgUnitsWithoutCoordsCount = async ({
+    engine,
+    orgUnitIds,
+    userId,
+    features = [],
+}) => {
+    if (!orgUnitIds.length) {
+        return { count: 0, missingOrgUnits: [] }
+    }
+
+    try {
+        const deResult = await engine.query(FIRST_DATA_ELEMENT_QUERY)
+        const dataElementId = deResult?.dataElements?.dataElements?.[0]?.id
+        if (!dataElementId) {
+            return { error: true }
+        }
+
+        const countData = await engine.query(ORG_UNITS_COUNT_QUERY, {
+            variables: { dataElementId, orgUnitIds, userId },
+        })
+        const allOuIds =
+            countData?.orgUnitsCount?.metaData?.dimensions?.ou || []
+        const metaItems = countData?.orgUnitsCount?.metaData?.items || {}
+
+        const featureIds = new Set(features.map((f) => f.id))
+        const missingOrgUnits = allOuIds
+            .filter((id) => !featureIds.has(id))
+            .map((id) => ({
+                id,
+                properties: { id, name: metaItems[id]?.name || id },
+            }))
+
+        return { count: missingOrgUnits.length, missingOrgUnits }
+    } catch {
+        return { error: true }
+    }
+}
+
+export const OU_DETAILS_BATCH_SIZE = 100
+
+// Batches an org unit query..
+// TODO: surface partial failures to callers (orgUnitLoader.js, thematicLoader.js, eventLoader.js) instead of silently degrading.
+const fetchInBatches = async (engine, ids, { query, buildVariables }) => {
+    if (!ids.length) {
+        return []
+    }
+    const batches = []
+    for (let i = 0; i < ids.length; i += OU_DETAILS_BATCH_SIZE) {
+        batches.push(ids.slice(i, i + OU_DETAILS_BATCH_SIZE))
+    }
+    const results = await Promise.allSettled(
+        batches.map((batch) =>
+            engine.query(query, { variables: buildVariables(batch) })
+        )
+    )
+    return results
+        .filter((result) => result.status === 'fulfilled')
+        .map((result) => result.value)
+}
+
+export const fetchOrgUnitDetails = async (engine, ids) => {
+    const results = await fetchInBatches(engine, ids, {
+        query: ORG_UNIT_DETAILS_QUERY,
+        buildVariables: (batch) => ({ ids: batch }),
+    })
+    return results.reduce((acc, result) => {
+        result.orgUnits.organisationUnits?.forEach((ou) => {
+            acc[ou.id] = { level: ou.level, parentName: ou.parent?.name }
+        })
+        return acc
+    }, {})
+}
+
+export const fetchOrgUnitPaths = async (engine, ids) => {
+    const results = await fetchInBatches(engine, ids, {
+        query: ORG_UNITS_PATHS_QUERY,
+        buildVariables: (batch) => ({ ids: batch.join(',') }),
+    })
+    return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
+}
+
+export const addGroupCountsToLegend = (legendItems, features, groupSet) => {
+    legendItems.forEach((item) => (item.count = 0))
+    const unclassifiedItem = legendItems.find((i) => !i.id)
+    features.forEach((f) => {
+        const groupId = f.properties?.dimensions?.[groupSet.id]
+        const item =
+            (groupId && legendItems.find((i) => i.id === groupId)) ??
+            unclassifiedItem
+        if (item) {
+            item.count++
+        }
+    })
+}
+
+export const addLevelCountsToLegend = (
+    legendItems,
+    features,
+    orgUnitLevels
+) => {
+    legendItems.forEach((item) => (item.count = 0))
+    features.forEach((f) => {
+        const levelInfo = orgUnitLevels.find(
+            (l) => l.level === f.properties.level
+        )
+        const item =
+            levelInfo &&
+            legendItems.find((i) => i.name === levelInfo.displayName)
+        if (item) {
+            item.count++
+        }
+    })
+}
+
+export const fetchAndParseGroupSet = async (engine, groupSet) => {
+    try {
+        const { groupSets } = await engine.query(ORG_UNITS_GROUP_SET_QUERY, {
+            variables: { id: groupSet?.id },
+        })
+        return {
+            organisationUnitGroups: parseGroupSet({
+                organisationUnitGroups: groupSets.organisationUnitGroups,
+            }),
+            name: groupSets.name,
+        }
+    } catch {
+        return null
+    }
+}
+
+export const loadGroupSetData = async (engine, groupSet, includeGroupSets) => {
+    if (!includeGroupSets || groupSet.organisationUnitGroups) {
+        return null
+    }
+    const parsed = await fetchAndParseGroupSet(engine, groupSet)
+    if (!parsed) {
+        return i18n.t('GroupSet used for styling was not found')
+    }
+    groupSet.organisationUnitGroups = parsed.organisationUnitGroups
+    groupSet.name = parsed.name
+    return null
+}
+
+export const fetchAssociatedGeometries = async (
+    engine,
+    {
+        orgUnitIds,
+        keyAnalysisDisplayProperty,
+        includeGroupSets,
+        coordinateField,
+        userId,
+    },
+    filterGeoFeatures = (items) => items
+) => {
+    const rawData = await engine.query(GEOFEATURES_QUERY, {
+        variables: {
+            orgUnitIds,
+            keyAnalysisDisplayProperty,
+            includeGroupSets,
+            coordinateField: coordinateField.id,
+            userId,
+        },
+    })
+    return rawData?.geoFeatures
+        ? toGeoJson(filterGeoFeatures(rawData.geoFeatures))
+        : null
+}
 
 // Combines main org unit features with associated geometries
 export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
@@ -247,7 +456,7 @@ export const addAssociatedGeometries = (mainFeatures, associatedGeometries) => {
             }
         })
         .map((f) => {
-            const associated = associatedGeometries.find((a) => a.id === f.id)
+            const associated = associatedGeometries.some((a) => a.id === f.id)
 
             return associated
                 ? {

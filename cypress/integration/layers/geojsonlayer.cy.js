@@ -61,7 +61,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 5)
+            .should('have.length', 6)
 
         cy.getByDataTest('more-menu')
             .find('li')
@@ -129,10 +129,9 @@ describe('GeoJSON URL Layer', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )
@@ -144,7 +143,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 3) // Edit layer, Remove layer, divider line
+            .should('have.length', 4) // Edit layer, Duplicate layer, Remove layer, divider line
 
         cy.getByDataTest('more-menu')
             .find('li')
@@ -194,10 +193,9 @@ describe('GeoJSON URL Layer', () => {
         // check that an error is displayed in the layer card
         cy.getByDataTest('load-error-noticebox').should('be.visible')
         cy.getByDataTest('load-error-noticebox')
-            .find('h6')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('dhis2-uicore-noticebox-content-message')
+        cy.getByDataTest('load-error-noticebox')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )
@@ -209,7 +207,7 @@ describe('GeoJSON URL Layer', () => {
         cy.getByDataTest('more-menu')
             .find('li')
             .not('.disabled')
-            .should('have.length', 3) // Edit layer, Remove layer, divider line
+            .should('have.length', 4) // Edit layer, Duplicate layer, Remove layer, divider line
 
         cy.getByDataTest('more-menu')
             .find('li')

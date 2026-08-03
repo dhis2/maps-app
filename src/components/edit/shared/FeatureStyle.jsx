@@ -111,7 +111,7 @@ const FeatureStyle = ({ style, onChange }) => {
                             label={label}
                             value={style[id]}
                             onChange={(value) => {
-                                let val = parseInt(value)
+                                let val = Number.parseInt(value)
                                 if (min || max) {
                                     if (val < min || Number.isNaN(val)) {
                                         val = min
@@ -123,7 +123,7 @@ const FeatureStyle = ({ style, onChange }) => {
                                 if (Number.isNaN(val)) {
                                     val = defaultValue
                                 }
-                                onChange({ [id]: parseInt(val) })
+                                onChange({ [id]: Number.parseInt(val) })
                             }}
                             inputWidth={'120px'}
                             min={min}

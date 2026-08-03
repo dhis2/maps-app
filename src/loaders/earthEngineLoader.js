@@ -4,9 +4,11 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
+    CUSTOM_ALERT,
 } from '../constants/alerts.js'
 import { getEarthEngineLayer } from '../constants/earthEngineLayers/index.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { parseJsonConfig } from '../util/config.js'
 import {
     hasClasses,
     getStaticFilterFromPeriod,
@@ -14,10 +16,11 @@ import {
 } from '../util/earthEngine.js'
 import { sortLegendItems } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
-import { getRoundToPrecisionFn } from '../util/numbers.js'
+import { getRoundToPrecisionFn, formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
@@ -25,20 +28,82 @@ const earthEngineLoader = async ({
     config,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
     userId,
 }) => {
-    const { format, rows, aggregationType } = config
+    const { format, rows, aggregationType, countFeaturesWithoutCoordinates } =
+        config
     const orgUnits = getOrgUnitsFromRows(rows)
     const coordinateField = getCoordinateField(config)
 
     let loadError
     const alerts = []
 
-    let layerConfig = {}
-    let dataset
-    let features
+    // Config parsing
+    // -----
 
-    if (orgUnits && orgUnits.length) {
+    const layerConfig = parseJsonConfig(config.config)
+    let dataset
+
+    if (typeof config.config === 'string') {
+        // From database as favorite
+        if (layerConfig.image) {
+            // Backward compability for layers with periods saved before 2.36
+            const filter = layerConfig.filter?.[0]
+
+            if (filter) {
+                const id = filter.arguments?.[1]
+                const name = String(layerConfig.image)
+                const year =
+                    typeof id === 'string' && id.length > 4
+                        ? Number.parseInt(id.substring(0, 4), 10)
+                        : undefined
+
+                layerConfig.period = { id, name, year }
+
+                delete layerConfig.filter
+            }
+            delete layerConfig.image
+        } else if (layerConfig.filter) {
+            // Backward compability for layers saved before v100.6.0
+            layerConfig.period = getPeriodFromFilter(
+                layerConfig.filter,
+                layerConfig.id
+            )
+            delete layerConfig.filter
+        }
+
+        if (layerConfig.params) {
+            // Backward compability for layers saved before v100.6.0
+            layerConfig.style = layerConfig.params
+            if (typeof layerConfig.params.palette === 'string') {
+                layerConfig.style.palette =
+                    layerConfig.params.palette.split(',')
+            }
+            delete layerConfig.params
+        }
+
+        dataset = getEarthEngineLayer(layerConfig.id)
+
+        if (dataset) {
+            delete layerConfig.id
+        }
+
+        delete config.config
+        // Remove the always empty filters array from saved map layer object
+        // so as not to overwrite the filters array from the layer config
+        delete config.filters
+    } else {
+        dataset = getEarthEngineLayer(layerConfig.id)
+    }
+
+    // Data loading
+    // -----
+
+    let features
+    let orgUnitsWithoutCoordsCount = null
+
+    if (orgUnits?.length) {
         const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries
@@ -55,6 +120,29 @@ const earthEngineLoader = async ({
             mainFeatures = geoFeatureData.geoFeatures
                 ? toGeoJson(geoFeatureData.geoFeatures)
                 : null
+
+            if (countFeaturesWithoutCoordinates) {
+                const result = await getOrgUnitsWithoutCoordsCount({
+                    engine,
+                    orgUnitIds,
+                    userId,
+                    features: mainFeatures || [],
+                })
+                if (result.error) {
+                    alerts.push({
+                        warning: true,
+                        code: CUSTOM_ALERT,
+                        message: i18n.t(
+                            'Could not count org units without coordinates'
+                        ),
+                    })
+                } else {
+                    orgUnitsWithoutCoordsCount = result.count
+                    if (result.count > 0) {
+                        config.dataWithoutCoords = result.missingOrgUnits
+                    }
+                }
+            }
 
             if (coordinateField) {
                 const coordFieldData = await engine.query(GEOFEATURES_QUERY, {
@@ -98,56 +186,8 @@ const earthEngineLoader = async ({
         }
     }
 
-    if (typeof config.config === 'string') {
-        // From database as favorite
-        layerConfig = JSON.parse(config.config)
-
-        if (layerConfig.image) {
-            // Backward compability for layers with periods saved before 2.36
-            const filter = layerConfig.filter?.[0]
-
-            if (filter) {
-                const id = filter.arguments?.[1]
-                const name = String(layerConfig.image)
-                const year =
-                    typeof id === 'string' && id.length > 4
-                        ? parseInt(id.substring(0, 4), 10)
-                        : undefined
-
-                layerConfig.period = { id, name, year }
-
-                delete layerConfig.filter
-            }
-            delete layerConfig.image
-        } else if (layerConfig.filter) {
-            // Backward compability for layers saved before v100.6.0
-            layerConfig.period = getPeriodFromFilter(filter, layerConfig.id)
-            delete layerConfig.filter
-        }
-
-        if (layerConfig.params) {
-            // Backward compability for layers saved before v100.6.0
-            layerConfig.style = layerConfig.params
-            if (typeof layerConfig.params.palette === 'string') {
-                layerConfig.style.palette =
-                    layerConfig.params.palette.split(',')
-            }
-            delete layerConfig.params
-        }
-
-        dataset = getEarthEngineLayer(layerConfig.id)
-
-        if (dataset) {
-            delete layerConfig.id
-        }
-
-        delete config.config
-        // Remove the always empty filters array from saved map layer object
-        // so as not to overwrite the filters array from the layer config
-        delete config.filters
-    } else {
-        dataset = getEarthEngineLayer(layerConfig.id)
-    }
+    // Legend
+    // -----
 
     const layer = {
         ...dataset,
@@ -201,27 +241,44 @@ const earthEngineLoader = async ({
         !hasClasses(aggregationType) &&
         style?.palette
     ) {
-        legend.items = createLegend(style, !maskOperator)
+        legend.items = createLegend(
+            style,
+            !maskOperator,
+            keyAnalysisDigitGroupSeparator
+        )
+    }
+
+    if (typeof orgUnitsWithoutCoordsCount === 'number') {
+        legend.orgUnitsWithoutCoordinatesCount = orgUnitsWithoutCoordsCount
     }
 
     const filter = getStaticFilterFromPeriod(period, filters)
 
+    const derivedPeriodReducerType = layer.bandPeriodReducerType?.[layer.band]
+
     return {
         ...layer,
+        ...(derivedPeriodReducerType && {
+            periodReducerType: derivedPeriodReducerType,
+        }),
         legend,
         name,
         data,
+        keyAnalysisDigitGroupSeparator,
         filter,
         alerts,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
-        isVisible: true,
         loadError,
     }
 }
 
-export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
+export const createLegend = (
+    { min, max, palette, ranges },
+    showBelowMin,
+    keyAnalysisDigitGroupSeparator
+) => {
     if (ranges && ranges.length === palette.length) {
         return sortLegendItems(
             ranges.map((range, index) => ({
@@ -243,19 +300,20 @@ export const createLegend = ({ min, max, palette, ranges }, showBelowMin) => {
             const item = { color }
 
             if (index === 0 && showBelowMin) {
-                // Less than min
+                // Less than min - name is formatted by LegendItemRange (compact support)
                 item.from = -Infinity
                 item.to = min
-                item.name = '< ' + min
                 to = min
             } else if (+from < max) {
                 item.from = +from
                 item.to = +to
-                item.name = from + ' - ' + to
+                item.name =
+                    formatWithSeparator(from, keyAnalysisDigitGroupSeparator) +
+                    ' – ' +
+                    formatWithSeparator(to, keyAnalysisDigitGroupSeparator)
             } else {
-                // Higher than max
+                // Higher than max - name is formatted by LegendItemRange (compact support)
                 item.from = +from
-                item.name = '> ' + from
             }
 
             from = to

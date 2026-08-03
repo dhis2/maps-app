@@ -12,9 +12,12 @@
     height: 100%;
     overflow-y: auto;
     z-index: 1190;
-    transform: translateX(0);
 }
 
 .layersPanel.collapsed .layersPanelInner {
     transform: translateX(calc(var(--left-panel-width) * -1));
+}
+
+.dragOverlay {
+    cursor: grabbing;
 }

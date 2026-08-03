@@ -19,7 +19,12 @@ const EVENTS_QUERY = {
     },
 }
 
-const getDataRows = ({ displayItems, dataValues, orgUnitNames }) => {
+const getDataRows = ({
+    displayItems,
+    dataValues,
+    orgUnitNames,
+    keyAnalysisDigitGroupSeparator,
+}) => {
     const dataRows = []
 
     // Include rows for each data item used for styling and displayInReport
@@ -30,6 +35,7 @@ const getDataRows = ({ displayItems, dataValues, orgUnitNames }) => {
             valueType,
             options,
             orgUnitNames,
+            keyAnalysisDigitGroupSeparator,
         })
 
         dataRows.push(
@@ -53,6 +59,7 @@ const EventPopup = ({
     feature,
     styleDataItem,
     nameProperty,
+    keyAnalysisDigitGroupSeparator,
     displayItems,
     eventCoordinateFieldName,
     onClose,
@@ -151,6 +158,7 @@ const EventPopup = ({
                                 displayItems,
                                 dataValues,
                                 orgUnitNames,
+                                keyAnalysisDigitGroupSeparator,
                             })}
                         {type === 'Point' && (
                             <tr>
@@ -187,6 +195,7 @@ EventPopup.propTypes = {
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
+    keyAnalysisDigitGroupSeparator: PropTypes.string,
     styleDataItem: PropTypes.object,
 }
 

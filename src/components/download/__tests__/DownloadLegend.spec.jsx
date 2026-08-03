@@ -2,6 +2,12 @@ import { render } from '@testing-library/react'
 import React from 'react'
 import DownloadLegend from '../DownloadLegend.jsx'
 
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: jest.fn(() => ({
+        systemSettings: { keyAnalysisDigitGroupSeparator: 'NONE' },
+    })),
+}))
+
 describe('DownloadLegend', () => {
     const layers = [
         {

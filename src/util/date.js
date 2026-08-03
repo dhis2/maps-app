@@ -209,7 +209,7 @@ export const getCurrentYearInCalendar = (calendar) => {
 }
 
 export function replaceAt(str, index, replacement) {
-    const cleanReplacement = replacement.replace(/\D/g, '')
+    const cleanReplacement = replacement.replaceAll(/\D/g, '')
     if (index >= str.length) {
         return str + cleanReplacement
     }
@@ -255,7 +255,7 @@ export const formatDateInput = ({
         finalHyphen = '-'
     }
 
-    const numericDate = date.replace(/\D/g, '')
+    const numericDate = date.replaceAll(/\D/g, '')
 
     const year = numericDate.slice(0, 4)
     const month = numericDate.slice(4, 6)
@@ -278,8 +278,12 @@ export const formatDateInput = ({
 
     const maxMonth = getMaxMonthsInYear(year, calendar)
 
-    const formattedMonth =
-        month === '00' ? 1 : month > maxMonth ? maxMonth : month
+    let formattedMonth
+    if (month === '00') {
+        formattedMonth = 1
+    } else {
+        formattedMonth = Math.min(month, maxMonth)
+    }
 
     if (numericDate.length === 6) {
         return `${formattedYear}-${formattedMonth
@@ -298,8 +302,12 @@ export const formatDateInput = ({
         formattedMonth,
         calendar
     )
-    const formattedDay =
-        day === '00' ? 1 : day > maxDaysInMonth ? maxDaysInMonth : day
+    let formattedDay
+    if (day === '00') {
+        formattedDay = 1
+    } else {
+        formattedDay = Math.min(day, maxDaysInMonth)
+    }
 
     return `${formattedYear}-${formattedMonth
         .toString()

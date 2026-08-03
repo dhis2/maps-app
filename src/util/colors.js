@@ -4,10 +4,12 @@ import colorbrewer from '../constants/colorbrewer.js'
 
 // Allowed color scales from ColorBrewer for EE (needs to have at least 9 classes)
 export const colorScales = [
+    // Sequential
     'YlOrBr',
     'Reds',
     'YlGn',
     'Greens',
+    'Vegetation',
     'Purples',
     'Blues',
     'BuPu',
@@ -18,12 +20,14 @@ export const colorScales = [
     'Reds_reverse',
     'YlGn_reverse',
     'Greens_reverse',
+    'Vegetation_reverse',
     'Purples_reverse',
     'Blues_reverse',
     'BuPu_reverse',
     'RdPu_reverse',
     'PuRd_reverse',
     'Greys_reverse',
+    // Diverging
     'PuOr',
     'BrBG',
     'PRGn',
@@ -33,11 +37,20 @@ export const colorScales = [
     'RdYlBu',
     'Spectral',
     'RdYlGn',
+    'PuOr_reverse',
+    'BrBG_reverse',
+    'PRGn_reverse',
+    'PiYG_reverse',
+    'RdBu_reverse',
+    'RdGy_reverse',
+    'RdYlBu_reverse',
+    'Spectral_reverse',
+    'RdYlGn_reverse',
+    // Qualitative
     'Paired',
     'Pastel1',
     'Set1',
     'Set3',
-    'Vegetation',
 ]
 
 // Returns a color brewer scale for a number of classes
@@ -74,7 +87,7 @@ export const getUniqueColor = (defaultColors) => {
     const colors = [...defaultColors]
 
     function randomColor() {
-        const color = '#000000'.replace(/0/g, () =>
+        const color = '#000000'.replaceAll('0', () =>
             (~~(Math.random() * 16)).toString(16)
         )
 
@@ -90,6 +103,9 @@ export const getUniqueColor = (defaultColors) => {
 
     return (index) => colors[index] || randomColor()
 }
+
+export const getCssColor = (cssVar) =>
+    getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim()
 
 // Returns true if a color is dark
 export const isDarkColor = (color) => hcl(color).l < 70

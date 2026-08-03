@@ -42,7 +42,7 @@ const SelectField = (props) => {
     let selected
 
     if (multiple) {
-        selected = Array.isArray(value) ? value.map((v) => String(v)) : []
+        selected = Array.isArray(value) ? value.map(String) : []
     } else {
         selected = value !== undefined && value !== null ? String(value) : ''
     }
@@ -75,16 +75,15 @@ const SelectField = (props) => {
                 loading={isLoading}
                 error={!!errorText}
                 warning={!!warning}
-                validationText={warning ? warning : errorText}
+                validationText={warning || errorText}
                 helpText={helpText}
                 empty={emptyText}
                 onChange={onSelectChange}
                 dataTest={dataTest}
             >
-                {items &&
-                    items.map(({ id, name }) => (
-                        <Option key={id} value={String(id)} label={name} />
-                    ))}
+                {items?.map(({ id, name }) => (
+                    <Option key={id} value={String(id)} label={name} />
+                ))}
             </Select>
         </div>
     )

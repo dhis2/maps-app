@@ -106,6 +106,7 @@ class Layer extends PureComponent {
         })
 
         await map.addLayer(this.layer)
+        this.setLayerVisibility()
     }
 
     async updateLayer() {

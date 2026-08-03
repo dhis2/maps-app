@@ -44,14 +44,16 @@ describe('Manage Layer Sources', () => {
         // Make sure authority request response is not comming from cache
         cy.intercept(
             'GET',
-            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
+            `**/me?fields=${encodeURIComponent(
+                'id,username,displayName~rename(name),authorities,organisationUnits[id,children[id,children[id]]],settings[keyAnalysisDisplayProperty,keyUiLocale]'
+            )}`,
             (request) => {
                 delete request.headers['if-none-match']
             }
         ).as('getAuthorization')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         // Opening add layer popover and checking content
         cy.getByDataTest('add-layer-button').click()
@@ -88,21 +90,34 @@ describe('Manage Layer Sources', () => {
                 .should(assertion)
         })
 
-        // Replace dataStore with default layer sources visibility list
-        cy.request({
-            method: 'PUT',
-            url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: LAYER_SOURCES_DEFAULT_MANAGED_LIST,
-        }).then((response) => {
-            expect(response.status).to.eq(200)
-        })
+        let managedList = [...LAYER_SOURCES_DEFAULT_MANAGED_LIST]
+        cy.intercept(
+            'GET',
+            `**/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
+            (req) => req.reply(managedList)
+        ).as('getManagedList')
+
+        cy.intercept(
+            'PUT',
+            `**/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
+            (req) => {
+                managedList = req.body
+                req.reply({
+                    statusCode: 200,
+                    body: {
+                        httpStatus: 'OK',
+                        httpStatusCode: 200,
+                        status: 'OK',
+                        message: "Key updated: 'MANAGED_LAYER_SOURCES'",
+                    },
+                })
+            }
+        ).as('putManagedList')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
+        cy.wait('@getManagedList', EXTENDED_TIMEOUT)
         cy.getByDataTest('add-layer-button').click()
 
         cy.log('remove one layer')
@@ -111,6 +126,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n1 = LAYER_SOURCES_DEFAULT_ALL - 1
@@ -127,6 +143,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(1).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-2 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n2 = LAYER_SOURCES_DEFAULT_ALL - 2
@@ -143,6 +160,7 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('layersource-checkbox').eq(0).click()
         cy.getByDataTest('managelayersourcesmodal-button').click()
 
+        cy.wait('@putManagedList', EXTENDED_TIMEOUT)
         cy.log('check there is n-1 layers available')
         cy.getByDataTest('add-layer-button').click()
         const n3 = LAYER_SOURCES_DEFAULT_ALL - 1
@@ -154,25 +172,15 @@ describe('Manage Layer Sources', () => {
         cy.getByDataTest('managelayersources-button').click()
         cy.waitForCheckbox(0, 'be.checked')
         cy.getByDataTest('managelayersourcesmodal-button').click()
-
-        // Restore dataStore with default layer sources visibility list
-        cy.request({
-            method: 'PUT',
-            url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: LAYER_SOURCES_DEFAULT_MANAGED_LIST,
-        }).then((response) => {
-            expect(response.status).to.eq(200)
-        })
     })
 
     it('w/o admin authority: check managelayersources button is hidden', () => {
         // Remove admin authority
         cy.intercept(
             'GET',
-            '**/me?fields=id%2Cusername%2CdisplayName~rename(name)%2Cauthorities%2Csettings%5BkeyAnalysisDisplayProperty%2CkeyUiLocale%5D',
+            `**/me?fields=${encodeURIComponent(
+                'id,username,displayName~rename(name),authorities,organisationUnits[id,children[id,children[id]]],settings[keyAnalysisDisplayProperty,keyUiLocale]'
+            )}`,
             (request) => {
                 delete request.headers['if-none-match']
                 request.continue((response) => {
@@ -183,20 +191,14 @@ describe('Manage Layer Sources', () => {
             }
         ).as('getAuthorization')
 
-        // Replace dataStore with default layer sources visibility list -1
-        cy.request({
-            method: 'PUT',
-            url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: LAYER_SOURCES_DEFAULT_MANAGED_LIST.slice(0, -1),
-        }).then((response) => {
-            expect(response.status).to.eq(200)
-        })
+        cy.intercept(
+            'GET',
+            `**/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
+            (req) => req.reply(LAYER_SOURCES_DEFAULT_MANAGED_LIST.slice(0, -1))
+        ).as('getManagedListTrimmed')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then((interception) => {
             cy.log(interception.response.body.authorities)
@@ -213,18 +215,6 @@ describe('Manage Layer Sources', () => {
 
             // Checks that manage layers modal is not accessible
             cy.getByDataTest('managelayers-button').should('not.exist')
-        })
-
-        // Restore dataStore with default layer sources visibility list
-        cy.request({
-            method: 'PUT',
-            url: `${getApiBaseUrl()}/api/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: LAYER_SOURCES_DEFAULT_MANAGED_LIST,
-        }).then((response) => {
-            expect(response.status).to.eq(200)
         })
     })
 
@@ -253,7 +243,7 @@ describe('Manage Layer Sources', () => {
         ).as('postNamespaceDefault')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getDataStoreEmpty', EXTENDED_TIMEOUT).then(() => {
             cy.wait('@postNamespaceDefault', EXTENDED_TIMEOUT).then(() => {
@@ -296,7 +286,7 @@ describe('Manage Layer Sources', () => {
         ).as('putNamespaceDefault')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getNamespaceObject', EXTENDED_TIMEOUT).then(() => {
             cy.wait('@putNamespaceDefault', EXTENDED_TIMEOUT).then(() => {
@@ -311,20 +301,18 @@ describe('Manage Layer Sources', () => {
     })
 
     it('at start, if "invalid_source_id" in namespace, app ignores id', () => {
-        // Mock "invalid_source_id" in namespace
         cy.intercept(
             'GET',
             `**/dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_MANAGED_LAYER_SOURCES}`,
-            (request) => {
-                delete request.headers['if-none-match']
-                request.continue((response) => {
-                    response.send([...response.body, 'invalid_source_id'])
-                })
-            }
+            (req) =>
+                req.reply([
+                    ...LAYER_SOURCES_DEFAULT_MANAGED_LIST,
+                    'invalid_source_id',
+                ])
         ).as('getNamespaceArray')
 
         // Visit page
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.wait('@getNamespaceArray', EXTENDED_TIMEOUT).then(() => {
             // Verify default layer sources are available

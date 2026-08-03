@@ -1,13 +1,17 @@
 import { isNil, omitBy, pick, isObject, omit } from 'lodash/fp'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
+    FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    ORG_UNIT_LAYER,
+    THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
-    'basemap',
+    // 'basemap' and 'basemaps' removed — set exclusively by getBasemapPayload
     'id',
     'latitude',
     'longitude',
@@ -52,6 +56,10 @@ const validLayerProperties = [
     'labelFontWeight',
     'labelFontColor',
     'labelTemplate',
+    'countFeaturesWithoutCoordinates',
+    'countEventsOutsideOrgUnits',
+    'legendDecimalPlaces',
+    'legendIsolated',
     'lastUpdated',
     'layer',
     'layerId',
@@ -59,6 +67,9 @@ const validLayerProperties = [
     'method',
     'name',
     'noDataColor',
+    'noDataLegend',
+    'unclassifiedLegend',
+    'hidden',
     'opacity',
     'organisationUnitColor',
     'organisationUnitGroupSet',
@@ -78,6 +89,7 @@ const validLayerProperties = [
     'serverCluster',
     'startDate',
     'styleDataItem',
+    'labelDataItem',
     'thematicMapType',
     'trackedEntityType',
     'valueType',
@@ -88,7 +100,7 @@ const validLayerProperties = [
     'relationshipOutsideProgram',
 ]
 
-const models = ['program', 'programStage', 'organisationUnitGroupSet']
+const models = new Set(['program', 'programStage', 'organisationUnitGroupSet'])
 
 const validModelProperties = [
     'id',
@@ -102,36 +114,133 @@ export const cleanMapConfig = ({
     config,
     defaultBasemapId,
     cleanMapviewConfig = true,
+    serverVersion,
 }) => ({
     ...omitBy(isNil, pick(validMapProperties, config)),
-    basemap: getBasemapString(config.basemap, defaultBasemapId),
+    ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
     mapViews: config.mapViews.map((view) =>
         cleanLayerConfig(view, cleanMapviewConfig)
     ),
 })
 
-const getBasemapString = (basemap, defaultBasemapId) => {
-    if (!basemap) {
-        return defaultBasemapId
+// VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
+const getBasemapPayload = (basemap, defaultBasemapId, serverVersion) => {
+    if (serverVersion?.minor >= 43) {
+        return {
+            basemaps: [
+                {
+                    id: basemap?.id ?? defaultBasemapId,
+                    opacity: basemap?.opacity ?? 1,
+                    hidden: basemap?.isVisible === false,
+                },
+            ],
+        }
     }
 
-    if (basemap.isVisible === false) {
-        return 'none'
+    // Legacy: store as JSON to preserve opacity and id when hidden
+    return {
+        basemap: JSON.stringify({
+            id: basemap?.id ?? defaultBasemapId,
+            opacity: basemap?.opacity ?? 1,
+            hidden: basemap?.isVisible === false,
+        }),
     }
-
-    return basemap.id || defaultBasemapId
 }
 
 const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
-    ...models2objects(pick(validLayerProperties, layer), cleanMapviewConfig),
+    ...models2objects(
+        pick(validLayerProperties, {
+            ...layer,
+            hidden: layer.isVisible === false,
+        }),
+        cleanMapviewConfig
+    ),
 })
+
+const buildCommonLayerConfigData = (layer) => {
+    const configData = {}
+    if (layer.legendDecimalPlaces !== undefined) {
+        configData.legendDecimalPlaces = layer.legendDecimalPlaces
+    }
+    if (layer.legendIsolated !== undefined) {
+        configData.legendIsolated = layer.legendIsolated
+    }
+    if (layer.unclassifiedLegend) {
+        configData.unclassifiedLegend = layer.unclassifiedLegend
+    }
+    if (layer.noDataLegend) {
+        configData.noDataLegend = layer.noDataLegend
+    }
+    if (layer.countFeaturesWithoutCoordinates) {
+        configData.countFeaturesWithoutCoordinates = true
+    }
+    if (layer.countEventsOutsideOrgUnits) {
+        configData.countEventsOutsideOrgUnits = true
+    }
+    if (layer.labelDataItem) {
+        configData.labelDataItem = layer.labelDataItem
+    }
+    return configData
+}
+
+const deleteCommonLayerConfigProps = (layer) => {
+    if (layer.noDataLegend) {
+        layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
+    }
+    delete layer.legendDecimalPlaces
+    delete layer.legendIsolated
+    delete layer.noDataLegend
+    delete layer.unclassifiedLegend
+    delete layer.countFeaturesWithoutCoordinates
+    delete layer.countEventsOutsideOrgUnits
+    delete layer.labelDataItem
+}
+
+const buildEarthEngineLayerConfigData = (layer) => {
+    const { layerId: id, band, style, aggregationType, period } = layer
+    return omitBy(isNil, { id, style, band, aggregationType, period })
+}
+
+const deleteEarthEngineLayerProps = (layer) => {
+    delete layer.layerId
+    delete layer.datasetId
+    delete layer.style
+    delete layer.period
+    delete layer.filter
+    delete layer.filters
+    delete layer.periodType
+    delete layer.aggregationType
+    delete layer.band
+}
+
+const buildTrackedEntityLayerConfigData = (layer) => ({
+    relationships: layer.relationshipType
+        ? {
+              type: layer.relationshipType,
+              pointColor: layer.relatedPointColor,
+              pointRadius: layer.relatedPointRadius,
+              lineColor: layer.relationshipLineColor,
+              relationshipOutsideProgram: layer.relationshipOutsideProgram,
+          }
+        : null,
+    periodType: layer.periodType,
+})
+
+const deleteTrackedEntityLayerProps = (layer) => {
+    delete layer.relationshipType
+    delete layer.relatedPointColor
+    delete layer.relatedPointRadius
+    delete layer.relationshipLineColor
+    delete layer.relationshipOutsideProgram
+    delete layer.periodType
+}
 
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (layer, cleanMapviewConfig) => {
     const { layer: layerType } = layer
 
     Object.keys(layer).forEach((key) => {
-        layer[key] = models.includes(key)
+        layer[key] = models.has(key)
             ? pick(validModelProperties, layer[key])
             : layer[key]
     })
@@ -142,55 +251,18 @@ const models2objects = (layer, cleanMapviewConfig) => {
 
     if (layerType === EARTH_ENGINE_LAYER) {
         if (cleanMapviewConfig) {
-            const { layerId: id, band, style, aggregationType, period } = layer
-
-            const eeConfig = {
-                id,
-                style,
-                band,
-                aggregationType,
-                period,
-            }
-
-            // Removes undefined keys before stringify
-            Object.keys(eeConfig).forEach(
-                (key) => eeConfig[key] === undefined && delete eeConfig[key]
+            layer.config = JSON.stringify(
+                buildEarthEngineLayerConfigData(layer)
             )
-            layer.config = JSON.stringify(eeConfig)
         }
-
-        delete layer.layerId
-        delete layer.datasetId
-        delete layer.style
-        delete layer.period
-        delete layer.filter
-        delete layer.filters
-        delete layer.periodType
-        delete layer.aggregationType
-        delete layer.band
+        deleteEarthEngineLayerProps(layer)
     } else if (layerType === TRACKED_ENTITY_LAYER) {
         if (cleanMapviewConfig) {
-            layer.config = JSON.stringify({
-                relationships: layer.relationshipType
-                    ? {
-                          type: layer.relationshipType,
-                          pointColor: layer.relatedPointColor,
-                          pointRadius: layer.relatedPointRadius,
-                          lineColor: layer.relationshipLineColor,
-                          relationshipOutsideProgram:
-                              layer.relationshipOutsideProgram,
-                      }
-                    : null,
-                periodType: layer.periodType,
-            })
+            layer.config = JSON.stringify(
+                buildTrackedEntityLayerConfigData(layer)
+            )
         }
-
-        delete layer.relationshipType
-        delete layer.relatedPointColor
-        delete layer.relatedPointRadius
-        delete layer.relationshipLineColor
-        delete layer.relationshipOutsideProgram
-        delete layer.periodType
+        deleteTrackedEntityLayerProps(layer)
     } else if (layerType === GEOJSON_URL_LAYER) {
         if (cleanMapviewConfig) {
             layer.config = {
@@ -198,8 +270,20 @@ const models2objects = (layer, cleanMapviewConfig) => {
                 featureStyle: { ...layer.featureStyle },
             }
         }
-
         delete layer.featureStyle
+    } else if (
+        layerType === EVENT_LAYER ||
+        layerType === THEMATIC_LAYER ||
+        layerType === ORG_UNIT_LAYER ||
+        layerType === FACILITY_LAYER
+    ) {
+        if (cleanMapviewConfig) {
+            const configData = buildCommonLayerConfigData(layer)
+            if (Object.keys(configData).length) {
+                layer.config = JSON.stringify(configData)
+            }
+        }
+        deleteCommonLayerConfigProps(layer)
     }
     delete layer.id
 

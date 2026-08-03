@@ -1,5 +1,11 @@
+import { ouIdHelper } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { CUSTOM_ALERT, WARNING_NO_DATA } from '../constants/alerts.js'
+import {
+    CUSTOM_ALERT,
+    WARNING_NO_DATA,
+    WARNING_ALL_EVENTS_OUTSIDE_OU,
+    WARNING_OU_BOUNDARIES_FETCH_FAILED,
+} from '../constants/alerts.js'
 import { getEventStatuses } from '../constants/eventStatuses.js'
 import {
     EVENT_CLIENT_PAGE_SIZE,
@@ -11,20 +17,59 @@ import { numberValueTypes } from '../constants/valueTypes.js'
 import {
     getFiltersFromColumns,
     getFiltersAsText,
-    getPeriodFromFilters,
+    getPeriodsFromFilters,
     getPeriodNameFromId,
+    getOrgUnitsFromRows,
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
+import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
-import { getBounds } from '../util/geojson.js'
+import {
+    getBounds,
+    getContainingOrgUnit,
+    GEO_TYPE_POINT,
+} from '../util/geojson.js'
+import { formatWithSeparator, parseWithSeparator } from '../util/numbers.js'
+import {
+    fetchAssociatedGeometries,
+    fetchOrgUnitPaths,
+    getPolygonItems,
+    getUserOrgUnitIdsByKeyword,
+} from '../util/orgUnits.js'
 import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
+// OU dimension value is always an ID; property key depends on outputIdScheme
+const getEventOuId = (feature) =>
+    feature.properties?.ou ?? feature.properties?.['Organisation unit']
+
+// Expands USER_ORGUNIT/_CHILDREN/_GRANDCHILDREN into ids; [id] if literal.
+const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
+    if (id in userOrgUnitIdsByKeyword) {
+        return userOrgUnitIdsByKeyword[id]
+    }
+    if (ouIdHelper.hasLevelPrefix(id) || ouIdHelper.hasGroupPrefix(id)) {
+        // LEVEL/OU_GROUP unsupported today; resolve here if that changes.
+        return []
+    }
+    return [id]
+}
+
 // Server clustering if more than 2000 events
-const shouldUseServerCluster = (count) => count > EVENT_SERVER_CLUSTER_COUNT
+const shouldUseServerCluster = (
+    count,
+    countFeaturesWithoutCoordinates,
+    countEventsOutsideOrgUnits
+) =>
+    !countFeaturesWithoutCoordinates &&
+    !countEventsOutsideOrgUnits &&
+    count > EVENT_SERVER_CLUSTER_COUNT
+
+// Alert constants
+// -----
 
 const accessDeniedAlert = {
     warning: true,
@@ -47,11 +92,16 @@ const eventLoader = async ({
     config: layerConfig,
     engine,
     keyAnalysisDisplayProperty,
+    keyAnalysisDigitGroupSeparator,
+    userOrgUnitIdsByKeyword = getUserOrgUnitIdsByKeyword(),
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
-    const config = { ...layerConfig }
+    const config = {
+        ...layerConfig,
+        keyAnalysisDigitGroupSeparator,
+    }
     const displayNameProp =
         keyAnalysisDisplayProperty === 'name'
             ? 'displayName'
@@ -62,6 +112,8 @@ const eventLoader = async ({
             config,
             engine,
             displayNameProp,
+            keyAnalysisDisplayProperty,
+            userOrgUnitIdsByKeyword,
             analyticsEngine,
             periodTypeData,
             loadExtended,
@@ -84,7 +136,6 @@ const eventLoader = async ({
     config.isLoaded = true
     config.isLoading = false
     config.isExpanded = true
-    config.isVisible = true
 
     return config
 }
@@ -93,10 +144,70 @@ const loadEventLayer = async ({
     config,
     engine,
     displayNameProp,
+    keyAnalysisDisplayProperty,
+    userOrgUnitIdsByKeyword,
     analyticsEngine,
     periodTypeData,
     loadExtended,
 }) => {
+    // Config normalization
+    // -----
+
+    const {
+        countFeaturesWithoutCoordinates,
+        countEventsOutsideOrgUnits,
+        legendDecimalPlaces,
+        legendIsolated,
+        unclassifiedLegend: unclassifiedLegendFromConfig,
+        noDataLegend: noDataLegendFromConfig,
+        labelDataItem,
+    } = parseJsonConfig(config.config)
+    if (countFeaturesWithoutCoordinates) {
+        config.countFeaturesWithoutCoordinates = true
+    }
+    if (countEventsOutsideOrgUnits) {
+        config.countEventsOutsideOrgUnits = true
+    }
+    if (labelDataItem) {
+        if (labelDataItem.optionSet?.id) {
+            const { optionSet } = await engine.query(OPTION_SET_QUERY, {
+                variables: { id: labelDataItem.optionSet.id },
+            })
+            config.labelDataItem = {
+                ...labelDataItem,
+                options: optionSet.options.reduce((obj, { code, name }) => {
+                    obj[code] = name
+                    return obj
+                }, {}),
+            }
+        } else {
+            config.labelDataItem = labelDataItem
+        }
+    }
+    if (legendDecimalPlaces !== undefined) {
+        config.legendDecimalPlaces = legendDecimalPlaces
+    }
+    if (legendIsolated) {
+        config.legendIsolated = legendIsolated
+    }
+    if (unclassifiedLegendFromConfig) {
+        config.unclassifiedLegend = unclassifiedLegendFromConfig
+    }
+    if (noDataLegendFromConfig) {
+        config.noDataLegend = noDataLegendFromConfig
+    }
+    if (config.noDataColor) {
+        config.noDataLegend = {
+            ...noDataLegendFromConfig,
+            color: config.noDataColor,
+        }
+    }
+    delete config.noDataColor
+    delete config.config
+
+    // Analytics request setup
+    // -----
+
     const {
         columns,
         endDate,
@@ -105,6 +216,7 @@ const loadEventLayer = async ({
         eventPointColor,
         eventPointRadius,
         filters,
+        keyAnalysisDigitGroupSeparator,
         program,
         programStage,
         eventCoordinateField,
@@ -113,10 +225,13 @@ const loadEventLayer = async ({
         areaRadius,
     } = config
 
-    const period = getPeriodFromFilters(filters)
-    const periodName =
-        periodTypeData?.enabledPeriodTypesData?.metaData?.[period?.id]?.name ??
-        getPeriodNameFromId(period?.id)
+    // Mutates the pe items in filters so period display names are shown
+    const periods = getPeriodsFromFilters(filters).map((pe) => {
+        pe.name =
+            periodTypeData?.enabledPeriodTypesData?.metaData?.[pe.id]?.name ??
+            getPeriodNameFromId(pe.id)
+        return pe
+    })
 
     const dataFilters = getFiltersFromColumns(columns)
 
@@ -127,20 +242,30 @@ const loadEventLayer = async ({
         nameProperty: displayNameProp,
         engine,
     })
-    let alert
+    const alerts = []
+
+    // Legend skeleton
+    // -----
 
     config.name = programStage.name
 
     config.legend = {
         title: config.name,
-        period: period
-            ? periodName
-            : formatStartEndDate(
-                  getDateArray(startDate),
-                  getDateArray(endDate)
-              ),
+        period:
+            periods.length > 0
+                ? periods.map((pe) => pe.name || pe.id).join(', ')
+                : formatStartEndDate(
+                      getDateArray(startDate),
+                      getDateArray(endDate)
+                  ),
         items: [],
+        ...(config.legendDecimalPlaces !== undefined && {
+            decimalPlaces: config.legendDecimalPlaces,
+        }),
     }
+
+    // Server-side clustering decision
+    // -----
 
     // Delete serverCluster option if previously set
     delete config.serverCluster
@@ -151,13 +276,20 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster(response.count)
+        config.serverCluster = shouldUseServerCluster(
+            response.count,
+            config.countFeaturesWithoutCoordinates,
+            config.countEventsOutsideOrgUnits
+        )
         serverCount = response.count
     }
 
+    // Load event data
+    // -----
+
     if (!config.serverCluster) {
         config.outputIdScheme = 'ID' // Required for StyleByDataItem to work
-        const { data, response } = await loadData({
+        const { data, response, dataWithoutCoords } = await loadData({
             request: analyticsRequest,
             config,
             analyticsEngine,
@@ -165,38 +297,72 @@ const loadEventLayer = async ({
         const { total } = response.metaData.pager
 
         config.data = data
+        if (config.countFeaturesWithoutCoordinates) {
+            config.dataWithoutCoords = dataWithoutCoords
+            config.legend.eventsWithoutCoordinatesCount =
+                dataWithoutCoords.length
+        }
+
+        if (config.countEventsOutsideOrgUnits && config.data?.length) {
+            // TODO: parallelize this with loadData above
+            await excludeEventsOutsideOrgUnits({
+                config,
+                engine,
+                dataWithoutCoords,
+                keyAnalysisDisplayProperty,
+                userOrgUnitIdsByKeyword,
+                alerts,
+            })
+        }
+
+        if (styleDataItem) {
+            await styleByDataItem(config, engine)
+        }
+
+        // Result alert
+        // -----
 
         if (Array.isArray(config.data) && config.data.length) {
-            if (styleDataItem) {
-                await styleByDataItem(config, engine)
-            }
-
             if (total > EVENT_CLIENT_PAGE_SIZE) {
-                alert = {
+                alerts.push({
                     warning: true,
                     code: CUSTOM_ALERT,
                     message: `${config.name}: ${i18n.t(
                         'Displaying first {{pageSize}} events out of {{total}}',
                         {
-                            pageSize: EVENT_CLIENT_PAGE_SIZE,
-                            total,
+                            pageSize: formatWithSeparator(
+                                EVENT_CLIENT_PAGE_SIZE,
+                                keyAnalysisDigitGroupSeparator
+                            ),
+                            total: formatWithSeparator(
+                                total,
+                                keyAnalysisDigitGroupSeparator
+                            ),
                         }
                     )}`,
-                }
+                })
             }
         } else {
-            alert = {
-                code: WARNING_NO_DATA,
+            alerts.push({
+                code:
+                    config.countEventsOutsideOrgUnits &&
+                    config.legend.eventsOutsideOrgUnitsCount
+                        ? WARNING_ALL_EVENTS_OUTSIDE_OU
+                        : WARNING_NO_DATA,
                 message: config.name,
-            }
+            })
         }
+
+        // Numeric property coercion
+        // -----
 
         config.headers = response.headers
 
         const numericDataItemHeaders = config.headers.filter(
             (header) =>
                 isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType)
+                numberValueTypes.includes(header.valueType) &&
+                !header.optionSet
         )
 
         if (numericDataItemHeaders.length) {
@@ -204,7 +370,7 @@ const loadEventLayer = async ({
                 const newD = { ...d }
 
                 numericDataItemHeaders.forEach((header) => {
-                    newD.properties[header.name] = parseFloat(
+                    newD.properties[header.name] = parseWithSeparator(
                         d.properties[header.name]
                     )
                 })
@@ -213,6 +379,9 @@ const loadEventLayer = async ({
             })
         }
     }
+
+    // Legend filters
+    // -----
 
     if (dataFilters) {
         const { names, response } = await loadData({
@@ -231,6 +400,9 @@ const loadEventLayer = async ({
         })
     }
 
+    // Coordinate field
+    // -----
+
     const eventCoordinateFieldName = await loadEventCoordinateFieldName({
         program,
         programStage,
@@ -241,6 +413,9 @@ const loadEventLayer = async ({
     if (eventCoordinateFieldName) {
         config.legend.coordinateFields = [eventCoordinateFieldName]
     }
+
+    // Legend items & explanation
+    // -----
 
     if (!styleDataItem) {
         const color = cssColor(eventPointColor) || EVENT_COLOR
@@ -277,7 +452,181 @@ const loadEventLayer = async ({
         config.legend.explanation = explanation
     }
 
-    config.alerts = alert ? [alert] : undefined
+    config.alerts = alerts.length ? alerts : undefined
+}
+
+// Classifies each event as inside/outside the selected org-unit boundaries,
+// tagging inside events with the name of their containing org unit.
+const classifyEventsByOrgUnit = ({
+    data,
+    orgUnitGeometries,
+    facilityToAncestorGeometry,
+    ouIdByGeometry,
+    geoFeatureNameByOuId,
+    ouNames,
+}) => {
+    const inside = []
+    const outside = []
+    for (const feature of data) {
+        if (feature.geometry?.type !== GEO_TYPE_POINT) {
+            inside.push(feature)
+            continue
+        }
+
+        const facilityOuId = getEventOuId(feature)
+        const ancestorGeometry = facilityToAncestorGeometry.get(facilityOuId)
+        // Check the facility's own ancestor org unit first, since it's
+        // usually the match; only fall back to the full search if not.
+        const containingGeometry =
+            (ancestorGeometry &&
+                getContainingOrgUnit(feature.geometry.coordinates, [
+                    ancestorGeometry,
+                ])) ||
+            getContainingOrgUnit(
+                feature.geometry.coordinates,
+                orgUnitGeometries
+            )
+
+        if (!containingGeometry) {
+            outside.push(feature)
+            continue
+        }
+
+        const ouId = ouIdByGeometry.get(containingGeometry)
+        feature.properties.ouBoundary =
+            geoFeatureNameByOuId.get(ouId) ?? ouNames.get(ouId) ?? ouId
+        inside.push(feature)
+    }
+    return { inside, outside }
+}
+
+// Tags each remaining event with its containing org unit, and records
+// boundary coverage on the legend since some selected org units may lack one.
+export const excludeEventsOutsideOrgUnits = async ({
+    config,
+    engine,
+    dataWithoutCoords,
+    keyAnalysisDisplayProperty,
+    userOrgUnitIdsByKeyword = getUserOrgUnitIdsByKeyword(),
+    alerts = [],
+}) => {
+    // Fetch org unit boundaries
+    // -----
+
+    const orgUnits = getOrgUnitsFromRows(config.rows)
+    const orgUnitIds = orgUnits.map((ou) => ou.id)
+    const ouNames = new Map(orgUnits.map((ou) => [ou.id, ou.name]))
+
+    // USER_ORGUNIT keywords expand to multiple ids, so count the expanded set.
+    const literalOrgUnitIds = [
+        ...new Set(
+            orgUnitIds.flatMap((id) =>
+                expandOrgUnitKeyword(id, userOrgUnitIdsByKeyword)
+            )
+        ),
+    ]
+
+    // Collect unique facility OU IDs, used below (once boundaries are known)
+    // to resolve each facility's nearest selected-org-unit ancestor.
+    const facilityOuIds = [
+        ...new Set(
+            config.data
+                .filter((feature) => feature.geometry?.type === GEO_TYPE_POINT)
+                .map(getEventOuId)
+                .filter(Boolean)
+        ),
+    ]
+
+    // Coverage count is based on geoJsonFeatures, which also excludes
+    // degenerate/empty-coordinate boundaries.
+    let geoJsonFeatures
+    try {
+        const result = await fetchAssociatedGeometries(
+            engine,
+            { orgUnitIds, keyAnalysisDisplayProperty, coordinateField: {} },
+            getPolygonItems
+        )
+        if (result === null) {
+            throw new Error('geoFeatures response missing geoFeatures')
+        }
+        geoJsonFeatures = result
+    } catch {
+        // Treat a failed fetch the same as no org units having boundaries.
+        geoJsonFeatures = []
+        alerts.push({
+            warning: true,
+            code: WARNING_OU_BOUNDARIES_FETCH_FAILED,
+            message: config.name,
+        })
+    }
+    const polygonOrgUnitIds = new Set(geoJsonFeatures.map((f) => f.id))
+    const orgUnitsWithoutBoundary = literalOrgUnitIds.filter(
+        (id) => !polygonOrgUnitIds.has(id)
+    )
+    if (orgUnitsWithoutBoundary.length) {
+        config.legend.orgUnitsWithoutBoundaryCount =
+            orgUnitsWithoutBoundary.length
+        config.legend.orgUnitsTotalCount = literalOrgUnitIds.length
+    }
+
+    // Resolve each facility's nearest selected-org-unit ancestor
+    // -----
+
+    // Sorted deepest level first, so a OU wins over its parent.
+    // Same-level org units are just ordered by selection.
+    const orgUnitGeometries = [...geoJsonFeatures]
+        .sort((a, b) => b.properties.level - a.properties.level)
+        .map((f) => f.geometry)
+    const geometryByOuId = new Map(
+        geoJsonFeatures.map((f) => [f.id, f.geometry])
+    )
+    const ouIdByGeometry = new Map(
+        geoJsonFeatures.map((f) => [f.geometry, f.id])
+    )
+    const geoFeatureNameByOuId = new Map(
+        geoJsonFeatures.map((f) => [f.id, f.properties.name])
+    )
+
+    // Map each facility to its most immediate selected-OU ancestor via its
+    // path. Skipped for a single polygon OU, where ordering can't matter.
+    const ouPaths =
+        polygonOrgUnitIds.size > 1
+            ? await fetchOrgUnitPaths(engine, facilityOuIds)
+            : []
+    const facilityToAncestorGeometry = new Map()
+    for (const { id, path } of ouPaths) {
+        const pathIds = path.split('/').filter(Boolean)
+        // Search from end to find the most immediate ancestor
+        const ancestorOuId = [...pathIds]
+            .reverse()
+            .find((ouId) => polygonOrgUnitIds.has(ouId))
+        if (ancestorOuId) {
+            facilityToAncestorGeometry.set(id, geometryByOuId.get(ancestorOuId))
+        }
+    }
+
+    if (!orgUnitGeometries.length) {
+        return
+    }
+
+    // Classify events by containment
+    // -----
+
+    // TODO: synchronous over all events — consider chunking/yielding for very large layers.
+    const { inside, outside } = classifyEventsByOrgUnit({
+        data: config.data,
+        orgUnitGeometries,
+        facilityToAncestorGeometry,
+        ouIdByGeometry,
+        geoFeatureNameByOuId,
+        ouNames,
+    })
+    config.data = inside
+    config.legend.eventsOutsideOrgUnitsCount = outside.length
+    config.dataWithoutCoords = [
+        ...(config.countFeaturesWithoutCoordinates ? dataWithoutCoords : []),
+        ...outside,
+    ]
 }
 
 // If the layer included filters using option sets, this function return an object

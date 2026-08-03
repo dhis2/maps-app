@@ -197,6 +197,24 @@ export const getPeriodTypeFromId = (periodId) => {
     return match
 }
 
+// Resolves a fixed period id to its display name
+export const getFixedPeriodName = (id) => {
+    let periodType
+    try {
+        periodType = getPeriodTypeFromId(id)
+    } catch {
+        return undefined
+    }
+    const year = id.match(PERIOD_TYPE_REGEX[periodType])?.[1]
+    if (!year) {
+        return undefined
+    }
+    return getFixedPeriodsByType({
+        periodType,
+        year: Number.parseInt(year, 10),
+    })?.find((p) => p.id === id)?.name
+}
+
 // Get period level as index of ordered array
 const getPeriodLevelFromPeriodType = (periodType) => {
     const periodTypesByLevel = [

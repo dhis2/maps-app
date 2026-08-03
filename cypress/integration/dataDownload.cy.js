@@ -39,25 +39,26 @@ describe('Data Download', () => {
     })
 
     it('downloads data from a thematic layer', () => {
-        cy.visit(`/?id=${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+        cy.intercept('GET', /\/analytics\?/).as('getThematicData')
+
+        cy.visit(`/?id=${mapWithThematicLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
+        cy.wait('@getThematicData', EXTENDED_TIMEOUT)
         cy.get('[data-test="layercard"]')
             .find('h2')
             .contains(mapWithThematicLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(6)
+        openMoreMenuWithOptions(7)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
             .contains('Download')
             .click()
 
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
-            { timeout: 3000, interval: 100 }
+            { timeout: 8000, interval: 100 }
         ).then((filePath) => {
             expect(filePath).to.include('geojson')
             expect(filePath).to.include(
@@ -71,25 +72,26 @@ describe('Data Download', () => {
     })
 
     it('downloads data from an event layer', () => {
-        cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
+        cy.intercept('GET', '**/analytics/events/**').as('getEventData')
+
+        cy.visit(`/?id=${mapWithEventLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
+        cy.wait('@getEventData', EXTENDED_TIMEOUT)
         cy.get('[data-test="layercard"]')
             .find('h2')
             .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(5)
+        openMoreMenuWithOptions(6)
 
         cy.get('[data-test="data-download-modal"]')
             .find('button')
             .contains('Download')
             .click()
 
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-
         cy.waitUntil(
             () => cy.task('getLastDownloadFilePath').then((result) => result),
-            { timeout: 3000, interval: 100 }
+            { timeout: 8000, interval: 100 }
         ).then((filePath) => {
             expect(filePath).to.include('geojson')
             expect(filePath).to.include(
@@ -103,13 +105,13 @@ describe('Data Download', () => {
     })
 
     it('fails to download event layer', () => {
-        cy.visit(`/?id=${mapWithEventLayer.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/?id=${mapWithEventLayer.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('[data-test="layercard"]')
             .find('h2')
             .contains(mapWithEventLayer.cardTitle, EXTENDED_TIMEOUT)
 
-        openMoreMenuWithOptions(5)
+        openMoreMenuWithOptions(6)
 
         cy.intercept('GET', '**/programStages/**', {
             statusCode: 400,
