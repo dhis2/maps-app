@@ -816,16 +816,32 @@ describe('getNextSorting', () => {
         ).toEqual({ sortField: 'name', sortDirection: 'desc' })
     })
 
-    test('clicking the descending-sorted column clears back to natural order', () => {
+    test('clicking the descending-sorted default column resets to itself ascending - a 2-state toggle since it already is the default', () => {
         expect(
             getNextSorting('name', { sortField: 'name', sortDirection: 'desc' })
-        ).toEqual({ sortField: null, sortDirection: 'asc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'asc' })
     })
 
     test('clicking a different column restarts the cycle at ascending', () => {
         expect(
             getNextSorting('type', { sortField: 'name', sortDirection: 'desc' })
         ).toEqual({ sortField: 'type', sortDirection: 'asc' })
+    })
+
+    test("clicking a non-default column's third time (descending) resets to the table's actual default sort, matching what it shows on initial load - not an unsorted/natural-order state", () => {
+        expect(
+            getNextSorting('type', { sortField: 'type', sortDirection: 'desc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'asc' })
+    })
+
+    test('honors a custom defaultSortField/defaultSortDirection when resetting', () => {
+        expect(
+            getNextSorting(
+                'type',
+                { sortField: 'type', sortDirection: 'desc' },
+                { defaultSortField: 'level', defaultSortDirection: 'desc' }
+            )
+        ).toEqual({ sortField: 'level', sortDirection: 'desc' })
     })
 })
 
