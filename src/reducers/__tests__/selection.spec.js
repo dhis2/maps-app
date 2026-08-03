@@ -107,27 +107,33 @@ describe('selection reducer', () => {
         expect(state).toEqual({ layerId: 'layer-2', ids: ['x', 'y'] })
     })
 
-    it.each([
-        types.SELECTION_CLEAR,
-        types.MAP_NEW,
-        types.MAP_SET,
-        types.DATA_TABLE_CLOSE,
-    ])('resets to default state on %s', (type) => {
-        const state = selection(
-            { layerId: 'layer-1', ids: ['a', 'b'] },
-            { type }
-        )
+    it.each([types.SELECTION_CLEAR, types.MAP_NEW, types.MAP_SET])(
+        'resets to default state on %s',
+        (type) => {
+            const state = selection(
+                { layerId: 'layer-1', ids: ['a', 'b'] },
+                { type }
+            )
 
-        expect(state).toEqual({ layerId: null, ids: [] })
+            expect(state).toEqual({ layerId: null, ids: [] })
+        }
+    )
+
+    it('keeps the selection when the data table panel is closed', () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, { type: types.DATA_TABLE_CLOSE })
+
+        expect(state).toBe(prevState)
     })
 
-    it("resets to default state when the selected layer's data table tab is toggled (closed)", () => {
-        const state = selection(
-            { layerId: 'layer-1', ids: ['a', 'b'] },
-            { type: types.DATA_TABLE_TOGGLE, id: 'layer-1' }
-        )
+    it("keeps the selection when the selected layer's own data table tab is toggled", () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_TOGGLE,
+            id: 'layer-1',
+        })
 
-        expect(state).toEqual({ layerId: null, ids: [] })
+        expect(state).toBe(prevState)
     })
 
     it("keeps the selection when a different layer's data table tab is toggled", () => {
@@ -135,6 +141,15 @@ describe('selection reducer', () => {
         const state = selection(prevState, {
             type: types.DATA_TABLE_TOGGLE,
             id: 'layer-2',
+        })
+
+        expect(state).toBe(prevState)
+    })
+
+    it('keeps the selection when the combined view is toggled', () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
         })
 
         expect(state).toBe(prevState)
