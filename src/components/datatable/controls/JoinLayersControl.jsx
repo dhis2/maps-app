@@ -164,10 +164,20 @@ const JoinLayersControl = ({
                                     ({ kind }) =>
                                         kind === DATA_KEY_KIND_CATEGORY
                                 )
-                                const otherDataKeys = valueDataKeys.filter(
-                                    ({ kind }) =>
-                                        kind !== DATA_KEY_KIND_CATEGORY
-                                )
+                                const seenAggregationKeys = new Set()
+                                const otherDataKeys = valueDataKeys
+                                    .filter(
+                                        ({ kind }) =>
+                                            kind !== DATA_KEY_KIND_CATEGORY
+                                    )
+                                    .filter(({ dataKey, settingsKey }) => {
+                                        const key = settingsKey ?? dataKey
+                                        if (seenAggregationKeys.has(key)) {
+                                            return false
+                                        }
+                                        seenAggregationKeys.add(key)
+                                        return true
+                                    })
                                 return (
                                     <div
                                         key={layer.id}
@@ -249,6 +259,7 @@ const JoinLayersControl = ({
                                                         dataKey,
                                                         name,
                                                         kind,
+                                                        settingsKey,
                                                     }) => {
                                                         if (
                                                             kind ===
@@ -276,10 +287,13 @@ const JoinLayersControl = ({
                                                             )
                                                         }
 
+                                                        const aggregationKey =
+                                                            settingsKey ??
+                                                            dataKey
                                                         const effectiveType =
                                                             settings
                                                                 .aggregation?.[
-                                                                dataKey
+                                                                aggregationKey
                                                             ] ??
                                                             defaultAggregation[
                                                                 dataKey
@@ -331,7 +345,7 @@ const JoinLayersControl = ({
                                                                     ) =>
                                                                         onAggregationChange(
                                                                             layer.combinedLayerKey,
-                                                                            dataKey,
+                                                                            aggregationKey,
                                                                             e
                                                                                 .target
                                                                                 .value

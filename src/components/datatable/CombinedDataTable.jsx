@@ -89,6 +89,9 @@ const CombinedDataTable = ({
         (state) => state.ui.showOnlyFeaturesInView
     )
     const mapBounds = useSelector((state) => state.ui.mapBounds)
+    const externalPeriod = useSelector(
+        (state) => state.ui?.activeTimelinePeriod
+    )
     const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const currentFeature = useSelector((state) => state.feature)
     const lastClickedFeature = useSelector(
@@ -115,6 +118,7 @@ const CombinedDataTable = ({
             selectionFilter,
             selectedIdSet,
             keyAnalysisDigitGroupSeparator,
+            externalPeriod,
         })
 
     useEffect(() => {

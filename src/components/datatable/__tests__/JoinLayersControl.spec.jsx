@@ -356,6 +356,47 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             },
         })
     })
+
+    test('shows a single shared aggregation select for a multi-period thematic layer, not one per period', () => {
+        const onChange = jest.fn()
+        const timelineLayer = {
+            id: 'timeline',
+            name: 'Timeline Layer',
+            combinedLayerKey: 'timeline',
+            layer: THEMATIC_LAYER,
+            renderingStrategy: 'TIMELINE',
+            periods: [
+                { id: 'p1', name: 'Jan' },
+                { id: 'p2', name: 'Feb' },
+                { id: 'p3', name: 'Mar' },
+            ],
+            data: [{ properties: { orgUnitPath: '/country1/ou1' } }],
+        }
+        renderControl({
+            eligibleLayers: [timelineLayer],
+            layersConfig: {
+                timeline: { type: 'orgUnit', aggregation: {} },
+            },
+            onChange,
+        })
+        openPicker()
+
+        expect(
+            screen.getAllByLabelText('Aggregation type for Timeline Layer')
+        ).toHaveLength(1)
+
+        fireEvent.change(
+            screen.getByLabelText('Aggregation type for Timeline Layer'),
+            { target: { value: 'AVERAGE' } }
+        )
+
+        expect(onChange).toHaveBeenCalledWith({
+            timeline: {
+                type: 'orgUnit',
+                aggregation: { rawValue: 'AVERAGE' },
+            },
+        })
+    })
 })
 
 describe('JoinLayersControl popover — aggregation rollup warning', () => {

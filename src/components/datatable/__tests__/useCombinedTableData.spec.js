@@ -3,6 +3,7 @@ import {
     EARTH_ENGINE_LAYER,
     EVENT_LAYER,
     FACILITY_LAYER,
+    THEMATIC_LAYER,
 } from '../../../constants/layers.js'
 import { useCombinedTableData } from '../useCombinedTableData.js'
 
@@ -843,6 +844,192 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
         )
         expect(findCell(row1, 'layerA_1').value).toBe(45.2)
         expect(findCell(row1, 'layerA_2').value).toBe(12.1)
+    })
+})
+
+describe('useCombinedTableData - thematic timeline/split-by-period value columns', () => {
+    const periods = [
+        { id: 'p1', name: 'Jan 2023' },
+        { id: 'p2', name: 'Feb 2023' },
+    ]
+    const valuesByPeriod = {
+        p1: { f1: { value: 10, legend: 'Low' } },
+        p2: { f1: { value: 20, legend: 'High' } },
+    }
+
+    test('TIMELINE: current column resolves from the active period, plus one fixed column per period', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'TIMELINE',
+                periods,
+                valuesByPeriod,
+                data: [feature({ id: 'f1', orgUnitPath: '/country1/ou1' })],
+            },
+        ]
+        const joinConfig = {
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                externalPeriod: periods[0],
+            })
+        )
+
+        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
+            'id',
+            'name',
+            'level',
+            'layerA_rawValue',
+            'layerA_period_p1_rawValue',
+            'layerA_period_p2_rawValue',
+            'layerA_legend',
+        ])
+
+        const currentHeader = result.current.headers.find(
+            (h) => h.dataKey === 'layerA_rawValue'
+        )
+        expect(currentHeader.name).toBe('Value (Layer A, Jan 2023)')
+        expect(currentHeader.configName).toBe('Value (Layer A, Current period)')
+
+        const legendHeader = result.current.headers.find(
+            (h) => h.dataKey === 'layerA_legend'
+        )
+        expect(legendHeader.name).toBe('Legend (Layer A, Jan 2023)')
+        expect(legendHeader.configName).toBe('Legend (Layer A, Current period)')
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(10)
+        expect(findCell(row1, 'layerA_period_p1_rawValue').value).toBe(10)
+        expect(findCell(row1, 'layerA_period_p2_rawValue').value).toBe(20)
+        expect(findCell(row1, 'layerA_legend').value).toBe('Low')
+    })
+
+    test('SPLIT_BY_PERIOD: only fixed per-period columns, no current column, no legend column', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SPLIT_BY_PERIOD',
+                periods,
+                valuesByPeriod,
+                data: [feature({ id: 'f1', orgUnitPath: '/country1/ou1' })],
+            },
+        ]
+        const joinConfig = {
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
+        )
+
+        expect(result.current.headers.map((h) => h.dataKey)).toEqual([
+            'id',
+            'name',
+            'level',
+            'layerA_period_p1_rawValue',
+            'layerA_period_p2_rawValue',
+        ])
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_period_p1_rawValue').value).toBe(10)
+        expect(findCell(row1, 'layerA_period_p2_rawValue').value).toBe(20)
+    })
+
+    test('aggregates several matched features per period using one shared aggregation type', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'TIMELINE',
+                periods,
+                valuesByPeriod: {
+                    p1: { f1: { value: 10 }, f2: { value: 30 } },
+                    p2: { f1: { value: 20 }, f2: { value: 40 } },
+                },
+                data: [
+                    feature({ id: 'f1', orgUnitPath: '/country1/ou1' }),
+                    feature({ id: 'f2', orgUnitPath: '/country1/ou1' }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                externalPeriod: periods[0],
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(40)
+        expect(findCell(row1, 'layerA_period_p1_rawValue').value).toBe(40)
+        expect(findCell(row1, 'layerA_period_p2_rawValue').value).toBe(60)
+    })
+
+    test('dead-reference regression: value/legend are read from valuesByPeriod, never from raw feature properties', () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'TIMELINE',
+                periods,
+                valuesByPeriod,
+                data: [
+                    feature({
+                        id: 'f1',
+                        orgUnitPath: '/country1/ou1',
+                        rawValue: 9999,
+                        legend: 'Bogus',
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: { layerA: { type: 'orgUnit', aggregation: {} } },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({
+                layers,
+                referenceLayer,
+                joinConfig,
+                externalPeriod: periods[0],
+            })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(10)
+        expect(findCell(row1, 'layerA_legend').value).toBe('Low')
     })
 })
 
