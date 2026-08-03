@@ -14,6 +14,7 @@ import {
 } from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getCombinedLegendConfig,
     getCombinedValueDataKeys,
     getDefaultCombinedAggregation,
     getDefaultReferenceRows,
@@ -46,6 +47,84 @@ describe('getCombinedValueDataKeys', () => {
     test('returns a single generic rawValue column for any non-Earth-Engine layer', () => {
         expect(getCombinedValueDataKeys({ layer: THEMATIC_LAYER })).toEqual([
             { dataKey: 'rawValue', name: null, kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('single-period thematic layer (no renderingStrategy set) still returns the single generic rawValue column', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SINGLE',
+            })
+        ).toEqual([
+            { dataKey: 'rawValue', name: null, kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('TIMELINE thematic layer: returns a current column plus one fixed column per period', () => {
+        const externalPeriod = { id: 'p1', name: 'Jan' }
+        const periods = [
+            { id: 'p1', name: 'Jan' },
+            { id: 'p2', name: 'Feb' },
+        ]
+        expect(
+            getCombinedValueDataKeys(
+                {
+                    layer: THEMATIC_LAYER,
+                    renderingStrategy: 'TIMELINE',
+                    periods,
+                },
+                externalPeriod
+            )
+        ).toEqual([
+            {
+                dataKey: 'rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                isCurrentPeriod: true,
+                settingsKey: 'rawValue',
+            },
+            {
+                dataKey: 'period_p1_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'period_p2_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p2',
+                periodName: 'Feb',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('SPLIT_BY_PERIOD thematic layer: returns only fixed per-period columns, no current column', () => {
+        const periods = [{ id: 'p1', name: 'Jan' }]
+        expect(
+            getCombinedValueDataKeys({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SPLIT_BY_PERIOD',
+                periods,
+            })
+        ).toEqual([
+            {
+                dataKey: 'period_p1_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
         ])
     })
 
@@ -302,6 +381,50 @@ describe('getCombinedValueDataKeys', () => {
                 { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
             ])
         })
+    })
+})
+
+describe('getCombinedLegendConfig', () => {
+    test('Earth Engine layer: no legend column', () => {
+        expect(
+            getCombinedLegendConfig({ layer: EARTH_ENGINE_LAYER })
+        ).toBeNull()
+    })
+
+    test('single-period thematic layer: generic legend, read straight off feature properties', () => {
+        expect(
+            getCombinedLegendConfig({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SINGLE',
+            })
+        ).toEqual({ periodId: null, periodName: null, isCurrentPeriod: false })
+    })
+
+    test('non-thematic layer: generic legend, unaffected by renderingStrategy', () => {
+        expect(getCombinedLegendConfig({ layer: FACILITY_LAYER })).toEqual({
+            periodId: null,
+            periodName: null,
+            isCurrentPeriod: false,
+        })
+    })
+
+    test('TIMELINE thematic layer: legend resolved from the current period', () => {
+        const externalPeriod = { id: 'p1', name: 'Jan' }
+        expect(
+            getCombinedLegendConfig(
+                { layer: THEMATIC_LAYER, renderingStrategy: 'TIMELINE' },
+                externalPeriod
+            )
+        ).toEqual({ periodId: 'p1', periodName: 'Jan', isCurrentPeriod: true })
+    })
+
+    test('SPLIT_BY_PERIOD thematic layer: no legend column at all', () => {
+        expect(
+            getCombinedLegendConfig({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SPLIT_BY_PERIOD',
+            })
+        ).toBeNull()
     })
 })
 

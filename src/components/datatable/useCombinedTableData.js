@@ -21,6 +21,7 @@ import {
 } from '../../util/combinedJoinMatch.js'
 import {
     CATEGORY_DISPLAY_TYPE_KEY,
+    getCombinedLegendConfig,
     getCombinedValueDataKeys,
     getDefaultCombinedAggregation,
     getFeatureCategoryKey,
@@ -99,10 +100,11 @@ const finalizeRows = (
 }
 
 const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
-    const { layer, settings, byReferenceId, valueDataKeys } = layerMatch
+    const { layer, settings, byReferenceId, valueDataKeys, legendConfig } =
+        layerMatch
     const matches = byReferenceId.get(refProps.id) ?? []
 
-    valueDataKeys.forEach(({ dataKey, kind }) => {
+    valueDataKeys.forEach(({ dataKey, kind, periodId, settingsKey }) => {
         const rowKey = `${layer.combinedLayerKey}_${dataKey}`
 
         if (kind === DATA_KEY_KIND_COUNT) {
@@ -129,17 +131,29 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
         }
 
         const effectiveType =
-            settings.aggregation?.[dataKey] ??
+            settings.aggregation?.[settingsKey ?? dataKey] ??
             getDefaultCombinedAggregation(layer)[dataKey]
-        const values = matches
-            .map((p) => p[dataKey])
-            .filter((v) => Number.isFinite(v))
+        const values =
+            periodId != null
+                ? matches
+                      .map(
+                          (p) => layer.valuesByPeriod?.[periodId]?.[p.id]?.value
+                      )
+                      .filter((v) => Number.isFinite(v))
+                : matches
+                      .map((p) => p[dataKey])
+                      .filter((v) => Number.isFinite(v))
         row[rowKey] = applyAggregation(effectiveType, values)
     })
 
-    if (layer.layer !== EARTH_ENGINE_LAYER) {
+    if (legendConfig) {
         const legends = matches
-            .map((p) => p[LEGEND_KEY])
+            .map((p) =>
+                legendConfig.periodId != null
+                    ? layer.valuesByPeriod?.[legendConfig.periodId]?.[p.id]
+                          ?.legend
+                    : p[LEGEND_KEY]
+            )
             .filter((v) => v != null)
         row[`${layer.combinedLayerKey}_${LEGEND_KEY}`] =
             legends.length && legends.every((l) => l === legends[0])
@@ -156,7 +170,7 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
 const getValueDataKeyHeader = (
     layer,
     settings,
-    { dataKey, name, kind, defaultHidden }
+    { dataKey, name, kind, defaultHidden, periodName, isCurrentPeriod }
 ) => {
     const rowKey = `${layer.combinedLayerKey}_${dataKey}`
 
@@ -187,6 +201,24 @@ const getValueDataKeyHeader = (
         }
     }
 
+    if (periodName !== undefined || isCurrentPeriod) {
+        return {
+            name: i18n.t('Value ({{layer}}, {{period}})', {
+                layer: layer.name,
+                period: periodName ?? i18n.t('Current period'),
+            }),
+            dataKey: rowKey,
+            type: TYPE_NUMBER,
+            defaultHidden,
+            ...(isCurrentPeriod && {
+                configName: i18n.t('Value ({{layer}}, {{period}})', {
+                    layer: layer.name,
+                    period: i18n.t('Current period'),
+                }),
+            }),
+        }
+    }
+
     return {
         name: name
             ? i18n.t('{{name}} ({{layer}})', { name, layer: layer.name })
@@ -194,6 +226,31 @@ const getValueDataKeyHeader = (
         dataKey: rowKey,
         type: TYPE_NUMBER,
         defaultHidden,
+    }
+}
+
+const getLegendHeader = (layer, { periodName, isCurrentPeriod }) => {
+    const dataKey = `${layer.combinedLayerKey}_${LEGEND_KEY}`
+    if (!isCurrentPeriod) {
+        return {
+            name: i18n.t('Legend ({{layer}})', { layer: layer.name }),
+            dataKey,
+            type: TYPE_STRING,
+            defaultHidden: true,
+        }
+    }
+    return {
+        name: i18n.t('Legend ({{layer}}, {{period}})', {
+            layer: layer.name,
+            period: periodName ?? i18n.t('Current period'),
+        }),
+        configName: i18n.t('Legend ({{layer}}, {{period}})', {
+            layer: layer.name,
+            period: i18n.t('Current period'),
+        }),
+        dataKey,
+        type: TYPE_STRING,
+        defaultHidden: true,
     }
 }
 
@@ -222,6 +279,7 @@ export const useCombinedTableData = ({
     selectionFilter,
     selectedIdSet,
     keyAnalysisDigitGroupSeparator,
+    externalPeriod,
 }) => {
     const referenceOrgUnits = useMemo(
         () => getJoinableFeatures(referenceLayer),
@@ -250,15 +308,28 @@ export const useCombinedTableData = ({
                     allAggregations[layer.id] ?? EMPTY_AGGREGATIONS
                 )
                 const features = getJoinableFeatures(mergedLayer)
-                const valueDataKeys = getCombinedValueDataKeys(layer)
+                const valueDataKeys = getCombinedValueDataKeys(
+                    layer,
+                    externalPeriod
+                )
+                const legendConfig = getCombinedLegendConfig(
+                    layer,
+                    externalPeriod
+                )
                 const byReferenceId = getByReferenceId(
                     features,
                     referenceOrgUnits,
                     settings.type
                 )
-                return { layer, settings, byReferenceId, valueDataKeys }
+                return {
+                    layer,
+                    settings,
+                    byReferenceId,
+                    valueDataKeys,
+                    legendConfig,
+                }
             }),
-        [layers, joinConfig, referenceOrgUnits, allAggregations]
+        [layers, joinConfig, referenceOrgUnits, allAggregations, externalPeriod]
     )
 
     const headers = useMemo(() => {
@@ -279,23 +350,16 @@ export const useCombinedTableData = ({
                 type: TYPE_NUMBER,
                 defaultHidden: true,
             },
-            ...layerMatches.flatMap(({ layer, settings, valueDataKeys }) => [
-                ...valueDataKeys.map((valueDataKey) =>
-                    getValueDataKeyHeader(layer, settings, valueDataKey)
-                ),
-                ...(layer.layer !== EARTH_ENGINE_LAYER
-                    ? [
-                          {
-                              name: i18n.t('Legend ({{layer}})', {
-                                  layer: layer.name,
-                              }),
-                              dataKey: `${layer.combinedLayerKey}_${LEGEND_KEY}`,
-                              type: TYPE_STRING,
-                              defaultHidden: true,
-                          },
-                      ]
-                    : []),
-            ]),
+            ...layerMatches.flatMap(
+                ({ layer, settings, valueDataKeys, legendConfig }) => [
+                    ...valueDataKeys.map((valueDataKey) =>
+                        getValueDataKeyHeader(layer, settings, valueDataKey)
+                    ),
+                    ...(legendConfig
+                        ? [getLegendHeader(layer, legendConfig)]
+                        : []),
+                ]
+            ),
         ]
     }, [referenceOrgUnits, layerMatches])
 

@@ -14,6 +14,8 @@ import {
     FACILITY_LAYER,
     EVENT_LAYER,
     TRACKED_ENTITY_LAYER,
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import {
@@ -168,7 +170,69 @@ export const getFeatureCategoryKey = (layer, props) => {
     return UNCLASSIFIED_CATEGORY_KEY
 }
 
-export const getCombinedValueDataKeys = (layer) => {
+const getThematicCombinedValueDataKeys = (layer, externalPeriod) => {
+    const { renderingStrategy, periods } = layer
+    if (!renderingStrategy || renderingStrategy === RENDERING_STRATEGY_SINGLE) {
+        return [
+            {
+                dataKey: COMBINED_VALUE_KEY,
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ]
+    }
+
+    const periodValueKeys = (periods ?? []).map((period) => ({
+        dataKey: `period_${period.id}_${COMBINED_VALUE_KEY}`,
+        name: null,
+        kind: DATA_KEY_KIND_VALUE,
+        periodId: period.id,
+        periodName: period.name,
+        settingsKey: COMBINED_VALUE_KEY,
+        defaultHidden: true,
+    }))
+
+    if (renderingStrategy !== RENDERING_STRATEGY_TIMELINE) {
+        return periodValueKeys
+    }
+
+    return [
+        {
+            dataKey: COMBINED_VALUE_KEY,
+            name: null,
+            kind: DATA_KEY_KIND_VALUE,
+            periodId: externalPeriod?.id,
+            periodName: externalPeriod?.name,
+            isCurrentPeriod: true,
+            settingsKey: COMBINED_VALUE_KEY,
+        },
+        ...periodValueKeys,
+    ]
+}
+
+export const getCombinedLegendConfig = (layer, externalPeriod) => {
+    if (layer.layer === EARTH_ENGINE_LAYER) {
+        return null
+    }
+    if (
+        layer.layer !== THEMATIC_LAYER ||
+        !layer.renderingStrategy ||
+        layer.renderingStrategy === RENDERING_STRATEGY_SINGLE
+    ) {
+        return { periodId: null, periodName: null, isCurrentPeriod: false }
+    }
+    if (layer.renderingStrategy === RENDERING_STRATEGY_TIMELINE) {
+        return {
+            periodId: externalPeriod?.id ?? null,
+            periodName: externalPeriod?.name ?? null,
+            isCurrentPeriod: true,
+        }
+    }
+    // SPLIT_BY_PERIOD: no single period to show a legend for
+    return null
+}
+
+export const getCombinedValueDataKeys = (layer, externalPeriod) => {
     if (layer.layer === FACILITY_LAYER || layer.layer === ORG_UNIT_LAYER) {
         return getOrgUnitGroupValueDataKeys(layer)
     }
@@ -183,6 +247,9 @@ export const getCombinedValueDataKeys = (layer) => {
                 kind: DATA_KEY_KIND_COUNT,
             },
         ]
+    }
+    if (layer.layer === THEMATIC_LAYER) {
+        return getThematicCombinedValueDataKeys(layer, externalPeriod)
     }
     if (layer.layer !== EARTH_ENGINE_LAYER) {
         return [

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-08-03T07:08:14.950Z\n"
-"PO-Revision-Date: 2026-08-03T07:08:14.951Z\n"
+"POT-Creation-Date: 2026-08-03T11:27:11.052Z\n"
+"PO-Revision-Date: 2026-08-03T11:27:11.052Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -432,20 +432,29 @@ msgstr "%"
 msgid "count"
 msgstr "count"
 
+msgid "Value ({{layer}}, {{period}})"
+msgstr "Value ({{layer}}, {{period}})"
+
+msgid "Current period"
+msgstr "Current period"
+
 msgid "{{name}} ({{layer}})"
 msgstr "{{name}} ({{layer}})"
 
 msgid "Value ({{layer}})"
 msgstr "Value ({{layer}})"
 
+msgid "Legend ({{layer}})"
+msgstr "Legend ({{layer}})"
+
+msgid "Legend ({{layer}}, {{period}})"
+msgstr "Legend ({{layer}}, {{period}})"
+
 msgid "Org unit id"
 msgstr "Org unit id"
 
 msgid "Org unit level"
 msgstr "Org unit level"
-
-msgid "Legend ({{layer}})"
-msgstr "Legend ({{layer}})"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -2198,9 +2207,6 @@ msgstr "Group"
 
 msgid "Icon"
 msgstr "Icon"
-
-msgid "Current period"
-msgstr "Current period"
 
 msgid "Value ({{period}})"
 msgstr "Value ({{period}})"
