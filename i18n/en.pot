@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-31T15:09:46.348Z\n"
-"PO-Revision-Date: 2026-07-31T15:09:46.349Z\n"
+"POT-Creation-Date: 2026-08-03T07:08:14.950Z\n"
+"PO-Revision-Date: 2026-08-03T07:08:14.951Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -337,6 +337,21 @@ msgstr "Search all columns"
 msgid "Highlight color"
 msgstr "Highlight color"
 
+msgid "Facilities count"
+msgstr "Facilities count"
+
+msgid "Org units count"
+msgstr "Org units count"
+
+msgid "Events count"
+msgstr "Events count"
+
+msgid "Tracked entities count"
+msgstr "Tracked entities count"
+
+msgid "Count"
+msgstr "Count"
+
 msgid "Choose layers to combine"
 msgstr "Choose layers to combine"
 
@@ -365,9 +380,6 @@ msgstr[1] ""
 "{{count}} feature(s) from {{layer}} could not be matched to a reference org "
 "unit (wrong level, no matching parent, or outside every boundary) and will "
 "be excluded from the Combined table."
-
-msgid "Count"
-msgstr "Count"
 
 msgid "Aggregation type for {{name}} ({{layer}})"
 msgstr "Aggregation type for {{name}} ({{layer}})"
