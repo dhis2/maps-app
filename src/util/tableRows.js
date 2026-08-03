@@ -88,9 +88,6 @@ export const buildTableData = (
                 : null
             const otherPeriodValues = {}
             ;(periods ?? []).forEach((period) => {
-                if (isTimelineThematic && period.id === externalPeriod?.id) {
-                    return
-                }
                 otherPeriodValues[`period_${period.id}_rawValue`] =
                     valuesByPeriod?.[period.id]?.[orgUnitId]?.value ?? null
             })
