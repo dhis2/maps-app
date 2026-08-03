@@ -369,6 +369,27 @@ describe('ColumnPicker search', () => {
     })
 })
 
+describe('ColumnPicker configName (timeline current-period columns)', () => {
+    test('shows configName instead of the period-specific name, when present', () => {
+        const headersWithConfigName = [
+            ...headers,
+            {
+                name: 'Range (Jan 2023)',
+                configName: 'Range (Current period)',
+                dataKey: 'range',
+            },
+        ]
+        renderColumnPicker({ allHeaders: headersWithConfigName })
+        openPicker()
+        expect(
+            screen.getByLabelText('Range (Current period)')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('Range (Jan 2023)')
+        ).not.toBeInTheDocument()
+    })
+})
+
 describe('ColumnPicker defaultHidden headers (e.g. period columns)', () => {
     const headersWithHiddenColumn = [
         ...headers,
