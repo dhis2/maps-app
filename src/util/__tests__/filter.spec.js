@@ -247,6 +247,25 @@ describe('filterData', () => {
             }
             expect(filterData(data, filters)).toEqual([{ a: null }])
         })
+
+        it('an empty prefixes array matches everything when not search-derived (an inactive checkbox tree)', () => {
+            const filters = {
+                a: { granularity: ORG_UNIT_GROUPS_GRANULARITY, prefixes: [] },
+            }
+            expect(filterData(data, filters)).toEqual(data)
+        })
+
+        it('an empty prefixes array matches nothing when search-derived (a free-text search that matched no branch)', () => {
+            const filters = {
+                a: {
+                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                    prefixes: [],
+                    searchDerived: true,
+                    searchText: 'Nairobi',
+                },
+            }
+            expect(filterData(data, filters)).toEqual([])
+        })
     })
 
     describe('org-unit value filter ({ values, searchDerived, searchText }) - a committed free-text search on an org-unit-flavored plain-text column, resolved to matching raw values up front (see FilterInput.jsx)', () => {

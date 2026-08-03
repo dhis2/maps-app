@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
+import { setDataFilter } from '../../actions/dataFilters.js'
 import { ORG_UNIT_GROUPS_GRANULARITY } from '../../constants/dataTable.js'
 import { isOrgUnitGroupFilter } from '../../util/filter.js'
 import {
@@ -66,10 +66,6 @@ const OrgUnitGroupFilterInput = ({
                 .map((key) => nodeByKey.get(key))
                 .filter(Boolean)
                 .map((node) => node.prefix)
-            if (!matchedPrefixes.length) {
-                dispatch(clearDataFilter(layerIdArg, dataKeyArg))
-                return
-            }
             dispatch(
                 setDataFilter(layerIdArg, dataKeyArg, {
                     granularity: ORG_UNIT_GROUPS_GRANULARITY,
