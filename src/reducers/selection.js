@@ -70,11 +70,7 @@ const selection = (state = defaultState, action) => {
         case types.SELECTION_CLEAR:
         case types.MAP_NEW:
         case types.MAP_SET:
-        case types.DATA_TABLE_CLOSE:
             return defaultState
-
-        case types.DATA_TABLE_TOGGLE:
-            return state.layerId === action.id ? defaultState : state
 
         case types.LAYER_REMOVE:
             return removeLayerFromSelection(state, action)
