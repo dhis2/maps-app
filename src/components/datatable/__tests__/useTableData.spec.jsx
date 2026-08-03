@@ -2193,7 +2193,7 @@ describe('useTableData globalSearch', () => {
         ).toBe('evt1')
     })
 
-    test('matches a custom ORGANISATION_UNIT-valued attribute on a Tracked entity layer only by its raw stored value, not its resolved name - only "Org unit hierarchy" gets name-aware global search', () => {
+    test('matches a custom ORGANISATION_UNIT-valued attribute on a Tracked entity layer by its resolved name, same as the "Org unit hierarchy" column - fixed an earlier asymmetry where custom org-unit fields were only searchable by their raw stored id', () => {
         useOrgUnitAncestorNames.mockReturnValue({
             idToName: new Map([['facility9', 'Referral Hospital']]),
             loading: false,
@@ -2233,13 +2233,13 @@ describe('useTableData globalSearch', () => {
                 }
             ).result
 
-        expect(renderTeiTableData('referral').current.rows).toHaveLength(0)
-
-        const { current } = renderTeiTableData('facility9')
+        const { current } = renderTeiTableData('referral')
         expect(current.rows).toHaveLength(1)
         expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
             'tei1'
         )
+
+        expect(renderTeiTableData('addis ababa').current.rows).toHaveLength(0)
     })
 
     test('shows no rows when nothing matches', () => {

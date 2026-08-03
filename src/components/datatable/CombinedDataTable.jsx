@@ -114,6 +114,7 @@ const CombinedDataTable = ({
             mapBounds,
             selectionFilter,
             selectedIdSet,
+            keyAnalysisDigitGroupSeparator,
         })
 
     useEffect(() => {

@@ -3,7 +3,6 @@ import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
     SENTINEL_SELECTED_ROW,
-    TYPE_ORG_UNIT,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
@@ -26,7 +25,6 @@ import {
     sortColumnOptions,
 } from '../../util/tableColumns.js'
 import {
-    TYPE_STRING,
     ERROR_NON_HOMOGENOUS_FEATURES,
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
@@ -258,16 +256,10 @@ export const useTableData = ({
         let filteredData = filterData(dataWithAggregations, dataFilters)
 
         if (globalSearch?.trim()) {
-            const stringDataKeys = headers
-                .filter((h) => h.type === TYPE_STRING)
-                .map((h) => h.dataKey)
-            const orgUnitDataKeys = headers
-                .filter((h) => h.type === TYPE_ORG_UNIT)
-                .map((h) => h.dataKey)
             filteredData = filterByGlobalSearch(filteredData, globalSearch, {
-                stringDataKeys,
-                orgUnitDataKeys,
-                idToName: orgUnitIdToName,
+                headers,
+                orgUnitIdToName,
+                keyAnalysisDigitGroupSeparator,
             })
         }
 
