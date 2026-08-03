@@ -391,7 +391,7 @@ describe('useTableData headers', () => {
         )
     })
 
-    test('adds a defaultHidden raw-value-only column for every other period, for a timeline thematic layer', () => {
+    test('adds a defaultHidden raw-value-only column for every period, including the current one, for a timeline thematic layer', () => {
         const store = {
             aggregations: {},
             ui: {
@@ -434,12 +434,15 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows } = result.current
-        expect(headers).not.toContainEqual(
-            expect.objectContaining({ dataKey: 'period_202302_rawValue' })
-        )
         expect(headers).toContainEqual({
             name: 'Value (January 2023)',
             dataKey: 'period_202301_rawValue',
+            type: 'number',
+            defaultHidden: true,
+        })
+        expect(headers).toContainEqual({
+            name: 'Value (February 2023)',
+            dataKey: 'period_202302_rawValue',
             type: 'number',
             defaultHidden: true,
         })
@@ -447,6 +450,12 @@ describe('useTableData headers', () => {
             expect.objectContaining({
                 value: 100,
                 dataKey: 'period_202301_rawValue',
+            })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 200,
+                dataKey: 'period_202302_rawValue',
             })
         )
     })

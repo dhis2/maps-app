@@ -241,11 +241,7 @@ const getMultiPeriodThematicHeaders = ({
           )
         : getOrgUnitHeaders()
 
-    const otherPeriods = isTimelineThematic
-        ? (periods ?? []).filter((p) => p.id !== externalPeriod?.id)
-        : periods ?? []
-
-    otherPeriods.forEach((period) => {
+    ;(periods ?? []).forEach((period) => {
         headers.push({
             name: i18n.t('Value ({{period}})', { period: period.name }),
             dataKey: `period_${period.id}_rawValue`,

@@ -85,7 +85,7 @@ describe('getHeadersForLayer - thematic', () => {
         )
     })
 
-    test('multi-period timeline: excludes the external period from the extra columns and labels value/legend/range/color with it', () => {
+    test('multi-period timeline: keeps a fixed column for the external period alongside the current-period columns, and labels value/legend/range/color with it', () => {
         const periods = [
             { id: 'p1', name: 'Jan' },
             { id: 'p2', name: 'Feb' },
@@ -97,7 +97,7 @@ describe('getHeadersForLayer - thematic', () => {
             periods,
             externalPeriod,
         })
-        expect(dataKeys(result)).not.toContain('period_p1_rawValue')
+        expect(dataKeys(result)).toContain('period_p1_rawValue')
         expect(dataKeys(result)).toContain('period_p2_rawValue')
         const valueHeader = result.headers.find((h) => h.dataKey === 'rawValue')
         expect(valueHeader.name).toContain('Jan')
