@@ -513,6 +513,19 @@ describe('filterHeadersByName', () => {
     it('returns every header when the search text is empty', () => {
         expect(filterHeadersByName(headers, '')).toEqual(headers)
     })
+
+    it('matches against configName instead of name when present', () => {
+        const withConfigName = [
+            ...headers,
+            {
+                dataKey: 'rawValue2',
+                name: 'Value (Jan 2023)',
+                configName: 'Value (Current period)',
+            },
+        ]
+        const result = filterHeadersByName(withConfigName, 'current period')
+        expect(result.map((h) => h.dataKey)).toEqual(['rawValue2'])
+    })
 })
 
 describe('reorderHeaderKeys', () => {

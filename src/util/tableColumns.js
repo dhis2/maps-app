@@ -192,7 +192,7 @@ export const buildRowCells = (item, headers) =>
 export const filterHeadersByName = (headers, search) => {
     const normalizedSearch = search.trim().toLowerCase()
     return headers.filter((h) =>
-        h.name.toLowerCase().includes(normalizedSearch)
+        (h.configName ?? h.name).toLowerCase().includes(normalizedSearch)
     )
 }
 

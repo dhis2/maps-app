@@ -101,6 +101,7 @@ describe('getHeadersForLayer - thematic', () => {
         expect(dataKeys(result)).toContain('period_p2_rawValue')
         const valueHeader = result.headers.find((h) => h.dataKey === 'rawValue')
         expect(valueHeader.name).toContain('Jan')
+        expect(valueHeader.configName).toBe('Value (Current period)')
     })
 })
 

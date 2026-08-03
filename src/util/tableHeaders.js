@@ -236,6 +236,9 @@ const getMultiPeriodThematicHeaders = ({
                         name: `${header.name} (${
                             externalPeriod?.name ?? i18n.t('Current period')
                         })`,
+                        configName: `${header.name} (${i18n.t(
+                            'Current period'
+                        )})`,
                     }
                   : header
           )
