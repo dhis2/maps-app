@@ -13,9 +13,9 @@ export const isPrefixGroupFilter = (filter, granularity) =>
     !Array.isArray(filter) &&
     filter.granularity === granularity
 
-export const prefixGroupFilter = (value, { prefixes }) => {
+export const prefixGroupFilter = (value, { prefixes, searchDerived }) => {
     if (!prefixes?.length) {
-        return true
+        return !searchDerived
     }
     const stringValue = value == null ? SENTINEL_NO_VALUE : String(value)
     return prefixes.some((prefix) => {

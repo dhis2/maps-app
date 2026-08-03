@@ -246,7 +246,7 @@ describe('OrgUnitGroupFilterInput - search', () => {
         expect(screen.queryByLabelText('country2')).not.toBeInTheDocument()
     })
 
-    test('typing text with no tree match shows the custom filter row but clears rather than filtering by the raw id/path', () => {
+    test('typing text with no tree match shows the custom filter row and applies a filter matching nothing, rather than clearing back to unfiltered', () => {
         const { store } = renderOrgUnitGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: 'Nairobi' } })
@@ -254,12 +254,18 @@ describe('OrgUnitGroupFilterInput - search', () => {
             screen.getByTestId('data-table-column-filter-custom-Org unit')
         ).toBeInTheDocument()
         expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
+            type: DATA_FILTER_SET,
             layerId: 'layer1',
             fieldId: 'orgUnitPath',
+            filter: {
+                granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                prefixes: [],
+                searchDerived: true,
+                searchText: 'Nairobi',
+            },
         })
         expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({ type: DATA_FILTER_SET })
+            expect.objectContaining({ type: DATA_FILTER_CLEAR })
         )
     })
 
