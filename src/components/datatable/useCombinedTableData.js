@@ -67,15 +67,16 @@ const finalizeRows = (
         sortDirection,
         selectionFilter,
         selectedIdSet,
+        keyAnalysisDigitGroupSeparator,
     }
 ) => {
     let data = filterData(flatRows, filters)
 
     if (globalSearch?.trim()) {
-        const stringDataKeys = headers
-            .filter((h) => h.type === TYPE_STRING)
-            .map((h) => h.dataKey)
-        data = filterByGlobalSearch(data, globalSearch, { stringDataKeys })
+        data = filterByGlobalSearch(data, globalSearch, {
+            headers,
+            keyAnalysisDigitGroupSeparator,
+        })
     }
 
     if (selectionFilter?.length) {
@@ -220,6 +221,7 @@ export const useCombinedTableData = ({
     mapBounds,
     selectionFilter,
     selectedIdSet,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     const referenceOrgUnits = useMemo(
         () => getJoinableFeatures(referenceLayer),
@@ -343,6 +345,7 @@ export const useCombinedTableData = ({
             sortDirection,
             selectionFilter,
             selectedIdSet,
+            keyAnalysisDigitGroupSeparator,
         })
         const columnOptions =
             sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
@@ -369,5 +372,6 @@ export const useCombinedTableData = ({
         sortDirection,
         selectionFilter,
         selectedIdSet,
+        keyAnalysisDigitGroupSeparator,
     ])
 }

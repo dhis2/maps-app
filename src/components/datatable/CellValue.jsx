@@ -9,16 +9,7 @@ import {
     RENDERER_BOOLEAN,
     TYPE_DATE,
 } from '../../constants/dataTable.js'
-import {
-    formatBoolean,
-    formatDate,
-    formatDatetime,
-} from '../../util/helpers.js'
-import { formatWithSeparator } from '../../util/numbers.js'
-import {
-    formatOrgUnitOwnName,
-    formatOrgUnitPathBreadcrumb,
-} from '../../util/orgUnitGroups.js'
+import { formatCellText } from '../../util/cellValue.js'
 import styles from './styles/DataTable.module.css'
 
 export const getCellRendererFlags = (renderer, type) => ({
@@ -44,19 +35,7 @@ const CellValue = ({
         return NO_VALUE
     }
 
-    const {
-        isColorCell,
-        isIconCell,
-        isDateCell,
-        isDateOnlyCell,
-        isOrgUnitHierarchyCell,
-        isOrgUnitNameCell,
-        isBooleanCell,
-    } = getCellRendererFlags(renderer, type)
-
-    if (isColorCell) {
-        return value.toLowerCase()
-    }
+    const { isIconCell } = getCellRendererFlags(renderer, type)
 
     if (isIconCell) {
         return (
@@ -71,23 +50,12 @@ const CellValue = ({
         )
     }
 
-    if (isDateCell) {
-        return isDateOnlyCell ? formatDate(value) : formatDatetime(value)
-    }
-
-    if (isOrgUnitHierarchyCell) {
-        return formatOrgUnitPathBreadcrumb(value, orgUnitIdToName)
-    }
-
-    if (isOrgUnitNameCell) {
-        return formatOrgUnitOwnName(value, orgUnitIdToName)
-    }
-
-    if (isBooleanCell) {
-        return formatBoolean(value)
-    }
-
-    return formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
+    return formatCellText(value, {
+        renderer,
+        type,
+        orgUnitIdToName,
+        keyAnalysisDigitGroupSeparator,
+    })
 }
 
 CellValue.propTypes = {
