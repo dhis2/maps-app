@@ -10,9 +10,15 @@ export const useSortState = (initialSortField = 'name') => {
 
     const sortData = useCallback(
         ({ name }) => {
-            setSorting(getNextSorting(name, { sortField, sortDirection }))
+            setSorting(
+                getNextSorting(
+                    name,
+                    { sortField, sortDirection },
+                    { defaultSortField: initialSortField }
+                )
+            )
         },
-        [sortField, sortDirection]
+        [sortField, sortDirection, initialSortField]
     )
 
     return { sortField, sortDirection, sortData }

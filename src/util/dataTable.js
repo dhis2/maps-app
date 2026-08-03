@@ -285,14 +285,18 @@ export const isFilterable = (dataKey, type) => !!type
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
 
-export const getNextSorting = (name, { sortField, sortDirection }) => {
+export const getNextSorting = (
+    name,
+    { sortField, sortDirection },
+    { defaultSortField = 'name', defaultSortDirection = SORT_ASCENDING } = {}
+) => {
     if (name !== sortField) {
         return { sortField: name, sortDirection: SORT_ASCENDING }
     }
     if (sortDirection === SORT_ASCENDING) {
         return { sortField: name, sortDirection: SORT_DESCENDING }
     }
-    return { sortField: null, sortDirection: SORT_ASCENDING }
+    return { sortField: defaultSortField, sortDirection: defaultSortDirection }
 }
 
 export const getRowId = (row) =>
