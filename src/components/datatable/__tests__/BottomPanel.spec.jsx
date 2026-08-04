@@ -521,6 +521,81 @@ describe('BottomPanel Combined join controls', () => {
         ).toBeInTheDocument()
     })
 
+    test('shows no ambient server-cluster warning when no joined layer is server clustered', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [
+                ...twoEligibleLayers,
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                    },
+                },
+            ],
+        })
+
+        expect(
+            screen.queryByTestId('data-table-combined-servercluster-warning')
+        ).not.toBeInTheDocument()
+    })
+
+    test('shows an ambient server-cluster warning naming a joined layer that is server clustered', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [
+                { ...twoEligibleLayers[0], serverCluster: true },
+                twoEligibleLayers[1],
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                    },
+                },
+            ],
+        })
+
+        expect(
+            screen.getByTestId('data-table-combined-servercluster-warning')
+        ).toBeInTheDocument()
+    })
+
+    test('does not show the ambient server-cluster warning once forceClientCluster is set', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [
+                {
+                    ...twoEligibleLayers[0],
+                    serverCluster: true,
+                    forceClientCluster: true,
+                },
+                twoEligibleLayers[1],
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                    },
+                },
+            ],
+        })
+
+        expect(
+            screen.queryByTestId('data-table-combined-servercluster-warning')
+        ).not.toBeInTheDocument()
+    })
+
     test('toggling an already-joined layer off dispatches DATA_TABLE_JOIN_CONFIG_SET with that layer removed', () => {
         const { store } = renderBottomPanel({
             dataTable: {

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-08-04T14:05:40.790Z\n"
-"PO-Revision-Date: 2026-08-04T14:05:40.791Z\n"
+"POT-Creation-Date: 2026-08-04T14:25:52.537Z\n"
+"PO-Revision-Date: 2026-08-04T14:25:52.537Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -377,6 +377,16 @@ msgstr ""
 
 msgid "Clear filters applied to {{layer}}"
 msgstr "Clear filters applied to {{layer}}"
+
+msgid ""
+"This layer is clustered on the server - its data isn't available to join "
+"into the Combined table."
+msgstr ""
+"This layer is clustered on the server - its data isn't available to join "
+"into the Combined table."
+
+msgid "Switch to client clustering"
+msgstr "Switch to client clustering"
 
 msgid "Join by"
 msgstr "Join by"
