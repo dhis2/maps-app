@@ -166,3 +166,53 @@ describe('getUnmatchedFeatureCount', () => {
         )
     })
 })
+
+describe('layer.dataFilters applied before hasCombinedRollup/getUnmatchedFeatureCount', () => {
+    const referenceLayer = {
+        data: [referenceFeature('ref1', '/country1/ref1')],
+    }
+
+    test('hasCombinedRollup no longer sees a rollup once dataFilters excludes the second feature', () => {
+        const layer = {
+            data: [
+                {
+                    properties: {
+                        orgUnitPath: '/country1/ref1/child1',
+                        status: 'open',
+                    },
+                },
+                {
+                    properties: {
+                        orgUnitPath: '/country1/ref1/child2',
+                        status: 'closed',
+                    },
+                },
+            ],
+            dataFilters: { status: 'open' },
+        }
+        expect(hasCombinedRollup(layer, referenceLayer, 'orgUnit')).toBe(false)
+    })
+
+    test('getUnmatchedFeatureCount excludes a feature already removed by dataFilters, rather than counting it as unmatched', () => {
+        const layer = {
+            data: [
+                {
+                    properties: {
+                        orgUnitPath: '/country1/ref1/child1',
+                        status: 'open',
+                    },
+                },
+                {
+                    properties: {
+                        orgUnitPath: '/country2/other',
+                        status: 'closed',
+                    },
+                },
+            ],
+            dataFilters: { status: 'open' },
+        }
+        expect(getUnmatchedFeatureCount(layer, referenceLayer, 'orgUnit')).toBe(
+            0
+        )
+    })
+})

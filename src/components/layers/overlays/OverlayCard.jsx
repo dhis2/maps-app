@@ -5,6 +5,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { clearDataFilters } from '../../../actions/dataFilters.js'
 import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
@@ -45,6 +46,7 @@ const OverlayCard = ({
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
+    clearDataFilters,
 }) => {
     const [showDataDownloadDialog, setShowDataDownloadDialog] = useState(false)
     const { baseUrl } = useConfig()
@@ -61,12 +63,14 @@ const OverlayCard = ({
         layer: layerType,
         isLoaded,
         loadError,
+        dataFilters,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
+    const hasDataFilters = Object.keys(dataFilters ?? {}).length > 0
 
     const getCardContent = () => {
         if (loadError) {
@@ -106,6 +110,9 @@ const OverlayCard = ({
                 onEdit={canEdit ? () => editLayer(layer) : undefined}
                 toggleDataTable={
                     canToggleDataTable ? () => toggleDataTable(id) : undefined
+                }
+                onClearDataFilters={
+                    hasDataFilters ? () => clearDataFilters(id) : undefined
                 }
                 toggleLayerVisibility={() => toggleLayerVisibility(id)}
                 onOpacityChange={(newOpacity) =>
@@ -156,6 +163,7 @@ const OverlayCard = ({
 
 OverlayCard.propTypes = {
     changeLayerOpacity: PropTypes.func.isRequired,
+    clearDataFilters: PropTypes.func.isRequired,
     duplicateLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
@@ -170,6 +178,7 @@ export default connect(null, {
     removeLayer,
     duplicateLayer,
     changeLayerOpacity,
+    clearDataFilters,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,

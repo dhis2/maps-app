@@ -1,5 +1,7 @@
 import { render, fireEvent, screen, within } from '@testing-library/react'
 import React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
@@ -7,6 +9,8 @@ import {
     THEMATIC_LAYER,
 } from '../../../constants/layers.js'
 import JoinLayersControl from '../controls/JoinLayersControl.jsx'
+
+const mockStore = configureMockStore()
 
 const eligibleLayers = [
     {
@@ -30,15 +34,22 @@ const eligibleLayers = [
     },
 ]
 
-const renderControl = (props) =>
-    render(
-        <JoinLayersControl
-            eligibleLayers={eligibleLayers}
-            layersConfig={{}}
-            onChange={jest.fn()}
-            {...props}
-        />
-    )
+const renderControl = (props) => {
+    const store = mockStore({})
+    return {
+        store,
+        ...render(
+            <Provider store={store}>
+                <JoinLayersControl
+                    eligibleLayers={eligibleLayers}
+                    layersConfig={{}}
+                    onChange={jest.fn()}
+                    {...props}
+                />
+            </Provider>
+        ),
+    }
+}
 
 const openPicker = () =>
     fireEvent.click(screen.getByTestId('data-table-join-layers-button'))
@@ -695,5 +706,58 @@ describe('JoinLayersControl popover — count/category value columns', () => {
         expect(within(select).getByText('Average')).toBeInTheDocument()
         expect(within(select).getByText('Sum')).toBeInTheDocument()
         expect(within(select).queryByText('Percentage')).not.toBeInTheDocument()
+    })
+})
+
+describe('JoinLayersControl dataFilters warning', () => {
+    test('shows no warning or clear button for a layer with no active dataFilters', () => {
+        renderControl()
+        openPicker()
+
+        expect(
+            screen.queryByTestId('data-table-join-datafilters-warning-layer1')
+        ).not.toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-join-clear-datafilters-layer1')
+        ).not.toBeInTheDocument()
+    })
+
+    test('shows the warning and clear button for a layer with active dataFilters, even when not joined', () => {
+        renderControl({
+            eligibleLayers: [
+                { ...eligibleLayers[0], dataFilters: { population: '>100' } },
+                eligibleLayers[1],
+            ],
+        })
+        openPicker()
+
+        expect(
+            screen.getByTestId('data-table-join-datafilters-warning-layer1')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-join-clear-datafilters-layer1')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-join-datafilters-warning-layer2')
+        ).not.toBeInTheDocument()
+    })
+
+    test('clicking the clear button dispatches clearDataFilters for that layer', () => {
+        const { store } = renderControl({
+            eligibleLayers: [
+                { ...eligibleLayers[0], dataFilters: { population: '>100' } },
+                eligibleLayers[1],
+            ],
+        })
+        openPicker()
+
+        fireEvent.click(
+            screen.getByTestId('data-table-join-clear-datafilters-layer1')
+        )
+
+        expect(store.getActions()).toContainEqual({
+            type: 'DATA_FILTERS_CLEAR_ALL',
+            layerId: 'layer1',
+        })
     })
 })

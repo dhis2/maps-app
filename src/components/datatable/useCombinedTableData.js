@@ -16,6 +16,7 @@ import {
 import { applyAggregation } from '../../util/aggregation.js'
 import {
     getByReferenceId,
+    getFilteredJoinableFeatures,
     getJoinableFeatures,
     getProps,
 } from '../../util/combinedJoinMatch.js'
@@ -307,7 +308,7 @@ export const useCombinedTableData = ({
                     layer,
                     allAggregations[layer.id] ?? EMPTY_AGGREGATIONS
                 )
-                const features = getJoinableFeatures(mergedLayer)
+                const features = getFilteredJoinableFeatures(mergedLayer)
                 const valueDataKeys = getCombinedValueDataKeys(
                     layer,
                     externalPeriod

@@ -1,3 +1,5 @@
+import i18n from '@dhis2/d2-i18n'
+import { IconWarningFilled16, Tooltip } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
@@ -88,6 +90,13 @@ const BottomPanel = () => {
     const combinedLayers = useMemo(
         () => mapViews.filter((l) => joinLayersConfig[l.combinedLayerKey]),
         [mapViews, joinLayersConfig]
+    )
+    const filteredCombinedLayers = useMemo(
+        () =>
+            combinedLayers.filter(
+                (l) => Object.keys(l.dataFilters ?? {}).length > 0
+            ),
+        [combinedLayers]
     )
 
     const activeLayer = mapViews.find((l) => l.id === activeLayerId)
@@ -339,6 +348,25 @@ const BottomPanel = () => {
                                 )
                             }
                         />
+                        {filteredCombinedLayers.length > 0 && (
+                            <Tooltip
+                                content={i18n.t(
+                                    'Values from {{layers}} only reflect the filter(s) applied in their own table.',
+                                    {
+                                        layers: filteredCombinedLayers
+                                            .map((l) => l.name)
+                                            .join(', '),
+                                    }
+                                )}
+                            >
+                                <span
+                                    className={styles.filteredLayersWarning}
+                                    data-test="data-table-combined-datafilters-warning"
+                                >
+                                    <IconWarningFilled16 />
+                                </span>
+                            </Tooltip>
+                        )}
                         <ReferenceOrgUnitControl />
                         <span className={styles.divider} />
                     </>

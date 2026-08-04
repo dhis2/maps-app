@@ -474,6 +474,53 @@ describe('BottomPanel Combined join controls', () => {
         ])
     })
 
+    test('shows no ambient filtered-layers warning when no joined layer has dataFilters', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [
+                ...twoEligibleLayers,
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                    },
+                },
+            ],
+        })
+
+        expect(
+            screen.queryByTestId('data-table-combined-datafilters-warning')
+        ).not.toBeInTheDocument()
+    })
+
+    test('shows an ambient filtered-layers warning naming a joined layer that has active dataFilters', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                combinedView: true,
+            },
+            mapViews: [
+                { ...twoEligibleLayers[0], dataFilters: { rawValue: '>10' } },
+                twoEligibleLayers[1],
+                {
+                    ...referenceLayer(),
+                    combinedJoinConfig: {
+                        layer1: { type: 'orgUnit', aggregation: {} },
+                    },
+                },
+            ],
+        })
+
+        expect(
+            screen.getByTestId('data-table-combined-datafilters-warning')
+        ).toBeInTheDocument()
+    })
+
     test('toggling an already-joined layer off dispatches DATA_TABLE_JOIN_CONFIG_SET with that layer removed', () => {
         const { store } = renderBottomPanel({
             dataTable: {

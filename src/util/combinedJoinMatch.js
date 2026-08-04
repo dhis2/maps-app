@@ -1,10 +1,14 @@
 import { ORG_UNIT_PATH_DATA_KEY } from '../constants/dataTable.js'
+import { filterData } from './filter.js'
 import { matchFeaturesToReferenceOrgUnits } from './spatialJoin.js'
 
 export const getJoinableFeatures = (layer) =>
     [...(layer?.data ?? []), ...(layer?.dataWithoutCoords ?? [])].filter(
         (d) => !d.properties?.hasAdditionalGeometry
     )
+
+export const getFilteredJoinableFeatures = (layer) =>
+    filterData(getJoinableFeatures(layer), layer?.dataFilters)
 
 export const getProps = (feature) => feature.properties || feature
 
@@ -75,7 +79,7 @@ export const hasCombinedRollup = (layer, referenceLayer, joinType) => {
         return false
     }
     const byReferenceId = getByReferenceId(
-        getJoinableFeatures(layer),
+        getFilteredJoinableFeatures(layer),
         referenceOrgUnits,
         joinType
     )
@@ -86,7 +90,7 @@ export const hasCombinedRollup = (layer, referenceLayer, joinType) => {
 
 export const getUnmatchedFeatureCount = (layer, referenceLayer, joinType) => {
     const referenceOrgUnits = getJoinableFeatures(referenceLayer)
-    const features = getJoinableFeatures(layer)
+    const features = getFilteredJoinableFeatures(layer)
     if (!referenceOrgUnits.length || !features.length) {
         return 0
     }
