@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 import {
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
+    TYPE_ORG_UNIT,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -16,6 +19,7 @@ import {
     SELECTION_FILTER_SELECTED,
     SELECTION_FILTER_NOT_SELECTED,
 } from '../../constants/selection.js'
+import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import {
     buildRowCells,
@@ -235,6 +239,22 @@ export const useTableData = ({
         return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
     }, [columnDistinctValues, sortField, sortDirection])
 
+    const orgUnitPathValues = useMemo(
+        () =>
+            (headers ?? [])
+                .filter((h) =>
+                    [RENDERER_ORG_UNIT, RENDERER_ORG_UNIT_NAME].includes(
+                        h.renderer
+                    )
+                )
+                .flatMap((h) =>
+                    (columnOptions[h.dataKey] ?? []).map((o) => o.value)
+                ),
+        [headers, columnOptions]
+    )
+    const { idToName: orgUnitIdToName } =
+        useOrgUnitAncestorNames(orgUnitPathValues)
+
     const rows = useMemo(() => {
         if (errorCode.current) {
             return null
@@ -251,11 +271,14 @@ export const useTableData = ({
             const stringDataKeys = headers
                 .filter((h) => h.type === TYPE_STRING)
                 .map((h) => h.dataKey)
-            filteredData = filterByGlobalSearch(
-                filteredData,
-                globalSearch,
-                stringDataKeys
-            )
+            const orgUnitDataKeys = headers
+                .filter((h) => h.type === TYPE_ORG_UNIT)
+                .map((h) => h.dataKey)
+            filteredData = filterByGlobalSearch(filteredData, globalSearch, {
+                stringDataKeys,
+                orgUnitDataKeys,
+                idToName: orgUnitIdToName,
+            })
         }
 
         if (selectionFilter?.length) {
@@ -273,9 +296,18 @@ export const useTableData = ({
             }
         }
 
-        //sort
+        // Sort
+        const sortFieldRenderer = headers.find(
+            (h) => h.dataKey === sortField
+        )?.renderer
         filteredData.sort((a, b) =>
-            compareRows(a, b, { sortField, sortDirection, selectedIdSet })
+            compareRows(a, b, {
+                sortField,
+                sortDirection,
+                selectedIdSet,
+                orgUnitRenderer: sortFieldRenderer,
+                idToName: orgUnitIdToName,
+            })
         )
 
         return filteredData.map((item) => buildRowCells(item, headers))
@@ -290,6 +322,7 @@ export const useTableData = ({
         sortDirection,
         selectionFilter,
         selectedIdSetDependency,
+        orgUnitIdToName,
     ])
 
     // EE layers and event layers may be loading additional data
@@ -320,6 +353,7 @@ export const useTableData = ({
         error: getErrorCodeText(errorCode.current),
         totalCount,
         filteredCount,
+        orgUnitIdToName,
         columnOptions,
     }
 }

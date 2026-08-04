@@ -11,8 +11,9 @@ import {
     fetchAndParseGroupSet,
     loadGroupSetData,
     getUserOrgUnitIdsByKeyword,
-    fetchOrgUnitDetails,
     fetchOrgUnitPaths,
+    fetchOrgUnitPathDetails,
+    attachOrgUnitPaths,
 } from '../orgUnits.js'
 
 describe('getUserOrgUnitIdsByKeyword', () => {
@@ -61,15 +62,7 @@ describe('getUserOrgUnitIdsByKeyword', () => {
     })
 })
 
-describe('fetchOrgUnitDetails / fetchOrgUnitPaths error handling', () => {
-    it('fetchOrgUnitDetails returns an empty object when the query fails', async () => {
-        const engine = {
-            query: jest.fn().mockRejectedValue(new Error('Network error')),
-        }
-        const result = await fetchOrgUnitDetails(engine, ['ou1'])
-        expect(result).toEqual({})
-    })
-
+describe('fetchOrgUnitPaths error handling', () => {
     it('fetchOrgUnitPaths returns an empty array when the query fails', async () => {
         const engine = {
             query: jest.fn().mockRejectedValue(new Error('Network error')),
@@ -108,6 +101,95 @@ describe('fetchOrgUnitDetails / fetchOrgUnitPaths error handling', () => {
         }
         const result = await fetchOrgUnitPaths(engine, ['ou1'])
         expect(result).toEqual([])
+    })
+
+    it('fetchOrgUnitPathDetails returns an empty object when the query fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Network error')),
+        }
+        const result = await fetchOrgUnitPathDetails(engine, ['ou1'])
+        expect(result).toEqual({})
+    })
+
+    it('fetchOrgUnitPathDetails resolves ids to their name and level', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                orgUnits: {
+                    organisationUnits: [
+                        { id: 'ou1', name: 'Sierra Leone', level: 1 },
+                        { id: 'ou2', name: 'Bo', level: 2 },
+                    ],
+                },
+            }),
+        }
+        const result = await fetchOrgUnitPathDetails(engine, ['ou1', 'ou2'])
+        expect(result).toEqual({
+            ou1: { name: 'Sierra Leone', level: 1 },
+            ou2: { name: 'Bo', level: 2 },
+        })
+    })
+
+    it('fetchOrgUnitPathDetails threads nameProperty through to the query fields', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({ orgUnits: {} }),
+        }
+        await fetchOrgUnitPathDetails(engine, ['ou1'], 'displayShortName')
+        const [, { variables }] = engine.query.mock.calls[0]
+        expect(variables.nameProperty).toBe('displayShortName')
+    })
+})
+
+describe('attachOrgUnitPaths', () => {
+    const getOuId = (feature) => feature.properties.ouId
+
+    it("attaches each feature's org unit path via one bulk lookup over the distinct set of ids", async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                organisationUnits: {
+                    organisationUnits: [
+                        { id: 'ou1', path: '/country1/ou1' },
+                        { id: 'ou2', path: '/country1/ou2' },
+                    ],
+                },
+            }),
+        }
+        const features = [
+            { properties: { ouId: 'ou1' } },
+            { properties: { ouId: 'ou2' } },
+            { properties: { ouId: 'ou1' } },
+        ]
+
+        const result = await attachOrgUnitPaths(features, engine, getOuId)
+
+        expect(result.map((f) => f.properties.orgUnitPath)).toEqual([
+            '/country1/ou1',
+            '/country1/ou2',
+            '/country1/ou1',
+        ])
+        const [, { variables }] = engine.query.mock.calls[0]
+        expect(variables.ids).toBe('ou1,ou2')
+    })
+
+    it('falls back to null when a path could not be resolved', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                organisationUnits: { organisationUnits: [] },
+            }),
+        }
+        const result = await attachOrgUnitPaths(
+            [{ properties: { ouId: 'ou1' } }],
+            engine,
+            getOuId
+        )
+        expect(result[0].properties.orgUnitPath).toBeNull()
+    })
+
+    it('is a no-op that returns the input untouched when there are no features', async () => {
+        const engine = { query: jest.fn() }
+        const features = []
+        const result = await attachOrgUnitPaths(features, engine, getOuId)
+        expect(result).toBe(features)
+        expect(engine.query).not.toHaveBeenCalled()
     })
 })
 

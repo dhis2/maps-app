@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-24T09:14:13.417Z\n"
-"PO-Revision-Date: 2026-07-24T09:14:13.417Z\n"
+"POT-Creation-Date: 2026-07-27T14:20:22.195Z\n"
+"PO-Revision-Date: 2026-07-27T14:20:22.195Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -164,15 +164,6 @@ msgstr "Reverse selection of visible rows"
 msgid "Sort by Selected"
 msgstr "Sort by Selected"
 
-msgid "Select all visible rows"
-msgstr "Select all visible rows"
-
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
-
-msgid "Reverse selection"
-msgstr "Reverse selection"
-
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
@@ -185,26 +176,8 @@ msgstr "Select a year, month, day or hour"
 msgid "to match the events under it, or type to search"
 msgstr "to match the events under it, or type to search"
 
-msgid "Search"
-msgstr "Search"
-
 msgid "Contains"
 msgstr "Contains"
-
-msgid "Any value"
-msgstr "Any value"
-
-msgid "No value"
-msgstr "No value"
-
-msgid "No matches"
-msgstr "No matches"
-
-msgid "Collapse {{label}}"
-msgstr "Collapse {{label}}"
-
-msgid "Expand {{label}}"
-msgstr "Expand {{label}}"
 
 msgid "Something went wrong"
 msgstr "Something went wrong"
@@ -236,11 +209,38 @@ msgstr "Use filter"
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
 
+msgid "Search"
+msgstr "Search"
+
 msgid "Reverse selection"
 msgstr "Reverse selection"
 
+msgid "Any value"
+msgstr "Any value"
+
 msgid "Too many values to list - type to filter this column"
 msgstr "Too many values to list - type to filter this column"
+
+msgid "No matches"
+msgstr "No matches"
+
+msgid "No value"
+msgstr "No value"
+
+msgid "Collapse {{label}}"
+msgstr "Collapse {{label}}"
+
+msgid "Expand {{label}}"
+msgstr "Expand {{label}}"
+
+msgid "Select a country, region, district or facility"
+msgstr "Select a country, region, district or facility"
+
+msgid "to match the rows under it, or type to search"
+msgstr "to match the rows under it, or type to search"
+
+msgid "Select matches"
+msgstr "Select matches"
 
 msgid "Selected"
 msgstr "Selected"
@@ -251,14 +251,10 @@ msgstr "Not selected"
 msgid "All"
 msgstr "All"
 
-msgid "Use filter"
-msgstr "Use filter"
-
-msgid "Contains"
-msgstr "Contains"
-
-msgid "Search or type > 5, < 8…"
-msgstr "Search or type > 5, < 8…"
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -2072,17 +2068,29 @@ msgstr "GroupSet used for styling was not found"
 msgid "Id"
 msgstr "Id"
 
-msgid "Type"
-msgstr "Type"
-
-msgid "Range"
-msgstr "Range"
+msgid "Org unit Id"
+msgstr "Org unit Id"
 
 msgid "Org unit"
 msgstr "Org unit"
 
+msgid "Org unit level"
+msgstr "Org unit level"
+
+msgid "Geometry type"
+msgstr "Geometry type"
+
+msgid "Range"
+msgstr "Range"
+
 msgid "Org unit boundary"
 msgstr "Org unit boundary"
+
+msgid "Org unit hierarchy"
+msgstr "Org unit hierarchy"
+
+msgid "Created"
+msgstr "Created"
 
 msgid "Group"
 msgstr "Group"
@@ -2095,6 +2103,12 @@ msgstr "Current period"
 
 msgid "Value ({{period}})"
 msgstr "Value ({{period}})"
+
+msgid "Event Id"
+msgstr "Event Id"
+
+msgid "Tracked entity Id"
+msgstr "Tracked entity Id"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"
