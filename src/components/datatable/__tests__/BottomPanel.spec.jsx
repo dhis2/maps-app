@@ -7,6 +7,12 @@ import { THEMATIC_LAYER } from '../../../constants/layers.js'
 import WindowDimensionsProvider from '../../WindowDimensionsProvider.jsx'
 import BottomPanel from '../BottomPanel.jsx'
 
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: () => ({
+        systemSettings: { keyAnalysisDigitGroupSeparator: 'COMMA' },
+    }),
+}))
+
 jest.mock('../DataTable.jsx', () => {
     // eslint-disable-next-line react/prop-types
     const DataTableMock = ({ activeLayerId }) => (
