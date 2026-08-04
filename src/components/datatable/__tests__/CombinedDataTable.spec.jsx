@@ -97,6 +97,24 @@ describe('CombinedDataTable', () => {
         expect(screen.getByText('Low')).toBeInTheDocument()
     })
 
+    test('exposes an Org unit hierarchy column, rendering the org unit path as a breadcrumb', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+
+        renderCombinedDataTable({
+            referenceLayer,
+            columnConfig: {
+                visibleKeys: ['id', 'name', 'orgUnitPath'],
+            },
+        })
+
+        expect(screen.getByText('Org unit hierarchy')).toBeInTheDocument()
+        // Ancestor names resolve async; falls back to the raw ids until then
+        expect(screen.getByText('country1 / ou1')).toBeInTheDocument()
+    })
+
     test('formats numeric values with the system digit group separator, matching DataTable', () => {
         const referenceLayer = {
             ...EMPTY_REFERENCE_LAYER,
@@ -220,7 +238,7 @@ describe('CombinedDataTable', () => {
         })
 
         expect(
-            screen.getByText(/Spatial join over large datasets may be slow/)
+            screen.getByText(/Location join over large datasets may be slow/)
         ).toBeInTheDocument()
     })
 

@@ -1,9 +1,11 @@
 import { render, fireEvent, screen, within } from '@testing-library/react'
+import PropTypes from 'prop-types'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import {
     EARTH_ENGINE_LAYER,
+    EVENT_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
     THEMATIC_LAYER,
@@ -53,6 +55,42 @@ const renderControl = (props) => {
 
 const openPicker = () =>
     fireEvent.click(screen.getByTestId('data-table-join-layers-button'))
+
+const expandLayer = (layerId) =>
+    fireEvent.click(
+        screen.getByTestId(`data-table-join-layer-toggle-${layerId}`)
+    )
+
+const StatefulJoinLayersControl = ({
+    layersConfig: initialConfig,
+    ...props
+}) => {
+    const [layersConfig, setLayersConfig] = React.useState(initialConfig ?? {})
+    return (
+        <JoinLayersControl
+            eligibleLayers={eligibleLayers}
+            {...props}
+            layersConfig={layersConfig}
+            onChange={setLayersConfig}
+        />
+    )
+}
+
+StatefulJoinLayersControl.propTypes = {
+    layersConfig: PropTypes.object,
+}
+
+const renderStatefulControl = (props) => {
+    const store = mockStore({})
+    return {
+        store,
+        ...render(
+            <Provider store={store}>
+                <StatefulJoinLayersControl {...props} />
+            </Provider>
+        ),
+    }
+}
 
 describe('JoinLayersControl trigger', () => {
     test('is disabled when there are no eligible layers', () => {
@@ -150,7 +188,7 @@ describe('JoinLayersControl popover — checkbox list', () => {
         })
     })
 
-    test('checking a layer with no org-unit identity of its own defaults to Spatial join, not Org unit', () => {
+    test('checking a layer with no org-unit identity of its own defaults to Location join, not Org unit', () => {
         const onChange = jest.fn()
         renderControl({
             eligibleLayers: [
@@ -193,6 +231,102 @@ describe('JoinLayersControl popover — checkbox list', () => {
     })
 })
 
+describe('JoinLayersControl popover — collapsible layer settings', () => {
+    test('an unjoined layer has no expand/collapse toggle', () => {
+        renderControl()
+        openPicker()
+
+        expect(
+            screen.queryByTestId('data-table-join-layer-toggle-layer1')
+        ).not.toBeInTheDocument()
+    })
+
+    test('a joined layer is collapsed by default when the popover is opened, hiding its settings', () => {
+        renderControl({
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expect(
+            screen.getByTestId('data-table-join-layer-toggle-layer1')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('Join type for Layer 1')
+        ).not.toBeInTheDocument()
+    })
+
+    test('checking a previously unjoined layer expands its settings automatically', () => {
+        renderStatefulControl({
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        fireEvent.click(screen.getByRole('checkbox', { name: 'Layer 2' }))
+
+        expect(
+            screen.getByLabelText('Join type for Layer 2')
+        ).toBeInTheDocument()
+    })
+
+    test('expanding a collapsed layer shows its settings', () => {
+        renderControl({
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expandLayer('layer1')
+
+        expect(
+            screen.getByLabelText('Join type for Layer 1')
+        ).toBeInTheDocument()
+    })
+
+    test('collapsing an expanded layer hides its settings again, without changing layersConfig', () => {
+        const onChange = jest.fn()
+        renderControl({
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+            onChange,
+        })
+        openPicker()
+
+        expandLayer('layer1')
+        expandLayer('layer1')
+
+        expect(
+            screen.queryByLabelText('Join type for Layer 1')
+        ).not.toBeInTheDocument()
+        expect(screen.getByRole('checkbox', { name: 'Layer 1' })).toBeChecked()
+        expect(onChange).not.toHaveBeenCalled()
+    })
+
+    test('expanding one layer does not affect another joined layer', () => {
+        renderControl({
+            layersConfig: {
+                layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+                layer2: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+            },
+        })
+        openPicker()
+
+        expandLayer('layer1')
+
+        expect(
+            screen.getByLabelText('Join type for Layer 1')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('Join type for Layer 2')
+        ).not.toBeInTheDocument()
+    })
+})
+
 describe('JoinLayersControl popover — per-layer type/aggregation settings', () => {
     test('shows the join type and aggregation selects only for joined layers', () => {
         renderControl({
@@ -201,6 +335,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(
             screen.getByLabelText('Join type for Layer 1')
@@ -213,7 +348,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
         ).not.toBeInTheDocument()
     })
 
-    test('does not offer the Spatial join option for a layer with no geometry sample available', () => {
+    test('does not offer the Location join option for a layer with no geometry sample available', () => {
         renderControl({
             layersConfig: {
                 layer1: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
@@ -221,20 +356,22 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             },
         })
         openPicker()
+        expandLayer('layer1')
+        expandLayer('layer2')
 
         expect(
             within(screen.getByLabelText('Join type for Layer 1')).queryByText(
-                'Spatial'
+                'Location'
             )
         ).not.toBeInTheDocument()
         expect(
             within(screen.getByLabelText('Join type for Layer 2')).getByText(
-                'Spatial'
+                'Location'
             )
         ).toBeInTheDocument()
     })
 
-    test('offers Spatial for polygon geometry regardless of layer type, matched via centroid - including layers with no org-unit identity of their own', () => {
+    test('offers Location for polygon geometry regardless of layer type, matched via centroid - including layers with no org-unit identity of their own', () => {
         renderControl({
             eligibleLayers: [
                 {
@@ -250,10 +387,11 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             },
         })
         openPicker()
+        expandLayer('geo')
 
         expect(
             within(screen.getByLabelText('Join type for Zones')).getByText(
-                'Spatial'
+                'Location'
             )
         ).toBeInTheDocument()
     })
@@ -267,6 +405,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             onChange,
         })
         openPicker()
+        expandLayer('layer2')
 
         fireEvent.change(screen.getByLabelText('Join type for Layer 2'), {
             target: { value: 'spatial' },
@@ -286,6 +425,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             onChange,
         })
         openPicker()
+        expandLayer('layer1')
 
         fireEvent.change(
             screen.getByLabelText('Aggregation type for Layer 1'),
@@ -347,6 +487,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             onChange,
         })
         openPicker()
+        expandLayer('ee')
 
         expect(
             screen.getByLabelText('Aggregation type for Mean Ndvi (NDVI)')
@@ -391,6 +532,7 @@ describe('JoinLayersControl popover — per-layer type/aggregation settings', ()
             onChange,
         })
         openPicker()
+        expandLayer('timeline')
 
         expect(
             screen.getAllByLabelText('Aggregation type for Timeline Layer')
@@ -460,8 +602,42 @@ describe('JoinLayersControl popover — aggregation rollup warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).toBeInTheDocument()
+    })
+
+    test('does not show a warning for an Event layer, even when it rolls up and the aggregation is non-composable (AVERAGE) - event values are raw individual records, not an average-of-averages approximation', () => {
+        const rollupEventLayer = {
+            id: 'layer1',
+            name: 'Layer 1',
+            combinedLayerKey: 'layer1',
+            layer: EVENT_LAYER,
+            styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+            legend: { items: [{ name: 'Low' }, { name: 'High' }] },
+            data: [
+                { properties: { orgUnitPath: '/country1/ref1/child1' } },
+                { properties: { orgUnitPath: '/country1/ref1/child2' } },
+            ],
+        }
+        renderControl({
+            eligibleLayers: [rollupEventLayer],
+            referenceLayer,
+            layersConfig: {
+                layer1: {
+                    type: 'orgUnit',
+                    aggregation: { value: 'AVERAGE' },
+                },
+            },
+        })
+        openPicker()
+        expandLayer('layer1')
+
+        expect(
+            screen.queryByTestId(
+                'data-table-join-aggregation-warning-layer1-value'
+            )
+        ).not.toBeInTheDocument()
     })
 
     test('does not show a warning when the layer rolls up but the aggregation is composable (SUM)', () => {
@@ -473,6 +649,7 @@ describe('JoinLayersControl popover — aggregation rollup warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).not.toBeInTheDocument()
     })
@@ -489,6 +666,7 @@ describe('JoinLayersControl popover — aggregation rollup warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).not.toBeInTheDocument()
     })
@@ -505,6 +683,7 @@ describe('JoinLayersControl popover — aggregation rollup warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).not.toBeInTheDocument()
     })
@@ -547,6 +726,7 @@ describe('JoinLayersControl popover — unmatched features warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).toBeInTheDocument()
     })
@@ -568,6 +748,7 @@ describe('JoinLayersControl popover — unmatched features warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).not.toBeInTheDocument()
     })
@@ -589,6 +770,7 @@ describe('JoinLayersControl popover — unmatched features warning', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         expect(getWarning()).not.toBeInTheDocument()
     })
@@ -631,6 +813,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
             },
         })
         openPicker()
+        expandLayer('facility1')
 
         expect(screen.getByText('Facilities count')).toBeInTheDocument()
         expect(
@@ -651,6 +834,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
             onChange,
         })
         openPicker()
+        expandLayer('facility1')
 
         expect(
             screen.queryByLabelText(
@@ -690,6 +874,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
             },
         })
         openPicker()
+        expandLayer('facility1')
 
         expect(screen.getByText('Categories')).toBeInTheDocument()
     })
@@ -701,6 +886,7 @@ describe('JoinLayersControl popover — count/category value columns', () => {
             },
         })
         openPicker()
+        expandLayer('layer1')
 
         const select = screen.getByLabelText('Aggregation type for Layer 1')
         expect(within(select).getByText('Average')).toBeInTheDocument()

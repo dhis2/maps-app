@@ -103,23 +103,29 @@ const CombinedDataTable = ({
     const [selectedIds, setSelectedIds] = useState([])
     const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
-    const { headers, rows, rowFeatureIds, columnOptions, spatialWarning } =
-        useCombinedTableData({
-            layers,
-            referenceLayer,
-            joinConfig,
-            sortField,
-            sortDirection,
-            filters,
-            globalSearch,
-            aggregations,
-            showOnlyFeaturesInView,
-            mapBounds,
-            selectionFilter,
-            selectedIdSet,
-            keyAnalysisDigitGroupSeparator,
-            externalPeriod,
-        })
+    const {
+        headers,
+        rows,
+        rowFeatureIds,
+        columnOptions,
+        spatialWarning,
+        orgUnitIdToName,
+    } = useCombinedTableData({
+        layers,
+        referenceLayer,
+        joinConfig,
+        sortField,
+        sortDirection,
+        filters,
+        globalSearch,
+        aggregations,
+        showOnlyFeaturesInView,
+        mapBounds,
+        selectionFilter,
+        selectedIdSet,
+        keyAnalysisDigitGroupSeparator,
+        externalPeriod,
+    })
 
     useEffect(() => {
         onHeadersChange?.(headers, COMBINED_HEADERS_KEY)
@@ -432,55 +438,62 @@ const CombinedDataTable = ({
                         />
                     }
                 />
-                {visibleHeaders.map(({ name, dataKey, type }, index) => {
-                    const { fixed, left, isLastPinned } = getPinnedCellProps(
-                        dataKey,
-                        index,
-                        { pinnedLeftOffsets, pinnedColumnCount, columnWidths }
-                    )
-                    return (
-                        <SortableColumnHeader
-                            key={dataKey}
-                            name={name}
-                            dataKey={dataKey}
-                            sortField={sortField}
-                            sortDirection={sortDirection}
-                            onSort={sortData}
-                            dataTestPrefix="combined-table-column-sort-button"
-                            className={cx(dataTableStyles.columnHeader, {
-                                [dataTableStyles.pinnedColumnShadow]:
-                                    isLastPinned,
-                            })}
-                            fixed={fixed}
-                            left={left}
-                            onFilterIconClick={
-                                isFilterable(dataKey, type) &&
-                                Function.prototype
-                            }
-                            showFilter={isFilterable(dataKey, type)}
-                            filter={
-                                isFilterable(dataKey, type) && (
-                                    <FilterInput
-                                        type={type}
-                                        dataKey={dataKey}
-                                        name={name}
-                                        options={columnOptions[dataKey]}
-                                        filterValue={filters?.[dataKey]}
-                                        onChange={(value) =>
-                                            onFilterChange(dataKey, value)
-                                        }
-                                        onClear={() => onFilterClear(dataKey)}
-                                    />
-                                )
-                            }
-                            width={
-                                columnWidths.length > 0
-                                    ? `${columnWidths[index]}px`
-                                    : 'auto'
-                            }
-                        />
-                    )
-                })}
+                {visibleHeaders.map(
+                    ({ name, dataKey, type, renderer }, index) => {
+                        const { fixed, left, isLastPinned } =
+                            getPinnedCellProps(dataKey, index, {
+                                pinnedLeftOffsets,
+                                pinnedColumnCount,
+                                columnWidths,
+                            })
+                        return (
+                            <SortableColumnHeader
+                                key={dataKey}
+                                name={name}
+                                dataKey={dataKey}
+                                sortField={sortField}
+                                sortDirection={sortDirection}
+                                onSort={sortData}
+                                dataTestPrefix="combined-table-column-sort-button"
+                                className={cx(dataTableStyles.columnHeader, {
+                                    [dataTableStyles.pinnedColumnShadow]:
+                                        isLastPinned,
+                                })}
+                                fixed={fixed}
+                                left={left}
+                                onFilterIconClick={
+                                    isFilterable(dataKey, type) &&
+                                    Function.prototype
+                                }
+                                showFilter={isFilterable(dataKey, type)}
+                                filter={
+                                    isFilterable(dataKey, type) && (
+                                        <FilterInput
+                                            type={type}
+                                            dataKey={dataKey}
+                                            name={name}
+                                            options={columnOptions[dataKey]}
+                                            renderer={renderer}
+                                            orgUnitIdToName={orgUnitIdToName}
+                                            filterValue={filters?.[dataKey]}
+                                            onChange={(value) =>
+                                                onFilterChange(dataKey, value)
+                                            }
+                                            onClear={() =>
+                                                onFilterClear(dataKey)
+                                            }
+                                        />
+                                    )
+                                }
+                                width={
+                                    columnWidths.length > 0
+                                        ? `${columnWidths[index]}px`
+                                        : 'auto'
+                                }
+                            />
+                        )
+                    }
+                )}
             </DataTableRow>
         ),
         [
@@ -503,6 +516,7 @@ const CombinedDataTable = ({
             allRowIds,
             selectionFilter,
             dispatch,
+            orgUnitIdToName,
         ]
     )
 
@@ -511,7 +525,7 @@ const CombinedDataTable = ({
             {spatialWarning && (
                 <div className={styles.spatialWarning}>
                     {i18n.t(
-                        'Spatial join over large datasets may be slow (over {{threshold}} features)',
+                        'Location join over large datasets may be slow (over {{threshold}} features)',
                         { threshold: LARGE_FEATURE_THRESHOLD_LABEL }
                     )}
                 </div>
@@ -588,6 +602,7 @@ const CombinedDataTable = ({
                                                 dataKey
                                             )}
                                             type={typeByDataKey.get(dataKey)}
+                                            orgUnitIdToName={orgUnitIdToName}
                                             keyAnalysisDigitGroupSeparator={
                                                 keyAnalysisDigitGroupSeparator
                                             }

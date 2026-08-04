@@ -60,6 +60,7 @@ describe('useCombinedTableData - org unit join', () => {
             'id',
             'name',
             'level',
+            'orgUnitPath',
             'layerA_rawValue',
             'layerA_legend',
         ])
@@ -763,6 +764,7 @@ describe('useCombinedTableData - empty input', () => {
             rowFeatureIds: new Map(),
             columnOptions: {},
             spatialWarning: false,
+            orgUnitIdToName: new Map(),
         })
     })
 
@@ -778,6 +780,7 @@ describe('useCombinedTableData - empty input', () => {
             'id',
             'name',
             'level',
+            'orgUnitPath',
         ])
     })
 })
@@ -819,6 +822,7 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
             'id',
             'name',
             'level',
+            'orgUnitPath',
             'layerA_mean',
             'layerA_max',
         ])
@@ -872,6 +876,7 @@ describe('useCombinedTableData - Earth Engine value columns', () => {
             'id',
             'name',
             'level',
+            'orgUnitPath',
             'layerA_1',
             'layerA_2',
         ])
@@ -927,6 +932,7 @@ describe('useCombinedTableData - thematic timeline/split-by-period value columns
             'id',
             'name',
             'level',
+            'orgUnitPath',
             'layerA_rawValue',
             'layerA_period_p1_rawValue',
             'layerA_period_p2_rawValue',
@@ -979,6 +985,7 @@ describe('useCombinedTableData - thematic timeline/split-by-period value columns
             'id',
             'name',
             'level',
+            'orgUnitPath',
             'layerA_period_p1_rawValue',
             'layerA_period_p2_rawValue',
         ])

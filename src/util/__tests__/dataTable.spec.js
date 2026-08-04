@@ -475,6 +475,25 @@ describe('getCombinedValueDataKeys - Event layers', () => {
         ).toEqual([{ dataKey: 'value', name: null, kind: DATA_KEY_KIND_VALUE }])
     })
 
+    test('styleDataItem on a numeric value type: uses the data item name, matching the categorical/boolean cases', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: {
+                    id: 'de1',
+                    name: 'Weight (kg)',
+                    valueType: 'NUMBER',
+                },
+            })
+        ).toEqual([
+            {
+                dataKey: 'value',
+                name: 'Weight (kg)',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ])
+    })
+
     test('styleDataItem.optionSet with 3 options: 3 category entries keyed by colorGroup', () => {
         expect(
             getCombinedValueDataKeys({
@@ -733,14 +752,14 @@ describe('getDefaultCombinedAggregation', () => {
         ).toEqual({ categoryDisplayType: 'COUNT' })
     })
 
-    test('Event: a numeric styleDataItem defaults to SUM - there is no per-data-item aggregationType metadata for event data elements the way there is for Thematic', () => {
+    test('Event: a numeric styleDataItem defaults to AVERAGE - event values are raw individual records, not pre-aggregated org-unit values', () => {
         expect(
             getDefaultCombinedAggregation({
                 layer: EVENT_LAYER,
                 styleDataItem: { id: 'de1', valueType: 'NUMBER' },
                 legend: { items: [{ name: 'Low' }, { name: 'High' }] },
             })
-        ).toEqual({ value: 'SUM' })
+        ).toEqual({ value: 'AVERAGE' })
     })
 
     test('Event: category dataKeys default to a single shared categoryDisplayType of COUNT', () => {
