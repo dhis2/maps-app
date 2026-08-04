@@ -60,6 +60,9 @@ const getValueAggregationType = (layer) => {
             layer.aggregationType
         ]
     }
+    if (layer.layer === EVENT_LAYER) {
+        return 'AVERAGE'
+    }
     const dataItem = getDataItemFromColumns(layer.columns)
     return getDefaultCombinedAggregationType(
         dataItem?.aggregationType,
@@ -140,7 +143,7 @@ const getEventValueDataKeys = (layer) => {
         return [
             {
                 dataKey: EVENT_STYLE_VALUE_KEY,
-                name: null,
+                name: layer.styleDataItem.name ?? null,
                 kind: DATA_KEY_KIND_VALUE,
             },
         ]

@@ -4,8 +4,11 @@ import {
     DATA_KEY_KIND_CATEGORY,
     DATA_KEY_KIND_COUNT,
     ORG_UNIT_LEVEL_DATA_KEY,
+    ORG_UNIT_PATH_DATA_KEY,
+    RENDERER_ORG_UNIT,
     SORT_ASCENDING,
     TYPE_NUMBER,
+    TYPE_ORG_UNIT,
     TYPE_STRING,
 } from '../../constants/dataTable.js'
 import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
@@ -13,6 +16,7 @@ import {
     SELECTION_FILTER_SELECTED,
     SELECTION_FILTER_NOT_SELECTED,
 } from '../../constants/selection.js'
+import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { applyAggregation } from '../../util/aggregation.js'
 import {
     getByReferenceId,
@@ -40,6 +44,15 @@ import { compareRows } from '../../util/tableSort.js'
 const LEGEND_KEY = 'legend'
 const LARGE_FEATURE_THRESHOLD = 10000
 const EMPTY_AGGREGATIONS = {}
+
+// Number(null) is 0, not NaN - must exclude nullish before coercing.
+const toFiniteNumber = (value) => {
+    if (value == null) {
+        return undefined
+    }
+    const num = Number(value)
+    return Number.isFinite(num) ? num : undefined
+}
 
 const mergeAggregations = (layer, aggregationsForLayer) => {
     if (layer.layer !== EARTH_ENGINE_LAYER || !aggregationsForLayer) {
@@ -70,6 +83,8 @@ const finalizeRows = (
         selectionFilter,
         selectedIdSet,
         keyAnalysisDigitGroupSeparator,
+        orgUnitRenderer,
+        orgUnitIdToName,
     }
 ) => {
     let data = filterData(flatRows, filters)
@@ -94,7 +109,12 @@ const finalizeRows = (
     }
 
     data = [...data].sort((a, b) =>
-        compareRows(a, b, { sortField, sortDirection })
+        compareRows(a, b, {
+            sortField,
+            sortDirection,
+            orgUnitRenderer,
+            idToName: orgUnitIdToName,
+        })
     )
 
     return data.map((row) => buildRowCells(row, headers))
@@ -134,16 +154,15 @@ const applyLayerMatchToRow = ({ row, featureIds, refProps }, layerMatch) => {
         const effectiveType =
             settings.aggregation?.[settingsKey ?? dataKey] ??
             getDefaultCombinedAggregation(layer)[dataKey]
-        const values =
+        const values = (
             periodId != null
-                ? matches
-                      .map(
-                          (p) => layer.valuesByPeriod?.[periodId]?.[p.id]?.value
-                      )
-                      .filter((v) => Number.isFinite(v))
-                : matches
-                      .map((p) => p[dataKey])
-                      .filter((v) => Number.isFinite(v))
+                ? matches.map(
+                      (p) => layer.valuesByPeriod?.[periodId]?.[p.id]?.value
+                  )
+                : matches.map((p) => p[dataKey])
+        )
+            .map(toFiniteNumber)
+            .filter((v) => v !== undefined)
         row[rowKey] = applyAggregation(effectiveType, values)
     })
 
@@ -257,6 +276,7 @@ const getLegendHeader = (layer, { periodName, isCurrentPeriod }) => {
 
 const EMPTY_COLUMN_OPTIONS = {}
 const EMPTY_HEADERS = []
+const EMPTY_ORG_UNIT_ID_TO_NAME = new Map()
 
 const EMPTY_RESULT = {
     headers: EMPTY_HEADERS,
@@ -264,6 +284,7 @@ const EMPTY_RESULT = {
     rowFeatureIds: new Map(),
     columnOptions: EMPTY_COLUMN_OPTIONS,
     spatialWarning: false,
+    orgUnitIdToName: EMPTY_ORG_UNIT_ID_TO_NAME,
 }
 
 export const useCombinedTableData = ({
@@ -296,6 +317,16 @@ export const useCombinedTableData = ({
                 : referenceOrgUnits,
         [referenceOrgUnits, showOnlyFeaturesInView, mapBounds]
     )
+
+    const orgUnitPathValues = useMemo(
+        () =>
+            visibleReferenceOrgUnits.map(
+                (f) => getProps(f)[ORG_UNIT_PATH_DATA_KEY]
+            ),
+        [visibleReferenceOrgUnits]
+    )
+    const { idToName: orgUnitIdToName } =
+        useOrgUnitAncestorNames(orgUnitPathValues)
 
     const layerMatches = useMemo(
         () =>
@@ -351,6 +382,12 @@ export const useCombinedTableData = ({
                 type: TYPE_NUMBER,
                 defaultHidden: true,
             },
+            {
+                name: i18n.t('Org unit hierarchy'),
+                dataKey: ORG_UNIT_PATH_DATA_KEY,
+                type: TYPE_ORG_UNIT,
+                renderer: RENDERER_ORG_UNIT,
+            },
             ...layerMatches.flatMap(
                 ({ layer, settings, valueDataKeys, legendConfig }) => [
                     ...valueDataKeys.map((valueDataKey) =>
@@ -386,6 +423,8 @@ export const useCombinedTableData = ({
                     id: refProps.id,
                     name: refProps.name ?? null,
                     level: refProps[ORG_UNIT_LEVEL_DATA_KEY] ?? null,
+                    [ORG_UNIT_PATH_DATA_KEY]:
+                        refProps[ORG_UNIT_PATH_DATA_KEY] ?? null,
                     index,
                 }
 
@@ -403,6 +442,10 @@ export const useCombinedTableData = ({
             }
         )
 
+        const sortFieldRenderer = headers.find(
+            (h) => h.dataKey === sortField
+        )?.renderer
+
         const rows = finalizeRows(flatRows, headers, {
             filters,
             globalSearch,
@@ -411,6 +454,8 @@ export const useCombinedTableData = ({
             selectionFilter,
             selectedIdSet,
             keyAnalysisDigitGroupSeparator,
+            orgUnitRenderer: sortFieldRenderer,
+            orgUnitIdToName,
         })
         const columnOptions =
             sortColumnOptions(getColumnDistinctValues(headers, flatRows), {
@@ -424,6 +469,7 @@ export const useCombinedTableData = ({
             rowFeatureIds,
             columnOptions,
             spatialWarning,
+            orgUnitIdToName,
         }
     }, [
         referenceOrgUnits,
@@ -438,5 +484,6 @@ export const useCombinedTableData = ({
         selectionFilter,
         selectedIdSet,
         keyAnalysisDigitGroupSeparator,
+        orgUnitIdToName,
     ])
 }

@@ -135,11 +135,11 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         onClick={onValidateLayer}
                         dataTest="layeredit-addbtn"
                     >
-                        {i18n.t(
-                            layer.id
-                                ? i18n.t('Update layer')
-                                : i18n.t('Add layer')
-                        )}
+                        {isReferenceLayer
+                            ? i18n.t('Update reference')
+                            : layer.id
+                            ? i18n.t('Update layer')
+                            : i18n.t('Add layer')}
                     </Button>
                 </ButtonStrip>
             </ModalActions>

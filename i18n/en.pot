@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-08-04T09:12:24.029Z\n"
-"PO-Revision-Date: 2026-08-04T09:12:24.029Z\n"
+"POT-Creation-Date: 2026-08-04T11:53:43.119Z\n"
+"PO-Revision-Date: 2026-08-04T11:53:43.120Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -165,8 +165,8 @@ msgstr ""
 msgid "No matching rows"
 msgstr "No matching rows"
 
-msgid "Spatial join over large datasets may be slow (over {{threshold}} features)"
-msgstr "Spatial join over large datasets may be slow (over {{threshold}} features)"
+msgid "Location join over large datasets may be slow (over {{threshold}} features)"
+msgstr "Location join over large datasets may be slow (over {{threshold}} features)"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -344,6 +344,9 @@ msgstr "Search all columns"
 msgid "Highlight color"
 msgstr "Highlight color"
 
+msgid "Choose layers to combine"
+msgstr "Choose layers to combine"
+
 msgid "Facilities count"
 msgstr "Facilities count"
 
@@ -359,8 +362,11 @@ msgstr "Tracked entities count"
 msgid "Count"
 msgstr "Count"
 
-msgid "Choose layers to combine"
-msgstr "Choose layers to combine"
+msgid "Collapse {{layer}}"
+msgstr "Collapse {{layer}}"
+
+msgid "Expand {{layer}}"
+msgstr "Expand {{layer}}"
 
 msgid ""
 "This layer has a filter active from its own table - Combined only reflects "
@@ -372,14 +378,17 @@ msgstr ""
 msgid "Clear filters applied to {{layer}}"
 msgstr "Clear filters applied to {{layer}}"
 
+msgid "Join by"
+msgstr "Join by"
+
 msgid "Join type for {{layer}}"
 msgstr "Join type for {{layer}}"
 
 msgid "Org unit"
 msgstr "Org unit"
 
-msgid "Spatial"
-msgstr "Spatial"
+msgid "Location"
+msgstr "Location"
 
 msgid ""
 "{{count}} feature(s) from {{layer}} could not be matched to a reference org "
@@ -472,6 +481,9 @@ msgstr "Org unit id"
 
 msgid "Org unit level"
 msgstr "Org unit level"
+
+msgid "Org unit hierarchy"
+msgstr "Org unit hierarchy"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -587,6 +599,9 @@ msgstr "Edit {{name}} layer"
 
 msgid "Add new {{name}} layer"
 msgstr "Add new {{name}} layer"
+
+msgid "Update reference"
+msgstr "Update reference"
 
 msgid "Update layer"
 msgstr "Update layer"
@@ -2215,9 +2230,6 @@ msgstr "Range"
 
 msgid "Org unit boundary"
 msgstr "Org unit boundary"
-
-msgid "Org unit hierarchy"
-msgstr "Org unit hierarchy"
 
 msgid "Created"
 msgstr "Created"

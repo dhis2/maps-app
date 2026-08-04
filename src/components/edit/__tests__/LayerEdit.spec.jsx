@@ -82,4 +82,22 @@ describe('LayerEdit — reference org unit layer', () => {
         )
         expect(screen.getByText('Add new org unit layer')).toBeInTheDocument()
     })
+
+    test('shows a state-agnostic "Update reference" submit button, with no id (new)', () => {
+        renderLayerEdit({ layer: 'combinedTableRef', rows: [] })
+        expect(screen.getByText('Update reference')).toBeInTheDocument()
+    })
+
+    test('shows the same "Update reference" submit button once it has an id (already saved/editing)', () => {
+        renderLayerEdit({ id: 'ref1', layer: 'combinedTableRef', rows: [] })
+        expect(screen.getByText('Update reference')).toBeInTheDocument()
+    })
+
+    test('a real org unit layer still shows "Add layer"/"Update layer" depending on id', () => {
+        renderLayerEdit({ layer: 'orgUnit', rows: [] })
+        expect(screen.getByText('Add layer')).toBeInTheDocument()
+
+        renderLayerEdit({ id: 'ou1', layer: 'orgUnit', rows: [] })
+        expect(screen.getAllByText('Update layer')[0]).toBeInTheDocument()
+    })
 })
