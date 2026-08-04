@@ -6,6 +6,7 @@ import {
     ERROR_CRITICAL,
     CUSTOM_ALERT,
 } from '../constants/alerts.js'
+import { COMBINED_TABLE_REF_LAYER } from '../constants/layers.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
@@ -79,7 +80,10 @@ const orgUnitLoader = async ({
         combinedColumnConfig,
         combinedLayerKey,
     } = parseJsonConfig(config.config)
-    if (countFeaturesWithoutCoordinates) {
+    if (
+        countFeaturesWithoutCoordinates ||
+        config.layer === COMBINED_TABLE_REF_LAYER
+    ) {
         config.countFeaturesWithoutCoordinates = true
     }
     if (unclassifiedLegend) {
@@ -122,7 +126,11 @@ const orgUnitLoader = async ({
     )
 
     const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : []
-    if (!mainFeatures.length && !alerts.length) {
+    if (
+        !mainFeatures.length &&
+        !alerts.length &&
+        config.layer !== COMBINED_TABLE_REF_LAYER
+    ) {
         alerts.push({
             code: WARNING_NO_OU_COORD,
             message: i18n.t('Org unit layer'),
