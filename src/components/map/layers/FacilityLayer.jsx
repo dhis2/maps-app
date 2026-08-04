@@ -63,6 +63,8 @@ class FacilityLayer extends Layer {
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
             onError: this.onError.bind(this),
         }
 
@@ -90,6 +92,8 @@ class FacilityLayer extends Layer {
                 },
                 onClick: this.onAssociatedGeometryClick.bind(this),
                 onRightClick: this.onFeatureRightClick.bind(this),
+                onMouseEnter: this.onFeatureMouseEnter.bind(this),
+                onMouseLeave: this.onFeatureMouseLeave.bind(this),
             })
         }
 
@@ -154,7 +158,11 @@ class FacilityLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt })
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({ popup: evt })
+        }
     }
 
     onAssociatedGeometryClick(evt) {
