@@ -76,13 +76,15 @@ describe('GeoJSON URL Layer', () => {
             .find('tr')
             .should('have.length', 1)
 
-        // open the feature panel by clicking on the row
+        // open the feature panel via the row context menu
         cy.getByDataTest('bottom-panel')
             .find('tbody')
             .find('tr')
             .find('td')
             .first()
-            .click()
+            .rightclick()
+
+        cy.getByDataTest('data-table-context-menu-view-profile').click()
 
         // check that Feature profile is displayed
         cy.getByDataTest('details-panel')
