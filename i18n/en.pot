@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-08-03T11:27:11.052Z\n"
-"PO-Revision-Date: 2026-08-03T11:27:11.052Z\n"
+"POT-Creation-Date: 2026-08-04T09:12:24.029Z\n"
+"PO-Revision-Date: 2026-08-04T09:12:24.029Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -154,6 +154,13 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
+
+msgid ""
+"Values from {{layers}} only reflect the filter(s) applied in their own "
+"table."
+msgstr ""
+"Values from {{layers}} only reflect the filter(s) applied in their own "
+"table."
 
 msgid "No matching rows"
 msgstr "No matching rows"
@@ -354,6 +361,16 @@ msgstr "Count"
 
 msgid "Choose layers to combine"
 msgstr "Choose layers to combine"
+
+msgid ""
+"This layer has a filter active from its own table - Combined only reflects "
+"the filtered records."
+msgstr ""
+"This layer has a filter active from its own table - Combined only reflects "
+"the filtered records."
+
+msgid "Clear filters applied to {{layer}}"
+msgstr "Clear filters applied to {{layer}}"
 
 msgid "Join type for {{layer}}"
 msgstr "Join type for {{layer}}"
@@ -935,6 +952,9 @@ msgstr "Layer is invalid"
 
 msgid "Set layer opacity"
 msgstr "Set layer opacity"
+
+msgid "Clear filters applied in this layer’s table"
+msgstr "Clear filters applied in this layer’s table"
 
 msgid "More actions"
 msgstr "More actions"

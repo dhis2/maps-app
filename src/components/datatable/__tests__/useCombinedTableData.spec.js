@@ -151,6 +151,46 @@ describe('useCombinedTableData - org unit join', () => {
         expect(findCell(row1, 'layerA_rawValue').value).toBe(15)
     })
 
+    test("excludes a feature already removed by the layer's own dataFilters from the aggregation", () => {
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                dataFilters: { rawValue: '>15' },
+                data: [
+                    feature({
+                        id: 'evt1',
+                        orgUnitPath: '/country1/ou1/facility1',
+                        rawValue: 10,
+                    }),
+                    feature({
+                        id: 'evt2',
+                        orgUnitPath: '/country1/ou1/facility2',
+                        rawValue: 20,
+                    }),
+                ],
+            },
+        ]
+        const joinConfig = {
+            layers: {
+                layerA: {
+                    type: 'orgUnit',
+                    aggregation: { rawValue: 'AVERAGE' },
+                },
+            },
+        }
+
+        const { result } = renderHook(() =>
+            useCombinedTableData({ layers, referenceLayer, joinConfig })
+        )
+
+        const row1 = result.current.rows.find(
+            (r) => findCell(r, 'id').value === 'ou1'
+        )
+        expect(findCell(row1, 'layerA_rawValue').value).toBe(20)
+    })
+
     test('shows blank for a feature whose org unit is an ancestor of the reference, not a descendant', () => {
         const layers = [
             {

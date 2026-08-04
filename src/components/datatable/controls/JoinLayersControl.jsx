@@ -2,6 +2,8 @@ import i18n from '@dhis2/d2-i18n'
 import { IconWarningFilled16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useMemo, useRef, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { clearDataFilters } from '../../../actions/dataFilters.js'
 import {
     getCategoryValueDisplayTypes,
     getCombinedAggregationTypes,
@@ -34,6 +36,7 @@ import {
 } from '../../../util/geojson.js'
 import Checkbox from '../../core/Checkbox.jsx'
 import { IconLayersStack16 } from '../../core/icons.jsx'
+import { FilterActiveIcon } from '../../core/index.js'
 import { FilterDropdownPopover } from '../FilterDropdownPopover.jsx'
 import styles from './styles/JoinLayersControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
@@ -74,6 +77,7 @@ const JoinLayersControl = ({
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const aggregationTypes = getCombinedAggregationTypes()
+    const dispatch = useDispatch()
 
     const joinQualityByLayerKey = useMemo(() => {
         const result = {}
@@ -149,6 +153,9 @@ const JoinLayersControl = ({
                             {eligibleLayers.map((layer) => {
                                 const settings =
                                     layersConfig[layer.combinedLayerKey]
+                                const hasDataFilters =
+                                    Object.keys(layer.dataFilters ?? {})
+                                        .length > 0
                                 const defaultAggregation =
                                     getDefaultCombinedAggregation(layer)
                                 const {
@@ -183,19 +190,72 @@ const JoinLayersControl = ({
                                         key={layer.id}
                                         className={styles.layerRow}
                                     >
-                                        <Checkbox
-                                            label={
-                                                <span
-                                                    className={styles.layerName}
-                                                >
-                                                    {layer.name}
-                                                </span>
-                                            }
-                                            checked={!!settings}
-                                            onChange={() => onToggle(layer)}
-                                            className={styles.layerCheckbox}
-                                            dataTest={`data-table-join-layer-${layer.id}`}
-                                        />
+                                        <div className={styles.layerRowHeader}>
+                                            <Checkbox
+                                                label={
+                                                    <span
+                                                        className={
+                                                            styles.layerName
+                                                        }
+                                                    >
+                                                        {layer.name}
+                                                    </span>
+                                                }
+                                                checked={!!settings}
+                                                onChange={() => onToggle(layer)}
+                                                className={styles.layerCheckbox}
+                                                dataTest={`data-table-join-layer-${layer.id}`}
+                                            />
+                                            {hasDataFilters && (
+                                                <>
+                                                    <Tooltip
+                                                        content={i18n.t(
+                                                            'This layer has a filter active from its own table - Combined only reflects the filtered records.'
+                                                        )}
+                                                    >
+                                                        <span
+                                                            className={
+                                                                styles.aggregationWarning
+                                                            }
+                                                            data-test={`data-table-join-datafilters-warning-${layer.id}`}
+                                                        >
+                                                            <IconWarningFilled16 />
+                                                        </span>
+                                                    </Tooltip>
+                                                    <Tooltip
+                                                        content={i18n.t(
+                                                            'Clear filters applied to {{layer}}',
+                                                            {
+                                                                layer: layer.name,
+                                                            }
+                                                        )}
+                                                    >
+                                                        <button
+                                                            type="button"
+                                                            className={
+                                                                styles.clearDataFiltersButton
+                                                            }
+                                                            onClick={() =>
+                                                                dispatch(
+                                                                    clearDataFilters(
+                                                                        layer.id
+                                                                    )
+                                                                )
+                                                            }
+                                                            aria-label={i18n.t(
+                                                                'Clear filters applied to {{layer}}',
+                                                                {
+                                                                    layer: layer.name,
+                                                                }
+                                                            )}
+                                                            data-test={`data-table-join-clear-datafilters-${layer.id}`}
+                                                        >
+                                                            <FilterActiveIcon />
+                                                        </button>
+                                                    </Tooltip>
+                                                </>
+                                            )}
+                                        </div>
                                         {settings && (
                                             <div
                                                 className={styles.layerSettings}
