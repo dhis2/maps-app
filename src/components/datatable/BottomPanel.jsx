@@ -29,6 +29,7 @@ import {
     hasActiveDataTableFilters,
 } from '../../util/dataTable.js'
 import { getCssVar } from '../../util/helpers.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import CombinedDataTable from './CombinedDataTable.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
@@ -54,6 +55,9 @@ const EMPTY_FILTERS = {}
 const EMPTY_JOIN_LAYERS = {}
 
 const BottomPanel = () => {
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
     const { openIds, combinedView } = useSelector((state) => state.dataTable)
     const mapViews = useSelector((state) => state.map.mapViews)
@@ -366,6 +370,9 @@ const BottomPanel = () => {
                 <RowCountControl
                     totalCount={totalCount}
                     filteredCount={filteredCount}
+                    keyAnalysisDigitGroupSeparator={
+                        keyAnalysisDigitGroupSeparator
+                    }
                 />
                 <span className={styles.divider} />
                 <ClearFiltersControl
