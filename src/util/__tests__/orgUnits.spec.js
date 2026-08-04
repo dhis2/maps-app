@@ -358,6 +358,7 @@ describe('getStyledOrgUnits', () => {
         expect(result.legend.items).toContainEqual(
             expect.objectContaining({ name: 'Unclassified', color: '#cccccc' })
         )
+        expect(result.styledFeatures[0].properties.group).toBe('Group1')
     })
 
     it('should include unclassified orgunit with unclassifiedLegend color when set', () => {

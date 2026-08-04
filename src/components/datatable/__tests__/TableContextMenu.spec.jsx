@@ -2,8 +2,14 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import { FEATURE_HIGHLIGHT } from '../../../constants/actionTypes.js'
-import { FACILITY_LAYER } from '../../../constants/layers.js'
+import {
+    FEATURE_HIGHLIGHT,
+    ORGANISATION_UNIT_PROFILE_SET,
+} from '../../../constants/actionTypes.js'
+import {
+    FACILITY_LAYER,
+    TRACKED_ENTITY_LAYER,
+} from '../../../constants/layers.js'
 import TableContextMenu from '../TableContextMenu.jsx'
 
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
@@ -36,6 +42,33 @@ const renderMenu = (props) => {
     )
     return { ...result, store }
 }
+
+describe('TableContextMenu — view profile menu item', () => {
+    test('is not offered for a Tracked Entity row (id is a TEI uid, not an org unit id)', () => {
+        renderMenu({
+            layer: { id: 'layer1', layer: TRACKED_ENTITY_LAYER },
+            contextMenu: { x: 10, y: 10, featureProps: { id: 'tei1' } },
+        })
+        expect(
+            screen.queryByTestId('data-table-context-menu-view-profile')
+        ).not.toBeInTheDocument()
+    })
+
+    test('dispatches setOrgUnitProfile with the row id for a layer type that supports it', () => {
+        const { store } = renderMenu({
+            contextMenu: { x: 10, y: 10, featureProps: { id: 'ou1' } },
+        })
+        fireEvent.click(
+            screen
+                .getByTestId('data-table-context-menu-view-profile')
+                .querySelector('a')
+        )
+        expect(store.getActions()).toContainEqual({
+            type: ORGANISATION_UNIT_PROFILE_SET,
+            payload: 'ou1',
+        })
+    })
+})
 
 describe('TableContextMenu — zoom to filtered features', () => {
     test('is disabled when no filter is active (filteredIds is null)', () => {

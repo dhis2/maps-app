@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
-    formatDatetime,
+    formatDate,
     formatCoordinate,
     formatValueForDisplay,
 } from '../../../util/helpers.js'
@@ -177,8 +177,8 @@ const EventPopup = ({
                         )}
                         {occurredAt && (
                             <tr>
-                                <th>{i18n.t('Event time')}</th>
-                                <td>{formatDatetime(occurredAt)}</td>
+                                <th>{i18n.t('Event date')}</th>
+                                <td>{formatDate(occurredAt)}</td>
                             </tr>
                         )}
                     </tbody>

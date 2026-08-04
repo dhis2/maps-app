@@ -39,7 +39,7 @@ describe('utils/app - providerDataTransformation', () => {
         externalMapLayers: [
             {
                 mapService: 'XYZ',
-                url: 'https://a.tiles.mapbox.com/v4/worldbank-education.pebkgmlc/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid29ybGRiYW5rLWVkdWNhdGlvbiIsImEiOiJIZ2VvODFjIn0.TDw5VdwGavwEsch53sAVxA',
+                url: 'https://a.tiles.mapbox.com/v4/worldbank-education.pebkgmlc/{z}/{x}/{y}.png?access_token=test-token',
                 attribution: 'OpenAerialMap / Tanzania Open Data Initiative',
                 imageFormat: 'PNG',
                 mapLayerPosition: 'BASEMAP',
@@ -114,6 +114,7 @@ describe('utils/app - providerDataTransformation', () => {
         }
         const systemInfo = {
             calendar: 'gregory',
+            databaseInfo: { spatialSupport: true },
         }
 
         const cfg = await providerDataTransformation({
@@ -124,6 +125,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
+        expect(cfg.spatialSupport).toBe(true)
         expect(cfg.basemaps).toHaveLength(10)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
@@ -180,6 +182,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
+        expect(cfg.spatialSupport).toBeUndefined()
         expect(cfg.basemaps).toHaveLength(6)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.defaultLayerSources).toHaveLength(6)

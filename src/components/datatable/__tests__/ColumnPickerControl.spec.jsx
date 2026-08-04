@@ -355,3 +355,47 @@ describe('ColumnPicker search', () => {
         })
     })
 })
+
+describe('ColumnPicker defaultHidden headers (e.g. period columns)', () => {
+    const headersWithHiddenColumn = [
+        ...headers,
+        {
+            name: 'Value (Jan 2023)',
+            dataKey: 'period_202301_rawValue',
+            defaultHidden: true,
+        },
+    ]
+
+    test('appears in the main list, unchecked, when there is no saved config yet', () => {
+        renderColumnPicker({ allHeaders: headersWithHiddenColumn })
+        openPicker()
+        expect(screen.getByLabelText('Value (Jan 2023)')).not.toBeChecked()
+    })
+
+    test('checking it dispatches visibleKeys with its dataKey added, alongside the other default-visible columns', () => {
+        const { store } = renderColumnPicker({
+            allHeaders: headersWithHiddenColumn,
+        })
+        openPicker()
+        fireEvent.click(screen.getByLabelText('Value (Jan 2023)'))
+        expect(store.getActions()).toContainEqual({
+            type: DATA_TABLE_COLUMN_CONFIG_SET,
+            layerId: 'layer1',
+            config: {
+                visibleKeys: [
+                    'name',
+                    'rawValue',
+                    'legend',
+                    'period_202301_rawValue',
+                ],
+                pinnedKeys: [],
+                orderedKeys: [
+                    'name',
+                    'rawValue',
+                    'legend',
+                    'period_202301_rawValue',
+                ],
+            },
+        })
+    })
+})

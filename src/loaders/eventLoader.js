@@ -58,12 +58,14 @@ const expandOrgUnitKeyword = (id, userOrgUnitIdsByKeyword) => {
     return [id]
 }
 
-// Server clustering if more than 2000 events
-const shouldUseServerCluster = (
+// Server clustering if more than 2000 events, and the backend supports it
+export const shouldUseServerCluster = ({
     count,
     countFeaturesWithoutCoordinates,
-    countEventsOutsideOrgUnits
-) =>
+    countEventsOutsideOrgUnits,
+    spatialSupport,
+}) =>
+    !!spatialSupport &&
     !countFeaturesWithoutCoordinates &&
     !countEventsOutsideOrgUnits &&
     count > EVENT_SERVER_CLUSTER_COUNT
@@ -97,6 +99,7 @@ const eventLoader = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    spatialSupport,
 }) => {
     const config = {
         ...layerConfig,
@@ -117,6 +120,7 @@ const eventLoader = async ({
             analyticsEngine,
             periodTypeData,
             loadExtended,
+            spatialSupport,
         })
     } catch (e) {
         if (
@@ -149,6 +153,7 @@ const loadEventLayer = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    spatialSupport,
 }) => {
     // Config normalization
     // -----
@@ -239,13 +244,15 @@ const loadEventLayer = async ({
 
     const dataFilters = getFiltersFromColumns(columns)
 
-    config.isExtended = loadExtended
-
-    const analyticsRequest = await getAnalyticsRequest(config, {
-        analyticsEngine,
-        nameProperty: displayNameProp,
-        engine,
-    })
+    // Request setup only - config.isExtended is set further down
+    const analyticsRequest = await getAnalyticsRequest(
+        { ...config, isExtended: loadExtended },
+        {
+            analyticsEngine,
+            nameProperty: displayNameProp,
+            engine,
+        }
+    )
     const alerts = []
 
     // Legend skeleton
@@ -280,13 +287,21 @@ const loadEventLayer = async ({
     if (eventClustering && !styleDataItem) {
         const response = await analyticsEngine.events.getCount(analyticsRequest)
         config.bounds = getBounds(response.extent)
-        config.serverCluster = shouldUseServerCluster(
-            response.count,
-            config.countFeaturesWithoutCoordinates,
-            config.countEventsOutsideOrgUnits
-        )
+        config.serverCluster = config.forceClientCluster
+            ? false
+            : shouldUseServerCluster({
+                  count: response.count,
+                  countFeaturesWithoutCoordinates:
+                      config.countFeaturesWithoutCoordinates,
+                  countEventsOutsideOrgUnits: config.countEventsOutsideOrgUnits,
+                  spatialSupport,
+              })
         serverCount = response.count
     }
+
+    // The extended (data table) dataset is only actually loaded below when
+    // server clustering isn't in effect - don't claim it's ready otherwise
+    config.isExtended = loadExtended && !config.serverCluster
 
     // Load event data
     // -----
@@ -425,15 +440,20 @@ const loadEventLayer = async ({
         const color = cssColor(eventPointColor) || EVENT_COLOR
         const strokeColor = getContrastColor(color)
 
+        let count = 0
+        if (config.serverCluster) {
+            count = serverCount
+        } else if (Array.isArray(config?.data)) {
+            count = config.data.length
+        }
+
         config.legend.items = [
             {
                 name: i18n.t('Event'),
                 color,
                 strokeColor,
                 radius: eventPointRadius || EVENT_RADIUS,
-                count:
-                    serverCount ||
-                    (Array.isArray(config?.data) ? config.data.length : 0),
+                count,
             },
         ]
     }
