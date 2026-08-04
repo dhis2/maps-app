@@ -98,6 +98,13 @@ const BottomPanel = () => {
             ),
         [combinedLayers]
     )
+    const serverClusteredCombinedLayers = useMemo(
+        () =>
+            combinedLayers.filter(
+                (l) => l.serverCluster && !l.forceClientCluster
+            ),
+        [combinedLayers]
+    )
 
     const activeLayer = mapViews.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
@@ -362,6 +369,25 @@ const BottomPanel = () => {
                                 <span
                                     className={styles.filteredLayersWarning}
                                     data-test="data-table-combined-datafilters-warning"
+                                >
+                                    <IconWarningFilled16 />
+                                </span>
+                            </Tooltip>
+                        )}
+                        {serverClusteredCombinedLayers.length > 0 && (
+                            <Tooltip
+                                content={i18n.t(
+                                    "Values from {{layers}} aren't available to join into the Combined table while clustered on the server.",
+                                    {
+                                        layers: serverClusteredCombinedLayers
+                                            .map((l) => l.name)
+                                            .join(', '),
+                                    }
+                                )}
+                            >
+                                <span
+                                    className={styles.filteredLayersWarning}
+                                    data-test="data-table-combined-servercluster-warning"
                                 >
                                     <IconWarningFilled16 />
                                 </span>

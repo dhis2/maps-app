@@ -947,3 +947,74 @@ describe('JoinLayersControl dataFilters warning', () => {
         })
     })
 })
+
+describe('JoinLayersControl server-cluster warning', () => {
+    test('shows no warning or switch button for a layer that is not server clustered', () => {
+        renderControl()
+        openPicker()
+
+        expect(
+            screen.queryByTestId('data-table-join-servercluster-warning-layer1')
+        ).not.toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-join-servercluster-switch-layer1')
+        ).not.toBeInTheDocument()
+    })
+
+    test('shows the warning and switch button for a server-clustered layer, even when not joined', () => {
+        renderControl({
+            eligibleLayers: [
+                { ...eligibleLayers[0], serverCluster: true },
+                eligibleLayers[1],
+            ],
+        })
+        openPicker()
+
+        expect(
+            screen.getByTestId('data-table-join-servercluster-warning-layer1')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-join-servercluster-switch-layer1')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-join-servercluster-warning-layer2')
+        ).not.toBeInTheDocument()
+    })
+
+    test('does not show the warning once forceClientCluster is set, even if serverCluster is still true', () => {
+        renderControl({
+            eligibleLayers: [
+                {
+                    ...eligibleLayers[0],
+                    serverCluster: true,
+                    forceClientCluster: true,
+                },
+                eligibleLayers[1],
+            ],
+        })
+        openPicker()
+
+        expect(
+            screen.queryByTestId('data-table-join-servercluster-warning-layer1')
+        ).not.toBeInTheDocument()
+    })
+
+    test('clicking the switch button dispatches setForceClientCluster for that layer', () => {
+        const { store } = renderControl({
+            eligibleLayers: [
+                { ...eligibleLayers[0], serverCluster: true },
+                eligibleLayers[1],
+            ],
+        })
+        openPicker()
+
+        fireEvent.click(
+            screen.getByTestId('data-table-join-servercluster-switch-layer1')
+        )
+
+        expect(store.getActions()).toContainEqual({
+            type: 'LAYER_FORCE_CLIENT_CLUSTER_SET',
+            id: 'layer1',
+        })
+    })
+})

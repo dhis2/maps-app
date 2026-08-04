@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import React, { useMemo, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilters } from '../../../actions/dataFilters.js'
+import { setForceClientCluster } from '../../../actions/layers.js'
 import {
     DATA_KEY_KIND_CATEGORY,
     ORG_UNIT_PATH_DATA_KEY,
@@ -136,6 +137,9 @@ const JoinLayersControl = ({
                                 const hasDataFilters =
                                     Object.keys(layer.dataFilters ?? {})
                                         .length > 0
+                                const isServerClustered =
+                                    layer.serverCluster &&
+                                    !layer.forceClientCluster
                                 const defaultAggregation =
                                     getDefaultCombinedAggregation(layer)
                                 const {
@@ -181,6 +185,12 @@ const JoinLayersControl = ({
                                         hasDataFilters={hasDataFilters}
                                         onClearDataFilters={() =>
                                             dispatch(clearDataFilters(layer.id))
+                                        }
+                                        isServerClustered={isServerClustered}
+                                        onForceClientCluster={() =>
+                                            dispatch(
+                                                setForceClientCluster(layer.id)
+                                            )
                                         }
                                         settings={settings}
                                         defaultAggregation={defaultAggregation}

@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import {
     IconChevronDown16,
     IconChevronRight16,
+    IconReorder16,
     IconWarningFilled16,
     Tooltip,
 } from '@dhis2/ui'
@@ -53,6 +54,8 @@ const LayerRow = ({
     onToggleJoined,
     hasDataFilters,
     onClearDataFilters,
+    isServerClustered,
+    onForceClientCluster,
     settings,
     defaultAggregation,
     hasRollup,
@@ -133,6 +136,37 @@ const LayerRow = ({
                                 data-test={`data-table-join-clear-datafilters-${layer.id}`}
                             >
                                 <FilterActiveIcon />
+                            </button>
+                        </Tooltip>
+                    </>
+                )}
+                {isServerClustered && (
+                    <>
+                        <Tooltip
+                            content={i18n.t(
+                                "This layer is clustered on the server - its data isn't available to join into the Combined table."
+                            )}
+                        >
+                            <span
+                                className={styles.aggregationWarning}
+                                data-test={`data-table-join-servercluster-warning-${layer.id}`}
+                            >
+                                <IconWarningFilled16 />
+                            </span>
+                        </Tooltip>
+                        <Tooltip
+                            content={i18n.t('Switch to client clustering')}
+                        >
+                            <button
+                                type="button"
+                                className={styles.clearDataFiltersButton}
+                                onClick={onForceClientCluster}
+                                aria-label={i18n.t(
+                                    'Switch to client clustering'
+                                )}
+                                data-test={`data-table-join-servercluster-switch-${layer.id}`}
+                            >
+                                <IconReorder16 />
                             </button>
                         </Tooltip>
                     </>
@@ -314,6 +348,7 @@ LayerRow.propTypes = {
     hasDataFilters: PropTypes.bool.isRequired,
     hasRollup: PropTypes.bool.isRequired,
     isExpanded: PropTypes.bool.isRequired,
+    isServerClustered: PropTypes.bool.isRequired,
     layer: PropTypes.shape({
         data: PropTypes.array,
         id: PropTypes.string,
@@ -325,6 +360,7 @@ LayerRow.propTypes = {
     unmatchedCount: PropTypes.number.isRequired,
     onAggregationChange: PropTypes.func.isRequired,
     onClearDataFilters: PropTypes.func.isRequired,
+    onForceClientCluster: PropTypes.func.isRequired,
     onToggleExpand: PropTypes.func.isRequired,
     onToggleJoined: PropTypes.func.isRequired,
     onTypeChange: PropTypes.func.isRequired,
