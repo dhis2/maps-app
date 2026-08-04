@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-08-04T11:53:43.119Z\n"
-"PO-Revision-Date: 2026-08-04T11:53:43.120Z\n"
+"POT-Creation-Date: 2026-08-04T14:05:40.790Z\n"
+"PO-Revision-Date: 2026-08-04T14:05:40.791Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -168,12 +168,6 @@ msgstr "No matching rows"
 msgid "Location join over large datasets may be slow (over {{threshold}} features)"
 msgstr "Location join over large datasets may be slow (over {{threshold}} features)"
 
-msgid "Drill up one level"
-msgstr "Drill up one level"
-
-msgid "Drill down one level"
-msgstr "Drill down one level"
-
 msgid "Zoom to feature"
 msgstr "Zoom to feature"
 
@@ -286,6 +280,12 @@ msgstr[1] "{{count}} selected"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
+
+msgid "Drill up one level"
+msgstr "Drill up one level"
+
+msgid "Drill down one level"
+msgstr "Drill down one level"
 
 msgid "View profile"
 msgstr "View profile"

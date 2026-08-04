@@ -55,8 +55,10 @@ describe('TableContextMenu — view profile menu item', () => {
     })
 
     test('dispatches setOrgUnitProfile with the row id for a layer type that supports it', () => {
+        const onClose = jest.fn()
         const { store } = renderMenu({
             contextMenu: { x: 10, y: 10, featureProps: { id: 'ou1' } },
+            onClose,
         })
         fireEvent.click(
             screen
@@ -67,6 +69,7 @@ describe('TableContextMenu — view profile menu item', () => {
             type: ORGANISATION_UNIT_PROFILE_SET,
             payload: 'ou1',
         })
+        expect(onClose).toHaveBeenCalledWith()
     })
 })
 
@@ -97,6 +100,6 @@ describe('TableContextMenu — zoom to filtered features', () => {
                 zoom: true,
             },
         })
-        expect(onClose).toHaveBeenCalled()
+        expect(onClose).toHaveBeenCalledWith(true)
     })
 })
