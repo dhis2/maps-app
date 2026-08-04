@@ -35,7 +35,6 @@ import {
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
-    shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import {
     getPinnedCellProps,
@@ -57,6 +56,7 @@ import TableContextMenu from './TableContextMenu.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useRowClickSelection } from './useRowClickSelection.js'
+import { useRowContextMenuHighlight } from './useRowContextMenuHighlight.js'
 import { useRowSelection } from './useRowSelection.js'
 import { useSortState } from './useSortState.js'
 import { useTableData } from './useTableData.js'
@@ -117,14 +117,15 @@ const Table = ({
         },
         [dispatch, layer.id]
     )
-    const clearFeatureHighlight = useCallback(
-        (event) => {
-            if (shouldClearFeatureHighlight(event)) {
-                dispatch(highlightFeature(null))
-            }
-        },
+    const onClearHighlight = useCallback(
+        () => dispatch(highlightFeature(null)),
         [dispatch]
     )
+    const { onContextMenuOpen, guardedClear, onMenuClose } =
+        useRowContextMenuHighlight({
+            onPin: setFeatureHighlight,
+            onClear: onClearHighlight,
+        })
 
     const featureById = useMemo(
         () => buildFeatureIndex(layer.data),
@@ -136,6 +137,7 @@ const Table = ({
     const onRowContextMenu = useCallback(
         (e, row) => {
             e.preventDefault()
+            onContextMenuOpen(row)
             const id = getRowId(row)
             const feature = featureById.get(id)
             setTableContextMenu({
@@ -144,7 +146,7 @@ const Table = ({
                 featureProps: feature?.properties ?? { id },
             })
         },
-        [featureById]
+        [featureById, onContextMenuOpen]
     )
 
     const selectedIds = useMemo(
@@ -275,7 +277,7 @@ const Table = ({
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
-            onMouseLeave: clearFeatureHighlight,
+            onMouseLeave: guardedClear,
             onContextMenu: onRowContextMenu,
             onRowClick,
             onRowDoubleClick,
@@ -288,7 +290,7 @@ const Table = ({
         }),
         [
             setFeatureHighlight,
-            clearFeatureHighlight,
+            guardedClear,
             onRowContextMenu,
             onRowClick,
             onRowDoubleClick,
@@ -625,7 +627,10 @@ const Table = ({
                 layer={layer}
                 selectedIds={selectedIds}
                 filteredIds={hasActiveFilters ? allRowIds : null}
-                onClose={() => setTableContextMenu(null)}
+                onClose={(highlightChanged) => {
+                    setTableContextMenu(null)
+                    onMenuClose(highlightChanged)
+                }}
             />
         </>
     )

@@ -1,22 +1,10 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    Popover,
-    Menu,
-    MenuItem,
-    IconArrowDown16,
-    IconArrowUp16,
-} from '@dhis2/ui'
+import { Popover, Menu, MenuItem } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { highlightFeature } from '../../actions/feature.js'
-import { updateLayer } from '../../actions/layers.js'
-import {
-    buildFeatureIndex,
-    getUnionBounds,
-    mergeCrossLayerIds,
-} from '../../util/dataTable.js'
-import { drillUpDown } from '../../util/map.js'
+import { getUnionBounds, mergeCrossLayerIds } from '../../util/dataTable.js'
 import { IconZoomIn16 } from '../core/icons.jsx'
 
 const CombinedTableContextMenu = ({
@@ -39,10 +27,6 @@ const CombinedTableContextMenu = ({
     const entry = rowFeatureIds.get(rowId) ?? {}
     const allLayers = [referenceLayer, ...layers]
 
-    const referenceFeatureProps = buildFeatureIndex(referenceLayer.data).get(
-        rowId
-    )?.properties
-
     const zoomTo = (idsByLayerId) => {
         dispatch(
             highlightFeature({
@@ -53,7 +37,7 @@ const CombinedTableContextMenu = ({
                 crossLayerIds: idsByLayerId,
             })
         )
-        onClose()
+        onClose(true)
     }
 
     return (
@@ -76,52 +60,6 @@ const CombinedTableContextMenu = ({
                 onClickOutside={onClose}
             >
                 <Menu dense dataTest="combined-table-context-menu">
-                    {referenceFeatureProps && (
-                        <MenuItem
-                            dataTest="combined-table-context-menu-drill-up"
-                            label={i18n.t('Drill up one level')}
-                            icon={<IconArrowUp16 />}
-                            disabled={!referenceFeatureProps.hasCoordinatesUp}
-                            onClick={() => {
-                                dispatch(
-                                    updateLayer(
-                                        drillUpDown(
-                                            referenceLayer,
-                                            referenceFeatureProps.grandParentId,
-                                            referenceFeatureProps.grandParentParentGraph,
-                                            Number.parseInt(
-                                                referenceFeatureProps.level
-                                            ) - 1
-                                        )
-                                    )
-                                )
-                                onClose()
-                            }}
-                        />
-                    )}
-                    {referenceFeatureProps && (
-                        <MenuItem
-                            dataTest="combined-table-context-menu-drill-down"
-                            label={i18n.t('Drill down one level')}
-                            icon={<IconArrowDown16 />}
-                            disabled={!referenceFeatureProps.hasCoordinatesDown}
-                            onClick={() => {
-                                dispatch(
-                                    updateLayer(
-                                        drillUpDown(
-                                            referenceLayer,
-                                            referenceFeatureProps.id,
-                                            referenceFeatureProps.parentGraph,
-                                            Number.parseInt(
-                                                referenceFeatureProps.level
-                                            ) + 1
-                                        )
-                                    )
-                                )
-                                onClose()
-                            }}
-                        />
-                    )}
                     <MenuItem
                         dataTest="combined-table-context-menu-zoom-to-feature"
                         label={i18n.t('Zoom to feature')}

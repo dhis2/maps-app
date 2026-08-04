@@ -2,10 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import {
-    FEATURE_HIGHLIGHT,
-    LAYER_UPDATE,
-} from '../../../constants/actionTypes.js'
+import { FEATURE_HIGHLIGHT } from '../../../constants/actionTypes.js'
 import { THEMATIC_LAYER } from '../../../constants/layers.js'
 import CombinedTableContextMenu from '../CombinedTableContextMenu.jsx'
 
@@ -20,16 +17,7 @@ const point = (id, coordinates, properties = {}) => ({
 const referenceLayer = {
     id: 'ref1',
     layer: 'combinedTableRef',
-    data: [
-        point('ou1', [0, 0], {
-            level: '3',
-            hasCoordinatesUp: true,
-            hasCoordinatesDown: false,
-            grandParentId: 'gp1',
-            grandParentParentGraph: '/country1',
-            parentGraph: '/country1/region1',
-        }),
-    ],
+    data: [point('ou1', [0, 0])],
 }
 
 const layers = [
@@ -65,65 +53,6 @@ const renderMenu = (props) => {
     return { ...result, store }
 }
 
-describe('CombinedTableContextMenu — drill up/down', () => {
-    test('is enabled/disabled per the reference layer own hasCoordinatesUp/hasCoordinatesDown', () => {
-        renderMenu()
-        expect(
-            getLink('combined-table-context-menu-drill-up')
-        ).not.toHaveAttribute('aria-disabled', 'true')
-        expect(
-            getLink('combined-table-context-menu-drill-down')
-        ).toHaveAttribute('aria-disabled', 'true')
-    })
-
-    test('drilling up dispatches updateLayer for the reference layer, using its own feature props', () => {
-        const onClose = jest.fn()
-        const { store } = renderMenu({ onClose })
-        fireEvent.click(getLink('combined-table-context-menu-drill-up'))
-
-        const layerUpdates = store
-            .getActions()
-            .filter((a) => a.type === LAYER_UPDATE)
-        expect(layerUpdates).toHaveLength(1)
-        expect(layerUpdates[0].payload.id).toBe('ref1')
-        expect(layerUpdates[0].payload.rows[0].items).toEqual([
-            { id: 'gp1', path: '/country1/gp1' },
-            { id: 'LEVEL-2' },
-        ])
-        expect(onClose).toHaveBeenCalled()
-    })
-
-    test('drilling down dispatches updateLayer for the reference layer, using its own feature props', () => {
-        const onClose = jest.fn()
-        const { store } = renderMenu({
-            onClose,
-            referenceLayer: {
-                ...referenceLayer,
-                data: [
-                    point('ou1', [0, 0], {
-                        level: '3',
-                        hasCoordinatesUp: false,
-                        hasCoordinatesDown: true,
-                        parentGraph: '/country1/region1',
-                    }),
-                ],
-            },
-        })
-        fireEvent.click(getLink('combined-table-context-menu-drill-down'))
-
-        const layerUpdates = store
-            .getActions()
-            .filter((a) => a.type === LAYER_UPDATE)
-        expect(layerUpdates).toHaveLength(1)
-        expect(layerUpdates[0].payload.id).toBe('ref1')
-        expect(layerUpdates[0].payload.rows[0].items).toEqual([
-            { id: 'ou1', path: '/country1/region1/ou1' },
-            { id: 'LEVEL-4' },
-        ])
-        expect(onClose).toHaveBeenCalled()
-    })
-})
-
 describe('CombinedTableContextMenu — zoom actions', () => {
     test('zoom to feature dispatches a crossLayerIds highlight with the union bounds across the reference and participating layers', () => {
         const onClose = jest.fn()
@@ -142,7 +71,7 @@ describe('CombinedTableContextMenu — zoom actions', () => {
                 crossLayerIds: { ref1: ['ou1'], layerA: ['a1'] },
             },
         })
-        expect(onClose).toHaveBeenCalled()
+        expect(onClose).toHaveBeenCalledWith(true)
     })
 
     test('zoom to selected features is disabled when nothing is selected', () => {

@@ -20,7 +20,6 @@ import {
     getRowId,
     getUnionBounds,
     mergeCrossLayerIds,
-    shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import {
     getPinnedCellProps,
@@ -44,6 +43,7 @@ import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useCombinedTableData } from './useCombinedTableData.js'
 import { useRowClickSelection } from './useRowClickSelection.js'
+import { useRowContextMenuHighlight } from './useRowContextMenuHighlight.js'
 import { useRowSelection } from './useRowSelection.js'
 import { useSortState } from './useSortState.js'
 
@@ -289,15 +289,16 @@ const CombinedDataTable = ({
         [dispatch, rowFeatureIds]
     )
 
-    const clearFeatureHighlight = useCallback(
-        (event) => {
-            if (shouldClearFeatureHighlight(event)) {
-                setHoveredRowId(null)
-                dispatch(highlightFeature(null))
-            }
-        },
-        [dispatch]
-    )
+    const onClearHighlight = useCallback(() => {
+        setHoveredRowId(null)
+        dispatch(highlightFeature(null))
+    }, [dispatch])
+
+    const { onContextMenuOpen, guardedClear, onMenuClose } =
+        useRowContextMenuHighlight({
+            onPin: setFeatureHighlight,
+            onClear: onClearHighlight,
+        })
 
     const onRowDoubleClick = useCallback(
         (row) => {
@@ -371,19 +372,23 @@ const CombinedDataTable = ({
 
     const [tableContextMenu, setTableContextMenu] = useState(null)
 
-    const onRowContextMenu = useCallback((e, row) => {
-        e.preventDefault()
-        const rowId = getRowId(row)
-        if (!rowId) {
-            return
-        }
-        setTableContextMenu({ x: e.clientX, y: e.clientY, rowId })
-    }, [])
+    const onRowContextMenu = useCallback(
+        (e, row) => {
+            e.preventDefault()
+            const rowId = getRowId(row)
+            if (!rowId) {
+                return
+            }
+            onContextMenuOpen(row)
+            setTableContextMenu({ x: e.clientX, y: e.clientY, rowId })
+        },
+        [onContextMenuOpen]
+    )
 
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
-            onMouseLeave: clearFeatureHighlight,
+            onMouseLeave: guardedClear,
             onRowClick,
             onContextMenu: onRowContextMenu,
             onRowDoubleClick,
@@ -391,7 +396,7 @@ const CombinedDataTable = ({
         }),
         [
             setFeatureHighlight,
-            clearFeatureHighlight,
+            guardedClear,
             onRowClick,
             onRowContextMenu,
             onRowDoubleClick,
@@ -621,7 +626,10 @@ const CombinedDataTable = ({
                 rowFeatureIds={rowFeatureIds}
                 selectedIds={selectedIds}
                 filteredIds={hasActiveFilters ? allRowIds : null}
-                onClose={() => setTableContextMenu(null)}
+                onClose={(highlightChanged) => {
+                    setTableContextMenu(null)
+                    onMenuClose(highlightChanged)
+                }}
             />
         </div>
     )
