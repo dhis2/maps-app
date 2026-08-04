@@ -1,3 +1,5 @@
+import { SENTINEL_ANY_VALUE } from '../constants/dataTable.js'
+
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
     if (!filters) {
@@ -14,6 +16,16 @@ export const filterData = (data, filters) => {
             // Loop through all data items
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
+
+            if (Array.isArray(filter)) {
+                // Multi-select: OR match against the raw stored value
+                const stringValue = value == null ? '' : String(value)
+                return (
+                    filter.length === 0 ||
+                    filter.includes(stringValue) ||
+                    (stringValue !== '' && filter.includes(SENTINEL_ANY_VALUE))
+                )
+            }
 
             return typeof value === 'number'
                 ? numericFilter(value, filter)
@@ -37,6 +49,21 @@ export const numericFilter = (value, filter) => {
         return orFilter
             .split('&')
             .every((filter) => isTrueFilter(value, filter)) // AND filter
+    })
+}
+
+// Case-insensitive match against any of the given string fields
+export const filterByGlobalSearch = (data, searchString, stringDataKeys) => {
+    if (!searchString?.trim() || !stringDataKeys?.length) {
+        return data
+    }
+    const lower = searchString.toLowerCase()
+    return data.filter((item) => {
+        const props = item.properties || item
+        return stringDataKeys.some((key) => {
+            const val = props[key]
+            return val != null && String(val).toLowerCase().includes(lower)
+        })
     })
 }
 
