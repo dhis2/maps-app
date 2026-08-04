@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-16T11:34:34.211Z\n"
-"PO-Revision-Date: 2026-07-16T11:34:34.212Z\n"
+"POT-Creation-Date: 2026-07-17T19:19:08.730Z\n"
+"PO-Revision-Date: 2026-07-17T19:19:08.731Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -155,53 +155,6 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
-msgid "{{filtered}} of {{total}} rows"
-msgstr "{{filtered}} of {{total}} rows"
-
-msgid "{{total}} rows"
-msgstr "{{total}} rows"
-
-msgid "Restore"
-msgstr "Restore"
-
-msgid "Collapse"
-msgstr "Collapse"
-
-msgid "Highlight color"
-msgstr "Highlight color"
-
-msgid "Clear filters"
-msgstr "Clear filters"
-
-msgid "Search all columns"
-msgstr "Search all columns"
-
-msgid "Show only features in current map view"
-msgstr "Show only features in current map view"
-
-msgid "Close"
-msgstr "Close"
-
-msgid "Selected"
-msgstr "Selected"
-
-msgid "Not selected"
-msgstr "Not selected"
-
-msgid "All"
-msgstr "All"
-
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
-
-msgid "No features match your filters"
-msgstr "No features match your filters"
-
-msgid "No results found"
-msgstr "No results found"
-
 msgid "Select all visible rows"
 msgstr "Select all visible rows"
 
@@ -265,6 +218,20 @@ msgstr "No matches"
 msgid "No value"
 msgstr "No value"
 
+msgid "Selected"
+msgstr "Selected"
+
+msgid "Not selected"
+msgstr "Not selected"
+
+msgid "All"
+msgstr "All"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
 msgid "Drill up one level"
 msgstr "Drill up one level"
 
@@ -285,6 +252,60 @@ msgstr "Zoom to selected features"
 
 msgid "Zoom to filtered features"
 msgstr "Zoom to filtered features"
+
+msgid "No features match your filters"
+msgstr "No features match your filters"
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
+msgid "No results found"
+msgstr "No results found"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Restore"
+msgstr "Restore"
+
+msgid "Collapse"
+msgstr "Collapse"
+
+msgid "Configure columns"
+msgstr "Configure columns"
+
+msgid "Select all columns"
+msgstr "Select all columns"
+
+msgid "Reset to defaults"
+msgstr "Reset to defaults"
+
+msgid "Drag to reorder"
+msgstr "Drag to reorder"
+
+msgid "Unpin column"
+msgstr "Unpin column"
+
+msgid "Pin column to the left"
+msgstr "Pin column to the left"
+
+msgid "Search across all visible columns"
+msgstr "Search across all visible columns"
+
+msgid "Search all columns"
+msgstr "Search all columns"
+
+msgid "Highlight color"
+msgstr "Highlight color"
+
+msgid "{{filtered}} of {{total}} rows"
+msgstr "{{filtered}} of {{total}} rows"
+
+msgid "{{total}} rows"
+msgstr "{{total}} rows"
+
+msgid "Show only features in current map view"
+msgstr "Show only features in current map view"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
