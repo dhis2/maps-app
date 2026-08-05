@@ -1,13 +1,13 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Philip Larsen Donnelly, 2025
-# 晓东 林 <13981924470@126.com>, 2025
+# 晓东 林 <13981924470@126.com>, 2026
 # easylin <lin_xd@126.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -47,17 +47,35 @@ msgstr "分类"
 msgid "Classes"
 msgstr "分类"
 
-msgid "Legend set"
-msgstr "图例集"
+msgid "Auto"
+msgstr "自动"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "最小"
+
+msgid "Max"
+msgstr "最大"
+
+msgid "Max should be greater than min"
+msgstr "最大值应大于最小值"
 
 msgid "Color"
 msgstr "颜色"
 
-msgid "Size"
-msgstr "大小"
-
 msgid "Name"
 msgstr "名称"
+
+msgid "Legend set"
+msgstr "图例集"
+
+msgid "Size"
+msgstr "大小"
 
 msgid "Name and value"
 msgstr "名称和值"
@@ -92,11 +110,8 @@ msgstr "招生地点"
 msgid "Tracked entity location"
 msgstr "跟踪实体位置"
 
-msgid "Fallback coordinate field"
-msgstr "回退坐标字段"
-
-msgid "Coordinate field"
-msgstr "坐标字段"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
@@ -104,14 +119,26 @@ msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
 msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "回退坐标字段"
+
+msgid "Coordinate field"
+msgstr "坐标字段"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "之前选择的值在列表{{id}}中不可用："
 
 msgid "Style by data item"
 msgstr "按数据元定风格"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "选择项目阶段后即可进行过滤。"
 
 msgid "Add filter"
 msgstr "添加过滤器"
@@ -187,6 +214,9 @@ msgstr "范围"
 msgid "Org unit"
 msgstr "机构"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "事件时间"
 
@@ -251,6 +281,9 @@ msgstr "组织机构管理"
 
 msgid "Style"
 msgstr "风格"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "点颜色"
@@ -355,41 +388,17 @@ msgstr "要求最小值"
 msgid "Max value is required"
 msgstr "最大值为必填项"
 
-msgid "Max should be greater than min"
-msgstr "最大值应大于最小值"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "有效步骤为{{minSteps}}至{{maxSteps}}"
-
-msgid "Min"
-msgstr "最小"
-
-msgid "Max"
-msgstr "最大"
-
-msgid "Steps"
-msgstr "步"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr "设施缓冲区"
 
-msgid "Org Units"
-msgstr "机构"
-
-msgid "Filter"
-msgstr "过滤器"
-
-msgid "Group events"
-msgstr "事件组"
-
-msgid "View all events"
-msgstr "查看所有事件"
-
-msgid "Radius"
-msgstr "半径"
-
-msgid "You can style events by data element after selecting a program."
-msgstr "选择一个项目后你可以按数据元风格化显示事件"
+msgid "Count org units without coordinates"
+msgstr ""
 
 msgid "Program is required"
 msgstr "需要项目"
@@ -402,6 +411,42 @@ msgstr "没有选择机构"
 
 msgid "No legend set is selected"
 msgstr "未选择图例集"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "机构"
+
+msgid "Filter"
+msgstr "过滤器"
+
+msgid "Choose from presets"
+msgstr "从预设中选择"
+
+msgid "Define start - end dates"
+msgstr "定义开始 - 结束日期"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "选择项目阶段后即可进行过滤。"
+
+msgid "Group events"
+msgstr "事件组"
+
+msgid "View all events"
+msgstr "查看所有事件"
+
+msgid "Radius"
+msgstr "半径"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr "选择一个项目后你可以按数据元风格化显示事件"
 
 msgid "Event status"
 msgstr "事件状态"
@@ -448,14 +493,34 @@ msgstr "多边形由其中心点表示。"
 msgid "Labels"
 msgstr "标签"
 
+msgid "Include org units with no data"
+msgstr "包括无数据的组织机构"
+
+msgid "No data"
+msgstr "无数据"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr "未分类"
+
+msgid "Period is required"
+msgstr "需要期间"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr "拆分后的层 最多只能添加总共{{number}} 个时段（包括多时段中的时段）。"
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "至少选择{{number}} 期或 1 个多期。"
+
 msgid "Aggregation type"
 msgstr "汇总类型"
 
 msgid "Only show completed events"
 msgstr "仅显示已完成的事件"
-
-msgid "Include org units with no data"
-msgstr "包括无数据的组织机构"
 
 msgid "Low radius"
 msgstr "低半径"
@@ -469,37 +534,20 @@ msgstr "高半径应大于低半径"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "半径应介于{{min}}至{{max}}之间"
 
-msgid "Choose from presets"
-msgstr "从预设中选择"
-
-msgid "Define start - end dates"
-msgstr "定义开始 - 结束日期"
-
 msgid "Choose periods for all timeline layers"
-msgstr ""
+msgstr "为所有时间线图层选择时段"
 
 msgid "Selection is initialized from shared periods"
-msgstr ""
+msgstr "选择将基于共享时段初始化"
 
 msgid "Choose periods for all split layers"
-msgstr ""
+msgstr "为所有分割层选择时段"
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "需要期间"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "至少选择{{number}} 期或 1 个多期。"
+msgstr "需要数据"
 
 msgid "Specified radius values are invalid"
-msgstr ""
+msgstr "指定的半径值无效"
 
 msgid "Select period when tracked entities were last updated"
 msgstr "当跟踪的实体最近被更新 后选择期间"
@@ -513,6 +561,9 @@ msgstr "被跟踪实体在项目中注册或登记的日期"
 msgid "Program status"
 msgstr "项目状态"
 
+msgid "Tracked Entity Type is required"
+msgstr "需要跟踪实体类型"
+
 msgid "Relationships"
 msgstr "关系"
 
@@ -520,15 +571,15 @@ msgid "Follow up"
 msgstr "后续跟进"
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "选择关系类型前先选择跟踪实体类型"
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "在地图中显示跟踪实体关系是一项实验性功能"
 
 msgid "Display Tracked Entity relationships"
 msgstr "显示跟踪实体关系"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "选择关系类型前先选择跟踪实体类型"
 
 msgid "Tracked entity style"
 msgstr "跟踪的实体风格"
@@ -541,9 +592,6 @@ msgstr "相关实体风格"
 
 msgid "Line Color"
 msgstr "线颜色"
-
-msgid "Tracked Entity Type is required"
-msgstr "需要跟踪实体类型"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "跟踪的实体类型没有发现关系类型"
@@ -592,8 +640,8 @@ msgstr "背景图"
 msgid "Download Layer Data"
 msgstr "下载图层数据"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "下载 \"{{layerName}}\" 层的GeoJSON数据"
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -612,14 +660,11 @@ msgstr "下载数据失败"
 msgid "External layer"
 msgstr "外部图层"
 
-msgid "Failed to load layer"
-msgstr "加载图层失败"
-
 msgid "Loading layer"
 msgstr "载入图层"
 
-msgid "{{name}} deleted."
-msgstr "{{name}}已删除。"
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "编辑"
@@ -654,20 +699,73 @@ msgstr "下载数据"
 msgid "Edit layer"
 msgstr "编辑图层"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "移除图层"
 
 msgid "Filters"
 msgstr "过滤器"
 
+msgid "Failed to load layer"
+msgstr "加载图层失败"
+
 msgid "No data found"
 msgstr "没有数据被找到"
 
-msgid "Selected org units: No coordinates found"
-msgstr "选定的组织单位：未找到坐标"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "没有找到坐标"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "选定的组织单位：未找到坐标"
 
 msgid "Error"
 msgstr "错误"
@@ -712,9 +810,6 @@ msgstr "组"
 
 msgid "Parent unit"
 msgstr "上级机构"
-
-msgid "No data"
-msgstr "无数据"
 
 msgid "Not set"
 msgstr "没有设置"
@@ -897,17 +992,14 @@ msgstr "前年"
 msgid "Next year"
 msgstr "来年"
 
-msgid "Start/end dates"
-msgstr "开始-结束日期"
-
 msgid "Remove all split layers to add a single layer."
-msgstr ""
+msgstr "删除所有分割层，添加一个层 。"
 
 msgid "Remove all split layers to add a timeline layer."
-msgstr ""
+msgstr "移除所有分割图层，添加时间线层 。"
 
 msgid "Remove all other layers to add a split layer."
-msgstr ""
+msgstr "移除所有其他图层，添加分色层 。"
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -955,6 +1047,12 @@ msgstr "点击取消固定图例"
 
 msgid "Click to pin legend"
 msgstr "点击固定图例"
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
+msgstr ""
 
 msgid "No program"
 msgstr "无项目"
@@ -1591,6 +1689,18 @@ msgstr "平等间隔"
 msgid "Equal counts"
 msgstr "等数量"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "符号"
 
@@ -1639,8 +1749,14 @@ msgstr "财务七月"
 msgid "Financial year (Start April)"
 msgstr "财务四月"
 
+msgid "Start/end dates"
+msgstr "开始-结束日期"
+
 msgid "Cancelled"
 msgstr "已取消"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "地球引擎层"
@@ -1660,17 +1776,17 @@ msgstr "显示{{total}}中的前{{pageSize}}个事件"
 msgid "Event"
 msgstr "事件"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "机构设施"
 
 msgid "an error occurred"
 msgstr "出现错误"
 
-msgid "GroupSet used for styling was not found"
-msgstr "未找到用于样式的 组集"
-
-msgid "No coordinates found for selected facilities"
-msgstr "未找到选定设施的坐标"
+msgid "No point locations found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"
@@ -1699,11 +1815,11 @@ msgstr "未找到数据项"
 msgid "Thematic layer"
 msgstr "专题层"
 
-msgid "Tracked entity"
-msgstr "跟踪实体"
-
 msgid "related"
 msgstr "相关的"
+
+msgid "Tracked entity"
+msgstr "跟踪实体"
 
 msgid "not one of"
 msgstr "不是当中一个"
@@ -1752,8 +1868,8 @@ msgstr "组织机构"
 msgid "Facility"
 msgstr "功能"
 
-msgid "Other"
-msgstr "其它"
+msgid "GroupSet used for styling was not found"
+msgstr "未找到用于样式的 组集"
 
 msgid "Start date is invalid"
 msgstr "开始日期无效"
@@ -1763,3 +1879,11 @@ msgstr "结束日期无效"
 
 msgid "End date cannot be earlier than start date"
 msgstr "结束日期不能早于开始日期"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "地图"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

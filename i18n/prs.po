@@ -1,16 +1,15 @@
-# 
 # Translators:
-# Philip Larsen Donnelly, 2025
+# Philip Larsen Donnelly, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2025-12-15T15:35:44.699Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: fa_AF\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -39,32 +38,41 @@ msgstr ""
 msgid "Network error"
 msgstr ""
 
-msgid "Calculation"
-msgstr ""
-
-msgid "No calculations found"
-msgstr ""
-
-msgid "Calculations can be created in the Data Visualizer app."
-msgstr ""
-
 msgid "Classification"
 msgstr ""
 
 msgid "Classes"
 msgstr ""
 
-msgid "Legend set"
-msgstr "سیت لیجند"
+msgid "Auto"
+msgstr ""
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "کوچکتر"
+
+msgid "Max"
+msgstr "بزرگتر"
+
+msgid "Max should be greater than min"
+msgstr ""
 
 msgid "Color"
 msgstr "رنگ"
 
-msgid "Size"
-msgstr ""
-
 msgid "Name"
 msgstr "نام"
+
+msgid "Legend set"
+msgstr "سیت لیجند"
+
+msgid "Size"
+msgstr ""
 
 msgid "Name and value"
 msgstr ""
@@ -74,21 +82,6 @@ msgstr "مقدار"
 
 msgid "Display"
 msgstr "نمایش"
-
-msgid "Data element group"
-msgstr "د مالوماتو (ډاټا) د برخې ګروپ"
-
-msgid "Data element operand"
-msgstr ""
-
-msgid "Data element"
-msgstr "عناصر معلومات"
-
-msgid "Totals"
-msgstr "مجموعه"
-
-msgid "Details"
-msgstr "جزئیات"
 
 msgid "Yes"
 msgstr "بله"
@@ -114,11 +107,8 @@ msgstr ""
 msgid "Tracked entity location"
 msgstr ""
 
-msgid "Fallback coordinate field"
+msgid "Select a program stage to see additional coordinate options"
 msgstr ""
-
-msgid "Coordinate field"
-msgstr "ځانګړتیاوې"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -126,16 +116,25 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
-msgid "Event data item"
-msgstr "د پېښې طبقه"
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
+
+msgid "Coordinate field"
+msgstr "ځانګړتیاوې"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
-msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
 msgstr ""
 
 msgid "Add filter"
@@ -161,9 +160,6 @@ msgstr "اپریتر"
 
 msgid "Date"
 msgstr "تاریخ"
-
-msgid "Data set"
-msgstr "د مالوماتو (ډاټا) ټولګه"
 
 msgid "No results found"
 msgstr "هیج نتیجه ی یافت نشد"
@@ -213,6 +209,9 @@ msgid "Range"
 msgstr "وسعت"
 
 msgid "Org unit"
+msgstr ""
+
+msgid "Org unit boundary"
 msgstr ""
 
 msgid "Event time"
@@ -279,6 +278,9 @@ msgstr "واحد های سازمان"
 
 msgid "Style"
 msgstr "استایل"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "د نکتې پوړ"
@@ -383,40 +385,16 @@ msgstr ""
 msgid "Max value is required"
 msgstr ""
 
-msgid "Max should be greater than min"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgid "Use custom legend"
 msgstr ""
-
-msgid "Min"
-msgstr "کوچکتر"
-
-msgid "Max"
-msgstr "بزرگتر"
-
-msgid "Steps"
-msgstr "مرحله"
 
 msgid "Facility buffer"
 msgstr ""
 
-msgid "Org Units"
-msgstr ""
-
-msgid "Filter"
-msgstr "فلتر"
-
-msgid "Group events"
-msgstr ""
-
-msgid "View all events"
-msgstr ""
-
-msgid "Radius"
-msgstr ""
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
 
 msgid "Program is required"
@@ -429,6 +407,42 @@ msgid "No organisation units are selected."
 msgstr ""
 
 msgid "No legend set is selected"
+msgstr ""
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr ""
+
+msgid "Filter"
+msgstr "فلتر"
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+
+msgid "Group events"
+msgstr ""
+
+msgid "View all events"
+msgstr ""
+
+msgid "Radius"
+msgstr ""
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Event status"
@@ -476,13 +490,33 @@ msgstr ""
 msgid "Labels"
 msgstr "برچسپ"
 
+msgid "Include org units with no data"
+msgstr ""
+
+msgid "No data"
+msgstr "معلوماتی وجود ندارد"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr ""
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "نوع تجمع"
 
 msgid "Only show completed events"
-msgstr ""
-
-msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -497,56 +531,20 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr ""
 
-msgid "Choose from presets"
+msgid "Choose periods for all timeline layers"
 msgstr ""
 
-msgid "Define start - end dates"
+msgid "Selection is initialized from shared periods"
 msgstr ""
 
-msgid "Indicator group is required"
+msgid "Choose periods for all split layers"
 msgstr ""
 
-msgid "Indicator is required"
+msgid "Data is required"
 msgstr ""
 
-msgid "Data element group is required"
+msgid "Specified radius values are invalid"
 msgstr ""
-
-msgid "Data element is required"
-msgstr ""
-
-msgid "Data set is required"
-msgstr ""
-
-msgid "Event data item is required"
-msgstr ""
-
-msgid "Program indicator is required"
-msgstr ""
-
-msgid "Calculation is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr ""
-
-msgid "Indicator"
-msgstr "شاخص"
-
-msgid "Reporting rates"
-msgstr "درجه راپور دهی"
-
-msgid "Event data items"
-msgstr "د پېښې د مالوماتو (ډاټا) موضوعات"
-
-msgid "Program indicators"
-msgstr "د پروګرام شاخصونه"
-
-msgid "Calculations"
-msgstr ""
-
-msgid "Item type"
-msgstr "د نېټې ډول"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -560,6 +558,9 @@ msgstr ""
 msgid "Program status"
 msgstr ""
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr "وابستگی ها"
 
@@ -567,14 +568,14 @@ msgid "Follow up"
 msgstr ""
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr ""
 
 msgid "Display Tracked Entity relationships"
+msgstr ""
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
 msgstr ""
 
 msgid "Tracked entity style"
@@ -587,9 +588,6 @@ msgid "Related entity style"
 msgstr ""
 
 msgid "Line Color"
-msgstr ""
-
-msgid "Tracked Entity Type is required"
 msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
@@ -612,9 +610,6 @@ msgstr "د ګروپ ټولګه"
 
 msgid "Style by group set"
 msgstr ""
-
-msgid "Indicator group"
-msgstr "د شاخص ګروپ"
 
 msgid "Manage available layer sources"
 msgstr ""
@@ -642,7 +637,7 @@ msgstr ""
 msgid "Download Layer Data"
 msgstr ""
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
 msgstr ""
 
 msgid ""
@@ -662,16 +657,10 @@ msgstr ""
 msgid "External layer"
 msgstr "د پېښې طبقه"
 
-msgid "Split view cannot be combined with other layer types."
-msgstr ""
-
-msgid "Failed to load layer"
-msgstr ""
-
 msgid "Loading layer"
 msgstr ""
 
-msgid "{{name}} deleted."
+msgid "{{- name}} deleted."
 msgstr ""
 
 msgid "Edit"
@@ -707,19 +696,77 @@ msgstr "دانلود دیتا"
 msgid "Edit layer"
 msgstr "طبقې تصحیح کړئ"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr ""
 
 msgid "Filters"
 msgstr "فیلټرونه"
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "No data found"
 msgstr "هیچ معلوماتی یافت نشد"
 
-msgid "Selected org units: No coordinates found"
+msgid "All events outside org unit boundaries"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "Selected org units: No coordinates found"
 msgstr ""
 
 msgid "Error"
@@ -746,6 +793,11 @@ msgstr "طول البلد"
 msgid "Latitude"
 msgstr "عرض البلد"
 
+msgid ""
+"Failed to initialize the map. Your system may not support WebGL. Verify "
+"compatibility here: {{url}}"
+msgstr ""
+
 msgid "Basemap could not be added: {{message}}"
 msgstr ""
 
@@ -760,9 +812,6 @@ msgstr "ګروپونه"
 
 msgid "Parent unit"
 msgstr "لوی واحد"
-
-msgid "No data"
-msgstr "معلوماتی وجود ندارد"
 
 msgid "Not set"
 msgstr "تعین نه گردیده است"
@@ -945,21 +994,18 @@ msgstr ""
 msgid "Next year"
 msgstr "سال بعدی"
 
-msgid "Start/end dates"
-msgstr "د پیل او پای نېټې"
-
-msgid "Select at least {{number}} periods or 1 multi-period."
+msgid "Remove all split layers to add a single layer."
 msgstr ""
 
-msgid "Remove the existing timeline to add a new one."
+msgid "Remove all split layers to add a timeline layer."
+msgstr ""
+
+msgid "Remove all other layers to add a split layer."
 msgstr ""
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
 "can be selected."
-msgstr ""
-
-msgid "Remove all other layers to add a split map view."
 msgstr ""
 
 msgid "Single"
@@ -978,9 +1024,6 @@ msgid "Split"
 msgstr ""
 
 msgid "Show multiple maps in view, one for each period (max {{number}})."
-msgstr ""
-
-msgid "Period display mode"
 msgstr ""
 
 msgid ""
@@ -1007,8 +1050,11 @@ msgstr ""
 msgid "Click to pin legend"
 msgstr ""
 
-msgid "Program indicator"
-msgstr "شاخص پروگرام"
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
+msgstr ""
 
 msgid "No program"
 msgstr "هیچ پروگرام نیست"
@@ -1112,7 +1158,7 @@ msgstr ""
 msgid "Number of buildings"
 msgstr ""
 
-msgid "0.5 meter"
+msgid "~0.5 meter"
 msgstr ""
 
 msgid "Single point in time"
@@ -1243,6 +1289,15 @@ msgstr ""
 msgid "unitless"
 msgstr ""
 
+msgid "~500 meters"
+msgstr ""
+
+msgid "Yearly"
+msgstr "سالانه"
+
+msgid "Since 2001"
+msgstr ""
+
 msgid "Evergreen Needleleaf forest"
 msgstr ""
 
@@ -1322,30 +1377,7 @@ msgstr ""
 msgid "people per hectare"
 msgstr ""
 
-msgid "Precipitation"
-msgstr "تشریح"
-
-msgid "millimeter"
-msgstr ""
-
-msgid ""
-"Precipitation collected from satellite and weather stations on the ground. "
-"The values are in millimeters within 5-day periods. Updated monthly, during "
-"the 3rd week of the following month."
-msgstr ""
-
-msgid "Temperature MODIS"
-msgstr ""
-
-msgid "°C during daytime"
-msgstr ""
-
-msgid ""
-"Land surface temperatures collected from satellite. Blank spots will appear "
-"in areas with a persistent cloud cover."
-msgstr ""
-
-msgid "Population age groups"
+msgid "Population age groups WorldPop Global1"
 msgstr ""
 
 msgid ""
@@ -1463,6 +1495,66 @@ msgstr ""
 msgid "Female 80 years and above"
 msgstr ""
 
+msgid "Population WorldPop Global1"
+msgstr ""
+
+msgid "Precipitation"
+msgstr "تشریح"
+
+msgid "millimeter"
+msgstr ""
+
+msgid ""
+"Precipitation collected from satellite and weather stations on the ground. "
+"The values are in millimeters within 5-day periods. Updated monthly, during "
+"the 3rd week of the following month."
+msgstr ""
+
+msgid "Temperature MODIS"
+msgstr ""
+
+msgid "°C during daytime"
+msgstr ""
+
+msgid ""
+"Land surface temperatures collected from satellite. Blank spots will appear "
+"in areas with a persistent cloud cover."
+msgstr ""
+
+msgid "Population age groups WorldPop Global2"
+msgstr ""
+
+msgid ""
+"The data are produced using a top-down population modelling approach, where "
+"official population totals are distributed across space and constrained to "
+"areas likely to be inhabited. Estimates are provided annually and include "
+"current, historical, and projected population values."
+msgstr ""
+
+msgid "2015 - 2030"
+msgstr ""
+
+msgid "Male 80 - 84 years"
+msgstr ""
+
+msgid "Male 85 - 89 years"
+msgstr ""
+
+msgid "Male 90 years and above"
+msgstr ""
+
+msgid "Female 80 - 84 years"
+msgstr ""
+
+msgid "Female 85 - 89 years"
+msgstr ""
+
+msgid "Female 90 years and above"
+msgstr ""
+
+msgid "Population WorldPop Global2"
+msgstr ""
+
 msgid "CHIRPS"
 msgstr ""
 
@@ -1542,7 +1634,7 @@ msgid ""
 " Enhanced Vegetation Index (EVI) is similar to NDVI. However, EVI corrects for some atmospheric conditions and canopy background noise and is more sensitive in areas with dense vegetation."
 msgstr ""
 
-msgid "250 meter"
+msgid "~250 meters"
 msgstr ""
 
 msgid "16-day"
@@ -1596,6 +1688,18 @@ msgstr "مساوي انټروالونه"
 msgid "Equal counts"
 msgstr "مساوي حسابونه"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "سمبول"
 
@@ -1632,9 +1736,6 @@ msgstr "شش-ماهه"
 msgid "Six-monthly April"
 msgstr "شش-ماهه اپریل"
 
-msgid "Yearly"
-msgstr "سالانه"
-
 msgid "Financial year (Start November)"
 msgstr ""
 
@@ -1647,7 +1748,13 @@ msgstr "مالی جولای"
 msgid "Financial year (Start April)"
 msgstr "مالی اپریل"
 
+msgid "Start/end dates"
+msgstr "د پیل او پای نېټې"
+
 msgid "Cancelled"
+msgstr ""
+
+msgid "Could not count org units without coordinates"
 msgstr ""
 
 msgid "Earth Engine layer"
@@ -1668,16 +1775,16 @@ msgstr ""
 msgid "Event"
 msgstr "رویداد"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr ""
 
 msgid "an error occurred"
 msgstr ""
 
-msgid "GroupSet used for styling was not found"
-msgstr ""
-
-msgid "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1707,11 +1814,11 @@ msgstr ""
 msgid "Thematic layer"
 msgstr "د موضوع اړوند طبقه"
 
-msgid "Tracked entity"
-msgstr "ردیابی هویت"
-
 msgid "related"
 msgstr ""
+
+msgid "Tracked entity"
+msgstr "ردیابی هویت"
 
 msgid "not one of"
 msgstr ""
@@ -1760,8 +1867,8 @@ msgstr "واحد های سازمان"
 msgid "Facility"
 msgstr "سهولت"
 
-msgid "Other"
-msgstr "دیگر"
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr ""
@@ -1770,4 +1877,12 @@ msgid "End date is invalid"
 msgstr ""
 
 msgid "End date cannot be earlier than start date"
+msgstr ""
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "نقشه ها"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
 msgstr ""
