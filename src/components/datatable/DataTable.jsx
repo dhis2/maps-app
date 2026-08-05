@@ -435,6 +435,14 @@ const Table = ({
                                             name={name}
                                             options={columnOptions[dataKey]}
                                             optionSetId={optionSet?.id}
+                                            resolvedOptionNames={
+                                                optionSet?.id
+                                                    ? layer
+                                                          .optionSetOptionsByCode?.[
+                                                          optionSet.id
+                                                      ]
+                                                    : undefined
+                                            }
                                             renderer={renderer}
                                             orgUnitIdToName={orgUnitIdToName}
                                             filterValue={
@@ -484,6 +492,7 @@ const Table = ({
             visibleHeaders,
             pinnedLeftOffsets,
             layer.dataFilters,
+            layer.optionSetOptionsByCode,
             pinnedColumnCount,
             columnWidths,
             columnOptions,

@@ -543,18 +543,27 @@ PlainSearchableFilter.propTypes = {
     type: PropTypes.string,
 }
 
-const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
-    const { optionSet } = useOptionSet(optionSetId)
+const OptionSetSearchableFilter = ({
+    optionSetId,
+    resolvedOptionNames,
+    ...props
+}) => {
+    const { optionSet } = useOptionSet(
+        resolvedOptionNames ? undefined : optionSetId
+    )
     const optionByCode = useMemo(() => {
+        if (resolvedOptionNames) {
+            return new Map(Object.entries(resolvedOptionNames))
+        }
         const map = new Map()
-        optionSet?.options.forEach((o) => map.set(o.code, o))
+        optionSet?.options.forEach((o) => map.set(o.code, o.name))
         return map
-    }, [optionSet])
+    }, [resolvedOptionNames, optionSet])
     const resolveLabel = useCallback(
         (value) =>
             value === SENTINEL_NO_VALUE
                 ? i18n.t('No value')
-                : optionByCode.get(value)?.name ?? value,
+                : optionByCode.get(value) ?? value,
         [optionByCode]
     )
     return (
@@ -568,6 +577,7 @@ const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
 
 OptionSetSearchableFilter.propTypes = {
     optionSetId: PropTypes.string.isRequired,
+    resolvedOptionNames: PropTypes.object,
 }
 
 const FilterInput = React.memo(function FilterInput({
@@ -577,6 +587,7 @@ const FilterInput = React.memo(function FilterInput({
     name,
     options,
     optionSetId,
+    resolvedOptionNames,
     renderer,
     orgUnitIdToName,
     filterValue,
@@ -620,6 +631,7 @@ const FilterInput = React.memo(function FilterInput({
                 filterValue={filterValue}
                 options={options ?? []}
                 optionSetId={optionSetId}
+                resolvedOptionNames={resolvedOptionNames}
                 type={type}
                 renderer={renderer}
                 onChange={onChange}
@@ -657,6 +669,7 @@ FilterInput.propTypes = {
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
+    resolvedOptionNames: PropTypes.object,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
 }
