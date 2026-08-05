@@ -108,6 +108,13 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         ? i18n.t('Configure reference org units')
         : editOrAddTitle
 
+    const addOrUpdateLabel = layer.id
+        ? i18n.t('Update layer')
+        : i18n.t('Add layer')
+    const submitButtonLabel = isReferenceLayer
+        ? i18n.t('Update reference')
+        : addOrUpdateLabel
+
     return (
         <Modal position="top" dataTest="layeredit" fluid onClose={cancelLayer}>
             <ModalTitle>{title}</ModalTitle>
@@ -135,11 +142,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         onClick={onValidateLayer}
                         dataTest="layeredit-addbtn"
                     >
-                        {isReferenceLayer
-                            ? i18n.t('Update reference')
-                            : layer.id
-                            ? i18n.t('Update layer')
-                            : i18n.t('Add layer')}
+                        {submitButtonLabel}
                     </Button>
                 </ButtonStrip>
             </ModalActions>
