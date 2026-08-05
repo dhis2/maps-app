@@ -37,6 +37,38 @@ import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
 import styles from './styles/OverlayCard.module.css'
 
+const getCardContent = ({ loadError, legend }) => {
+    if (loadError) {
+        return (
+            <div data-test="load-error-noticebox" className={styles.loadError}>
+                <LegendAlert
+                    alert={{ code: ERROR_CRITICAL, message: loadError }}
+                />
+            </div>
+        )
+    }
+    return (
+        legend && (
+            <div className={styles.legend}>
+                <Legend {...legend} />
+            </div>
+        )
+    )
+}
+
+const getOpenAsHandler = (layer, baseUrl, setCurrentAO) => async (type) => {
+    const currentAO = getAnalyticalObjectFromThematicLayer(layer)
+
+    // Store AO in user data store
+    await setCurrentAO(currentAO)
+
+    // Open it in another app
+    window.open(
+        `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
+        '_blank'
+    )
+}
+
 const OverlayCard = ({
     layer,
     editLayer,
@@ -71,28 +103,6 @@ const OverlayCard = ({
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
     const hasDataFilters = Object.keys(dataFilters ?? {}).length > 0
-
-    const getCardContent = () => {
-        if (loadError) {
-            return (
-                <div
-                    data-test="load-error-noticebox"
-                    className={styles.loadError}
-                >
-                    <LegendAlert
-                        alert={{ code: ERROR_CRITICAL, message: loadError }}
-                    />
-                </div>
-            )
-        }
-        return (
-            legend && (
-                <div className={styles.legend}>
-                    <Legend {...legend} />
-                </div>
-            )
-        )
-    }
 
     return (
         <>
@@ -132,24 +142,12 @@ const OverlayCard = ({
                 }
                 openAs={
                     canOpenAs
-                        ? async (type) => {
-                              const currentAO =
-                                  getAnalyticalObjectFromThematicLayer(layer)
-
-                              // Store AO in user data store
-                              await set(currentAO)
-
-                              // Open it in another app
-                              window.open(
-                                  `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
-                                  '_blank'
-                              )
-                          }
+                        ? getOpenAsHandler(layer, baseUrl, set)
                         : undefined
                 }
                 hasError={!!loadError}
             >
-                {getCardContent()}
+                {getCardContent({ loadError, legend })}
             </LayerCard>
             {showDataDownloadDialog && (
                 <DataDownloadDialog

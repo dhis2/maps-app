@@ -236,7 +236,7 @@ const loadExtendedEventColumns = async ({
     const mergeDelta = (features) =>
         features.map((f) => ({
             ...f,
-            properties: { ...f.properties, ...(deltaById.get(f.id) ?? {}) },
+            properties: { ...f.properties, ...deltaById.get(f.id) },
         }))
 
     config.data = mergeDelta(config.data)
