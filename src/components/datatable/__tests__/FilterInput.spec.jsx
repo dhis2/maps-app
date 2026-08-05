@@ -364,6 +364,48 @@ describe('FilterInput multi-select path (optionSetId)', () => {
     })
 })
 
+describe('FilterInput multi-select path (resolvedOptionNames pre-resolved)', () => {
+    const options = [{ value: 'CONFIRMED' }, { value: 'PROBABLE' }]
+
+    beforeEach(() => {
+        useOptionSet.mockReturnValue({ optionSet: null })
+    })
+
+    test('uses resolvedOptionNames directly without calling useOptionSet', () => {
+        renderFilterInput({
+            dataKey: 'caseType',
+            name: 'Case classification',
+            options,
+            optionSetId: 'optionSet1',
+            resolvedOptionNames: {
+                CONFIRMED: 'Confirmed case',
+                PROBABLE: 'Probable case',
+            },
+        })
+        openPopover('Case classification')
+        expect(screen.getByLabelText('Confirmed case')).toBeInTheDocument()
+        expect(screen.getByLabelText('Probable case')).toBeInTheDocument()
+        expect(useOptionSet).toHaveBeenCalledWith(undefined)
+    })
+
+    test('falls back to useOptionSet when resolvedOptionNames is not provided', () => {
+        useOptionSet.mockReturnValue({
+            optionSet: {
+                options: [{ code: 'CONFIRMED', name: 'Confirmed case' }],
+            },
+        })
+        renderFilterInput({
+            dataKey: 'caseType',
+            name: 'Case classification',
+            options,
+            optionSetId: 'optionSet1',
+        })
+        openPopover('Case classification')
+        expect(screen.getByLabelText('Confirmed case')).toBeInTheDocument()
+        expect(useOptionSet).toHaveBeenCalledWith('optionSet1')
+    })
+})
+
 describe('FilterInput searchable popover — search', () => {
     const options = [{ value: 'High' }, { value: 'Low' }]
 

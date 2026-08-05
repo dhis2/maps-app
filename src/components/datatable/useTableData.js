@@ -19,6 +19,7 @@ import {
 } from '../../constants/selection.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
+import { buildKnownOrgUnitNames } from '../../util/orgUnits.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
@@ -240,8 +241,14 @@ export const useTableData = ({
                 ),
         [headers, columnOptions]
     )
-    const { idToName: orgUnitIdToName } =
-        useOrgUnitAncestorNames(orgUnitPathValues)
+    const knownOrgUnitNames = useMemo(
+        () => buildKnownOrgUnitNames(dataWithAggregations),
+        [dataWithAggregations]
+    )
+    const { idToName: orgUnitIdToName } = useOrgUnitAncestorNames(
+        orgUnitPathValues,
+        knownOrgUnitNames
+    )
 
     const rows = useMemo(() => {
         if (errorCode.current) {

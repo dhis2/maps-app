@@ -3,7 +3,17 @@ import { useEffect, useMemo, useState } from 'react'
 import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { fetchOrgUnitPathDetails } from '../util/orgUnits.js'
 
-const useOrgUnitAncestorNames = (distinctPathValues) => {
+const EMPTY_MAP = new Map()
+
+const orgUnitNameSessionCache = new Map()
+
+export const __resetOrgUnitNameSessionCacheForTests = () =>
+    orgUnitNameSessionCache.clear()
+
+const useOrgUnitAncestorNames = (
+    distinctPathValues,
+    knownIdToName = EMPTY_MAP
+) => {
     const engine = useDataEngine()
     const { nameProperty } = useCachedData()
     const ids = useMemo(
@@ -25,24 +35,48 @@ const useOrgUnitAncestorNames = (distinctPathValues) => {
         if (!ids.length) {
             return
         }
+
+        const buildMerged = () => {
+            const merged = new Map(knownIdToName)
+            ids.forEach((id) => {
+                if (!merged.has(id) && orgUnitNameSessionCache.has(id)) {
+                    merged.set(id, orgUnitNameSessionCache.get(id))
+                }
+            })
+            return merged
+        }
+
+        const idsToFetch = ids.filter(
+            (id) => !knownIdToName.has(id) && !orgUnitNameSessionCache.has(id)
+        )
+
+        if (!idsToFetch.length) {
+            setIdToName(buildMerged())
+            setLoading(false)
+            return
+        }
+
         let cancelled = false
         setLoading(true)
-        fetchOrgUnitPathDetails(engine, ids, nameProperty).then((details) => {
-            if (cancelled) {
-                return
+        fetchOrgUnitPathDetails(engine, idsToFetch, nameProperty).then(
+            (details) => {
+                if (cancelled) {
+                    return
+                }
+                Object.entries(details).forEach(([id, d]) => {
+                    orgUnitNameSessionCache.set(id, d.name)
+                })
+                setIdToName(buildMerged())
+                setLoading(false)
             }
-            setIdToName(
-                new Map(Object.entries(details).map(([id, d]) => [id, d.name]))
-            )
-            setLoading(false)
-        })
+        )
         return () => {
             cancelled = true
         }
         // idsKey is the stable, content-based dependency
         // `ids` is a new array identity every render
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [engine, idsKey, nameProperty])
+    }, [engine, idsKey, nameProperty, knownIdToName])
 
     return { idToName, loading }
 }

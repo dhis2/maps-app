@@ -14,6 +14,7 @@ import {
     fetchOrgUnitPaths,
     fetchOrgUnitPathDetails,
     attachOrgUnitPaths,
+    buildKnownOrgUnitNames,
 } from '../orgUnits.js'
 
 describe('getUserOrgUnitIdsByKeyword', () => {
@@ -190,6 +191,71 @@ describe('attachOrgUnitPaths', () => {
         const result = await attachOrgUnitPaths(features, engine, getOuId)
         expect(result).toBe(features)
         expect(engine.query).not.toHaveBeenCalled()
+    })
+})
+
+describe('buildKnownOrgUnitNames', () => {
+    it("seeds a row's own id/name pair", () => {
+        const rows = [{ id: 'ou1', name: 'Facility 1' }]
+        expect(buildKnownOrgUnitNames(rows)).toEqual(
+            new Map([['ou1', 'Facility 1']])
+        )
+    })
+
+    it("seeds a row's parentId/parentName pair alongside its own", () => {
+        const rows = [
+            {
+                id: 'ou1',
+                name: 'Facility 1',
+                parentId: 'region1',
+                parentName: 'Region 1',
+            },
+        ]
+        expect(buildKnownOrgUnitNames(rows)).toEqual(
+            new Map([
+                ['ou1', 'Facility 1'],
+                ['region1', 'Region 1'],
+            ])
+        )
+    })
+
+    it('ignores an incomplete id/name or parentId/parentName pair', () => {
+        const rows = [
+            { id: 'ou1', name: null },
+            { id: null, name: 'Orphan name' },
+            { id: 'ou2', name: 'Facility 2', parentId: 'region1' },
+        ]
+        expect(buildKnownOrgUnitNames(rows)).toEqual(
+            new Map([['ou2', 'Facility 2']])
+        )
+    })
+
+    it('dedupes the same id across multiple rows', () => {
+        const rows = [
+            {
+                id: 'ou1',
+                name: 'Facility 1',
+                parentId: 'region1',
+                parentName: 'Region 1',
+            },
+            { id: 'region1', name: 'Region 1' },
+        ]
+        expect(buildKnownOrgUnitNames(rows)).toEqual(
+            new Map([
+                ['ou1', 'Facility 1'],
+                ['region1', 'Region 1'],
+            ])
+        )
+    })
+
+    it('contributes nothing for an Event/Tracked-Entity-shaped row (id is the event/TEI id, no name for the referenced org unit)', () => {
+        const rows = [{ id: 'event1', orgUnit: 'ou1' }]
+        expect(buildKnownOrgUnitNames(rows)).toEqual(new Map())
+    })
+
+    it('returns an empty map for no rows', () => {
+        expect(buildKnownOrgUnitNames([])).toEqual(new Map())
+        expect(buildKnownOrgUnitNames()).toEqual(new Map())
     })
 })
 
