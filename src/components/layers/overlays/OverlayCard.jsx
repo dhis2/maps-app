@@ -69,6 +69,14 @@ const getOpenAsHandler = (layer, baseUrl, setCurrentAO) => async (type) => {
     )
 }
 
+const getTitle = (isLoaded, name) =>
+    isLoaded ? name : i18n.t('Loading layer') + '...'
+
+const getSubtitle = (isLoaded, legend) =>
+    isLoaded && legend?.period ? legend.period : null
+
+const ifAllowed = (allowed, handler) => (allowed ? handler : undefined)
+
 const OverlayCard = ({
     layer,
     editLayer,
@@ -108,22 +116,20 @@ const OverlayCard = ({
         <>
             <LayerCard
                 layer={layer}
-                title={isLoaded ? name : i18n.t('Loading layer') + '...'}
-                subtitle={
-                    isLoaded && legend && legend.period ? legend.period : null
-                }
+                title={getTitle(isLoaded, name)}
+                subtitle={getSubtitle(isLoaded, legend)}
                 opacity={opacity}
                 isOverlay={true}
                 isExpanded={isExpanded}
                 isVisible={isVisible}
                 toggleExpand={() => toggleLayerExpand(id)}
-                onEdit={canEdit ? () => editLayer(layer) : undefined}
-                toggleDataTable={
-                    canToggleDataTable ? () => toggleDataTable(id) : undefined
-                }
-                onClearDataFilters={
-                    hasDataFilters ? () => clearDataFilters(id) : undefined
-                }
+                onEdit={ifAllowed(canEdit, () => editLayer(layer))}
+                toggleDataTable={ifAllowed(canToggleDataTable, () =>
+                    toggleDataTable(id)
+                )}
+                onClearDataFilters={ifAllowed(hasDataFilters, () =>
+                    clearDataFilters(id)
+                )}
                 toggleLayerVisibility={() => toggleLayerVisibility(id)}
                 onOpacityChange={(newOpacity) =>
                     changeLayerOpacity(id, newOpacity)
@@ -135,16 +141,13 @@ const OverlayCard = ({
                         msg: i18n.t('{{- name}} deleted.', { name }),
                     })
                 }}
-                downloadData={
-                    canDownload
-                        ? () => setShowDataDownloadDialog(true)
-                        : undefined
-                }
-                openAs={
-                    canOpenAs
-                        ? getOpenAsHandler(layer, baseUrl, set)
-                        : undefined
-                }
+                downloadData={ifAllowed(canDownload, () =>
+                    setShowDataDownloadDialog(true)
+                )}
+                openAs={ifAllowed(
+                    canOpenAs,
+                    getOpenAsHandler(layer, baseUrl, set)
+                )}
                 hasError={!!loadError}
             >
                 {getCardContent({ loadError, legend })}
