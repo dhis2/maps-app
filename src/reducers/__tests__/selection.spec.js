@@ -107,19 +107,52 @@ describe('selection reducer', () => {
         expect(state).toEqual({ layerId: 'layer-2', ids: ['x', 'y'] })
     })
 
-    it.each([
-        types.SELECTION_CLEAR,
-        types.MAP_NEW,
-        types.MAP_SET,
-        types.DATA_TABLE_CLOSE,
-        types.DATA_TABLE_TOGGLE,
-    ])('resets to default state on %s', (type) => {
-        const state = selection(
-            { layerId: 'layer-1', ids: ['a', 'b'] },
-            { type }
-        )
+    it.each([types.SELECTION_CLEAR, types.MAP_NEW, types.MAP_SET])(
+        'resets to default state on %s',
+        (type) => {
+            const state = selection(
+                { layerId: 'layer-1', ids: ['a', 'b'] },
+                { type }
+            )
 
-        expect(state).toEqual({ layerId: null, ids: [] })
+            expect(state).toEqual({ layerId: null, ids: [] })
+        }
+    )
+
+    it('keeps the selection when the data table panel is closed', () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, { type: types.DATA_TABLE_CLOSE })
+
+        expect(state).toBe(prevState)
+    })
+
+    it("keeps the selection when the selected layer's own data table tab is toggled", () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_TOGGLE,
+            id: 'layer-1',
+        })
+
+        expect(state).toBe(prevState)
+    })
+
+    it("keeps the selection when a different layer's data table tab is toggled", () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_TOGGLE,
+            id: 'layer-2',
+        })
+
+        expect(state).toBe(prevState)
+    })
+
+    it('keeps the selection when the combined view is toggled', () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(state).toBe(prevState)
     })
 
     it('resets to default state when the selected layer is removed', () => {
@@ -139,6 +172,65 @@ describe('selection reducer', () => {
         })
 
         expect(state).toBe(prevState)
+    })
+
+    it('sets a cross-layer selection, clearing any single-layer selection', () => {
+        const state = selection(
+            { layerId: 'layer-1', ids: ['a'] },
+            {
+                type: types.SELECTION_SET_CROSS_LAYER,
+                crossLayerIds: { layerA: ['a1'], layerB: ['b1', 'b2'] },
+            }
+        )
+
+        expect(state).toEqual({
+            layerId: null,
+            ids: [],
+            crossLayerIds: { layerA: ['a1'], layerB: ['b1', 'b2'] },
+        })
+    })
+
+    it('resets to default state when setting an empty cross-layer selection', () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'] },
+            },
+            { type: types.SELECTION_SET_CROSS_LAYER, crossLayerIds: {} }
+        )
+
+        expect(state).toEqual({ layerId: null, ids: [] })
+    })
+
+    it("prunes a removed layer's entry from a cross-layer selection", () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'], layerB: ['b1'] },
+            },
+            { type: types.LAYER_REMOVE, id: 'layerA' }
+        )
+
+        expect(state).toEqual({
+            layerId: null,
+            ids: [],
+            crossLayerIds: { layerB: ['b1'] },
+        })
+    })
+
+    it('resets to default state when removing the last layer in a cross-layer selection', () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'] },
+            },
+            { type: types.LAYER_REMOVE, id: 'layerA' }
+        )
+
+        expect(state).toEqual({ layerId: null, ids: [] })
     })
 
     it('ignores unrelated actions', () => {

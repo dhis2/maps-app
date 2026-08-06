@@ -15,6 +15,7 @@ const defaultState = {
     highlightColor: null,
     lastClickedFeature: null,
     activeTimelinePeriod: null,
+    combinedVisibleIds: null,
 }
 
 const ui = (state = defaultState, action) => {
@@ -54,6 +55,7 @@ const ui = (state = defaultState, action) => {
                 rightPanelOpen: false,
                 selectionFilter: [],
                 lastClickedFeature: null,
+                combinedVisibleIds: null,
             }
 
         case types.DATA_TABLE_CLOSE:
@@ -61,6 +63,7 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 selectionFilter: [],
+                combinedVisibleIds: null,
             }
 
         case types.DOWNLOAD_MODE_OPEN:
@@ -126,6 +129,12 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 activeTimelinePeriod: action.period,
+            }
+
+        case types.COMBINED_VISIBLE_IDS_SET:
+            return {
+                ...state,
+                combinedVisibleIds: action.idsByLayer,
             }
 
         default:

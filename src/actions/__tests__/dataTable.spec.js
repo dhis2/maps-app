@@ -4,6 +4,9 @@ import {
     toggleDataTable,
     resizeDataTable,
     setActiveTimelinePeriod,
+    toggleCombinedView,
+    setJoinConfig,
+    setCombinedColumnConfig,
 } from '../dataTable.js'
 
 describe('closeDataTable', () => {
@@ -38,6 +41,38 @@ describe('setActiveTimelinePeriod', () => {
         expect(setActiveTimelinePeriod(period)).toEqual({
             type: types.ACTIVE_TIMELINE_PERIOD_SET,
             period,
+        })
+    })
+})
+
+describe('toggleCombinedView', () => {
+    it('creates a DATA_TABLE_COMBINED_VIEW_TOGGLE action', () => {
+        expect(toggleCombinedView()).toEqual({
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+    })
+})
+
+describe('setJoinConfig', () => {
+    it('creates a DATA_TABLE_JOIN_CONFIG_SET action', () => {
+        const layers = {
+            layer1: { type: 'orgUnit', aggregation: {} },
+        }
+        expect(setJoinConfig('ref1', layers)).toEqual({
+            type: types.DATA_TABLE_JOIN_CONFIG_SET,
+            layerId: 'ref1',
+            layers,
+        })
+    })
+})
+
+describe('setCombinedColumnConfig', () => {
+    it('creates a DATA_TABLE_COMBINED_COLUMN_CONFIG_SET action', () => {
+        const config = { pinnedKeys: ['name'] }
+        expect(setCombinedColumnConfig('ref1', config)).toEqual({
+            type: types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET,
+            layerId: 'ref1',
+            config,
         })
     })
 })

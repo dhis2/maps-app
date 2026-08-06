@@ -25,6 +25,7 @@ import {
     getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+import { generateUid } from '../util/uid.js'
 
 const earthEngineLoader = async ({
     config,
@@ -199,6 +200,9 @@ const earthEngineLoader = async ({
         ...dataset,
         ...config,
         ...layerConfig,
+    }
+    if (!layer.combinedLayerKey) {
+        layer.combinedLayerKey = generateUid()
     }
 
     const {

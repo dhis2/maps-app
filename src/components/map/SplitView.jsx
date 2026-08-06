@@ -17,6 +17,7 @@ const SplitView = ({
     highlightFeature,
     highlightColor,
     selectionFilter,
+    combinedVisibleIds,
     clickFeature,
     toggleFeatureSelection,
     controls,
@@ -102,6 +103,7 @@ const SplitView = ({
                                 highlightFeature={highlightFeature}
                                 highlightColor={highlightColor}
                                 selectionFilter={selectionFilter}
+                                combinedVisibleIds={combinedVisibleIds}
                                 clickFeature={clickFeature}
                                 toggleFeatureSelection={toggleFeatureSelection}
                                 openContextMenu={openContextMenu}
@@ -126,6 +128,7 @@ SplitView.propTypes = {
     openContextMenu: PropTypes.func.isRequired,
     basemap: PropTypes.object,
     clickFeature: PropTypes.func,
+    combinedVisibleIds: PropTypes.object,
     controls: PropTypes.array,
     feature: PropTypes.object,
     highlightColor: PropTypes.string,

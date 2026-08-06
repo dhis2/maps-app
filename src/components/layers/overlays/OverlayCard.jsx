@@ -5,6 +5,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { clearDataFilters } from '../../../actions/dataFilters.js'
 import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
@@ -36,6 +37,46 @@ import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
 import styles from './styles/OverlayCard.module.css'
 
+const getCardContent = ({ loadError, legend }) => {
+    if (loadError) {
+        return (
+            <div data-test="load-error-noticebox" className={styles.loadError}>
+                <LegendAlert
+                    alert={{ code: ERROR_CRITICAL, message: loadError }}
+                />
+            </div>
+        )
+    }
+    return (
+        legend && (
+            <div className={styles.legend}>
+                <Legend {...legend} />
+            </div>
+        )
+    )
+}
+
+const getOpenAsHandler = (layer, baseUrl, setCurrentAO) => async (type) => {
+    const currentAO = getAnalyticalObjectFromThematicLayer(layer)
+
+    // Store AO in user data store
+    await setCurrentAO(currentAO)
+
+    // Open it in another app
+    window.open(
+        `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
+        '_blank'
+    )
+}
+
+const getTitle = (isLoaded, name) =>
+    isLoaded ? name : i18n.t('Loading layer') + '...'
+
+const getSubtitle = (isLoaded, legend) =>
+    isLoaded && legend?.period ? legend.period : null
+
+const ifAllowed = (allowed, handler) => (allowed ? handler : undefined)
+
 const OverlayCard = ({
     layer,
     editLayer,
@@ -45,6 +86,7 @@ const OverlayCard = ({
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,
+    clearDataFilters,
 }) => {
     const [showDataDownloadDialog, setShowDataDownloadDialog] = useState(false)
     const { baseUrl } = useConfig()
@@ -61,88 +103,54 @@ const OverlayCard = ({
         layer: layerType,
         isLoaded,
         loadError,
+        dataFilters,
     } = layer
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
-
-    const getCardContent = () => {
-        if (loadError) {
-            return (
-                <div
-                    data-test="load-error-noticebox"
-                    className={styles.loadError}
-                >
-                    <LegendAlert
-                        alert={{ code: ERROR_CRITICAL, message: loadError }}
-                    />
-                </div>
-            )
-        }
-        return (
-            legend && (
-                <div className={styles.legend}>
-                    <Legend {...legend} />
-                </div>
-            )
-        )
-    }
+    const hasDataFilters = Object.keys(dataFilters ?? {}).length > 0
 
     return (
         <>
             <LayerCard
                 layer={layer}
-                title={isLoaded ? name : i18n.t('Loading layer') + '...'}
-                subtitle={
-                    isLoaded && legend && legend.period ? legend.period : null
-                }
+                title={getTitle(isLoaded, name)}
+                subtitle={getSubtitle(isLoaded, legend)}
                 opacity={opacity}
                 isOverlay={true}
                 isExpanded={isExpanded}
                 isVisible={isVisible}
                 toggleExpand={() => toggleLayerExpand(id)}
-                onEdit={canEdit ? () => editLayer(layer) : undefined}
-                toggleDataTable={
-                    canToggleDataTable ? () => toggleDataTable(id) : undefined
-                }
+                onEdit={ifAllowed(canEdit, () => editLayer(layer))}
+                toggleDataTable={ifAllowed(canToggleDataTable, () =>
+                    toggleDataTable(id)
+                )}
+                onClearDataFilters={ifAllowed(hasDataFilters, () =>
+                    clearDataFilters(id)
+                )}
                 toggleLayerVisibility={() => toggleLayerVisibility(id)}
                 onOpacityChange={(newOpacity) =>
                     changeLayerOpacity(id, newOpacity)
                 }
                 onDuplicate={() => duplicateLayer(id)}
                 onRemove={() => {
-                    removeLayer(id)
+                    removeLayer(id, layer.combinedLayerKey)
                     layerRemovedAlert.show({
                         msg: i18n.t('{{- name}} deleted.', { name }),
                     })
                 }}
-                downloadData={
-                    canDownload
-                        ? () => setShowDataDownloadDialog(true)
-                        : undefined
-                }
-                openAs={
-                    canOpenAs
-                        ? async (type) => {
-                              const currentAO =
-                                  getAnalyticalObjectFromThematicLayer(layer)
-
-                              // Store AO in user data store
-                              await set(currentAO)
-
-                              // Open it in another app
-                              window.open(
-                                  `${baseUrl}/${APP_URLS[type]}/#/currentAnalyticalObject`,
-                                  '_blank'
-                              )
-                          }
-                        : undefined
-                }
+                downloadData={ifAllowed(canDownload, () =>
+                    setShowDataDownloadDialog(true)
+                )}
+                openAs={ifAllowed(
+                    canOpenAs,
+                    getOpenAsHandler(layer, baseUrl, set)
+                )}
                 hasError={!!loadError}
             >
-                {getCardContent()}
+                {getCardContent({ loadError, legend })}
             </LayerCard>
             {showDataDownloadDialog && (
                 <DataDownloadDialog
@@ -156,6 +164,7 @@ const OverlayCard = ({
 
 OverlayCard.propTypes = {
     changeLayerOpacity: PropTypes.func.isRequired,
+    clearDataFilters: PropTypes.func.isRequired,
     duplicateLayer: PropTypes.func.isRequired,
     editLayer: PropTypes.func.isRequired,
     layer: PropTypes.object.isRequired,
@@ -170,6 +179,7 @@ export default connect(null, {
     removeLayer,
     duplicateLayer,
     changeLayerOpacity,
+    clearDataFilters,
     toggleLayerExpand,
     toggleLayerVisibility,
     toggleDataTable,

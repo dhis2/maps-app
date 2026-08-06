@@ -26,8 +26,6 @@ import React, {
     useState,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { useDispatch } from 'react-redux'
-import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import {
     filterHeadersByName,
     getDefaultVisibleKeys,
@@ -49,11 +47,10 @@ const EMPTY_HEADERS = []
 const EMPTY_KEYS = []
 
 const ColumnPickerControl = React.memo(function ColumnPickerControl({
-    layerId,
     allHeaders,
     columnConfig,
+    onChange,
 }) {
-    const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
     const [activeId, setActiveId] = useState(null)
@@ -101,14 +98,12 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
     )
 
     const updateConfig = (partial) =>
-        dispatch(
-            setDataTableColumnConfig(layerId, {
-                visibleKeys,
-                pinnedKeys,
-                orderedKeys,
-                ...partial,
-            })
-        )
+        onChange({
+            visibleKeys,
+            pinnedKeys,
+            orderedKeys,
+            ...partial,
+        })
 
     const onToggleVisible = (dataKey, checked) =>
         updateConfig({
@@ -129,8 +124,7 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
             visibleKeys: reverseVisibleKeys(headers, visibleKeys),
         })
 
-    const onResetToDefaults = () =>
-        dispatch(setDataTableColumnConfig(layerId, undefined))
+    const onResetToDefaults = () => onChange(undefined)
 
     const filteredHeaders = useMemo(
         () =>
@@ -312,7 +306,7 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
 })
 
 ColumnPickerControl.propTypes = {
-    layerId: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
     allHeaders: PropTypes.arrayOf(
         PropTypes.shape({
             dataKey: PropTypes.string,

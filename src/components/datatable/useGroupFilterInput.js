@@ -238,10 +238,6 @@ const useGroupFilterInput = ({
                 onEnterKey()
                 closePopover()
                 break
-            case 'Escape':
-                event.preventDefault()
-                closePopover()
-                break
             default:
                 break
         }
