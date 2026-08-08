@@ -51,10 +51,10 @@ msgid "Auto"
 msgstr "自动"
 
 msgid "Decimal places"
-msgstr ""
+msgstr "小数位数"
 
 msgid "Isolated class"
-msgstr ""
+msgstr "隔离类"
 
 msgid "Min"
 msgstr "最小"
@@ -111,7 +111,7 @@ msgid "Tracked entity location"
 msgstr "跟踪实体位置"
 
 msgid "Select a program stage to see additional coordinate options"
-msgstr ""
+msgstr "选择一款项目阶段 ，查看更多坐标选项"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "注册 > 事件 > 跟踪实体 > 组织单位坐标"
@@ -120,7 +120,7 @@ msgid "Event > org unit coordinate"
 msgstr "事件 > 组织单位坐标"
 
 msgid "Select a program to see additional coordinate options"
-msgstr ""
+msgstr "选择一个程序以查看其他坐标选项"
 
 msgid "Fallback coordinate field"
 msgstr "回退坐标字段"
@@ -129,10 +129,10 @@ msgid "Coordinate field"
 msgstr "坐标字段"
 
 msgid "Include unclassified events"
-msgstr ""
+msgstr "包含未分类的活动事件"
 
 msgid "Include events with no data"
-msgstr ""
+msgstr "包含没有数据的事件"
 
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "之前选择的值在列表{{id}}中不可用："
@@ -215,7 +215,7 @@ msgid "Org unit"
 msgstr "机构"
 
 msgid "Org unit boundary"
-msgstr ""
+msgstr "组织单位边界"
 
 msgid "Event time"
 msgstr "事件时间"
@@ -283,7 +283,7 @@ msgid "Style"
 msgstr "风格"
 
 msgid "Count org units without a point location"
-msgstr ""
+msgstr "统计没有具体地点的组织单位数量"
 
 msgid "Point color"
 msgstr "点颜色"
@@ -389,16 +389,16 @@ msgid "Max value is required"
 msgstr "最大值为必填项"
 
 msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
-msgstr ""
+msgstr "有效的类范围为{{minSteps}} 至{{maxSteps}}"
 
 msgid "Use custom legend"
-msgstr ""
+msgstr "使用自定义图例"
 
 msgid "Facility buffer"
 msgstr "设施缓冲区"
 
 msgid "Count org units without coordinates"
-msgstr ""
+msgstr "统计没有坐标的组织单位"
 
 msgid "Program is required"
 msgstr "需要项目"
@@ -413,7 +413,7 @@ msgid "No legend set is selected"
 msgstr "未选择图例集"
 
 msgid "Isolated class max should be greater than min"
-msgstr ""
+msgstr "孤立类的最大值应大于最小值"
 
 msgid "Org Units"
 msgstr "机构"
@@ -440,10 +440,10 @@ msgid "Radius"
 msgstr "半径"
 
 msgid "Count events without coordinates"
-msgstr ""
+msgstr "统计没有坐标的事件"
 
 msgid "Filter and count events outside org unit boundaries"
-msgstr ""
+msgstr "过滤并统计组织单位边界外的事件"
 
 msgid "You can style events by data element after selecting a program."
 msgstr "选择一个项目后你可以按数据元风格化显示事件"
@@ -500,7 +500,7 @@ msgid "No data"
 msgstr "无数据"
 
 msgid "Include unclassified org units"
-msgstr ""
+msgstr "包含未分类的组织单位"
 
 msgid "Unclassified"
 msgstr "未分类"
@@ -641,7 +641,7 @@ msgid "Download Layer Data"
 msgstr "下载图层数据"
 
 msgid "Downloading GeoJSON data for \"{{- layerName}}\""
-msgstr ""
+msgstr "正在下载“{{- layerName}} ”的 GeoJSON 文件数据 "
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -664,7 +664,7 @@ msgid "Loading layer"
 msgstr "载入图层"
 
 msgid "{{- name}} deleted."
-msgstr ""
+msgstr "{{- name}} 已删除。"
 
 msgid "Edit"
 msgstr "编辑"
@@ -700,7 +700,7 @@ msgid "Edit layer"
 msgstr "编辑图层"
 
 msgid "Duplicate layer"
-msgstr ""
+msgstr "复制图层"
 
 msgid "Remove layer"
 msgstr "移除图层"
@@ -715,54 +715,54 @@ msgid "No data found"
 msgstr "没有数据被找到"
 
 msgid "All events outside org unit boundaries"
-msgstr ""
+msgstr "所有超出组织单位范围的活动"
 
 msgid "No coordinates found"
 msgstr "没有找到坐标"
 
 msgid "Could not check org unit boundaries"
-msgstr ""
+msgstr "无法检查组织单位边界"
 
 msgid "Data quality"
-msgstr ""
+msgstr "数据 质量"
 
 msgid "All events have coordinates"
-msgstr ""
+msgstr "所有事件都有坐标"
 
 msgid "{{n}} event without coordinates"
 msgid_plural "{{n}} event without coordinates"
-msgstr[0] ""
+msgstr[0] "{{n}} 没有坐标的事件"
 
 msgid "All events within org unit boundaries"
-msgstr ""
+msgstr "组织单位边界内的所有事件"
 
 msgid "{{n}} event outside org unit boundaries"
 msgid_plural "{{n}} event outside org unit boundaries"
-msgstr[0] ""
+msgstr[0] "{{n}} 组织单位边界之外的事件"
 
 msgid "{{n}} of {{total}} org unit without boundaries"
 msgid_plural "{{n}} of {{total}} org unit without boundaries"
-msgstr[0] ""
+msgstr[0] "{{n}} {{total}} 中没有边界的组织单位"
 
 msgid "Boundary check skipped"
-msgstr ""
+msgstr "跳过了边界检查"
 
 msgid "All org units without boundaries"
-msgstr ""
+msgstr "所有没有边界的组织单位"
 
 msgid "All org units have a point location"
-msgstr ""
+msgstr "所有组织单位都有一个点位置"
 
 msgid "All org units have coordinates"
-msgstr ""
+msgstr "所有组织单位都有坐标"
 
 msgid "{{n}} org unit without a point location"
 msgid_plural "{{n}} org unit without a point location"
-msgstr[0] ""
+msgstr[0] "{{n}} 没有具体地点的组织单位"
 
 msgid "{{n}} org unit without coordinates"
 msgid_plural "{{n}} org unit without coordinates"
-msgstr[0] ""
+msgstr[0] "{{n}} 没有坐标的组织单位"
 
 msgid "Selected org units: No coordinates found"
 msgstr "选定的组织单位：未找到坐标"
@@ -1049,10 +1049,10 @@ msgid "Click to pin legend"
 msgstr "点击固定图例"
 
 msgid "Hide layer"
-msgstr ""
+msgstr "隐藏层"
 
 msgid "Show layer"
-msgstr ""
+msgstr "显示层"
 
 msgid "No program"
 msgstr "无项目"
@@ -1690,16 +1690,16 @@ msgid "Equal counts"
 msgstr "等数量"
 
 msgid "Natural breaks (intervals)"
-msgstr ""
+msgstr "自然分段（间隔）"
 
 msgid "Natural breaks (clusters)"
-msgstr ""
+msgstr "自然分段（簇）"
 
 msgid "Pretty breaks"
-msgstr ""
+msgstr "美丽的间歇"
 
 msgid "Logarithmic scale"
-msgstr ""
+msgstr "对数刻度"
 
 msgid "Symbol"
 msgstr "符号"
@@ -1756,7 +1756,7 @@ msgid "Cancelled"
 msgstr "已取消"
 
 msgid "Could not count org units without coordinates"
-msgstr ""
+msgstr "无法统计没有坐标的组织单位"
 
 msgid "Earth Engine layer"
 msgstr "地球引擎层"
@@ -1777,7 +1777,7 @@ msgid "Event"
 msgstr "事件"
 
 msgid "Could not count org units without a point location"
-msgstr ""
+msgstr "无法统计没有具体位置的组织单位"
 
 msgid "Facilities"
 msgstr "机构设施"
@@ -1786,7 +1786,7 @@ msgid "an error occurred"
 msgstr "出现错误"
 
 msgid "No point locations found for selected facilities"
-msgstr ""
+msgstr "未找到所选设施的坐标位置"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "这层有问题。联系系统管理员。"
@@ -1886,4 +1886,4 @@ msgstr "地图"
 
 msgctxt "Application description"
 msgid "__MANIFEST_APP_DESCRIPTION"
-msgstr ""
+msgstr "DHIS2 地图"
