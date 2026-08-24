@@ -429,7 +429,6 @@ const Table = ({
                                 filter={
                                     isFilterable(dataKey, type) && (
                                         <FilterInput
-                                            layerId={activeLayerId}
                                             type={type}
                                             dataKey={dataKey}
                                             name={name}

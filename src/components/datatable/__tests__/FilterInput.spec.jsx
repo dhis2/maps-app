@@ -44,7 +44,6 @@ const renderFilterInput = (props, dataFilters) => {
                 value={{ viewportHeight: 300, itemHeight: 28 }}
             >
                 <FilterInput
-                    layerId="layer1"
                     dataKey="name"
                     name="Name"
                     type="string"

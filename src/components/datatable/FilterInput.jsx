@@ -581,7 +581,6 @@ OptionSetSearchableFilter.propTypes = {
 }
 
 const FilterInput = React.memo(function FilterInput({
-    layerId,
     type,
     dataKey,
     name,
@@ -600,9 +599,9 @@ const FilterInput = React.memo(function FilterInput({
     if (isDateType) {
         return (
             <DateGroupFilterInput
-                dataKey={dataKey}
                 name={name}
-                layerId={layerId}
+                onChange={onChange}
+                onClear={onClear}
                 filterValue={filterValue}
                 options={options ?? []}
                 type={type}
@@ -613,9 +612,9 @@ const FilterInput = React.memo(function FilterInput({
     if (type === TYPE_ORG_UNIT) {
         return (
             <OrgUnitGroupFilterInput
-                dataKey={dataKey}
                 name={name}
-                layerId={layerId}
+                onChange={onChange}
+                onClear={onClear}
                 filterValue={filterValue}
                 options={options ?? []}
                 idToName={orgUnitIdToName}
@@ -659,19 +658,18 @@ FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     filterValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.object,
     ]),
-    layerId: PropTypes.string,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
     resolvedOptionNames: PropTypes.object,
-    onChange: PropTypes.func,
-    onClear: PropTypes.func,
 }
 
 export default FilterInput
