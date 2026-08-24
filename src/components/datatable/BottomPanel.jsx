@@ -21,6 +21,7 @@ import {
     setJoinConfig,
     setCombinedColumnConfig,
     setDataTableColumnConfig,
+    setActiveDataTableLayer,
 } from '../../actions/dataTable.js'
 import { COMBINED_HEADERS_KEY } from '../../constants/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
@@ -61,12 +62,15 @@ const BottomPanel = () => {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
-    const { openIds, combinedView } = useSelector((state) => state.dataTable)
+    const {
+        openIds,
+        combinedView,
+        activeLayerId: storedActiveLayerId,
+    } = useSelector((state) => state.dataTable)
     const mapViews = useSelector((state) => state.map.mapViews)
-    const [manualActiveLayerId, setManualActiveLayerId] = useState(null)
     const activeLayerId =
-        manualActiveLayerId && openIds.includes(manualActiveLayerId)
-            ? manualActiveLayerId
+        storedActiveLayerId && openIds.includes(storedActiveLayerId)
+            ? storedActiveLayerId
             : openIds[openIds.length - 1] ?? null
 
     const eligibleLayers = useMemo(() => {
@@ -309,7 +313,7 @@ const BottomPanel = () => {
                     activeLayerId={activeLayerId}
                     combinedView={combinedView}
                     onSelectLayer={(id) => {
-                        setManualActiveLayerId(id)
+                        dispatch(setActiveDataTableLayer(id))
                         if (combinedView) {
                             dispatch(toggleCombinedView())
                         }

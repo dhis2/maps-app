@@ -83,7 +83,11 @@ describe('DataTableButton', () => {
 
     test('closes the panel when a single-layer table is already open', () => {
         const { store } = renderButton({
-            dataTable: { openIds: ['a'], combinedView: false },
+            dataTable: {
+                openIds: ['a'],
+                combinedView: false,
+                isPanelVisible: true,
+            },
             mapViews: [layer('a'), layer('b')],
         })
         fireEvent.click(screen.getByText('Data table'))
@@ -92,10 +96,40 @@ describe('DataTableButton', () => {
 
     test('closes the panel when Combined is already open', () => {
         const { store } = renderButton({
-            dataTable: { openIds: [], combinedView: true },
+            dataTable: {
+                openIds: [],
+                combinedView: true,
+                isPanelVisible: true,
+            },
             mapViews: [layer('a'), layer('b')],
         })
         fireEvent.click(screen.getByText('Data table'))
         expect(store.getActions()).toEqual([{ type: 'DATA_TABLE_CLOSE' }])
+    })
+
+    test('reopens (without changing what is open) when a single-layer table was open but the panel is hidden', () => {
+        const { store } = renderButton({
+            dataTable: {
+                openIds: ['a'],
+                combinedView: false,
+                isPanelVisible: false,
+            },
+            mapViews: [layer('a'), layer('b')],
+        })
+        fireEvent.click(screen.getByText('Data table'))
+        expect(store.getActions()).toEqual([{ type: 'DATA_TABLE_OPEN' }])
+    })
+
+    test('reopens (without changing what is open) when Combined was open but the panel is hidden', () => {
+        const { store } = renderButton({
+            dataTable: {
+                openIds: [],
+                combinedView: true,
+                isPanelVisible: false,
+            },
+            mapViews: [layer('a'), layer('b')],
+        })
+        fireEvent.click(screen.getByText('Data table'))
+        expect(store.getActions()).toEqual([{ type: 'DATA_TABLE_OPEN' }])
     })
 })

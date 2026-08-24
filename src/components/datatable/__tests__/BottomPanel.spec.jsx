@@ -228,8 +228,8 @@ describe('BottomPanel layer selector', () => {
         expect(screen.getByText('Layer 2')).toBeInTheDocument()
     })
 
-    test('selecting a different, already-open layer switches the active layer shown in the table', () => {
-        renderBottomPanel({
+    test('selecting a different, already-open layer dispatches DATA_TABLE_ACTIVE_LAYER_SET', () => {
+        const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
                 openIds: ['layer1', 'layer2'],
@@ -237,9 +237,22 @@ describe('BottomPanel layer selector', () => {
             mapViews: twoEligibleLayers,
         })
 
-        expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer2')
-
         fireEvent.change(getLayerSelector(), { target: { value: 'layer1' } })
+
+        expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_ACTIVE_LAYER_SET', id: 'layer1' },
+        ])
+    })
+
+    test('shows the persisted activeLayerId as the active tab on mount, not just the last-opened one', () => {
+        renderBottomPanel({
+            dataTable: {
+                ...DEFAULT_DATA_TABLE_STATE,
+                openIds: ['layer1', 'layer2'],
+                activeLayerId: 'layer1',
+            },
+            mapViews: twoEligibleLayers,
+        })
 
         expect(screen.getByTestId('datatable-mock')).toHaveTextContent('layer1')
     })
@@ -253,11 +266,12 @@ describe('BottomPanel layer selector', () => {
         fireEvent.change(getLayerSelector(), { target: { value: 'layer2' } })
 
         expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_ACTIVE_LAYER_SET', id: 'layer2' },
             { type: 'DATA_TABLE_TOGGLE', id: 'layer2' },
         ])
     })
 
-    test('does not re-dispatch toggleDataTable when selecting an already-open layer', () => {
+    test('sets the active layer but does not re-dispatch toggleDataTable when selecting an already-open layer', () => {
         const { store } = renderBottomPanel({
             dataTable: {
                 ...DEFAULT_DATA_TABLE_STATE,
@@ -268,7 +282,9 @@ describe('BottomPanel layer selector', () => {
 
         fireEvent.change(getLayerSelector(), { target: { value: 'layer1' } })
 
-        expect(store.getActions()).toEqual([])
+        expect(store.getActions()).toEqual([
+            { type: 'DATA_TABLE_ACTIVE_LAYER_SET', id: 'layer1' },
+        ])
     })
 
     test('the active layer is correct on the very first render, with no transient null in between', () => {

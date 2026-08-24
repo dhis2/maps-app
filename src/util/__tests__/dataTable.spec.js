@@ -1113,20 +1113,44 @@ describe('getEligibleDataTableLayers', () => {
 })
 
 describe('isDataTableOpen', () => {
-    test('is open when at least one tab is open', () => {
+    test('is open when at least one tab is open and the panel is visible', () => {
         expect(
-            isDataTableOpen({ openIds: ['layer1'], combinedView: false })
+            isDataTableOpen({
+                openIds: ['layer1'],
+                combinedView: false,
+                isPanelVisible: true,
+            })
         ).toBe(true)
     })
 
-    test('is open when Combined is active, even with no open tabs', () => {
-        expect(isDataTableOpen({ openIds: [], combinedView: true })).toBe(true)
+    test('is open when Combined is active and the panel is visible, even with no open tabs', () => {
+        expect(
+            isDataTableOpen({
+                openIds: [],
+                combinedView: true,
+                isPanelVisible: true,
+            })
+        ).toBe(true)
     })
 
     test('is closed when there are no open tabs and Combined is not active', () => {
-        expect(isDataTableOpen({ openIds: [], combinedView: false })).toBe(
-            false
-        )
+        expect(
+            isDataTableOpen({
+                openIds: [],
+                combinedView: false,
+                isPanelVisible: true,
+            })
+        ).toBe(false)
+    })
+
+    test('is closed when the panel is hidden, even with open tabs or Combined active', () => {
+        expect(
+            isDataTableOpen({
+                openIds: ['layer1'],
+                combinedView: true,
+                isPanelVisible: false,
+            })
+        ).toBe(false)
     })
 })
 

@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
     closeDataTable,
+    openDataTable,
     toggleDataTable,
     toggleCombinedView,
 } from '../../actions/dataTable.js'
@@ -26,6 +27,10 @@ const DataTableButton = () => {
     const onClick = () => {
         if (isDataTableOpen(dataTable)) {
             dispatch(closeDataTable())
+            return
+        }
+        if (dataTable.openIds.length > 0 || dataTable.combinedView) {
+            dispatch(openDataTable())
             return
         }
         if (combinedEnabled) {

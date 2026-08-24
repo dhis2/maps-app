@@ -31,8 +31,8 @@ const EMPTY_REFERENCE_LAYER = {
     data: [],
 }
 
-const renderCombinedDataTable = (props) => {
-    const store = mockStore({ ui: {} })
+const renderCombinedDataTable = (props, selection = {}) => {
+    const store = mockStore({ ui: {}, selection })
     const result = render(
         <Provider store={store}>
             <VirtuosoMockContext.Provider
@@ -456,41 +456,7 @@ describe('CombinedDataTable', () => {
         })
     })
 
-    test('does not clear selection on unmount when nothing was ever selected here', () => {
-        const referenceLayer = {
-            ...EMPTY_REFERENCE_LAYER,
-            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
-        }
-        const layers = [
-            {
-                id: 'layerA',
-                name: 'Layer A',
-                combinedLayerKey: 'layerA',
-                data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
-            },
-        ]
-
-        const { store, unmount } = renderCombinedDataTable({
-            referenceLayer,
-            layers,
-            joinConfig: {
-                layers: {
-                    layerA: {
-                        type: 'orgUnit',
-                        aggregation: { rawValue: 'SUM' },
-                    },
-                },
-            },
-        })
-
-        unmount()
-
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({ type: 'SELECTION_SET_CROSS_LAYER' })
-        )
-    })
-
-    test('clears the cross-layer selection on unmount after selecting a row', () => {
+    test('does not clear the cross-layer selection on unmount, regardless of prior selection', () => {
         const referenceLayer = {
             ...EMPTY_REFERENCE_LAYER,
             data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
@@ -518,12 +484,50 @@ describe('CombinedDataTable', () => {
         })
 
         fireEvent.click(screen.getAllByRole('checkbox')[1])
+        const actionsBeforeUnmount = store.getActions().length
         unmount()
 
-        expect(store.getActions()).toContainEqual({
-            type: 'SELECTION_SET_CROSS_LAYER',
-            crossLayerIds: {},
-        })
+        // Unmount still dispatches an unrelated setCombinedVisibleIds(null)
+        // cleanup, but must not dispatch another SELECTION_SET_CROSS_LAYER.
+        const actionsAfterUnmount = store
+            .getActions()
+            .slice(actionsBeforeUnmount)
+        expect(actionsAfterUnmount).not.toContainEqual(
+            expect.objectContaining({ type: 'SELECTION_SET_CROSS_LAYER' })
+        )
+    })
+
+    test('restores a previously-selected row as checked on mount, from the persisted cross-layer selection', () => {
+        const referenceLayer = {
+            ...EMPTY_REFERENCE_LAYER,
+            data: [referenceFeature('ou1', 'Ou One', '/country1/ou1')],
+        }
+        const layers = [
+            {
+                id: 'layerA',
+                name: 'Layer A',
+                combinedLayerKey: 'layerA',
+                data: [feature({ id: 'evt1', orgUnitPath: '/country1/ou1' })],
+            },
+        ]
+
+        renderCombinedDataTable(
+            {
+                referenceLayer,
+                layers,
+                joinConfig: {
+                    layers: {
+                        layerA: {
+                            type: 'orgUnit',
+                            aggregation: { rawValue: 'SUM' },
+                        },
+                    },
+                },
+            },
+            { crossLayerIds: { ref1: ['ou1'], layerA: ['evt1'] } }
+        )
+
+        expect(screen.getAllByRole('checkbox')[1]).toBeChecked()
     })
 
     test('reports computed headers up via onHeadersChange, keyed by the combined sentinel', () => {
@@ -728,6 +732,7 @@ describe('CombinedDataTable', () => {
 
         const store = mockStore({
             ui: {},
+            selection: {},
             feature: { id: 'evtA1', layerId: 'layerA', origin: 'map' },
         })
         render(
@@ -778,6 +783,7 @@ describe('CombinedDataTable', () => {
 
         const store = mockStore({
             ui: {},
+            selection: {},
             feature: { id: 'evtA1', layerId: 'layerA', origin: 'table' },
         })
         render(
@@ -834,6 +840,7 @@ describe('CombinedDataTable', () => {
                     multiSelect: false,
                 },
             },
+            selection: {},
         })
         render(
             <Provider store={store}>
@@ -890,6 +897,7 @@ describe('CombinedDataTable', () => {
                     multiSelect: true,
                 },
             },
+            selection: {},
         })
         render(
             <Provider store={store}>
@@ -933,6 +941,7 @@ describe('CombinedDataTable', () => {
                     multiSelect: true,
                 },
             },
+            selection: {},
         })
         render(
             <Provider store={store}>
@@ -1043,6 +1052,7 @@ describe('CombinedDataTable', () => {
         test('does not narrow map visibility from the selection filter alone', () => {
             const store = mockStore({
                 ui: { selectionFilter: ['selected'] },
+                selection: {},
             })
             render(
                 <Provider store={store}>

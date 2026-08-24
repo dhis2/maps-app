@@ -100,7 +100,12 @@ const CombinedDataTable = ({
 
     const { sortField, sortDirection, sortData } = useSortState('name')
 
-    const [selectedIds, setSelectedIds] = useState([])
+    const initialCrossLayerIds = useSelector(
+        (state) => state.selection.crossLayerIds
+    )
+    const [selectedIds, setSelectedIds] = useState(
+        () => initialCrossLayerIds?.[referenceLayer.id] ?? []
+    )
     const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
     const {
@@ -193,21 +198,9 @@ const CombinedDataTable = ({
 
     const [hoveredRowId, setHoveredRowId] = useState(null)
 
-    const hasAppliedSelectionRef = useRef(false)
-
-    useEffect(
-        () => () => {
-            if (hasAppliedSelectionRef.current) {
-                dispatch(setCrossLayerSelection({}))
-            }
-        },
-        [dispatch]
-    )
-
     const applySelection = useCallback(
         (nextIds) => {
             setSelectedIds(nextIds)
-            hasAppliedSelectionRef.current = true
             dispatch(
                 setCrossLayerSelection(
                     mergeCrossLayerIds(nextIds, rowFeatureIds)

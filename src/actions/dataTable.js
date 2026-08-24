@@ -4,8 +4,17 @@ export const closeDataTable = () => ({
     type: types.DATA_TABLE_CLOSE,
 })
 
+export const openDataTable = () => ({
+    type: types.DATA_TABLE_OPEN,
+})
+
 export const toggleDataTable = (id) => ({
     type: types.DATA_TABLE_TOGGLE,
+    id,
+})
+
+export const setActiveDataTableLayer = (id) => ({
+    type: types.DATA_TABLE_ACTIVE_LAYER_SET,
     id,
 })
 

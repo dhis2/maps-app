@@ -408,8 +408,8 @@ export const hasActiveDataTableFilters = ({
     selectionFilter?.length > 0 ||
     !!showOnlyFeaturesInView
 
-export const isDataTableOpen = ({ openIds, combinedView }) =>
-    openIds.length > 0 || combinedView
+export const isDataTableOpen = ({ openIds, combinedView, isPanelVisible }) =>
+    isPanelVisible && (openIds.length > 0 || combinedView)
 
 export const getEligibleDataTableLayers = (mapViews) =>
     mapViews.filter(
