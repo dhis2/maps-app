@@ -28,6 +28,23 @@ describe('systemSettings', () => {
             })
         })
 
+        // DHIS2 43+ sources enabled period types from this endpoint instead of keyHideWeeklyPeriods
+        cy.intercept(
+            'GET',
+            '**/configuration/dataOutputPeriodTypes*',
+            (req) => {
+                req.continue((res) => {
+                    if (Array.isArray(res.body)) {
+                        res.body = res.body.filter(
+                            (periodType) =>
+                                !periodType.name.startsWith('Weekly')
+                        )
+                    }
+                    res.send({ body: res.body })
+                })
+            }
+        )
+
         cy.visit('/')
 
         const ThemLayer = new ThematicLayer()
