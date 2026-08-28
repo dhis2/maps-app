@@ -1,0 +1,22 @@
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: var(--spacers-dp8) var(--spacers-dp16);
+    max-width: 760px;
+    padding-block-end: var(--spacers-dp16);
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+.sectionTitle {
+    grid-column: 1 / -1;
+    margin-block-start: var(--spacers-dp8);
+    padding-block-end: var(--spacers-dp4);
+    border-bottom: 1px solid var(--colors-grey300);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey700);
+}

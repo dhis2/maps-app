@@ -1,14 +1,23 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
+import useCatalogBasemaps from '../../../hooks/useCatalogBasemaps.js'
+import useLayerCatalogPrefs from '../../../hooks/useLayerCatalogPrefs.js'
+import { getManagedLayerSourceId } from '../../../util/layerSources.js'
 import Basemap from './Basemap.jsx'
 import styles from './styles/BasemapList.module.css'
 
 const BasemapList = ({ selectedID, selectBasemap }) => {
-    const { basemaps } = useCachedData()
+    const basemaps = useCatalogBasemaps()
+    const { isDisabled } = useLayerCatalogPrefs()
+
+    // PROTOTYPE ONLY - anything an admin switched off is dropped from the card
+    const enabledBasemaps = basemaps.filter(
+        (basemap) => !isDisabled(getManagedLayerSourceId(basemap))
+    )
+
     return (
         <div className={styles.basemapList} data-test="basemaplist">
-            {basemaps.map((basemap, index) => (
+            {enabledBasemaps.map((basemap, index) => (
                 <Basemap
                     key={`basemap-${index}`}
                     onClick={selectBasemap}

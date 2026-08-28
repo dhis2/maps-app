@@ -1,0 +1,17 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    /* height is governed by the bounded .catalog flex column */
+    flex: 1 1 auto;
+    min-height: 72px;
+    overflow-y: auto;
+    padding: 0 0 var(--spacers-dp12);
+}
+
+.empty {
+    padding: var(--spacers-dp24) var(--spacers-dp16);
+    color: var(--colors-grey600);
+    font-size: 13px;
+    text-align: center;
+}

@@ -1,0 +1,50 @@
+/* Nudges the popover off the anchor's edge - popper positions via an inline
+   transform, so margin (which it never touches) is the safe way to offset it */
+.popover {
+    margin-top: 1px;
+    margin-left: 4px;
+}
+
+.catalog {
+    position: relative; /* anchor for the layer details sub panel */
+    display: flex;
+    flex-direction: column;
+    width: 684px;
+    /* The popover is anchored to the top toolbar, so cap the whole panel to the
+       viewport - otherwise a long pinned zone pushes it off screen. */
+    max-height: calc(100vh - 120px);
+}
+
+/* Pinned tiles get space priority - they are the common case, whereas
+   searching the full catalog is occasional. Size to content up to three rows
+   (~150px pitch each), then scroll. flex-shrink is 0 (not the auto/1 you'd
+   expect) because overflow-y:auto resets a flex item's automatic minimum
+   size to 0, which would otherwise let it get shrunk below its own content
+   height and permanently show a scrollbar even when everything fits. */
+.pinnedZone {
+    flex: 0 0 auto;
+    max-height: min(480px, 55vh);
+    overflow-y: auto;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+/* shrink-factor 3 so the catalog list gives up height before the pinned zone */
+.listZone {
+    display: flex;
+    flex: 1 3 auto;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.zoneHeader {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--spacers-dp8);
+    padding: var(--spacers-dp8) var(--spacers-dp12) var(--spacers-dp8);
+    background-color: var(--colors-grey050);
+}
+
+.filter {
+    flex: 1 1 auto;
+}
