@@ -242,8 +242,6 @@ context('Event Layers', () => {
     })
 
     it('adds an event layer with multiple periods', () => {
-        cy.intercept('GET', /analytics\/events\/query\//).as('analyticsQuery')
-
         selectProgramAndStage(Layer, programIP.name, {
             stageName: programIP.stage,
             validateOnly: true,
@@ -266,6 +264,8 @@ context('Event Layers', () => {
             .selectOu(programIP.ous[0])
             .selectTab('Style')
             .selectViewAllEvents()
+            // A bigger radius makes the center-of-map click below less fragile
+            .selectRadius(20)
             .addToMap()
 
         Layer.validateDialogClosed(true)
@@ -274,7 +274,6 @@ context('Event Layers', () => {
         Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
         Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
 
-        cy.wait('@analyticsQuery')
         cy.waitForMap()
 
         cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
