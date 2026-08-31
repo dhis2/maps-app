@@ -43,7 +43,8 @@ describe('Fetch errors', () => {
     })
 
     it('failed timeline thematic layer does not crash app', () => {
-        cy.intercept('GET', '**/api/**/analytics*', { statusCode: 500 })
+        // narrower than /api/**/analytics*/ so it excludes DHIS2 43+ systemSettings/analytics* endpoints
+        cy.intercept('GET', /\/analytics\?/, { statusCode: 500 })
 
         cy.visit('/')
 
