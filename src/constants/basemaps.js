@@ -25,6 +25,7 @@ export const defaultBasemaps = () =>
             config: {
                 type: VECTOR_STYLE,
                 url: 'https://tiles.openfreemap.org/styles/positron',
+                labelOpacity: 0.5, // Tone down labels
             },
             isDark: false,
         },
