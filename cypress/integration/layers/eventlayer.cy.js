@@ -242,6 +242,8 @@ context('Event Layers', () => {
     })
 
     it('adds an event layer with multiple periods', () => {
+        cy.intercept('GET', /analytics\/events\/query\//).as('analyticsQuery')
+
         selectProgramAndStage(Layer, programIP.name, {
             stageName: programIP.stage,
             validateOnly: true,
@@ -272,6 +274,7 @@ context('Event Layers', () => {
         Layer.validateCardPeriod(`March ${CURRENT_YEAR - 1}`)
         Layer.validateCardPeriod(`September ${CURRENT_YEAR - 1}`)
 
+        cy.wait('@analyticsQuery')
         cy.waitForMap()
 
         cy.intercept('GET', '**/tracker/events/*').as('getEventPopupData')
