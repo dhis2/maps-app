@@ -1,9 +1,6 @@
 .columnPickerPopover {
-    padding: var(--spacers-dp8);
+    composes: popoverPanel from './PopoverPanel.module.css';
     min-width: 190px;
-    background-color: var(--colors-white);
-    border-radius: 4px;
-    box-shadow: var(--elevations-popover);
 }
 
 .searchInput {

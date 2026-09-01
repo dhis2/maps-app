@@ -1018,6 +1018,46 @@ describe('cleanMapConfig', () => {
         expect(mapView).not.toHaveProperty('dataTableColumnConfig')
     })
 
+    test('serializes combinedJoinConfig into config JSON for the combinedTableRef layer', () => {
+        const combinedJoinConfig = {
+            layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+        }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'combinedTableRef',
+                    name: 'Reference org units',
+                    rows: [],
+                    combinedJoinConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.combinedJoinConfig).toEqual(combinedJoinConfig)
+        expect(mapView).not.toHaveProperty('combinedJoinConfig')
+    })
+
+    test('excludes an untouched combinedTableRef placeholder (no org units, no join layers picked) from the saved favorite', () => {
+        const config = {
+            mapViews: [
+                { layer: 'thematic' },
+                { layer: 'combinedTableRef', rows: [] },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+
+        expect(cleanedConfig.mapViews).toHaveLength(1)
+        expect(cleanedConfig.mapViews[0].layer).toBe('thematic')
+    })
+
     test('serializes dataTableColumnConfig into config JSON for geojson layer', () => {
         const dataTableColumnConfig = { orderedKeys: ['name', 'id'] }
         const config = {

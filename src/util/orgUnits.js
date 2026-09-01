@@ -347,6 +347,19 @@ export const fetchOrgUnitPaths = async (engine, ids) => {
     return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
 }
 
+export const buildKnownOrgUnitNames = (rows = []) => {
+    const map = new Map()
+    rows.forEach((row) => {
+        if (row?.id != null && row?.name != null) {
+            map.set(row.id, row.name)
+        }
+        if (row?.parentId != null && row?.parentName != null) {
+            map.set(row.parentId, row.parentName)
+        }
+    })
+    return map
+}
+
 export const fetchOrgUnitPathDetails = async (engine, ids, nameProperty) => {
     const results = await fetchInBatches(engine, ids, {
         query: ORG_UNIT_PATH_DETAILS_QUERY,

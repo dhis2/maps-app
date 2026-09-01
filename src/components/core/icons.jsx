@@ -49,6 +49,37 @@ export const IconZoomIn16 = () => (
     </svg>
 )
 
+export const IconLayersStack16 = () => (
+    <svg
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M8.316.24 15.566 4.74a.6.6 0 010 1.02L8.316 10.26a.6.6 0 01-.632 0L.434 5.76a.6.6 0 010-1.02L7.684.24a.6.6 0 01.632 0ZM8 1.456 14.112 5.25 8 9.044l-6.112-3.794Z"
+        />
+        <path
+            fill="currentColor"
+            d="M.434 8.51 7.684 13.01a.6.6 0 00.632-1.02L1.066 7.49a.6.6 0 00-.632 1.02Z"
+        />
+        <path
+            fill="currentColor"
+            d="M8.316 13.01 15.566 8.51a.6.6 0 00-.632-1.02L7.684 11.99a.6.6 0 00.632 1.02Z"
+        />
+        <path
+            fill="currentColor"
+            d="M.434 11.26 7.684 15.76a.6.6 0 00.632-1.02L1.066 10.24a.6.6 0 00-.632 1.02Z"
+        />
+        <path
+            fill="currentColor"
+            d="M8.316 15.76 15.566 11.26a.6.6 0 00-.632-1.02L7.684 14.74a.6.6 0 00.632 1.02Z"
+        />
+    </svg>
+)
+
 export const IconDrag = () => (
     <svg
         height="8"

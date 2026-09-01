@@ -21,6 +21,7 @@ const MapView = (props) => {
         highlightFeature,
         highlightColor,
         selectionFilter,
+        combinedVisibleIds,
         clickFeature,
         toggleFeatureSelection,
         bounds,
@@ -67,6 +68,7 @@ const MapView = (props) => {
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
                             selectionFilter={selectionFilter}
+                            combinedVisibleIds={combinedVisibleIds}
                             clickFeature={clickFeature}
                             toggleFeatureSelection={toggleFeatureSelection}
                             interpretationModalOpen={interpretationModalOpen}
@@ -88,6 +90,7 @@ const MapView = (props) => {
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
                             selectionFilter={selectionFilter}
+                            combinedVisibleIds={combinedVisibleIds}
                             clickFeature={clickFeature}
                             toggleFeatureSelection={toggleFeatureSelection}
                             coordinatePopup={coordinatePopup}
@@ -111,6 +114,7 @@ MapView.propTypes = {
     basemap: PropTypes.object,
     bounds: PropTypes.array,
     clickFeature: PropTypes.func,
+    combinedVisibleIds: PropTypes.object,
     controls: PropTypes.array,
     coordinatePopup: PropTypes.array,
     feature: PropTypes.object,

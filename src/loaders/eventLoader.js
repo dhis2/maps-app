@@ -24,7 +24,11 @@ import {
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { parseJsonConfig } from '../util/config.js'
 import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
-import { getAnalyticsRequest, loadData } from '../util/event.js'
+import {
+    getAnalyticsRequest,
+    getEventColumns,
+    loadData,
+} from '../util/event.js'
 import {
     getBounds,
     getContainingOrgUnit,
@@ -41,7 +45,7 @@ import {
 import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
-import { isValidUid } from '../util/uid.js'
+import { generateUid, isValidUid } from '../util/uid.js'
 
 // OU dimension value is always an ID; property key depends on outputIdScheme
 const getEventOuId = (feature) =>
@@ -128,18 +132,35 @@ const eventLoader = async ({
             ? 'displayName'
             : 'displayShortName'
 
+    // A layer already loaded once only needs the incremental columns
+    const isTopUpLoad =
+        loadExtended &&
+        config.isLoaded &&
+        !config.isExtended &&
+        !config.serverCluster &&
+        Array.isArray(config.headers)
+
     try {
-        await loadEventLayer({
-            config,
-            engine,
-            displayNameProp,
-            keyAnalysisDisplayProperty,
-            userOrgUnitIdsByKeyword,
-            analyticsEngine,
-            periodTypeData,
-            loadExtended,
-            spatialSupport,
-        })
+        if (isTopUpLoad) {
+            await loadExtendedEventColumns({
+                config,
+                engine,
+                displayNameProp,
+                analyticsEngine,
+            })
+        } else {
+            await loadEventLayer({
+                config,
+                engine,
+                displayNameProp,
+                keyAnalysisDisplayProperty,
+                userOrgUnitIdsByKeyword,
+                analyticsEngine,
+                periodTypeData,
+                loadExtended,
+                spatialSupport,
+            })
+        }
     } catch (e) {
         if (
             e.details?.httpStatusCode === 403 ||
@@ -160,6 +181,93 @@ const eventLoader = async ({
     config.isExpanded = true
 
     return config
+}
+
+// Merges only the new "display in reports" columns
+const loadExtendedEventColumns = async ({
+    config,
+    engine,
+    displayNameProp,
+    analyticsEngine,
+}) => {
+    const { programStage } = config
+
+    const displayColumns = await getEventColumns(
+        { programStage },
+        { engine, nameProperty: displayNameProp }
+    )
+
+    const newColumns = displayColumns.filter(
+        (col) => !config.headers.some((header) => header.name === col.dimension)
+    )
+
+    if (!newColumns.length) {
+        config.isExtended = true
+        return
+    }
+
+    const deltaRequest = await getAnalyticsRequest(
+        {
+            ...config,
+            columns: newColumns,
+            styleDataItem: undefined,
+            labelDataItem: undefined,
+            isExtended: false, // the delta is resolved here - don't recurse
+        },
+        { analyticsEngine, nameProperty: displayNameProp, engine }
+    )
+
+    const {
+        data: deltaData,
+        dataWithoutCoords: deltaDataWithoutCoords,
+        response,
+    } = await loadData({
+        request: deltaRequest,
+        config: { ...config, outputIdScheme: 'ID' },
+        analyticsEngine,
+    })
+
+    const deltaById = new Map(
+        [...deltaData, ...(deltaDataWithoutCoords ?? [])].map((f) => [
+            f.id,
+            f.properties,
+        ])
+    )
+    const mergeDelta = (features) =>
+        features.map((f) => ({
+            ...f,
+            properties: { ...f.properties, ...deltaById.get(f.id) },
+        }))
+
+    config.data = mergeDelta(config.data)
+    if (config.dataWithoutCoords?.length) {
+        config.dataWithoutCoords = mergeDelta(config.dataWithoutCoords)
+    }
+
+    const newHeaders = response.headers.filter((header) =>
+        newColumns.some((col) => col.dimension === header.name)
+    )
+    config.headers = [...config.headers, ...newHeaders]
+
+    const numericNewHeaders = newHeaders.filter(
+        (header) =>
+            isValidUid(header.name) &&
+            numberValueTypes.includes(header.valueType) &&
+            !header.optionSet
+    )
+    if (numericNewHeaders.length) {
+        config.data = config.data.map((d) => {
+            const newD = { ...d }
+            numericNewHeaders.forEach((header) => {
+                newD.properties[header.name] = parseWithSeparator(
+                    d.properties[header.name]
+                )
+            })
+            return newD
+        })
+    }
+
+    config.isExtended = true
 }
 
 const loadEventLayer = async ({
@@ -185,6 +293,7 @@ const loadEventLayer = async ({
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
         dataTableColumnConfig,
+        combinedLayerKey,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -223,6 +332,8 @@ const loadEventLayer = async ({
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+    config.combinedLayerKey =
+        combinedLayerKey ?? config.combinedLayerKey ?? generateUid()
     if (config.noDataColor) {
         config.noDataLegend = {
             ...noDataLegendFromConfig,
@@ -396,6 +507,24 @@ const loadEventLayer = async ({
         // -----
 
         config.headers = response.headers
+
+        const optionSetIds = [
+            ...new Set(
+                config.headers
+                    .map((header) => header.optionSet?.id)
+                    .filter(Boolean)
+            ),
+        ]
+        if (optionSetIds.length) {
+            const optionCodeToName = Object.fromEntries(
+                Object.values(response.metaData.items)
+                    .filter((item) => item.code)
+                    .map((item) => [item.code, item.name])
+            )
+            config.optionSetOptionsByCode = Object.fromEntries(
+                optionSetIds.map((id) => [id, optionCodeToName])
+            )
+        }
 
         const numericDataItemHeaders = config.headers.filter(
             (header) =>

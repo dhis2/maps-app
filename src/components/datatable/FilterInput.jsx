@@ -3,9 +3,7 @@ import { Input, IconFilter16, IconSync16 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Virtuoso } from 'react-virtuoso'
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
@@ -80,15 +78,15 @@ const NUMERIC_INPUT_DISALLOWED = /[^0-9.\-<>=,&\s]/g
 const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     dataKey,
     name,
-    layerId,
     filterValue,
     options,
     resolveLabel,
     type,
     renderer,
     allowCustomFilter = true,
+    onChange,
+    onClear,
 }) {
-    const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const listRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -109,10 +107,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     const { dropdownPlacement, dropdownSide, tooltipPlacement } =
         getDropdownPlacement(anchorRect)
 
-    const applyValues = (next) =>
-        next.length
-            ? dispatch(setDataFilter(layerId, dataKey, next))
-            : dispatch(clearDataFilter(layerId, dataKey))
+    const applyValues = (next) => (next.length ? onChange(next) : onClear())
 
     const toggleValue = (value) => {
         const next = selected.includes(value)
@@ -126,7 +121,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
 
     const applyCustomFilter = (text) => {
         if (!text) {
-            dispatch(clearDataFilter(layerId, dataKey))
+            onClear()
             return
         }
         if (isOrgUnitRenderer) {
@@ -134,16 +129,14 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             const values = realValues.filter((value) =>
                 resolveLabel(value).toLowerCase().includes(lower)
             )
-            dispatch(
-                setDataFilter(layerId, dataKey, {
-                    values,
-                    searchDerived: true,
-                    searchText: text,
-                })
-            )
+            onChange({
+                values,
+                searchDerived: true,
+                searchText: text,
+            })
             return
         }
-        dispatch(setDataFilter(layerId, dataKey, text))
+        onChange(text)
     }
 
     const isIconColumn = renderer === RENDERER_ICON
@@ -234,7 +227,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         const trimmed = sanitized.trim()
         if (trimmed === '') {
             if (hasActiveFilter) {
-                dispatch(clearDataFilter(layerId, dataKey))
+                onClear()
             }
             return
         }
@@ -294,10 +287,6 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
             case 'Enter':
                 event.preventDefault()
                 onEnterKey()
-                closePopover()
-                break
-            case 'Escape':
-                event.preventDefault()
                 closePopover()
                 break
             default:
@@ -505,12 +494,13 @@ SearchableFilterPopover.propTypes = {
         .isRequired,
     resolveLabel: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     allowCustomFilter: PropTypes.bool,
     filterValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
     ]),
-    layerId: PropTypes.string,
     renderer: PropTypes.string,
 }
 
@@ -553,18 +543,27 @@ PlainSearchableFilter.propTypes = {
     type: PropTypes.string,
 }
 
-const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
-    const { optionSet } = useOptionSet(optionSetId)
+const OptionSetSearchableFilter = ({
+    optionSetId,
+    resolvedOptionNames,
+    ...props
+}) => {
+    const { optionSet } = useOptionSet(
+        resolvedOptionNames ? undefined : optionSetId
+    )
     const optionByCode = useMemo(() => {
+        if (resolvedOptionNames) {
+            return new Map(Object.entries(resolvedOptionNames))
+        }
         const map = new Map()
-        optionSet?.options.forEach((o) => map.set(o.code, o))
+        optionSet?.options.forEach((o) => map.set(o.code, o.name))
         return map
-    }, [optionSet])
+    }, [resolvedOptionNames, optionSet])
     const resolveLabel = useCallback(
         (value) =>
             value === SENTINEL_NO_VALUE
                 ? i18n.t('No value')
-                : optionByCode.get(value)?.name ?? value,
+                : optionByCode.get(value) ?? value,
         [optionByCode]
     )
     return (
@@ -578,6 +577,7 @@ const OptionSetSearchableFilter = ({ optionSetId, ...props }) => {
 
 OptionSetSearchableFilter.propTypes = {
     optionSetId: PropTypes.string.isRequired,
+    resolvedOptionNames: PropTypes.object,
 }
 
 const FilterInput = React.memo(function FilterInput({
@@ -586,33 +586,22 @@ const FilterInput = React.memo(function FilterInput({
     name,
     options,
     optionSetId,
+    resolvedOptionNames,
     renderer,
     orgUnitIdToName,
+    filterValue,
+    onChange,
+    onClear,
 }) {
-    const dataTable = useSelector((state) => state.dataTable)
-    const map = useSelector((state) => state.map)
-
-    const overlay =
-        dataTable && map.mapViews.find((layer) => layer.id === dataTable)
-
-    let layerId
-    let filters
-    if (overlay) {
-        layerId = overlay.id
-        filters = overlay.dataFilters || {}
-    }
-
-    const filterValue = filters?.[dataKey]
-
     const isDateType =
         type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
 
     if (isDateType) {
         return (
             <DateGroupFilterInput
-                dataKey={dataKey}
                 name={name}
-                layerId={layerId}
+                onChange={onChange}
+                onClear={onClear}
                 filterValue={filterValue}
                 options={options ?? []}
                 type={type}
@@ -623,9 +612,9 @@ const FilterInput = React.memo(function FilterInput({
     if (type === TYPE_ORG_UNIT) {
         return (
             <OrgUnitGroupFilterInput
-                dataKey={dataKey}
                 name={name}
-                layerId={layerId}
+                onChange={onChange}
+                onClear={onClear}
                 filterValue={filterValue}
                 options={options ?? []}
                 idToName={orgUnitIdToName}
@@ -638,12 +627,14 @@ const FilterInput = React.memo(function FilterInput({
             <OptionSetSearchableFilter
                 dataKey={dataKey}
                 name={name}
-                layerId={layerId}
                 filterValue={filterValue}
                 options={options ?? []}
                 optionSetId={optionSetId}
+                resolvedOptionNames={resolvedOptionNames}
                 type={type}
                 renderer={renderer}
+                onChange={onChange}
+                onClear={onClear}
             />
         )
     }
@@ -652,12 +643,13 @@ const FilterInput = React.memo(function FilterInput({
         <PlainSearchableFilter
             dataKey={dataKey}
             name={name}
-            layerId={layerId}
             filterValue={filterValue}
             options={options ?? []}
             type={type}
             renderer={renderer}
             orgUnitIdToName={orgUnitIdToName}
+            onChange={onChange}
+            onClear={onClear}
         />
     )
 })
@@ -666,10 +658,18 @@ FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
+    filterValue: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.arrayOf(PropTypes.string),
+        PropTypes.object,
+    ]),
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
+    resolvedOptionNames: PropTypes.object,
 }
 
 export default FilterInput

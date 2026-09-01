@@ -22,6 +22,7 @@ const loaders = {
     external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
+    combinedTableRef: orgUnitLoader,
     thematic: thematicLoader,
     geoJsonUrl: geoJsonUrlLoader,
     trackedEntity: trackedEntityLoader,
@@ -38,7 +39,7 @@ export const useLayersLoader = () => {
     } = useCachedData()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
-    const dataTable = useSelector((state) => state.dataTable)
+    const openIds = useSelector((state) => state.dataTable.openIds)
     const dispatch = useDispatch()
     const { show: showLoaderAlert } = useAlert(
         ({ layer }) => `Could not load layer ${layer}`,
@@ -65,7 +66,7 @@ export const useLayersLoader = () => {
                 analyticsEngine, // Thematic and Event loader
                 periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
-                loadExtended: !!dataTable, // Event loader
+                loadExtended: openIds.includes(config.id), // Event loader
                 spatialSupport, // Event loader
             })
             if (result.alerts) {
@@ -87,7 +88,7 @@ export const useLayersLoader = () => {
                 // event extended data hasn't been loaded yet - so load it
                 if (
                     layer.layer === EVENT_LAYER &&
-                    layer.id === dataTable &&
+                    openIds.includes(layer.id) &&
                     !layer.isExtended &&
                     (!layer.serverCluster || layer.forceClientCluster)
                 ) {
@@ -128,7 +129,7 @@ export const useLayersLoader = () => {
         showAlerts,
         showLoaderAlert,
         baseUrl,
-        dataTable,
+        openIds,
         serverVersion,
         spatialSupport,
     ])

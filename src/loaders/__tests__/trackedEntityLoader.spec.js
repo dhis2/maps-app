@@ -3,6 +3,7 @@ import {
     getAttributeProperties,
     applyParsedConfig,
     toGeoJson,
+    toOptionSetOptionsByCode,
 } from '../trackedEntityLoader.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
@@ -193,10 +194,13 @@ describe('applyParsedConfig', () => {
         expect(config.config).toBeUndefined()
     })
 
-    it('does nothing when config.config is absent', () => {
+    it('mints a combinedLayerKey but otherwise does nothing when config.config is absent', () => {
         const config = { layer: 'trackedEntity' }
         applyParsedConfig(config)
-        expect(config).toEqual({ layer: 'trackedEntity' })
+        expect(config).toEqual({
+            layer: 'trackedEntity',
+            combinedLayerKey: expect.any(String),
+        })
     })
 
     it('does not throw and leaves config intact on malformed JSON', () => {
@@ -286,5 +290,29 @@ describe('toGeoJson', () => {
         })
 
         expect(result[0].properties.genderUid).toBe('Male')
+    })
+})
+
+describe('toOptionSetOptionsByCode', () => {
+    it('converts a Map<optionSetId, Map<code, name>> to a plain nested object', () => {
+        const optionNamesByOptionSet = new Map([
+            [
+                'os1',
+                new Map([
+                    ['M', 'Male'],
+                    ['F', 'Female'],
+                ]),
+            ],
+            ['os2', new Map([['Y', 'Yes']])],
+        ])
+
+        expect(toOptionSetOptionsByCode(optionNamesByOptionSet)).toEqual({
+            os1: { M: 'Male', F: 'Female' },
+            os2: { Y: 'Yes' },
+        })
+    })
+
+    it('returns an empty object for an empty map', () => {
+        expect(toOptionSetOptionsByCode(new Map())).toEqual({})
     })
 })

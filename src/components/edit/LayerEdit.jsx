@@ -11,7 +11,10 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
-import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import {
+    COMBINED_TABLE_REF_LAYER,
+    EARTH_ENGINE_LAYER,
+} from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { useOrgUnits } from '../OrgUnitsProvider.jsx'
@@ -30,6 +33,7 @@ const layerDialogs = {
     facility: FacilityDialog,
     thematic: ThematicDialog,
     orgUnit: OrgUnitDialog,
+    combinedTableRef: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
     geoJsonUrl: GeoJsonDialog,
 }
@@ -40,6 +44,7 @@ const getLayerNames = () => ({
     facility: i18n.t('facility'),
     thematic: i18n.t('thematic'),
     orgUnit: i18n.t('org unit'),
+    combinedTableRef: i18n.t('reference org units'),
     earthEngine: i18n.t('Earth Engine'),
     geoJsonUrl: i18n.t('feature'),
 })
@@ -93,9 +98,22 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
         name = layer.name.toLowerCase()
     }
 
-    const title = layer.id
+    const isReferenceLayer = type === COMBINED_TABLE_REF_LAYER
+
+    // The reference org unit layer isn't really "a layer" from the user's perspective
+    const editOrAddTitle = layer.id
         ? i18n.t('Edit {{name}} layer', { name })
         : i18n.t('Add new {{name}} layer', { name })
+    const title = isReferenceLayer
+        ? i18n.t('Configure reference org units')
+        : editOrAddTitle
+
+    const addOrUpdateLabel = layer.id
+        ? i18n.t('Update layer')
+        : i18n.t('Add layer')
+    const submitButtonLabel = isReferenceLayer
+        ? i18n.t('Update reference')
+        : addOrUpdateLabel
 
     return (
         <Modal position="top" dataTest="layeredit" fluid onClose={cancelLayer}>
@@ -110,6 +128,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         orgUnits={orgUnits}
                         validateLayer={isValidLayer}
                         onLayerValidation={onLayerValidation}
+                        hideStyleTab={isReferenceLayer}
                     />
                 </div>
             </ModalContent>
@@ -123,11 +142,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
                         onClick={onValidateLayer}
                         dataTest="layeredit-addbtn"
                     >
-                        {i18n.t(
-                            layer.id
-                                ? i18n.t('Update layer')
-                                : i18n.t('Add layer')
-                        )}
+                        {submitButtonLabel}
                     </Button>
                 </ButtonStrip>
             </ModalActions>

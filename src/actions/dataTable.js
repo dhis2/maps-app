@@ -4,8 +4,17 @@ export const closeDataTable = () => ({
     type: types.DATA_TABLE_CLOSE,
 })
 
+export const openDataTable = () => ({
+    type: types.DATA_TABLE_OPEN,
+})
+
 export const toggleDataTable = (id) => ({
     type: types.DATA_TABLE_TOGGLE,
+    id,
+})
+
+export const setActiveDataTableLayer = (id) => ({
+    type: types.DATA_TABLE_ACTIVE_LAYER_SET,
     id,
 })
 
@@ -42,4 +51,25 @@ export const setDataTableColumnConfig = (layerId, config) => ({
 export const setActiveTimelinePeriod = (period) => ({
     type: types.ACTIVE_TIMELINE_PERIOD_SET,
     period,
+})
+
+export const toggleCombinedView = () => ({
+    type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+})
+
+export const setJoinConfig = (layerId, layers) => ({
+    type: types.DATA_TABLE_JOIN_CONFIG_SET,
+    layerId,
+    layers,
+})
+
+export const setCombinedColumnConfig = (layerId, config) => ({
+    type: types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET,
+    layerId,
+    config,
+})
+
+export const setCombinedVisibleIds = (idsByLayer) => ({
+    type: types.COMBINED_VISIBLE_IDS_SET,
+    idsByLayer,
 })

@@ -63,7 +63,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit id', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -221,7 +221,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit id', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -283,7 +283,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit id', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -369,7 +369,7 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit id', dataKey: 'id' },
             { name: 'Org unit', dataKey: 'orgUnitOwn' },
             { name: 'Org unit level', dataKey: 'level' },
             { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
@@ -391,7 +391,7 @@ describe('useTableData headers', () => {
         )
     })
 
-    test('adds a defaultHidden raw-value-only column for every other period, for a timeline thematic layer', () => {
+    test('adds a defaultHidden raw-value-only column for every period, including the current one, for a timeline thematic layer', () => {
         const store = {
             aggregations: {},
             ui: {
@@ -434,12 +434,15 @@ describe('useTableData headers', () => {
             }
         )
         const { headers, rows } = result.current
-        expect(headers).not.toContainEqual(
-            expect.objectContaining({ dataKey: 'period_202302_rawValue' })
-        )
         expect(headers).toContainEqual({
             name: 'Value (January 2023)',
             dataKey: 'period_202301_rawValue',
+            type: 'number',
+            defaultHidden: true,
+        })
+        expect(headers).toContainEqual({
+            name: 'Value (February 2023)',
+            dataKey: 'period_202302_rawValue',
             type: 'number',
             defaultHidden: true,
         })
@@ -447,6 +450,12 @@ describe('useTableData headers', () => {
             expect.objectContaining({
                 value: 100,
                 dataKey: 'period_202301_rawValue',
+            })
+        )
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 200,
+                dataKey: 'period_202302_rawValue',
             })
         )
     })
@@ -486,7 +495,7 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit id', dataKey: 'id' },
             { name: 'Org unit', dataKey: 'orgUnitOwn' },
             { name: 'Org unit level', dataKey: 'level' },
             { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
@@ -578,7 +587,7 @@ describe('useTableData headers', () => {
         expect(headers).toHaveLength(10)
         expect(headers).toMatchObject([
             { name: 'Event Id', dataKey: 'id', type: 'string' },
-            { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
+            { name: 'Org unit id', dataKey: 'orgUnitId', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -724,7 +733,7 @@ describe('useTableData headers', () => {
         expect(headers).toHaveLength(11)
         expect(headers).toMatchObject([
             { name: 'Tracked entity Id', dataKey: 'id', type: 'string' },
-            { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
+            { name: 'Org unit id', dataKey: 'orgUnitId', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -1094,7 +1103,7 @@ describe('useTableData headers', () => {
 
         expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit id', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -1257,7 +1266,7 @@ describe('useTableData headers', () => {
 
         expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit id', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -2193,7 +2202,7 @@ describe('useTableData globalSearch', () => {
         ).toBe('evt1')
     })
 
-    test('matches a custom ORGANISATION_UNIT-valued attribute on a Tracked entity layer only by its raw stored value, not its resolved name - only "Org unit hierarchy" gets name-aware global search', () => {
+    test('matches a custom ORGANISATION_UNIT-valued attribute on a Tracked entity layer by its resolved name, same as the "Org unit hierarchy" column - fixed an earlier asymmetry where custom org-unit fields were only searchable by their raw stored id', () => {
         useOrgUnitAncestorNames.mockReturnValue({
             idToName: new Map([['facility9', 'Referral Hospital']]),
             loading: false,
@@ -2233,13 +2242,13 @@ describe('useTableData globalSearch', () => {
                 }
             ).result
 
-        expect(renderTeiTableData('referral').current.rows).toHaveLength(0)
-
-        const { current } = renderTeiTableData('facility9')
+        const { current } = renderTeiTableData('referral')
         expect(current.rows).toHaveLength(1)
         expect(current.rows[0].find((c) => c.dataKey === 'id').value).toBe(
             'tei1'
         )
+
+        expect(renderTeiTableData('addis ababa').current.rows).toHaveLength(0)
     })
 
     test('shows no rows when nothing matches', () => {

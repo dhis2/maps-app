@@ -17,6 +17,7 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
+export const COMBINED_TABLE_REF_LAYER = 'combinedTableRef' // Non-rendered org-unit layer backing the Combined data table's join
 
 export const MAP_SERVICE_KEY_TESTS = {
     keyBingMapsApiKey: [

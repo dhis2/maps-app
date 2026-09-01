@@ -20,6 +20,7 @@ import {
     fetchAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+import { generateUid } from '../util/uid.js'
 
 export const applyMissingCoordsCount = async (
     config,
@@ -75,6 +76,7 @@ const facilityLoader = async ({
         countFeaturesWithoutCoordinates,
         unclassifiedLegend,
         dataTableColumnConfig,
+        combinedLayerKey,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -85,6 +87,7 @@ const facilityLoader = async ({
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+    config.combinedLayerKey = combinedLayerKey ?? generateUid()
     delete config.config
 
     // Data loading

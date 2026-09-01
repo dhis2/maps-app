@@ -7,6 +7,8 @@ import ToolbarIconButton from './ToolbarIconButton.jsx'
 const ShowInViewControl = ({ active, onClick }) => (
     <ToolbarIconButton
         tooltip={i18n.t('Show only features in current map view')}
+        ariaLabel={i18n.t('Show only features in current map view')}
+        dataTest="data-table-show-in-view-button"
         onClick={onClick}
         active={active}
     >

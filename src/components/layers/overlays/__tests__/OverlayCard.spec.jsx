@@ -28,9 +28,13 @@ jest.mock('@dhis2/app-service-alerts', () => ({
 const mockStore = configureMockStore()
 
 describe('OverlayCard', () => {
-    const renderCard = (name) =>
-        render(
-            <Provider store={mockStore({ dataTable: null, aggregations: {} })}>
+    const renderCard = (name, layerOverrides = {}) => {
+        const store = mockStore({
+            dataTable: { openIds: [] },
+            aggregations: {},
+        })
+        const rendered = render(
+            <Provider store={store}>
                 <OverlayCard
                     layer={{
                         id: 'layer1',
@@ -40,14 +44,14 @@ describe('OverlayCard', () => {
                         isExpanded: true,
                         isVisible: true,
                         opacity: 1,
+                        ...layerOverrides,
                     }}
                 />
             </Provider>
         )
+        return { ...rendered, store }
+    }
 
-    // Regression test for DHIS2-19998: special characters in the layer name
-    // must not be HTML-escaped in the "deleted" alert (default i18next
-    // interpolation escapes "<" to "&lt;").
     test('shows the raw layer name with special characters in the removal alert', async () => {
         renderCard('Children < 5y & "others"')
 
@@ -56,6 +60,33 @@ describe('OverlayCard', () => {
 
         expect(mockShow).toHaveBeenCalledWith({
             msg: 'Children < 5y & "others" deleted.',
+        })
+    })
+
+    test('does not show a clear-filters button when the layer has no active dataFilters', () => {
+        const { container } = renderCard('Layer 1')
+        expect(
+            container.querySelector(
+                '[data-test="layer-clear-data-filters-button"]'
+            )
+        ).not.toBeInTheDocument()
+    })
+
+    test('shows a clear-filters button when the layer has active dataFilters, and dispatches clearDataFilters on click', () => {
+        const { container, store } = renderCard('Layer 1', {
+            dataFilters: { population: '>100' },
+        })
+
+        const button = container.querySelector(
+            '[data-test="layer-clear-data-filters-button"]'
+        )
+        expect(button).toBeInTheDocument()
+
+        fireEvent.click(button)
+
+        expect(store.getActions()).toContainEqual({
+            type: 'DATA_FILTERS_CLEAR_ALL',
+            layerId: 'layer1',
         })
     })
 })

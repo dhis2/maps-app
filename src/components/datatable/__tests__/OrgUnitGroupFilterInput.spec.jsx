@@ -1,20 +1,12 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
-import configureMockStore from 'redux-mock-store'
-import {
-    DATA_FILTER_SET,
-    DATA_FILTER_CLEAR,
-} from '../../../constants/actionTypes.js'
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
     ORG_UNIT_GROUPS_GRANULARITY,
 } from '../../../constants/dataTable.js'
 import OrgUnitGroupFilterInput from '../OrgUnitGroupFilterInput.jsx'
-
-const mockStore = configureMockStore()
 
 const ORG_UNIT_VALUES = [
     { value: '/country1/region1/facility1' },
@@ -23,24 +15,23 @@ const ORG_UNIT_VALUES = [
 ]
 
 const renderOrgUnitGroupFilter = (props) => {
-    const store = mockStore({})
+    const onChange = jest.fn()
+    const onClear = jest.fn()
     const result = render(
-        <Provider store={store}>
-            <VirtuosoMockContext.Provider
-                value={{ viewportHeight: 300, itemHeight: 28 }}
-            >
-                <OrgUnitGroupFilterInput
-                    dataKey="orgUnitPath"
-                    name="Org unit"
-                    layerId="layer1"
-                    options={ORG_UNIT_VALUES}
-                    idToName={new Map()}
-                    {...props}
-                />
-            </VirtuosoMockContext.Provider>
-        </Provider>
+        <VirtuosoMockContext.Provider
+            value={{ viewportHeight: 300, itemHeight: 28 }}
+        >
+            <OrgUnitGroupFilterInput
+                name="Org unit"
+                onChange={onChange}
+                onClear={onClear}
+                options={ORG_UNIT_VALUES}
+                idToName={new Map()}
+                {...props}
+            />
+        </VirtuosoMockContext.Provider>
     )
-    return { ...result, store }
+    return { ...result, onChange, onClear }
 }
 
 const getInput = () =>
@@ -104,24 +95,19 @@ describe('OrgUnitGroupFilterInput - label resolution', () => {
     })
 })
 
-describe('OrgUnitGroupFilterInput - selection dispatches', () => {
-    test('checking a root node dispatches the full org-unit-group filter shape', () => {
-        const { store } = renderOrgUnitGroupFilter()
+describe('OrgUnitGroupFilterInput - selection calls onChange/onClear', () => {
+    test('checking a root node calls onChange with the full org-unit-group filter shape', () => {
+        const { onChange } = renderOrgUnitGroupFilter()
         openPopover()
         fireEvent.click(screen.getByLabelText('country1'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'orgUnitPath',
-            filter: {
-                granularity: ORG_UNIT_GROUPS_GRANULARITY,
-                prefixes: ['/country1'],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: ORG_UNIT_GROUPS_GRANULARITY,
+            prefixes: ['/country1'],
         })
     })
 
-    test('unchecking the only selected prefix dispatches DATA_FILTER_CLEAR', () => {
-        const { store } = renderOrgUnitGroupFilter({
+    test('unchecking the only selected prefix calls onClear', () => {
+        const { onClear } = renderOrgUnitGroupFilter({
             filterValue: {
                 granularity: ORG_UNIT_GROUPS_GRANULARITY,
                 prefixes: ['/country1'],
@@ -129,11 +115,7 @@ describe('OrgUnitGroupFilterInput - selection dispatches', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('country1'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
-            layerId: 'layer1',
-            fieldId: 'orgUnitPath',
-        })
+        expect(onClear).toHaveBeenCalled()
     })
 })
 
@@ -184,8 +166,8 @@ describe('OrgUnitGroupFilterInput - "Any value" / "No value"', () => {
         expect(screen.queryByLabelText('No value')).not.toBeInTheDocument()
     })
 
-    test('checking "Any value" dispatches the sentinel and clears prior selections', () => {
-        const { store } = renderOrgUnitGroupFilter({
+    test('checking "Any value" calls onChange with the sentinel and clears prior selections', () => {
+        const { onChange } = renderOrgUnitGroupFilter({
             options: [...ORG_UNIT_VALUES, { value: SENTINEL_NO_VALUE }],
             filterValue: {
                 granularity: ORG_UNIT_GROUPS_GRANULARITY,
@@ -194,19 +176,14 @@ describe('OrgUnitGroupFilterInput - "Any value" / "No value"', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('Any value'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'orgUnitPath',
-            filter: {
-                granularity: ORG_UNIT_GROUPS_GRANULARITY,
-                prefixes: [SENTINEL_ANY_VALUE],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: ORG_UNIT_GROUPS_GRANULARITY,
+            prefixes: [SENTINEL_ANY_VALUE],
         })
     })
 
     test('clicking a tree node while "Any value" is active is a no-op', () => {
-        const { store } = renderOrgUnitGroupFilter({
+        const { onChange, onClear } = renderOrgUnitGroupFilter({
             filterValue: {
                 granularity: ORG_UNIT_GROUPS_GRANULARITY,
                 prefixes: [SENTINEL_ANY_VALUE],
@@ -214,7 +191,8 @@ describe('OrgUnitGroupFilterInput - "Any value" / "No value"', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('country1'))
-        expect(store.getActions()).toEqual([])
+        expect(onChange).not.toHaveBeenCalled()
+        expect(onClear).not.toHaveBeenCalled()
     })
 })
 
@@ -246,39 +224,33 @@ describe('OrgUnitGroupFilterInput - search', () => {
         expect(screen.queryByLabelText('country2')).not.toBeInTheDocument()
     })
 
-    test('typing text with no tree match shows the custom filter row but clears rather than filtering by the raw id/path', () => {
-        const { store } = renderOrgUnitGroupFilter()
+    test('typing text with no tree match shows the custom filter row and applies a filter matching nothing, rather than clearing back to unfiltered', () => {
+        const { onChange, onClear } = renderOrgUnitGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: 'Nairobi' } })
         expect(
             screen.getByTestId('data-table-column-filter-custom-Org unit')
         ).toBeInTheDocument()
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
-            layerId: 'layer1',
-            fieldId: 'orgUnitPath',
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: ORG_UNIT_GROUPS_GRANULARITY,
+            prefixes: [],
+            searchDerived: true,
+            searchText: 'Nairobi',
         })
-        expect(store.getActions()).not.toContainEqual(
-            expect.objectContaining({ type: DATA_FILTER_SET })
-        )
+        expect(onClear).not.toHaveBeenCalled()
     })
 
-    test('committing a name-matched custom filter dispatches the matched nodes’ prefixes, not a raw substring match against the id path', () => {
-        const { store } = renderOrgUnitGroupFilter({
+    test('committing a name-matched custom filter calls onChange with the matched nodes’ prefixes, not a raw substring match against the id path', () => {
+        const { onChange } = renderOrgUnitGroupFilter({
             idToName: new Map([['country1', 'Sierra Leone']]),
         })
         openPopover()
         fireEvent.change(getInput(), { target: { value: 'Sierra' } })
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'orgUnitPath',
-            filter: {
-                granularity: ORG_UNIT_GROUPS_GRANULARITY,
-                prefixes: ['/country1'],
-                searchDerived: true,
-                searchText: 'Sierra',
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: ORG_UNIT_GROUPS_GRANULARITY,
+            prefixes: ['/country1'],
+            searchDerived: true,
+            searchText: 'Sierra',
         })
     })
 

@@ -1,6 +1,4 @@
 import { useCallback, useMemo } from 'react'
-import { useDispatch } from 'react-redux'
-import { selectAllFeatures, clearSelection } from '../../actions/selection.js'
 
 export const getReversedSelection = (selectedIds, allRowIds) => {
     const selectedIdSet = new Set(selectedIds)
@@ -14,10 +12,8 @@ export const useRowSelection = ({
     selectedIds,
     selectedIdSet,
     allRowIds,
-    layerId,
+    onChange,
 }) => {
-    const dispatch = useDispatch()
-
     const allRowIdSet = useMemo(() => new Set(allRowIds), [allRowIds])
 
     const isAllSelected = useMemo(
@@ -32,22 +28,12 @@ export const useRowSelection = ({
             ? selectedIds.filter((id) => !allRowIdSet.has(id))
             : [...new Set([...selectedIds, ...allRowIds])]
 
-        if (nextIds.length) {
-            dispatch(selectAllFeatures(nextIds, layerId))
-        } else {
-            dispatch(clearSelection())
-        }
-    }, [dispatch, isAllSelected, allRowIds, allRowIdSet, selectedIds, layerId])
+        onChange(nextIds)
+    }, [isAllSelected, allRowIds, allRowIdSet, selectedIds, onChange])
 
     const onReverseSelection = useCallback(() => {
-        const nextIds = getReversedSelection(selectedIds, allRowIds)
-
-        if (nextIds.length) {
-            dispatch(selectAllFeatures(nextIds, layerId))
-        } else {
-            dispatch(clearSelection())
-        }
-    }, [dispatch, selectedIds, allRowIds, layerId])
+        onChange(getReversedSelection(selectedIds, allRowIds))
+    }, [selectedIds, allRowIds, onChange])
 
     return {
         isAllSelected,

@@ -1,4 +1,10 @@
-import { onFullscreenChange, resizeAndFitBounds, toGeoJson } from '../map.js'
+import {
+    fitCrossLayerZoomBounds,
+    getLayerFeatureHighlight,
+    onFullscreenChange,
+    resizeAndFitBounds,
+    toGeoJson,
+} from '../map.js'
 
 const bounds = [
     [0, 0],
@@ -11,6 +17,7 @@ const createMockMap = (layersBounds = bounds) => ({
     fitBounds: jest.fn(),
     toggleMultiTouch: jest.fn(),
     toggleScrollZoom: jest.fn(),
+    getMapGL: jest.fn(() => ({ getBearing: jest.fn(() => 0) })),
 })
 
 describe('toGeoJson', () => {
@@ -65,6 +72,85 @@ describe('toGeoJson', () => {
         expect(feature.properties.orgUnitOwn).toBe(
             '/country1/region1/facility1'
         )
+    })
+})
+
+describe('getLayerFeatureHighlight', () => {
+    it('returns null when there is no active highlight', () => {
+        expect(getLayerFeatureHighlight(null, 'layerA')).toBeNull()
+    })
+
+    it("passes through a single-layer highlight for that layer's own id", () => {
+        const feature = { id: 'f1', layerId: 'layerA' }
+        expect(getLayerFeatureHighlight(feature, 'layerA')).toBe(feature)
+    })
+
+    it("hides a single-layer highlight from a layer that doesn't own it", () => {
+        const feature = { id: 'f1', layerId: 'layerA' }
+        expect(getLayerFeatureHighlight(feature, 'layerB')).toBeNull()
+    })
+
+    it('passes a crossLayerIds highlight through to every layer it names, despite layerId being null', () => {
+        const feature = {
+            layerId: null,
+            crossLayerIds: { layerA: ['f1'], layerB: ['f2'] },
+        }
+        expect(getLayerFeatureHighlight(feature, 'layerA')).toBe(feature)
+        expect(getLayerFeatureHighlight(feature, 'layerB')).toBe(feature)
+    })
+
+    it('hides a crossLayerIds highlight from a layer not named in it', () => {
+        const feature = {
+            layerId: null,
+            crossLayerIds: { layerA: ['f1'] },
+        }
+        expect(getLayerFeatureHighlight(feature, 'layerC')).toBeNull()
+    })
+})
+
+describe('fitCrossLayerZoomBounds', () => {
+    const zoomFeature = {
+        layerId: null,
+        zoom: true,
+        bounds,
+        crossLayerIds: { layerA: ['a1'] },
+    }
+
+    it('fits the map to the precomputed bounds when the feature changes and carries zoom+bounds', () => {
+        const map = createMockMap()
+        fitCrossLayerZoomBounds(map, zoomFeature, null)
+        expect(map.fitBounds).toHaveBeenCalledWith(
+            bounds,
+            expect.objectContaining({ essential: true })
+        )
+    })
+
+    it('does nothing when the feature reference is unchanged', () => {
+        const map = createMockMap()
+        fitCrossLayerZoomBounds(map, zoomFeature, zoomFeature)
+        expect(map.fitBounds).not.toHaveBeenCalled()
+    })
+
+    it('does nothing for a highlight with no zoom flag', () => {
+        const map = createMockMap()
+        fitCrossLayerZoomBounds(map, { ...zoomFeature, zoom: false }, null)
+        expect(map.fitBounds).not.toHaveBeenCalled()
+    })
+
+    it('does nothing for a single-layer zoom (no precomputed bounds)', () => {
+        const map = createMockMap()
+        fitCrossLayerZoomBounds(
+            map,
+            { id: 'f1', layerId: 'layerA', zoom: true },
+            null
+        )
+        expect(map.fitBounds).not.toHaveBeenCalled()
+    })
+
+    it('does nothing when there is no active feature', () => {
+        const map = createMockMap()
+        fitCrossLayerZoomBounds(map, null, zoomFeature)
+        expect(map.fitBounds).not.toHaveBeenCalled()
     })
 })
 

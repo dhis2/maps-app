@@ -3,8 +3,6 @@ import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
     SENTINEL_SELECTED_ROW,
-    SORT_ASCENDING,
-    TYPE_ORG_UNIT,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
@@ -21,17 +19,18 @@ import {
 } from '../../constants/selection.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
+import { buildKnownOrgUnitNames } from '../../util/orgUnits.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
+    sortColumnOptions,
 } from '../../util/tableColumns.js'
 import {
-    TYPE_STRING,
     ERROR_NON_HOMOGENOUS_FEATURES,
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
 import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
-import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
+import { compareRows } from '../../util/tableSort.js'
 
 const ERROR_NO_HEADERS = 'NO_HEADERS'
 
@@ -81,6 +80,8 @@ export const useTableData = ({
         legend,
         styleDataItem,
         countEventsOutsideOrgUnits,
+        bands,
+        band,
         data,
         dataWithoutCoords,
         dataFilters,
@@ -174,6 +175,8 @@ export const useTableData = ({
                 countEventsOutsideOrgUnits,
                 aggregationType,
                 legend,
+                bands,
+                band,
                 data: dataWithAggregations,
                 rawData: data,
             }
@@ -197,6 +200,8 @@ export const useTableData = ({
         legend,
         styleDataItem,
         countEventsOutsideOrgUnits,
+        bands,
+        band,
         dataWithAggregations,
         data,
         layerHeaders,
@@ -214,30 +219,14 @@ export const useTableData = ({
     )
 
     // Cheap: just re-orders each column's already-known distinct-value list
-    const columnOptions = useMemo(() => {
-        if (!columnDistinctValues) {
-            return EMPTY_COLUMN_OPTIONS
-        }
-
-        const result = {}
-        Object.entries(columnDistinctValues).forEach(
-            ([dataKey, { values, type }]) => {
-                const direction =
-                    dataKey === sortField ? sortDirection : SORT_ASCENDING
-                result[dataKey] = [...values]
-                    .sort((a, b) =>
-                        compareColumnOptionValues(a, b, {
-                            dataKey,
-                            type,
-                            direction,
-                        })
-                    )
-                    .map((value) => ({ value }))
-            }
-        )
-
-        return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
-    }, [columnDistinctValues, sortField, sortDirection])
+    const columnOptions = useMemo(
+        () =>
+            sortColumnOptions(columnDistinctValues, {
+                sortField,
+                sortDirection,
+            }) ?? EMPTY_COLUMN_OPTIONS,
+        [columnDistinctValues, sortField, sortDirection]
+    )
 
     const orgUnitPathValues = useMemo(
         () =>
@@ -252,8 +241,14 @@ export const useTableData = ({
                 ),
         [headers, columnOptions]
     )
-    const { idToName: orgUnitIdToName } =
-        useOrgUnitAncestorNames(orgUnitPathValues)
+    const knownOrgUnitNames = useMemo(
+        () => buildKnownOrgUnitNames(dataWithAggregations),
+        [dataWithAggregations]
+    )
+    const { idToName: orgUnitIdToName } = useOrgUnitAncestorNames(
+        orgUnitPathValues,
+        knownOrgUnitNames
+    )
 
     const rows = useMemo(() => {
         if (errorCode.current) {
@@ -268,16 +263,10 @@ export const useTableData = ({
         let filteredData = filterData(dataWithAggregations, dataFilters)
 
         if (globalSearch?.trim()) {
-            const stringDataKeys = headers
-                .filter((h) => h.type === TYPE_STRING)
-                .map((h) => h.dataKey)
-            const orgUnitDataKeys = headers
-                .filter((h) => h.type === TYPE_ORG_UNIT)
-                .map((h) => h.dataKey)
             filteredData = filterByGlobalSearch(filteredData, globalSearch, {
-                stringDataKeys,
-                orgUnitDataKeys,
-                idToName: orgUnitIdToName,
+                headers,
+                orgUnitIdToName,
+                keyAnalysisDigitGroupSeparator,
             })
         }
 
