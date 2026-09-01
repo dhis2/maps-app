@@ -2,12 +2,16 @@ import { useState, useEffect } from 'react'
 import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { getFallbackBasemap } from '../constants/basemaps.js'
 import { defaultBasemapState } from '../reducers/map.js'
+import useCatalogBasemaps from './useCatalogBasemaps.js'
 
 const emptyBasemap = { config: {} }
 
 function useBasemapConfig(selected) {
     const [basemap, setBasemap] = useState(emptyBasemap)
-    const { systemSettings, basemaps } = useCachedData()
+    const { systemSettings } = useCachedData()
+    // PROTOTYPE ONLY - includes mock and session-added basemaps, so picking one
+    // resolves instead of silently falling back to the default
+    const basemaps = useCatalogBasemaps()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
 
     useEffect(() => {

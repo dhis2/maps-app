@@ -1,4 +1,3 @@
 .button {
-    margin-left: var(--spacers-dp16);
-    margin-bottom: var(--spacers-dp12);
+    flex: 0 0 auto;
 }

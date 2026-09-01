@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
-"PO-Revision-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-08-27T08:58:49.598Z\n"
+"PO-Revision-Date: 2026-08-27T08:58:49.599Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -609,8 +609,8 @@ msgstr "Group set"
 msgid "Style by group set"
 msgstr "Style by group set"
 
-msgid "Manage available layer sources"
-msgstr "Manage available layer sources"
+msgid "Manage layer sources"
+msgstr "Manage layer sources"
 
 msgid "Configure available layer sources"
 msgstr "Configure available layer sources"
@@ -621,6 +621,23 @@ msgid ""
 msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
+
+msgid "Filter layer sources by name or description"
+msgstr "Filter layer sources by name or description"
+
+msgid "Coming soon"
+msgstr "Coming soon"
+
+msgid "Add new source"
+msgstr "Add new source"
+
+msgid "No layer sources match this filter."
+msgstr "No layer sources match this filter."
+
+msgid "{{count}} of {{total}} sources enabled"
+msgid_plural "{{count}} of {{total}} sources enabled"
+msgstr[0] "{{count}} of {{total}} sources enabled"
+msgstr[1] "{{count}} of {{total}} sources enabled"
 
 msgid "Collapse"
 msgstr "Collapse"
@@ -656,14 +673,38 @@ msgstr "Use human-readable keys"
 msgid "Data download failed."
 msgstr "Data download failed."
 
+msgid "Nothing pinned. Use the pin on a layer below to pin it here."
+msgstr "Nothing pinned. Use the pin on a layer below to pin it here."
+
+msgid "Filter all layers"
+msgstr "Filter all layers"
+
+msgid "Unpin"
+msgstr "Unpin"
+
+msgid "Pin"
+msgstr "Pin"
+
 msgid "External layer"
 msgstr "External layer"
+
+msgid "No layers match this filter."
+msgstr "No layers match this filter."
 
 msgid "Loading layer"
 msgstr "Loading layer"
 
 msgid "{{- name}} deleted."
 msgstr "{{- name}} deleted."
+
+msgid "Name asc."
+msgstr "Name asc."
+
+msgid "Name desc."
+msgstr "Name desc."
+
+msgid "Sort by"
+msgstr "Sort by"
 
 msgid "Edit"
 msgstr "Edit"
@@ -1756,6 +1797,106 @@ msgstr "Logarithmic scale"
 msgid "Symbol"
 msgstr "Symbol"
 
+msgid "Health facility catchment areas"
+msgstr "Health facility catchment areas"
+
+msgid ""
+"Modelled catchment polygons for every public health facility, based on a 60 "
+"minute walking travel time."
+msgstr ""
+"Modelled catchment polygons for every public health facility, based on a 60 "
+"minute walking travel time."
+
+msgid "Administrative boundaries level 3"
+msgstr "Administrative boundaries level 3"
+
+msgid ""
+"Official chiefdom and ward boundaries published by the national statistics "
+"office."
+msgstr ""
+"Official chiefdom and ward boundaries published by the national statistics "
+"office."
+
+msgid "Malaria risk raster 2024"
+msgstr "Malaria risk raster 2024"
+
+msgid ""
+"Predicted Plasmodium falciparum prevalence at 1km resolution, Malaria Atlas "
+"Project."
+msgstr ""
+"Predicted Plasmodium falciparum prevalence at 1km resolution, Malaria Atlas "
+"Project."
+
+msgid "Road network (OpenStreetMap)"
+msgstr "Road network (OpenStreetMap)"
+
+msgid "Primary, secondary and tertiary roads extracted from OpenStreetMap."
+msgstr "Primary, secondary and tertiary roads extracted from OpenStreetMap."
+
+msgid "Rivers and water bodies"
+msgstr "Rivers and water bodies"
+
+msgid "Permanent and seasonal surface water, derived from Sentinel-2 imagery."
+msgstr "Permanent and seasonal surface water, derived from Sentinel-2 imagery."
+
+msgid "Flood hazard zones"
+msgstr "Flood hazard zones"
+
+msgid ""
+"Areas with a 1-in-100 year flood return period, modelled by the disaster "
+"management agency."
+msgstr ""
+"Areas with a 1-in-100 year flood return period, modelled by the disaster "
+"management agency."
+
+msgid "School locations"
+msgstr "School locations"
+
+msgid ""
+"Primary and secondary school points from the education management "
+"information system."
+msgstr ""
+"Primary and secondary school points from the education management "
+"information system."
+
+msgid "Population density (national census)"
+msgstr "Population density (national census)"
+
+msgid "Census enumeration areas shaded by people per square kilometre."
+msgstr "Census enumeration areas shaded by people per square kilometre."
+
+msgid "Satellite imagery 2024"
+msgstr "Satellite imagery 2024"
+
+msgid "High resolution true colour imagery, dry season."
+msgstr "High resolution true colour imagery, dry season."
+
+msgid "Mobile network coverage"
+msgstr "Mobile network coverage"
+
+msgid ""
+"Reported 3G and 4G coverage footprints from the telecommunications "
+"regulator."
+msgstr ""
+"Reported 3G and 4G coverage footprints from the telecommunications "
+"regulator."
+
+msgid "Health districts (proposed 2026)"
+msgstr "Health districts (proposed 2026)"
+
+msgid ""
+"Draft redistricting proposal under consultation - not for official "
+"reporting."
+msgstr ""
+"Draft redistricting proposal under consultation - not for official "
+"reporting."
+
+msgid "Referral routes"
+msgstr "Referral routes"
+
+msgid "Ambulance referral corridors between health centres and district hospitals."
+msgstr "Ambulance referral corridors between health centres and district hospitals."
+
 msgid "Relative"
 msgstr "Relative"
 
@@ -1910,14 +2051,35 @@ msgstr "Cannot get authorization token for Google Earth Engine."
 msgid "Thematic"
 msgstr "Thematic"
 
+msgid "Org units shaded or sized by an aggregate data value."
+msgstr "Org units shaded or sized by an aggregate data value."
+
 msgid "Events"
 msgstr "Events"
+
+msgid "Event data collected by a program, plotted at its location."
+msgstr "Event data collected by a program, plotted at its location."
 
 msgid "Tracked entities"
 msgstr "Tracked entities"
 
+msgid "Tracked entities enrolled in a program, plotted at their location."
+msgstr "Tracked entities enrolled in a program, plotted at their location."
+
+msgid "Health facilities plotted at their location."
+msgstr "Health facilities plotted at their location."
+
 msgid "Org units"
 msgstr "Org units"
+
+msgid "Organisation unit boundaries or locations."
+msgstr "Organisation unit boundaries or locations."
+
+msgid "Built-in layer types"
+msgstr "Built-in layer types"
+
+msgid "External layers"
+msgstr "External layers"
 
 msgid "Facility"
 msgstr "Facility"

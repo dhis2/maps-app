@@ -1,0 +1,108 @@
+.row {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp12);
+    padding: var(--spacers-dp12) var(--spacers-dp4) var(--spacers-dp12)
+        var(--spacers-dp16);
+    cursor: pointer;
+}
+
+.row:hover {
+    background-color: var(--colors-grey100);
+}
+
+.thumb,
+.noThumb {
+    flex: 0 0 auto;
+    box-sizing: border-box;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+}
+
+.row:hover .thumb,
+.row:hover .noThumb {
+    border-color: var(--colors-grey600);
+}
+
+.noThumb {
+    background-color: var(--colors-grey200);
+}
+
+.text {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.label {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--colors-grey900);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.description {
+    margin-top: 4px;
+    font-size: 13px;
+    line-height: 16px;
+    color: var(--colors-grey600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* The two buttons sit flush against each other, outside the row's own gap */
+.actions {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.pin,
+.info {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    background-color: transparent;
+    color: var(--colors-grey600);
+    cursor: pointer;
+    opacity: 0;
+}
+
+.row:hover .pin,
+.row:hover .info,
+.pin.isPinned,
+.info.isInfoOpen {
+    opacity: 1;
+}
+
+.pin svg,
+.info svg {
+    display: block;
+}
+
+.pin:hover,
+.info:hover {
+    border-color: var(--colors-grey400);
+    background-color: var(--colors-white);
+    color: var(--colors-grey900);
+}
+
+.pin.isPinned {
+    color: var(--colors-blue600);
+}
+
+.info.isInfoOpen {
+    border-color: var(--colors-grey400);
+    background-color: var(--colors-white);
+    color: var(--colors-grey900);
+}

@@ -1,0 +1,135 @@
+/* Sits outside the catalog popover's right edge, like a sub menu. Rendered
+   inside the popover's own DOM (rather than as a nested UI Popover) so a click
+   in here never registers as a click outside the catalog. */
+.panel {
+    position: absolute;
+    left: calc(100% + 4px);
+    z-index: 2;
+    box-sizing: border-box;
+    width: 320px;
+    max-height: min(560px, 70vh);
+    overflow-y: auto;
+    padding: var(--spacers-dp16);
+    border-radius: 4px;
+    background-color: var(--colors-white);
+    box-shadow: 0 2px 12px rgba(33, 43, 54, 0.25);
+    cursor: default;
+}
+
+.close {
+    position: absolute;
+    top: var(--spacers-dp8);
+    right: var(--spacers-dp8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--colors-white);
+    color: var(--colors-grey600);
+    cursor: pointer;
+}
+
+.close:hover {
+    background-color: var(--colors-grey100);
+    color: var(--colors-grey900);
+}
+
+.thumb,
+.noThumb {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 160px;
+    border: 1px solid var(--colors-grey400);
+    border-radius: 3px;
+    object-fit: cover;
+}
+
+.noThumb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey600);
+    font-size: 12px;
+}
+
+.name {
+    margin-top: var(--spacers-dp12);
+    padding-inline-end: var(--spacers-dp16);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--colors-grey900);
+}
+
+.pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacers-dp4);
+    margin-top: var(--spacers-dp8);
+}
+
+.pill {
+    padding: 1px 6px;
+    border-radius: 8px;
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey800);
+    font-size: 11px;
+}
+
+.description,
+.noDescription {
+    margin-top: var(--spacers-dp8);
+    font-size: 13px;
+    line-height: 19px;
+    color: var(--colors-grey700);
+}
+
+.noDescription {
+    color: var(--colors-grey500);
+    font-style: italic;
+}
+
+.meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--spacers-dp4) var(--spacers-dp12);
+    margin: var(--spacers-dp12) 0 0;
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.metaLabel {
+    color: var(--colors-grey500);
+}
+
+.metaValue {
+    margin: 0;
+    color: var(--colors-grey800);
+    overflow-wrap: anywhere;
+}
+
+.contained {
+    margin-top: var(--spacers-dp12);
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.containedLabel {
+    color: var(--colors-grey500);
+}
+
+.containedList {
+    margin: var(--spacers-dp4) 0 0;
+    padding-inline-start: var(--spacers-dp16);
+    color: var(--colors-grey800);
+}
+
+.actions {
+    margin-top: var(--spacers-dp16);
+}

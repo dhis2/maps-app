@@ -3,9 +3,14 @@
 }
 
 .list {
-    max-width: 684px;
+    display: grid;
+    /* width to fit 5 items - minmax(0, 1fr) so an unbroken label can't
+       blow out its column past its even share (1fr alone defaults to
+       minmax(auto, 1fr), which grows to fit unwrapped content) */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--spacers-dp8);
     max-height: calc(100vh - 150px);
-    padding: var(--spacers-dp8) var(--spacers-dp4) var(--spacers-dp8)
+    padding: var(--spacers-dp12) var(--spacers-dp8) var(--spacers-dp12)
         var(--spacers-dp12);
     overflow-y: auto;
 }
@@ -15,4 +20,15 @@
     padding: 40px 50px;
     line-height: 25px;
     font-style: italic;
+}
+
+/* Used for the pinned tile grid - the surrounding zone owns the scrolling */
+.pinnedList {
+    display: grid;
+    /* width to fit 5 items - minmax(0, 1fr) so an unbroken label can't
+       blow out its column past its even share (1fr alone defaults to
+       minmax(auto, 1fr), which grows to fit unwrapped content) */
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    padding: var(--spacers-dp12) var(--spacers-dp8);
 }
