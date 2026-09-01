@@ -264,6 +264,8 @@ context('Event Layers', () => {
             .selectOu(programIP.ous[0])
             .selectTab('Style')
             .selectViewAllEvents()
+            // A bigger radius makes the center-of-map click below less fragile
+            .selectRadius(20)
             .addToMap()
 
         Layer.validateDialogClosed(true)
