@@ -1,15 +1,15 @@
 # Translators:
 # Viktor Varland <viktor@dhis2.org>, 2024
 # Nadiia <semchuk@aph.org.ua>, 2025
-# Philip Larsen Donnelly, 2025
-# Hamza <7amza.it@gmail.com>, 2025
+# Philip Larsen Donnelly, 2026
+# Hamza <7amza.it@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Hamza <7amza.it@gmail.com>, 2025\n"
+"Last-Translator: Hamza <7amza.it@gmail.com>, 2026\n"
 "Language-Team: Arabic (https://app.transifex.com/hisp-uio/teams/100509/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -47,17 +47,35 @@ msgstr "تصنيف"
 msgid "Classes"
 msgstr "التصنيفات"
 
-msgid "Legend set"
-msgstr "حزمة وسائل الإيضاح"
+msgid "Auto"
+msgstr "تلقائي"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "الأدنى"
+
+msgid "Max"
+msgstr "الأعلى"
+
+msgid "Max should be greater than min"
+msgstr ""
 
 msgid "Color"
 msgstr "اللون"
 
-msgid "Size"
-msgstr "الحجم"
-
 msgid "Name"
 msgstr "الإسم"
+
+msgid "Legend set"
+msgstr "حزمة وسائل الإيضاح"
+
+msgid "Size"
+msgstr "الحجم"
 
 msgid "Name and value"
 msgstr ""
@@ -92,11 +110,8 @@ msgstr ""
 msgid "Tracked entity location"
 msgstr ""
 
-msgid "Fallback coordinate field"
+msgid "Select a program stage to see additional coordinate options"
 msgstr ""
-
-msgid "Coordinate field"
-msgstr "حقل الإحداثية"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -104,14 +119,26 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
+
+msgid "Coordinate field"
+msgstr "حقل الإحداثية"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
 msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
 
 msgid "Add filter"
 msgstr "إضافة عامل تصفية"
@@ -187,6 +214,9 @@ msgstr "نطاق"
 msgid "Org unit"
 msgstr "الوحدة التنظيمية"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "وقت الحدث"
 
@@ -252,6 +282,9 @@ msgstr "وحدات التنظيم"
 
 msgid "Style"
 msgstr "المظهر"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "لون النقطة"
@@ -356,40 +389,16 @@ msgstr ""
 msgid "Max value is required"
 msgstr ""
 
-msgid "Max should be greater than min"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
 msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
+msgid "Use custom legend"
 msgstr ""
-
-msgid "Min"
-msgstr "الأدنى"
-
-msgid "Max"
-msgstr "الأعلى"
-
-msgid "Steps"
-msgstr "الخطوات"
 
 msgid "Facility buffer"
 msgstr ""
 
-msgid "Org Units"
-msgstr "الوحدات التنظيمية"
-
-msgid "Filter"
-msgstr "عامل التصفية"
-
-msgid "Group events"
-msgstr "تجميع الأحداث"
-
-msgid "View all events"
-msgstr "عرض كافة الأحداث"
-
-msgid "Radius"
-msgstr "نصف القطر"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
 
 msgid "Program is required"
@@ -402,6 +411,42 @@ msgid "No organisation units are selected."
 msgstr "لم يتم اختيار أي وحدات تنظيمية"
 
 msgid "No legend set is selected"
+msgstr ""
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "الوحدات التنظيمية"
+
+msgid "Filter"
+msgstr "عامل التصفية"
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "التصفية متاحة بعد اختيار مرحلة البرنامج."
+
+msgid "Group events"
+msgstr "تجميع الأحداث"
+
+msgid "View all events"
+msgstr "عرض كافة الأحداث"
+
+msgid "Radius"
+msgstr "نصف القطر"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
 msgstr ""
 
 msgid "Event status"
@@ -449,13 +494,33 @@ msgstr ""
 msgid "Labels"
 msgstr "التسميات"
 
+msgid "Include org units with no data"
+msgstr ""
+
+msgid "No data"
+msgstr "لا توجد بيانات"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr "غير مصنف"
+
+msgid "Period is required"
+msgstr "الفترة مطلوبة"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "نوع التجميع"
 
 msgid "Only show completed events"
-msgstr ""
-
-msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -470,12 +535,6 @@ msgstr ""
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "يجب أن يتراوح نصف القطر بين {{min}} و {{max}}"
 
-msgid "Choose from presets"
-msgstr ""
-
-msgid "Define start - end dates"
-msgstr ""
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -486,17 +545,6 @@ msgid "Choose periods for all split layers"
 msgstr ""
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "الفترة مطلوبة"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
 msgid "Specified radius values are invalid"
@@ -514,6 +562,9 @@ msgstr "التاريخ الذي تم فيه تسجيل الكيان المتعق
 msgid "Program status"
 msgstr "حالة البرنامج"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr "العلاقات"
 
@@ -521,15 +572,15 @@ msgid "Follow up"
 msgstr "متابعة"
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "الرجاء تحديد نوع الكيان المتعقب قبل تحديد نوع العلاقة"
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "يعد عرض علاقات الكيانات المتعقبة في الخرائط ميزة تجريبية"
 
 msgid "Display Tracked Entity relationships"
 msgstr "عرض علاقات الكيانات المتعقبة"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "الرجاء تحديد نوع الكيان المتعقب قبل تحديد نوع العلاقة"
 
 msgid "Tracked entity style"
 msgstr ""
@@ -542,9 +593,6 @@ msgstr ""
 
 msgid "Line Color"
 msgstr "لون الخط"
-
-msgid "Tracked Entity Type is required"
-msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "لم يتم العثور على أنواع العلاقات لنوع الكيان المتعقب {{type}}"
@@ -593,8 +641,8 @@ msgstr "الخريطة الأساسية"
 msgid "Download Layer Data"
 msgstr "تنزيل بيانات الطبقة"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "تنزيل بيانات GeoJSON لـ \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -614,14 +662,11 @@ msgstr "فشل تنزيل البيانات."
 msgid "External layer"
 msgstr "طبقة خارحية"
 
-msgid "Failed to load layer"
-msgstr ""
-
 msgid "Loading layer"
 msgstr "تحميل الطبقة"
 
-msgid "{{name}} deleted."
-msgstr "تم حذف {{name}}."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "تعديل"
@@ -656,20 +701,98 @@ msgstr "تنزيل البيانات"
 msgid "Edit layer"
 msgstr "تحرير الطبقة"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "أزل الطبقة"
 
 msgid "Filters"
 msgstr "‏‏عوامل التصفية"
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "No data found"
 msgstr "لم توجد بيانات"
 
-msgid "Selected org units: No coordinates found"
+msgid "All events outside org unit boundaries"
 msgstr ""
 
 msgid "No coordinates found"
 msgstr "لم يتم العثور على إحداثيات"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+msgstr[4] ""
+msgstr[5] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr ""
 
 msgid "Error"
 msgstr "خطأ"
@@ -714,9 +837,6 @@ msgstr "المجموعات"
 
 msgid "Parent unit"
 msgstr "الوحدة العليا"
-
-msgid "No data"
-msgstr "لا توجد بيانات"
 
 msgid "Not set"
 msgstr "غير مضبوط"
@@ -901,9 +1021,6 @@ msgstr "السنة الماضية"
 msgid "Next year"
 msgstr "السنة التالية"
 
-msgid "Start/end dates"
-msgstr "تواريخ- البدء-الانتهاء"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -958,6 +1075,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1596,6 +1719,18 @@ msgstr "فترات متساوية"
 msgid "Equal counts"
 msgstr "حسابات متساوية"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "الرمز"
 
@@ -1644,8 +1779,14 @@ msgstr "السنة المالية (تبدأ في يوليو)"
 msgid "Financial year (Start April)"
 msgstr "السنة المالية (تبدأ في ابريل)"
 
+msgid "Start/end dates"
+msgstr "تواريخ- البدء-الانتهاء"
+
 msgid "Cancelled"
 msgstr "تم الإلغاء"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr ""
@@ -1665,16 +1806,16 @@ msgstr ""
 msgid "Event"
 msgstr "الحدث"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "مرافق"
 
 msgid "an error occurred"
 msgstr ""
 
-msgid "GroupSet used for styling was not found"
-msgstr ""
-
-msgid "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1704,11 +1845,11 @@ msgstr ""
 msgid "Thematic layer"
 msgstr "الطبقة المواضيعية"
 
-msgid "Tracked entity"
-msgstr "الكيان المتتبع"
-
 msgid "related"
 msgstr "ذات صلة"
+
+msgid "Tracked entity"
+msgstr "الكيان المتتبع"
 
 msgid "not one of"
 msgstr ""
@@ -1759,8 +1900,8 @@ msgstr "الوحدات التنظيمية"
 msgid "Facility"
 msgstr "المنشأة"
 
-msgid "Other"
-msgstr "أخرى"
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "تاريخ البدء غير صالح"
@@ -1770,3 +1911,11 @@ msgstr "تاريخ الانتهاء غير صالح"
 
 msgid "End date cannot be earlier than start date"
 msgstr "لا يمكن أن يكون تاريخ الانتهاء قبل تاريخ البدء"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "الخرائط"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

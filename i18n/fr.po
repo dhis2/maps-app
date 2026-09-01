@@ -5,21 +5,21 @@
 # Bram Piot <bram.piot@gmail.com>, 2021
 # tx_e2f_fr r25 <tx_e2f_fr_r25@ate2f.com>, 2021
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2025
 # Elise Desailly, 2025
-# Esther Tokouli, 2025
 # Bruno Raimbault, 2025
 # Philip Larsen Donnelly, 2025
 # Edem Kossi <ekossi@hispwca.org>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
+# Esther Tokouli, 2026
 # Cyrille Kabrane, 2026
+# Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Cyrille Kabrane, 2026\n"
+"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -57,17 +57,35 @@ msgstr "Classification"
 msgid "Classes"
 msgstr "Classes"
 
-msgid "Legend set"
-msgstr "Jeu de légende"
+msgid "Auto"
+msgstr "Automatique"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr "La valeur maximale doit être supérieure à la valeur minimale"
 
 msgid "Color"
 msgstr "Couleur"
 
-msgid "Size"
-msgstr "Taille"
-
 msgid "Name"
 msgstr "Nom"
+
+msgid "Legend set"
+msgstr "Jeu de légende"
+
+msgid "Size"
+msgstr "Taille"
 
 msgid "Name and value"
 msgstr "Nom et valeur"
@@ -102,11 +120,8 @@ msgstr "Lieu d'inscription"
 msgid "Tracked entity location"
 msgstr "Localisation de l'entité suivie"
 
-msgid "Fallback coordinate field"
-msgstr "Champ de coordonnées alternatif"
-
-msgid "Coordinate field"
-msgstr "Champ de coordonnées"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -116,6 +131,21 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Événement > coordonnée de l'unité d'organisation"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "Champ de coordonnées alternatif"
+
+msgid "Coordinate field"
+msgstr "Champ de coordonnées"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 "La valeur précédemment sélectionnée n'est pas disponible dans la liste : "
@@ -124,10 +154,6 @@ msgstr ""
 msgid "Style by data item"
 msgstr "Appliquer un style par item de données"
 
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-"Le filtrage est disponible après la sélection d'un stade de programme."
-
 msgid "Add filter"
 msgstr "Ajouter le filtre"
 
@@ -135,7 +161,7 @@ msgid "Data item"
 msgstr "Item de données"
 
 msgid "one of"
-msgstr "parmi"
+msgstr "un "
 
 msgid "contains"
 msgstr "contient"
@@ -171,7 +197,7 @@ msgstr ""
 
 msgid "No valid data was found for the current layer configuration."
 msgstr ""
-"Aucune donnée valide n'a été trouvé pour la configuration de couche "
+"Aucune donnée valide n'a été trouvé pour la configuration de la couche "
 "actuelle."
 
 msgid ""
@@ -203,10 +229,13 @@ msgid "Legend"
 msgstr "Légende"
 
 msgid "Range"
-msgstr "Classe"
+msgstr "Plage"
 
 msgid "Org unit"
 msgstr "Unités d'organisation"
+
+msgid "Org unit boundary"
+msgstr ""
 
 msgid "Event time"
 msgstr "Date de l'évènement"
@@ -238,8 +267,8 @@ msgstr "La description peut être modifiée dans le menu Fichier > Renommer"
 msgid ""
 "Set the map description when you save the map or from File > Rename menu"
 msgstr ""
-"Définissez la description de la carte lorsque vous enregistrez la carte ou à"
-" partir du menu Fichier > Renommer."
+"Donnez une description à la carte lorsque vous l'enregistrez ou depuis le "
+"menu Fichier > Renommer."
 
 msgid "Show legend"
 msgstr "Afficher la légende"
@@ -248,7 +277,7 @@ msgid "Show overview map"
 msgstr "Afficher la carte d'ensemble"
 
 msgid "Show north arrow"
-msgstr "Afficher la flèche du nord"
+msgstr "Afficher la flèche indiquant le nord"
 
 msgid "Include margins in download"
 msgstr "Inclure des marges lors du téléchargement"
@@ -261,7 +290,7 @@ msgstr ""
 msgid ""
 "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr ""
-"Le téléchargement de la carte n'est pas pris en charge par votre navigateur."
+"Le téléchargement de la carte n’est pas pris en charge par votre navigateur."
 " Essayez Google Chrome ou Firefox."
 
 msgid "Cancel"
@@ -278,6 +307,9 @@ msgstr "Unités d'organisation"
 
 msgid "Style"
 msgstr "Style"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "Couleur des points"
@@ -304,7 +336,7 @@ msgid "Earth Engine"
 msgstr "Earth Engine"
 
 msgid "feature"
-msgstr "entité géographique"
+msgstr "fonctionnalité"
 
 msgid "Edit {{name}} layer"
 msgstr "Modifier la couche {{name}}"
@@ -388,43 +420,17 @@ msgstr "Une valeur minimale est requise"
 msgid "Max value is required"
 msgstr "Une valeur maximale est requise"
 
-msgid "Max should be greater than min"
-msgstr "La valeur maximale doit être supérieure à la valeur minimale"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Les étapes valides sont {{minSteps}} à {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Étapes"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
-msgstr "Zone tampon autour des établissements"
+msgstr "Zone tampon de l'établissement"
 
-msgid "Org Units"
-msgstr "Unités d'organisation"
-
-msgid "Filter"
-msgstr "Filtrer"
-
-msgid "Group events"
-msgstr "Regrouper les événements"
-
-msgid "View all events"
-msgstr "Voir tous les événements"
-
-msgid "Radius"
-msgstr "Rayon"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
-"Vous pouvez appliquer un style aux événements par élément de données après "
-"la sélection d'un programme."
 
 msgid "Program is required"
 msgstr "Un programme est requis"
@@ -437,6 +443,45 @@ msgstr "Aucune unité d'organisation sélectionnée"
 
 msgid "No legend set is selected"
 msgstr "Aucun jeu de légendes n'est sélectionné"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Unités d'organisation"
+
+msgid "Filter"
+msgstr "Filtrer"
+
+msgid "Choose from presets"
+msgstr "Choisir parmi les options prédéfinies"
+
+msgid "Define start - end dates"
+msgstr "Définir les dates de début et de fin"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+"Le filtrage est disponible après la sélection d'un stade de programme."
+
+msgid "Group events"
+msgstr "Groupe d'événements"
+
+msgid "View all events"
+msgstr "Voir tous les événements"
+
+msgid "Radius"
+msgstr "Rayon"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Vous pouvez appliquer un style aux événements par élément de données après "
+"la sélection d'un programme."
 
 msgid "Event status"
 msgstr "Statut de l'événement"
@@ -483,14 +528,36 @@ msgstr "Les polygones sont représentés par leur centroïdes."
 msgid "Labels"
 msgstr "Étiquettes"
 
+msgid "Include org units with no data"
+msgstr "Inclure les unités d'organisation sans données"
+
+msgid "No data"
+msgstr "Aucune donnée"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Une période est requise"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+"On ne peut ajouter qu'un maximum de {{number}} périodes (y compris celles "
+"des périodes multiples) à une couche fractionnée."
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Sélectionner au moins {{number}} périodes ou 1 multipériode."
+
 msgid "Aggregation type"
 msgstr "Type d'agrégation"
 
 msgid "Only show completed events"
 msgstr "Afficher uniquement les événements terminés"
-
-msgid "Include org units with no data"
-msgstr "Inclure les unités d'organisation sans données"
 
 msgid "Low radius"
 msgstr "Petit rayon"
@@ -504,37 +571,20 @@ msgstr "Le grand rayon doit être supérieur au petit rayon "
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Le rayon doit se situer entre {{min}} et {{max}}"
 
-msgid "Choose from presets"
-msgstr "Choisir parmi les options prédéfinies"
-
-msgid "Define start - end dates"
-msgstr "Définir les dates de début et de fin"
-
 msgid "Choose periods for all timeline layers"
-msgstr ""
+msgstr "Choisissez des périodes pour toutes les couches chronologiques"
 
 msgid "Selection is initialized from shared periods"
-msgstr ""
+msgstr "La sélection est initialisée à partir des périodes communes"
 
 msgid "Choose periods for all split layers"
-msgstr ""
+msgstr "Sélectionner les périodes pour toutes les couches fractionnées"
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "Une période est requise"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Sélectionner au moins {{number}} périodes ou 1 multipériode."
+msgstr "Les données sont requises"
 
 msgid "Specified radius values are invalid"
-msgstr ""
+msgstr "Les valeurs de rayon indiquées ne sont pas valides"
 
 msgid "Select period when tracked entities were last updated"
 msgstr ""
@@ -552,17 +602,14 @@ msgstr ""
 msgid "Program status"
 msgstr "Statut du programme"
 
+msgid "Tracked Entity Type is required"
+msgstr "Un type d'entité suivie est requis"
+
 msgid "Relationships"
 msgstr "Relations"
 
 msgid "Follow up"
 msgstr "Suivi"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-"Veuillez sélectionner un type d’entité suivie avant de sélectionner un type "
-"de relation"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -573,20 +620,23 @@ msgstr ""
 msgid "Display Tracked Entity relationships"
 msgstr "Afficher les relations des entités suivies"
 
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+"Veuillez sélectionner un type d’entité suivie avant de sélectionner un type "
+"de relation"
+
 msgid "Tracked entity style"
 msgstr "Style d’entité suivie"
 
 msgid "Point size"
-msgstr "Taille de point"
+msgstr "Taille du point"
 
 msgid "Related entity style"
 msgstr "Style des entités associées"
 
 msgid "Line Color"
 msgstr "Couleur de ligne"
-
-msgid "Tracked Entity Type is required"
-msgstr "Un type d'entité suivie est requis"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Aucun type de relation trouvé pour le type d'entité suivie {{type}}"
@@ -595,13 +645,13 @@ msgid "Relationship type"
 msgstr "Type de relation"
 
 msgid "No data to show for this feature."
-msgstr "Aucune donnée pour cette entité géographique."
+msgstr "Aucune donnée n'est disponible pour cette fonctionnalité."
 
 msgid "Feature profile"
 msgstr "Profile de l'entité géographique"
 
 msgid "Remove filter"
-msgstr "Supprimer le filtre"
+msgstr "Retirer le filtre"
 
 msgid "Group set"
 msgstr "Ensemble de groupes"
@@ -637,8 +687,8 @@ msgstr "Fond de carte"
 msgid "Download Layer Data"
 msgstr "Télécharger les données de couche"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Téléchargement des données GeoJSON pour \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -659,14 +709,11 @@ msgstr "Échec du téléchargement des données."
 msgid "External layer"
 msgstr "Couche externe"
 
-msgid "Failed to load layer"
-msgstr "Échec du chargement de la couche"
-
 msgid "Loading layer"
 msgstr "Chargement de la couche"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} supprimé."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Modifier"
@@ -678,7 +725,7 @@ msgid "Layer is invalid"
 msgstr "La couche n'est pas valide"
 
 msgid "Set layer opacity"
-msgstr "Définir l'opacité de la couche"
+msgstr "Définir l’opacité de la couche"
 
 msgid "More actions"
 msgstr "Plus d'actions"
@@ -701,20 +748,83 @@ msgstr "Télécharger les données"
 msgid "Edit layer"
 msgstr "Modifier la couche"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Supprimer la couche"
 
 msgid "Filters"
 msgstr "Filtres"
 
+msgid "Failed to load layer"
+msgstr "Échec du chargement de la couche"
+
 msgid "No data found"
 msgstr "Aucune valeur trouvée"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Unités d'organisation sélectionnées : Coordonnées non trouvées"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Aucune coordonnée trouvée"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "Unités d'organisation sélectionnées : Coordonnées non trouvées"
 
 msgid "Error"
 msgstr "Erreur"
@@ -744,6 +854,8 @@ msgid ""
 "Failed to initialize the map. Your system may not support WebGL. Verify "
 "compatibility here: {{url}}"
 msgstr ""
+"Échec d'initialisation de la carte. Il se peut que votre système ne prenne "
+"pas en charge WebGL. Vérifiez la compatibilité ici : {{url}}"
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Le fond de carte n'a pas pu être ajouté : {{message}}"
@@ -759,9 +871,6 @@ msgstr "Groupes"
 
 msgid "Parent unit"
 msgstr "Unité parente"
-
-msgid "No data"
-msgstr "Aucune donnée"
 
 msgid "Not set"
 msgstr "Non défini"
@@ -780,7 +889,7 @@ msgstr ""
 "instance de DHIS2 ?"
 
 msgid "no value"
-msgstr "pas de valeur"
+msgstr "aucune valeur"
 
 msgid "All"
 msgstr "Tout"
@@ -792,7 +901,7 @@ msgid "acres"
 msgstr "acres"
 
 msgid "Area"
-msgstr "Aire"
+msgstr "Zone"
 
 msgid "Center map on area"
 msgstr "Centrer la carte sur la zone"
@@ -837,16 +946,16 @@ msgid "Perimeter"
 msgstr "Périmètre"
 
 msgid "Reset bearing to north"
-msgstr "Réinitialiser la position sur le Nord"
+msgstr "Réinitialiser l'orientation vers le nord"
 
 msgid "Search for place or address"
 msgstr "Rechercher un lieu ou une adresse"
 
 msgid "Zoom in"
-msgstr "Zoom avant"
+msgstr "Zoomer"
 
 msgid "Zoom out"
-msgstr "Zoom arrière"
+msgstr "Dézoomer"
 
 msgid "Zoom to content"
 msgstr "Zoomer sur le contenu"
@@ -951,17 +1060,18 @@ msgstr "L'année dernière"
 msgid "Next year"
 msgstr "L'année prochaine"
 
-msgid "Start/end dates"
-msgstr "Dates de début/fin"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
+"Supprimez toutes les couches fractionnées pour n'en conserver qu'une seule."
 
 msgid "Remove all split layers to add a timeline layer."
 msgstr ""
+"Supprimez toutes les couches fractionnées pour ajouter une couche "
+"temporelle."
 
 msgid "Remove all other layers to add a split layer."
 msgstr ""
+"Supprimez toutes les autres couches pour ajouter une couche fractionnée."
 
 msgid ""
 "Only up to a total of {{number}} periods (including those in multi-periods) "
@@ -995,8 +1105,8 @@ msgstr ""
 msgid ""
 "Start and end dates are inclusive and will be reflected in the outputs."
 msgstr ""
-"Les dates de début et de fin sont incluses et seront reflétées dans les "
-"résultats."
+"Les dates de début et de fin sont inclusives et seront prises en compte dans"
+" les résultats."
 
 msgid ""
 "Start and end dates must be entered using the ISO 8601 (Gregorian) date "
@@ -1019,6 +1129,12 @@ msgstr "Cliquer pour désépingler la légende"
 
 msgid "Click to pin legend"
 msgstr "Cliquer pour épingler la légende"
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
+msgstr ""
 
 msgid "No program"
 msgstr "Aucun programme"
@@ -1072,34 +1188,34 @@ msgid "OSM Light"
 msgstr "OSM Clair"
 
 msgid "OSM Detailed"
-msgstr "OSM Détaillée"
+msgstr "OSM Detailed"
 
 msgid "Sentinel-2 EOX"
 msgstr "Sentinel-2 EOX"
 
 msgid "Bing Road"
-msgstr "Bing Routes"
+msgstr "Bing Road"
 
 msgid "Bing Dark"
-msgstr "Bing Sombre"
+msgstr "Bing Dark"
 
 msgid "Bing Aerial"
-msgstr "Bing Vue Aérienne"
+msgstr "Bing Aerial"
 
 msgid "Bing Aerial Labels"
-msgstr "Bing Vue Aérienne avec Étiquettes"
+msgstr "Bing Aerial Labels"
 
 msgid "Azure Road"
-msgstr "Azure Routes"
+msgstr "Azure Road"
 
 msgid "Azure Dark"
-msgstr "Azure Sombre"
+msgstr "Azure Dark"
 
 msgid "Azure Aerial"
-msgstr "Azure Vue Aérienne"
+msgstr "Azure Aerial"
 
 msgid "Azure Aerial Labels"
-msgstr "Azure Vue Aérienne avec Étiquettes"
+msgstr "Azure Aerial Labels"
 
 msgid "Building footprints"
 msgstr "Empreintes des bâtiments"
@@ -1130,7 +1246,7 @@ msgid "Number of buildings"
 msgstr "Nombre de bâtiments"
 
 msgid "~0.5 meter"
-msgstr ""
+msgstr "~0.5 mètre"
 
 msgid "Single point in time"
 msgstr "Point unique dans le temps"
@@ -1139,7 +1255,7 @@ msgid "May 2023"
 msgstr "Mai 2023"
 
 msgid "Elevation"
-msgstr "Altitude"
+msgstr "Élévation"
 
 msgid "Elevation above sea-level."
 msgstr "Élévation au-dessus du niveau de la mer."
@@ -1266,13 +1382,13 @@ msgid "unitless"
 msgstr "sans unité"
 
 msgid "~500 meters"
-msgstr ""
+msgstr "~500 mètres"
 
 msgid "Yearly"
 msgstr "Annuel"
 
 msgid "Since 2001"
-msgstr ""
+msgstr "Depuis 2001"
 
 msgid "Evergreen Needleleaf forest"
 msgstr "Forêt de conifères sempervirentes "
@@ -1358,7 +1474,7 @@ msgid "people per hectare"
 msgstr "personnes par hectare"
 
 msgid "Population age groups WorldPop Global1"
-msgstr ""
+msgstr "Tranches d'âge de la population WorldPop Global1"
 
 msgid ""
 "Estimated number of people living in an area, grouped by age and gender."
@@ -1478,7 +1594,7 @@ msgid "Female 80 years and above"
 msgstr "Féminin 80 ans et plus"
 
 msgid "Population WorldPop Global1"
-msgstr ""
+msgstr "Population WorldPop Global1"
 
 msgid "Precipitation"
 msgstr "Précipitations"
@@ -1511,7 +1627,7 @@ msgstr ""
 "nuageuse persistante."
 
 msgid "Population age groups WorldPop Global2"
-msgstr ""
+msgstr "Tranches d'âge de la population WorldPop Global2"
 
 msgid ""
 "The data are produced using a top-down population modelling approach, where "
@@ -1519,30 +1635,35 @@ msgid ""
 "areas likely to be inhabited. Estimates are provided annually and include "
 "current, historical, and projected population values."
 msgstr ""
+"Les données sont obtenues à l'aide d'une méthode de modélisation "
+"démographique descendante, dans laquelle les chiffres officiels de "
+"population sont répartis dans l'espace et limités aux zones susceptibles "
+"d'être habitées. Les estimations sont fournies chaque année et comprennent "
+"les données démographiques actuelles, historiques et prévisionnelles."
 
 msgid "2015 - 2030"
-msgstr ""
+msgstr "2015 - 2030"
 
 msgid "Male 80 - 84 years"
-msgstr ""
+msgstr "Masculin 80 - 84 ans"
 
 msgid "Male 85 - 89 years"
-msgstr ""
+msgstr "Masculin 85 - 89 ans"
 
 msgid "Male 90 years and above"
-msgstr ""
+msgstr "Masculin 90 ans et plus"
 
 msgid "Female 80 - 84 years"
-msgstr ""
+msgstr "Féminin 80 - 84 ans"
 
 msgid "Female 85 - 89 years"
-msgstr ""
+msgstr "Féminin 85 - 89 ans"
 
 msgid "Female 90 years and above"
-msgstr ""
+msgstr "Féminin 90 ans et plus"
 
 msgid "Population WorldPop Global2"
-msgstr ""
+msgstr "Population WorldPop Global2"
 
 msgid "CHIRPS"
 msgstr "CHIRPS"
@@ -1640,7 +1761,7 @@ msgstr ""
 "L'indice de végétation amélioré (EVI) est similaire au NDVI, à la différence que l'EVI corrige certaines conditions atmosphériques et le bruit de fond de la canopée et est plus sensible dans les zones à végétation dense."
 
 msgid "~250 meters"
-msgstr ""
+msgstr "~250 mètres"
 
 msgid "16-day"
 msgstr "16 jours"
@@ -1693,6 +1814,18 @@ msgstr "Intervalles égaux"
 msgid "Equal counts"
 msgstr "Effectifs égaux (quantiles)"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Symbole"
 
@@ -1730,19 +1863,25 @@ msgid "Six-monthly April"
 msgstr "Semestriel Avril"
 
 msgid "Financial year (Start November)"
-msgstr "Exercice financier (à partir de novembre)"
+msgstr "Année fiscale (Débutant par novembre)"
 
 msgid "Financial year (Start October)"
-msgstr "Exercice financier (à partir d'octobre)"
+msgstr "Année fiscale (Débutant par octobre)"
 
 msgid "Financial year (Start July)"
-msgstr "Exercice financier (à partir de juillet)"
+msgstr "Année fiscale (Débutant par juillet)"
 
 msgid "Financial year (Start April)"
-msgstr "Exercice financier (à partir d'avril)"
+msgstr "Année fiscale (à partir d'avril)"
+
+msgid "Start/end dates"
+msgstr "Dates de début/fin"
 
 msgid "Cancelled"
 msgstr "Annulé"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "Couche Earth Engine"
@@ -1764,17 +1903,17 @@ msgstr "Affichage des premiers événements de {{pageSize}} sur {{total}}"
 msgid "Event"
 msgstr "Evènement"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Établissements"
 
 msgid "an error occurred"
 msgstr "une erreur s'est produite"
 
-msgid "GroupSet used for styling was not found"
-msgstr "Le GroupSet utilisé pour le style n'a pas été trouvé"
-
-msgid "No coordinates found for selected facilities"
-msgstr "Pas de coordonnées trouvées pour les établissements sélectionnés"
+msgid "No point locations found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1782,7 +1921,7 @@ msgstr ""
 "système."
 
 msgid "Feature"
-msgstr "Entité géographique"
+msgstr "fonctionnalité"
 
 msgid "Polygon"
 msgstr "Polygone"
@@ -1805,11 +1944,11 @@ msgstr "Item de données non trouvé"
 msgid "Thematic layer"
 msgstr "Couche thématique "
 
-msgid "Tracked entity"
-msgstr "Entité suivie"
-
 msgid "related"
 msgstr "associé"
+
+msgid "Tracked entity"
+msgstr "Entité suivie"
 
 msgid "not one of"
 msgstr "pas parmi"
@@ -1862,8 +2001,8 @@ msgstr "Unités d'organisation"
 msgid "Facility"
 msgstr "Établissement"
 
-msgid "Other"
-msgstr "Autre"
+msgid "GroupSet used for styling was not found"
+msgstr "L'ensemble de groupe utilisé pour le style n'a pas été trouvé"
 
 msgid "Start date is invalid"
 msgstr "La date de début n'est pas valable"
@@ -1873,3 +2012,11 @@ msgstr "La date de fin n'est pas valable"
 
 msgid "End date cannot be earlier than start date"
 msgstr "La date de fin ne peut pas précéder la date début"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Cartes"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""
