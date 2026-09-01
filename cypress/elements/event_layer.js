@@ -53,6 +53,18 @@ export class EventLayer extends Layer {
         return this
     }
 
+    selectRadius(radius) {
+        cy.getByDataTest('eventdialog-styletab')
+            .find('input[type="number"]')
+            .as('radiusInput')
+
+        cy.get('@radiusInput').clear()
+        cy.get('@radiusInput').type(radius)
+        cy.get('@radiusInput').blur()
+
+        return this
+    }
+
     selectIncludeUnclassifiedEvents() {
         cy.contains('Include unclassified events').click()
 
