@@ -67,6 +67,8 @@ class ThematicLayer extends Layer {
             color: noDataLegend?.color,
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
 
         if (labels) {
@@ -190,52 +192,38 @@ class ThematicLayer extends Layer {
         return <Fragment>{popup && this.getPopup()}</Fragment>
     }
 
-    highlightFeature(feature) {
-        const { thematicMapType = THEMATIC_CHOROPLETH } = this.props
-        if (thematicMapType === THEMATIC_BUBBLE) {
-            // LayerGroup has no highlight(); delegate to each sub-layer
-            this.layer?._layers?.forEach((l) => {
-                if (l.highlight) {
-                    l.highlight(feature ? feature.id : null)
-                }
-            })
-        } else {
-            super.highlightFeature(feature)
-        }
-    }
-
     componentDidUpdate(prevProps) {
-        const prevPeriodId = prevProps.externalPeriod?.id
-        const newPeriodId = this.props.externalPeriod?.id
-
-        const dataChanged = prevProps.data !== this.props.data
-        const valuesChanged =
-            prevProps.valuesByPeriod !== this.props.valuesByPeriod
-        const filtersChanged = prevProps.dataFilters !== this.props.dataFilters
-        const renderingChanged =
-            prevProps.renderingStrategy !== this.props.renderingStrategy
-
-        if (
-            !dataChanged &&
-            !valuesChanged &&
-            !filtersChanged &&
-            !renderingChanged &&
-            prevPeriodId === newPeriodId
-        ) {
-            this.setLayerOpacity()
-            this.setLayerVisibility()
-            this.setLayerOrder()
-            const { feature } = this.props
-            if (feature !== prevProps.feature) {
-                this.handleFeatureUpdate(feature)
-            }
+        if (this.canSkipRebuild(prevProps)) {
+            this.handleIndexChange(prevProps)
+            this.handleOpacityChange(prevProps)
+            this.handleVisibilityChange(prevProps)
+            this.handleFeatureChange(prevProps)
+            this.handleSelectionChange(prevProps)
+            this.handleHighlightColorChange(prevProps)
+            this.handleVisibleIdsChange(prevProps)
             return
         }
 
-        const { valuesByPeriod, thematicMapType = THEMATIC_CHOROPLETH } =
-            this.props
+        this.rebuildPeriodData()
+        this.syncPopupForNewPeriod()
+    }
 
-        // Rebuild the period-specific data the same way as in createLayer
+    canSkipRebuild(prevProps) {
+        const prevPeriodId = prevProps.externalPeriod?.id
+        const newPeriodId = this.props.externalPeriod?.id
+
+        return (
+            prevProps.data === this.props.data &&
+            prevProps.valuesByPeriod === this.props.valuesByPeriod &&
+            prevProps.dataFilters === this.props.dataFilters &&
+            prevProps.renderingStrategy === this.props.renderingStrategy &&
+            prevPeriodId === newPeriodId
+        )
+    }
+
+    // Rebuild the period-specific data the same way as in createLayer
+    rebuildPeriodData() {
+        const { thematicMapType = THEMATIC_CHOROPLETH } = this.props
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
         const filteredData = this.buildPeriodData()
 
@@ -248,7 +236,9 @@ class ThematicLayer extends Layer {
         ) {
             try {
                 this.layer.setData(filteredData)
-                this.highlightFeature(this.props.feature)
+                this.highlightFeature()
+                this.selectFeatures()
+                this.updateVisibleIds()
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error
@@ -258,34 +248,39 @@ class ThematicLayer extends Layer {
             // Recreate layer to pick up changes
             this.updateLayer()
         }
+    }
 
-        // Sync popup contents if open
+    // Sync popup contents if open
+    syncPopupForNewPeriod() {
         const { popup } = this.state
-        if (popup && this.props.externalPeriod) {
-            const newValues =
-                (valuesByPeriod &&
-                    this.props.externalPeriod &&
-                    valuesByPeriod[this.props.externalPeriod.id]) ||
-                {}
-            const updatedPopup = {
-                ...popup,
-                feature: {
-                    ...popup.feature,
-                    properties: {
-                        ...popup.feature.properties,
-                        ...(newValues[popup.feature.properties.id] || {
-                            value: i18n.t('Not set'),
-                        }),
-                    },
-                },
-            }
-
-            this.setState({ popup: updatedPopup })
+        if (!popup || !this.props.externalPeriod) {
+            return
         }
+
+        const { valuesByPeriod, externalPeriod } = this.props
+        const newValues = valuesByPeriod?.[externalPeriod.id] || {}
+        const updatedPopup = {
+            ...popup,
+            feature: {
+                ...popup.feature,
+                properties: {
+                    ...popup.feature.properties,
+                    ...(newValues[popup.feature.properties.id] || {
+                        value: i18n.t('Not set'),
+                    }),
+                },
+            },
+        }
+
+        this.setState({ popup: updatedPopup })
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt })
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({ popup: evt })
+        }
     }
 
     buildPeriodData(props = this.props) {

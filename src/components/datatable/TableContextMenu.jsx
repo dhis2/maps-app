@@ -24,7 +24,7 @@ import { drillUpDown } from '../../util/map.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { IconZoomIn16 } from '../core/icons.jsx'
 
-const TableContextMenu = ({ contextMenu, layer, onClose }) => {
+const TableContextMenu = ({ contextMenu, layer, selectedIds, onClose }) => {
     const anchorRef = useRef()
     const dispatch = useDispatch()
     const {
@@ -159,6 +159,38 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
                             }}
                         />
                     )}
+                    <MenuItem
+                        dataTest="data-table-context-menu-zoom-to-layer"
+                        label={i18n.t('Zoom to layer')}
+                        icon={<IconZoomIn16 />}
+                        onClick={() => {
+                            dispatch(
+                                highlightFeature({
+                                    layerId: layer.id,
+                                    origin: 'table',
+                                    zoom: true,
+                                })
+                            )
+                            onClose()
+                        }}
+                    />
+                    <MenuItem
+                        dataTest="data-table-context-menu-zoom-to-selected"
+                        label={i18n.t('Zoom to selected features')}
+                        icon={<IconZoomIn16 />}
+                        disabled={!selectedIds?.length}
+                        onClick={() => {
+                            dispatch(
+                                highlightFeature({
+                                    ids: selectedIds,
+                                    layerId: layer.id,
+                                    origin: 'table',
+                                    zoom: true,
+                                })
+                            )
+                            onClose()
+                        }}
+                    />
                 </Menu>
             </Popover>
         </>
@@ -173,6 +205,7 @@ TableContextMenu.propTypes = {
         x: PropTypes.number,
         y: PropTypes.number,
     }),
+    selectedIds: PropTypes.array,
 }
 
 export default TableContextMenu
