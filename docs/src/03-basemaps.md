@@ -7,6 +7,9 @@ The following basemaps are available by default:
 
 -   **OSM Light**: A minimal, light-colored map based on OpenStreetMap data. This is the default
     basemap.
+-   **OSM Dark**: A dark-themed map based on OpenStreetMap data. Useful when the colors on your data
+    layers are bright.
+-   **OSM Fiord**: A muted, blue-toned map based on OpenStreetMap data.
 -   **OSM Detailed**: Contains more map features and place names.
 -   **Sentinel-2 EOX**: Cloud-free satellite imagery showing natural-color views of the Earth's
     surface at 10m resolution.
