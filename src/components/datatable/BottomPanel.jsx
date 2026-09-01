@@ -3,6 +3,7 @@ import { IconCross16, IconFilter16, Tooltip } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
+    useMemo,
     useState,
     useEffect,
     useLayoutEffect,
@@ -103,16 +104,17 @@ const BottomPanel = () => {
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
-    let rowCountLabel = null
-    if (totalCount !== null && filteredCount !== null) {
-        rowCountLabel =
-            filteredCount < totalCount
-                ? i18n.t('{{filtered}} of {{total}} rows', {
-                      filtered: filteredCount,
-                      total: totalCount,
-                  })
-                : i18n.t('{{total}} rows', { total: totalCount })
-    }
+    const rowCountLabel = useMemo(() => {
+        if (totalCount === null || filteredCount === null) {
+            return null
+        }
+        return filteredCount < totalCount
+            ? i18n.t('{{filtered}} of {{total}} rows', {
+                  filtered: filteredCount,
+                  total: totalCount,
+              })
+            : i18n.t('{{total}} rows', { total: totalCount })
+    }, [totalCount, filteredCount])
 
     return (
         <div
@@ -138,14 +140,7 @@ const BottomPanel = () => {
                     createPortal(
                         <div
                             className={styles.nameTooltip}
-                            style={{
-                                top: nameTooltipPos.top,
-                                left: nameTooltipPos.left,
-                                color: nameTooltipPos.color,
-                                fontSize: nameTooltipPos.fontSize,
-                                lineHeight: nameTooltipPos.lineHeight,
-                                paddingLeft: nameTooltipPos.paddingLeft,
-                            }}
+                            style={nameTooltipPos}
                         >
                             {activeLayer?.name}
                         </div>,
