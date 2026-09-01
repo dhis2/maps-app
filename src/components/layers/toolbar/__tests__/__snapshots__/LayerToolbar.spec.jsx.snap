@@ -9,6 +9,7 @@ exports[`LayerToolbar Should render edit button 1`] = `
     <button
       class="iconButton editButton"
       data-test="layer-edit-button"
+      type="button"
     >
       <div>
         <svg
@@ -27,6 +28,7 @@ exports[`LayerToolbar Should render edit button 1`] = `
     <button
       class="iconButton visible"
       data-test="visibilitybutton"
+      type="button"
     >
       <div>
         <div>
@@ -72,6 +74,7 @@ exports[`LayerToolbar Should render only a visibility toggle and opacity slider 
     <button
       class="iconButton visible"
       data-test="visibilitybutton"
+      type="button"
     >
       <div>
         <div>
@@ -117,6 +120,7 @@ exports[`LayerToolbar Should show SvgViewOff24 when not visible 1`] = `
     <button
       class="iconButton notvisible"
       data-test="visibilitybutton"
+      type="button"
     >
       <div>
         <div>
