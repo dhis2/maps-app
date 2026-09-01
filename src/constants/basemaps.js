@@ -30,6 +30,26 @@ export const defaultBasemaps = () =>
             isDark: false,
         },
         {
+            id: 'osmDark',
+            name: i18n.t('OSM Dark'),
+            img: 'images/osmdark.png',
+            config: {
+                type: VECTOR_STYLE,
+                url: 'https://tiles.openfreemap.org/styles/dark',
+            },
+            isDark: true,
+        },
+        {
+            id: 'osmFiord',
+            name: i18n.t('OSM Fiord'),
+            img: 'images/osmfiord.png',
+            config: {
+                type: VECTOR_STYLE,
+                url: 'https://tiles.openfreemap.org/styles/fiord',
+            },
+            isDark: true,
+        },
+        {
             id: 'openStreetMap',
             name: i18n.t('OSM Detailed'),
             img: 'images/osm.png',
