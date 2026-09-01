@@ -24,6 +24,13 @@ import { drillUpDown } from '../../util/map.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { IconZoomIn16 } from '../core/icons.jsx'
 
+const UNDRILLABLE_LAYERS = new Set([
+    BOUNDARY_LAYER,
+    FACILITY_LAYER,
+    EVENT_LAYER,
+    GEOJSON_URL_LAYER,
+])
+
 const TableContextMenu = ({ contextMenu, layer, onClose }) => {
     const anchorRef = useRef()
     const dispatch = useDispatch()
@@ -48,11 +55,7 @@ const TableContextMenu = ({ contextMenu, layer, onClose }) => {
         parentGraph,
     } = featureProps || {}
 
-    const canDrill =
-        layerType !== BOUNDARY_LAYER &&
-        layerType !== FACILITY_LAYER &&
-        layerType !== EVENT_LAYER &&
-        layerType !== GEOJSON_URL_LAYER
+    const canDrill = !UNDRILLABLE_LAYERS.has(layerType)
 
     const canViewProfile = id && layerType !== EVENT_LAYER
 
