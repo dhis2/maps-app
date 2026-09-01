@@ -1,3 +1,10 @@
+## [101.16.1](https://github.com/dhis2/maps-app/compare/v101.16.0...v101.16.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* improve download settings UX for north arrow, map name tooltip and footer note [DHIS2-15792] ([#3662](https://github.com/dhis2/maps-app/issues/3662)) ([59dccdf](https://github.com/dhis2/maps-app/commit/59dccdff5821d32ca4c3a77f30f9211f19795f76))
+
 # [101.16.0](https://github.com/dhis2/maps-app/compare/v101.15.0...v101.16.0) (2026-07-14)
 
 
