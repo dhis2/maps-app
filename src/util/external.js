@@ -73,19 +73,18 @@ const createExternalLayerConfig = (model) => {
     }
 }
 
-// Parse external layer config returned as a string in ao
 export const parseLayerConfig = async (layerConfig, engine) => {
     let config
 
     try {
         config = JSON.parse(layerConfig)
     } catch (error_) {
-        return
+        return { config: {} }
     }
 
     // We could use the config object as stored, but better to
     // use a fresh layer config from the API
-    if (config.id) {
+    if (config?.id) {
         try {
             const { externalLayer } = await engine.query(
                 { externalLayer: EXTERNAL_MAP_LAYER_QUERY },
@@ -97,10 +96,12 @@ export const parseLayerConfig = async (layerConfig, engine) => {
             )
             const newConfig = createExternalLayerConfig(externalLayer)
             newConfig.featureStyle = { ...config.featureStyle }
+            newConfig.dataTableColumnConfig = config.dataTableColumnConfig
+            return { config: newConfig }
         } catch (error_) {
-            return config
+            return { config, notFound: true }
         }
     }
 
-    return config
+    return { config }
 }

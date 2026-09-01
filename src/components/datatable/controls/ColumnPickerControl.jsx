@@ -16,17 +16,25 @@ import {
     sortableKeyboardCoordinates,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
-import { arrayMoveImmutable } from 'array-move'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useCallback, useLayoutEffect, useRef, useState } from 'react'
+import React, {
+    useCallback,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react'
 import { createPortal } from 'react-dom'
 import { useDispatch } from 'react-redux'
 import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import {
+    filterHeadersByName,
+    getDefaultVisibleKeys,
+    getOrderedHeaders,
     getPinnedCount,
-    getVisibleHeaders,
     isPinnedGroupEnd,
+    reorderHeaderKeys,
     reverseVisibleKeys,
     togglePinnedKey,
     toggleVisibleKey,
@@ -37,8 +45,14 @@ import styles from './styles/ColumnPickerControl.module.css'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const DRAG_OVERLAY_Z_INDEX = 2100
+const EMPTY_HEADERS = []
+const EMPTY_KEYS = []
 
-const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
+const ColumnPickerControl = React.memo(function ColumnPickerControl({
+    layerId,
+    allHeaders,
+    columnConfig,
+}) {
     const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -65,20 +79,26 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
         }
     }, [])
 
-    const headers = allHeaders ?? []
+    const headers = allHeaders ?? EMPTY_HEADERS
 
     const visibleKeys =
-        columnConfig?.visibleKeys ?? headers.map((h) => h.dataKey)
-    const pinnedKeys = columnConfig?.pinnedKeys ?? []
+        columnConfig?.visibleKeys ?? getDefaultVisibleKeys(headers)
+    const pinnedKeys = columnConfig?.pinnedKeys ?? EMPTY_KEYS
     const orderedKeys =
         columnConfig?.orderedKeys ?? headers.map((h) => h.dataKey)
 
-    const orderedHeaders = getVisibleHeaders(headers, {
-        orderedKeys,
-        pinnedKeys,
-    })
+    const orderedHeaders = useMemo(
+        () =>
+            isOpen
+                ? getOrderedHeaders(headers, { orderedKeys, pinnedKeys })
+                : EMPTY_HEADERS,
+        [isOpen, headers, orderedKeys, pinnedKeys]
+    )
 
-    const pinnedCount = getPinnedCount(orderedHeaders, pinnedKeys)
+    const pinnedCount = useMemo(
+        () => (isOpen ? getPinnedCount(orderedHeaders, pinnedKeys) : 0),
+        [isOpen, orderedHeaders, pinnedKeys]
+    )
 
     const updateConfig = (partial) =>
         dispatch(
@@ -112,8 +132,12 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
     const onResetToDefaults = () =>
         dispatch(setDataTableColumnConfig(layerId, undefined))
 
-    const filteredHeaders = orderedHeaders.filter((h) =>
-        h.name.toLowerCase().includes(search.trim().toLowerCase())
+    const filteredHeaders = useMemo(
+        () =>
+            isOpen
+                ? filterHeadersByName(orderedHeaders, search)
+                : EMPTY_HEADERS,
+        [isOpen, orderedHeaders, search]
     )
 
     const sensors = useSensors(
@@ -132,19 +156,12 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
         setActiveId(null)
 
         if (over && active.id !== over.id) {
-            const oldIndex = orderedHeaders.findIndex(
-                (h) => h.dataKey === active.id
+            const nextOrder = reorderHeaderKeys(
+                orderedHeaders,
+                active.id,
+                over.id
             )
-            const newIndex = orderedHeaders.findIndex(
-                (h) => h.dataKey === over.id
-            )
-
-            if (oldIndex !== -1 && newIndex !== -1) {
-                const nextOrder = arrayMoveImmutable(
-                    orderedHeaders,
-                    oldIndex,
-                    newIndex
-                ).map((h) => h.dataKey)
+            if (nextOrder) {
                 updateConfig({ orderedKeys: nextOrder })
             }
         }
@@ -292,7 +309,7 @@ const ColumnPickerControl = ({ layerId, allHeaders, columnConfig }) => {
             )}
         </>
     )
-}
+})
 
 ColumnPickerControl.propTypes = {
     layerId: PropTypes.string.isRequired,

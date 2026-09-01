@@ -179,6 +179,7 @@ const thematicLoader = async ({
             legend: null,
             isLoaded: true,
             isLoading: false,
+            isExpanded: true,
             loadError,
         }
     }
@@ -541,6 +542,10 @@ const thematicLoader = async ({
 
                 Object.assign(item, {
                     ...getFeatureColor(legendItem, {
+                        isNoData,
+                        isUnclassified,
+                    }),
+                    ...getFeatureLegend(legendItem, {
                         isNoData,
                         isUnclassified,
                     }),
