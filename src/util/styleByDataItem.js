@@ -5,6 +5,8 @@ import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_LOGARITHMIC,
     CLASSIFICATION_STANDARD_DEVIATION,
+    GEOMETRY_SOURCE_DATA_ITEM_ID,
+    COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
@@ -68,7 +70,9 @@ const addFeature = (acc, feature, { item, value }) => {
 // This function is modifiyng the config object before it's added to the redux store
 export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
-    if (styleDataItem.optionSet) {
+    if (styleDataItem.id === GEOMETRY_SOURCE_DATA_ITEM_ID) {
+        await styleByGeometrySource(config)
+    } else if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config, engine)
@@ -77,6 +81,47 @@ export const styleByDataItem = async (config, engine) => {
     } else {
         await styleByDefault(config, engine)
     }
+
+    return config
+}
+
+const styleByGeometrySource = async (config) => {
+    const { styleDataItem, data, legend, eventPointRadius, noDataLegend } =
+        config
+    const { values } = styleDataItem
+
+    // Build legend items from stored color-per-source values
+    legend.unit = i18n.t('Geometry source')
+    legend.items = Object.entries(values || {}).map(([sourceId, color]) => ({
+        name: COORDINATE_FIELD_NAMES[sourceId] ?? sourceId,
+        color,
+        sourceId,
+    }))
+
+    const { noDataLegendItem } = addSpecialLegendItems(legend, { noDataLegend })
+    stampLegendItems(legend.items, eventPointRadius)
+
+    const itemBySource = Object.fromEntries(
+        legend.items.filter((i) => i.sourceId).map((i) => [i.sourceId, i])
+    )
+
+    config.data = data.reduce((acc, feature) => {
+        const geometrySource = feature.properties[GEOMETRY_SOURCE_DATA_ITEM_ID]
+        const item = geometrySource ? itemBySource[geometrySource] : null
+        const isNoData = !geometrySource || !item
+
+        if (isNoData && !noDataLegendItem) {
+            return acc
+        }
+
+        addFeature(acc, feature, {
+            item: isNoData ? noDataLegendItem : item,
+            value: isNoData
+                ? i18n.t('Not set')
+                : COORDINATE_FIELD_NAMES[geometrySource] ?? geometrySource,
+        })
+        return acc
+    }, [])
 
     return config
 }
