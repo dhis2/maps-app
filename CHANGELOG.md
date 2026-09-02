@@ -1,3 +1,10 @@
+# [101.17.0](https://github.com/dhis2/maps-app/compare/v101.16.2...v101.17.0) (2026-09-02)
+
+
+### Features
+
+* replace OSM Light basemap with OpenFreeMap, add Dark and Fiord [DHIS2-22028] ([#3756](https://github.com/dhis2/maps-app/issues/3756)) ([294776f](https://github.com/dhis2/maps-app/commit/294776fefb8dbbe48e7bf85ca7fe73fd5129697f))
+
 ## [101.16.2](https://github.com/dhis2/maps-app/compare/v101.16.1...v101.16.2) (2026-09-01)
 
 
