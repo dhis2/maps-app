@@ -9,7 +9,6 @@ import {
     toggleBasemapVisibility,
     selectBasemap,
 } from '../../../actions/basemap.js'
-import { VECTOR_STYLE } from '../../../constants/layers.js'
 import useBasemapConfig from '../../../hooks/useBasemapConfig.js'
 import LayerCard from '../LayerCard.jsx'
 import BasemapList from './BasemapList.jsx'
@@ -34,7 +33,6 @@ const BasemapCard = (props) => {
                 </ComponentCover>
             ) : (
                 <LayerCard
-                    hasOpacity={basemap.config.type !== VECTOR_STYLE}
                     title={basemap.name}
                     subtitle={subtitle}
                     opacity={basemap.opacity}
