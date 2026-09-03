@@ -2431,10 +2431,10 @@
   resolved "https://registry.yarnpkg.com/@dhis2/data-engine/-/data-engine-3.17.3.tgz#0347416e9919efbf4d9739c4141fa543f89669ad"
   integrity sha512-hLXt7LFrFitR7QgKfGQ3ComTLrY5IAdtERonhdo/SIrsRYWoeVaMiCOkUUzC48pEaeo1/BL5qwA7Tw7jZgROQw==
 
-"@dhis2/maps-gl@^4.4.1":
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.4.1.tgz#af057c065a03a19b60edcd9f8c5148dee8a64697"
-  integrity sha512-kfFZaR0PrOcaPLQb4jUQVVduKw+i2JYfzA0ActbVHU9tsMsZpuSn5L/Q1DVU++SEf8lXWSLxcuLcDX54XGTr7Q==
+"@dhis2/maps-gl@^4.4.3":
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/@dhis2/maps-gl/-/maps-gl-4.4.3.tgz#5584caee92c3fd164e3ab2cb67b78a428c7d1cb3"
+  integrity sha512-C2aDFNV3l3v5wbo0LJHr1lydQE6St04U11kCXtzU1WGqnEMEZKzuHyEoCfhIa/gas3e7HpNVfAbL1ZHI1OqDSw==
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^7.3.5"
