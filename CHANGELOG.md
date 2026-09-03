@@ -1,3 +1,10 @@
+## [101.17.1](https://github.com/dhis2/maps-app/compare/v101.17.0...v101.17.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* restore overlay interactivity after switching vector basemaps ([eb37902](https://github.com/dhis2/maps-app/commit/eb37902b214bcafeef6eb7126d3d05ccc0b57484))
+
 # [101.17.0](https://github.com/dhis2/maps-app/compare/v101.16.2...v101.17.0) (2026-09-02)
 
 
