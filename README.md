@@ -46,6 +46,19 @@ To record tests in Cypress Cloud, you can use one of the following methods based
 
 This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
 
+## Claude Code Setup (optional)
+
+One-time setup, for a smoother experience:
+
+1. Install [`jq`](https://jqlang.org/) — the auto-format/lint hook run after every file edit depends on it.
+2. Install the [GitHub CLI](https://cli.github.com/) (`gh`) — most of the PR-related skills (`pre-review`, `pr-polish`, `mockup-pr`, `pr-chain`, `branch-update`, ...) use it to read (and, only on your explicit go-ahead in the moment, write) PR/CI state. Without it, those skills fall back to plain `curl` against the public GitHub REST API, which only covers reads.
+3. Export a read-only-scoped `GH_TOKEN` (a [fine-grained PAT](https://github.com/settings/personal-access-tokens/new) with just Pull requests/Contents/Actions: Read) so `gh` can read PRs/CI without ever being able to write, merge, or admin on its own.
+4. Run `/plugin install context7@claude-plugins-official` then `/reload-plugins` in Claude Code (chrome-devtools-mcp is already enabled via the committed settings).
+
+`curl` (used as the read-only fallback whenever `gh` isn't set up, and for the tokenless SonarCloud queries in `pre-review`/`sonarqube-fix`) is virtually always preinstalled — nothing to do there. `git`, `yarn`, and `node`/`npx` are already prerequisites for this repo generally (see above), not something new for the Claude Code tooling specifically.
+
+`CLAUDE.md` and `.claude/skills/` are read automatically — see CLAUDE.md's "Skills in this repo" and "Subagents in this repo" sections for the current list (kept there, not duplicated here, so it doesn't go stale as the tooling grows).
+
 ## Learn More
 
 You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).
