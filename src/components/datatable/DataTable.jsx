@@ -180,8 +180,8 @@ const Table = ({
     })
 
     useEffect(() => {
-        onHeadersChange?.(headers)
-    }, [onHeadersChange, headers])
+        onHeadersChange?.(headers, activeLayerId)
+    }, [onHeadersChange, headers, activeLayerId])
 
     const columnConfig = layer.dataTableColumnConfig
     const pinnedKeys = useMemo(
