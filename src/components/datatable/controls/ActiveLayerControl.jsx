@@ -6,7 +6,7 @@ import styles from './styles/ActiveLayerControl.module.css'
 
 const ActiveLayerControl = ({ name }) => {
     const nameRef = useRef(null)
-    const [nameTooltipPos, setNameTooltipPos] = useState(null)
+    const [nameTooltipProps, setNameTooltipProps] = useState(null)
 
     const onMouseEnter = useCallback(() => {
         const el = nameRef.current
@@ -19,7 +19,7 @@ const ActiveLayerControl = ({ name }) => {
         const verticalPadding = getCssVar(
             '--data-table-name-tooltip-vertical-padding'
         )
-        setNameTooltipPos({
+        setNameTooltipProps({
             top: rect.top + (rect.height - lineHeight) / 2 - verticalPadding,
             left: rect.left,
             color: computed.color,
@@ -30,7 +30,7 @@ const ActiveLayerControl = ({ name }) => {
         })
     }, [])
 
-    const onMouseLeave = useCallback(() => setNameTooltipPos(null), [])
+    const onMouseLeave = useCallback(() => setNameTooltipProps(null), [])
 
     return (
         <>
@@ -42,18 +42,18 @@ const ActiveLayerControl = ({ name }) => {
             >
                 {name}
             </span>
-            {nameTooltipPos &&
+            {nameTooltipProps &&
                 createPortal(
                     <div
                         className={styles.nameTooltip}
                         style={{
-                            top: nameTooltipPos.top,
-                            left: nameTooltipPos.left,
-                            color: nameTooltipPos.color,
-                            fontSize: nameTooltipPos.fontSize,
-                            fontWeight: nameTooltipPos.fontWeight,
-                            lineHeight: nameTooltipPos.lineHeight,
-                            paddingLeft: nameTooltipPos.paddingLeft,
+                            top: nameTooltipProps.top,
+                            left: nameTooltipProps.left,
+                            color: nameTooltipProps.color,
+                            fontSize: nameTooltipProps.fontSize,
+                            fontWeight: nameTooltipProps.fontWeight,
+                            lineHeight: nameTooltipProps.lineHeight,
+                            paddingLeft: nameTooltipProps.paddingLeft,
                         }}
                     >
                         {name}
