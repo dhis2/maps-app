@@ -15,6 +15,8 @@ export const useColumnWidths = ({ availableWidth, headers, error }) => {
 
                 const measuredColumnWidths = []
 
+                // Cell 0 is the checkbox column, which DataTable.jsx gives a
+                // fixed width - only the data columns need measuring/resizing
                 const dataCells = Array.from(headerRowRef.current.cells).slice(
                     1
                 )
