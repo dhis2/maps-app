@@ -1,0 +1,50 @@
+/* !important beats core/IconButton's own 28px/grey700/grey200-hover defaults. */
+.toolbarIconButton {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 0 !important;
+    border-radius: 3px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-shrink: 0;
+}
+
+.toolbarIconButton svg {
+    color: var(--colors-grey800) !important;
+}
+
+.toolbarIconButton > span {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+.toolbarIconButton:not(:disabled):hover {
+    background-color: var(--colors-grey300) !important;
+}
+
+.toolbarIconButton:not(:disabled):hover svg {
+    color: var(--colors-grey900) !important;
+}
+
+.toolbarIconButton:disabled {
+    cursor: not-allowed;
+}
+
+.toolbarIconButton:disabled svg {
+    color: var(--colors-grey400) !important;
+}
+
+.active {
+    background-color: var(--colors-blue100) !important;
+}
+
+.active svg {
+    color: var(--colors-blue700) !important;
+}
+
+.active:hover {
+    background-color: var(--colors-blue200) !important;
+}

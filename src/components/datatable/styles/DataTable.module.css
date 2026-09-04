@@ -1,28 +1,24 @@
-.dataTable {
-    height: 1px;
-    border: none !important;
-}
-
-.dataTable > :global(thead) {
-    user-select: none;
-}
-
-td.dataCell {
+td.dataCell,
+th.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
     overflow-wrap: anywhere;
+    vertical-align: middle;
 }
 
-td.dataCell:hover {
+td.dataCell:hover,
+th.dataCell:hover {
     cursor: default;
 }
 
-td.lightText {
+td.lightText,
+th.lightText {
     color: var(--colors-white);
 }
 
-td.monoCell {
+td.monoCell,
+th.monoCell {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
@@ -33,6 +29,11 @@ td.checkboxCell {
     max-width: 76px;
     text-align: center;
     padding: 0;
+    vertical-align: middle;
+}
+
+.checkboxCell input[type='checkbox'] {
+    accent-color: var(--colors-teal600);
 }
 
 .checkboxHeaderContent {
@@ -42,41 +43,18 @@ td.checkboxCell {
     gap: 2px;
 }
 
-.selectionFilterButton {
-    width: 100%;
-    height: 24px;
-    font-size: 11px;
-    padding: 4px 6px;
-    border: 1px solid var(--colors-grey500);
-    border-radius: 3px;
-    box-shadow: inset 0 0 1px 0 rgba(48, 54, 60, 0.1);
-    background: var(--colors-white);
-    cursor: pointer;
-    text-align: left;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.selectionFilterPopover {
-    padding: var(--spacers-dp8);
-    min-width: 140px;
-    background-color: var(--colors-white);
-    border-radius: 4px;
-    box-shadow: var(--elevations-popover);
-}
-
-/* !important beats @dhis2/ui's own Checkbox label font-size. */
-.selectionFilterPopover :global(label) {
-    font-size: 11px !important;
-}
-
-td.selected {
+td.selected,
+th.selected {
     background-color: var(--colors-blue050);
 }
 
-td.hovered {
+td.hovered,
+th.hovered {
     background-color: var(--colors-blue100);
+}
+
+.pinnedColumnShadow {
+    box-shadow: 2px 0 4px -2px rgba(12, 14, 16, 0.15);
 }
 
 .columnHeader > :global(span.container),
@@ -86,7 +64,7 @@ td.hovered {
 
 .headerContent {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     min-width: 0;
     gap: 2px;
 }
@@ -104,6 +82,14 @@ td.hovered {
     border-radius: 4px;
     background: transparent;
     cursor: pointer;
+}
+
+.reverseButton svg {
+    flex-shrink: 0;
+}
+
+.reverseButton:hover:not(:disabled) {
+    background: var(--colors-grey400);
 }
 
 .sortButton {
@@ -134,19 +120,6 @@ td.hovered {
     cursor: not-allowed;
 }
 
-.topTooltipContent {
-    z-index: 2000;
-    max-width: 300px;
-    padding: 4px 6px;
-    background-color: var(--colors-grey900);
-    border-radius: 3px;
-    color: var(--colors-white);
-    font-size: 13px;
-    line-height: 17px;
-    word-break: normal;
-    overflow-wrap: break-word;
-}
-
 .columnHeader :global(input.dense) {
     padding: 4px 6px;
     font-size: 11px;
@@ -165,32 +138,6 @@ td.hovered {
     > :global(span.top)
     > button:last-of-type {
     display: none;
-}
-
-.noResults {
-    display: flex;
-    color: var(--colors-grey600);
-    align-items: center;
-    justify-content: center;
-    gap: var(--spacers-dp8);
-    font-size: 12px;
-    font-style: italic;
-    min-height: 40px;
-}
-
-.clearFiltersLink {
-    font-size: 12px;
-    font-style: normal;
-    color: var(--colors-blue600);
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.clearFiltersLink:hover {
-    color: var(--colors-blue700);
 }
 
 .loadingContent {
