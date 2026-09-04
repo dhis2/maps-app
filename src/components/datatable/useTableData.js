@@ -12,7 +12,7 @@ import {
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
-import { getGeojsonDisplayData } from '../../util/geojson.js'
+import { getGeojsonDisplayData, isFeatureInBounds } from '../../util/geojson.js'
 import { parseRange } from '../../util/legend.js'
 import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
 import { isValidUid } from '../../util/uid.js'
@@ -197,7 +197,15 @@ const getGeoJsonUrlHeaders = (firstDataItem) =>
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 
-export const useTableData = ({ layer, sortField, sortDirection }) => {
+export const useTableData = ({
+    layer,
+    sortField,
+    sortDirection,
+    showOnlyFeaturesInView,
+    mapBounds,
+    showOnlySelected,
+    selectedIdSet,
+}) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
 
@@ -216,6 +224,10 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         serverCluster,
     } = layer || EMPTY_LAYER
 
+    // Only depend on mapBounds while the toggle is on, so panning/zooming
+    // doesn't recompute dataWithAggregations below when it's off
+    const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
+
     const dataWithAggregations = useMemo(() => {
         errorCode.current = null
         if (serverCluster) {
@@ -232,20 +244,33 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
+        const inViewData = showOnlyFeaturesInView
+            ? allData.filter((d) => isFeatureInBounds(d, mapBounds))
+            : allData
+
         if (layerType === GEOJSON_URL_LAYER) {
-            return allData.map((d) => ({
+            return inViewData.map((d) => ({
                 ...d.properties,
             }))
         }
 
-        return allData
+        return inViewData
             .filter((d) => !d.properties.hasAdditionalGeometry)
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
                 index,
             }))
-    }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        data,
+        dataWithoutCoords,
+        aggregations,
+        serverCluster,
+        layerType,
+        showOnlyFeaturesInView,
+        boundsDependency,
+    ])
 
     const headers = useMemo(() => {
         if (errorCode.current) {
@@ -321,7 +346,13 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
-        const filteredData = filterData(dataWithAggregations, dataFilters)
+        let filteredData = filterData(dataWithAggregations, dataFilters)
+
+        if (showOnlySelected) {
+            filteredData = filteredData.filter((item) =>
+                selectedIdSet?.has(item.id)
+            )
+        }
 
         //sort
         filteredData.sort((a, b) => {
@@ -376,7 +407,15 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
                 }
             })
         )
-    }, [headers, dataWithAggregations, dataFilters, sortField, sortDirection])
+    }, [
+        headers,
+        dataWithAggregations,
+        dataFilters,
+        sortField,
+        sortDirection,
+        showOnlySelected,
+        selectedIdSet,
+    ])
 
     // EE layers and event layers may be loading additional data
     const isLoading =
