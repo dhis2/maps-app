@@ -224,6 +224,8 @@ export const useTableData = ({
         serverCluster,
     } = layer || EMPTY_LAYER
 
+    // Only depend on mapBounds while the toggle is on, so panning/zooming
+    // doesn't recompute dataWithAggregations below when it's off
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
 
     const dataWithAggregations = useMemo(() => {
@@ -259,7 +261,6 @@ export const useTableData = ({
                 ...aggregations[d.id],
                 index,
             }))
-        // boundsDependency intentionally proxies mapBounds only while the toggle is on
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         data,
