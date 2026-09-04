@@ -27,6 +27,7 @@ import {
     setSelectionFilter,
     setHighlightColor,
 } from '../../actions/dataTable.js'
+import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
 import ColorPicker from '../core/ColorPicker.jsx'
@@ -64,11 +65,12 @@ const BottomPanel = () => {
     const [filteredCount, setFilteredCount] = useState(null)
     const [nameTooltipPos, setNameTooltipPos] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [globalSearch, setGlobalSearch] = useState('')
+    const [searchInputValue, setSearchInputValue] = useState('')
+    const globalSearch = useDebouncedValue(searchInputValue, 200)
 
     const hasActiveFilters =
         Object.keys(dataFilters).length > 0 ||
-        globalSearch.trim() !== '' ||
+        searchInputValue.trim() !== '' ||
         selectionFilter?.length > 0 ||
         showOnlyFeaturesInView
 
@@ -116,7 +118,7 @@ const BottomPanel = () => {
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
         dispatch(setSelectionFilter([]))
-        setGlobalSearch('')
+        setSearchInputValue('')
         if (showOnlyFeaturesInView) {
             dispatch(toggleShowOnlyFeaturesInView())
         }
@@ -264,7 +266,7 @@ const BottomPanel = () => {
                         className={styles.clearFiltersButton}
                         onClick={() => {
                             dispatch(clearDataFilters(activeLayerId))
-                            setGlobalSearch('')
+                            setSearchInputValue('')
                         }}
                     >
                         <Tooltip content={i18n.t('Clear filters')}>
@@ -279,8 +281,8 @@ const BottomPanel = () => {
                     dense
                     dataTest="data-table-global-search"
                     placeholder={i18n.t('Search all columns')}
-                    value={globalSearch}
-                    onChange={({ value }) => setGlobalSearch(value)}
+                    value={searchInputValue}
+                    onChange={({ value }) => setSearchInputValue(value)}
                     className={styles.globalSearch}
                     onDoubleClick={(e) => e.stopPropagation()}
                 />
