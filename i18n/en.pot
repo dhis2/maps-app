@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-04T11:23:00.380Z\n"
-"PO-Revision-Date: 2026-09-04T11:23:00.380Z\n"
+"POT-Creation-Date: 2026-09-04T12:03:11.272Z\n"
+"PO-Revision-Date: 2026-09-04T12:03:11.272Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -226,11 +226,6 @@ msgstr "Not selected"
 
 msgid "All"
 msgstr "All"
-
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -2046,6 +2041,11 @@ msgstr ""
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
 
 msgid "Thematic"
 msgstr "Thematic"
