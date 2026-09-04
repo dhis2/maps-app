@@ -51,18 +51,17 @@ class Layer extends PureComponent {
     }
 
     componentDidUpdate(prevProps, prevState = {}) {
-        this.handleDataOrPeriodChange(prevProps, prevState)
-        this.handleIndexChange(prevProps)
-        this.handleOpacityChange(prevProps)
-        this.handleVisibilityChange(prevProps)
-        this.handleFeatureChange(prevProps)
-        this.handleSelectionChange(prevProps)
-        this.handleHighlightColorChange(prevProps)
-        this.handleVisibleIdsChange(prevProps)
+        this.syncDefinition(prevProps, prevState)
+        this.syncOrder(prevProps)
+        this.syncOpacity(prevProps)
+        this.syncVisibility(prevProps)
+        this.syncFocusedFeature(prevProps)
+        this.syncSelectedFeatures(prevProps)
+        this.syncHighlightColor(prevProps)
+        this.syncVisibleIds(prevProps)
     }
 
-    // Create new map if new id of editCounter is increased
-    handleDataOrPeriodChange(prevProps, prevState = {}) {
+    syncDefinition(prevProps, prevState = {}) {
         const { id, data, dataFilters, editCounter } = this.props
         const { period } = this.state
         const { period: prevPeriod } = prevState || {}
@@ -86,39 +85,39 @@ class Layer extends PureComponent {
         }
     }
 
-    handleIndexChange(prevProps) {
+    syncOrder(prevProps) {
         const { index } = this.props
         if (index !== undefined && index !== prevProps.index) {
             this.setLayerOrder()
         }
     }
 
-    handleOpacityChange(prevProps) {
+    syncOpacity(prevProps) {
         if (this.props.opacity !== prevProps.opacity) {
             this.setLayerOpacity()
         }
     }
 
-    handleVisibilityChange(prevProps) {
+    syncVisibility(prevProps) {
         if (this.props.isVisible !== prevProps.isVisible) {
             this.setLayerVisibility()
         }
     }
 
-    handleFeatureChange(prevProps) {
+    syncFocusedFeature(prevProps) {
         const { feature } = this.props
         if (feature === prevProps.feature) {
             return
         }
 
-        this.handleFeatureUpdate(feature)
+        this.zoomToFocusedFeature(feature)
 
         if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
             this.highlightFeature()
         }
     }
 
-    handleSelectionChange(prevProps) {
+    syncSelectedFeatures(prevProps) {
         const { selection } = this.props
         if (
             selection !== prevProps.selection &&
@@ -131,7 +130,7 @@ class Layer extends PureComponent {
         }
     }
 
-    handleHighlightColorChange(prevProps) {
+    syncHighlightColor(prevProps) {
         if (this.props.highlightColor === prevProps.highlightColor) {
             return
         }
@@ -144,7 +143,7 @@ class Layer extends PureComponent {
         }
     }
 
-    handleVisibleIdsChange(prevProps) {
+    syncVisibleIds(prevProps) {
         const { selection, showOnlySelected } = this.props
         if (
             !idsEqual(
@@ -256,7 +255,7 @@ class Layer extends PureComponent {
         }
     }
 
-    handleFeatureUpdate(feature) {
+    zoomToFocusedFeature(feature) {
         if (feature?.zoom && feature?.layerId === this.props.id) {
             if (feature.ids?.length) {
                 this.panToFeature(feature.ids)

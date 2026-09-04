@@ -194,13 +194,13 @@ class ThematicLayer extends Layer {
 
     componentDidUpdate(prevProps) {
         if (this.canSkipRebuild(prevProps)) {
-            this.handleIndexChange(prevProps)
-            this.handleOpacityChange(prevProps)
-            this.handleVisibilityChange(prevProps)
-            this.handleFeatureChange(prevProps)
-            this.handleSelectionChange(prevProps)
-            this.handleHighlightColorChange(prevProps)
-            this.handleVisibleIdsChange(prevProps)
+            this.syncOrder(prevProps)
+            this.syncOpacity(prevProps)
+            this.syncVisibility(prevProps)
+            this.syncFocusedFeature(prevProps)
+            this.syncSelectedFeatures(prevProps)
+            this.syncHighlightColor(prevProps)
+            this.syncVisibleIds(prevProps)
             return
         }
 
