@@ -28,10 +28,13 @@ const SelectionFilterButton = ({ value, onChange }) => {
         onChange(next)
     }
 
-    const buttonLabel =
-        value.length === 0
-            ? i18n.t('All')
-            : i18n.t('{{count}} selected', { count: value.length })
+    const activeOption =
+        value.length === 1
+            ? SELECTION_FILTER_OPTIONS.find(
+                  (option) => option.value === value[0]
+              )
+            : null
+    const buttonLabel = activeOption ? activeOption.label : i18n.t('All')
 
     const anchorRect = anchorRef.current?.getBoundingClientRect()
     const { dropdownPlacement } = getDropdownPlacement(anchorRect)
