@@ -3,6 +3,7 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
 import configureMockStore from 'redux-mock-store'
+import { setDataFilter, clearDataFilter } from '../../../actions/dataFilters.js'
 import {
     DATA_FILTER_SET,
     DATA_FILTER_CLEAR,
@@ -30,11 +31,12 @@ const mockStore = configureMockStore()
 
 const renderFilterInput = (props, dataFilters) => {
     const store = mockStore({
-        dataTable: 'layer1',
         map: {
             mapViews: [{ id: 'layer1', dataFilters: dataFilters || {} }],
         },
     })
+    const dataKey = props?.dataKey ?? 'name'
+    const filterValue = (dataFilters || {})[dataKey]
     // The checkbox list is virtualized (react-virtuoso)
     const result = render(
         <Provider store={store}>
@@ -45,6 +47,13 @@ const renderFilterInput = (props, dataFilters) => {
                     dataKey="name"
                     name="Name"
                     type="string"
+                    filterValue={filterValue}
+                    onChange={(value) =>
+                        store.dispatch(setDataFilter('layer1', dataKey, value))
+                    }
+                    onClear={() =>
+                        store.dispatch(clearDataFilter('layer1', dataKey))
+                    }
                     {...props}
                 />
             </VirtuosoMockContext.Provider>
@@ -351,6 +360,48 @@ describe('FilterInput multi-select path (optionSetId)', () => {
             target: { value: 'no such option anywhere' },
         })
         expect(store.getActions()).toEqual([])
+    })
+})
+
+describe('FilterInput multi-select path (resolvedOptionNames pre-resolved)', () => {
+    const options = [{ value: 'CONFIRMED' }, { value: 'PROBABLE' }]
+
+    beforeEach(() => {
+        useOptionSet.mockReturnValue({ optionSet: null })
+    })
+
+    test('uses resolvedOptionNames directly without calling useOptionSet', () => {
+        renderFilterInput({
+            dataKey: 'caseType',
+            name: 'Case classification',
+            options,
+            optionSetId: 'optionSet1',
+            resolvedOptionNames: {
+                CONFIRMED: 'Confirmed case',
+                PROBABLE: 'Probable case',
+            },
+        })
+        openPopover('Case classification')
+        expect(screen.getByLabelText('Confirmed case')).toBeInTheDocument()
+        expect(screen.getByLabelText('Probable case')).toBeInTheDocument()
+        expect(useOptionSet).toHaveBeenCalledWith(undefined)
+    })
+
+    test('falls back to useOptionSet when resolvedOptionNames is not provided', () => {
+        useOptionSet.mockReturnValue({
+            optionSet: {
+                options: [{ code: 'CONFIRMED', name: 'Confirmed case' }],
+            },
+        })
+        renderFilterInput({
+            dataKey: 'caseType',
+            name: 'Case classification',
+            options,
+            optionSetId: 'optionSet1',
+        })
+        openPopover('Case classification')
+        expect(screen.getByLabelText('Confirmed case')).toBeInTheDocument()
+        expect(useOptionSet).toHaveBeenCalledWith('optionSet1')
     })
 })
 

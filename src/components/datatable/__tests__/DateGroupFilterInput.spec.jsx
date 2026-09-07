@@ -1,12 +1,6 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
-import { Provider } from 'react-redux'
 import { VirtuosoMockContext } from 'react-virtuoso'
-import configureMockStore from 'redux-mock-store'
-import {
-    DATA_FILTER_SET,
-    DATA_FILTER_CLEAR,
-} from '../../../constants/actionTypes.js'
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
@@ -17,8 +11,6 @@ import {
 } from '../../../constants/dataTable.js'
 import DateGroupFilterInput from '../DateGroupFilterInput.jsx'
 
-const mockStore = configureMockStore()
-
 const DATETIME_VALUES = [
     { value: '2023-05-15 09:00:00.0' },
     { value: '2023-05-15 14:00:00.0' },
@@ -26,24 +18,23 @@ const DATETIME_VALUES = [
 ]
 
 const renderDateGroupFilter = (props) => {
-    const store = mockStore({})
+    const onChange = jest.fn()
+    const onClear = jest.fn()
     const result = render(
-        <Provider store={store}>
-            <VirtuosoMockContext.Provider
-                value={{ viewportHeight: 300, itemHeight: 28 }}
-            >
-                <DateGroupFilterInput
-                    dataKey="eventdate"
-                    name="Event date"
-                    layerId="layer1"
-                    type={TYPE_DATETIME}
-                    options={DATETIME_VALUES}
-                    {...props}
-                />
-            </VirtuosoMockContext.Provider>
-        </Provider>
+        <VirtuosoMockContext.Provider
+            value={{ viewportHeight: 300, itemHeight: 28 }}
+        >
+            <DateGroupFilterInput
+                name="Event date"
+                onChange={onChange}
+                onClear={onClear}
+                type={TYPE_DATETIME}
+                options={DATETIME_VALUES}
+                {...props}
+            />
+        </VirtuosoMockContext.Provider>
     )
-    return { ...result, store }
+    return { ...result, onChange, onClear }
 }
 
 const getInput = () =>
@@ -92,24 +83,19 @@ describe('DateGroupFilterInput - default (collapsed) tree', () => {
     })
 })
 
-describe('DateGroupFilterInput - selection dispatches', () => {
-    test('checking a year dispatches the full date-group filter shape', () => {
-        const { store } = renderDateGroupFilter()
+describe('DateGroupFilterInput - selection calls onChange/onClear', () => {
+    test('checking a year calls onChange with the full date-group filter shape', () => {
+        const { onChange } = renderDateGroupFilter()
         openPopover()
         fireEvent.click(screen.getByLabelText('2023'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: {
-                granularity: DATE_GROUPS_GRANULARITY,
-                prefixes: ['2023'],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: DATE_GROUPS_GRANULARITY,
+            prefixes: ['2023'],
         })
     })
 
-    test('unchecking the only selected prefix dispatches DATA_FILTER_CLEAR', () => {
-        const { store } = renderDateGroupFilter({
+    test('unchecking the only selected prefix calls onClear', () => {
+        const { onClear } = renderDateGroupFilter({
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
                 prefixes: ['2023'],
@@ -117,15 +103,11 @@ describe('DateGroupFilterInput - selection dispatches', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('2023'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-        })
+        expect(onClear).toHaveBeenCalled()
     })
 
     test('checking a month drops the now-redundant year-level ancestor selection scenario in reverse: checking a day under an unrelated selected month keeps both', () => {
-        const { store } = renderDateGroupFilter({
+        const { onChange } = renderDateGroupFilter({
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
                 prefixes: ['2024'],
@@ -134,14 +116,9 @@ describe('DateGroupFilterInput - selection dispatches', () => {
         openPopover()
         fireEvent.click(screen.getByLabelText('Expand 2023'))
         fireEvent.click(screen.getByLabelText('May'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: {
-                granularity: DATE_GROUPS_GRANULARITY,
-                prefixes: ['2024', '2023-05'],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: DATE_GROUPS_GRANULARITY,
+            prefixes: ['2024', '2023-05'],
         })
     })
 })
@@ -193,8 +170,8 @@ describe('DateGroupFilterInput - "Any value" / "No value"', () => {
         expect(screen.queryByLabelText('No value')).not.toBeInTheDocument()
     })
 
-    test('checking "Any value" dispatches the sentinel and clears prior selections', () => {
-        const { store } = renderDateGroupFilter({
+    test('checking "Any value" calls onChange with the sentinel and clears prior selections', () => {
+        const { onChange } = renderDateGroupFilter({
             options: [...DATETIME_VALUES, { value: SENTINEL_NO_VALUE }],
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
@@ -203,19 +180,14 @@ describe('DateGroupFilterInput - "Any value" / "No value"', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('Any value'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: {
-                granularity: DATE_GROUPS_GRANULARITY,
-                prefixes: [SENTINEL_ANY_VALUE],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: DATE_GROUPS_GRANULARITY,
+            prefixes: [SENTINEL_ANY_VALUE],
         })
     })
 
     test('checking "No value" preserves an existing tree selection alongside it', () => {
-        const { store } = renderDateGroupFilter({
+        const { onChange } = renderDateGroupFilter({
             options: [...DATETIME_VALUES, { value: SENTINEL_NO_VALUE }],
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
@@ -224,19 +196,14 @@ describe('DateGroupFilterInput - "Any value" / "No value"', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('No value'))
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: {
-                granularity: DATE_GROUPS_GRANULARITY,
-                prefixes: ['2023', SENTINEL_NO_VALUE],
-            },
+        expect(onChange).toHaveBeenCalledWith({
+            granularity: DATE_GROUPS_GRANULARITY,
+            prefixes: ['2023', SENTINEL_NO_VALUE],
         })
     })
 
     test('clicking a tree node while "Any value" is active is a no-op (v1 scope boundary)', () => {
-        const { store } = renderDateGroupFilter({
+        const { onChange, onClear } = renderDateGroupFilter({
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
                 prefixes: [SENTINEL_ANY_VALUE],
@@ -244,13 +211,14 @@ describe('DateGroupFilterInput - "Any value" / "No value"', () => {
         })
         openPopover()
         fireEvent.click(screen.getByLabelText('2023'))
-        expect(store.getActions()).toEqual([])
+        expect(onChange).not.toHaveBeenCalled()
+        expect(onClear).not.toHaveBeenCalled()
     })
 })
 
 describe('DateGroupFilterInput - clearing via the input’s clear ("x") button', () => {
-    test('clearing the closed trigger (showing "N selected") clears the whole filter', () => {
-        const { store } = renderDateGroupFilter({
+    test('clearing the closed trigger (showing "N selected") calls onClear', () => {
+        const { onClear } = renderDateGroupFilter({
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
                 prefixes: ['2023'],
@@ -258,15 +226,11 @@ describe('DateGroupFilterInput - clearing via the input’s clear ("x") button',
         })
         expect(getInput()).toHaveValue('1 selected')
         fireEvent.change(getInput(), { target: { value: '' } })
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-        })
+        expect(onClear).toHaveBeenCalled()
     })
 
-    test('clearing a typed search narrow while a selection is active also clears the selection (mirrors the flat filter variant)', () => {
-        const { store } = renderDateGroupFilter({
+    test('clearing a typed search narrow while a selection is active also calls onClear (mirrors the flat filter variant)', () => {
+        const { onClear } = renderDateGroupFilter({
             filterValue: {
                 granularity: DATE_GROUPS_GRANULARITY,
                 prefixes: ['2023'],
@@ -277,18 +241,15 @@ describe('DateGroupFilterInput - clearing via the input’s clear ("x") button',
         expect(screen.queryByLabelText('2024')).not.toBeInTheDocument()
 
         fireEvent.change(getInput(), { target: { value: '' } })
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_CLEAR,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-        })
+        expect(onClear).toHaveBeenCalled()
     })
 
-    test('clearing empty search text with no active filter dispatches nothing', () => {
-        const { store } = renderDateGroupFilter()
+    test('clearing empty search text with no active filter calls neither onChange nor onClear', () => {
+        const { onChange, onClear } = renderDateGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: '' } })
-        expect(store.getActions()).toEqual([])
+        expect(onChange).not.toHaveBeenCalled()
+        expect(onClear).not.toHaveBeenCalled()
     })
 })
 
@@ -312,34 +273,24 @@ describe('DateGroupFilterInput - search', () => {
     })
 
     test('typing text with no exact tree match shows a live-applying "Contains" custom filter row', () => {
-        const { store } = renderDateGroupFilter()
+        const { onChange } = renderDateGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: '2023-05-15 09:0' } })
         expect(
             screen.getByTestId('data-table-column-filter-custom-Event date')
         ).toBeInTheDocument()
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: '2023-05-15 09:0',
-        })
+        expect(onChange).toHaveBeenCalledWith('2023-05-15 09:0')
     })
 
     test('stays shown and keeps live-applying even when the typed text exactly matches a tree node prefix (e.g. a full year)', () => {
-        const { store } = renderDateGroupFilter()
+        const { onChange } = renderDateGroupFilter()
         openPopover()
         fireEvent.change(getInput(), { target: { value: '202' } })
         fireEvent.change(getInput(), { target: { value: '2023' } })
         expect(
             screen.getByTestId('data-table-column-filter-custom-Event date')
         ).toBeInTheDocument()
-        expect(store.getActions()).toContainEqual({
-            type: DATA_FILTER_SET,
-            layerId: 'layer1',
-            fieldId: 'eventdate',
-            filter: '2023',
-        })
+        expect(onChange).toHaveBeenCalledWith('2023')
     })
 })
 

@@ -93,6 +93,7 @@ const styleByDefault = async (config, engine) => {
     const { id } = styleDataItem
 
     legend.unit = await getLegendUnit(engine, styleDataItem)
+    config.styleDataItem = { ...styleDataItem, name: legend.unit }
 
     const eventItem = {
         name: i18n.t('Event'),
@@ -133,6 +134,7 @@ const styleByBoolean = async (config, engine) => {
     const { id, values } = styleDataItem
 
     legend.unit = await getLegendUnit(engine, styleDataItem)
+    config.styleDataItem = { ...styleDataItem, name: legend.unit }
 
     const yesItem = { name: i18n.t('Yes'), color: values.true }
     const noItem = values.false
@@ -204,6 +206,9 @@ const styleByNumeric = async (config, engine) => {
     } = config
     let valueFormat
 
+    const itemName = await getLegendUnit(engine, styleDataItem)
+    config.styleDataItem = { ...styleDataItem, name: itemName }
+
     // If legend set
     if (method === CLASSIFICATION_PREDEFINED) {
         // Load legend set from server
@@ -230,8 +235,8 @@ const styleByNumeric = async (config, engine) => {
         }
         sortedValues.sort((a, b) => a - b)
 
-        // Use data item name as legend unit (load from server if needed)
-        legend.unit = await getLegendUnit(engine, styleDataItem)
+        // Use data item name as legend unit
+        legend.unit = itemName
 
         // Generate legend items based on layer config
         const classification = getAutomaticLegendItems({

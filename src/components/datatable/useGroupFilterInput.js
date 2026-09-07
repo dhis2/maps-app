@@ -1,6 +1,4 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
@@ -22,8 +20,8 @@ import { getDropdownPlacement } from './FilterDropdownPopover.jsx'
 const identity = (value) => value
 
 const useGroupFilterInput = ({
-    dataKey,
-    layerId,
+    onChange,
+    onClear,
     filterValue,
     options,
     granularity,
@@ -33,7 +31,6 @@ const useGroupFilterInput = ({
     commitSearch,
     sanitizeInput = identity,
 }) => {
-    const dispatch = useDispatch()
     const anchorRef = useRef(null)
     const listRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -63,14 +60,9 @@ const useGroupFilterInput = ({
     const applyValues = useCallback(
         (nextPrefixes) =>
             nextPrefixes.length
-                ? dispatch(
-                      setDataFilter(layerId, dataKey, {
-                          granularity,
-                          prefixes: nextPrefixes,
-                      })
-                  )
-                : dispatch(clearDataFilter(layerId, dataKey)),
-        [dispatch, layerId, dataKey, granularity]
+                ? onChange({ granularity, prefixes: nextPrefixes })
+                : onClear(),
+        [onChange, onClear, granularity]
     )
 
     const hasNotSetOption = options.some(
@@ -152,10 +144,10 @@ const useGroupFilterInput = ({
 
     const applyCustomFilter = (text) => {
         if (!text) {
-            dispatch(clearDataFilter(layerId, dataKey))
+            onClear()
             return
         }
-        commitSearch(text, { tree, dispatch, layerId, dataKey })
+        commitSearch(text, { tree, onChange })
     }
 
     const onSearchChange = ({ value }) => {
@@ -166,7 +158,7 @@ const useGroupFilterInput = ({
         const trimmed = sanitized.trim()
         if (trimmed === '') {
             if (hasActiveFilter) {
-                dispatch(clearDataFilter(layerId, dataKey))
+                onClear()
             }
             return
         }
@@ -236,10 +228,6 @@ const useGroupFilterInput = ({
             case 'Enter':
                 event.preventDefault()
                 onEnterKey()
-                closePopover()
-                break
-            case 'Escape':
-                event.preventDefault()
                 closePopover()
                 break
             default:
