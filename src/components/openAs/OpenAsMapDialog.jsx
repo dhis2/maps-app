@@ -36,7 +36,6 @@ const OpenAsMapDialog = () => {
     const [selectedDataDims, setSelectedDataDims] = useState(() =>
         firstDimensionId ? [firstDimensionId] : []
     )
-    const [isAdding, setIsAdding] = useState(false)
 
     // Adding always ends in clearAnalyticalObject(), which unmounts this
     // dialog, so the guard never needs resetting
@@ -47,7 +46,6 @@ const OpenAsMapDialog = () => {
             return
         }
         hasAddedRef.current = true
-        setIsAdding(true)
 
         try {
             const selectedDimensions = [...selectedDataDims].reverse()
@@ -164,7 +162,7 @@ const OpenAsMapDialog = () => {
                         {i18n.t('Cancel')}
                     </Button>
                     <Button
-                        disabled={!selectedDataDims.length || isAdding}
+                        disabled={!selectedDataDims.length}
                         primary
                         onClick={addLayersToMap}
                     >
