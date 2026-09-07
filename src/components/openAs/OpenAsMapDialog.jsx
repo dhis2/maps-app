@@ -37,8 +37,7 @@ const OpenAsMapDialog = () => {
         firstDimensionId ? [firstDimensionId] : []
     )
 
-    // Adding always ends in clearAnalyticalObject(), which unmounts this
-    // dialog, so the guard never needs resetting
+    // Never needs resetting: adding always ends in clearAnalyticalObject(), unmounting this dialog
     const hasAddedRef = useRef(false)
 
     const addLayersToMap = async () => {
@@ -51,7 +50,6 @@ const OpenAsMapDialog = () => {
             const selectedDimensions = [...selectedDataDims].reverse()
             const lastDataId = selectedDimensions.at(-1)
 
-            // Call in sequence
             for (const dataId of selectedDimensions) {
                 const layer = await getThematicLayerFromAnalyticalObject({
                     ao: currentAO,
@@ -113,8 +111,7 @@ const OpenAsMapDialog = () => {
         if (allDataDimensions.length === 1) {
             addLayersToMap()
         }
-        // The deps matter: the early returns above leave hasAddedRef unset, so
-        // the effect has to run again if the analytical object resolves late
+        // Must re-run if the analytical object resolves late
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type, layerId, allDataDimensions.length])
 

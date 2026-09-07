@@ -68,9 +68,7 @@ describe('OpenAsMapDialog', () => {
         mockDispatch.mockClear()
     })
 
-    // The auto-add used to run in the render body, so an extra invocation
-    // while it was in flight added a second layer. StrictMode double-invokes
-    // render and effects to surface exactly this.
+    // StrictMode double-invokes render/effects, so without the guard this would add twice
     it('auto-adds a single-dimension layer only once under StrictMode', async () => {
         mockCurrentAO = singleItemAO
 
@@ -89,8 +87,6 @@ describe('OpenAsMapDialog', () => {
         )
     })
 
-    // The last data item in the loop compared an id against a dimension object,
-    // so every auto-added layer used to be added switched off
     it('adds the auto-added layer as visible', async () => {
         mockCurrentAO = singleItemAO
 
