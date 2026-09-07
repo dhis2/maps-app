@@ -1,0 +1,40 @@
+.icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+}
+
+.badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 8px;
+    height: 8px;
+    background: var(--colors-grey100);
+}
+
+:global(button):hover .badge {
+    background: var(--colors-grey300);
+}
+
+.badge::before,
+.badge::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 1px;
+    background: currentColor;
+    top: 50%;
+    left: 50%;
+}
+
+.badge::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.badge::after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}

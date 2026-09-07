@@ -96,11 +96,17 @@ const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
 export const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const defaultFieldsMap = () => ({
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
+    [ID]: {
+        name: i18n.t('Id'),
+        dataKey: ID,
+        type: TYPE_STRING,
+        defaultHidden: true,
+    },
     [ORG_UNIT_ID]: {
-        name: i18n.t('Org unit Id'),
+        name: i18n.t('Org unit id'),
         dataKey: ORG_UNIT_ID,
         type: TYPE_STRING,
+        defaultHidden: true,
     },
     [ORG_UNIT]: {
         name: i18n.t('Org unit'),
@@ -112,8 +118,14 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Org unit level'),
         dataKey: LEVEL,
         type: TYPE_NUMBER,
+        defaultHidden: true,
     },
-    [TYPE]: { name: i18n.t('Geometry type'), dataKey: TYPE, type: TYPE_STRING },
+    [TYPE]: {
+        name: i18n.t('Geometry type'),
+        dataKey: TYPE,
+        type: TYPE_STRING,
+        defaultHidden: true,
+    },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
     [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
     [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
@@ -204,7 +216,7 @@ const getStyleHeaders = ({
 }
 
 const getThematicHeaders = () =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(defaultFieldsMap()[VALUE])
         .concat(
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
@@ -224,16 +236,15 @@ const getMultiPeriodThematicHeaders = ({
                         name: `${header.name} (${
                             externalPeriod?.name ?? i18n.t('Current period')
                         })`,
+                        configName: `${header.name} (${i18n.t(
+                            'Current period'
+                        )})`,
                     }
                   : header
           )
         : getOrgUnitHeaders()
 
-    const otherPeriods = isTimelineThematic
-        ? (periods ?? []).filter((p) => p.id !== externalPeriod?.id)
-        : periods ?? []
-
-    otherPeriods.forEach((period) => {
+    ;(periods ?? []).forEach((period) => {
         headers.push({
             name: i18n.t('Value ({{period}})', { period: period.name }),
             dataKey: `period_${period.id}_rawValue`,
@@ -307,7 +318,7 @@ const getOrgUnitStyleHeaders = (data) => {
 }
 
 const getFixedFieldsWithOrgUnitStyle = (data) =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(getOrgUnitStyleHeaders(data))
         .concat(defaultFieldsMap()[TYPE])
 
@@ -346,7 +357,49 @@ const toTitleCase = (str) =>
         (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
     )
 
-const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
+const getFieldRoundFn = (data, dataKey) => {
+    if (!data?.length) {
+        return null
+    }
+    return getRoundToPrecisionFn(getPrecision(data.map((d) => d[dataKey])))
+}
+
+const getBandFields = ({ bands, band, aggregationType, data }) => {
+    if (!bands?.multiple || !Array.isArray(band) || band.length < 2) {
+        return []
+    }
+    const selectedBands = bands.list?.filter((b) => band.includes(b.id)) ?? []
+    return selectedBands.flatMap(({ id: bandId, name: bandName }) =>
+        aggregationType.length === 1
+            ? [
+                  {
+                      name: bandName,
+                      dataKey: bandId,
+                      roundFn: getFieldRoundFn(data, bandId),
+                      type: TYPE_NUMBER,
+                      defaultHidden: true,
+                  },
+              ]
+            : aggregationType.map((type) => {
+                  const dataKey = `${bandId}_${type}`
+                  return {
+                      name: toTitleCase(`${type} ${bandName}`),
+                      dataKey,
+                      roundFn: getFieldRoundFn(data, dataKey),
+                      type: TYPE_NUMBER,
+                      defaultHidden: true,
+                  }
+              })
+    )
+}
+
+const getEarthEngineHeaders = ({
+    aggregationType,
+    legend,
+    data,
+    bands,
+    band,
+}) => {
     const { title, items } = legend
 
     let customFields = []
@@ -359,22 +412,24 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
             type: TYPE_NUMBER,
         }))
     } else if (Array.isArray(aggregationType) && aggregationType.length) {
-        customFields = aggregationType.map((type) => {
-            let roundFn = null
-            if (data?.length) {
-                const precision = getPrecision(data.map((d) => d[type]))
-                roundFn = getRoundToPrecisionFn(precision)
-            }
-            return {
-                name: toTitleCase(`${type} ${title}`),
-                dataKey: type,
-                roundFn,
-                type: TYPE_NUMBER,
-            }
-        })
+        customFields = aggregationType
+            .map((type) => {
+                let roundFn = null
+                if (data?.length) {
+                    const precision = getPrecision(data.map((d) => d[type]))
+                    roundFn = getRoundToPrecisionFn(precision)
+                }
+                return {
+                    name: toTitleCase(`${type} ${title}`),
+                    dataKey: type,
+                    roundFn,
+                    type: TYPE_NUMBER,
+                }
+            })
+            .concat(getBandFields({ bands, band, aggregationType, data }))
     }
 
-    return getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    return getOrgUnitCoreFields(i18n.t('Org unit id'))
         .concat(customFields)
         .concat(defaultFieldsMap()[TYPE])
 }
@@ -418,6 +473,8 @@ export const getHeadersForLayer = (layerType, ctx) => {
                     aggregationType: ctx.aggregationType,
                     legend: ctx.legend,
                     data: ctx.data,
+                    bands: ctx.bands,
+                    band: ctx.band,
                 }),
             }
         case FACILITY_LAYER:

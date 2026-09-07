@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-07T10:22:12.476Z\n"
-"PO-Revision-Date: 2026-09-07T10:22:12.476Z\n"
+"POT-Creation-Date: 2026-09-07T15:11:13.032Z\n"
+"PO-Revision-Date: 2026-09-07T15:11:13.032Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -155,20 +155,11 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
-msgid "Select all visible rows"
-msgstr "Select all visible rows"
-
-msgid "Reverse selection of visible rows"
-msgstr "Reverse selection of visible rows"
-
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
-
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
-
 msgid "Edit layer"
 msgstr "Edit layer"
+
+msgid "Data table"
+msgstr "Data table"
 
 msgid "Select a year, month, day or hour"
 msgstr "Select a year, month, day or hour"
@@ -242,6 +233,15 @@ msgstr "to match the rows under it, or type to search"
 msgid "Select matches"
 msgstr "Select matches"
 
+msgid "Select all visible rows"
+msgstr "Select all visible rows"
+
+msgid "Reverse selection of visible rows"
+msgstr "Reverse selection of visible rows"
+
+msgid "Sort by Selected"
+msgstr "Sort by Selected"
+
 msgid "Selected"
 msgstr "Selected"
 
@@ -250,6 +250,9 @@ msgstr "Not selected"
 
 msgid "All"
 msgstr "All"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -322,6 +325,9 @@ msgstr "Search all columns"
 
 msgid "Highlight color"
 msgstr "Highlight color"
+
+msgid "Choose a data table to view"
+msgstr "Choose a data table to view"
 
 msgid "{{filtered}} of {{total}} rows"
 msgstr "{{filtered}} of {{total}} rows"
@@ -814,6 +820,9 @@ msgstr "Layer is invalid"
 
 msgid "Set layer opacity"
 msgstr "Set layer opacity"
+
+msgid "Clear filters applied in this layer’s table"
+msgstr "Clear filters applied in this layer’s table"
 
 msgid "More actions"
 msgstr "More actions"
@@ -2080,8 +2089,8 @@ msgstr "GroupSet used for styling was not found"
 msgid "Id"
 msgstr "Id"
 
-msgid "Org unit Id"
-msgstr "Org unit Id"
+msgid "Org unit id"
+msgstr "Org unit id"
 
 msgid "Org unit"
 msgstr "Org unit"

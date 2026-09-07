@@ -8,7 +8,7 @@ const mockStore = configureMockStore()
 
 describe('LayerToolbarMoreMenu', () => {
     test('does not render if no props passed', () => {
-        const store = {}
+        const store = { dataTable: { openIds: [] } }
 
         const { container } = render(
             <Provider store={mockStore(store)}>
@@ -20,7 +20,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders menu with Remove layer only', async () => {
         const store = {
-            dataTable: null,
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -51,7 +51,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders menu with Remove layer and Edit layer options', async () => {
         const store = {
-            dataTable: null,
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -86,6 +86,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders two MenuItems with no divider if only passed toggleDataTable and downloadData', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -120,6 +121,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders only toggleDataTable menu', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -150,8 +152,42 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
+    test('shows "Hide data table" and keeps it enabled when this layer\'s tab is already open', async () => {
+        const store = {
+            dataTable: { openIds: ['someOtherLayer', 'rainbowdash'] },
+            aggregations: {},
+        }
+
+        const layer = {
+            id: 'rainbowdash',
+            data: 'hasdata',
+        }
+
+        render(
+            <Provider store={mockStore(store)}>
+                <LayerToolbarMoreMenu
+                    layer={layer}
+                    toggleDataTable={jest.fn()}
+                />
+            </Provider>
+        )
+
+        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
+
+        await waitFor(() => {
+            expect(screen.queryByText('Hide data table')).toBeTruthy()
+            expect(
+                screen
+                    .queryByText('Hide data table')
+                    .closest('li')
+                    .classList.contains('disabled')
+            ).toBe(false)
+        })
+    })
+
     test('enables Show data table for a server-clustered event layer with no data yet', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -185,6 +221,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('also enables Download data for a server-clustered event layer with no data yet', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -219,6 +256,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -255,6 +293,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -291,6 +330,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders Duplicate layer item between Edit layer and Remove layer', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 
@@ -328,6 +368,7 @@ describe('LayerToolbarMoreMenu', () => {
 
     test('renders disabled menu items if there was an error', async () => {
         const store = {
+            dataTable: { openIds: [] },
             aggregations: {},
         }
 

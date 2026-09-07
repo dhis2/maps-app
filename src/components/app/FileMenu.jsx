@@ -70,7 +70,8 @@ const FileMenu = ({ onFileMenuAction }) => {
     const { serverVersion } = useConfig()
     const { systemSettings, currentUser } = useCachedData()
     const defaultBasemap = systemSettings.keyDefaultBaseMap
-    //alerts
+
+    // Alerts
     const saveAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_OPTIONS_DYNAMIC)
     const renameFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_WARNING)
     const renameSuccessAlert = useAlert(
@@ -145,7 +146,7 @@ const FileMenu = ({ onFileMenuAction }) => {
     }
 
     const onRename = async ({ name, description }) => {
-        // fetch the original Map
+        // Fetch the original Map
         const fetchedMap = await fetchMap({
             id: map.id,
             engine,
