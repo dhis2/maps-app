@@ -21,3 +21,10 @@
 .buttons {
     padding-top: var(--spacers-dp16);
 }
+
+.footerNote {
+    margin: var(--spacers-dp16) 0 var(--spacers-dp8);
+    color: var(--colors-grey800);
+    font-size: 13px;
+    line-height: var(--spacers-dp16);
+}

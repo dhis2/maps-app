@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
-"PO-Revision-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
+"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -230,6 +230,12 @@ msgstr "Download map"
 
 msgid "Show map name"
 msgstr "Show map name"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr "Name can be changed from File > Rename menu"
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr "Set the map name when you save the map or from File > Rename menu"
 
 msgid "Show map description"
 msgstr "Show map description"
@@ -1120,6 +1126,12 @@ msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "OSM Light"
+
+msgid "OSM Dark"
+msgstr "OSM Dark"
+
+msgid "OSM Fiord"
+msgstr "OSM Fiord"
 
 msgid "OSM Detailed"
 msgstr "OSM Detailed"

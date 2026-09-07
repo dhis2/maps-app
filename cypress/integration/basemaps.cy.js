@@ -11,10 +11,31 @@ describe('Basemap checks', () => {
         })
     })
 
-    it('open map with basemap = none uses default basemap set to not visible', () => {
+    it('open map with basemaps = [{ hidden: true }] uses default basemap set to not visible', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/ytkZY3ChM6J/ }, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
+                delete res.body.basemap
+                res.body.basemaps = [{ hidden: true }]
+                res.send({ body: res.body })
+            })
+        }).as('openMap')
+
+        cy.visit('/?id=ytkZY3ChM6J')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
+
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        checkBasemap.cardIsVisible()
+        checkBasemap.isNotVisible()
+    })
+
+    // basemap (singular) is the pre-43 format, kept for maps saved before the DHIS2-20417 migration
+    it('open map with legacy basemap = none uses default basemap set to not visible', () => {
+        cy.intercept({ method: 'GET', url: /\/maps\/ytkZY3ChM6J/ }, (req) => {
+            delete req.headers['if-none-match']
+            req.continue((res) => {
+                delete res.body.basemaps
                 res.body.basemap = 'none'
                 res.send({ body: res.body })
             })
@@ -29,10 +50,32 @@ describe('Basemap checks', () => {
         checkBasemap.isNotVisible()
     })
 
-    it('open map with basemap = object uses id from the object', () => {
+    it('open map with basemaps = [{ id }] uses id from the basemaps array', () => {
         cy.intercept({ method: 'GET', url: /\/maps\/zDP78aJU8nX/ }, (req) => {
             delete req.headers['if-none-match']
             req.continue((res) => {
+                delete res.body.basemap
+                res.body.basemaps = [{ id: 'openStreetMap' }]
+                res.send({ body: res.body })
+            })
+        }).as('openMap')
+
+        cy.visit('/?id=zDP78aJU8nX')
+        cy.wait('@openMap', EXTENDED_TIMEOUT)
+
+        cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
+
+        checkBasemap.cardIsVisible()
+        checkBasemap.isVisible()
+        checkBasemap.activeBasemap('OSM Detailed')
+    })
+
+    // basemap (singular) is the pre-43 format, kept for maps saved before the DHIS2-20417 migration
+    it('open map with legacy basemap object uses id from the object', () => {
+        cy.intercept({ method: 'GET', url: /\/maps\/zDP78aJU8nX/ }, (req) => {
+            delete req.headers['if-none-match']
+            req.continue((res) => {
+                delete res.body.basemaps
                 res.body.basemap = { id: 'openStreetMap' }
                 res.send({ body: res.body })
             })

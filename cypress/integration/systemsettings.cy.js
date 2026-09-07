@@ -8,6 +8,11 @@ const SYSTEM_SETTINGS_ENDPOINT = {
     times: 1,
 }
 
+const DATA_OUTPUT_PERIOD_TYPES_ENDPOINT = {
+    method: 'GET',
+    url: '**/configuration/dataOutputPeriodTypes*',
+}
+
 describe('systemSettings', () => {
     beforeEach(() => {
         cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
@@ -25,6 +30,18 @@ describe('systemSettings', () => {
                 res.send({
                     body: res.body,
                 })
+            })
+        })
+
+        // DHIS2 43+ sources enabled period types from this endpoint instead of keyHideWeeklyPeriods
+        cy.intercept(DATA_OUTPUT_PERIOD_TYPES_ENDPOINT, (req) => {
+            req.continue((res) => {
+                if (Array.isArray(res.body)) {
+                    res.body = res.body.filter(
+                        (periodType) => !periodType.name.startsWith('Weekly')
+                    )
+                }
+                res.send({ body: res.body })
             })
         })
 

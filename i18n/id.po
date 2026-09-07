@@ -2,18 +2,18 @@
 # Farida Sibuea <farida_sibuea@yahoo.com>, 2020
 # Yusuf Setiawan <mohammadyusufsetiawan@gmail.com>, 2021
 # Carwoto Sa'an <carwoto@gmail.com>, 2021
+# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2021
 # Philip Larsen Donnelly, 2024
-# Untoro Dwi Raharjo <untoro.dwi.raharjo@mail.ugm.ac.id>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
 # Guardian Sanjaya <gysanjaya@ugm.ac.id>, 2025
-# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025
+# Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2025\n"
+"Last-Translator: Aprisa Chrysantina <aprisa.chrysantina@gmail.com>, 2026\n"
 "Language-Team: Indonesian (https://app.transifex.com/hisp-uio/teams/100509/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -51,17 +51,35 @@ msgstr "Klasifikasi"
 msgid "Classes"
 msgstr "Kelas"
 
-msgid "Legend set"
-msgstr "set legenda"
+msgid "Auto"
+msgstr "Otomatis"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Minimal"
+
+msgid "Max"
+msgstr "Maksimal"
+
+msgid "Max should be greater than min"
+msgstr "Maksimal harus lebih besar dari minimal"
 
 msgid "Color"
 msgstr "Warna"
 
-msgid "Size"
-msgstr "Ukuran"
-
 msgid "Name"
 msgstr "Nama"
+
+msgid "Legend set"
+msgstr "set legenda"
+
+msgid "Size"
+msgstr "Ukuran"
 
 msgid "Name and value"
 msgstr ""
@@ -96,11 +114,8 @@ msgstr ""
 msgid "Tracked entity location"
 msgstr ""
 
-msgid "Fallback coordinate field"
+msgid "Select a program stage to see additional coordinate options"
 msgstr ""
-
-msgid "Coordinate field"
-msgstr "Bidang koordinat"
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -108,14 +123,26 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr ""
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr ""
+
+msgid "Coordinate field"
+msgstr "Bidang koordinat"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
 msgstr ""
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Pemfilteran tersedia setelah memilih tahapan program."
 
 msgid "Add filter"
 msgstr "Tambah penyaringan"
@@ -191,6 +218,9 @@ msgstr "Rentang"
 msgid "Org unit"
 msgstr "Unit Organisasi"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "Waktu even"
 
@@ -257,6 +287,9 @@ msgstr "Unit Organisasi"
 
 msgid "Style"
 msgstr "Gaya"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr ""
@@ -363,43 +396,17 @@ msgstr "Nilai minimal wajib diisi"
 msgid "Max value is required"
 msgstr "Nilai maksimum diperlukan"
 
-msgid "Max should be greater than min"
-msgstr "Maksimal harus lebih besar dari minimal"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Langkah yang valid adalah {{minSteps}} hingga {{maxSteps}}"
-
-msgid "Min"
-msgstr "Minimal"
-
-msgid "Max"
-msgstr "Maksimal"
-
-msgid "Steps"
-msgstr "langkah"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
 
-msgid "Org Units"
-msgstr "Unit Organisasi"
-
-msgid "Filter"
-msgstr "Saring"
-
-msgid "Group events"
-msgstr "Grup even"
-
-msgid "View all events"
-msgstr "Lihat semua even"
-
-msgid "Radius"
-msgstr "Radius"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
-"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
-"program"
 
 msgid "Program is required"
 msgstr "Program diperlukan"
@@ -412,6 +419,44 @@ msgstr "Tidak ada unit organisasi yang dipilih."
 
 msgid "No legend set is selected"
 msgstr "Tidak ada kumpulan legenda yang dipilih"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Unit Organisasi"
+
+msgid "Filter"
+msgstr "Saring"
+
+msgid "Choose from presets"
+msgstr ""
+
+msgid "Define start - end dates"
+msgstr ""
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Pemfilteran tersedia setelah memilih tahapan program."
+
+msgid "Group events"
+msgstr "Grup even"
+
+msgid "View all events"
+msgstr "Lihat semua even"
+
+msgid "Radius"
+msgstr "Radius"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Anda dapat menganti corak even berdasarkan elemen data setelah memilih satu "
+"program"
 
 msgid "Event status"
 msgstr "Status Event"
@@ -458,13 +503,33 @@ msgstr ""
 msgid "Labels"
 msgstr "label"
 
+msgid "Include org units with no data"
+msgstr ""
+
+msgid "No data"
+msgstr "Tidak ada data"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Periode diperlukan"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Tipe agregasi"
 
 msgid "Only show completed events"
-msgstr ""
-
-msgid "Include org units with no data"
 msgstr ""
 
 msgid "Low radius"
@@ -479,12 +544,6 @@ msgstr "Radius tinggi harus lebih besar dari radius rendah"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Radius harus antara {{min}} dan {{max}}"
 
-msgid "Choose from presets"
-msgstr ""
-
-msgid "Define start - end dates"
-msgstr ""
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -495,17 +554,6 @@ msgid "Choose periods for all split layers"
 msgstr ""
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "Periode diperlukan"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
 msgid "Specified radius values are invalid"
@@ -525,6 +573,9 @@ msgstr ""
 msgid "Program status"
 msgstr "Status program"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr "Hubungan"
 
@@ -532,16 +583,16 @@ msgid "Follow up"
 msgstr "Tindak lanjut"
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-"Silahkan pilih satu tipe entitas dilacak sebelum memilih satu tipe hubungan"
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Menampilkan hubungan entitas dilacak pada peta adalah fitur percobaan"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Tampikan semua hubungan entitas dilacak"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+"Silahkan pilih satu tipe entitas dilacak sebelum memilih satu tipe hubungan"
 
 msgid "Tracked entity style"
 msgstr "Ragam entitas terlacak"
@@ -554,9 +605,6 @@ msgstr "Ragam entitas terkait"
 
 msgid "Line Color"
 msgstr "Warna garis"
-
-msgid "Tracked Entity Type is required"
-msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -606,8 +654,8 @@ msgstr "peta dasar"
 msgid "Download Layer Data"
 msgstr "Unduh Data Layer"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Mengunduh data GeoJSON untuk \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -628,14 +676,11 @@ msgstr "Unduhan data gagal."
 msgid "External layer"
 msgstr "External layer"
 
-msgid "Failed to load layer"
-msgstr ""
-
 msgid "Loading layer"
 msgstr "Memuat layer"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} dihapus."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Edit"
@@ -670,19 +715,72 @@ msgstr "Unduh data"
 msgid "Edit layer"
 msgstr "Edit layer"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Hapus layer"
 
 msgid "Filters"
 msgstr "Penyaringan"
 
+msgid "Failed to load layer"
+msgstr ""
+
 msgid "No data found"
 msgstr "Tidak ada data yang ditemukan"
 
-msgid "Selected org units: No coordinates found"
+msgid "All events outside org unit boundaries"
 msgstr ""
 
 msgid "No coordinates found"
+msgstr ""
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+
+msgid "Selected org units: No coordinates found"
 msgstr ""
 
 msgid "Error"
@@ -728,9 +826,6 @@ msgstr "banyak grup"
 
 msgid "Parent unit"
 msgstr "Unit induk"
-
-msgid "No data"
-msgstr "Tidak ada data"
 
 msgid "Not set"
 msgstr "Tidak diatur"
@@ -918,9 +1013,6 @@ msgstr "Tahun sebelumnya"
 msgid "Next year"
 msgstr "Tahun berikut"
 
-msgid "Start/end dates"
-msgstr "Tanggal dimulai-berakhir"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -975,6 +1067,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1615,6 +1713,18 @@ msgstr "interval equal"
 msgid "Equal counts"
 msgstr "Jumlah yang sama"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Simbol"
 
@@ -1663,8 +1773,14 @@ msgstr "Financial July"
 msgid "Financial year (Start April)"
 msgstr "Financial April"
 
+msgid "Start/end dates"
+msgstr "Tanggal dimulai-berakhir"
+
 msgid "Cancelled"
 msgstr "Dibatalkan"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr ""
@@ -1684,16 +1800,16 @@ msgstr "Menampilkan {{pageSize}} even pertama dari {{total}}"
 msgid "Event"
 msgstr "Kejadian"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Fasilitas"
 
 msgid "an error occurred"
 msgstr ""
 
-msgid "GroupSet used for styling was not found"
-msgstr ""
-
-msgid "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
 msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
@@ -1723,11 +1839,11 @@ msgstr ""
 msgid "Thematic layer"
 msgstr "Layer tematik"
 
-msgid "Tracked entity"
-msgstr "Tracked Entity"
-
 msgid "related"
 msgstr "terkait"
+
+msgid "Tracked entity"
+msgstr "Tracked Entity"
 
 msgid "not one of"
 msgstr "bukan salah satu dari"
@@ -1778,8 +1894,8 @@ msgstr ""
 msgid "Facility"
 msgstr ""
 
-msgid "Other"
-msgstr "Lainnya"
+msgid "GroupSet used for styling was not found"
+msgstr ""
 
 msgid "Start date is invalid"
 msgstr "Tanggal mulai tidak valid"
@@ -1789,3 +1905,11 @@ msgstr "Tanggal akhir tidak valid"
 
 msgid "End date cannot be earlier than start date"
 msgstr "Tanggal akhir tidak boleh lebih awal dari tanggal mulai"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Peta"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

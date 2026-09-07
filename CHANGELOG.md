@@ -1,3 +1,31 @@
+## [101.17.1](https://github.com/dhis2/maps-app/compare/v101.17.0...v101.17.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* restore overlay interactivity after switching vector basemaps ([eb37902](https://github.com/dhis2/maps-app/commit/eb37902b214bcafeef6eb7126d3d05ccc0b57484))
+
+# [101.17.0](https://github.com/dhis2/maps-app/compare/v101.16.2...v101.17.0) (2026-09-02)
+
+
+### Features
+
+* replace OSM Light basemap with OpenFreeMap, add Dark and Fiord [DHIS2-22028] ([#3756](https://github.com/dhis2/maps-app/issues/3756)) ([294776f](https://github.com/dhis2/maps-app/commit/294776fefb8dbbe48e7bf85ca7fe73fd5129697f))
+
+## [101.16.2](https://github.com/dhis2/maps-app/compare/v101.16.1...v101.16.2) (2026-09-01)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([#3743](https://github.com/dhis2/maps-app/issues/3743)) ([6271f41](https://github.com/dhis2/maps-app/commit/6271f419ca06387c7709f12b7d5c71e0f590efeb))
+
+## [101.16.1](https://github.com/dhis2/maps-app/compare/v101.16.0...v101.16.1) (2026-09-01)
+
+
+### Bug Fixes
+
+* improve download settings UX for north arrow, map name tooltip and footer note [DHIS2-15792] ([#3662](https://github.com/dhis2/maps-app/issues/3662)) ([59dccdf](https://github.com/dhis2/maps-app/commit/59dccdff5821d32ca4c3a77f30f9211f19795f76))
+
 # [101.16.0](https://github.com/dhis2/maps-app/compare/v101.15.0...v101.16.0) (2026-07-14)
 
 

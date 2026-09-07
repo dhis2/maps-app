@@ -8,19 +8,19 @@
 # Alejandra Avila <alejandra@dhis2.org>, 2023
 # Pablo Del Médico, 2024
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2024
-# Philip Larsen Donnelly, 2025
 # Enzo Nicolas Rossi <enzo@dhis2.org>, 2025
-# Janeth Cruz, 2025
 # Prabhjot Singh, 2025
 # Bruno Raimbault, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
+# Janeth Cruz, 2026
+# Philip Larsen Donnelly, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2025\n"
+"Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -58,17 +58,35 @@ msgstr "Clasificación"
 msgid "Classes"
 msgstr "Clases"
 
-msgid "Legend set"
-msgstr "Legend set"
+msgid "Auto"
+msgstr "Automático"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Mín"
+
+msgid "Max"
+msgstr "Máx"
+
+msgid "Max should be greater than min"
+msgstr "Max debe ser mayor que min"
 
 msgid "Color"
 msgstr "Color"
 
-msgid "Size"
-msgstr "Tamaño"
-
 msgid "Name"
 msgstr "Nombre"
+
+msgid "Legend set"
+msgstr "Legend set"
+
+msgid "Size"
+msgstr "Tamaño"
 
 msgid "Name and value"
 msgstr "Nombre y valor"
@@ -103,11 +121,8 @@ msgstr "Ubicación de inscripción"
 msgid "Tracked entity location"
 msgstr "Localización de la entidad de registrada"
 
-msgid "Fallback coordinate field"
-msgstr "Campo de coordenadas de alternativo"
-
-msgid "Coordinate field"
-msgstr "Coordinate field"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -117,16 +132,27 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Evento > coordenada de la unidad org"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "Campo de coordenadas de alternativo"
+
+msgid "Coordinate field"
+msgstr "Coordinate field"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 "El valor seleccionado anteriormente no está disponible en la lista: {{id}}"
 
 msgid "Style by data item"
 msgstr "Aplicar estilo por item de datos"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr ""
-"El filtrado está disponible después de seleccionar una etapa del programa."
 
 msgid "Add filter"
 msgstr "Añadir filtro"
@@ -206,6 +232,9 @@ msgstr "Rango"
 msgid "Org unit"
 msgstr "Unidad Organizativa"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "Event time"
 
@@ -277,6 +306,9 @@ msgstr "Unidades Organizativas"
 
 msgid "Style"
 msgstr "Estilo"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "Color de punto"
@@ -385,43 +417,17 @@ msgstr "Se requiere un valor Min"
 msgid "Max value is required"
 msgstr "Se requiere un valor Max"
 
-msgid "Max should be greater than min"
-msgstr "Max debe ser mayor que min"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Los pasos válidos son  {{minSteps}} a {{maxSteps}}"
-
-msgid "Min"
-msgstr "Mín"
-
-msgid "Max"
-msgstr "Máx"
-
-msgid "Steps"
-msgstr "Pasos"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr "Zona de influencia de establecimiento"
 
-msgid "Org Units"
-msgstr "Unidades organizativas"
-
-msgid "Filter"
-msgstr "filtro"
-
-msgid "Group events"
-msgstr "Grupo de eventos "
-
-msgid "View all events"
-msgstr "Ver todos los eventos"
-
-msgid "Radius"
-msgstr "Radio"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
-"Puede personalizar eventos por elemento de datos después de seleccionar un "
-"programa."
 
 msgid "Program is required"
 msgstr "Se requiere un programa"
@@ -434,6 +440,45 @@ msgstr "No se ha seleccionado ninguna unidad organizativa"
 
 msgid "No legend set is selected"
 msgstr "No se ha seleccionado ningún set de leyendas"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Unidades organizativas"
+
+msgid "Filter"
+msgstr "filtro"
+
+msgid "Choose from presets"
+msgstr "Elija entre ajustes preestablecidos"
+
+msgid "Define start - end dates"
+msgstr "Definir fechas de inicio - finalización"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr ""
+"El filtrado está disponible después de seleccionar una etapa del programa."
+
+msgid "Group events"
+msgstr "Grupo de eventos "
+
+msgid "View all events"
+msgstr "Ver todos los eventos"
+
+msgid "Radius"
+msgstr "Radio"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Puede personalizar eventos por elemento de datos después de seleccionar un "
+"programa."
 
 msgid "Event status"
 msgstr "Estado del evento"
@@ -480,14 +525,34 @@ msgstr "Los polígonos se representan por sus centroides."
 msgid "Labels"
 msgstr "Etiquetas"
 
+msgid "Include org units with no data"
+msgstr "Incluir unidades organizativas sin datos"
+
+msgid "No data"
+msgstr "No hay datos"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Período requerido"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Seleccione al menos {{number}} periodos o 1 multiperiodo."
+
 msgid "Aggregation type"
 msgstr "Tipo de agregación"
 
 msgid "Only show completed events"
 msgstr "Mostrar solo eventos completados"
-
-msgid "Include org units with no data"
-msgstr "Incluir unidades organizativas sin datos"
 
 msgid "Low radius"
 msgstr "Radio bajo"
@@ -501,12 +566,6 @@ msgstr "El radio alto debe ser mayor que el radio bajo"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "El radio debe estar entre {{min}} y {{max}}"
 
-msgid "Choose from presets"
-msgstr "Elija entre ajustes preestablecidos"
-
-msgid "Define start - end dates"
-msgstr "Definir fechas de inicio - finalización"
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -518,17 +577,6 @@ msgstr ""
 
 msgid "Data is required"
 msgstr ""
-
-msgid "Period is required"
-msgstr "Período requerido"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Seleccione al menos {{number}} periodos o 1 multiperiodo."
 
 msgid "Specified radius values are invalid"
 msgstr ""
@@ -549,17 +597,14 @@ msgstr ""
 msgid "Program status"
 msgstr "Estado del programa"
 
+msgid "Tracked Entity Type is required"
+msgstr "Se requiere un tipo de entidad registrada"
+
 msgid "Relationships"
 msgstr "Relaciones"
 
 msgid "Follow up"
 msgstr "Seguimiento"
-
-msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr ""
-"Seleccione un tipo de entidad registrada antes de seleccionar un tipo de "
-"relación"
 
 msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
@@ -569,6 +614,12 @@ msgstr ""
 
 msgid "Display Tracked Entity relationships"
 msgstr "Mostrar relaciones de entidades registradas"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr ""
+"Seleccione un tipo de entidad registrada antes de seleccionar un tipo de "
+"relación"
 
 msgid "Tracked entity style"
 msgstr "Estilo de entidad registrada"
@@ -581,9 +632,6 @@ msgstr "Estilo de entidad relacionada"
 
 msgid "Line Color"
 msgstr "Color de línea"
-
-msgid "Tracked Entity Type is required"
-msgstr "Se requiere un tipo de entidad registrada"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr ""
@@ -636,8 +684,8 @@ msgstr "Mapa base"
 msgid "Download Layer Data"
 msgstr "Descargar datos de capa"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Descargar datos GeoJSON para \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -658,14 +706,11 @@ msgstr "Error en la descarga de datos."
 msgid "External layer"
 msgstr "Capa externa"
 
-msgid "Failed to load layer"
-msgstr "Error al cargar la capa"
-
 msgid "Loading layer"
 msgstr "Cargando capa"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} eliminado."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Editar"
@@ -700,20 +745,83 @@ msgstr "Descarga de datos"
 msgid "Edit layer"
 msgstr "Editar capa"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Eliminar capa"
 
 msgid "Filters"
 msgstr "Filtros"
 
+msgid "Failed to load layer"
+msgstr "Error al cargar la capa"
+
 msgid "No data found"
 msgstr "Dato no encontrado"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Unidades organizativas seleccionadas: No se encontraron coordenadas"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "No se encontraron coordenadas"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "Unidades organizativas seleccionadas: No se encontraron coordenadas"
 
 msgid "Error"
 msgstr "Error"
@@ -758,9 +866,6 @@ msgstr "Grupos"
 
 msgid "Parent unit"
 msgstr "Unidad padre"
-
-msgid "No data"
-msgstr "No hay datos"
 
 msgid "Not set"
 msgstr "No configurado"
@@ -950,9 +1055,6 @@ msgstr "Año anterior"
 msgid "Next year"
 msgstr "Año siguiente"
 
-msgid "Start/end dates"
-msgstr "Fechas de inicio y fin"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -1014,6 +1116,12 @@ msgstr "Haz clic para desanclar la leyenda"
 
 msgid "Click to pin legend"
 msgstr "Haz clic para anclar la leyenda"
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
+msgstr ""
 
 msgid "No program"
 msgstr "Sin programa"
@@ -1661,6 +1769,18 @@ msgstr "Intervalos iguales"
 msgid "Equal counts"
 msgstr "Recuentos iguales (cuantiles)"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Símbolo"
 
@@ -1709,8 +1829,14 @@ msgstr "Año fiscal (inicio Julio)"
 msgid "Financial year (Start April)"
 msgstr "Año fiscal (inicio Abril)"
 
+msgid "Start/end dates"
+msgstr "Fechas de inicio y fin"
+
 msgid "Cancelled"
 msgstr "Cancelar"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "Capa Earth Engine"
@@ -1730,18 +1856,17 @@ msgstr "Mostrar los primeros {{pageSize}} eventos de {{total}}"
 msgid "Event"
 msgstr "Evento"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Establecimientos"
 
 msgid "an error occurred"
 msgstr "se ha producido un error"
 
-msgid "GroupSet used for styling was not found"
-msgstr "No se ha encontrado el GroupSet utilizado para el estilo"
-
-msgid "No coordinates found for selected facilities"
+msgid "No point locations found for selected facilities"
 msgstr ""
-"No se han encontrado coordenadas para los establecimientos seleccionados"
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr ""
@@ -1772,11 +1897,11 @@ msgstr "No se ha encontrado el item de datos"
 msgid "Thematic layer"
 msgstr "Capa temática"
 
-msgid "Tracked entity"
-msgstr "Entidad registrada"
-
 msgid "related"
 msgstr "relacionado"
+
+msgid "Tracked entity"
+msgstr "Entidad registrada"
 
 msgid "not one of"
 msgstr "ni uno de"
@@ -1830,8 +1955,8 @@ msgstr "Unidades organizativas"
 msgid "Facility"
 msgstr "Establecimiento"
 
-msgid "Other"
-msgstr "Otro"
+msgid "GroupSet used for styling was not found"
+msgstr "No se ha encontrado el GroupSet utilizado para el estilo"
 
 msgid "Start date is invalid"
 msgstr "La fecha de inicio no es válida"
@@ -1841,3 +1966,11 @@ msgstr "La fecha final no es válida"
 
 msgid "End date cannot be earlier than start date"
 msgstr "La fecha final no puede ser anterior a la fecha de inicio"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Mapas"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""
