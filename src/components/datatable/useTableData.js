@@ -257,11 +257,6 @@ export const useTableData = ({
             return null
         }
 
-        if (!headers.length) {
-            errorCode.current = ERROR_NO_HEADERS
-            return null
-        }
-
         let filteredData = filterData(dataWithAggregations, dataFilters)
 
         if (globalSearch?.trim()) {
