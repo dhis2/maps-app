@@ -5,6 +5,11 @@ import {
     toggleDataTable,
     setActiveDataTableLayer,
     resizeDataTable,
+    setMapBounds,
+    toggleShowOnlyFeaturesInView,
+    setSelectionFilter,
+    setHighlightColor,
+    setDataTableColumnConfig,
     setActiveTimelinePeriod,
 } from '../dataTable.js'
 
@@ -47,6 +52,56 @@ describe('resizeDataTable', () => {
         expect(resizeDataTable(300)).toEqual({
             type: types.DATA_TABLE_RESIZE,
             height: 300,
+        })
+    })
+})
+
+describe('setMapBounds', () => {
+    it('creates a MAP_BOUNDS_CHANGED action', () => {
+        const bounds = [
+            [0, 0],
+            [1, 1],
+        ]
+        expect(setMapBounds(bounds)).toEqual({
+            type: types.MAP_BOUNDS_CHANGED,
+            bounds,
+        })
+    })
+})
+
+describe('toggleShowOnlyFeaturesInView', () => {
+    it('creates a TOGGLE_SHOW_ONLY_IN_VIEW action', () => {
+        expect(toggleShowOnlyFeaturesInView()).toEqual({
+            type: types.TOGGLE_SHOW_ONLY_IN_VIEW,
+        })
+    })
+})
+
+describe('setSelectionFilter', () => {
+    it('creates a SELECTION_FILTER_SET action', () => {
+        expect(setSelectionFilter(['selected'])).toEqual({
+            type: types.SELECTION_FILTER_SET,
+            value: ['selected'],
+        })
+    })
+})
+
+describe('setHighlightColor', () => {
+    it('creates a HIGHLIGHT_COLOR_SET action', () => {
+        expect(setHighlightColor('#ff0000')).toEqual({
+            type: types.HIGHLIGHT_COLOR_SET,
+            color: '#ff0000',
+        })
+    })
+})
+
+describe('setDataTableColumnConfig', () => {
+    it('creates a DATA_TABLE_COLUMN_CONFIG_SET action', () => {
+        const config = { pinnedKeys: ['name'] }
+        expect(setDataTableColumnConfig('layer1', config)).toEqual({
+            type: types.DATA_TABLE_COLUMN_CONFIG_SET,
+            layerId: 'layer1',
+            config,
         })
     })
 })

@@ -1,4 +1,5 @@
-import {
+import { WARNING_NO_DATA } from '../../constants/alerts.js'
+import trackedEntityLoader, {
     getAttributeHeaders,
     getAttributeProperties,
     applyParsedConfig,
@@ -194,6 +195,16 @@ describe('applyParsedConfig', () => {
         expect(config.config).toBeUndefined()
     })
 
+    it('extracts dataTableColumnConfig when set', () => {
+        const config = {
+            config: JSON.stringify({
+                dataTableColumnConfig: { pinnedKeys: ['name'] },
+            }),
+        }
+        applyParsedConfig(config)
+        expect(config.dataTableColumnConfig).toEqual({ pinnedKeys: ['name'] })
+    })
+
     it('does nothing when config.config is absent', () => {
         const config = { layer: 'trackedEntity' }
         applyParsedConfig(config)
@@ -311,5 +322,38 @@ describe('toOptionSetOptionsByCode', () => {
 
     it('returns an empty object for an empty map', () => {
         expect(toOptionSetOptionsByCode(new Map())).toEqual({})
+    })
+})
+
+describe('trackedEntityLoader', () => {
+    it('returns a loaded, alerted layer when the query has no instances with valid geometry', async () => {
+        const config = {
+            trackedEntityType: { id: 'tet1', name: 'Person' },
+            program: null,
+            rows: [],
+            organisationUnitSelectionMode: 'SELECTED',
+            startDate: '2023-01-01',
+            endDate: '2023-01-31',
+        }
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                trackedEntities: { trackedEntities: [] },
+            }),
+        }
+
+        const result = await trackedEntityLoader({
+            config,
+            engine,
+            keyAnalysisDigitGroupSeparator: ',',
+            serverVersion: { minor: 41 },
+        })
+
+        expect(result.isLoaded).toBe(true)
+        expect(result.isLoading).toBe(false)
+        expect(result.data).toEqual([])
+        expect(result.headers).toEqual([])
+        expect(result.alerts).toEqual([
+            { code: WARNING_NO_DATA, message: 'Person' },
+        ])
     })
 })
