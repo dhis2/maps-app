@@ -16,12 +16,7 @@ import {
 } from '../../actions/dataTable.js'
 import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import {
-    getPanelHeights,
-    hasActiveDataTableFilters,
-} from '../../util/dataTable.js'
-import { getCssVar } from '../../util/helpers.js'
-import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import { hasActiveDataTableFilters } from '../../util/dataTable.js'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
@@ -35,12 +30,12 @@ import ShowInViewControl from './controls/ShowInViewControl.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import styles from './styles/BottomPanel.module.css'
+import { usePanelHeights } from './usePanelHeights.js'
 
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
-    const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
     const activeLayerId = useSelector((state) => state.dataTable)
     const activeLayer = useSelector((state) =>
         state.map.mapViews.find((l) => l.id === activeLayerId)
@@ -53,7 +48,6 @@ const BottomPanel = () => {
     const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
-    const { height } = useWindowDimensions()
     const panelRef = useRef(null)
     const isDraggingRef = useRef(false)
     const preDragCollapsedRef = useRef(false)
@@ -72,14 +66,8 @@ const BottomPanel = () => {
         showOnlyFeaturesInView,
     })
 
-    const { maxHeight, collapsedHeight, displayHeight } = getPanelHeights({
-        windowHeight: height,
-        dataTableHeight,
-        isCollapsed,
-        headerHeight: getCssVar('--header-height'),
-        toolbarHeight: getCssVar('--toolbar-height'),
-        controlsHeight: getCssVar('--data-table-controls-height'),
-    })
+    const { maxHeight, collapsedHeight, displayHeight } =
+        usePanelHeights(isCollapsed)
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),
