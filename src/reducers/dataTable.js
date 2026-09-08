@@ -2,6 +2,7 @@ import * as types from '../constants/actionTypes.js'
 
 const initialState = {
     openIds: [],
+    combinedView: false,
     isPanelVisible: false,
     activeLayerId: null,
 }
@@ -44,6 +45,15 @@ const dataTable = (state = initialState, action) => {
                         ? null
                         : state.activeLayerId,
             }
+
+        case types.DATA_TABLE_COMBINED_VIEW_TOGGLE: {
+            const combinedView = !state.combinedView
+            return {
+                ...state,
+                combinedView,
+                isPanelVisible: combinedView ? true : state.isPanelVisible,
+            }
+        }
 
         default:
             return state
