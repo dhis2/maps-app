@@ -72,13 +72,13 @@ describe('getRowClickAction', () => {
         ).toEqual({ type: 'toggle', id: 'b' })
     })
 
-    test('shift-click with no prior anchor falls back to a single-row toggle', () => {
+    test('shift-click with no prior anchor selects just that row, never deselects it', () => {
         expect(
             getRowClickAction(
                 { shiftKey: true },
                 { id: 'c', rowIndex: 2, rows, lastClickedRowIndex: null }
             )
-        ).toEqual({ type: 'toggle', id: 'c' })
+        ).toEqual({ type: 'range', ids: ['c'] })
     })
 
     test('shift-click with a prior anchor selects the range between them', () => {

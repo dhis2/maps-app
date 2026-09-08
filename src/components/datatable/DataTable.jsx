@@ -230,10 +230,11 @@ const Table = ({
         (ids) => dispatch(selectFeatureRange(ids, layer.id)),
         [dispatch, layer.id]
     )
-    const onRowClick = useRowClickSelection({
+    const { onRowClick, onCheckboxToggle, resetAnchor } = useRowClickSelection({
         rows,
         onToggle: onToggleRow,
         onSelectRange: onSelectRowRange,
+        selectedIdSet,
     })
 
     const onRowDoubleClick = useCallback(
@@ -341,13 +342,26 @@ const Table = ({
         [dispatch, layer.id]
     )
 
-    const { isAllSelected, onToggleSelectAll, onReverseSelection } =
-        useRowSelection({
-            selectedIds,
-            selectedIdSet,
-            allRowIds,
-            onChange: onSelectionChange,
-        })
+    const {
+        isAllSelected,
+        onToggleSelectAll: onToggleSelectAllRows,
+        onReverseSelection: onReverseSelectionRows,
+    } = useRowSelection({
+        selectedIds,
+        selectedIdSet,
+        allRowIds,
+        onChange: onSelectionChange,
+    })
+
+    const onToggleSelectAll = useCallback(() => {
+        resetAnchor()
+        onToggleSelectAllRows()
+    }, [resetAnchor, onToggleSelectAllRows])
+
+    const onReverseSelection = useCallback(() => {
+        resetAnchor()
+        onReverseSelectionRows()
+    }, [resetAnchor, onReverseSelectionRows])
 
     const computeItemKey = useCallback(
         (index, row) => getRowId(row) ?? index,
@@ -533,7 +547,9 @@ const Table = ({
                                 }
                                 isSelected={isSelected}
                                 isHovered={isHovered}
-                                onToggle={() => rowId && onToggleRow(rowId)}
+                                onToggle={(e) =>
+                                    rowId && onCheckboxToggle(rowId, e)
+                                }
                             />
                             {visibleHeaders.map(({ dataKey }, index) => {
                                 const cell = cellsByDataKey.get(dataKey)

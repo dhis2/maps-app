@@ -23,10 +23,17 @@ DataTableWithVirtuosoContext.propTypes = {
     }),
 }
 
+const onRowMouseDown = (e) => {
+    if (e.shiftKey || e.ctrlKey || e.metaKey) {
+        e.preventDefault()
+    }
+}
+
 const DataTableRowWithVirtuosoContext = React.memo(
     function DataTableRowWithVirtuosoContext({ context, item, ...props }) {
         return (
             <DataTableRow
+                onMouseDown={onRowMouseDown}
                 onMouseEnter={() => context.onMouseEnter(item)}
                 onMouseLeave={context.onMouseLeave}
                 onContextMenu={(e) => context.onContextMenu(e, item)}
