@@ -183,6 +183,27 @@ const eventLoader = async ({
     return config
 }
 
+export const parseNumericHeaders = (data, headers) => {
+    const numericHeaders = headers.filter(
+        (header) =>
+            isValidUid(header.name) &&
+            numberValueTypes.includes(header.valueType) &&
+            !header.optionSet
+    )
+    if (!numericHeaders.length) {
+        return data
+    }
+    return data.map((d) => {
+        const newD = { ...d }
+        numericHeaders.forEach((header) => {
+            newD.properties[header.name] = parseWithSeparator(
+                d.properties[header.name]
+            )
+        })
+        return newD
+    })
+}
+
 // Merges only the new "display in reports" columns
 const loadExtendedEventColumns = async ({
     config,
@@ -249,22 +270,12 @@ const loadExtendedEventColumns = async ({
     )
     config.headers = [...config.headers, ...newHeaders]
 
-    const numericNewHeaders = newHeaders.filter(
-        (header) =>
-            isValidUid(header.name) &&
-            numberValueTypes.includes(header.valueType) &&
-            !header.optionSet
-    )
-    if (numericNewHeaders.length) {
-        config.data = config.data.map((d) => {
-            const newD = { ...d }
-            numericNewHeaders.forEach((header) => {
-                newD.properties[header.name] = parseWithSeparator(
-                    d.properties[header.name]
-                )
-            })
-            return newD
-        })
+    config.data = parseNumericHeaders(config.data, newHeaders)
+    if (config.dataWithoutCoords?.length) {
+        config.dataWithoutCoords = parseNumericHeaders(
+            config.dataWithoutCoords,
+            newHeaders
+        )
     }
 
     config.isExtended = true
@@ -523,25 +534,12 @@ const loadEventLayer = async ({
             )
         }
 
-        const numericDataItemHeaders = config.headers.filter(
-            (header) =>
-                isValidUid(header.name) &&
-                numberValueTypes.includes(header.valueType) &&
-                !header.optionSet
-        )
-
-        if (numericDataItemHeaders.length) {
-            config.data = config.data.map((d) => {
-                const newD = { ...d }
-
-                numericDataItemHeaders.forEach((header) => {
-                    newD.properties[header.name] = parseWithSeparator(
-                        d.properties[header.name]
-                    )
-                })
-
-                return newD
-            })
+        config.data = parseNumericHeaders(config.data, config.headers)
+        if (config.dataWithoutCoords?.length) {
+            config.dataWithoutCoords = parseNumericHeaders(
+                config.dataWithoutCoords,
+                config.headers
+            )
         }
     }
 

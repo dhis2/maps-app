@@ -13,6 +13,7 @@ import {
 import eventLoader, {
     attachOrgUnitPaths,
     excludeEventsOutsideOrgUnits,
+    parseNumericHeaders,
     shouldUseServerCluster,
 } from '../eventLoader.js'
 
@@ -1161,5 +1162,54 @@ describe('eventLoader - extended column top-up', () => {
         await eventLoader(args)
 
         expect(args.analyticsEngine.events.getQuery).toHaveBeenCalledTimes(1)
+    })
+})
+
+describe('parseNumericHeaders', () => {
+    const numericHeader = {
+        name: 'a3kGcGDCuk6',
+        valueType: 'NUMBER',
+    }
+
+    it('parses a numeric header value on every feature', () => {
+        const data = [
+            { properties: { a3kGcGDCuk6: '1.0' } },
+            { properties: { a3kGcGDCuk6: '2.0' } },
+        ]
+
+        const result = parseNumericHeaders(data, [numericHeader])
+
+        expect(result.map((d) => d.properties.a3kGcGDCuk6)).toEqual([1, 2])
+    })
+
+    it('returns the data unchanged when there are no numeric headers', () => {
+        const data = [{ properties: { a3kGcGDCuk6: '1.0' } }]
+
+        expect(parseNumericHeaders(data, [])).toBe(data)
+    })
+
+    it('skips a header with an option set', () => {
+        const data = [{ properties: { a3kGcGDCuk6: '1.0' } }]
+
+        const result = parseNumericHeaders(data, [
+            { ...numericHeader, optionSet: { id: 'os1' } },
+        ])
+
+        expect(result[0].properties.a3kGcGDCuk6).toBe('1.0')
+    })
+
+    it('parses both the data and dataWithoutCoords arrays consistently, so a value is never a Number in one and a String in the other once the table merges them', () => {
+        const data = parseNumericHeaders(
+            [{ properties: { a3kGcGDCuk6: '2.0' } }],
+            [numericHeader]
+        )
+        const dataWithoutCoords = parseNumericHeaders(
+            [{ properties: { a3kGcGDCuk6: '2.0' } }],
+            [numericHeader]
+        )
+
+        expect(data[0].properties.a3kGcGDCuk6).toBe(
+            dataWithoutCoords[0].properties.a3kGcGDCuk6
+        )
     })
 })
