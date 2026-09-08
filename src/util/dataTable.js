@@ -29,7 +29,7 @@ export const getRowClickAction = (
 ) => {
     if (event.shiftKey) {
         if (lastClickedRowIndex === null) {
-            return { type: 'toggle', id }
+            return { type: 'range', ids: [id] }
         }
         const [start, end] = [lastClickedRowIndex, rowIndex].sort(
             (a, b) => a - b

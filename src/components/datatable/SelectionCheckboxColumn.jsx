@@ -111,8 +111,11 @@ export const SelectionCheckboxCell = ({
         <input
             type="checkbox"
             checked={isSelected}
-            onChange={onToggle}
-            onClick={(e) => e.stopPropagation()}
+            onChange={Function.prototype}
+            onClick={(e) => {
+                e.stopPropagation()
+                onToggle(e)
+            }}
         />
     </DataTableCell>
 )
