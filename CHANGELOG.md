@@ -1,3 +1,10 @@
+## [101.17.2](https://github.com/dhis2/maps-app/compare/v101.17.1...v101.17.2) (2026-09-08)
+
+
+### Bug Fixes
+
+* prevent duplicate and hidden layers from Open as map [DHIS2-22073] ([#3746](https://github.com/dhis2/maps-app/issues/3746)) ([1b36d7b](https://github.com/dhis2/maps-app/commit/1b36d7ba7f617a2b03571ea1a86919ee5f091d48))
+
 ## [101.17.1](https://github.com/dhis2/maps-app/compare/v101.17.0...v101.17.1) (2026-09-03)
 
 
