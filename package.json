@@ -22,7 +22,7 @@
         "docs:format": "prettier --write --prose-wrap always --print-width 100 'docs/src/*.md'"
     },
     "devDependencies": {
-        "@dhis2/cli-app-scripts": "^12.11.3",
+        "@dhis2/cli-app-scripts": "^12.11.4",
         "@dhis2/cli-style": "^10.7.10",
         "@dhis2/cypress-commands": "^10.1.2",
         "@dhis2/cypress-plugins": "^10.1.2",
@@ -31,7 +31,7 @@
         "@semantic-release/git": "^10",
         "@testing-library/dom": "^10.4.1",
         "@testing-library/jest-dom": "^6.9.1",
-        "@testing-library/react": "^16.3.2",
+        "@testing-library/react": "^16.3.3",
         "cypress": "^15",
         "cypress-real-events": "^1.15.0",
         "cypress-tags": "^1.2.2",
