@@ -2,7 +2,12 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { Component, Fragment } from 'react'
 import { RENDERING_STRATEGY_TIMELINE } from '../../constants/layers.js'
-import { onFullscreenChange, resizeAndFitBounds } from '../../util/map.js'
+import {
+    onFullscreenChange,
+    resizeAndFitBounds,
+    getLayerFeatureHighlight,
+    fitCrossLayerZoomBounds,
+} from '../../util/map.js'
 import {
     sortPeriodsByLevelAndStartDate,
     addPeriodsDetails,
@@ -42,6 +47,7 @@ class Map extends Component {
         bounds: PropTypes.array,
         clickFeature: PropTypes.func,
         closeCoordinatePopup: PropTypes.func,
+        combinedVisibleIds: PropTypes.object,
         controls: PropTypes.array,
         coordinatePopup: PropTypes.array,
         engine: PropTypes.object,
@@ -162,6 +168,12 @@ class Map extends Component {
         const overlays = this.getLoadedLayers(layers)
         const timelineOverlay = this.getTimelineOverlay(overlays)
         this.initializeTimelinePeriod(timelineOverlay)
+
+        this.handleCrossLayerZoom(prevProps)
+    }
+
+    handleCrossLayerZoom(prevProps) {
+        fitCrossLayerZoomBounds(this.map, this.props.feature, prevProps.feature)
     }
 
     // Remove map
@@ -184,6 +196,7 @@ class Map extends Component {
             layers,
             feature,
             selection,
+            combinedVisibleIds,
             highlightFeature,
             highlightColor,
             selectionFilter,
@@ -227,10 +240,10 @@ class Map extends Component {
                         )}
                         {overlays.map((config, index) => {
                             const Overlay = layerType[config.layer] || Layer
-                            const highlight =
-                                feature && feature.layerId === config.id
-                                    ? feature
-                                    : null
+                            const highlight = getLayerFeatureHighlight(
+                                feature,
+                                config.id
+                            )
 
                             return (
                                 <Overlay
@@ -245,6 +258,7 @@ class Map extends Component {
                                     toggleFeatureSelection={
                                         toggleFeatureSelection
                                     }
+                                    combinedVisibleIds={combinedVisibleIds}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}

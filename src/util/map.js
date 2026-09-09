@@ -4,6 +4,7 @@ import {
     ORG_UNIT_PATH_DATA_KEY,
 } from '../constants/dataTable.js'
 import { dimConf } from '../constants/dimension.js'
+import { PADDING_DEFAULT, DURATION_DEFAULT } from '../constants/layers.js'
 
 export const toGeoJson = (organisationUnits) =>
     sortBy('le', organisationUnits)
@@ -64,6 +65,24 @@ export const toGeoJson = (organisationUnits) =>
                 geometry.coordinates.length &&
                 geometry.coordinates.flat().length
         )
+
+export const getLayerFeatureHighlight = (feature, layerId) =>
+    feature &&
+    (feature.layerId === layerId || feature.crossLayerIds?.[layerId]?.length)
+        ? feature
+        : null
+
+export const fitCrossLayerZoomBounds = (map, feature, prevFeature) => {
+    if (feature === prevFeature || !feature?.zoom || !feature.bounds) {
+        return
+    }
+    map.fitBounds(feature.bounds, {
+        padding: PADDING_DEFAULT,
+        duration: DURATION_DEFAULT,
+        essential: true,
+        bearing: map.getMapGL().getBearing(),
+    })
+}
 
 //eslint-disable-next-line max-params
 export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
