@@ -1,5 +1,7 @@
 import { arrayMoveImmutable } from 'array-move'
 import * as types from '../constants/actionTypes.js'
+import { COMBINED_TABLE_REF_LAYER } from '../constants/layers.js'
+import { getDefaultReferenceRows } from '../util/dataTable.js'
 import { generateUid } from '../util/uid.js'
 
 export const defaultBasemapState = {
@@ -330,6 +332,29 @@ const map = (state = defaultState, action) => {
                 mapViews: state.mapViews
                     .filter((mv) => mv.id !== action.id)
                     .map((mv) => layer(mv, action)),
+            }
+
+        case types.DATA_TABLE_COMBINED_VIEW_TOGGLE:
+            if (
+                state.mapViews.some(
+                    (mv) => mv.layer === COMBINED_TABLE_REF_LAYER
+                )
+            ) {
+                return state
+            }
+
+            return {
+                ...state,
+                mapViews: [
+                    ...state.mapViews,
+                    {
+                        layer: COMBINED_TABLE_REF_LAYER,
+                        id: generateUid(),
+                        combinedLayerKey: generateUid(),
+                        isVisible: false,
+                        rows: getDefaultReferenceRows(state.mapViews),
+                    },
+                ],
             }
 
         case types.LAYER_DUPLICATE: {

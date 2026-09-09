@@ -1,5 +1,10 @@
 import * as types from '../../constants/actionTypes.js'
-import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
+import {
+    COMBINED_TABLE_REF_LAYER,
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    EARTH_ENGINE_LAYER,
+} from '../../constants/layers.js'
 import { isValidUid } from '../../util/uid.js'
 import map, { defaultBasemapState } from '../map.js'
 
@@ -255,6 +260,89 @@ describe('map reducer - LAYER_ADD', () => {
         })
 
         expect(result).toBe(state)
+    })
+})
+
+describe('map reducer - DATA_TABLE_COMBINED_VIEW_TOGGLE', () => {
+    it('adds a placeholder combinedTableRef mapView when none exists yet', () => {
+        const state = { ...defaultState, mapViews: [{ id: 'layer1' }] }
+
+        const result = map(state, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(result.mapViews).toHaveLength(2)
+        const placeholder = result.mapViews[1]
+        expect(placeholder.layer).toBe(COMBINED_TABLE_REF_LAYER)
+        expect(isValidUid(placeholder.id)).toBe(true)
+        expect(isValidUid(placeholder.combinedLayerKey)).toBe(true)
+        expect(placeholder.isVisible).toBe(false)
+        expect(placeholder.rows).toEqual([])
+    })
+
+    it('is a no-op once a reference layer already exists, regardless of toggle direction', () => {
+        const state = {
+            ...defaultState,
+            mapViews: [
+                { id: 'layer1' },
+                { id: 'ref1', layer: COMBINED_TABLE_REF_LAYER },
+            ],
+        }
+
+        const result = map(state, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(result).toBe(state)
+    })
+
+    it("seeds the placeholder's rows from the first eligible layer in priority order (Thematic over Org unit)", () => {
+        const orgUnitRows = [
+            { dimension: 'ou', items: [{ id: 'ou1', name: 'Org unit 1' }] },
+        ]
+        const thematicRows = [
+            { dimension: 'ou', items: [{ id: 'ou2', name: 'Org unit 2' }] },
+        ]
+        const state = {
+            ...defaultState,
+            mapViews: [
+                {
+                    id: 'orgUnitLayer',
+                    layer: ORG_UNIT_LAYER,
+                    rows: orgUnitRows,
+                },
+                {
+                    id: 'thematicLayer',
+                    layer: THEMATIC_LAYER,
+                    rows: thematicRows,
+                },
+            ],
+        }
+
+        const result = map(state, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(result.mapViews[2].rows).toBe(thematicRows)
+    })
+
+    it('skips a higher-priority layer with no org units selected and falls through to the next type', () => {
+        const eeRows = [
+            { dimension: 'ou', items: [{ id: 'ou3', name: 'Org unit 3' }] },
+        ]
+        const state = {
+            ...defaultState,
+            mapViews: [
+                { id: 'thematicLayer', layer: THEMATIC_LAYER, rows: [] },
+                { id: 'eeLayer', layer: EARTH_ENGINE_LAYER, rows: eeRows },
+            ],
+        }
+
+        const result = map(state, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(result.mapViews[2].rows).toBe(eeRows)
     })
 })
 

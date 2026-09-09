@@ -1,6 +1,15 @@
-import { EXTERNAL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
+import {
+    EXTERNAL_LAYER,
+    THEMATIC_LAYER,
+    ORG_UNIT_LAYER,
+    EARTH_ENGINE_LAYER,
+    FACILITY_LAYER,
+    EVENT_LAYER,
+    TRACKED_ENTITY_LAYER,
+} from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getDefaultReferenceRows,
     getEligibleDataTableLayers,
     getLayerSelectedIds,
     getNextSorting,
@@ -359,5 +368,85 @@ describe('getPanelHeights', () => {
             controlsHeight: 32,
         })
         expect(result.displayHeight).toBe(32)
+    })
+})
+
+const withOrgUnitRows = (layer, id) => ({
+    layer,
+    rows: [{ dimension: 'ou', items: [{ id, name: id }] }],
+})
+
+describe('getDefaultReferenceRows', () => {
+    test('returns an empty array when no map view has an org unit selection', () => {
+        expect(
+            getDefaultReferenceRows([{ layer: THEMATIC_LAYER, rows: [] }])
+        ).toEqual([])
+    })
+
+    test('prefers a Thematic layer over every other type', () => {
+        const thematic = withOrgUnitRows(THEMATIC_LAYER, 'thematicOu')
+        expect(
+            getDefaultReferenceRows([
+                withOrgUnitRows(TRACKED_ENTITY_LAYER, 'teOu'),
+                withOrgUnitRows(ORG_UNIT_LAYER, 'orgUnitOu'),
+                thematic,
+                withOrgUnitRows(EARTH_ENGINE_LAYER, 'eeOu'),
+            ])
+        ).toBe(thematic.rows)
+    })
+
+    test('falls through to the next type in priority order when a higher-priority layer has no org units selected', () => {
+        const facility = withOrgUnitRows(FACILITY_LAYER, 'facilityOu')
+        expect(
+            getDefaultReferenceRows([
+                { layer: THEMATIC_LAYER, rows: [] },
+                { layer: ORG_UNIT_LAYER, rows: [] },
+                { layer: EARTH_ENGINE_LAYER, rows: [] },
+                facility,
+                withOrgUnitRows(EVENT_LAYER, 'eventOu'),
+            ])
+        ).toBe(facility.rows)
+    })
+
+    test('defaults to an empty array when no map views are given', () => {
+        expect(getDefaultReferenceRows()).toEqual([])
+    })
+
+    const withLevel = (layer, id, level) => ({
+        ...withOrgUnitRows(layer, id),
+        data: [{ properties: { id, level } }],
+    })
+
+    test('prefers the coarser (lower) org unit level over the type priority order', () => {
+        const facility = withLevel(FACILITY_LAYER, 'facilityOu', 1)
+        const thematic = withLevel(THEMATIC_LAYER, 'thematicOu', 3)
+        expect(getDefaultReferenceRows([thematic, facility])).toBe(
+            facility.rows
+        )
+    })
+
+    test('breaks a level tie using the type priority order', () => {
+        const orgUnit = withLevel(ORG_UNIT_LAYER, 'orgUnitOu', 2)
+        const thematic = withLevel(THEMATIC_LAYER, 'thematicOu', 2)
+        expect(getDefaultReferenceRows([orgUnit, thematic])).toBe(thematic.rows)
+    })
+
+    test('prefers the coarser of two layers of the same type', () => {
+        const fineThematic = withLevel(THEMATIC_LAYER, 'fine', 3)
+        const coarseThematic = withLevel(THEMATIC_LAYER, 'coarse', 1)
+        expect(getDefaultReferenceRows([fineThematic, coarseThematic])).toBe(
+            coarseThematic.rows
+        )
+    })
+
+    test('falls back to type priority when a candidate has no loaded data to compare a level from yet', () => {
+        const thematicNotYetLoaded = withOrgUnitRows(
+            THEMATIC_LAYER,
+            'thematicOu'
+        )
+        const facility = withLevel(FACILITY_LAYER, 'facilityOu', 1)
+        expect(getDefaultReferenceRows([facility, thematicNotYetLoaded])).toBe(
+            thematicNotYetLoaded.rows
+        )
     })
 })
