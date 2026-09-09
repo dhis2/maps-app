@@ -26,3 +26,9 @@ export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
 export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
 export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
 export const ORG_UNIT_LEVEL_DATA_KEY = 'level'
+
+export const COMBINED_HEADERS_KEY = '__combined__'
+
+export const DATA_KEY_KIND_VALUE = 'value'
+export const DATA_KEY_KIND_COUNT = 'count'
+export const DATA_KEY_KIND_CATEGORY = 'category'

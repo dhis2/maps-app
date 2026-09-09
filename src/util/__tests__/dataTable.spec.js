@@ -1,4 +1,9 @@
 import {
+    DATA_KEY_KIND_CATEGORY,
+    DATA_KEY_KIND_COUNT,
+    DATA_KEY_KIND_VALUE,
+} from '../../constants/dataTable.js'
+import {
     EXTERNAL_LAYER,
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
@@ -9,16 +14,22 @@ import {
 } from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getCombinedLegendConfig,
+    getCombinedValueDataKeys,
+    getDefaultCombinedAggregation,
     getDefaultReferenceRows,
     getEligibleDataTableLayers,
+    getFeatureCategoryKey,
     getLayerSelectedIds,
     getNextSorting,
     getPanelHeights,
     getRowClickAction,
     getRowId,
+    getUnionBounds,
     hasActiveDataTableFilters,
     isDataTableOpen,
     isFilterable,
+    mergeCrossLayerIds,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
 
@@ -281,24 +292,37 @@ describe('isDataTableOpen', () => {
         expect(
             isDataTableOpen({
                 openIds: ['layer1'],
+                combinedView: false,
                 isPanelVisible: true,
             })
         ).toBe(true)
     })
 
-    test('is closed when there are no open tabs', () => {
+    test('is open when Combined is active and the panel is visible, even with no open tabs', () => {
         expect(
             isDataTableOpen({
                 openIds: [],
+                combinedView: true,
+                isPanelVisible: true,
+            })
+        ).toBe(true)
+    })
+
+    test('is closed when there are no open tabs and Combined is not active', () => {
+        expect(
+            isDataTableOpen({
+                openIds: [],
+                combinedView: false,
                 isPanelVisible: true,
             })
         ).toBe(false)
     })
 
-    test('is closed when the panel is hidden, even with open tabs', () => {
+    test('is closed when the panel is hidden, even with open tabs or Combined active', () => {
         expect(
             isDataTableOpen({
                 openIds: ['layer1'],
+                combinedView: true,
                 isPanelVisible: false,
             })
         ).toBe(false)
@@ -323,6 +347,41 @@ describe('getLayerSelectedIds', () => {
         expect(
             getLayerSelectedIds(
                 { layerId: 'other-layer', ids: ['a'] },
+                'layer1'
+            )
+        ).toEqual([])
+    })
+
+    test('returns crossLayerIds ids when selection.layerId belongs to no single layer (Combined)', () => {
+        expect(
+            getLayerSelectedIds(
+                { layerId: null, ids: [], crossLayerIds: { layer1: ['x'] } },
+                'layer1'
+            )
+        ).toEqual(['x'])
+    })
+
+    test('merges crossLayerIds with a same-layer selection, deduping', () => {
+        expect(
+            getLayerSelectedIds(
+                {
+                    layerId: 'layer1',
+                    ids: ['a'],
+                    crossLayerIds: { layer1: ['a', 'b'] },
+                },
+                'layer1'
+            )
+        ).toEqual(['a', 'b'])
+    })
+
+    test('ignores a selection/crossLayerIds entry belonging to another layer', () => {
+        expect(
+            getLayerSelectedIds(
+                {
+                    layerId: 'other-layer',
+                    ids: ['a'],
+                    crossLayerIds: { 'other-layer': ['a'] },
+                },
                 'layer1'
             )
         ).toEqual([])
@@ -448,5 +507,823 @@ describe('getDefaultReferenceRows', () => {
         expect(getDefaultReferenceRows([facility, thematicNotYetLoaded])).toBe(
             thematicNotYetLoaded.rows
         )
+    })
+})
+
+const withDataItem = (aggregationType) => ({
+    layer: THEMATIC_LAYER,
+    columns: [
+        {
+            dimension: 'dx',
+            items: [{ id: 'de1', name: 'DE 1', aggregationType }],
+        },
+    ],
+})
+
+describe('getCombinedValueDataKeys', () => {
+    test('returns a single generic rawValue column for any non-Earth-Engine layer', () => {
+        expect(getCombinedValueDataKeys({ layer: THEMATIC_LAYER })).toEqual([
+            { dataKey: 'rawValue', name: null, kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('single-period thematic layer (no renderingStrategy set) still returns the single generic rawValue column', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SINGLE',
+            })
+        ).toEqual([
+            { dataKey: 'rawValue', name: null, kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('TIMELINE thematic layer: returns a current column plus one fixed column per period', () => {
+        const externalPeriod = { id: 'p1', name: 'Jan' }
+        const periods = [
+            { id: 'p1', name: 'Jan' },
+            { id: 'p2', name: 'Feb' },
+        ]
+        expect(
+            getCombinedValueDataKeys(
+                {
+                    layer: THEMATIC_LAYER,
+                    renderingStrategy: 'TIMELINE',
+                    periods,
+                },
+                externalPeriod
+            )
+        ).toEqual([
+            {
+                dataKey: 'rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                isCurrentPeriod: true,
+                settingsKey: 'rawValue',
+            },
+            {
+                dataKey: 'period_p1_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'period_p2_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p2',
+                periodName: 'Feb',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('SPLIT_BY_PERIOD thematic layer: returns only fixed per-period columns, no current column', () => {
+        const periods = [{ id: 'p1', name: 'Jan' }]
+        expect(
+            getCombinedValueDataKeys({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SPLIT_BY_PERIOD',
+                periods,
+            })
+        ).toEqual([
+            {
+                dataKey: 'period_p1_rawValue',
+                name: null,
+                kind: DATA_KEY_KIND_VALUE,
+                periodId: 'p1',
+                periodName: 'Jan',
+                settingsKey: 'rawValue',
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('returns one column per aggregation stat when aggregationType is an array', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual([
+            { dataKey: 'mean', name: 'Mean Ndvi', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: 'max', name: 'Max Ndvi', kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('returns one column per legend class when aggregationType is classified', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'percentage',
+                legend: {
+                    items: [
+                        { value: 1, name: 'Forest' },
+                        { value: 2, name: 'Water' },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '1', name: 'Forest', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: '2', name: 'Water', kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    test('returns no columns for an Earth Engine layer with neither shape configured yet', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: null,
+                legend: {},
+            })
+        ).toEqual([])
+    })
+
+    // Real band ids/names from src/constants/earthEngineLayers/population_age_sex_Worldpop-Global2.js
+    const populationBands = {
+        multiple: true,
+        list: [
+            { id: 'm_00', name: 'Male 0 - 1 years' },
+            { id: 'f_00', name: 'Female 0 - 1 years' },
+        ],
+    }
+
+    test('only 1 band selected: no extra band columns', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00'],
+            })
+        ).toEqual([
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'mean',
+                name: 'Mean Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ])
+    })
+
+    test('2+ bands, exactly 1 stat: one bare-band-id column per band, hidden by default', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual([
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'm_00',
+                name: 'Male 0 - 1 years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'f_00',
+                name: 'Female 0 - 1 years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('2+ bands, 2+ stats: one title-cased ${band}_${type} column per band per stat, hidden by default', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: populationBands,
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual([
+            {
+                dataKey: 'sum',
+                name: 'Sum Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'mean',
+                name: 'Mean Population',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+            {
+                dataKey: 'm_00_sum',
+                name: 'Sum Male 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'm_00_mean',
+                name: 'Mean Male 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'f_00_sum',
+                name: 'Sum Female 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+            {
+                dataKey: 'f_00_mean',
+                name: 'Mean Female 0 - 1 Years',
+                kind: DATA_KEY_KIND_VALUE,
+                defaultHidden: true,
+            },
+        ])
+    })
+
+    test('no bands config at all: unaffected, same as an ordinary non-multi-band EE layer', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual([
+            { dataKey: 'mean', name: 'Mean Ndvi', kind: DATA_KEY_KIND_VALUE },
+            { dataKey: 'max', name: 'Max Ndvi', kind: DATA_KEY_KIND_VALUE },
+        ])
+    })
+
+    describe('Facility/OrgUnit group-set categorical columns', () => {
+        const groupedLayer = (layer, items) => ({
+            layer,
+            organisationUnitGroupSet: { id: 'groupSet1' },
+            legend: { items },
+        })
+
+        test('grouped Facility with 2+ groups: one category column per group, keyed by id', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(FACILITY_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                        { id: 'group2', name: 'Clinic' },
+                    ])
+                )
+            ).toEqual([
+                {
+                    dataKey: 'group1',
+                    name: 'Hospital',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+                {
+                    dataKey: 'group2',
+                    name: 'Clinic',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+            ])
+        })
+
+        test('grouped OrgUnit with an Unclassified item present: keyed as the unclassified sentinel', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(ORG_UNIT_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                        { name: 'Unclassified' },
+                    ])
+                )
+            ).toEqual([
+                {
+                    dataKey: 'group1',
+                    name: 'Hospital',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+                {
+                    dataKey: 'unclassified',
+                    name: 'Unclassified',
+                    kind: DATA_KEY_KIND_CATEGORY,
+                },
+            ])
+        })
+
+        test('grouped with exactly 1 group: falls back to count-only', () => {
+            expect(
+                getCombinedValueDataKeys(
+                    groupedLayer(FACILITY_LAYER, [
+                        { id: 'group1', name: 'Hospital' },
+                    ])
+                )
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+
+        test('ungrouped Facility: count-only', () => {
+            expect(
+                getCombinedValueDataKeys({
+                    layer: FACILITY_LAYER,
+                    legend: { items: [{ name: 'Facility' }] },
+                })
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+
+        test('ungrouped OrgUnit with a level-fallback legend (items.length > 1, no group set): count-only, not one column per level', () => {
+            expect(
+                getCombinedValueDataKeys({
+                    layer: ORG_UNIT_LAYER,
+                    legend: {
+                        items: [
+                            { name: 'Level 1' },
+                            { name: 'Level 2' },
+                            { name: 'Level 3' },
+                        ],
+                    },
+                })
+            ).toEqual([
+                { dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT },
+            ])
+        })
+    })
+})
+
+describe('getCombinedLegendConfig', () => {
+    test('Earth Engine layer: no legend column', () => {
+        expect(
+            getCombinedLegendConfig({ layer: EARTH_ENGINE_LAYER })
+        ).toBeNull()
+    })
+
+    test('single-period thematic layer: generic legend, read straight off feature properties', () => {
+        expect(
+            getCombinedLegendConfig({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SINGLE',
+            })
+        ).toEqual({ periodId: null, periodName: null, isCurrentPeriod: false })
+    })
+
+    test('non-thematic layer: generic legend, unaffected by renderingStrategy', () => {
+        expect(getCombinedLegendConfig({ layer: FACILITY_LAYER })).toEqual({
+            periodId: null,
+            periodName: null,
+            isCurrentPeriod: false,
+        })
+    })
+
+    test('TIMELINE thematic layer: legend resolved from the current period', () => {
+        const externalPeriod = { id: 'p1', name: 'Jan' }
+        expect(
+            getCombinedLegendConfig(
+                { layer: THEMATIC_LAYER, renderingStrategy: 'TIMELINE' },
+                externalPeriod
+            )
+        ).toEqual({ periodId: 'p1', periodName: 'Jan', isCurrentPeriod: true })
+    })
+
+    test('SPLIT_BY_PERIOD thematic layer: no legend column at all', () => {
+        expect(
+            getCombinedLegendConfig({
+                layer: THEMATIC_LAYER,
+                renderingStrategy: 'SPLIT_BY_PERIOD',
+            })
+        ).toBeNull()
+    })
+})
+
+describe('getFeatureCategoryKey - Facility/OrgUnit', () => {
+    const layer = {
+        layer: FACILITY_LAYER,
+        organisationUnitGroupSet: { id: 'groupSet1' },
+    }
+
+    test("returns the feature's own group id for the layer's group set dimension", () => {
+        expect(
+            getFeatureCategoryKey(layer, {
+                dimensions: { groupSet1: 'group1' },
+            })
+        ).toBe('group1')
+    })
+
+    test('returns the unclassified sentinel when the feature has no value for that dimension', () => {
+        expect(getFeatureCategoryKey(layer, { dimensions: {} })).toBe(
+            'unclassified'
+        )
+        expect(getFeatureCategoryKey(layer, {})).toBe('unclassified')
+    })
+})
+
+describe('getCombinedValueDataKeys - Event layers', () => {
+    test('no styleDataItem: count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                legend: { items: [{ name: 'Event', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('styleDataItem on a numeric value type: single value-kind entry, even when its own legend has 2+ classification bins', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+                legend: {
+                    items: [
+                        { name: 'Low', colorGroup: 0 },
+                        { name: 'High', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([{ dataKey: 'value', name: null, kind: DATA_KEY_KIND_VALUE }])
+    })
+
+    test('styleDataItem on a numeric value type: uses the data item name, matching the categorical/boolean cases', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: {
+                    id: 'de1',
+                    name: 'Weight (kg)',
+                    valueType: 'NUMBER',
+                },
+            })
+        ).toEqual([
+            {
+                dataKey: 'value',
+                name: 'Weight (kg)',
+                kind: DATA_KEY_KIND_VALUE,
+            },
+        ])
+    })
+
+    test('styleDataItem.optionSet with 3 options: 3 category entries keyed by colorGroup', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Option B', colorGroup: 1 },
+                        { name: 'Option C', colorGroup: 2 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Option A', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'Option B', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '2', name: 'Option C', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('boolean styleDataItem (Yes/No): 2 category entries', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'BOOLEAN' },
+                legend: {
+                    items: [
+                        { name: 'Yes', colorGroup: 0 },
+                        { name: 'No', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Yes', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'No', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('optionSet + Unclassified/No data legends configured: extra category entries keyed by their own colorGroup, not by name', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Unclassified', colorGroup: 1 },
+                        { name: 'No data', colorGroup: 2 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Option A', kind: DATA_KEY_KIND_CATEGORY },
+            {
+                dataKey: '1',
+                name: 'Unclassified',
+                kind: DATA_KEY_KIND_CATEGORY,
+            },
+            { dataKey: '2', name: 'No data', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('styleDataItem on a TEXT value type with No data legend configured (2-item legend): 2 category columns, not count-only (resolved carve-out)', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'TEXT' },
+                legend: {
+                    items: [
+                        { name: 'Event', colorGroup: 0 },
+                        { name: 'No data', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual([
+            { dataKey: '0', name: 'Event', kind: DATA_KEY_KIND_CATEGORY },
+            { dataKey: '1', name: 'No data', kind: DATA_KEY_KIND_CATEGORY },
+        ])
+    })
+
+    test('styleDataItem on a TEXT value type with no No data legend (1-item legend): count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'TEXT' },
+                legend: { items: [{ name: 'Event', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('single-option optionSet: falls back to count-only', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: { items: [{ name: 'Option A', colorGroup: 0 }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+})
+
+describe('getFeatureCategoryKey - Event', () => {
+    const layer = { layer: EVENT_LAYER }
+
+    test("returns the feature's own colorGroup, stringified", () => {
+        expect(getFeatureCategoryKey(layer, { colorGroup: 1 })).toBe('1')
+    })
+})
+
+describe('getCombinedValueDataKeys - TrackedEntity layers', () => {
+    test('always count-only, regardless of legend shape (TE has no classification support today)', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: TRACKED_ENTITY_LAYER,
+                legend: { items: [{ name: 'Person' }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+
+    test('still count-only even given a multi-item legend, defending against future drift', () => {
+        expect(
+            getCombinedValueDataKeys({
+                layer: TRACKED_ENTITY_LAYER,
+                legend: { items: [{ name: 'Type A' }, { name: 'Type B' }] },
+            })
+        ).toEqual([{ dataKey: 'count', name: null, kind: DATA_KEY_KIND_COUNT }])
+    })
+})
+describe('getDefaultCombinedAggregation', () => {
+    test("defaults to the data item's own aggregation type", () => {
+        expect(getDefaultCombinedAggregation(withDataItem('AVERAGE'))).toEqual({
+            rawValue: 'AVERAGE',
+        })
+    })
+
+    test('maps AVERAGE_SUM_ORG_UNIT to SUM', () => {
+        expect(
+            getDefaultCombinedAggregation(withDataItem('AVERAGE_SUM_ORG_UNIT'))
+        ).toEqual({ rawValue: 'SUM' })
+    })
+
+    test('falls back to SUM when the data item has no aggregationType', () => {
+        expect(getDefaultCombinedAggregation(withDataItem(undefined))).toEqual({
+            rawValue: 'SUM',
+        })
+    })
+
+    test('falls back to SUM for a layer with no data item at all (non-Thematic types)', () => {
+        expect(
+            getDefaultCombinedAggregation({ layer: EARTH_ENGINE_LAYER })
+        ).toEqual({})
+    })
+
+    test('defaults a plain Indicator data item to AVERAGE - it has no aggregationType of its own, and its value is a ratio not meaningfully summed across org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: THEMATIC_LAYER,
+                columns: [
+                    {
+                        dimension: 'dx',
+                        items: [
+                            {
+                                id: 'in1',
+                                name: 'Indicator 1',
+                                dimensionItemType: 'INDICATOR',
+                            },
+                        ],
+                    },
+                ],
+            })
+        ).toEqual({ rawValue: 'AVERAGE' })
+    })
+
+    test("Earth Engine: defaults every stat column to the first selected stat's own equivalent", () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['mean', 'max'],
+                legend: { title: 'NDVI' },
+            })
+        ).toEqual({ mean: 'AVERAGE', max: 'AVERAGE' })
+    })
+
+    test('Earth Engine: classified percentage (e.g. Landcover) defaults to AVERAGE - a relative proportion is not meaningfully summed across differently-sized org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'percentage',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'AVERAGE' })
+    })
+
+    test('Earth Engine: classified hectares/acres default to SUM - an absolute area is correctly additive across joined org units', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'hectares',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'SUM' })
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: 'acres',
+                legend: { items: [{ value: 1, name: 'Forest' }] },
+            })
+        ).toEqual({ 1: 'SUM' })
+    })
+
+    test('Earth Engine: per-band columns pick up the same default aggregation type as the main stat columns, with no extra mapping needed', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EARTH_ENGINE_LAYER,
+                aggregationType: ['sum', 'mean'],
+                legend: { title: 'Population' },
+                bands: {
+                    multiple: true,
+                    list: [
+                        { id: 'm_00', name: 'Male 0 - 1 years' },
+                        { id: 'f_00', name: 'Female 0 - 1 years' },
+                    ],
+                },
+                band: ['m_00', 'f_00'],
+            })
+        ).toEqual({
+            sum: 'SUM',
+            mean: 'SUM',
+            m_00_sum: 'SUM',
+            m_00_mean: 'SUM',
+            f_00_sum: 'SUM',
+            f_00_mean: 'SUM',
+        })
+    })
+
+    test('Facility/OrgUnit: count-only defaults to COUNT, category defaults to a single shared categoryDisplayType of COUNT', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: FACILITY_LAYER,
+                legend: { items: [{ name: 'Facility' }] },
+            })
+        ).toEqual({ count: 'COUNT' })
+
+        expect(
+            getDefaultCombinedAggregation({
+                layer: ORG_UNIT_LAYER,
+                organisationUnitGroupSet: { id: 'groupSet1' },
+                legend: {
+                    items: [
+                        { id: 'group1', name: 'Hospital' },
+                        { id: 'group2', name: 'Clinic' },
+                    ],
+                },
+            })
+        ).toEqual({ categoryDisplayType: 'COUNT' })
+    })
+
+    test('Event: a numeric styleDataItem defaults to AVERAGE - event values are raw individual records, not pre-aggregated org-unit values', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', valueType: 'NUMBER' },
+                legend: { items: [{ name: 'Low' }, { name: 'High' }] },
+            })
+        ).toEqual({ value: 'AVERAGE' })
+    })
+
+    test('Event: category dataKeys default to a single shared categoryDisplayType of COUNT', () => {
+        expect(
+            getDefaultCombinedAggregation({
+                layer: EVENT_LAYER,
+                styleDataItem: { id: 'de1', optionSet: { id: 'os1' } },
+                legend: {
+                    items: [
+                        { name: 'Option A', colorGroup: 0 },
+                        { name: 'Option B', colorGroup: 1 },
+                    ],
+                },
+            })
+        ).toEqual({ categoryDisplayType: 'COUNT' })
+    })
+})
+describe('mergeCrossLayerIds', () => {
+    const rowFeatureIds = new Map([
+        ['ou1', { layerA: ['a1'], layerB: ['b1'] }],
+        ['ou2', { layerA: ['a2'] }],
+    ])
+
+    test('unions per-layer id sets across every named row', () => {
+        expect(mergeCrossLayerIds(['ou1', 'ou2'], rowFeatureIds)).toEqual({
+            layerA: ['a1', 'a2'],
+            layerB: ['b1'],
+        })
+    })
+
+    test('dedupes ids repeated across rows for the same layer', () => {
+        const withOverlap = new Map([
+            ['ou1', { layerA: ['a1'] }],
+            ['ou2', { layerA: ['a1', 'a2'] }],
+        ])
+        expect(mergeCrossLayerIds(['ou1', 'ou2'], withOverlap)).toEqual({
+            layerA: ['a1', 'a2'],
+        })
+    })
+
+    test('skips row keys with no entry', () => {
+        expect(mergeCrossLayerIds(['ou1', 'missing'], rowFeatureIds)).toEqual({
+            layerA: ['a1'],
+            layerB: ['b1'],
+        })
+    })
+
+    test('returns an empty object for no rows', () => {
+        expect(mergeCrossLayerIds([], rowFeatureIds)).toEqual({})
+    })
+})
+
+describe('getUnionBounds', () => {
+    const point = (id, coordinates) => ({
+        type: 'Feature',
+        properties: { id },
+        geometry: { type: 'Point', coordinates },
+    })
+
+    const layers = [
+        {
+            id: 'layerA',
+            data: [point('a1', [0, 0]), point('a2', [10, 10])],
+        },
+        { id: 'layerB', data: [point('b1', [5, -5])] },
+    ]
+
+    test('computes the union bbox across every named feature on every layer', () => {
+        expect(
+            getUnionBounds(layers, { layerA: ['a1', 'a2'], layerB: ['b1'] })
+        ).toEqual([
+            [0, -5],
+            [10, 10],
+        ])
+    })
+
+    test('ignores layers/ids not named in idsByLayerId', () => {
+        expect(getUnionBounds(layers, { layerA: ['a1'] })).toEqual([
+            [0, 0],
+            [0, 0],
+        ])
+    })
+
+    test('returns null when nothing matches', () => {
+        expect(getUnionBounds(layers, {})).toBeNull()
+    })
+
+    test('skips ids that have no matching feature or geometry', () => {
+        expect(getUnionBounds(layers, { layerA: ['missing'] })).toBeNull()
     })
 })
