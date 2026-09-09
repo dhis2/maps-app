@@ -10,8 +10,10 @@ import React, {
     useState,
     useCallback,
     useEffect,
+    useMemo,
     useRef,
 } from 'react'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
@@ -37,19 +39,29 @@ const getFullscreenDoc = () => {
 const Map = forwardRef((props, ref) => {
     const { basemap, mapViews, controls, getResizeFunction } = props
 
+    const renderableMapViews = useMemo(
+        () => mapViews.filter((v) => v.layer !== COMBINED_TABLE_REF_LAYER),
+        [mapViews]
+    )
+
     const layers = useRef(
-        mapViews.map((config) => ({ ...config, isLoaded: false }))
+        renderableMapViews.map((config) => ({ ...config, isLoaded: false }))
     )
 
     useEffect(() => {
-        if (didViewsChange(layers.current, mapViews)) {
-            layers.current = mapViews.map((v) => ({ ...v, isLoaded: false }))
+        if (didViewsChange(layers.current, renderableMapViews)) {
+            layers.current = renderableMapViews.map((v) => ({
+                ...v,
+                isLoaded: false,
+            }))
             setVisibilityOverrides({})
             setMapIsLoaded(false)
         }
-    }, [mapViews])
+    }, [renderableMapViews])
 
-    const [mapIsLoaded, setMapIsLoaded] = useState(mapViews.length === 0)
+    const [mapIsLoaded, setMapIsLoaded] = useState(
+        renderableMapViews.length === 0
+    )
     const [contextMenu, setContextMenu] = useState()
     const [visibilityOverrides, setVisibilityOverrides] = useState({})
     const [resizeCount, setResizeCount] = useState(0)

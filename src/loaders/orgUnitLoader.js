@@ -6,6 +6,7 @@ import {
     ERROR_CRITICAL,
     CUSTOM_ALERT,
 } from '../constants/alerts.js'
+import { COMBINED_TABLE_REF_LAYER } from '../constants/layers.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
 import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
@@ -22,6 +23,7 @@ import {
     fetchAssociatedGeometries,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
+import { generateUid } from '../util/uid.js'
 
 export const applyMissingCoordsCount = async (
     config,
@@ -74,8 +76,14 @@ const orgUnitLoader = async ({
         countFeaturesWithoutCoordinates,
         unclassifiedLegend,
         dataTableColumnConfig,
+        combinedJoinConfig,
+        combinedColumnConfig,
+        combinedLayerKey,
     } = parseJsonConfig(config.config)
-    if (countFeaturesWithoutCoordinates) {
+    if (
+        countFeaturesWithoutCoordinates ||
+        config.layer === COMBINED_TABLE_REF_LAYER
+    ) {
         config.countFeaturesWithoutCoordinates = true
     }
     if (unclassifiedLegend) {
@@ -84,6 +92,13 @@ const orgUnitLoader = async ({
     if (dataTableColumnConfig) {
         config.dataTableColumnConfig = dataTableColumnConfig
     }
+    if (combinedJoinConfig) {
+        config.combinedJoinConfig = combinedJoinConfig
+    }
+    if (combinedColumnConfig) {
+        config.combinedColumnConfig = combinedColumnConfig
+    }
+    config.combinedLayerKey = combinedLayerKey ?? generateUid()
     delete config.config
 
     // Data loading
@@ -111,7 +126,11 @@ const orgUnitLoader = async ({
     )
 
     const mainFeatures = data?.geoFeatures ? toGeoJson(data.geoFeatures) : []
-    if (!mainFeatures.length && !alerts.length) {
+    if (
+        !mainFeatures.length &&
+        !alerts.length &&
+        config.layer !== COMBINED_TABLE_REF_LAYER
+    ) {
         alerts.push({
             code: WARNING_NO_OU_COORD,
             message: i18n.t('Org unit layer'),

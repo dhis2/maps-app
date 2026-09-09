@@ -40,6 +40,7 @@ const OrgUnitDialog = ({
     rows,
     validateLayer,
     onLayerValidation,
+    hideStyleTab,
 }) => {
     const dispatch = useDispatch()
     const countFeaturesWithoutCoordinates = useSelector(
@@ -70,13 +71,13 @@ const OrgUnitDialog = ({
         <div className={styles.content} data-test="orgunitdialog">
             <Tabs value={tab} onChange={setTab}>
                 <Tab value={ORGUNITS_TAB}>{i18n.t('Organisation Units')}</Tab>
-                <Tab value="style">{i18n.t('Style')}</Tab>
+                {!hideStyleTab && <Tab value="style">{i18n.t('Style')}</Tab>}
             </Tabs>
             <div className={styles.tabContent}>
                 {tab === ORGUNITS_TAB && (
                     <OrgUnitSelect warning={orgUnitsError} />
                 )}
-                {tab === 'style' && (
+                {!hideStyleTab && tab === 'style' && (
                     <div
                         className={styles.flexColumnFlow}
                         data-test="orgunitdialog-styletab"
@@ -143,6 +144,7 @@ const OrgUnitDialog = ({
 OrgUnitDialog.propTypes = {
     validateLayer: PropTypes.bool.isRequired,
     onLayerValidation: PropTypes.func.isRequired,
+    hideStyleTab: PropTypes.bool,
     organisationUnitColor: PropTypes.string,
     organisationUnitGroupSet: PropTypes.object,
     radiusLow: PropTypes.number,

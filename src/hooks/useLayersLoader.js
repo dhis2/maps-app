@@ -22,6 +22,7 @@ const loaders = {
     external: externalLoader,
     facility: facilityLoader,
     orgUnit: orgUnitLoader,
+    combinedTableRef: orgUnitLoader,
     thematic: thematicLoader,
     geoJsonUrl: geoJsonUrlLoader,
     trackedEntity: trackedEntityLoader,
