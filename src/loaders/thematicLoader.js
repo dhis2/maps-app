@@ -101,6 +101,7 @@ const thematicLoader = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
+        spatialAnalysis: spatialAnalysisFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -110,6 +111,9 @@ const thematicLoader = async ({
     }
     if (legendIsolated) {
         config.legendIsolated = legendIsolated
+    }
+    if (spatialAnalysisFromConfig) {
+        config.spatialAnalysis = spatialAnalysisFromConfig
     }
     if (unclassifiedLegendFromConfig) {
         config.unclassifiedLegend = unclassifiedLegendFromConfig
