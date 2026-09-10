@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-09-10T12:01:26.772Z\n"
+"PO-Revision-Date: 2026-09-10T12:01:26.773Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -437,6 +437,21 @@ msgstr "Group events"
 msgid "View all events"
 msgstr "View all events"
 
+msgid "Density clusters"
+msgstr "Density clusters"
+
+msgid "Neighborhood radius (m)"
+msgstr "Neighborhood radius (m)"
+
+msgid "Events within this distance of each other can join the same cluster"
+msgstr "Events within this distance of each other can join the same cluster"
+
+msgid "Minimum cluster size"
+msgstr "Minimum cluster size"
+
+msgid "Fewer nearby events than this are shown as individual, unclustered events"
+msgstr "Fewer nearby events than this are shown as individual, unclustered events"
+
 msgid "Radius"
 msgstr "Radius"
 
@@ -810,6 +825,9 @@ msgstr ""
 
 msgid "Basemap could not be added: {{message}}"
 msgstr "Basemap could not be added: {{message}}"
+
+msgid "Events in cluster"
+msgstr "Events in cluster"
 
 msgid "Could not retrieve event data"
 msgstr "Could not retrieve event data"

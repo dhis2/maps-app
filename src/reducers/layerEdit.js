@@ -369,6 +369,26 @@ const layerEdit = (state = null, action) => {
             return {
                 ...state,
                 eventClustering: action.checked,
+                ...(action.checked && { dbscanClustering: false }),
+            }
+
+        case types.LAYER_EDIT_DBSCAN_CLUSTERING_SET:
+            return {
+                ...state,
+                dbscanClustering: action.checked,
+                ...(action.checked && { eventClustering: false }),
+            }
+
+        case types.LAYER_EDIT_DBSCAN_EPS_SET:
+            return {
+                ...state,
+                dbscanEps: action.eps,
+            }
+
+        case types.LAYER_EDIT_DBSCAN_MIN_POINTS_SET:
+            return {
+                ...state,
+                dbscanMinPoints: action.minPoints,
             }
 
         case types.LAYER_EDIT_COUNT_FEATURES_WITHOUT_COORDS_SET:

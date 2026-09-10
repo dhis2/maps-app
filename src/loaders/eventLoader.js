@@ -161,7 +161,15 @@ const loadEventLayer = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
+        dbscanClustering,
+        dbscanEps,
+        dbscanMinPoints,
     } = parseJsonConfig(config.config)
+    if (dbscanClustering) {
+        config.dbscanClustering = true
+        config.dbscanEps = dbscanEps
+        config.dbscanMinPoints = dbscanMinPoints
+    }
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
     }
