@@ -1,9 +1,15 @@
 import { Analytics } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
+import { clustersDbscan } from '@turf/clusters-dbscan'
 import React from 'react'
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_DBSCAN_EPS_DEFAULT,
+    EVENT_DBSCAN_MIN_POINTS_DEFAULT,
+    EVENT_DBSCAN_CLUSTER_COLOR,
+    EVENT_DBSCAN_CLUSTER_MIN_RADIUS,
+    EVENT_DBSCAN_CLUSTER_MAX_RADIUS,
     LABEL_TEMPLATE_NAME_ONLY,
     LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
@@ -21,6 +27,7 @@ import { getLabelStyle } from '../../../util/labels.js'
 import { sortLegendItems } from '../../../util/legend.js'
 import { formatCount } from '../../../util/numbers.js'
 import { OPTION_SET_QUERY } from '../../../util/requests.js'
+import Popup from '../Popup.jsx'
 import EventPopup from './EventPopup.jsx'
 import Layer from './Layer.js'
 
@@ -43,6 +50,9 @@ class EventLayer extends Layer {
             data,
             engine,
             eventClustering,
+            dbscanClustering,
+            dbscanEps,
+            dbscanMinPoints,
             eventCoordinateField,
             eventPointColor,
             eventPointRadius,
@@ -142,20 +152,36 @@ class EventLayer extends Layer {
                 }),
         }
 
-        this.applyClusteringConfig(config, {
-            eventClustering,
-            serverCluster,
-            bounds,
-            areaRadius,
-            color,
-            styleDataItem,
-            legend,
-            id,
-            nameProperty,
-            engine,
-            analyticsEngine,
-            geometryCentroid,
-        })
+        // DBSCAN density clustering — mockup for DHIS2-21461, computed
+        // client-side since it needs the full loaded point set at once
+        if (dbscanClustering) {
+            config.data = this.buildDbscanFeatures(labeledData, {
+                eps: dbscanEps || EVENT_DBSCAN_EPS_DEFAULT,
+                minPoints: dbscanMinPoints || EVENT_DBSCAN_MIN_POINTS_DEFAULT,
+            })
+            config.label = LABEL_TEMPLATE_NAME_ONLY
+            config.labelStyle = getLabelStyle({
+                labelFontColor,
+                labelFontSize,
+                labelFontWeight,
+                labelFontStyle,
+            })
+        } else {
+            this.applyClusteringConfig(config, {
+                eventClustering,
+                serverCluster,
+                bounds,
+                areaRadius,
+                color,
+                styleDataItem,
+                legend,
+                id,
+                nameProperty,
+                engine,
+                analyticsEngine,
+                geometryCentroid,
+            })
+        }
 
         if (program && programStage) {
             this.loadDisplayItems({
@@ -249,12 +275,116 @@ class EventLayer extends Layer {
         }
     }
 
+    // DBSCAN density clustering — mockup for DHIS2-21461.
+    // Runs client-side over all loaded Point features (needs the full point
+    // set at once, unlike grid clustering's per-tile aggregation) and
+    // replaces each dense group of "core"/"edge" points with one synthetic
+    // summary feature, sized and labeled by member count. "Noise" points
+    // (events too sparse to join a cluster) pass through unchanged, so they
+    // keep rendering — and remain clickable — as regular individual events.
+    buildDbscanFeatures(data, { eps, minPoints }) {
+        const pointFeatures = data.filter(
+            (feature) => feature.geometry?.type === 'Point'
+        )
+
+        if (!pointFeatures.length) {
+            return data
+        }
+
+        const nonPointFeatures = data.filter(
+            (feature) => feature.geometry?.type !== 'Point'
+        )
+
+        const clustered = clustersDbscan(
+            {
+                type: 'FeatureCollection',
+                features: pointFeatures.map((feature) => ({
+                    type: 'Feature',
+                    geometry: feature.geometry,
+                    properties: {},
+                })),
+            },
+            eps,
+            { units: 'meters', minPoints }
+        )
+
+        const clusterGroups = {}
+        const output = [...nonPointFeatures]
+
+        clustered.features.forEach(({ properties }, index) => {
+            const originalFeature = pointFeatures[index]
+
+            if (properties.dbscan !== 'core' && properties.dbscan !== 'edge') {
+                output.push(originalFeature)
+                return
+            }
+
+            const group = (clusterGroups[properties.cluster] =
+                clusterGroups[properties.cluster] || [])
+            group.push(originalFeature)
+        })
+
+        Object.values(clusterGroups).forEach((members, clusterIndex) => {
+            const [lng, lat] = members
+                .reduce(
+                    ([sumLng, sumLat], feature) => [
+                        sumLng + feature.geometry.coordinates[0],
+                        sumLat + feature.geometry.coordinates[1],
+                    ],
+                    [0, 0]
+                )
+                .map((sum) => sum / members.length)
+
+            output.push({
+                type: 'Feature',
+                id: `dbscan-cluster-${clusterIndex}`,
+                geometry: { type: 'Point', coordinates: [lng, lat] },
+                properties: {
+                    isDbscanCluster: true,
+                    dbscanCount: members.length,
+                    radius: Math.min(
+                        EVENT_DBSCAN_CLUSTER_MAX_RADIUS,
+                        EVENT_DBSCAN_CLUSTER_MIN_RADIUS +
+                            Math.sqrt(members.length) * 4
+                    ),
+                    color: EVENT_DBSCAN_CLUSTER_COLOR,
+                    name: formatCount(members.length),
+                },
+            })
+        })
+
+        return output
+    }
+
     render() {
         const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
             this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
-        return popup && displayItems ? (
+        if (!popup) {
+            return null
+        }
+
+        // DBSCAN cluster summary points aren't real events, so they can't be
+        // looked up through the usual event popup's tracker/events query.
+        if (popup.feature.properties.isDbscanCluster) {
+            return (
+                <Popup coordinates={popup.coordinates} onClose={this.onPopupClose}>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>{i18n.t('Events in cluster')}</th>
+                                <td>
+                                    {popup.feature.properties.dbscanCount}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </Popup>
+            )
+        }
+
+        return displayItems ? (
             <EventPopup
                 {...popup}
                 styleDataItem={styleDataItem}

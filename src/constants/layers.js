@@ -121,6 +121,17 @@ export const EVENT_CENTROID_DEFAULT = [
     'COORDINATE',
 ]
 
+// Mockup for DHIS2-21461: DBSCAN density clustering, gated by config.dbscanClustering
+export const EVENT_DBSCAN_EPS_DEFAULT = 500 // meters
+export const EVENT_DBSCAN_EPS_MIN = 10
+export const EVENT_DBSCAN_EPS_MAX = 10000
+export const EVENT_DBSCAN_MIN_POINTS_DEFAULT = 3
+export const EVENT_DBSCAN_MIN_POINTS_MIN = 2
+export const EVENT_DBSCAN_MIN_POINTS_MAX = 50
+export const EVENT_DBSCAN_CLUSTER_COLOR = '#E6550D'
+export const EVENT_DBSCAN_CLUSTER_MIN_RADIUS = 10
+export const EVENT_DBSCAN_CLUSTER_MAX_RADIUS = 40
+
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'
 export const TEI_RADIUS = 6

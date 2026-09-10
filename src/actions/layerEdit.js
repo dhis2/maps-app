@@ -127,6 +127,24 @@ export const setEventClustering = (checked) => ({
     checked,
 })
 
+// Set if DBSCAN density clustering should be used (event) — mockup for DHIS2-21461
+export const setDbscanClustering = (checked) => ({
+    type: types.LAYER_EDIT_DBSCAN_CLUSTERING_SET,
+    checked,
+})
+
+// Set the DBSCAN neighborhood radius in meters (event)
+export const setDbscanEps = (eps) => ({
+    type: types.LAYER_EDIT_DBSCAN_EPS_SET,
+    eps,
+})
+
+// Set the DBSCAN minimum cluster size (event)
+export const setDbscanMinPoints = (minPoints) => ({
+    type: types.LAYER_EDIT_DBSCAN_MIN_POINTS_SET,
+    minPoints,
+})
+
 // Set if features without coordinates should be counted and added to data table
 export const setCountFeaturesWithoutCoordinates = (checked) => ({
     type: types.LAYER_EDIT_COUNT_FEATURES_WITHOUT_COORDS_SET,

@@ -11,6 +11,9 @@ import {
     setEventStatus,
     setEventCoordinateField,
     setEventClustering,
+    setDbscanClustering,
+    setDbscanEps,
+    setDbscanMinPoints,
     setEventPointColor,
     setEventPointRadius,
     // setFallbackCoordinateField,
@@ -26,6 +29,12 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_BUFFER,
+    EVENT_DBSCAN_EPS_DEFAULT,
+    EVENT_DBSCAN_EPS_MIN,
+    EVENT_DBSCAN_EPS_MAX,
+    EVENT_DBSCAN_MIN_POINTS_DEFAULT,
+    EVENT_DBSCAN_MIN_POINTS_MIN,
+    EVENT_DBSCAN_MIN_POINTS_MAX,
     CLASSIFICATION_PREDEFINED,
     MIN_RADIUS,
     MAX_RADIUS,
@@ -73,6 +82,9 @@ const EventDialog = ({
     columns = DEFAULT_NO_COLUMNS,
     countEventsOutsideOrgUnits,
     countFeaturesWithoutCoordinates,
+    dbscanClustering,
+    dbscanEps,
+    dbscanMinPoints,
     endDate,
     eventClustering,
     eventCoordinateField,
@@ -461,10 +473,67 @@ const EventDialog = ({
                                         onClick={() =>
                                             dispatch(setEventClustering(false))
                                         }
-                                        isSelected={!eventClustering}
+                                        isSelected={
+                                            !eventClustering &&
+                                            !dbscanClustering
+                                        }
                                         className={styles.flexInnerColumn}
                                     />
+                                    <ImageSelect
+                                        id="dbscan"
+                                        img="images/dbscan.png"
+                                        title={i18n.t('Density clusters')}
+                                        onClick={() =>
+                                            dispatch(setDbscanClustering(true))
+                                        }
+                                        isSelected={dbscanClustering}
+                                        className={styles.flexInnerColumn}
+                                        data-test="eventdialog-dbscan"
+                                    />
                                 </div>
+                                {dbscanClustering && (
+                                    <div
+                                        className={styles.flexInnerColumnFlow}
+                                        data-test="eventdialog-dbscanoptions"
+                                    >
+                                        <NumberField
+                                            label={i18n.t(
+                                                'Neighborhood radius (m)'
+                                            )}
+                                            min={EVENT_DBSCAN_EPS_MIN}
+                                            max={EVENT_DBSCAN_EPS_MAX}
+                                            value={
+                                                dbscanEps ??
+                                                EVENT_DBSCAN_EPS_DEFAULT
+                                            }
+                                            onChange={(val) =>
+                                                dispatch(setDbscanEps(val))
+                                            }
+                                            helpText={i18n.t(
+                                                'Events within this distance of each other can join the same cluster'
+                                            )}
+                                        />
+                                        <NumberField
+                                            label={i18n.t(
+                                                'Minimum cluster size'
+                                            )}
+                                            min={EVENT_DBSCAN_MIN_POINTS_MIN}
+                                            max={EVENT_DBSCAN_MIN_POINTS_MAX}
+                                            value={
+                                                dbscanMinPoints ??
+                                                EVENT_DBSCAN_MIN_POINTS_DEFAULT
+                                            }
+                                            onChange={(val) =>
+                                                dispatch(
+                                                    setDbscanMinPoints(val)
+                                                )
+                                            }
+                                            helpText={i18n.t(
+                                                'Fewer nearby events than this are shown as individual, unclustered events'
+                                            )}
+                                        />
+                                    </div>
+                                )}
                                 <div
                                     className={cx(
                                         styles.flexInnerColumnFlow,
@@ -494,7 +563,7 @@ const EventDialog = ({
                                 </div>
                                 <GeometryCentroid tab={'style'} />
                                 <BufferRadius
-                                    disabled={eventClustering}
+                                    disabled={eventClustering || dbscanClustering}
                                     defaultRadius={EVENT_BUFFER}
                                 />
                                 <LabelFieldSelect />
@@ -555,6 +624,9 @@ EventDialog.propTypes = {
     columns: PropTypes.array,
     countEventsOutsideOrgUnits: PropTypes.bool,
     countFeaturesWithoutCoordinates: PropTypes.bool,
+    dbscanClustering: PropTypes.bool,
+    dbscanEps: PropTypes.number,
+    dbscanMinPoints: PropTypes.number,
     endDate: PropTypes.string,
     eventClustering: PropTypes.bool,
     eventCoordinateField: PropTypes.string,
