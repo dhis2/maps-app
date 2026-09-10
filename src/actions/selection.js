@@ -18,6 +18,11 @@ export const selectFeatureRange = (ids, layerId) => ({
     layerId,
 })
 
+export const setCrossLayerSelection = (crossLayerIds) => ({
+    type: types.SELECTION_SET_CROSS_LAYER,
+    crossLayerIds,
+})
+
 export const clearSelection = () => ({
     type: types.SELECTION_CLEAR,
 })

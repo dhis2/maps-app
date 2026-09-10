@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import {
+    COMBINED_TABLE_REF_LAYER,
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
@@ -32,15 +33,19 @@ const RenderingStrategy = ({
     const hasOtherSplitLayers = useSelector(({ map }) =>
         map.mapViews.some(
             (layer) =>
+                layer.layer !== COMBINED_TABLE_REF_LAYER &&
                 layer.renderingStrategy ===
-                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD &&
+                layer.id !== layerId
         )
     )
     const hasOtherNonSplitLayers = useSelector(({ map }) =>
         map.mapViews.some(
             (layer) =>
+                layer.layer !== COMBINED_TABLE_REF_LAYER &&
                 layer.renderingStrategy !==
-                    RENDERING_STRATEGY_SPLIT_BY_PERIOD && layer.id !== layerId
+                    RENDERING_STRATEGY_SPLIT_BY_PERIOD &&
+                layer.id !== layerId
         )
     )
 

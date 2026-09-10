@@ -31,6 +31,14 @@ describe('removeLayer', () => {
             id: 'layer1',
         })
     })
+
+    it('includes combinedLayerKey when provided', () => {
+        expect(removeLayer('layer1', 'layer1Key')).toEqual({
+            type: types.LAYER_REMOVE,
+            id: 'layer1',
+            combinedLayerKey: 'layer1Key',
+        })
+    })
 })
 
 describe('duplicateLayer', () => {

@@ -10,6 +10,7 @@ import {
 } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import { toggleFeatureSelection } from '../../actions/selection.js'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import MapLoadingMask from './MapLoadingMask.jsx'
@@ -25,9 +26,13 @@ const MapContainer = ({ resizeCount, setMap }) => {
     )
     const feature = useSelector((state) => state.feature)
     const selection = useSelector((state) => state.selection)
-    const { layersSorting, highlightColor, selectionFilter } = useSelector(
-        (state) => state.ui
-    )
+    const combinedView = useSelector((state) => state.dataTable.combinedView)
+    const {
+        layersSorting,
+        highlightColor,
+        selectionFilter,
+        combinedVisibleIds,
+    } = useSelector((state) => state.ui)
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
 
@@ -39,8 +44,11 @@ const MapContainer = ({ resizeCount, setMap }) => {
         dispatchHighlightFeature
     )
 
-    const loadedMapViews = mapViews.filter((layer) => layer.isLoaded)
-    const isLoading = loadedMapViews.length !== mapViews.length
+    const renderableMapViews = mapViews.filter(
+        (layer) => layer.layer !== COMBINED_TABLE_REF_LAYER
+    )
+    const loadedMapViews = renderableMapViews.filter((layer) => layer.isLoaded)
+    const isLoading = loadedMapViews.length !== renderableMapViews.length
 
     return (
         <>
@@ -54,11 +62,14 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 selection={selection}
                 highlightColor={highlightColor}
                 selectionFilter={selectionFilter}
+                combinedVisibleIds={combinedVisibleIds}
                 highlightFeature={debouncedHighlightFeature}
                 clickFeature={(payload) => dispatch(clickFeature(payload))}
-                toggleFeatureSelection={(id, layerId) =>
-                    dispatch(toggleFeatureSelection(id, layerId))
-                }
+                toggleFeatureSelection={(id, layerId) => {
+                    if (!combinedView) {
+                        dispatch(toggleFeatureSelection(id, layerId))
+                    }
+                }}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
                 coordinatePopup={coordinatePopup}
                 interpretationModalOpen={interpretationModalOpen}

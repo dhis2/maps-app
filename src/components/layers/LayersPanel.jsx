@@ -22,6 +22,7 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { sortLayers } from '../../actions/layers.js'
 import { layersSortingEnd, layersSortingStart } from '../../actions/ui.js'
+import { COMBINED_TABLE_REF_LAYER } from '../../constants/layers.js'
 import BasemapCard from '../layers/basemaps/BasemapCard.jsx'
 import LayersToggle from '../layers/LayersToggle.jsx'
 import { DragHandleCtx } from './dragHandleContext.js'
@@ -60,10 +61,20 @@ SortableLayer.propTypes = {
     layer: PropTypes.object.isRequired,
 }
 
+export const getSortIndices = (reversedMapViews, activeId, overId) => ({
+    oldIndex: reversedMapViews.findIndex((l) => l.id === activeId),
+    newIndex: reversedMapViews.findIndex((l) => l.id === overId),
+})
+
 const LayersPanel = () => {
     const layersPanelOpen = useSelector((state) => state.ui.layersPanelOpen)
     // Reversed so the last map view (top layer) is shown first
-    const layers = useSelector((state) => [...state.map.mapViews].reverse())
+    const reversedMapViews = useSelector((state) =>
+        [...state.map.mapViews].reverse()
+    )
+    const layers = reversedMapViews.filter(
+        (l) => l.layer !== COMBINED_TABLE_REF_LAYER
+    )
 
     const dispatch = useDispatch()
 
@@ -101,8 +112,11 @@ const LayersPanel = () => {
         stopSorting()
 
         if (over && active.id !== over.id) {
-            const oldIndex = layers.findIndex((l) => l.id === active.id)
-            const newIndex = layers.findIndex((l) => l.id === over.id)
+            const { oldIndex, newIndex } = getSortIndices(
+                reversedMapViews,
+                active.id,
+                over.id
+            )
 
             if (oldIndex !== -1 && newIndex !== -1) {
                 dispatch(sortLayers({ oldIndex, newIndex }))

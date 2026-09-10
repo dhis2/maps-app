@@ -7,9 +7,10 @@ export const addLayer = (config) => ({
 })
 
 // Remove an overlay
-export const removeLayer = (id) => ({
+export const removeLayer = (id, combinedLayerKey) => ({
     type: types.LAYER_REMOVE,
     id,
+    combinedLayerKey,
 })
 
 // Duplicate an overlay

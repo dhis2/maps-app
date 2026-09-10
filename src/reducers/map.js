@@ -1,5 +1,7 @@
 import { arrayMoveImmutable } from 'array-move'
 import * as types from '../constants/actionTypes.js'
+import { COMBINED_TABLE_REF_LAYER } from '../constants/layers.js'
+import { getDefaultReferenceRows } from '../util/dataTable.js'
 import { generateUid } from '../util/uid.js'
 
 export const defaultBasemapState = {
@@ -94,6 +96,14 @@ const layer = (state, action) => {
                     state.dataTableColumnConfig ??
                     action.payload.dataTableColumnConfig,
                 dataFilters: state.dataFilters ?? action.payload.dataFilters,
+                combinedLayerKey:
+                    state.combinedLayerKey ?? action.payload.combinedLayerKey,
+                combinedJoinConfig:
+                    state.combinedJoinConfig ??
+                    action.payload.combinedJoinConfig,
+                combinedColumnConfig:
+                    state.combinedColumnConfig ??
+                    action.payload.combinedColumnConfig,
             }
 
         case types.LAYER_CHANGE_OPACITY:
@@ -195,6 +205,37 @@ const layer = (state, action) => {
                 dataTableColumnConfig: action.config,
             }
 
+        case types.DATA_TABLE_JOIN_CONFIG_SET:
+            if (state.id !== action.layerId) {
+                return state
+            }
+
+            return {
+                ...state,
+                combinedJoinConfig: action.layers,
+            }
+
+        case types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET:
+            if (state.id !== action.layerId) {
+                return state
+            }
+
+            return {
+                ...state,
+                combinedColumnConfig: action.config,
+            }
+
+        case types.LAYER_REMOVE: {
+            if (!state.combinedJoinConfig?.[action.combinedLayerKey]) {
+                return state
+            }
+
+            const combinedJoinConfig = { ...state.combinedJoinConfig }
+            delete combinedJoinConfig[action.combinedLayerKey]
+
+            return { ...state, combinedJoinConfig }
+        }
+
         case types.MAP_ALERTS_CLEAR:
             return {
                 ...state,
@@ -279,6 +320,8 @@ const map = (state = defaultState, action) => {
                         ...action.payload,
                         id: generateUid(),
                         isVisible: action.payload.isVisible ?? true,
+                        combinedLayerKey:
+                            action.payload.combinedLayerKey ?? generateUid(),
                     },
                 ],
             }
@@ -286,9 +329,32 @@ const map = (state = defaultState, action) => {
         case types.LAYER_REMOVE:
             return {
                 ...state,
-                mapViews: state.mapViews.filter(
-                    (layer) => layer.id !== action.id
-                ),
+                mapViews: state.mapViews
+                    .filter((mv) => mv.id !== action.id)
+                    .map((mv) => layer(mv, action)),
+            }
+
+        case types.DATA_TABLE_COMBINED_VIEW_TOGGLE:
+            if (
+                state.mapViews.some(
+                    (mv) => mv.layer === COMBINED_TABLE_REF_LAYER
+                )
+            ) {
+                return state
+            }
+
+            return {
+                ...state,
+                mapViews: [
+                    ...state.mapViews,
+                    {
+                        layer: COMBINED_TABLE_REF_LAYER,
+                        id: generateUid(),
+                        combinedLayerKey: generateUid(),
+                        isVisible: false,
+                        rows: getDefaultReferenceRows(state.mapViews),
+                    },
+                ],
             }
 
         case types.LAYER_DUPLICATE: {
@@ -301,6 +367,7 @@ const map = (state = defaultState, action) => {
             const duplicate = {
                 ...state.mapViews[sourceIndex],
                 id: generateUid(),
+                combinedLayerKey: generateUid(),
             }
             delete duplicate.isLoading
             delete duplicate.coordinate
@@ -337,6 +404,8 @@ const map = (state = defaultState, action) => {
         case types.DATA_FILTER_CLEAR:
         case types.DATA_FILTERS_CLEAR_ALL:
         case types.DATA_TABLE_COLUMN_CONFIG_SET:
+        case types.DATA_TABLE_JOIN_CONFIG_SET:
+        case types.DATA_TABLE_COMBINED_COLUMN_CONFIG_SET:
         case types.MAP_EARTH_ENGINE_VALUE_SHOW:
             return {
                 ...state,

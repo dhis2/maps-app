@@ -146,6 +146,15 @@ describe('selection reducer', () => {
         expect(state).toBe(prevState)
     })
 
+    it('keeps the selection when the combined view is toggled', () => {
+        const prevState = { layerId: 'layer-1', ids: ['a', 'b'] }
+        const state = selection(prevState, {
+            type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+        })
+
+        expect(state).toBe(prevState)
+    })
+
     it('resets to default state when the selected layer is removed', () => {
         const state = selection(
             { layerId: 'layer-1', ids: ['a', 'b'] },
@@ -163,6 +172,65 @@ describe('selection reducer', () => {
         })
 
         expect(state).toBe(prevState)
+    })
+
+    it('sets a cross-layer selection, clearing any single-layer selection', () => {
+        const state = selection(
+            { layerId: 'layer-1', ids: ['a'] },
+            {
+                type: types.SELECTION_SET_CROSS_LAYER,
+                crossLayerIds: { layerA: ['a1'], layerB: ['b1', 'b2'] },
+            }
+        )
+
+        expect(state).toEqual({
+            layerId: null,
+            ids: [],
+            crossLayerIds: { layerA: ['a1'], layerB: ['b1', 'b2'] },
+        })
+    })
+
+    it('resets to default state when setting an empty cross-layer selection', () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'] },
+            },
+            { type: types.SELECTION_SET_CROSS_LAYER, crossLayerIds: {} }
+        )
+
+        expect(state).toEqual({ layerId: null, ids: [] })
+    })
+
+    it("prunes a removed layer's entry from a cross-layer selection", () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'], layerB: ['b1'] },
+            },
+            { type: types.LAYER_REMOVE, id: 'layerA' }
+        )
+
+        expect(state).toEqual({
+            layerId: null,
+            ids: [],
+            crossLayerIds: { layerB: ['b1'] },
+        })
+    })
+
+    it('resets to default state when removing the last layer in a cross-layer selection', () => {
+        const state = selection(
+            {
+                layerId: null,
+                ids: [],
+                crossLayerIds: { layerA: ['a1'] },
+            },
+            { type: types.LAYER_REMOVE, id: 'layerA' }
+        )
+
+        expect(state).toEqual({ layerId: null, ids: [] })
     })
 
     it('ignores unrelated actions', () => {

@@ -3,6 +3,7 @@ import dataTable from '../dataTable.js'
 
 const initialState = {
     openIds: [],
+    combinedView: false,
     isPanelVisible: false,
     activeLayerId: null,
 }
@@ -20,6 +21,7 @@ describe('dataTable reducer', () => {
     ])('resets fully to the initial state on %s', (type) => {
         const state = {
             openIds: ['layer1', 'layer2'],
+            combinedView: true,
             isPanelVisible: true,
             activeLayerId: 'layer1',
         }
@@ -28,9 +30,10 @@ describe('dataTable reducer', () => {
     })
 
     describe('DATA_TABLE_CLOSE', () => {
-        it('hides the panel without touching openIds or activeLayerId', () => {
+        it('hides the panel without touching openIds, combinedView, or activeLayerId', () => {
             const state = {
                 openIds: ['layer1', 'layer2'],
+                combinedView: true,
                 isPanelVisible: true,
                 activeLayerId: 'layer1',
             }
@@ -42,9 +45,10 @@ describe('dataTable reducer', () => {
     })
 
     describe('DATA_TABLE_OPEN', () => {
-        it('shows the panel without touching openIds or activeLayerId', () => {
+        it('shows the panel without touching openIds, combinedView, or activeLayerId', () => {
             const state = {
                 openIds: ['layer1'],
+                combinedView: false,
                 isPanelVisible: false,
                 activeLayerId: 'layer1',
             }
@@ -94,6 +98,22 @@ describe('dataTable reducer', () => {
             expect(state.openIds).toEqual(['layer2'])
         })
 
+        it('leaves combinedView untouched even when closing the last open tab', () => {
+            const prevState = {
+                ...initialState,
+                openIds: ['layer1'],
+                combinedView: true,
+            }
+
+            const state = dataTable(prevState, {
+                type: types.DATA_TABLE_TOGGLE,
+                id: 'layer1',
+            })
+
+            expect(state.openIds).toEqual([])
+            expect(state.combinedView).toBe(true)
+        })
+
         it('makes the panel visible when opening a tab, even from a hidden state', () => {
             const state = dataTable(
                 { ...initialState, isPanelVisible: false },
@@ -129,6 +149,18 @@ describe('dataTable reducer', () => {
             expect(state.openIds).toEqual(['layer2'])
         })
 
+        it('leaves combinedView untouched', () => {
+            const prevState = { ...initialState, combinedView: true }
+
+            const state = dataTable(prevState, {
+                type: types.LAYER_REMOVE,
+                id: 'layer1',
+                combinedLayerKey: 'layer1Key',
+            })
+
+            expect(state.combinedView).toBe(true)
+        })
+
         it('clears activeLayerId when the removed layer was the active one', () => {
             const prevState = {
                 ...initialState,
@@ -157,6 +189,48 @@ describe('dataTable reducer', () => {
             })
 
             expect(state.activeLayerId).toBe('layer1')
+        })
+    })
+
+    describe('DATA_TABLE_COMBINED_VIEW_TOGGLE', () => {
+        it('turns combinedView on', () => {
+            const state = dataTable(initialState, {
+                type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+            })
+
+            expect(state.combinedView).toBe(true)
+        })
+
+        it('turns combinedView off', () => {
+            const state = dataTable(
+                { ...initialState, combinedView: true },
+                { type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE }
+            )
+
+            expect(state.combinedView).toBe(false)
+        })
+
+        it('makes the panel visible when turning combinedView on, even from a hidden state', () => {
+            const state = dataTable(
+                { ...initialState, isPanelVisible: false },
+                { type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE }
+            )
+
+            expect(state.isPanelVisible).toBe(true)
+        })
+
+        it('does not forcibly clear panel visibility when turning combinedView off', () => {
+            const prevState = {
+                ...initialState,
+                combinedView: true,
+                isPanelVisible: true,
+            }
+
+            const state = dataTable(prevState, {
+                type: types.DATA_TABLE_COMBINED_VIEW_TOGGLE,
+            })
+
+            expect(state.isPanelVisible).toBe(true)
         })
     })
 
