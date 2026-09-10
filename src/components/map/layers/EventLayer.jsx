@@ -129,6 +129,9 @@ class EventLayer extends Layer {
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
+            onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
             ...(styleDataItem && { hoverLabel: LABEL_TEMPLATE_TOOLTIP_ONLY }),
             ...(labelDataItem &&
                 labels && {
@@ -267,8 +270,14 @@ class EventLayer extends Layer {
         ) : null
     }
 
-    onEventClick({ feature, coordinates }) {
-        this.setState({ popup: { feature, coordinates } })
+    onEventClick(evt) {
+        const { feature, coordinates } = evt
+
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({ popup: { feature, coordinates } })
+        }
     }
 
     onPopupClose = () => {

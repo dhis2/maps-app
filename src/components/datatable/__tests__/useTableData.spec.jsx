@@ -838,3 +838,141 @@ describe('useTableData sorting', () => {
         expect(valueColumn).toEqual([null, null, null])
     })
 })
+
+describe('useTableData showOnlyFeaturesInView', () => {
+    const store = { aggregations: {} }
+    const bounds = [-10, -10, 10, 10]
+
+    const layer = {
+        id: 'test-layer',
+        layer: 'orgUnit',
+        dataFilters: null,
+        data: [
+            {
+                id: 'inview',
+                properties: { id: 'inview', name: 'In view' },
+                geometry: { type: 'Point', coordinates: [0, 0] },
+            },
+            {
+                id: 'outofview',
+                properties: { id: 'outofview', name: 'Out of view' },
+                geometry: { type: 'Point', coordinates: [50, 50] },
+            },
+        ],
+    }
+
+    const renderTableData = (props) =>
+        renderHook(() => useTableData(props), {
+            wrapper: ({ children }) => (
+                <Provider store={mockStore(store)}>{children}</Provider>
+            ),
+        }).result
+
+    test('includes all rows when the toggle is off', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlyFeaturesInView: false,
+            mapBounds: bounds,
+        })
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('excludes features outside the current map bounds when the toggle is on', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlyFeaturesInView: true,
+            mapBounds: bounds,
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'In view'
+        )
+    })
+
+    test('excludes features without geometry when the toggle is on', () => {
+        const layerWithoutCoords = {
+            ...layer,
+            data: [layer.data[0]],
+            dataWithoutCoords: [
+                {
+                    id: 'nogeom',
+                    properties: { id: 'nogeom', name: 'No geometry' },
+                    geometry: null,
+                },
+            ],
+        }
+
+        const { current } = renderTableData({
+            layer: layerWithoutCoords,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlyFeaturesInView: true,
+            mapBounds: bounds,
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'In view'
+        )
+    })
+})
+
+describe('useTableData showOnlySelected', () => {
+    const store = { aggregations: {} }
+
+    const layer = {
+        id: 'test-layer',
+        layer: 'orgUnit',
+        dataFilters: null,
+        data: [
+            { id: 'a', properties: { id: 'a', name: 'Item A' } },
+            { id: 'b', properties: { id: 'b', name: 'Item B' } },
+        ],
+    }
+
+    const renderTableData = (props) =>
+        renderHook(() => useTableData(props), {
+            wrapper: ({ children }) => (
+                <Provider store={mockStore(store)}>{children}</Provider>
+            ),
+        }).result
+
+    test('includes all rows when the toggle is off', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlySelected: false,
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(2)
+    })
+
+    test('includes only selected rows when the toggle is on', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlySelected: true,
+            selectedIdSet: new Set(['a']),
+        })
+        expect(current.rows).toHaveLength(1)
+        expect(current.rows[0].find((c) => c.dataKey === 'name').value).toBe(
+            'Item A'
+        )
+    })
+
+    test('shows no rows when the toggle is on and nothing is selected', () => {
+        const { current } = renderTableData({
+            layer,
+            sortField: 'name',
+            sortDirection: 'asc',
+            showOnlySelected: true,
+            selectedIdSet: new Set(),
+        })
+        expect(current.rows).toHaveLength(0)
+    })
+})
