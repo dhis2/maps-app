@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-07T15:11:13.032Z\n"
-"PO-Revision-Date: 2026-09-07T15:11:13.032Z\n"
+"POT-Creation-Date: 2026-09-10T11:58:06.572Z\n"
+"PO-Revision-Date: 2026-09-10T11:58:06.572Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -155,6 +155,35 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
+msgid ""
+"Values from {{layers}} only reflect the filter(s) applied in their own "
+"table."
+msgstr ""
+"Values from {{layers}} only reflect the filter(s) applied in their own "
+"table."
+
+msgid ""
+"Values from {{layers}} aren't available to join into the Combined table "
+"while clustered on the server."
+msgstr ""
+"Values from {{layers}} aren't available to join into the Combined table "
+"while clustered on the server."
+
+msgid "No matching rows"
+msgstr "No matching rows"
+
+msgid "Location join over large datasets may be slow (over {{threshold}} features)"
+msgstr "Location join over large datasets may be slow (over {{threshold}} features)"
+
+msgid "Zoom to feature"
+msgstr "Zoom to feature"
+
+msgid "Zoom to selected features"
+msgstr "Zoom to selected features"
+
+msgid "Zoom to filtered features"
+msgstr "Zoom to filtered features"
+
 msgid "Edit layer"
 msgstr "Edit layer"
 
@@ -263,17 +292,8 @@ msgstr "Drill down one level"
 msgid "View profile"
 msgstr "View profile"
 
-msgid "Zoom to feature"
-msgstr "Zoom to feature"
-
 msgid "Zoom to layer"
 msgstr "Zoom to layer"
-
-msgid "Zoom to selected features"
-msgstr "Zoom to selected features"
-
-msgid "Zoom to filtered features"
-msgstr "Zoom to filtered features"
 
 msgid "Event details aren't available while this layer is clustered on the server"
 msgstr "Event details aren't available while this layer is clustered on the server"
@@ -326,8 +346,108 @@ msgstr "Search all columns"
 msgid "Highlight color"
 msgstr "Highlight color"
 
+msgid "Choose layers to combine"
+msgstr "Choose layers to combine"
+
+msgid "Facilities count"
+msgstr "Facilities count"
+
+msgid "Org units count"
+msgstr "Org units count"
+
+msgid "Events count"
+msgstr "Events count"
+
+msgid "Tracked entities count"
+msgstr "Tracked entities count"
+
+msgid "Count"
+msgstr "Count"
+
+msgid "Collapse {{layer}}"
+msgstr "Collapse {{layer}}"
+
+msgid "Expand {{layer}}"
+msgstr "Expand {{layer}}"
+
+msgid ""
+"This layer has a filter active from its own table - Combined only reflects "
+"the filtered records."
+msgstr ""
+"This layer has a filter active from its own table - Combined only reflects "
+"the filtered records."
+
+msgid "Clear filters applied to {{layer}}"
+msgstr "Clear filters applied to {{layer}}"
+
+msgid ""
+"This layer is clustered on the server - its data isn't available to join "
+"into the Combined table."
+msgstr ""
+"This layer is clustered on the server - its data isn't available to join "
+"into the Combined table."
+
+msgid "Switch to client clustering"
+msgstr "Switch to client clustering"
+
+msgid "Join by"
+msgstr "Join by"
+
+msgid "Join type for {{layer}}"
+msgstr "Join type for {{layer}}"
+
+msgid "Org unit"
+msgstr "Org unit"
+
+msgid "Location"
+msgstr "Location"
+
+msgid ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgid_plural ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgstr[0] ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+msgstr[1] ""
+"{{count}} feature(s) from {{layer}} could not be matched to a reference org "
+"unit (wrong level, no matching parent, or outside every boundary) and will "
+"be excluded from the Combined table."
+
+msgid "Aggregation type for {{name}} ({{layer}})"
+msgstr "Aggregation type for {{name}} ({{layer}})"
+
+msgid "Aggregation type for {{layer}}"
+msgstr "Aggregation type for {{layer}}"
+
+msgid ""
+"Several {{layer}} features roll up into each reference org unit here - "
+"{{type}} is an approximation of the values you can see joined in, not a "
+"recomputation over the combined area."
+msgstr ""
+"Several {{layer}} features roll up into each reference org unit here - "
+"{{type}} is an approximation of the values you can see joined in, not a "
+"recomputation over the combined area."
+
+msgid "Categories"
+msgstr "Categories"
+
+msgid "Category display for {{layer}}"
+msgstr "Category display for {{layer}}"
+
 msgid "Choose a data table to view"
 msgstr "Choose a data table to view"
+
+msgid "Combined"
+msgstr "Combined"
+
+msgid "Configure reference org units"
+msgstr "Configure reference org units"
 
 msgid "{{filtered}} of {{total}} rows"
 msgstr "{{filtered}} of {{total}} rows"
@@ -337,6 +457,45 @@ msgstr "{{total}} rows"
 
 msgid "Show only features in current map view"
 msgstr "Show only features in current map view"
+
+msgid "Count ({{layer}})"
+msgstr "Count ({{layer}})"
+
+msgid "{{name}} ({{unit}}) ({{layer}})"
+msgstr "{{name}} ({{unit}}) ({{layer}})"
+
+msgid "%"
+msgstr "%"
+
+msgid "count"
+msgstr "count"
+
+msgid "Value ({{layer}}, {{period}})"
+msgstr "Value ({{layer}}, {{period}})"
+
+msgid "Current period"
+msgstr "Current period"
+
+msgid "{{name}} ({{layer}})"
+msgstr "{{name}} ({{layer}})"
+
+msgid "Value ({{layer}})"
+msgstr "Value ({{layer}})"
+
+msgid "Legend ({{layer}})"
+msgstr "Legend ({{layer}})"
+
+msgid "Legend ({{layer}}, {{period}})"
+msgstr "Legend ({{layer}}, {{period}})"
+
+msgid "Org unit id"
+msgstr "Org unit id"
+
+msgid "Org unit level"
+msgstr "Org unit level"
+
+msgid "Org unit hierarchy"
+msgstr "Org unit hierarchy"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -450,6 +609,9 @@ msgstr "Earth Engine"
 msgid "feature"
 msgstr "feature"
 
+msgid "reference org units"
+msgstr "reference org units"
+
 msgid "Edit {{name}} layer"
 msgstr "Edit {{name}} layer"
 
@@ -461,6 +623,9 @@ msgstr "Update layer"
 
 msgid "Add layer"
 msgstr "Add layer"
+
+msgid "Update reference"
+msgstr "Update reference"
 
 msgid "Area statistics (popups and data table)"
 msgstr "Area statistics (popups and data table)"
@@ -1231,9 +1396,6 @@ msgstr "Tracked Entity Type"
 
 msgid "By data element"
 msgstr "By data element"
-
-msgid "Count"
-msgstr "Count"
 
 msgid "Average"
 msgstr "Average"
@@ -2089,15 +2251,6 @@ msgstr "GroupSet used for styling was not found"
 msgid "Id"
 msgstr "Id"
 
-msgid "Org unit id"
-msgstr "Org unit id"
-
-msgid "Org unit"
-msgstr "Org unit"
-
-msgid "Org unit level"
-msgstr "Org unit level"
-
 msgid "Geometry type"
 msgstr "Geometry type"
 
@@ -2107,9 +2260,6 @@ msgstr "Range"
 msgid "Org unit boundary"
 msgstr "Org unit boundary"
 
-msgid "Org unit hierarchy"
-msgstr "Org unit hierarchy"
-
 msgid "Created"
 msgstr "Created"
 
@@ -2118,9 +2268,6 @@ msgstr "Group"
 
 msgid "Icon"
 msgstr "Icon"
-
-msgid "Current period"
-msgstr "Current period"
 
 msgid "Value ({{period}})"
 msgstr "Value ({{period}})"
