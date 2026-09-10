@@ -13,7 +13,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    // setFallbackCoordinateField,
+    setFallbackCoordinateField,
     setPeriods,
     setPeriodType,
     setStartDate,
@@ -80,6 +80,7 @@ const EventDialog = ({
     eventPointColor,
     eventPointRadius,
     eventStatus,
+    fallbackCoordinateField = 'none',
     filters,
     legendIsolated,
     legendSet,
@@ -318,16 +319,22 @@ const EventDialog = ({
                                 data-test="eventdialog-coordinatefield"
                             />
                             <GeometryCentroid tab={'data'} />
-                            {/* eventCoordinateField && (
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}
                                 value={fallbackCoordinateField}
-                                eventCoordinateField={eventCoordinateField}
-                                onChange={setFallbackCoordinateField}
+                                type={fallbackCoordinateField}
+                                eventCoordinateField={
+                                    eventCoordinateField || true
+                                }
+                                onChange={(fieldId) =>
+                                    dispatch(
+                                        setFallbackCoordinateField(fieldId)
+                                    )
+                                }
                                 className={styles.select}
+                                dataTest="fallbackcoordinatefield"
                             />
-                        ) */}
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={(val) =>
@@ -562,7 +569,7 @@ EventDialog.propTypes = {
     eventPointColor: PropTypes.string,
     eventPointRadius: PropTypes.number,
     eventStatus: PropTypes.string,
-    // fallbackCoordinateField: PropTypes.string,
+    fallbackCoordinateField: PropTypes.string,
     filters: PropTypes.array,
     legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,

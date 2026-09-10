@@ -254,6 +254,18 @@ const layerEdit = (state = null, action) => {
 
             return newState
 
+        case types.LAYER_EDIT_STYLE_DATA_ITEM_GEOMETRY_SOURCE_SET:
+            return {
+                ...state,
+                styleDataItem: {
+                    ...state.styleDataItem,
+                    values: {
+                        ...state.styleDataItem?.values,
+                        [action.value]: action.color,
+                    },
+                },
+            }
+
         case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
             newState = {
                 ...state,
