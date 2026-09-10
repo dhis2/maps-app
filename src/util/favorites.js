@@ -6,6 +6,8 @@ import {
     GEOJSON_URL_LAYER,
     ORG_UNIT_LAYER,
     THEMATIC_LAYER,
+    THEMATIC_CHART,
+    THEMATIC_CHOROPLETH,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 
@@ -58,6 +60,7 @@ const validLayerProperties = [
     'labelTemplate',
     'countFeaturesWithoutCoordinates',
     'countEventsOutsideOrgUnits',
+    'chartType', // mockup for DHIS2-21461, stored in layer config
     'legendDecimalPlaces',
     'legendIsolated',
     'lastUpdated',
@@ -180,6 +183,12 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
+    if (layer.chartType) {
+        configData.chartType = layer.chartType
+    }
+    if (layer.thematicMapType === THEMATIC_CHART) {
+        configData.isChartMap = true
+    }
     return configData
 }
 
@@ -187,11 +196,18 @@ const deleteCommonLayerConfigProps = (layer) => {
     if (layer.noDataLegend) {
         layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
     }
+    if (layer.thematicMapType === THEMATIC_CHART) {
+        // The server's ThematicMapType enum only accepts BUBBLE/CHOROPLETH —
+        // chart mode is flagged via config.isChartMap instead (see above)
+        // and restored by thematicLoader.js on load
+        layer.thematicMapType = THEMATIC_CHOROPLETH
+    }
     delete layer.legendDecimalPlaces
     delete layer.legendIsolated
     delete layer.noDataLegend
     delete layer.unclassifiedLegend
     delete layer.countFeaturesWithoutCoordinates
+    delete layer.chartType
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
 }

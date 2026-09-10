@@ -12,6 +12,7 @@ import { START_END_DATES } from '../constants/periods.js'
 import {
     setFiltersFromPeriods,
     setDataItemInColumns,
+    setDataItemsInColumns,
     setOrgUnitPathInRows,
     removePeriodFromFilters,
     changeDimensionInFilters,
@@ -63,6 +64,19 @@ const layerEdit = (state = null, action) => {
                     action.dimension
                 ),
                 name: null,
+            }
+
+        case types.LAYER_EDIT_CHART_DATA_ITEMS_SET:
+            return {
+                ...state,
+                columns: setDataItemsInColumns(action.dataItems),
+                name: null,
+            }
+
+        case types.LAYER_EDIT_CHART_TYPE_SET:
+            return {
+                ...state,
+                chartType: action.chartType,
             }
 
         case types.LAYER_EDIT_PERIOD_NAME_SET:

@@ -64,6 +64,10 @@ export const getColorScale = (palette) =>
             colorbrewer[name][palette.length].join(',') === palette.join(',')
     )
 
+// Mockup for DHIS2-21461: distinct series colors for a chart map's segments
+export const getChartSeriesColors = (count) =>
+    getColorPalette('Set1', Math.max(3, Math.min(count, 9))).slice(0, count)
+
 export const defaultColorScaleName = 'YlOrBr'
 export const defaultClasses = 5
 export const defaultColorScale = getColorPalette(
