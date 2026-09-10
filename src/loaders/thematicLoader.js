@@ -90,6 +90,7 @@ const thematicLoader = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         chartType: chartTypeFromConfig,
+        isChartMap: isChartMapFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -120,8 +121,12 @@ const thematicLoader = async ({
 
     // Chart map mockup for DHIS2-21461: multi-series donut/bar per org unit.
     // Kept as a separate path since it has no classification/legend-set
-    // pipeline (series are categorical, not thresholds).
-    if (thematicMapType === THEMATIC_CHART) {
+    // pipeline (series are categorical, not thresholds). Saved maps store
+    // thematicMapType as CHOROPLETH (the server's ThematicMapType enum only
+    // accepts BUBBLE/CHOROPLETH) and flag chart mode via config.isChartMap
+    // instead — see favorites.js.
+    if (thematicMapType === THEMATIC_CHART || isChartMapFromConfig) {
+        config.thematicMapType = THEMATIC_CHART
         return await loadChartMapLayer({
             config,
             dataItems: getDataItemsFromColumns(columns),
