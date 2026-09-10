@@ -1018,6 +1018,139 @@ describe('cleanMapConfig', () => {
         expect(mapView).not.toHaveProperty('dataTableColumnConfig')
     })
 
+    test('serializes combinedJoinConfig and combinedColumnConfig into config JSON for the combinedTableRef layer', () => {
+        const combinedJoinConfig = {
+            layerA: { type: 'orgUnit', aggregation: { rawValue: 'SUM' } },
+        }
+        const combinedColumnConfig = { orderedKeys: ['layerA_value'] }
+        const config = {
+            mapViews: [
+                {
+                    layer: 'combinedTableRef',
+                    name: 'Reference org units',
+                    rows: [{ dimension: 'ou', items: [{ id: 'ou1' }] }],
+                    combinedJoinConfig,
+                    combinedColumnConfig,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+        const mapView = cleanedConfig.mapViews[0]
+        const parsedConfig = JSON.parse(mapView.config)
+        expect(parsedConfig.combinedJoinConfig).toEqual(combinedJoinConfig)
+        expect(parsedConfig.combinedColumnConfig).toEqual(combinedColumnConfig)
+        expect(mapView).not.toHaveProperty('combinedJoinConfig')
+        expect(mapView).not.toHaveProperty('combinedColumnConfig')
+    })
+
+    test('excludes an untouched combinedTableRef placeholder (no org units, no join layers picked) from the saved favorite', () => {
+        const config = {
+            mapViews: [
+                { layer: 'thematic' },
+                { layer: 'combinedTableRef', rows: [] },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+
+        expect(cleanedConfig.mapViews).toHaveLength(1)
+        expect(cleanedConfig.mapViews[0].layer).toBe('thematic')
+    })
+
+    test('keeps a combinedTableRef placeholder that has join layers picked, even with no org units yet', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'combinedTableRef',
+                    rows: [],
+                    combinedJoinConfig: {
+                        layerA: { type: 'orgUnit' },
+                    },
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+
+        expect(cleanedConfig.mapViews).toHaveLength(1)
+    })
+
+    test('does not drop an empty-rows combinedTableRef placeholder when cleanMapviewConfig is false (rename-only save)', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'combinedTableRef',
+                    rows: [],
+                    // As fetched from the API, join config still lives inside
+                    // the unparsed config JSON, not lifted to a flat field
+                    config: JSON.stringify({
+                        combinedJoinConfig: { layerA: { type: 'orgUnit' } },
+                    }),
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+            cleanMapviewConfig: false,
+        })
+
+        expect(cleanedConfig.mapViews).toHaveLength(1)
+    })
+
+    test('round-trips combinedLayerKey for every layer type that carries it', () => {
+        const combinedLayerKey = 'combined-key-1'
+        const config = {
+            mapViews: [
+                {
+                    layer: 'thematic',
+                    name: 'Thematic',
+                    rows: [],
+                    combinedLayerKey,
+                },
+                {
+                    layer: 'earthEngine',
+                    name: 'EE',
+                    layerId: 'ee1',
+                    combinedLayerKey,
+                },
+                {
+                    layer: 'trackedEntity',
+                    name: 'TEI',
+                    rows: [],
+                    combinedLayerKey,
+                },
+                {
+                    layer: 'geoJsonUrl',
+                    name: 'GeoJSON',
+                    rows: [],
+                    config: { url: 'https://example.com/geo.json' },
+                    combinedLayerKey,
+                },
+            ],
+        }
+        const cleanedConfig = cleanMapConfig({
+            config,
+            defaultBasemapId: 'default',
+        })
+
+        cleanedConfig.mapViews.forEach((mapView) => {
+            expect(mapView).not.toHaveProperty('combinedLayerKey')
+            const parsedConfig =
+                typeof mapView.config === 'string'
+                    ? JSON.parse(mapView.config)
+                    : mapView.config
+            expect(parsedConfig.combinedLayerKey).toBe(combinedLayerKey)
+        })
+    })
+
     test('serializes dataTableColumnConfig into config JSON for geojson layer', () => {
         const dataTableColumnConfig = { orderedKeys: ['name', 'id'] }
         const config = {
