@@ -84,6 +84,14 @@ export const THEMATIC_RADIUS_MAX = 50
 export const THEMATIC_COLOR = '#558CC0'
 export const THEMATIC_BUFFER = 5000
 
+// Mockup for DHIS2-21461: chart map (donut/bar), gated by thematicMapType
+export const THEMATIC_CHART = 'CHART'
+export const CHART_TYPE_DONUT = 'donut'
+export const CHART_TYPE_BAR = 'bar'
+export const THEMATIC_CHART_MAX_SERIES = 8
+export const THEMATIC_CHART_MARKER_MIN_SIZE = 30
+export const THEMATIC_CHART_MARKER_MAX_SIZE = 90
+
 export const getThematicMapTypes = () => [
     {
         id: THEMATIC_CHOROPLETH,
@@ -94,6 +102,11 @@ export const getThematicMapTypes = () => [
         id: THEMATIC_BUBBLE,
         name: i18n.t('Bubble map'),
         image: 'images/bubble.png',
+    },
+    {
+        id: THEMATIC_CHART,
+        name: i18n.t('Chart map'),
+        image: 'images/chart.png',
     },
 ]
 

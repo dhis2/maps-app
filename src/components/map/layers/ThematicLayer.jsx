@@ -1,4 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
+import { scaleSqrt } from 'd3-scale'
+import { Marker } from 'maplibre-gl'
 import React, { Fragment } from 'react'
 import {
     RENDERING_STRATEGY_SINGLE,
@@ -6,6 +8,10 @@ import {
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
     THEMATIC_CHOROPLETH,
     THEMATIC_BUBBLE,
+    THEMATIC_CHART,
+    CHART_TYPE_DONUT,
+    THEMATIC_CHART_MARKER_MIN_SIZE,
+    THEMATIC_CHART_MARKER_MAX_SIZE,
     BOUNDARY_LAYER,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
@@ -13,6 +19,7 @@ import {
     PADDING_TIMELINE,
     DURATION_TIMELINE,
 } from '../../../constants/layers.js'
+import { createChartMarkerElement } from '../../../util/chartMarker.js'
 import { filterData } from '../../../util/filter.js'
 import { getLabelStyle } from '../../../util/labels.js'
 import {
@@ -53,6 +60,7 @@ class ThematicLayer extends Layer {
         const { isPlugin, map } = this.context
 
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
+        const isChartMap = thematicMapType === THEMATIC_CHART
 
         const filteredData = this.buildPeriodData()
 
@@ -100,6 +108,34 @@ class ThematicLayer extends Layer {
             })
 
             this.layer.addLayer(config)
+        } else if (isChartMap) {
+            // Chart map mockup for DHIS2-21461: boundaries only through
+            // maps-gl, donut/bar markers are plain maplibre-gl Markers
+            // managed directly by this component (see buildChartMarkers)
+            this.layer = map.createLayer({
+                type: 'group',
+                id,
+                index,
+                opacity,
+                isVisible,
+            })
+
+            this.layer.addLayer({
+                type: BOUNDARY_LAYER,
+                data: data.map((f) => ({
+                    ...f,
+                    properties: {
+                        ...f.properties,
+                        style: {
+                            color: ORG_UNIT_COLOR,
+                            weight: 0.5,
+                        },
+                    },
+                })),
+                style: {},
+            })
+
+            this.buildChartMarkers(filteredData)
         } else {
             this.layer = map.createLayer(config)
         }
@@ -120,6 +156,61 @@ class ThematicLayer extends Layer {
         } else {
             this.fitBounds(options)
         }
+    }
+
+    // Chart map mockup for DHIS2-21461: places one donut/bar SVG marker per
+    // feature directly on the underlying maplibre-gl map, sized by each
+    // feature's series total (sqrt scale, so area — not radius — tracks
+    // the value, matching how bubble maps already scale their radius)
+    buildChartMarkers(features) {
+        const { chartType = CHART_TYPE_DONUT } = this.props
+        const mapGL = this.context.map.getMapGL()
+
+        this.removeChartMarkers()
+
+        const chartFeatures = features.filter((f) => f.properties.chartValues)
+        const totals = chartFeatures.map((f) =>
+            f.properties.chartValues.reduce((sum, s) => sum + s.value, 0)
+        )
+        const getSize = scaleSqrt()
+            .domain([0, Math.max(...totals, 1)])
+            .range([
+                THEMATIC_CHART_MARKER_MIN_SIZE,
+                THEMATIC_CHART_MARKER_MAX_SIZE,
+            ])
+            .clamp(true)
+
+        this.chartMarkers = chartFeatures.map((feature) => {
+            const total = feature.properties.chartValues.reduce(
+                (sum, s) => sum + s.value,
+                0
+            )
+            const coordinates = poleOfInaccessibility(feature.geometry)
+            const el = createChartMarkerElement(
+                chartType,
+                feature.properties.chartValues,
+                getSize(total)
+            )
+
+            el.addEventListener('click', (evt) => {
+                evt.stopPropagation()
+                this.onFeatureClick({ feature, coordinates })
+            })
+
+            return new Marker({ element: el })
+                .setLngLat(coordinates)
+                .addTo(mapGL)
+        })
+    }
+
+    removeChartMarkers() {
+        this.chartMarkers?.forEach((marker) => marker.remove())
+        this.chartMarkers = []
+    }
+
+    async removeLayer() {
+        this.removeChartMarkers()
+        await super.removeLayer()
     }
 
     // Set initial period
@@ -161,7 +252,31 @@ class ThematicLayer extends Layer {
         const { columns, aggregationType, legend, externalPeriod } = this.props
         const { popup } = this.state
         const { coordinates, feature } = popup
-        const { id, name, value } = feature.properties
+        const { id, name, value, chartValues } = feature.properties
+
+        if (chartValues) {
+            return (
+                <Popup
+                    coordinates={coordinates}
+                    orgUnitId={id}
+                    onClose={this.onPopupClose}
+                    className={styles.thematicPopup}
+                >
+                    <div className={styles.title}>{name}</div>
+                    <table>
+                        <tbody>
+                            {chartValues.map((series) => (
+                                <tr key={series.id}>
+                                    <th>{series.name}</th>
+                                    <td>{series.value}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </Popup>
+            )
+        }
+
         const indicator = columns[0].items[0].name || ''
         const periodName = externalPeriod ? externalPeriod.name : legend.period
 
@@ -219,13 +334,15 @@ class ThematicLayer extends Layer {
 
         // Rebuild the period-specific data the same way as in createLayer
         const bubbleMap = thematicMapType === THEMATIC_BUBBLE
+        const isChartMap = thematicMapType === THEMATIC_CHART
         const filteredData = this.buildPeriodData()
 
         // If the underlying map layer supports incremental updates, use it.
-        // For group/bubble layers we fall back to recreating the layer.
+        // For group/bubble/chart layers we fall back to recreating the layer.
         if (
             this.layer &&
             !bubbleMap &&
+            !isChartMap &&
             typeof this.layer.setData === 'function'
         ) {
             try {

@@ -58,6 +58,7 @@ const validLayerProperties = [
     'labelTemplate',
     'countFeaturesWithoutCoordinates',
     'countEventsOutsideOrgUnits',
+    'chartType', // mockup for DHIS2-21461, stored in layer config
     'legendDecimalPlaces',
     'legendIsolated',
     'lastUpdated',
@@ -180,6 +181,9 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
+    if (layer.chartType) {
+        configData.chartType = layer.chartType
+    }
     return configData
 }
 
@@ -192,6 +196,7 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.noDataLegend
     delete layer.unclassifiedLegend
     delete layer.countFeaturesWithoutCoordinates
+    delete layer.chartType
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
 }

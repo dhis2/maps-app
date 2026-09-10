@@ -12,6 +12,8 @@ import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
 import {
     THEMATIC_BUBBLE,
+    THEMATIC_CHART,
+    THEMATIC_CHART_MAX_SERIES,
     THEMATIC_RADIUS_DEFAULT,
     THEMATIC_RADIUS_LOW,
     THEMATIC_RADIUS_HIGH,
@@ -28,10 +30,12 @@ import {
     getPeriodsFromFilters,
     getValidDimensionsFromFilters,
     getDataItemFromColumns,
+    getDataItemsFromColumns,
     getApiResponseNames,
     applyPeriodFilter,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { getChartSeriesColors } from '../util/colors.js'
 import { parseJsonConfig } from '../util/config.js'
 import { hasValue } from '../util/helpers.js'
 import {
@@ -85,6 +89,7 @@ const thematicLoader = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
+        chartType: chartTypeFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -94,6 +99,9 @@ const thematicLoader = async ({
     }
     if (legendIsolated) {
         config.legendIsolated = legendIsolated
+    }
+    if (chartTypeFromConfig) {
+        config.chartType = chartTypeFromConfig
     }
     if (unclassifiedLegendFromConfig) {
         config.unclassifiedLegend = unclassifiedLegendFromConfig
@@ -109,6 +117,20 @@ const thematicLoader = async ({
     }
     delete config.noDataColor
     delete config.config
+
+    // Chart map mockup for DHIS2-21461: multi-series donut/bar per org unit.
+    // Kept as a separate path since it has no classification/legend-set
+    // pipeline (series are categorical, not thresholds).
+    if (thematicMapType === THEMATIC_CHART) {
+        return await loadChartMapLayer({
+            config,
+            dataItems: getDataItemsFromColumns(columns),
+            engine,
+            keyAnalysisDisplayProperty,
+            userId,
+            analyticsEngine,
+        })
+    }
 
     const orgUnitIds = getOrgUnitsFromRows(config.rows).map((item) => item.id)
     let orgUnitsWithoutCoordsCount = null
@@ -631,6 +653,22 @@ export const getValueMapsById = (data) => {
     )
 }
 
+// Chart map mockup for DHIS2-21461: groups values by org unit, then by dx
+// item, since a multi-item dx request returns one row per (dx, ou) pair
+export const getMultiValueMapsById = (data) => {
+    const { headers, rows } = data
+    const ouIndex = findIndex(['name', 'ou'], headers)
+    const dxIndex = findIndex(['name', 'dx'], headers)
+    const valueIndex = findIndex(['name', 'value'], headers)
+
+    return rows.reduce((valuesById, row) => {
+        const ouId = row[ouIndex]
+        valuesById[ouId] = valuesById[ouId] || {}
+        valuesById[ouId][row[dxIndex]] = Number.parseFloat(row[valueIndex])
+        return valuesById
+    }, {})
+}
+
 // Returns an array of ordered values
 const getOrderedValues = (data) => {
     const { headers, rows } = data
@@ -669,6 +707,7 @@ const loadData = async ({
     const coordinateField = getCoordinateField(config)
     const isOperand = columns[0].dimension === dimConf.operand.objectName
     const isSingleMap = renderingStrategy === RENDERING_STRATEGY_SINGLE
+    const isChartMap = config.thematicMapType === THEMATIC_CHART
     const orgUnitIds = orgUnits.map((item) => item.id)
     let dataDimension = isOperand ? dataItem.id.split('.')[0] : dataItem.id
 
@@ -678,7 +717,12 @@ const loadData = async ({
 
     let analyticsRequest = new analyticsEngine.request()
         .addOrgUnitDimension(orgUnits.map((ou) => ou.id))
-        .addDataDimension(dataDimension)
+        .addDataDimension(
+            // Chart map mockup for DHIS2-21461: one dx item per chart series
+            isChartMap
+                ? getDataItemsFromColumns(columns).map((item) => item.id)
+                : dataDimension
+        )
         .withDisplayProperty(keyAnalysisDisplayProperty) // name/shortName
 
     if (!isSingleMap) {
@@ -759,6 +803,122 @@ const loadData = async ({
         new analyticsEngine.response(rawData),
         associatedGeometries,
     ]
+}
+
+// Chart map mockup for DHIS2-21461: loads one value per (org unit, series)
+// pair and attaches them to each feature as chartValues, for ThematicLayer
+// to render as donut/bar markers. No classification/legend-set pipeline —
+// series are categorical, not value thresholds.
+const loadChartMapLayer = async ({
+    config,
+    dataItems,
+    engine,
+    keyAnalysisDisplayProperty,
+    userId,
+    analyticsEngine,
+}) => {
+    const coordinateField = getCoordinateField(config)
+    const chartMapName = i18n.t('Chart map')
+
+    let loadError
+    const response = dataItems.length
+        ? await loadData({
+              config,
+              engine,
+              keyAnalysisDisplayProperty,
+              userId,
+              analyticsEngine,
+          }).catch((err) => {
+              loadError = err
+              if (err.message) {
+                  loadError =
+                      err.errorCode === 'E7124' && err.message.includes('dx')
+                          ? i18n.t('Data item was not found')
+                          : err.message
+              }
+          })
+        : null
+
+    if (!response) {
+        return {
+            ...config,
+            ...(loadError
+                ? {
+                      alerts: [{ code: ERROR_CRITICAL, message: loadError }],
+                  }
+                : {}),
+            name: chartMapName,
+            data: [],
+            legend: null,
+            isLoaded: true,
+            isLoading: false,
+            loadError,
+        }
+    }
+
+    const [mainFeatures, data, associatedGeometries] = response
+    const valuesById = getMultiValueMapsById(data)
+    const features = addAssociatedGeometries(mainFeatures, associatedGeometries)
+
+    const alerts = []
+    if (!features.length) {
+        alerts.push({ code: WARNING_NO_OU_COORD, message: chartMapName })
+    } else if (!data.rows.length) {
+        alerts.push({ code: WARNING_NO_DATA, message: chartMapName })
+    }
+    if (coordinateField && !associatedGeometries?.length) {
+        alerts.push({
+            code: WARNING_NO_GEOMETRY_COORD,
+            message: coordinateField.name,
+        })
+    }
+    if (dataItems.length > THEMATIC_CHART_MAX_SERIES) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: i18n.t(
+                'Chart maps are hard to read with more than {{max}} series ({{count}} selected)',
+                { max: THEMATIC_CHART_MAX_SERIES, count: dataItems.length }
+            ),
+        })
+    }
+
+    const seriesColors = getChartSeriesColors(dataItems.length)
+    const legend = {
+        title: chartMapName,
+        items: dataItems.map((item, index) => ({
+            name: item.name,
+            color: seriesColors[index],
+        })),
+    }
+
+    const styledFeatures = features.map(({ id, geometry, properties }) => ({
+        id,
+        geometry,
+        properties: {
+            ...properties,
+            chartValues: dataItems.map((item, index) => ({
+                id: item.id,
+                name: item.name,
+                color: seriesColors[index],
+                value: Number.isFinite(valuesById[id]?.[item.id])
+                    ? valuesById[id][item.id]
+                    : 0,
+            })),
+        },
+    }))
+
+    return {
+        ...config,
+        data: styledFeatures,
+        name: chartMapName,
+        legend,
+        alerts,
+        isLoaded: true,
+        isLoading: false,
+        isExpanded: true,
+        loadError,
+    }
 }
 
 export default thematicLoader
