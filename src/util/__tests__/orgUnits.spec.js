@@ -256,6 +256,7 @@ describe('buildKnownOrgUnitNames', () => {
     it('returns an empty map for no rows', () => {
         expect(buildKnownOrgUnitNames([])).toEqual(new Map())
         expect(buildKnownOrgUnitNames()).toEqual(new Map())
+        expect(buildKnownOrgUnitNames(null)).toEqual(new Map())
     })
 })
 

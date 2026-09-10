@@ -214,6 +214,14 @@ const fetchOptionSetIdByAttribute = async (
     )
 }
 
+export const toOptionSetOptionsByCode = (optionNamesByOptionSet) =>
+    Object.fromEntries(
+        [...optionNamesByOptionSet].map(([id, codeMap]) => [
+            id,
+            Object.fromEntries(codeMap),
+        ])
+    )
+
 const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
     const entries = await Promise.all(
         optionSetIds.map(async (id) => {
@@ -501,6 +509,9 @@ const trackedEntityLoader = async ({
         name,
         data,
         headers,
+        optionSetOptionsByCode: toOptionSetOptionsByCode(
+            optionNamesByOptionSet
+        ),
         keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,

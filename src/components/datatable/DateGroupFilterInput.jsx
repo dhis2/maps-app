@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
-import { setDataFilter } from '../../actions/dataFilters.js'
 import { DATE_GROUPS_GRANULARITY } from '../../constants/dataTable.js'
 import {
     buildDateGroupTree,
@@ -29,13 +28,12 @@ const parseFilterValue = (filterValue) => ({
 
 const sanitizeInput = (value) => value.replace(DATE_INPUT_DISALLOWED, '')
 
-const commitSearch = (text, { dispatch, layerId, dataKey }) =>
-    dispatch(setDataFilter(layerId, dataKey, text))
+const commitSearch = (text, { onChange }) => onChange(text)
 
 const DateGroupFilterInput = ({
-    dataKey,
     name,
-    layerId,
+    onChange,
+    onClear,
     filterValue,
     options,
     type,
@@ -46,8 +44,8 @@ const DateGroupFilterInput = ({
     )
 
     const groupFilter = useGroupFilterInput({
-        dataKey,
-        layerId,
+        onChange,
+        onClear,
         filterValue,
         options,
         granularity: DATE_GROUPS_GRANULARITY,
@@ -70,17 +68,17 @@ const DateGroupFilterInput = ({
 }
 
 DateGroupFilterInput.propTypes = {
-    dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string }))
         .isRequired,
     type: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     filterValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.object,
     ]),
-    layerId: PropTypes.string,
 }
 
 export default DateGroupFilterInput

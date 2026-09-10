@@ -3,6 +3,13 @@ import {
     SENTINEL_NO_VALUE,
     DATE_GROUPS_GRANULARITY,
     ORG_UNIT_GROUPS_GRANULARITY,
+    TYPE_STRING,
+    TYPE_NUMBER,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_ORG_UNIT,
+    RENDERER_DATE,
+    RENDERER_ORG_UNIT,
 } from '../../constants/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../filter.js'
 
@@ -247,6 +254,25 @@ describe('filterData', () => {
             }
             expect(filterData(data, filters)).toEqual([{ a: null }])
         })
+
+        it('an empty prefixes array matches everything when not search-derived (an inactive checkbox tree)', () => {
+            const filters = {
+                a: { granularity: ORG_UNIT_GROUPS_GRANULARITY, prefixes: [] },
+            }
+            expect(filterData(data, filters)).toEqual(data)
+        })
+
+        it('an empty prefixes array matches nothing when search-derived (a free-text search that matched no branch)', () => {
+            const filters = {
+                a: {
+                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                    prefixes: [],
+                    searchDerived: true,
+                    searchText: 'Nairobi',
+                },
+            }
+            expect(filterData(data, filters)).toEqual([])
+        })
     })
 
     describe('org-unit value filter ({ values, searchDerived, searchText }) - a committed free-text search on an org-unit-flavored plain-text column, resolved to matching raw values up front (see FilterInput.jsx)', () => {
@@ -272,38 +298,35 @@ describe('filterByGlobalSearch', () => {
         { name: 'Entebbe Clinic', type: 'Clinic' },
         { name: 'Jinja Hospital', type: 'Hospital' },
     ]
-    const stringDataKeys = ['name', 'type']
+    const headers = [
+        { dataKey: 'name', type: TYPE_STRING },
+        { dataKey: 'type', type: TYPE_STRING },
+    ]
 
     it('returns the original data when the search string is empty', () => {
-        expect(filterByGlobalSearch(data, '', { stringDataKeys })).toEqual(data)
-        expect(filterByGlobalSearch(data, '   ', { stringDataKeys })).toEqual(
-            data
-        )
+        expect(filterByGlobalSearch(data, '', { headers })).toEqual(data)
+        expect(filterByGlobalSearch(data, '   ', { headers })).toEqual(data)
     })
 
-    it('returns the original data when there are no string or org-unit data keys', () => {
+    it('returns the original data when there are no headers to search', () => {
         expect(filterByGlobalSearch(data, 'Kampala', {})).toEqual(data)
     })
 
     it('matches case-insensitively across any of the given fields', () => {
-        expect(
-            filterByGlobalSearch(data, 'kampala', { stringDataKeys })
-        ).toEqual([{ name: 'Kampala Hospital', type: 'Hospital' }])
+        expect(filterByGlobalSearch(data, 'kampala', { headers })).toEqual([
+            { name: 'Kampala Hospital', type: 'Hospital' },
+        ])
     })
 
     it('matches rows where any field contains the search string', () => {
-        expect(
-            filterByGlobalSearch(data, 'hospital', { stringDataKeys })
-        ).toEqual([
+        expect(filterByGlobalSearch(data, 'hospital', { headers })).toEqual([
             { name: 'Kampala Hospital', type: 'Hospital' },
             { name: 'Jinja Hospital', type: 'Hospital' },
         ])
     })
 
     it('returns no rows when nothing matches', () => {
-        expect(
-            filterByGlobalSearch(data, 'nairobi', { stringDataKeys })
-        ).toEqual([])
+        expect(filterByGlobalSearch(data, 'nairobi', { headers })).toEqual([])
     })
 
     it('also matches org-unit-typed columns by their resolved name, since the raw stored value is an id/path', () => {
@@ -316,11 +339,90 @@ describe('filterByGlobalSearch', () => {
             ['region1', 'Bo'],
             ['facility1', 'Bo Hospital'],
         ])
+        const orgUnitHeaders = [
+            {
+                dataKey: 'orgUnitPath',
+                type: TYPE_ORG_UNIT,
+                renderer: RENDERER_ORG_UNIT,
+            },
+        ]
         expect(
             filterByGlobalSearch(orgUnitData, 'bo hospital', {
-                orgUnitDataKeys: ['orgUnitPath'],
-                idToName,
+                headers: orgUnitHeaders,
+                orgUnitIdToName: idToName,
             })
         ).toEqual([{ id: 'a', orgUnitPath: '/country1/region1/facility1' }])
+    })
+
+    it('matches a numeric column by its raw value even when a digit-group separator would otherwise hide it', () => {
+        const numericData = [{ population: 1234567 }, { population: 42 }]
+        const numericHeaders = [{ dataKey: 'population', type: TYPE_NUMBER }]
+
+        expect(
+            filterByGlobalSearch(numericData, '1234567', {
+                headers: numericHeaders,
+                keyAnalysisDigitGroupSeparator: 'COMMA',
+            })
+        ).toEqual([{ population: 1234567 }])
+    })
+
+    it('matches a numeric column by its formatted (digit-group-separated) value too', () => {
+        const numericData = [{ population: 1234567 }, { population: 42 }]
+        const numericHeaders = [{ dataKey: 'population', type: TYPE_NUMBER }]
+
+        expect(
+            filterByGlobalSearch(numericData, '1,234,567', {
+                headers: numericHeaders,
+                keyAnalysisDigitGroupSeparator: 'COMMA',
+            })
+        ).toEqual([{ population: 1234567 }])
+    })
+
+    it('matches a date column by its formatted display value', () => {
+        const dateData = [
+            { createdAt: '2024-01-15T10:30:00.000' },
+            { createdAt: '2023-06-01T08:00:00.000' },
+        ]
+        const dateHeaders = [
+            {
+                dataKey: 'createdAt',
+                type: TYPE_DATE,
+                renderer: RENDERER_DATE,
+            },
+        ]
+
+        expect(
+            filterByGlobalSearch(dateData, '2024-01-15', {
+                headers: dateHeaders,
+            })
+        ).toEqual([{ createdAt: '2024-01-15T10:30:00.000' }])
+    })
+
+    it('matches a datetime column, including the time portion of its formatted value', () => {
+        const datetimeData = [{ updatedAt: '2024-01-15T10:30:00.000' }]
+        const datetimeHeaders = [
+            {
+                dataKey: 'updatedAt',
+                type: TYPE_DATETIME,
+                renderer: RENDERER_DATE,
+            },
+        ]
+
+        expect(
+            filterByGlobalSearch(datetimeData, '10:30', {
+                headers: datetimeHeaders,
+            })
+        ).toEqual(datetimeData)
+    })
+
+    it('ignores a header whose value is null or undefined rather than matching against "null"/"undefined"', () => {
+        const sparseData = [{ population: null }, { population: 42 }]
+        const numericHeaders = [{ dataKey: 'population', type: TYPE_NUMBER }]
+
+        expect(
+            filterByGlobalSearch(sparseData, 'null', {
+                headers: numericHeaders,
+            })
+        ).toEqual([])
     })
 })

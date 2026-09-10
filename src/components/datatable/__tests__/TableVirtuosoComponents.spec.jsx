@@ -1,6 +1,8 @@
 import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
-import { EmptyPlaceholder } from '../TableVirtuosoComponents.jsx'
+import TableComponents, {
+    EmptyPlaceholder,
+} from '../TableVirtuosoComponents.jsx'
 
 const renderPlaceholder = (context) =>
     render(
@@ -57,5 +59,59 @@ describe('EmptyPlaceholder', () => {
         expect(screen.getByText('No results found')).toBeTruthy()
         expect(screen.queryByText('Show event details')).toBeNull()
         expect(screen.queryByText('No features match your filters')).toBeNull()
+    })
+})
+
+describe('TableRow', () => {
+    const TableRow = TableComponents.TableRow
+
+    const renderRow = () =>
+        render(
+            <table>
+                <tbody>
+                    <TableRow
+                        context={{
+                            onMouseEnter: jest.fn(),
+                            onMouseLeave: jest.fn(),
+                            onContextMenu: jest.fn(),
+                            onRowClick: jest.fn(),
+                            onRowDoubleClick: jest.fn(),
+                        }}
+                        item={[]}
+                    >
+                        <td>Bombali Sebora</td>
+                    </TableRow>
+                </tbody>
+            </table>
+        )
+
+    test('prevents the default mousedown action for a ctrl-click, to avoid triggering native text selection', () => {
+        renderRow()
+        const notCancelled = fireEvent.mouseDown(
+            screen.getByTestId('dhis2-uicore-datatablerow'),
+            {
+                ctrlKey: true,
+            }
+        )
+        expect(notCancelled).toBe(false)
+    })
+
+    test('prevents the default mousedown action for a shift-click', () => {
+        renderRow()
+        const notCancelled = fireEvent.mouseDown(
+            screen.getByTestId('dhis2-uicore-datatablerow'),
+            {
+                shiftKey: true,
+            }
+        )
+        expect(notCancelled).toBe(false)
+    })
+
+    test('leaves a plain mousedown alone', () => {
+        renderRow()
+        const notCancelled = fireEvent.mouseDown(
+            screen.getByTestId('dhis2-uicore-datatablerow')
+        )
+        expect(notCancelled).toBe(true)
     })
 })

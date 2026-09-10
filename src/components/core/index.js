@@ -6,6 +6,7 @@ import ColorScaleSelect from './ColorScaleSelect.jsx'
 import ConditionalWrapper from './ConditionalWrapper.js'
 import CustomRadioLabel from './CustomRadioLabel.jsx'
 import DatePicker from './DatePicker.jsx'
+import FilterActiveIcon from './FilterActiveIcon.jsx'
 import FontStyle from './FontStyle.jsx'
 import Help from './Help.jsx'
 import IconButton from './IconButton.jsx'
@@ -28,6 +29,7 @@ export {
     ColorScaleSelect,
     ConditionalWrapper,
     DatePicker,
+    FilterActiveIcon,
     FontStyle,
     Help,
     IconButton,
