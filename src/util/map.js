@@ -1,4 +1,8 @@
 import { compact, sortBy, isString } from 'lodash/fp'
+import {
+    ORG_UNIT_DATA_KEY,
+    ORG_UNIT_PATH_DATA_KEY,
+} from '../constants/dataTable.js'
 import { dimConf } from '../constants/dimension.js'
 
 export const toGeoJson = (organisationUnits) =>
@@ -16,20 +20,18 @@ export const toGeoJson = (organisationUnits) =>
                 }
             }
 
+            const ancestorIds =
+                isString(ou.pg) && ou.pg.length ? compact(ou.pg.split('/')) : []
+
             // Grand parent
-            if (isString(ou.pg) && ou.pg.length) {
-                const ids = compact(ou.pg.split('/'))
-
-                // Grand parent id
-                if (ids.length >= 2) {
-                    gpid = ids[ids.length - 2]
-                }
-
-                // Grand parent parent graph
-                if (ids.length > 2) {
-                    gppg = '/' + ids.slice(0, -2).join('/')
-                }
+            if (ancestorIds.length >= 2) {
+                gpid = ancestorIds[ancestorIds.length - 2]
             }
+            if (ancestorIds.length > 2) {
+                gppg = '/' + ancestorIds.slice(0, -2).join('/')
+            }
+
+            const orgUnitPath = '/' + [...ancestorIds, ou.id].join('/')
 
             return {
                 type: 'Feature',
@@ -50,6 +52,8 @@ export const toGeoJson = (organisationUnits) =>
                     parentGraph: ou.pg,
                     parentId: ou.pi,
                     parentName: ou.pn,
+                    [ORG_UNIT_PATH_DATA_KEY]: orgUnitPath,
+                    [ORG_UNIT_DATA_KEY]: orgUnitPath,
                     dimensions: ou.dimensions,
                 },
             }

@@ -3,8 +3,14 @@ import {
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
     TYPE_NUMBER,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
 } from '../constants/dataTable.js'
 import { parseRange } from './legend.js'
+import {
+    formatOrgUnitOwnName,
+    formatOrgUnitPathBreadcrumb,
+} from './orgUnitGroups.js'
 
 const RANGE = 'range'
 
@@ -59,10 +65,20 @@ export const compareRangeValues = (aVal, bVal, sortDirection) => {
 
 const isNoValue = (val) => val === undefined || val === null
 
+const resolveSortText = (value, renderer, idToName) => {
+    if (renderer === RENDERER_ORG_UNIT) {
+        return formatOrgUnitPathBreadcrumb(value, idToName)
+    }
+    if (renderer === RENDERER_ORG_UNIT_NAME) {
+        return formatOrgUnitOwnName(value, idToName)
+    }
+    return value
+}
+
 export const compareFieldValues = (
     aVal,
     bVal,
-    { sortField, sortDirection }
+    { sortField, sortDirection, orgUnitRenderer, idToName }
 ) => {
     // All missing values should be sorted to the end
     if (isNoValue(aVal) && isNoValue(bVal)) {
@@ -80,10 +96,12 @@ export const compareFieldValues = (
     if (sortField === RANGE) {
         return compareRangeValues(aVal, bVal, sortDirection)
     }
+    const aText = resolveSortText(aVal, orgUnitRenderer, idToName)
+    const bText = resolveSortText(bVal, orgUnitRenderer, idToName)
     // TODO: Make sure sorting works across different locales
     return sortDirection === SORT_ASCENDING
-        ? aVal.localeCompare(bVal)
-        : bVal.localeCompare(aVal)
+        ? aText.localeCompare(bText)
+        : bText.localeCompare(aText)
 }
 
 export const compareRows = (a, b, options) => {

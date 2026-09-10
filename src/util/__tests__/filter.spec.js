@@ -2,6 +2,7 @@ import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
     DATE_GROUPS_GRANULARITY,
+    ORG_UNIT_GROUPS_GRANULARITY,
 } from '../../constants/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../filter.js'
 
@@ -203,6 +204,66 @@ describe('filterData', () => {
             ])
         })
     })
+
+    describe('org-unit-group filter ({ granularity, prefixes }) - same prefixGroupFilter matcher, different granularity', () => {
+        const data = [
+            { a: '/country1/region1/facility1' },
+            { a: '/country1/region2/facility2' },
+            { a: '/country2/region3/facility3' },
+            { a: null },
+        ]
+
+        it('matches every row under a selected ancestor prefix', () => {
+            const filters = {
+                a: {
+                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                    prefixes: ['/country1'],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '/country1/region1/facility1' },
+                { a: '/country1/region2/facility2' },
+            ])
+        })
+
+        it('matches only the selected leaf (facility) prefix', () => {
+            const filters = {
+                a: {
+                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                    prefixes: ['/country1/region1/facility1'],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '/country1/region1/facility1' },
+            ])
+        })
+
+        it('SENTINEL_NO_VALUE only matches null/missing values', () => {
+            const filters = {
+                a: {
+                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                    prefixes: [SENTINEL_NO_VALUE],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([{ a: null }])
+        })
+    })
+
+    describe('org-unit value filter ({ values, searchDerived, searchText }) - a committed free-text search on an org-unit-flavored plain-text column, resolved to matching raw values up front (see FilterInput.jsx)', () => {
+        const data = [{ a: 'moyowaId' }, { a: 'otherId' }, { a: null }]
+
+        it('matches rows whose raw value is in the resolved values list', () => {
+            const filters = {
+                a: { values: ['moyowaId'], searchDerived: true },
+            }
+            expect(filterData(data, filters)).toEqual([{ a: 'moyowaId' }])
+        })
+
+        it('matches no rows when nothing resolved (distinct from an empty checkbox array, which matches everything)', () => {
+            const filters = { a: { values: [], searchDerived: true } }
+            expect(filterData(data, filters)).toEqual([])
+        })
+    })
 })
 
 describe('filterByGlobalSearch', () => {
@@ -211,27 +272,28 @@ describe('filterByGlobalSearch', () => {
         { name: 'Entebbe Clinic', type: 'Clinic' },
         { name: 'Jinja Hospital', type: 'Hospital' },
     ]
+    const stringDataKeys = ['name', 'type']
 
     it('returns the original data when the search string is empty', () => {
-        expect(filterByGlobalSearch(data, '', ['name', 'type'])).toEqual(data)
-        expect(filterByGlobalSearch(data, '   ', ['name', 'type'])).toEqual(
+        expect(filterByGlobalSearch(data, '', { stringDataKeys })).toEqual(data)
+        expect(filterByGlobalSearch(data, '   ', { stringDataKeys })).toEqual(
             data
         )
     })
 
-    it('returns the original data when there are no string data keys', () => {
-        expect(filterByGlobalSearch(data, 'Kampala', [])).toEqual(data)
+    it('returns the original data when there are no string or org-unit data keys', () => {
+        expect(filterByGlobalSearch(data, 'Kampala', {})).toEqual(data)
     })
 
     it('matches case-insensitively across any of the given fields', () => {
-        expect(filterByGlobalSearch(data, 'kampala', ['name', 'type'])).toEqual(
-            [{ name: 'Kampala Hospital', type: 'Hospital' }]
-        )
+        expect(
+            filterByGlobalSearch(data, 'kampala', { stringDataKeys })
+        ).toEqual([{ name: 'Kampala Hospital', type: 'Hospital' }])
     })
 
     it('matches rows where any field contains the search string', () => {
         expect(
-            filterByGlobalSearch(data, 'hospital', ['name', 'type'])
+            filterByGlobalSearch(data, 'hospital', { stringDataKeys })
         ).toEqual([
             { name: 'Kampala Hospital', type: 'Hospital' },
             { name: 'Jinja Hospital', type: 'Hospital' },
@@ -239,8 +301,26 @@ describe('filterByGlobalSearch', () => {
     })
 
     it('returns no rows when nothing matches', () => {
-        expect(filterByGlobalSearch(data, 'nairobi', ['name', 'type'])).toEqual(
-            []
-        )
+        expect(
+            filterByGlobalSearch(data, 'nairobi', { stringDataKeys })
+        ).toEqual([])
+    })
+
+    it('also matches org-unit-typed columns by their resolved name, since the raw stored value is an id/path', () => {
+        const orgUnitData = [
+            { id: 'a', orgUnitPath: '/country1/region1/facility1' },
+            { id: 'b', orgUnitPath: '/country1/region2/facility2' },
+        ]
+        const idToName = new Map([
+            ['country1', 'Sierra Leone'],
+            ['region1', 'Bo'],
+            ['facility1', 'Bo Hospital'],
+        ])
+        expect(
+            filterByGlobalSearch(orgUnitData, 'bo hospital', {
+                orgUnitDataKeys: ['orgUnitPath'],
+                idToName,
+            })
+        ).toEqual([{ id: 'a', orgUnitPath: '/country1/region1/facility1' }])
     })
 })

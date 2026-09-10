@@ -1,4 +1,4 @@
-import { onFullscreenChange, resizeAndFitBounds } from '../map.js'
+import { onFullscreenChange, resizeAndFitBounds, toGeoJson } from '../map.js'
 
 const bounds = [
     [0, 0],
@@ -11,6 +11,61 @@ const createMockMap = (layersBounds = bounds) => ({
     fitBounds: jest.fn(),
     toggleMultiTouch: jest.fn(),
     toggleScrollZoom: jest.fn(),
+})
+
+describe('toGeoJson', () => {
+    it("builds orgUnitPath as the parent graph plus the org unit's own id", () => {
+        const [feature] = toGeoJson([
+            {
+                id: 'facility1',
+                co: '[10,20]',
+                ty: 1,
+                na: 'Facility 1',
+                pg: '/country1/region1',
+                pi: 'region1',
+                pn: 'Region 1',
+                le: 4,
+            },
+        ])
+        expect(feature.properties.orgUnitPath).toBe(
+            '/country1/region1/facility1'
+        )
+    })
+
+    it('falls back to just its own id when there is no parent graph (a root org unit)', () => {
+        const [feature] = toGeoJson([
+            {
+                id: 'country1',
+                co: '[10,20]',
+                ty: 1,
+                na: 'Country 1',
+                pg: '',
+                le: 1,
+            },
+        ])
+        expect(feature.properties.orgUnitPath).toBe('/country1')
+    })
+
+    it('always adds a leading slash, even though the real geoFeatures API returns pg without one (unlike organisationUnits.path)', () => {
+        const [feature] = toGeoJson([
+            {
+                id: 'facility1',
+                co: '[10,20]',
+                ty: 1,
+                na: 'Facility 1',
+                pg: 'country1/region1',
+                pi: 'region1',
+                pn: 'Region 1',
+                le: 4,
+            },
+        ])
+        expect(feature.properties.orgUnitPath).toBe(
+            '/country1/region1/facility1'
+        )
+        expect(feature.properties.orgUnitOwn).toBe(
+            '/country1/region1/facility1'
+        )
+    })
 })
 
 describe('resizeAndFitBounds', () => {

@@ -6,12 +6,24 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     RENDERER_DATE,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_DATE,
+    ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import { getRowId } from '../../util/dataTable.js'
-import { formatDate, formatDatetime } from '../../util/helpers.js'
+import {
+    formatBoolean,
+    formatDate,
+    formatDatetime,
+} from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatOrgUnitOwnName,
+    formatOrgUnitPathBreadcrumb,
+} from '../../util/orgUnitGroups.js'
 import { getPinnedCellProps } from '../../util/tableColumns.js'
 import styles from './styles/DataTable.module.css'
 
@@ -28,6 +40,7 @@ const RowCells = ({
     rendererByDataKey,
     typeByDataKey,
     keyAnalysisDigitGroupSeparator,
+    orgUnitIdToName,
     onToggleSelection,
 }) => {
     const rowId = getRowId(row)
@@ -78,6 +91,9 @@ const RowCells = ({
                 const isIconCell = renderer === RENDERER_ICON
                 const isDateCell = renderer === RENDERER_DATE
                 const isDateOnlyCell = typeByDataKey.get(dataKey) === TYPE_DATE
+                const isOrgUnitHierarchyCell = renderer === RENDERER_ORG_UNIT
+                const isOrgUnitNameCell = renderer === RENDERER_ORG_UNIT_NAME
+                const isBooleanCell = renderer === RENDERER_BOOLEAN
                 return (
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
@@ -88,7 +104,10 @@ const RowCells = ({
                         className={cx(styles.dataCell, {
                             [styles.lightText]:
                                 isColorCell && isDarkColor(value),
-                            [styles.monoCell]: dataKey === 'id' || isColorCell,
+                            [styles.monoCell]:
+                                dataKey === 'id' ||
+                                dataKey === ORG_UNIT_ID_DATA_KEY ||
+                                isColorCell,
                             [styles.selected]: isSelected && !isColorCell,
                             [styles.hovered]: isHovered && !isColorCell,
                             [styles.pinnedColumnShadow]: isLastPinned,
@@ -112,9 +131,19 @@ const RowCells = ({
                             (isDateOnlyCell
                                 ? formatDate(value)
                                 : formatDatetime(value))}
+                        {isOrgUnitHierarchyCell &&
+                            value &&
+                            formatOrgUnitPathBreadcrumb(value, orgUnitIdToName)}
+                        {isOrgUnitNameCell &&
+                            value &&
+                            formatOrgUnitOwnName(value, orgUnitIdToName)}
+                        {isBooleanCell && value != null && formatBoolean(value)}
                         {!isColorCell &&
                             !isIconCell &&
                             !isDateCell &&
+                            !isOrgUnitHierarchyCell &&
+                            !isOrgUnitNameCell &&
+                            !isBooleanCell &&
                             formatWithSeparator(
                                 value,
                                 keyAnalysisDigitGroupSeparator
@@ -140,6 +169,7 @@ RowCells.propTypes = {
     hoveredFeature: PropTypes.object,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     layerId: PropTypes.string,
+    orgUnitIdToName: PropTypes.object,
 }
 
 export default RowCells
