@@ -19,3 +19,7 @@
     padding: 6px var(--spacers-dp8);
     line-height: 17px;
 }
+
+.edited {
+    color: var(--colors-grey700);
+}
