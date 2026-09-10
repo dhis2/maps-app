@@ -58,6 +58,7 @@ const validLayerProperties = [
     'labelTemplate',
     'countFeaturesWithoutCoordinates',
     'countEventsOutsideOrgUnits',
+    'spatialAnalysis', // mockup for DHIS2-21461, stored in layer config
     'legendDecimalPlaces',
     'legendIsolated',
     'lastUpdated',
@@ -180,6 +181,9 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
+    if (layer.spatialAnalysis?.method) {
+        configData.spatialAnalysis = layer.spatialAnalysis
+    }
     return configData
 }
 
@@ -194,6 +198,7 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.countFeaturesWithoutCoordinates
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
+    delete layer.spatialAnalysis
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {

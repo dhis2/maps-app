@@ -1,3 +1,4 @@
+import { DIMENSION_TYPE_DATA_ELEMENT } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
 import { scaleSqrt } from 'd3-scale'
 import { findIndex } from 'lodash/fp'
@@ -7,6 +8,10 @@ import {
     WARNING_NO_GEOMETRY_COORD,
     ERROR_CRITICAL,
     CUSTOM_ALERT,
+    WARNING_RATE_DENOMINATOR,
+    WARNING_LOW_N,
+    WARNING_NO_NEIGHBORS,
+    WARNING_SPARSE_COORDS,
 } from '../constants/alerts.js'
 import { dimConf } from '../constants/dimension.js'
 import { EVENT_STATUS_COMPLETED } from '../constants/eventStatuses.js'
@@ -22,6 +27,9 @@ import {
     CLASSIFICATION_STANDARD_DEVIATION,
     ORG_UNIT_COLOR,
     ORG_UNIT_RADIUS_SMALL,
+    SPATIAL_NONE,
+    SPATIAL_GI,
+    SPATIAL_LISA,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -32,6 +40,7 @@ import {
     applyPeriodFilter,
 } from '../util/analytics.js'
 import { getLegendItemForValue } from '../util/classify.js'
+import { getColorPalette, SPATIAL_GI_COLOR_SCALE } from '../util/colors.js'
 import { parseJsonConfig } from '../util/config.js'
 import { hasValue } from '../util/helpers.js'
 import {
@@ -39,6 +48,8 @@ import {
     getAutomaticLegendItems,
     buildIsolatedLegendItem,
     isRegularLegendItem,
+    buildLisaLegendItems,
+    buildGiLegendItems,
 } from '../util/legend.js'
 import { toGeoJson } from '../util/map.js'
 import {
@@ -52,6 +63,11 @@ import {
     fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
+import {
+    buildSpatialWeights,
+    getGiStar,
+    getLisa,
+} from '../util/spatialStats.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 
 const thematicLoader = async ({
@@ -85,6 +101,7 @@ const thematicLoader = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
+        spatialAnalysis: spatialAnalysisFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -94,6 +111,9 @@ const thematicLoader = async ({
     }
     if (legendIsolated) {
         config.legendIsolated = legendIsolated
+    }
+    if (spatialAnalysisFromConfig) {
+        config.spatialAnalysis = spatialAnalysisFromConfig
     }
     if (unclassifiedLegendFromConfig) {
         config.unclassifiedLegend = unclassifiedLegendFromConfig
@@ -184,6 +204,26 @@ const thematicLoader = async ({
 
     const [mainFeatures, data, associatedGeometries] = response
     const { valueById, rawValueById } = getValueMapsById(data)
+
+    // Spatial analysis — gated by config.spatialAnalysis.method
+    // When active, a per-unit statistic (Gi* z-score or LISA cluster) replaces the
+    // raw value as the styling driver. Raw value is still shown in popup/data table.
+    let spatialStats = null
+    let spatialWeights = null
+    const spatialMethod = config.spatialAnalysis?.method
+    const isSpatialAnalysis =
+        spatialMethod && spatialMethod !== SPATIAL_NONE && isSingleMap
+
+    if (isSpatialAnalysis) {
+        spatialWeights = buildSpatialWeights(
+            mainFeatures || [],
+            config.spatialAnalysis
+        )
+        spatialStats =
+            spatialMethod === SPATIAL_GI
+                ? getGiStar(valueById, spatialWeights, config.spatialAnalysis)
+                : getLisa(valueById, spatialWeights, config.spatialAnalysis)
+    }
 
     if (config.countFeaturesWithoutCoordinates) {
         const result = await getOrgUnitsWithoutCoordsCount({
@@ -284,13 +324,91 @@ const thematicLoader = async ({
         })
     }
 
+    // Spatial analysis guardrails
+    if (isSpatialAnalysis && spatialWeights) {
+        const n = features.length
+
+        // Low-N warning: pseudo-p from permutation is unreliable with few units
+        if (n > 0 && n < 30) {
+            alerts.push({
+                warning: true,
+                code: WARNING_LOW_N,
+                message: i18n.t(
+                    'Spatial analysis results may be unreliable with fewer than 30 units ({{n}} found)',
+                    { n }
+                ),
+            })
+        }
+
+        // No-neighbor warning: islands bias spatial statistics
+        if (spatialWeights.noNeighborIds.length > 0) {
+            alerts.push({
+                warning: true,
+                code: WARNING_NO_NEIGHBORS,
+                message: i18n.t(
+                    '{{count}} unit(s) have no spatial neighbors and are excluded from the analysis',
+                    { count: spatialWeights.noNeighborIds.length }
+                ),
+            })
+        }
+
+        // Sparse-coordinates warning: >10% of selected org units lack geometry
+        if (
+            typeof orgUnitsWithoutCoordsCount === 'number' &&
+            orgUnitIds.length > 0 &&
+            orgUnitsWithoutCoordsCount / orgUnitIds.length > 0.1
+        ) {
+            alerts.push({
+                warning: true,
+                code: WARNING_SPARSE_COORDS,
+                message: i18n.t(
+                    '{{count}} of {{total}} org units lack coordinates — spatial weights may be unreliable',
+                    {
+                        count: orgUnitsWithoutCoordsCount,
+                        total: orgUnitIds.length,
+                    }
+                ),
+            })
+        }
+
+        // Rate-denominator prompt: raw counts make hotspots largely rediscover population
+        const isCount =
+            dataItem?.dimensionItemType === DIMENSION_TYPE_DATA_ELEMENT &&
+            !/rate|coverage|proportion|per\b|ratio|prevalence/i.test(
+                dataItem?.name ?? ''
+            )
+        if (isCount) {
+            alerts.push({
+                warning: true,
+                code: WARNING_RATE_DENOMINATOR,
+                message: i18n.t(
+                    'Hotspot analysis on raw counts may reflect population distribution rather than true clustering. Consider using a rate or population-at-risk denominator.'
+                ),
+            })
+        }
+    }
+
     // Legend
     // -----
 
     let legendItems = []
     let valueFormat
 
-    if (isPredefined) {
+    if (isSpatialAnalysis && spatialStats) {
+        // Spatial analysis overrides normal classification.
+        // Gi*: fixed confidence-tier bins (90/95/99%) over the corrected p-value.
+        // LISA: fixed 5-category map (HH/LL/HL/LH/NS) with GeoDa colors.
+        if (spatialMethod === SPATIAL_GI) {
+            const colorScale = getColorPalette(SPATIAL_GI_COLOR_SCALE, 7)
+                .slice()
+                .reverse()
+            const alpha = config.spatialAnalysis?.alpha ?? 0.05
+            legendItems = buildGiLegendItems(colorScale, alpha)
+        } else {
+            // LISA — categorical, no numeric range
+            legendItems = buildLisaLegendItems()
+        }
+    } else if (isPredefined) {
         legendItems = getPredefinedLegendItems(legendSet)
     } else if (!isSingleColor) {
         const classification = getAutomaticLegendItems({
@@ -473,8 +591,88 @@ const thematicLoader = async ({
         // Style and filter features in place
         features = features.flatMap(({ id, geometry, properties }) => {
             const value = valueById[id]
-            const legendItem = getLegendItem(value)
             const isNoData = !hasValue(value)
+
+            // Spatial analysis path: derive legend item from stat rather than raw value
+            if (isSpatialAnalysis && spatialStats) {
+                const stat = spatialStats.get(id)
+                // z and I belong to different methods (Gi* sets z, LISA sets I) —
+                // check the one that's actually populated for the active method.
+                const isNoNeighbor =
+                    spatialMethod === SPATIAL_GI
+                        ? stat?.z === null
+                        : stat?.I === null
+
+                let legendItem
+                if (isNoNeighbor) {
+                    // No-neighbor units are shown in grey and kept out of legend counts
+                    legendItem = null
+                } else if (spatialMethod === SPATIAL_GI) {
+                    // Gi*: categorical lookup by confidence-tier key
+                    legendItem =
+                        legendItems.find((item) => item.tier === stat?.tier) ??
+                        null
+                } else {
+                    // LISA: categorical lookup by cluster key
+                    legendItem =
+                        legendItems.find(
+                            (item) => item.cluster === stat?.cluster
+                        ) ?? null
+                }
+
+                const isPoint = geometry.type === 'Point'
+                const { hasAdditionalGeometry } = properties
+
+                Object.assign(properties, {
+                    color: isNoNeighbor
+                        ? '#cccccc'
+                        : legendItem?.color ?? '#cccccc',
+                    legend: isNoNeighbor
+                        ? i18n.t('No neighbors')
+                        : legendItem?.name ?? '',
+                    radius: THEMATIC_RADIUS_DEFAULT,
+                    ...(hasAdditionalGeometry &&
+                        isPoint &&
+                        !isNoNeighbor &&
+                        legendItem && {
+                            color: ORG_UNIT_COLOR,
+                        }),
+                    ...(hasAdditionalGeometry && {
+                        radius: ORG_UNIT_RADIUS_SMALL,
+                    }),
+                    // Raw value stays for popup and data table display
+                    value: Number.isFinite(value)
+                        ? formatWithSeparator(
+                              value,
+                              keyAnalysisDigitGroupSeparator
+                          )
+                        : rawValueById[id],
+                    rawValue: value,
+                    // Spatial stat properties for popup and data table
+                    ...(spatialMethod === SPATIAL_GI &&
+                        stat && {
+                            spatialZ: stat.z,
+                            spatialP: stat.p,
+                            spatialSignificant: stat.significant,
+                        }),
+                    ...(spatialMethod === SPATIAL_LISA &&
+                        stat && {
+                            spatialCluster: stat.cluster,
+                            spatialI: stat.I,
+                            spatialP: stat.pPseudo,
+                            spatialSignificant: stat.significant,
+                        }),
+                })
+
+                if (!hasAdditionalGeometry && legendItem && !isNoNeighbor) {
+                    legendItem.count++
+                }
+
+                return [{ id, geometry, properties }]
+            }
+
+            // Standard (non-spatial) path
+            const legendItem = getLegendItem(value)
             const isUnclassified = !isSingleColor && !legendItem && !isNoData
 
             if (isNoData && !hasNoDataClass) {
