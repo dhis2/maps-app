@@ -209,6 +209,22 @@ const loadEventLayer = async ({
     // -----
 
     const {
+        eventHeatmap: eventHeatmapFromConfig,
+        heatIntensity: heatIntensityFromConfig,
+        heatRadius: heatRadiusFromConfig,
+    } = parseJsonConfig(config.config)
+    if (eventHeatmapFromConfig !== undefined) {
+        config.eventHeatmap = eventHeatmapFromConfig
+    }
+    if (heatIntensityFromConfig !== undefined) {
+        config.heatIntensity = heatIntensityFromConfig
+    }
+    if (heatRadiusFromConfig !== undefined) {
+        config.heatRadius = heatRadiusFromConfig
+    }
+    delete config.config
+
+    const {
         columns,
         endDate,
         eventStatus,
