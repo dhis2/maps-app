@@ -161,6 +161,9 @@ const loadEventLayer = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
+        eventHeatmap: eventHeatmapFromConfig,
+        heatIntensity: heatIntensityFromConfig,
+        heatRadius: heatRadiusFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -202,17 +205,6 @@ const loadEventLayer = async ({
             color: config.noDataColor,
         }
     }
-    delete config.noDataColor
-    delete config.config
-
-    // Analytics request setup
-    // -----
-
-    const {
-        eventHeatmap: eventHeatmapFromConfig,
-        heatIntensity: heatIntensityFromConfig,
-        heatRadius: heatRadiusFromConfig,
-    } = parseJsonConfig(config.config)
     if (eventHeatmapFromConfig !== undefined) {
         config.eventHeatmap = eventHeatmapFromConfig
     }
@@ -222,7 +214,11 @@ const loadEventLayer = async ({
     if (heatRadiusFromConfig !== undefined) {
         config.heatRadius = heatRadiusFromConfig
     }
+    delete config.noDataColor
     delete config.config
+
+    // Analytics request setup
+    // -----
 
     const {
         columns,
