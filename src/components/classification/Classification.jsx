@@ -69,7 +69,7 @@ const Classification = ({
                 />
             </div>
             <ColorScaleSelect
-                palette={colorScale ? colorScale : defaultColorScale}
+                palette={colorScale || defaultColorScale}
                 onChange={setColorScale}
                 width={190}
                 className={styles.scale}

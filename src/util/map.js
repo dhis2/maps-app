@@ -27,7 +27,7 @@ export const toGeoJson = (organisationUnits) =>
 
                 // Grand parent parent graph
                 if (ids.length > 2) {
-                    gppg = '/' + ids.slice(0, ids.length - 2).join('/')
+                    gppg = '/' + ids.slice(0, -2).join('/')
                 }
             }
 

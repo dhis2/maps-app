@@ -82,12 +82,17 @@ const EarthEnginePopup = (props) => {
             const onlySum = valueType.length === 1 && valueType[0] === 'sum'
 
             // Returns the value key for a type/group
-            const getValueKey = (type, group) =>
-                groups.length === 1
-                    ? type
-                    : valueType.length === 1
-                    ? group
-                    : `${group}_${type}`
+            const getValueKey = (type, group) => {
+                let key
+                if (groups.length === 1) {
+                    key = type
+                } else if (valueType.length === 1) {
+                    key = group
+                } else {
+                    key = `${group}_${type}`
+                }
+                return key
+            }
 
             // Returns the value format (precision) for an aggregation type
             const getValueFormat = (type) => (value) =>

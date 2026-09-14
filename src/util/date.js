@@ -278,8 +278,12 @@ export const formatDateInput = ({
 
     const maxMonth = getMaxMonthsInYear(year, calendar)
 
-    const formattedMonth =
-        month === '00' ? 1 : month > maxMonth ? maxMonth : month
+    let formattedMonth
+    if (month === '00') {
+        formattedMonth = 1
+    } else {
+        formattedMonth = Math.min(month, maxMonth)
+    }
 
     if (numericDate.length === 6) {
         return `${formattedYear}-${formattedMonth
@@ -298,8 +302,12 @@ export const formatDateInput = ({
         formattedMonth,
         calendar
     )
-    const formattedDay =
-        day === '00' ? 1 : day > maxDaysInMonth ? maxDaysInMonth : day
+    let formattedDay
+    if (day === '00') {
+        formattedDay = 1
+    } else {
+        formattedDay = Math.min(day, maxDaysInMonth)
+    }
 
     return `${formattedYear}-${formattedMonth
         .toString()

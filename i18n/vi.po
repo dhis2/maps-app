@@ -1,16 +1,16 @@
 # Translators:
-# Mai Nguyen <thanhmai.jica@gmail.com>, 2025
 # Philip Larsen Donnelly, 2025
-# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
 # Em Le <em.hispvietnam@gmail.com>, 2026
+# Mai Nguyen <thanhmai.jica@gmail.com>, 2026
+# Thuy Nguyen <thuynguyen@hispvietnam.org>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Em Le <em.hispvietnam@gmail.com>, 2026\n"
+"Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2026\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -48,17 +48,35 @@ msgstr "Phân loại"
 msgid "Classes"
 msgstr "Lớp"
 
-msgid "Legend set"
-msgstr "Tập Chú Thích"
+msgid "Auto"
+msgstr "Tự động"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Nhỏ nhất"
+
+msgid "Max"
+msgstr "Lớn nhất"
+
+msgid "Max should be greater than min"
+msgstr "Số lớn nhất phải lớn hơn số nhỏ nhất"
 
 msgid "Color"
 msgstr "Màu"
 
-msgid "Size"
-msgstr "Kích thước"
-
 msgid "Name"
 msgstr "Tên"
+
+msgid "Legend set"
+msgstr "Tập Chú Thích"
+
+msgid "Size"
+msgstr "Kích thước"
 
 msgid "Name and value"
 msgstr "Tên và giá trị"
@@ -93,11 +111,8 @@ msgstr "Địa điểm đăng ký"
 msgid "Tracked entity location"
 msgstr "Địa điểm cá thể"
 
-msgid "Fallback coordinate field"
-msgstr "Tọa độ dự phòng"
-
-msgid "Coordinate field"
-msgstr "Ô toạ độ"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr "Đăng ký > Sự kiện > Loại cá thể > Toạ độ đơn vị"
@@ -105,14 +120,26 @@ msgstr "Đăng ký > Sự kiện > Loại cá thể > Toạ độ đơn vị"
 msgid "Event > org unit coordinate"
 msgstr "Sự kiện > toạ độ đơn vị"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "Tọa độ dự phòng"
+
+msgid "Coordinate field"
+msgstr "Ô toạ độ"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr "Giá trị đã chọn trước đó không có trong danh sách: {{id}}"
 
 msgid "Style by data item"
 msgstr "Kiểu dáng bởi mục dữ liệu"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Tính năng lọc có sẵn sau khi chọn giai đoạn chương trình."
 
 msgid "Add filter"
 msgstr "Thêm bộ lọc"
@@ -191,6 +218,9 @@ msgstr "Khoảng"
 msgid "Org unit"
 msgstr "Đơn vị"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "Thời điểm sự kiện"
 
@@ -257,6 +287,9 @@ msgstr "Đơn vị"
 
 msgid "Style"
 msgstr "Kiểu dáng"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "Màu Điểm"
@@ -365,42 +398,17 @@ msgstr "Giá trị nhỏ nhất là bắt buộc"
 msgid "Max value is required"
 msgstr "Giá trị lớn nhất là bắt buộc"
 
-msgid "Max should be greater than min"
-msgstr "Số lớn nhất phải lớn hơn số nhỏ nhất"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Các bước hợp lệ từ {{minSteps}}bước đến {{maxSteps}}bước"
-
-msgid "Min"
-msgstr "Nhỏ nhất"
-
-msgid "Max"
-msgstr "Lớn nhất"
-
-msgid "Steps"
-msgstr "Bước"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr "Vùng đệm cơ sở"
 
-msgid "Org Units"
-msgstr "Đơn vị"
-
-msgid "Filter"
-msgstr "Bộ lọc"
-
-msgid "Group events"
-msgstr "Nhóm sự kiện"
-
-msgid "View all events"
-msgstr "Xem tất cả sự kiện"
-
-msgid "Radius"
-msgstr "Bán kính"
-
-msgid "You can style events by data element after selecting a program."
+msgid "Count org units without coordinates"
 msgstr ""
-"Bạn có thể định kiểu sự kiện theo phần tử dữ liệu sau khi chọn chương trình."
 
 msgid "Program is required"
 msgstr "Bắt buộc chọn Chương trình"
@@ -413,6 +421,43 @@ msgstr "Không có đơn vị nào được chọn"
 
 msgid "No legend set is selected"
 msgstr "Không có chú giải nào được chọn"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Đơn vị"
+
+msgid "Filter"
+msgstr "Bộ lọc"
+
+msgid "Choose from presets"
+msgstr "Chọn từ các cài đặt trước"
+
+msgid "Define start - end dates"
+msgstr "Xác định ngày bắt đầu - kết thúc"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Tính năng lọc có sẵn sau khi chọn giai đoạn chương trình."
+
+msgid "Group events"
+msgstr "Nhóm sự kiện"
+
+msgid "View all events"
+msgstr "Xem tất cả sự kiện"
+
+msgid "Radius"
+msgstr "Bán kính"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr ""
+"Bạn có thể định kiểu sự kiện theo phần tử dữ liệu sau khi chọn chương trình."
 
 msgid "Event status"
 msgstr "Trạng thái sự kiện"
@@ -459,14 +504,34 @@ msgstr "Đa giác được biểu diễn bằng trọng tâm của chúng."
 msgid "Labels"
 msgstr "Nhãn"
 
+msgid "Include org units with no data"
+msgstr "Bao gồm các đơn vị không có dữ liệu"
+
+msgid "No data"
+msgstr "Không có dữ liệu"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr ""
+
+msgid "Period is required"
+msgstr "Bắt buộc chọn Thời điểm"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
+
 msgid "Aggregation type"
 msgstr "Kiểu tổng hợp"
 
 msgid "Only show completed events"
 msgstr "Chỉ hiển thị các sự kiện đã hoàn tất"
-
-msgid "Include org units with no data"
-msgstr "Bao gồm các đơn vị không có dữ liệu"
 
 msgid "Low radius"
 msgstr "Bán kính thấp"
@@ -480,12 +545,6 @@ msgstr "Bán kính cao phải lớn hơn bán kính thấp"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Bán kính phải nằm trong khoảng {{min}}và {{max}}"
 
-msgid "Choose from presets"
-msgstr "Chọn từ các cài đặt trước"
-
-msgid "Define start - end dates"
-msgstr "Xác định ngày bắt đầu - kết thúc"
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -497,17 +556,6 @@ msgstr ""
 
 msgid "Data is required"
 msgstr ""
-
-msgid "Period is required"
-msgstr "Bắt buộc chọn Thời điểm"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
-msgstr "Chọn ít nhất {{number}} thời điểm hoặc 1 đa thời điểm"
 
 msgid "Specified radius values are invalid"
 msgstr ""
@@ -524,6 +572,9 @@ msgstr "ngày cá thể được đăng ký vào chương trình"
 msgid "Program status"
 msgstr "Tình trạng chương trình"
 
+msgid "Tracked Entity Type is required"
+msgstr "Loại cá thể là bắt buộc"
+
 msgid "Relationships"
 msgstr "Mối quan hệ"
 
@@ -531,15 +582,15 @@ msgid "Follow up"
 msgstr "Theo dõi"
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Hãy chọn Loại cá thể trước khi chọn Mối quan hệ"
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Hiển thị mối quan hệ cá thể trong Bản đồ là một tính năng thử nghiệm"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Hiển thị mối quan hệ cá thể"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Hãy chọn Loại cá thể trước khi chọn Mối quan hệ"
 
 msgid "Tracked entity style"
 msgstr "Kiểu cách cá thể"
@@ -552,9 +603,6 @@ msgstr "Kiểu cá thể liên quan"
 
 msgid "Line Color"
 msgstr "Màu đường kẻ"
-
-msgid "Tracked Entity Type is required"
-msgstr "Loại cá thể là bắt buộc"
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Không tìm thấy loại mối quan hệ nào cho loại cá thể {{type}}"
@@ -605,8 +653,8 @@ msgstr "Bản đồ cơ sở"
 msgid "Download Layer Data"
 msgstr "Tải xuống dữ liệu lớp"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Đang tải dữ liệu GeoJSON cho lớp \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -627,14 +675,11 @@ msgstr "Tải dữ liệu không thành công."
 msgid "External layer"
 msgstr "Lớp bên ngoài"
 
-msgid "Failed to load layer"
-msgstr "Không tải được lớp"
-
 msgid "Loading layer"
 msgstr "Đang tải lớp"
 
-msgid "{{name}} deleted."
-msgstr "{{name}}đã bị xoá"
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Sửa"
@@ -669,20 +714,73 @@ msgstr "Tải dữ liệu xuống"
 msgid "Edit layer"
 msgstr "Sửa lớp"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Xoá lớp"
 
 msgid "Filters"
 msgstr "Bộ lọc"
 
+msgid "Failed to load layer"
+msgstr "Không tải được lớp"
+
 msgid "No data found"
 msgstr "Không tìm thấy dữ liệu"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Đơn vị đã chọn: Không tìm thấy tọa độ"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Không tìm thấy tọa độ"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "Đơn vị đã chọn: Không tìm thấy tọa độ"
 
 msgid "Error"
 msgstr "Lỗi"
@@ -727,9 +825,6 @@ msgstr "Nhóm"
 
 msgid "Parent unit"
 msgstr "Đơn vị cha"
-
-msgid "No data"
-msgstr "Không có dữ liệu"
 
 msgid "Not set"
 msgstr "Không cài"
@@ -918,9 +1013,6 @@ msgstr "Năm trước"
 msgid "Next year"
 msgstr "Năm sau"
 
-msgid "Start/end dates"
-msgstr "Ngày bắt đầu/kết thúc"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -983,6 +1075,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1630,6 +1728,18 @@ msgstr "Khoảng giá trị bằng nhau"
 msgid "Equal counts"
 msgstr "Số lượng bằng nhau"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Ký hiệu"
 
@@ -1678,8 +1788,14 @@ msgstr "Năm Tài Chính (Bắt đầu tháng 7)"
 msgid "Financial year (Start April)"
 msgstr "Năm Tài Chính (Bắt đầu tháng 4)"
 
+msgid "Start/end dates"
+msgstr "Ngày bắt đầu/kết thúc"
+
 msgid "Cancelled"
 msgstr "Đã hủy"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "Lớp bản đồ Google Earth Engine"
@@ -1701,17 +1817,17 @@ msgstr ""
 msgid "Event"
 msgstr "Sự Kiện"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Cơ sở"
 
 msgid "an error occurred"
 msgstr "một lỗi xuất hiện"
 
-msgid "GroupSet used for styling was not found"
-msgstr "Không tìm thấy tập nhóm dùng để tạo kiểu"
-
-msgid "No coordinates found for selected facilities"
-msgstr "Không tìm thấy tọa độ cho các cơ sở đã chọn"
+msgid "No point locations found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "Có vấn đề với lớp này. Hãy liên hệ với quản trị viên hệ thống."
@@ -1740,11 +1856,11 @@ msgstr "Không tìm thấy mục dữ liệu"
 msgid "Thematic layer"
 msgstr "Lớp Chuyên Đề"
 
-msgid "Tracked entity"
-msgstr "Đối Tượng Theo Dõi"
-
 msgid "related"
 msgstr "có liên quan"
+
+msgid "Tracked entity"
+msgstr "Đối Tượng Theo Dõi"
 
 msgid "not one of"
 msgstr "không phải một trong"
@@ -1795,8 +1911,8 @@ msgstr "Đơn vị"
 msgid "Facility"
 msgstr "Cơ sở"
 
-msgid "Other"
-msgstr "Khác"
+msgid "GroupSet used for styling was not found"
+msgstr "Không tìm thấy tập nhóm dùng để tạo kiểu"
 
 msgid "Start date is invalid"
 msgstr "Ngày bắt đầu không hợp lệ"
@@ -1806,3 +1922,11 @@ msgstr "Ngày kết thúc không hợp lệ"
 
 msgid "End date cannot be earlier than start date"
 msgstr "Ngày kết thúc không thể sớm hơn ngày bắt đầu"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Bản Đồ"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

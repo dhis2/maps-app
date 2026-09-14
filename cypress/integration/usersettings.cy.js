@@ -7,8 +7,8 @@ const testMap = {
     cardTitle: 'ANC LLITN coverage',
 }
 
-const interceptRequest = (matcher, param, where = 'body') => {
-    cy.intercept(matcher, (req) => {
+const interceptRequest = (matcher, param, { where = 'body', alias } = {}) => {
+    const handler = (req) => {
         delete req.headers['if-none-match']
         req.reply((res) => {
             if (where === 'body') {
@@ -31,18 +31,27 @@ const interceptRequest = (matcher, param, where = 'body') => {
                 })
             }
         })
-    })
+    }
+
+    if (alias) {
+        cy.intercept(matcher, handler).as(alias)
+    } else {
+        cy.intercept(matcher, handler)
+    }
 }
 
 const interceptRequests = (param) => {
-    interceptRequest({ method: 'GET', url: '**/userSettings' }, param, 'body')
+    interceptRequest({ method: 'GET', url: '**/userSettings' }, param, {
+        where: 'body',
+        alias: 'getUserSettings',
+    })
     interceptRequest(
         {
             method: 'GET',
             url: '**/me?fields=authorities,avatar,email,name,settings',
         },
         param,
-        'settings'
+        { where: 'settings' }
     )
     interceptRequest(
         {
@@ -50,7 +59,7 @@ const interceptRequests = (param) => {
             url: '**/me?fields=:all,organisationUnits[id],userGroups[id],userCredentials[:all,!user,userRoles[id]',
         },
         param,
-        'settings'
+        { where: 'settings' }
     )
     interceptRequest(
         {
@@ -60,7 +69,7 @@ const interceptRequests = (param) => {
             )}`,
         },
         param,
-        'settings'
+        { where: 'settings' }
     )
 }
 
@@ -81,7 +90,7 @@ const interceptNameProperty = (keyAnalysisDisplayProperty) => {
             url: '**/systemSettings?key=keyAnalysisRelativePeriod,keyBingMapsApiKey,keyHideDailyPeriods,keyHideWeeklyPeriods,keyHideBiWeeklyPeriods,keyHideMonthlyPeriods,keyHideBiMonthlyPeriods,keyDefaultBaseMap',
         },
         param,
-        'body'
+        { where: 'body' }
     )
 }
 
@@ -90,6 +99,7 @@ describe('uses the correct locale', () => {
         interceptLanguage('nb')
 
         cy.visit(`/?id=${testMap.id}`)
+        cy.wait('@getUserSettings', EXTENDED_TIMEOUT)
         cy.get('[data-test=layercard]')
             .find('h2')
             .contains(`${testMap.cardTitle}`)
@@ -111,6 +121,7 @@ describe('uses the correct locale', () => {
         interceptLanguage('en')
 
         cy.visit(`/?id=${testMap.id}`)
+        cy.wait('@getUserSettings', EXTENDED_TIMEOUT)
         cy.get('[data-test=layercard]')
             .find('h2')
             .contains(`${testMap.cardTitle}`)

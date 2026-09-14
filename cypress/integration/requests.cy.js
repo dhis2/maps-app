@@ -171,7 +171,7 @@ describe('API requests check for all layer types', () => {
                 },
             ],
             commonTriggerFn: () => {
-                cy.visit(`#/${id}`, EXTENDED_TIMEOUT)
+                cy.visit(`#/${id}`)
                 cy.getByDataTest('layercard')
                     .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                     .should('exist')

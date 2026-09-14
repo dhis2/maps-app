@@ -18,7 +18,7 @@ const assertViewMode = () => {
 
 describe('Routes', () => {
     it('loads root route', () => {
-        cy.visit('/', { timeout: 50000 })
+        cy.visit('/')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.title().should('equal', 'Maps | DHIS2')
     })
@@ -27,7 +27,7 @@ describe('Routes', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit('/?id=ytkZY3ChM6J', EXTENDED_TIMEOUT) //ANC: 3rd visit coverage last year by district
+        cy.visit('/?id=ytkZY3ChM6J') //ANC: 3rd visit coverage last year by district
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
@@ -40,7 +40,7 @@ describe('Routes', () => {
     })
 
     it('loads with map id (hash)', () => {
-        cy.visit('/#/zDP78aJU8nX', EXTENDED_TIMEOUT) //ANC: 1st visit coverage (%) by district last year
+        cy.visit('/#/zDP78aJU8nX') //ANC: 1st visit coverage (%) by district last year
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
@@ -53,7 +53,7 @@ describe('Routes', () => {
             fixture: 'analyticalObject_thematicLayer.json',
         })
 
-        cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT)
+        cy.visit('/?currentAnalyticalObject=true')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.contains('button', 'Proceed').click()
@@ -68,7 +68,7 @@ describe('Routes', () => {
             fixture: 'analyticalObject_thematicLayer.json',
         })
 
-        cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
+        cy.visit('/#/currentAnalyticalObject')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.contains('button', 'Proceed').click()
@@ -94,7 +94,7 @@ describe('Routes', () => {
             fixture: 'analyticalObject_earthEngineLayer.json',
         })
 
-        cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
+        cy.visit('/#/currentAnalyticalObject')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         cy.getByDataTest('layercard')
@@ -116,10 +116,7 @@ describe('Routes', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit(
-            '/?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a',
-            EXTENDED_TIMEOUT
-        ) //ANC: LLITN coverage district and facility
+        cy.visit('/?id=ZBjCfSaLSqD&interpretationid=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
@@ -147,10 +144,7 @@ describe('Routes', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit(
-            '/?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a',
-            EXTENDED_TIMEOUT
-        ) //ANC: LLITN coverage district and facility
+        cy.visit('/?id=ZBjCfSaLSqD&interpretationId=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
@@ -168,10 +162,7 @@ describe('Routes', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit(
-            '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
-            EXTENDED_TIMEOUT
-        ) //ANC: LLITN coverage district and facility
+        cy.visit('/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
@@ -189,7 +180,7 @@ describe('Routes', () => {
         cy.intercept({ method: 'POST', url: /dataStatistics/ }).as(
             'postDataStatistics'
         )
-        cy.visit('/#/ZBjCfSaLSqD/download', EXTENDED_TIMEOUT) //ANC: LLITN coverage district and facility
+        cy.visit('/#/ZBjCfSaLSqD/download') //ANC: LLITN coverage district and facility
 
         cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
@@ -203,7 +194,7 @@ describe('Routes', () => {
             fixture: 'analyticalObject_thematicLayer.json',
         })
 
-        cy.visit('/#/currentAnalyticalObject/download', EXTENDED_TIMEOUT)
+        cy.visit('/#/currentAnalyticalObject/download')
 
         cy.contains('button', 'Proceed').click()
 
@@ -211,7 +202,7 @@ describe('Routes', () => {
     })
 
     it('loads download page for new map', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.get('canvas.maplibregl-canvas').should('be.visible')
         cy.get('button').contains('Download').click()
@@ -225,22 +216,23 @@ describe('Routes', () => {
 
     describe('navigation by url changes', () => {
         it('navigates to and away from download page', () => {
-            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.visit('/')
             assertViewMode()
 
-            cy.visit('/#/ZBjCfSaLSqD/download', EXTENDED_TIMEOUT) //ANC: LLITN coverage district and facility
+            cy.visit('/#/ZBjCfSaLSqD/download') //ANC: LLITN coverage district and facility
             assertDownloadMode()
 
-            cy.visit('/', EXTENDED_TIMEOUT)
+            cy.visit('/')
             assertViewMode()
         })
 
         it('navigates away from interpretation modal', () => {
-            cy.visit(
-                '/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a',
-                EXTENDED_TIMEOUT
-            ) //ANC: LLITN coverage district and facility
+            cy.intercept('GET', '**/maps/ZBjCfSaLSqD*').as('getMap')
+            cy.intercept('GET', '**/interpretations/**').as('getInterpretation')
 
+            cy.visit('/#/ZBjCfSaLSqD?interpretationId=yKqhXZdeJ6a') //ANC: LLITN coverage district and facility
+
+            cy.wait(['@getMap', '@getInterpretation'], EXTENDED_TIMEOUT)
             cy.getByDataTest('interpretation-modal', EXTENDED_TIMEOUT)
                 .find('h1')
                 .contains(
@@ -250,7 +242,7 @@ describe('Routes', () => {
 
             cy.visit('/#/ZBjCfSaLSqD')
 
-            assertViewMode
+            assertViewMode()
         })
 
         it('navigates from currentAnalyticalObject to saved map in download mode', () => {
@@ -258,7 +250,7 @@ describe('Routes', () => {
                 fixture: 'analyticalObject_thematicLayer.json',
             })
 
-            cy.visit('/#/currentAnalyticalObject', EXTENDED_TIMEOUT)
+            cy.visit('/#/currentAnalyticalObject')
             cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
             cy.contains('button', 'Proceed').click()
@@ -268,7 +260,7 @@ describe('Routes', () => {
             cy.get('canvas.maplibregl-canvas').should('be.visible')
 
             // now go to a saved map in download mode
-            cy.visit('/#/eDlFx0jTtV9/download', EXTENDED_TIMEOUT) //ANC: LLITN Cov chiefdom this year
+            cy.visit('/#/eDlFx0jTtV9/download') //ANC: LLITN Cov chiefdom this year
             assertDownloadMode()
 
             cy.getByDataTest('download-map-info')

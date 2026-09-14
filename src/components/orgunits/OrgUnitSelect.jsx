@@ -64,12 +64,14 @@ const OrgUnitSelect = ({
         )
     }
 
-    const numOtherSelects =
-        !hideAssociatedGeometry && !hideSelectMode
-            ? TWO_OTHER_SELECTS
-            : !hideAssociatedGeometry || !hideSelectMode
-            ? ONE_OTHER_SELECT
-            : NO_OTHER_SELECTS
+    let numOtherSelects
+    if (!hideAssociatedGeometry && !hideSelectMode) {
+        numOtherSelects = TWO_OTHER_SELECTS
+    } else if (!hideAssociatedGeometry || !hideSelectMode) {
+        numOtherSelects = ONE_OTHER_SELECT
+    } else {
+        numOtherSelects = NO_OTHER_SELECTS
+    }
 
     return (
         <div className={styles.orgUnitSelect} data-test="org-unit-select">

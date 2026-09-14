@@ -15,11 +15,8 @@ const InterpretationMap = ({ visualization, filters, onResponsesReceived }) => {
         const relativePeriodLayers = visualization.mapViews
             .filter((config) => {
                 const periods = getPeriodsFromFilters(config.filters)
-                return (
-                    periods &&
-                    periods.some((period) =>
-                        getRelativePeriods().some((p) => p.id === period.id)
-                    )
+                return periods?.some((period) =>
+                    getRelativePeriods().some((p) => p.id === period.id)
                 )
             })
             .map((layer) => ({

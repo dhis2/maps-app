@@ -16,8 +16,6 @@ const clearAndLogin = () => {
     cy.loginByApi({ username, password, baseUrl })
         .its('status')
         .should('equal', 200)
-
-    cy.wait(100) // eslint-disable-line cypress/no-unnecessary-waiting
 }
 
 const commonTriggerFn = () => {
@@ -235,7 +233,10 @@ describe('Error handling check for all layer types', () => {
                     triggerFn: () => {
                         clearAndLogin()
                         cy.visit(`#/${id}`)
-                        cy.wait(10000) // eslint-disable-line cypress/no-unnecessary-waiting
+                        cy.getByDataTest(
+                            'headerbar-title',
+                            EXTENDED_TIMEOUT
+                        ).should('be.visible')
                     },
                     errors: ['network', 409], // !TODO: Improve messages
                 },
@@ -253,7 +254,12 @@ describe('Error handling check for all layer types', () => {
                     ...getRequest('getEventsStandard_Analytics2'),
                     triggerFn: () => {
                         clearAndLogin()
+                        cy.intercept(
+                            'GET',
+                            getRequest('getEventsStandard_Analytics1').url
+                        ).as('getEventsAnalytics1')
                         cy.visit(`#/${id}`)
+                        cy.wait('@getEventsAnalytics1', EXTENDED_TIMEOUT)
                         cy.getByDataTest('layercard')
                             .find('[data-test="layerlegend"]', EXTENDED_TIMEOUT)
                             .should('exist')

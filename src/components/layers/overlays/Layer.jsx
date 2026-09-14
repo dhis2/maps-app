@@ -26,7 +26,7 @@ const Layer = ({ layer, onClick }) => {
             >
                 <div>
                     {img ? (
-                        <img src={img} className={styles.image} />
+                        <img src={img} className={styles.image} alt="" />
                     ) : (
                         <div className={styles.noImage}>
                             {i18n.t('External layer')}

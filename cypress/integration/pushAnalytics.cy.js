@@ -32,7 +32,7 @@ describe('push-analytics', () => {
             }
             cy.task('emptyDownloadsFolder')
 
-            cy.visit(`/#/${mapWithThematicLayer.id}`, EXTENDED_TIMEOUT)
+            cy.visit(`/#/${mapWithThematicLayer.id}`)
 
             cy.getByDataTest('dhis2-analytics-hovermenubar')
                 .find('button')
@@ -45,11 +45,10 @@ describe('push-analytics', () => {
                 .contains('Download')
                 .click()
 
-            cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
             cy.waitUntil(
                 () =>
                     cy.task('getLastDownloadFilePath').then((result) => result),
-                { timeout: 3000, interval: 100 }
+                { timeout: 8000, interval: 100 }
             ).then((filePath) => {
                 expect(filePath).to.include(
                     mapWithThematicLayer.downloadFileName

@@ -57,7 +57,7 @@ export const getThematicLayerFromAnalyticalObject = async ({
     const legendSet = await loadDataItemLegendSet(dataDim, engine)
 
     // Currently we only support one period in map filters so we select the first
-    if (yearlySeries && yearlySeries.length) {
+    if (yearlySeries?.length) {
         period = {
             dimension: 'pe',
             items: [

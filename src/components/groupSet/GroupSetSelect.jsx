@@ -44,7 +44,7 @@ const GroupSetSelect = ({
     )
 
     const internalError =
-        value && !groupSets.find((item) => item.id === value.id)
+        value && !groupSets.some((item) => item.id === value.id)
     let internalErrorText
     if (internalError) {
         internalErrorText = i18n.t(

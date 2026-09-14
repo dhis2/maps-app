@@ -39,7 +39,7 @@ describe('utils/app - providerDataTransformation', () => {
         externalMapLayers: [
             {
                 mapService: 'XYZ',
-                url: 'https://a.tiles.mapbox.com/v4/worldbank-education.pebkgmlc/{z}/{x}/{y}.png?access_token=pk.eyJ1Ijoid29ybGRiYW5rLWVkdWNhdGlvbiIsImEiOiJIZ2VvODFjIn0.TDw5VdwGavwEsch53sAVxA',
+                url: 'https://a.tiles.mapbox.com/v4/worldbank-education.pebkgmlc/{z}/{x}/{y}.png?access_token=FAKE_TOKEN_FOR_TESTS',
                 attribution: 'OpenAerialMap / Tanzania Open Data Initiative',
                 imageFormat: 'PNG',
                 mapLayerPosition: 'BASEMAP',
@@ -124,7 +124,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(10)
+        expect(cfg.basemaps).toHaveLength(12)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser.username).toEqual('admin')
@@ -180,7 +180,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
-        expect(cfg.basemaps).toHaveLength(6)
+        expect(cfg.basemaps).toHaveLength(8)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
         expect(cfg.currentUser).toMatchObject({

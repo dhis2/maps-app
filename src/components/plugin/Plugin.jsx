@@ -27,14 +27,11 @@ const query = {
 
 const providerDataTransformation = ({ systemSettings, currentUser }) => {
     return {
-        systemSettings: Object.assign(
-            {},
-            DEFAULT_SYSTEM_SETTINGS,
-            systemSettings,
-            {
-                hiddenPeriods: getHiddenPeriods(systemSettings),
-            }
-        ),
+        systemSettings: {
+            ...DEFAULT_SYSTEM_SETTINGS,
+            ...systemSettings,
+            hiddenPeriods: getHiddenPeriods(systemSettings),
+        },
         currentUser: {
             id: currentUser.id,
             name: currentUser.name,

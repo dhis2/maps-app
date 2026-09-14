@@ -12,7 +12,9 @@ const fetchData = async (url, engine, baseUrl) => {
         // API route, use engine
         const routesIndex = url.indexOf('routes')
         if (routesIndex === -1) {
-            throw new Error()
+            throw new Error(
+                'Invalid API route: URL does not contain a "routes" segment'
+            )
         }
 
         return engine
@@ -27,19 +29,21 @@ const fetchData = async (url, engine, baseUrl) => {
                     : data.geojson
             )
             .catch(() => {
-                throw new Error()
+                throw new Error('Failed to fetch GeoJSON from API route')
             })
     } else {
         // External route, use fetch
         return fetch(url)
             .then((response) => {
                 if (!response.ok) {
-                    throw new Error()
+                    throw new Error(
+                        'Failed to fetch GeoJSON: response was not ok'
+                    )
                 }
                 return response.json()
             })
             .catch(() => {
-                throw new Error()
+                throw new Error('Failed to fetch GeoJSON from external URL')
             })
     }
 }

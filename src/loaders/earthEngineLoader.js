@@ -56,7 +56,7 @@ const earthEngineLoader = async ({
                 const name = String(layerConfig.image)
                 const year =
                     typeof id === 'string' && id.length > 4
-                        ? parseInt(id.substring(0, 4), 10)
+                        ? Number.parseInt(id.substring(0, 4), 10)
                         : undefined
 
                 layerConfig.period = { id, name, year }
@@ -103,7 +103,7 @@ const earthEngineLoader = async ({
     let features
     let orgUnitsWithoutCoordsCount = null
 
-    if (orgUnits && orgUnits.length) {
+    if (orgUnits?.length) {
         const orgUnitIds = orgUnits.map((item) => item.id)
         let mainFeatures
         let associatedGeometries

@@ -3,16 +3,21 @@ import { CURRENT_YEAR, EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('OrgUnitInfo', () => {
     it('opens the panel for an OrgUnit', () => {
-        cy.visit('/#/eDlFx0jTtV9', EXTENDED_TIMEOUT)
+        cy.visit('/#/eDlFx0jTtV9')
         cy.get('canvas').should('be.visible')
 
-        cy.wait(3000) // eslint-disable-line cypress/no-unnecessary-waiting
-        cy.get('#dhis2-map-container')
-            .findByDataTest('dhis2-uicore-componentcover', EXTENDED_TIMEOUT)
-            .should('not.exist')
+        cy.waitForMap()
         getMaps().click(350, 350) //Click somewhere on the map
 
-        cy.get('.maplibregl-popup').contains('View profile').click()
+        cy.intercept('GET', '**/organisationUnitProfile/*/data**').as(
+            'orgUnitProfile'
+        )
+
+        cy.get('.maplibregl-popup', EXTENDED_TIMEOUT)
+            .contains('View profile')
+            .click()
+
+        cy.wait('@orgUnitProfile', EXTENDED_TIMEOUT)
 
         // check the Org Unit Profile panel
         cy.getByDataTest('org-unit-profile').contains(
@@ -22,9 +27,17 @@ describe('OrgUnitInfo', () => {
         // // TODO - find a way to ensure that "Bombali" is the orgunit that was clicked on
         // // cy.getByDataTest('org-unit-info').find('h3').contains('Bombali')
 
+        // Wildcarded id: this is whichever org unit's feature is under
+        // the clicked pixel, not the visited map's own id.
+        cy.intercept('GET', '**/organisationUnitProfile/*/data**').as(
+            'orgUnitProfilePreviousYear'
+        )
+
         cy.getByDataTest('org-unit-data')
             .findByDataTest('button-previous-year')
             .click()
+
+        cy.wait('@orgUnitProfilePreviousYear', EXTENDED_TIMEOUT)
 
         cy.getByDataTest('org-unit-data')
             .findByDataTest('dhis2-uicore-circularloader')

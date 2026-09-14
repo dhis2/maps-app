@@ -10,7 +10,7 @@ import { getSplitViewLayer } from '../../util/helpers.js'
 import { closeDownloadMode, getHashUrlParam } from '../../util/history.js'
 import { getMapName } from '../app/FileMenu.jsx'
 import Drawer from '../core/Drawer.jsx'
-import { Checkbox, Help } from '../core/index.js'
+import { Checkbox } from '../core/index.js'
 import { loadingMaskClass } from '../map/MapLoadingMask.jsx'
 import LegendLayers from './LegendLayers.jsx'
 import NorthArrowPosition from './NorthArrowPosition.jsx'
@@ -139,6 +139,15 @@ const DownloadSettings = () => {
                                             })
                                         )
                                     }
+                                    tooltip={
+                                        name
+                                            ? i18n.t(
+                                                  'Name can be changed from File > Rename menu'
+                                              )
+                                            : i18n.t(
+                                                  'Set the map name when you save the map or from File > Rename menu'
+                                              )
+                                    }
                                 />
                                 <Checkbox
                                     label={i18n.t('Show map description')}
@@ -191,29 +200,33 @@ const DownloadSettings = () => {
                                         )
                                     }
                                 />
-                                <Checkbox
-                                    label={i18n.t('Show north arrow')}
-                                    checked={showNorthArrow}
-                                    disabled={isSplitView}
-                                    onChange={(value) =>
-                                        dispatch(
-                                            setDownloadConfig({
-                                                showNorthArrow: value,
-                                            })
-                                        )
-                                    }
-                                />
-                                {showNorthArrow && !isSplitView && (
-                                    <NorthArrowPosition
-                                        position={northArrowPosition}
-                                        onChange={(value) =>
-                                            dispatch(
-                                                setDownloadConfig({
-                                                    northArrowPosition: value,
-                                                })
-                                            )
-                                        }
-                                    />
+                                {!isSplitView && (
+                                    <>
+                                        <Checkbox
+                                            label={i18n.t('Show north arrow')}
+                                            checked={showNorthArrow}
+                                            onChange={(value) =>
+                                                dispatch(
+                                                    setDownloadConfig({
+                                                        showNorthArrow: value,
+                                                    })
+                                                )
+                                            }
+                                        />
+                                        {showNorthArrow && (
+                                            <NorthArrowPosition
+                                                position={northArrowPosition}
+                                                onChange={(value) =>
+                                                    dispatch(
+                                                        setDownloadConfig({
+                                                            northArrowPosition:
+                                                                value,
+                                                        })
+                                                    )
+                                                }
+                                            />
+                                        )}
+                                    </>
                                 )}
                                 {showMarginsCheckbox && (
                                     <Checkbox
@@ -230,11 +243,11 @@ const DownloadSettings = () => {
                                         }
                                     />
                                 )}
-                                <Help>
+                                <p className={styles.footerNote}>
                                     {i18n.t(
                                         'Resize your browser window to change the map dimensions.'
                                     )}
-                                </Help>
+                                </p>
                             </>
                         ) : (
                             i18n.t(

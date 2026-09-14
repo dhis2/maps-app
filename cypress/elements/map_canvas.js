@@ -13,7 +13,7 @@ export const assertMapPosition = (
     expectedHeights,
     tolerance = 0
 ) => {
-    getMaps().then(($canvas) => {
+    getMaps().should(($canvas) => {
         const boundingRect = $canvas[0].getBoundingClientRect()
         expect(
             expectedBottoms.some(

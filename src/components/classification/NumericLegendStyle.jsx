@@ -32,12 +32,31 @@ const NumericLegendStyle = (props) => {
         if (!method) {
             // Use predefined legend if defined for data item
             setClassification(
-                dataItem && dataItem.legendSet
+                dataItem?.legendSet
                     ? CLASSIFICATION_PREDEFINED
                     : CLASSIFICATION_AUTO_DEFAULT
             )
         }
     }, [method, dataItem, setClassification])
+
+    let legendStyleContent
+    if (isSingleColor) {
+        legendStyleContent = (
+            <>
+                <SingleColor />
+                <IsolatedClass />
+            </>
+        )
+    } else if (isPredefined) {
+        legendStyleContent = (
+            <LegendSetSelect
+                legendSetError={legendSetError}
+                defaultLegendSet={dataItem?.legendSet}
+            />
+        )
+    } else {
+        legendStyleContent = <Classification />
+    }
 
     return (
         <div style={style}>
@@ -46,19 +65,7 @@ const NumericLegendStyle = (props) => {
                 mapType={mapType}
                 dataItem={dataItem}
             />
-            {isSingleColor ? (
-                <>
-                    <SingleColor />
-                    <IsolatedClass />
-                </>
-            ) : isPredefined ? (
-                <LegendSetSelect
-                    legendSetError={legendSetError}
-                    defaultLegendSet={dataItem?.legendSet}
-                />
-            ) : (
-                <Classification />
-            )}
+            {legendStyleContent}
         </div>
     )
 }

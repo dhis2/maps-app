@@ -183,7 +183,7 @@ export const getPrecision = (values = []) => {
     if (values.length) {
         const sortedValues = [...values].sort((a, b) => a - b)
         const minValue = sortedValues[0]
-        const maxValue = sortedValues[sortedValues.length - 1]
+        const maxValue = sortedValues.at(-1)
         const minMaxGap = maxValue - minValue
         const absOfMaxValue = Math.abs(maxValue)
 

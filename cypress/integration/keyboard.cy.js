@@ -13,7 +13,7 @@ const alt = {
 
 describe('keyboard navigation', () => {
     it('tab', () => {
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         // StartEndDate
         cy.getByDataTest('add-layer-button', EXTENDED_TIMEOUT).click()
@@ -43,7 +43,7 @@ describe('keyboard navigation', () => {
     })
 
     it('esc', () => {
-        cy.visit(`/#/${map.id}`, EXTENDED_TIMEOUT)
+        cy.visit(`/#/${map.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
         // Layer popover

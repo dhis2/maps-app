@@ -19,7 +19,7 @@ const SingleColor = ({
     setLegendDecimalPlaces,
 }) => {
     useEffect(() => {
-        if (!color || color.length !== 7) {
+        if (color?.length !== 7) {
             setColorScale(THEMATIC_COLOR)
         }
     }, [color, setColorScale])

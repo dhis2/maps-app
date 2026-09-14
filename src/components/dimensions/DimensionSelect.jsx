@@ -36,7 +36,7 @@ const DimensionSelect = ({ dimension, onChange }) => {
     const dropdownRef = useRef()
 
     const findDimension = (id) =>
-        data && data.dimensions.dimensions.find((d) => d.id === id)
+        data?.dimensions.dimensions.find((d) => d.id === id)
     const selected = findDimension(dimension)
 
     const onDimensionClick = (dim) => {

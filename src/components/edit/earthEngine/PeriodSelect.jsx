@@ -79,7 +79,9 @@ const EarthEnginePeriodSelect = ({
         (e) => {
             let name = e.name
             if (name.includes(AVAILABLE_UP_TO)) {
-                const regex = new RegExp(`\\s*\\(${AVAILABLE_UP_TO}.*\\)$`)
+                const regex = new RegExp(
+                    String.raw`\s*\(${AVAILABLE_UP_TO}.*\)$`
+                )
                 name = name.replaceAll(regex, '')
             }
             onChange({
@@ -203,7 +205,7 @@ const EarthEnginePeriodSelect = ({
             if (
                 !yearChanged &&
                 period &&
-                periods.find(({ id }) => id == period.id)
+                periods.some(({ id }) => id == period.id)
             ) {
                 onChange(period)
                 trackedYear.current = year

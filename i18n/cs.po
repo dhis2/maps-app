@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-03-12T18:11:56.380Z\n"
+"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2026\n"
 "Language-Team: Czech (https://app.transifex.com/hisp-uio/teams/100509/cs/)\n"
@@ -44,17 +44,35 @@ msgstr "Klasifikace"
 msgid "Classes"
 msgstr "Třídy"
 
-msgid "Legend set"
-msgstr "Sada legend"
+msgid "Auto"
+msgstr "Automaticky"
+
+msgid "Decimal places"
+msgstr ""
+
+msgid "Isolated class"
+msgstr ""
+
+msgid "Min"
+msgstr "Min"
+
+msgid "Max"
+msgstr "Max"
+
+msgid "Max should be greater than min"
+msgstr "Max by měl být větší než min"
 
 msgid "Color"
 msgstr "Barva"
 
-msgid "Size"
-msgstr "Velikost"
-
 msgid "Name"
 msgstr "Název"
+
+msgid "Legend set"
+msgstr "Sada legend"
+
+msgid "Size"
+msgstr "Velikost"
 
 msgid "Name and value"
 msgstr "Název a hodnota"
@@ -89,11 +107,8 @@ msgstr "Místo zápisu"
 msgid "Tracked entity location"
 msgstr "Umístění trasované entity"
 
-msgid "Fallback coordinate field"
-msgstr "Záložní souřadnicové pole"
-
-msgid "Coordinate field"
-msgstr "Pole souřadnic"
+msgid "Select a program stage to see additional coordinate options"
+msgstr ""
 
 msgid "Enrollment > event > tracked entity > org unit coordinate"
 msgstr ""
@@ -102,14 +117,26 @@ msgstr ""
 msgid "Event > org unit coordinate"
 msgstr "Událost > souřadnice organizační jednotky"
 
+msgid "Select a program to see additional coordinate options"
+msgstr ""
+
+msgid "Fallback coordinate field"
+msgstr "Záložní souřadnicové pole"
+
+msgid "Coordinate field"
+msgstr "Pole souřadnic"
+
+msgid "Include unclassified events"
+msgstr ""
+
+msgid "Include events with no data"
+msgstr ""
+
 msgid "Previously selected value not available in list: {{id}}"
 msgstr ""
 
 msgid "Style by data item"
 msgstr "Styl podle datové položky"
-
-msgid "Filtering is available after selecting a program stage."
-msgstr "Filtrování je k dispozici po výběru fáze programu."
 
 msgid "Add filter"
 msgstr "Přidat filtr"
@@ -188,6 +215,9 @@ msgstr "Rozsah"
 msgid "Org unit"
 msgstr "Organizační jednotka"
 
+msgid "Org unit boundary"
+msgstr ""
+
 msgid "Event time"
 msgstr "Čas události"
 
@@ -255,6 +285,9 @@ msgstr "Organizační jednotky"
 
 msgid "Style"
 msgstr "Styl"
+
+msgid "Count org units without a point location"
+msgstr ""
 
 msgid "Point color"
 msgstr "Barva bodu"
@@ -363,41 +396,17 @@ msgstr "Vyžaduje se minimální hodnota"
 msgid "Max value is required"
 msgstr "Je požadována maximální hodnota"
 
-msgid "Max should be greater than min"
-msgstr "Max by měl být větší než min"
+msgid "Valid classes are {{minSteps}} to {{maxSteps}}"
+msgstr ""
 
-msgid "Valid steps are {{minSteps}} to {{maxSteps}}"
-msgstr "Platné kroky jsou {{minSteps}} až {{maxSteps}}"
-
-msgid "Min"
-msgstr "Min"
-
-msgid "Max"
-msgstr "Max"
-
-msgid "Steps"
-msgstr "Kroky"
+msgid "Use custom legend"
+msgstr ""
 
 msgid "Facility buffer"
 msgstr ""
 
-msgid "Org Units"
-msgstr "Org. Jednotky"
-
-msgid "Filter"
-msgstr "Filtr"
-
-msgid "Group events"
-msgstr "Skupinové události"
-
-msgid "View all events"
-msgstr "Zobrazit všechny události"
-
-msgid "Radius"
-msgstr "Poloměr"
-
-msgid "You can style events by data element after selecting a program."
-msgstr "Události můžete stylovat podle datového prvku po výběru programu."
+msgid "Count org units without coordinates"
+msgstr ""
 
 msgid "Program is required"
 msgstr "Program je vyžadován"
@@ -410,6 +419,42 @@ msgstr "Nejsou vybrány žádné organizační jednotky."
 
 msgid "No legend set is selected"
 msgstr "Nevybrána žádná sada legend"
+
+msgid "Isolated class max should be greater than min"
+msgstr ""
+
+msgid "Org Units"
+msgstr "Org. Jednotky"
+
+msgid "Filter"
+msgstr "Filtr"
+
+msgid "Choose from presets"
+msgstr "Vyberte si z předvoleb"
+
+msgid "Define start - end dates"
+msgstr "Definujte počáteční a koncová data"
+
+msgid "Filtering is available after selecting a program stage."
+msgstr "Filtrování je k dispozici po výběru fáze programu."
+
+msgid "Group events"
+msgstr "Skupinové události"
+
+msgid "View all events"
+msgstr "Zobrazit všechny události"
+
+msgid "Radius"
+msgstr "Poloměr"
+
+msgid "Count events without coordinates"
+msgstr ""
+
+msgid "Filter and count events outside org unit boundaries"
+msgstr ""
+
+msgid "You can style events by data element after selecting a program."
+msgstr "Události můžete stylovat podle datového prvku po výběru programu."
 
 msgid "Event status"
 msgstr "Stav události"
@@ -456,14 +501,34 @@ msgstr "Polygony jsou reprezentovány svými centroidy."
 msgid "Labels"
 msgstr "Štítky"
 
+msgid "Include org units with no data"
+msgstr "Zahrnout organizační jednotky bez dat"
+
+msgid "No data"
+msgstr "Nejsou data"
+
+msgid "Include unclassified org units"
+msgstr ""
+
+msgid "Unclassified"
+msgstr "Nezařazeno"
+
+msgid "Period is required"
+msgstr "Období je vyžadováno"
+
+msgid ""
+"Only up to a total of {{number}} periods (including those in multi-periods) "
+"can be added to a split layer."
+msgstr ""
+
+msgid "Select at least {{number}} periods or 1 multi-period."
+msgstr ""
+
 msgid "Aggregation type"
 msgstr "Typ agregace"
 
 msgid "Only show completed events"
 msgstr "Zobrazí pouze dokončené události"
-
-msgid "Include org units with no data"
-msgstr "Zahrnout organizační jednotky bez dat"
 
 msgid "Low radius"
 msgstr "Malý poloměr"
@@ -477,12 +542,6 @@ msgstr "Vysoký poloměr by měl být větší než nízký poloměr"
 msgid "Radius should be between {{min}} and {{max}}"
 msgstr "Poloměr by měl být mezi {{min}} a {{max}}"
 
-msgid "Choose from presets"
-msgstr "Vyberte si z předvoleb"
-
-msgid "Define start - end dates"
-msgstr "Definujte počáteční a koncová data"
-
 msgid "Choose periods for all timeline layers"
 msgstr ""
 
@@ -493,17 +552,6 @@ msgid "Choose periods for all split layers"
 msgstr ""
 
 msgid "Data is required"
-msgstr ""
-
-msgid "Period is required"
-msgstr "Období je vyžadováno"
-
-msgid ""
-"Only up to a total of {{number}} periods (including those in multi-periods) "
-"can be added to a split layer."
-msgstr ""
-
-msgid "Select at least {{number}} periods or 1 multi-period."
 msgstr ""
 
 msgid "Specified radius values are invalid"
@@ -522,6 +570,9 @@ msgstr ""
 msgid "Program status"
 msgstr "Stav programu"
 
+msgid "Tracked Entity Type is required"
+msgstr ""
+
 msgid "Relationships"
 msgstr "Vztahy"
 
@@ -529,15 +580,15 @@ msgid "Follow up"
 msgstr "Následovat"
 
 msgid ""
-"Please select a Tracked Entity Type before selecting a Relationship Type"
-msgstr "Před výběrem typu vztahu vyberte typ trasované entity"
-
-msgid ""
 "Displaying tracked entity relationships in Maps is an experimental feature"
 msgstr "Zobrazení vztahů trasovaných entit v Mapách je experimentální funkce"
 
 msgid "Display Tracked Entity relationships"
 msgstr "Zobrazit vztahy trasované entity"
+
+msgid ""
+"Please select a Tracked Entity Type before selecting a Relationship Type"
+msgstr "Před výběrem typu vztahu vyberte typ trasované entity"
 
 msgid "Tracked entity style"
 msgstr "Styl trasované entity"
@@ -550,9 +601,6 @@ msgstr "Styl související entity"
 
 msgid "Line Color"
 msgstr "Barva čáry"
-
-msgid "Tracked Entity Type is required"
-msgstr ""
 
 msgid "No relationship types were found for tracked entity type {{type}}"
 msgstr "Pro trasovaný typ entity {{type}} nebyly nalezeny žádné typy vztahů"
@@ -603,8 +651,8 @@ msgstr "Základní mapa"
 msgid "Download Layer Data"
 msgstr "Stáhnout si data vrstvy"
 
-msgid "Downloading GeoJSON data for \"{{layerName}}\""
-msgstr "Stahování dat GeoJSON pro vrstvu \"{{layerName}}\""
+msgid "Downloading GeoJSON data for \"{{- layerName}}\""
+msgstr ""
 
 msgid ""
 "GeoJSON is supported by most GIS software, including QGIS and ArcGIS "
@@ -624,14 +672,11 @@ msgstr "Stažení dat se nezdařilo."
 msgid "External layer"
 msgstr "Vnější vrstva"
 
-msgid "Failed to load layer"
-msgstr "Nepodařilo se načíst vrstvu"
-
 msgid "Loading layer"
 msgstr "Načítání vrstvy"
 
-msgid "{{name}} deleted."
-msgstr "{{name}} smazáno."
+msgid "{{- name}} deleted."
+msgstr ""
 
 msgid "Edit"
 msgstr "Upravit"
@@ -666,20 +711,88 @@ msgstr "Stáhnout data"
 msgid "Edit layer"
 msgstr "Upravit vrstvu"
 
+msgid "Duplicate layer"
+msgstr ""
+
 msgid "Remove layer"
 msgstr "Odstraňte vrstvu"
 
 msgid "Filters"
 msgstr "Filtry"
 
+msgid "Failed to load layer"
+msgstr "Nepodařilo se načíst vrstvu"
+
 msgid "No data found"
 msgstr "Nenalezena žádná data"
 
-msgid "Selected org units: No coordinates found"
-msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
+msgid "All events outside org unit boundaries"
+msgstr ""
 
 msgid "No coordinates found"
 msgstr "Nenalezeny žádné souřadnice"
+
+msgid "Could not check org unit boundaries"
+msgstr ""
+
+msgid "Data quality"
+msgstr ""
+
+msgid "All events have coordinates"
+msgstr ""
+
+msgid "{{n}} event without coordinates"
+msgid_plural "{{n}} event without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "All events within org unit boundaries"
+msgstr ""
+
+msgid "{{n}} event outside org unit boundaries"
+msgid_plural "{{n}} event outside org unit boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{n}} of {{total}} org unit without boundaries"
+msgid_plural "{{n}} of {{total}} org unit without boundaries"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "Boundary check skipped"
+msgstr ""
+
+msgid "All org units without boundaries"
+msgstr ""
+
+msgid "All org units have a point location"
+msgstr ""
+
+msgid "All org units have coordinates"
+msgstr ""
+
+msgid "{{n}} org unit without a point location"
+msgid_plural "{{n}} org unit without a point location"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "{{n}} org unit without coordinates"
+msgid_plural "{{n}} org unit without coordinates"
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+msgstr[3] ""
+
+msgid "Selected org units: No coordinates found"
+msgstr "Vybrané organizační jednotky: Nebyly nalezeny žádné souřadnice"
 
 msgid "Error"
 msgstr "Chyba"
@@ -724,9 +837,6 @@ msgstr "Skupiny"
 
 msgid "Parent unit"
 msgstr "Nadřazená jednotka"
-
-msgid "No data"
-msgstr "Nejsou data"
 
 msgid "Not set"
 msgstr "Nenastaveno"
@@ -916,9 +1026,6 @@ msgstr "Minulý rok"
 msgid "Next year"
 msgstr "Příští rok"
 
-msgid "Start/end dates"
-msgstr "Datum zahájení / ukončení"
-
 msgid "Remove all split layers to add a single layer."
 msgstr ""
 
@@ -977,6 +1084,12 @@ msgid "Click to unpin legend"
 msgstr ""
 
 msgid "Click to pin legend"
+msgstr ""
+
+msgid "Hide layer"
+msgstr ""
+
+msgid "Show layer"
 msgstr ""
 
 msgid "No program"
@@ -1642,6 +1755,18 @@ msgstr "Stejné intervaly"
 msgid "Equal counts"
 msgstr "Stejné počty"
 
+msgid "Natural breaks (intervals)"
+msgstr ""
+
+msgid "Natural breaks (clusters)"
+msgstr ""
+
+msgid "Pretty breaks"
+msgstr ""
+
+msgid "Logarithmic scale"
+msgstr ""
+
 msgid "Symbol"
 msgstr "Symbol"
 
@@ -1690,8 +1815,14 @@ msgstr "Finanční rok (od července)"
 msgid "Financial year (Start April)"
 msgstr "Finanční rok (od dubna)"
 
+msgid "Start/end dates"
+msgstr "Datum zahájení / ukončení"
+
 msgid "Cancelled"
 msgstr "Zrušeno"
+
+msgid "Could not count org units without coordinates"
+msgstr ""
 
 msgid "Earth Engine layer"
 msgstr "Vrstva Earth Engine"
@@ -1711,17 +1842,17 @@ msgstr "Zobrazeno prvních {{pageSize}} událostí z {{total}}"
 msgid "Event"
 msgstr "Událost"
 
+msgid "Could not count org units without a point location"
+msgstr ""
+
 msgid "Facilities"
 msgstr "Zařízení"
 
 msgid "an error occurred"
 msgstr "došlo k chybě"
 
-msgid "GroupSet used for styling was not found"
-msgstr "GroupSet použitý pro stylování nebyl nalezen"
-
-msgid "No coordinates found for selected facilities"
-msgstr "Pro vybraná zařízení nebyly nalezeny žádné souřadnice"
+msgid "No point locations found for selected facilities"
+msgstr ""
 
 msgid "There was a problem with this layer. Contact a system administrator."
 msgstr "S touto vrstvou byl problém. Obraťte se na správce systému."
@@ -1750,11 +1881,11 @@ msgstr "Datová položka nebyla nalezena"
 msgid "Thematic layer"
 msgstr "Tematická vrstva"
 
-msgid "Tracked entity"
-msgstr "Trasovaná entita"
-
 msgid "related"
 msgstr "příbuzný"
+
+msgid "Tracked entity"
+msgstr "Trasovaná entita"
 
 msgid "not one of"
 msgstr "není jeden z"
@@ -1805,8 +1936,8 @@ msgstr "Organizační jednotky"
 msgid "Facility"
 msgstr "Zařízení"
 
-msgid "Other"
-msgstr "jiný"
+msgid "GroupSet used for styling was not found"
+msgstr "GroupSet použitý pro stylování nebyl nalezen"
 
 msgid "Start date is invalid"
 msgstr "Datum zahájení je neplatné"
@@ -1816,3 +1947,11 @@ msgstr "Datum ukončení je neplatné"
 
 msgid "End date cannot be earlier than start date"
 msgstr "Datum ukončení nemůže být dřívější než datum zahájení"
+
+msgctxt "Application title"
+msgid "__MANIFEST_APP_TITLE"
+msgstr "Mapy"
+
+msgctxt "Application description"
+msgid "__MANIFEST_APP_DESCRIPTION"
+msgstr ""

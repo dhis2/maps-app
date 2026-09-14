@@ -79,7 +79,7 @@ export const parseLayerConfig = async (layerConfig, engine) => {
 
     try {
         config = JSON.parse(layerConfig)
-    } catch (evt) {
+    } catch (error_) {
         return
     }
 
@@ -97,7 +97,7 @@ export const parseLayerConfig = async (layerConfig, engine) => {
             )
             const newConfig = createExternalLayerConfig(externalLayer)
             newConfig.featureStyle = { ...config.featureStyle }
-        } catch (evt) {
+        } catch (error_) {
             return config
         }
     }

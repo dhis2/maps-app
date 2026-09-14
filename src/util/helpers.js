@@ -98,11 +98,9 @@ export const addOrgUnitPaths = (mapViews) =>
                       ...dim,
                       items: dim.items.map((orgUnit) => ({
                           ...orgUnit,
-                          path: (
-                              view.organisationUnits.find(
-                                  (ou) => ou.id === orgUnit.id
-                              ) || {}
-                          ).path,
+                          path: view.organisationUnits.find(
+                              (ou) => ou.id === orgUnit.id
+                          )?.path,
                       })),
                   })),
               }

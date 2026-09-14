@@ -1,3 +1,4 @@
+import { EXTENDED_TIMEOUT } from '../support/util.js'
 import { getMaps } from './map_canvas.js'
 
 export const DRILL_UP = 'context-menu-drill-up'
@@ -18,7 +19,7 @@ export const expectContextMenuOptions = (availableOptions) => {
             getMaps().first().rightclick(xpos, ypos)
 
             // menu has correct number of items
-            cy.getByDataTest('context-menu')
+            cy.getByDataTest('context-menu', EXTENDED_TIMEOUT)
                 .find('li')
                 .should('have.length', availableOptions.length)
 

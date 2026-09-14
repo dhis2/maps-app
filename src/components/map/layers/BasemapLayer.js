@@ -36,11 +36,11 @@ const BasemapLayer = (
     )
 
     useEffect(() => {
-        map.addLayer(basemap).catch((errorMessage) => {
-            log.error(`Basemap could not be added: ${errorMessage}`)
+        map.addLayer(basemap).catch((error_) => {
+            log.error(`Basemap could not be added: ${error_}`)
             if (!isPlugin) {
-                const alertError = getAlertError(errorMessage)
-                if (errorMessage.includes('not found')) {
+                const alertError = getAlertError(error_)
+                if (error_.includes('not found')) {
                     basemapNotFoundAlert.show(alertError)
                 } else {
                     basemapInvalidAlert.show(alertError)

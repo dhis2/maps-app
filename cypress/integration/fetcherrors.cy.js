@@ -3,8 +3,11 @@ import { EXTENDED_TIMEOUT } from '../support/util.js'
 
 describe('Fetch errors', () => {
     it('non-existing map id does not crash app', () => {
-        cy.visit('/?id=nonexisting', EXTENDED_TIMEOUT)
+        cy.intercept('GET', '**/maps/nonexisting*').as('getMap')
 
+        cy.visit('/?id=nonexisting')
+
+        cy.wait('@getMap', EXTENDED_TIMEOUT)
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
@@ -19,19 +22,20 @@ describe('Fetch errors', () => {
             }
         )
 
-        cy.visit('/?currentAnalyticalObject=true', EXTENDED_TIMEOUT)
+        cy.visit('/?currentAnalyticalObject=true')
 
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
     })
 
+    // Skipped: needs to be re-written or removed following changes to the org unit component
     it.skip('error in org units request does not crash app', () => {
         cy.intercept('GET', 'organisationUnits?*', {
             statusCode: 409,
         })
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
@@ -39,9 +43,10 @@ describe('Fetch errors', () => {
     })
 
     it('failed timeline thematic layer does not crash app', () => {
-        cy.intercept('GET', '**/api/**/analytics*', { statusCode: 500 })
+        // narrower than /api/**/analytics*/ so it excludes DHIS2 43+ systemSettings/analytics* endpoints
+        cy.intercept('GET', /\/analytics\?/, { statusCode: 500 })
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         const Layer = new ThematicLayer()
         Layer.openDialog('Thematic')
@@ -75,7 +80,7 @@ describe('Fetch errors', () => {
             statusCode: 409,
         })
 
-        cy.visit('/', EXTENDED_TIMEOUT)
+        cy.visit('/')
 
         cy.getByDataTest('layercard', EXTENDED_TIMEOUT).should('not.exist')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')

@@ -141,25 +141,19 @@ export const loadDataItemLegendSet = async (dataItem, engine) => {
     let result = null
     switch (dataItem.dimensionItemType) {
         case DIMENSION_TYPE_INDICATOR:
-            {
-                result = await engine.query(INDICATOR_QUERY, {
-                    variables: { id: dataItem.id },
-                })
-            }
+            result = await engine.query(INDICATOR_QUERY, {
+                variables: { id: dataItem.id },
+            })
             break
         case DIMENSION_TYPE_DATA_ELEMENT:
-            {
-                result = await engine.query(DATA_ELEMENT_QUERY, {
-                    variables: { id: dataItem.id },
-                })
-            }
+            result = await engine.query(DATA_ELEMENT_QUERY, {
+                variables: { id: dataItem.id },
+            })
             break
         case DIMENSION_TYPE_DATA_SET:
-            {
-                result = await engine.query(DATA_SET_QUERY, {
-                    variables: { id: dataItem.id },
-                })
-            }
+            result = await engine.query(DATA_SET_QUERY, {
+                variables: { id: dataItem.id },
+            })
             break
         default:
             return null
