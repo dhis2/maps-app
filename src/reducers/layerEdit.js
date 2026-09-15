@@ -371,8 +371,10 @@ const layerEdit = (state = null, action) => {
 
             if (action.fieldId === NONE) {
                 delete newState.fallbackCoordinateField
+                delete newState.fallbackCoordinateFieldType
             } else {
                 newState.fallbackCoordinateField = action.fieldId
+                newState.fallbackCoordinateFieldType = action.fieldType
             }
 
             return newState

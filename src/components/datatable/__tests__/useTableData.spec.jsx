@@ -289,6 +289,60 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    test('includes a geometrySource column when present in the response headers', () => {
+        const store = {
+            aggregations: {},
+        }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            headers: [
+                {
+                    name: 'geometrySource',
+                    column: 'Geometry source',
+                    valueType: 'TEXT',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'a9712323629',
+                        type: 'Point',
+                        ouname: 'Lumley Hospital',
+                        eventdate: '2023-05-15 00:00:00.0',
+                        geometrySource: 'ougeometry',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { headers, rows } = result.current
+        expect(headers).toContainEqual({
+            name: 'Geometry source',
+            dataKey: 'geometrySource',
+            type: 'string',
+        })
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 'ougeometry',
+                dataKey: 'geometrySource',
+            })
+        )
+    })
+
     test('treats NUMBER header with optionSet as string type', () => {
         const store = { aggregations: {} }
         const layer = {

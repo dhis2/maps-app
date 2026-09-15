@@ -8,6 +8,7 @@ import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
@@ -125,7 +126,10 @@ const getEventHeaders = ({
     }
 
     const customFields = layerHeaders
-        .filter(({ name }) => isValidUid(name))
+        .filter(
+            ({ name }) =>
+                isValidUid(name) || name === EVENT_COORDINATE_GEOMETRY_SOURCE
+        )
         .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
             name,
             dataKey,

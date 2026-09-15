@@ -10,6 +10,11 @@ import {
     EVENT_COORDINATE_CASCADING,
     NONE,
 } from '../../constants/layers.js'
+import {
+    coordinateValueTypes,
+    ouValueTypes,
+} from '../../constants/valueTypes.js'
+import { serverSupportsGeometrySource } from '../../util/versionToggle.js'
 import { SelectField } from '../core/index.js'
 import { useEventDataItems } from './EventDataItemsProvider.jsx'
 
@@ -24,19 +29,26 @@ const CoordinateField = ({
     dataTest = 'coordinatefield',
 }) => {
     const { serverVersion } = useConfig()
+    const isFallback = !!eventCoordinateField
 
-    // VERSION-TOGGLE
-    // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
-    // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
-    // - [2.41.4] https://github.com/dhis2/dhis2-core/commit/19f29f27385cfae1c7fac234439f49987ec2abe4
-    // - [2.42.0] https://github.com/dhis2/dhis2-core/commit/e5b29f4f1dbee791be9e6befb8a304151a1661c9
-    const includeTypes = ['COORDINATE']
-    if (
+    const includeTypes = [...coordinateValueTypes]
+    if (isFallback) {
+        // VERSION-TOGGLE: fallbackCoordinateField pointed at a custom
+        // ORGANISATION_UNIT field crashes pre-2.44 - see util/versionToggle.js
+        if (serverSupportsGeometrySource(serverVersion)) {
+            includeTypes.push(...ouValueTypes)
+        }
+    } else if (
+        // VERSION-TOGGLE
+        // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
+        // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
+        // - [2.41.4] https://github.com/dhis2/dhis2-core/commit/19f29f27385cfae1c7fac234439f49987ec2abe4
+        // - [2.42.0] https://github.com/dhis2/dhis2-core/commit/e5b29f4f1dbee791be9e6befb8a304151a1661c9
         (serverVersion.minor === 40 && serverVersion.patch >= 8) ||
         (serverVersion.minor === 41 && serverVersion.patch >= 4) ||
         serverVersion.minor >= 42
     ) {
-        includeTypes.push('ORGANISATION_UNIT')
+        includeTypes.push(...ouValueTypes)
     }
 
     const {
@@ -51,7 +63,6 @@ const CoordinateField = ({
     )
 
     const fields = useMemo(() => {
-        const isFallback = !!eventCoordinateField
         const fields = []
 
         if (isFallback) {
@@ -96,17 +107,17 @@ const CoordinateField = ({
         return isFallback
             ? fields.filter((f) => f.id !== eventCoordinateField)
             : fields
-    }, [trackedEntityType, eventDataItems, eventCoordinateField])
+    }, [trackedEntityType, eventDataItems, eventCoordinateField, isFallback])
 
     let helpText = null
     if (program) {
         if (value === EVENT_COORDINATE_CASCADING) {
-            helpText = trackedEntityType
+            helpText = trackedEntityType?.id
                 ? i18n.t(
-                      'Enrollment > event > tracked entity > org unit coordinate'
+                      'Event > enrollment > tracked entity > org unit coordinate'
                   )
                 : i18n.t('Event > org unit coordinate')
-        } else if (!programStage && trackedEntityType) {
+        } else if (!programStage && trackedEntityType?.id) {
             helpText = i18n.t(
                 'Select a program stage to see additional coordinate options'
             )
@@ -173,7 +184,10 @@ CoordinateField.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
     dataTest: PropTypes.string,
-    eventCoordinateField: PropTypes.string,
+    eventCoordinateField: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+    ]),
     program: PropTypes.object,
     programStage: PropTypes.object,
     type: PropTypes.string,

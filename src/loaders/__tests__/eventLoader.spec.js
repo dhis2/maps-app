@@ -9,7 +9,10 @@ import {
     GEOFEATURES_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
-import { excludeEventsOutsideOrgUnits } from '../eventLoader.js'
+import {
+    excludeEventsOutsideOrgUnits,
+    isUnsupportedFallbackField,
+} from '../eventLoader.js'
 
 // [0,0]-[10,10]
 const SQUARE_A = [
@@ -727,5 +730,44 @@ describe('excludeEventsOutsideOrgUnits', () => {
         })
 
         expect(config.legend.orgUnitsWithoutBoundaryCount).toBeUndefined()
+    })
+})
+
+describe('isUnsupportedFallbackField', () => {
+    test('an ORGANISATION_UNIT-type field is unsupported pre-2.44', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'ORGANISATION_UNIT' },
+                {
+                    minor: 43,
+                }
+            )
+        ).toBe(true)
+    })
+
+    test('an ORGANISATION_UNIT-type field is supported on 2.44+', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'ORGANISATION_UNIT' },
+                {
+                    minor: 44,
+                }
+            )
+        ).toBe(false)
+    })
+
+    test('a COORDINATE-type field is always supported', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'COORDINATE' },
+                {
+                    minor: 43,
+                }
+            )
+        ).toBe(false)
+    })
+
+    test('an unresolved field (undefined) is treated as supported', () => {
+        expect(isUnsupportedFallbackField(undefined, { minor: 43 })).toBe(false)
     })
 })

@@ -108,6 +108,7 @@ export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
+export const EVENT_COORDINATE_GEOMETRY_SOURCE = 'geometrySource'
 export const COORDINATE_FIELD_NAMES = {
     [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
     [EVENT_COORDINATE_ORG_UNIT]: i18n.t('Organisation unit location'),
@@ -237,5 +238,3 @@ export const MIN_RADIUS = 1
 export const MAX_RADIUS = 100
 
 export const NONE = 'none'
-
-export const GEOMETRY_SOURCE_DATA_ITEM_ID = 'geometrySource'

@@ -1323,4 +1323,33 @@ describe('layerEdit reducer', () => {
 
         expect(layerEdit(state, { type: 'UNKNOWN' })).toBe(state)
     })
+
+    it('sets fallbackCoordinateField and fallbackCoordinateFieldType together', () => {
+        const result = layerEdit(
+            {},
+            {
+                type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                fieldId: 'deId123456',
+                fieldType: 'ORGANISATION_UNIT',
+            }
+        )
+
+        expect(result.fallbackCoordinateField).toBe('deId123456')
+        expect(result.fallbackCoordinateFieldType).toBe('ORGANISATION_UNIT')
+    })
+
+    it('clears fallbackCoordinateField and fallbackCoordinateFieldType when set to none', () => {
+        const state = {
+            fallbackCoordinateField: 'deId123456',
+            fallbackCoordinateFieldType: 'ORGANISATION_UNIT',
+        }
+
+        const result = layerEdit(state, {
+            type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+            fieldId: 'none',
+        })
+
+        expect(result.fallbackCoordinateField).toBeUndefined()
+        expect(result.fallbackCoordinateFieldType).toBeUndefined()
+    })
 })

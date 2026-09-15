@@ -8,7 +8,7 @@ import {
     LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
-import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
+import { loadEventCoordinateField } from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
     EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
@@ -404,13 +404,15 @@ class EventLayer extends Layer {
             ]
         }
 
-        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
-            program,
-            programStage,
-            eventCoordinateField,
-            engine,
-            displayNameProp,
-        })
+        const eventCoordinateFieldName = (
+            await loadEventCoordinateField({
+                program,
+                programStage,
+                fieldId: eventCoordinateField,
+                engine,
+                displayNameProp,
+            })
+        )?.name
 
         this.setState({ displayItems, eventCoordinateFieldName })
     }

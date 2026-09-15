@@ -6,7 +6,7 @@ import {
     setNoDataLegend,
     setUnclassifiedLegend,
 } from '../../actions/layerEdit.js'
-import { GEOMETRY_SOURCE_DATA_ITEM_ID } from '../../constants/layers.js'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../constants/layers.js'
 import {
     numberValueTypes,
     booleanValueTypes,
@@ -30,7 +30,7 @@ const DataItemStyle = ({ dataItem, style }) => {
         return null
     }
 
-    if (dataItem.id === GEOMETRY_SOURCE_DATA_ITEM_ID) {
+    if (dataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE) {
         return (
             <div style={style}>
                 <GeometrySourceStyle />

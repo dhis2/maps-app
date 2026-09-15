@@ -12,6 +12,7 @@ import {
     EVENT_SERVER_CLUSTER_COUNT,
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_COORDINATE_CASCADING,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import {
@@ -23,7 +24,7 @@ import {
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { parseJsonConfig } from '../util/config.js'
-import { loadEventCoordinateFieldName } from '../util/coordinatesName.js'
+import { loadEventCoordinateField } from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import {
     getBounds,
@@ -41,6 +42,7 @@ import { OPTION_SET_QUERY } from '../util/requests.js'
 import { styleByDataItem } from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
+import { serverSupportsGeometrySource } from '../util/versionToggle.js'
 
 // OU dimension value is always an ID; property key depends on outputIdScheme
 const getEventOuId = (feature) =>
@@ -86,6 +88,19 @@ const unknownErrorAlert = {
     code: CUSTOM_ALERT,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
+const fallbackCoordinateFieldUnsupportedAlert = {
+    warning: true,
+    code: CUSTOM_ALERT,
+    message: i18n.t(
+        'The fallback coordinate field is not supported by this server version'
+    ),
+}
+
+// VERSION-TOGGLE: ORGANISATION_UNIT fallback fields crash pre-2.44 - see
+// util/versionToggle.js. Resolved via query since valueType isn't stored.
+export const isUnsupportedFallbackField = (fallbackField, serverVersion) =>
+    fallbackField?.valueType === 'ORGANISATION_UNIT' &&
+    !serverSupportsGeometrySource(serverVersion)
 
 // Returns a promise
 const eventLoader = async ({
@@ -97,6 +112,7 @@ const eventLoader = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    serverVersion,
 }) => {
     const config = {
         ...layerConfig,
@@ -117,6 +133,7 @@ const eventLoader = async ({
             analyticsEngine,
             periodTypeData,
             loadExtended,
+            serverVersion,
         })
     } catch (e) {
         if (
@@ -149,6 +166,7 @@ const loadEventLayer = async ({
     analyticsEngine,
     periodTypeData,
     loadExtended,
+    serverVersion,
 }) => {
     // Config normalization
     // -----
@@ -237,12 +255,34 @@ const loadEventLayer = async ({
 
     config.isExtended = loadExtended
 
+    const alerts = []
+
+    // Fallback coordinate field
+    // -----
+
+    let fallbackField =
+        config.fallbackCoordinateField &&
+        config.fallbackCoordinateField !== EVENT_COORDINATE_CASCADING
+            ? await loadEventCoordinateField({
+                  program,
+                  programStage,
+                  fieldId: config.fallbackCoordinateField,
+                  engine,
+                  displayNameProp,
+              })
+            : null
+
+    if (isUnsupportedFallbackField(fallbackField, serverVersion)) {
+        delete config.fallbackCoordinateField
+        fallbackField = null
+        alerts.push(fallbackCoordinateFieldUnsupportedAlert)
+    }
+
     const analyticsRequest = await getAnalyticsRequest(config, {
         analyticsEngine,
         nameProperty: displayNameProp,
         engine,
     })
-    const alerts = []
 
     // Legend skeleton
     // -----
@@ -403,15 +443,21 @@ const loadEventLayer = async ({
     // Coordinate field
     // -----
 
-    const eventCoordinateFieldName = await loadEventCoordinateFieldName({
+    const coordinateField = await loadEventCoordinateField({
         program,
         programStage,
-        eventCoordinateField,
+        fieldId: eventCoordinateField,
         engine,
         displayNameProp,
     })
-    if (eventCoordinateFieldName) {
-        config.legend.coordinateFields = [eventCoordinateFieldName]
+    if (coordinateField) {
+        config.legend.coordinateFields = [coordinateField.name]
+    }
+
+    if (config.fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
+        config.legend.fallbackCoordinateField = i18n.t('Cascading')
+    } else if (fallbackField) {
+        config.legend.fallbackCoordinateField = fallbackField.name
     }
 
     // Legend items & explanation

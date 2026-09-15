@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import {
     COORDINATE_FIELD_NAMES,
-    GEOMETRY_SOURCE_DATA_ITEM_ID,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../../../constants/layers.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
@@ -181,13 +181,15 @@ const EventPopup = ({
                                 <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
-                        {feature.properties[GEOMETRY_SOURCE_DATA_ITEM_ID] && (
+                        {feature.properties[
+                            EVENT_COORDINATE_GEOMETRY_SOURCE
+                        ] && (
                             <tr>
                                 <th>{i18n.t('Geometry source')}</th>
                                 <td>
                                     {resolveGeometrySourceLabel(
                                         feature.properties[
-                                            GEOMETRY_SOURCE_DATA_ITEM_ID
+                                            EVENT_COORDINATE_GEOMETRY_SOURCE
                                         ],
                                         displayItems
                                     )}

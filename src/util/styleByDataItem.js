@@ -5,7 +5,7 @@ import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_LOGARITHMIC,
     CLASSIFICATION_STANDARD_DEVIATION,
-    GEOMETRY_SOURCE_DATA_ITEM_ID,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
     COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
@@ -70,7 +70,7 @@ const addFeature = (acc, feature, { item, value }) => {
 // This function is modifiyng the config object before it's added to the redux store
 export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
-    if (styleDataItem.id === GEOMETRY_SOURCE_DATA_ITEM_ID) {
+    if (styleDataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE) {
         await styleByGeometrySource(config)
     } else if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
@@ -106,7 +106,8 @@ const styleByGeometrySource = async (config) => {
     )
 
     config.data = data.reduce((acc, feature) => {
-        const geometrySource = feature.properties[GEOMETRY_SOURCE_DATA_ITEM_ID]
+        const geometrySource =
+            feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE]
         const item = geometrySource ? itemBySource[geometrySource] : null
         const isNoData = !geometrySource || !item
 

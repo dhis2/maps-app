@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-09-15T16:43:35.708Z\n"
+"PO-Revision-Date: 2026-09-15T16:43:35.708Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -101,8 +101,8 @@ msgstr "Enrollment location"
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
 
-msgid "Enrollment > event > tracked entity > org unit coordinate"
-msgstr "Enrollment > event > tracked entity > org unit coordinate"
+msgid "Event > enrollment > tracked entity > org unit coordinate"
+msgstr "Event > enrollment > tracked entity > org unit coordinate"
 
 msgid "Event > org unit coordinate"
 msgstr "Event > org unit coordinate"
@@ -712,6 +712,9 @@ msgstr "Duplicate layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"
+
+msgid "fallback"
+msgstr "fallback"
 
 msgid "Filters"
 msgstr "Filters"
@@ -1836,6 +1839,9 @@ msgstr "The event filter is not supported"
 
 msgid "An unknown error occurred while reading layer data"
 msgstr "An unknown error occurred while reading layer data"
+
+msgid "The fallback coordinate field is not supported by this server version"
+msgstr "The fallback coordinate field is not supported by this server version"
 
 msgid "Displaying first {{pageSize}} events out of {{total}}"
 msgstr "Displaying first {{pageSize}} events out of {{total}}"

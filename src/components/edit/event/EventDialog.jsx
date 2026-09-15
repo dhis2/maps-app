@@ -81,6 +81,7 @@ const EventDialog = ({
     eventPointRadius,
     eventStatus,
     fallbackCoordinateField = 'none',
+    fallbackCoordinateFieldType = 'none',
     filters,
     legendIsolated,
     legendSet,
@@ -323,13 +324,16 @@ const EventDialog = ({
                                 program={program}
                                 programStage={programStage}
                                 value={fallbackCoordinateField}
-                                type={fallbackCoordinateField}
+                                type={fallbackCoordinateFieldType}
                                 eventCoordinateField={
                                     eventCoordinateField || true
                                 }
-                                onChange={(fieldId) =>
+                                onChange={(fieldId, fieldType) =>
                                     dispatch(
-                                        setFallbackCoordinateField(fieldId)
+                                        setFallbackCoordinateField(
+                                            fieldId,
+                                            fieldType
+                                        )
                                     )
                                 }
                                 className={styles.select}
@@ -570,6 +574,7 @@ EventDialog.propTypes = {
     eventPointRadius: PropTypes.number,
     eventStatus: PropTypes.string,
     fallbackCoordinateField: PropTypes.string,
+    fallbackCoordinateFieldType: PropTypes.string,
     filters: PropTypes.array,
     legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,
