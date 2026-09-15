@@ -11,6 +11,7 @@ import {
     ALERT_CRITICAL,
     ALERT_MESSAGE_DYNAMIC,
 } from '../../constants/alerts.js'
+import { useUnsavedChangesGuard } from '../../hooks/useUnsavedChangesGuard.js'
 import { CURRENT_AO_KEY } from '../../util/analyticalObject.js'
 import { dataStatisticsMutation } from '../../util/apiDataStatistics.js'
 import { getBasemapOrFallback } from '../../util/basemaps.js'
@@ -89,6 +90,14 @@ export const useLoadMap = () => {
         [basemaps, defaultBasemap, dispatch, engine]
     )
 
+    const {
+        locationToConfirm,
+        setLocationToConfirm,
+        isDirtyNow,
+        confirmLeave,
+        cancelLeave,
+    } = useUnsavedChangesGuard(loadMap)
+
     useEffect(() => {
         loadMap(history.location)
     }, [loadMap])
@@ -122,11 +131,17 @@ export const useLoadMap = () => {
             )
 
             const params = getHashUrlParams(location)
-
-            if (
-                action === 'REPLACE' ||
+            const isSwitchingMap =
                 previousParamsRef.current.mapId !== params.mapId
-            ) {
+
+            if (isSwitchingMap && !location.state?.isSaving && isDirtyNow()) {
+                setLocationToConfirm(location)
+                return
+            }
+
+            setLocationToConfirm(null)
+
+            if (action === 'REPLACE' || isSwitchingMap) {
                 loadMap(location)
                 return
             }
@@ -144,5 +159,7 @@ export const useLoadMap = () => {
         })
 
         return () => unlisten?.()
-    }, [loadMap, dispatch])
+    }, [loadMap, dispatch, isDirtyNow, setLocationToConfirm])
+
+    return { locationToConfirm, confirmLeave, cancelLeave }
 }

@@ -11,6 +11,7 @@ import layerEdit from './layerEdit.js'
 import layerSources from './layerSources.js'
 import map from './map.js'
 import orgUnitProfile from './orgUnitProfile.js'
+import savedMap from './savedMap.js'
 import ui from './ui.js'
 
 export default combineReducers({
@@ -24,6 +25,7 @@ export default combineReducers({
     layerSources,
     map,
     orgUnitProfile,
+    savedMap,
     ui,
     feature,
     featureProfile,
