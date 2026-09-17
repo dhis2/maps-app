@@ -55,7 +55,7 @@ export const defaultBasemaps = () =>
             img: 'images/osm.png',
             config: {
                 type: TILE_LAYER,
-                url: '//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                url: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                 attribution:
                     '&copy; <a target="_blank" rel="noreferrer" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             },
