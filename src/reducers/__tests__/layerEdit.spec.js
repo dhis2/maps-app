@@ -7,6 +7,7 @@ import {
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../../constants/layers.js'
 import { START_END_DATES } from '../../constants/periods.js'
 import {
@@ -835,6 +836,61 @@ describe('layerEdit reducer', () => {
                 )
 
                 expect(result.fallbackCoordinateField).toBe('field1')
+            })
+
+            it('clears styleDataItem and labelDataItem set to geometry source when fallback is cleared', () => {
+                const result = layerEdit(
+                    {
+                        fallbackCoordinateField: 'field1',
+                        styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                        labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                    },
+                    {
+                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        fieldId: NONE,
+                    }
+                )
+
+                expect(result.styleDataItem).toBeNull()
+                expect(result.labelDataItem).toBeNull()
+            })
+
+            it('leaves unrelated styleDataItem and labelDataItem untouched when fallback is cleared', () => {
+                const result = layerEdit(
+                    {
+                        fallbackCoordinateField: 'field1',
+                        styleDataItem: { id: 'someOtherField' },
+                        labelDataItem: { id: 'someOtherField' },
+                    },
+                    {
+                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        fieldId: NONE,
+                    }
+                )
+
+                expect(result.styleDataItem).toEqual({ id: 'someOtherField' })
+                expect(result.labelDataItem).toEqual({ id: 'someOtherField' })
+            })
+
+            it('leaves styleDataItem and labelDataItem set to geometry source untouched when fallback is changed (not cleared)', () => {
+                const result = layerEdit(
+                    {
+                        fallbackCoordinateField: 'field1',
+                        styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                        labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                    },
+                    {
+                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        fieldId: 'cascading',
+                    }
+                )
+
+                expect(result.styleDataItem).toEqual({
+                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                })
+                expect(result.labelDataItem).toEqual({
+                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                })
             })
         })
 
