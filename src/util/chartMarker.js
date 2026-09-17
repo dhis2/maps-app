@@ -10,7 +10,11 @@ import { getContrastColor } from './colors.js'
 // Builds a small standalone SVG string per feature — segments is an array
 // of { name, color, value }.
 
-const MARKER_BG = 'var(--marker-bg, rgba(255, 255, 255, 0.82))'
+// Matches the hover tooltip's own background exactly (see .dhis2-map-label
+// .maplibregl-popup-content in @dhis2/maps-gl's Label.css) — the tooltip
+// is the reference, not the other way around, so a chart marker and the
+// tooltip it opens read as the same translucent surface
+const MARKER_BG = 'var(--marker-bg, rgba(255, 255, 255, 0.9))'
 const MARKER_SHADOW = 'drop-shadow(0 1px 3px rgba(0,0,0,0.45))'
 const MARKER_SHADOW_HOVER = 'drop-shadow(0 3px 6px rgba(0,0,0,0.55))'
 const LABEL_COLOR = '#33373d'
