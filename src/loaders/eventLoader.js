@@ -13,6 +13,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_COORDINATE_CASCADING,
+    COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
 import {
@@ -101,6 +102,23 @@ const fallbackCoordinateFieldUnsupportedAlert = {
 export const isUnsupportedFallbackField = (fallbackField, serverVersion) =>
     fallbackField?.valueType === 'ORGANISATION_UNIT' &&
     !serverSupportsGeometrySource(serverVersion)
+
+export const getGeometrySourceNames = ({
+    eventCoordinateField,
+    coordinateField,
+    fallbackCoordinateField,
+    fallbackField,
+}) => ({
+    ...COORDINATE_FIELD_NAMES,
+    ...(eventCoordinateField &&
+        coordinateField && {
+            [eventCoordinateField]: coordinateField.name,
+        }),
+    ...(fallbackField &&
+        fallbackCoordinateField !== EVENT_COORDINATE_CASCADING && {
+            [fallbackCoordinateField]: fallbackField.name,
+        }),
+})
 
 // Returns a promise
 const eventLoader = async ({
@@ -278,6 +296,21 @@ const loadEventLayer = async ({
         alerts.push(fallbackCoordinateFieldUnsupportedAlert)
     }
 
+    const coordinateField = await loadEventCoordinateField({
+        program,
+        programStage,
+        fieldId: eventCoordinateField,
+        engine,
+        displayNameProp,
+    })
+
+    config.geometrySourceNames = getGeometrySourceNames({
+        eventCoordinateField,
+        coordinateField,
+        fallbackCoordinateField: config.fallbackCoordinateField,
+        fallbackField,
+    })
+
     const analyticsRequest = await getAnalyticsRequest(config, {
         analyticsEngine,
         nameProperty: displayNameProp,
@@ -443,13 +476,6 @@ const loadEventLayer = async ({
     // Coordinate field
     // -----
 
-    const coordinateField = await loadEventCoordinateField({
-        program,
-        programStage,
-        fieldId: eventCoordinateField,
-        engine,
-        displayNameProp,
-    })
     if (coordinateField) {
         config.legend.coordinateFields = [coordinateField.name]
     }

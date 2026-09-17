@@ -86,14 +86,21 @@ export const styleByDataItem = async (config, engine) => {
 }
 
 const styleByGeometrySource = async (config) => {
-    const { styleDataItem, data, legend, eventPointRadius, noDataLegend } =
-        config
+    const {
+        styleDataItem,
+        data,
+        legend,
+        eventPointRadius,
+        noDataLegend,
+        geometrySourceNames,
+    } = config
     const { values } = styleDataItem
+    const names = geometrySourceNames || COORDINATE_FIELD_NAMES
 
     // Build legend items from stored color-per-source values
     legend.unit = i18n.t('Geometry source')
     legend.items = Object.entries(values || {}).map(([sourceId, color]) => ({
-        name: COORDINATE_FIELD_NAMES[sourceId] ?? sourceId,
+        name: names[sourceId] ?? sourceId,
         color,
         sourceId,
     }))
@@ -119,7 +126,7 @@ const styleByGeometrySource = async (config) => {
             item: isNoData ? noDataLegendItem : item,
             value: isNoData
                 ? i18n.t('Not set')
-                : COORDINATE_FIELD_NAMES[geometrySource] ?? geometrySource,
+                : names[geometrySource] ?? geometrySource,
         })
         return acc
     }, [])

@@ -337,7 +337,60 @@ describe('useTableData headers', () => {
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({
-                value: 'ougeometry',
+                value: 'Organisation unit location',
+                dataKey: 'geometrySource',
+            })
+        )
+    })
+
+    test('resolves a custom geometrySource id via layer.geometrySourceNames', () => {
+        const store = {
+            aggregations: {},
+        }
+        const layer = {
+            layer: 'event',
+            dataFilters: null,
+            isExtended: true,
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+                abcDataElementUid1: 'My custom field',
+            },
+            headers: [
+                {
+                    name: 'geometrySource',
+                    column: 'Geometry source',
+                    valueType: 'TEXT',
+                },
+            ],
+            data: [
+                {
+                    properties: {
+                        id: 'a9712323629',
+                        type: 'Point',
+                        ouname: 'Lumley Hospital',
+                        eventdate: '2023-05-15 00:00:00.0',
+                        geometrySource: 'abcDataElementUid1',
+                    },
+                },
+            ],
+        }
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore(store)}>{children}</Provider>
+                ),
+            }
+        )
+        const { rows } = result.current
+        expect(rows[0]).toContainEqual(
+            expect.objectContaining({
+                value: 'My custom field',
                 dataKey: 'geometrySource',
             })
         )

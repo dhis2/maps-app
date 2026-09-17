@@ -1,4 +1,8 @@
-import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers.js'
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
+} from '../../constants/layers.js'
 import {
     numberValueTypes,
     booleanValueTypes,
@@ -602,6 +606,80 @@ describe('styleByDataItem', () => {
         expect(result.data[1].properties).toMatchObject({
             value: NOTSET_VALUE,
             color: '#aaaaaa',
+        })
+    })
+
+    it('should resolve geometrySource names from config.geometrySourceNames', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red', abcDataElementUid1: 'blue' },
+            },
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+                abcDataElementUid1: 'My custom field',
+            },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]:
+                            'abcDataElementUid1',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
+        })
+        expect(result.data[1].properties).toMatchObject({
+            value: 'My custom field',
+            color: 'blue',
+        })
+        expect(result.legend.items).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    name: 'Organisation unit location',
+                    sourceId: 'ougeometry',
+                }),
+                expect.objectContaining({
+                    name: 'My custom field',
+                    sourceId: 'abcDataElementUid1',
+                }),
+            ])
+        )
+    })
+
+    it('should fall back to COORDINATE_FIELD_NAMES for built-in sources when config.geometrySourceNames is absent', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red' },
+            },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
         })
     })
 

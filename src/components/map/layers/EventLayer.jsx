@@ -4,6 +4,7 @@ import React from 'react'
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
     LABEL_TEMPLATE_NAME_ONLY,
     LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
@@ -62,6 +63,7 @@ class EventLayer extends Layer {
             labelFontSize,
             labelFontWeight,
             labelFontStyle,
+            geometrySourceNames,
         } = this.props
 
         const analyticsEngine = Analytics.getAnalytics(engine)
@@ -88,11 +90,15 @@ class EventLayer extends Layer {
         const noDataLabel = i18n.t('No data')
         const formatItemValue = (feature, dataItem) => {
             const v = feature.properties[dataItem.id]
+            const resolved =
+                dataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE
+                    ? geometrySourceNames?.[v] ?? v
+                    : v
             return (
-                (v != null &&
-                    v !== '' &&
+                (resolved != null &&
+                    resolved !== '' &&
                     formatValueForDisplay({
-                        value: String(v),
+                        value: String(resolved),
                         valueType: dataItem.valueType,
                         options: dataItem.options,
                         keyAnalysisDigitGroupSeparator,
@@ -250,8 +256,12 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
-            this.props
+        const {
+            styleDataItem,
+            nameProperty,
+            keyAnalysisDigitGroupSeparator,
+            geometrySourceNames,
+        } = this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
         return popup && displayItems ? (
@@ -262,6 +272,7 @@ class EventLayer extends Layer {
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
+                geometrySourceNames={geometrySourceNames}
                 onClose={this.onPopupClose}
             />
         ) : null

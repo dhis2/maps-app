@@ -2,10 +2,7 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
-import {
-    COORDINATE_FIELD_NAMES,
-    EVENT_COORDINATE_GEOMETRY_SOURCE,
-} from '../../../constants/layers.js'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../../constants/layers.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
     formatDatetime,
@@ -16,13 +13,8 @@ import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.jsx'
 import styles from './styles/Popup.module.css'
 
-const resolveGeometrySourceLabel = (geometrySource, displayItems) => {
-    if (COORDINATE_FIELD_NAMES[geometrySource]) {
-        return COORDINATE_FIELD_NAMES[geometrySource]
-    }
-    const item = displayItems?.find((i) => i.id === geometrySource)
-    return item?.name ?? geometrySource
-}
+const resolveGeometrySourceLabel = (geometrySource, geometrySourceNames) =>
+    geometrySourceNames?.[geometrySource] ?? geometrySource
 
 const EVENTS_QUERY = {
     events: {
@@ -74,6 +66,7 @@ const EventPopup = ({
     keyAnalysisDigitGroupSeparator,
     displayItems,
     eventCoordinateFieldName,
+    geometrySourceNames,
     onClose,
 }) => {
     const [orgUnit, setOrgUnit] = useState()
@@ -191,7 +184,7 @@ const EventPopup = ({
                                         feature.properties[
                                             EVENT_COORDINATE_GEOMETRY_SOURCE
                                         ],
-                                        displayItems
+                                        geometrySourceNames
                                     )}
                                 </td>
                             </tr>
@@ -222,6 +215,7 @@ EventPopup.propTypes = {
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
+    geometrySourceNames: PropTypes.object,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     styleDataItem: PropTypes.object,
 }
