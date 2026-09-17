@@ -128,9 +128,30 @@ export const EVENT_DBSCAN_EPS_MAX = 10000
 export const EVENT_DBSCAN_MIN_POINTS_DEFAULT = 3
 export const EVENT_DBSCAN_MIN_POINTS_MIN = 2
 export const EVENT_DBSCAN_MIN_POINTS_MAX = 50
-export const EVENT_DBSCAN_CLUSTER_COLOR = '#E6550D'
 export const EVENT_DBSCAN_CLUSTER_MIN_RADIUS = 10
 export const EVENT_DBSCAN_CLUSTER_MAX_RADIUS = 40
+// Muted/neutral default for noise points (events too sparse to join any
+// cluster) — grey rather than the sitewide EVENT_COLOR default, so noise
+// visually recedes against clustered points' own distinct colors, per the
+// standard DBSCAN convention (e.g. scikit-learn's reference plot, which
+// renders noise in a flat neutral tone rather than a "real" data color)
+export const EVENT_DBSCAN_NOISE_COLOR = '#757575'
+export const EVENT_DBSCAN_NOISE_RADIUS = 4
+// On-screen radius (px) a cluster's own member spread needs to reach
+// before its aggregate bubble is swapped for individual member points —
+// see EventLayer's zoom-driven declustering. Clustering membership itself
+// (DBSCAN eps/minPoints) never changes with zoom, only this rendering
+// choice does.
+export const EVENT_DBSCAN_REVEAL_PIXEL_RADIUS = 20
+// Convex hull around each cluster's members, showing its actual spatial
+// extent (the more "statistically honest" DBSCAN convention, per e.g. R's
+// dbscan::hullplot()) rather than only a centroid+radius bubble. Rendered
+// as its own maps-gl layer, entirely separate from the main events layer,
+// specifically so its fill/outline opacity can be turned down — the
+// events layer's own polygon rendering has no such per-feature opacity
+// control and paints above points, which would otherwise bury the
+// cluster bubbles/member points a hull is drawn around.
+export const EVENT_DBSCAN_HULL_OPACITY_FACTOR = 0.35
 
 /* TEI LAYER */
 export const TEI_COLOR = '#BB0000'

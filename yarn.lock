@@ -3990,6 +3990,22 @@
     rbush "^3.0.1"
     tslib "^2.8.1"
 
+"@turf/concave@^7.3.5":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/concave/-/concave-7.4.0.tgz#7bc0378f8603c03f09fd406bcc20b83103be381e"
+  integrity sha512-EzCHDEbGRVbo9vR/HJriC8U7mpxgTYgyluBDNzcaT7kX53eH7/eS1U7rp/Q36e5RXMmlAWBknqtVseGMvKE5tw==
+  dependencies:
+    "@turf/clone" "7.4.0"
+    "@turf/distance" "7.4.0"
+    "@turf/helpers" "7.4.0"
+    "@turf/invariant" "7.4.0"
+    "@turf/meta" "7.4.0"
+    "@turf/tin" "7.4.0"
+    "@types/geojson" "^7946.0.10"
+    topojson-client "3.x"
+    topojson-server "3.x"
+    tslib "^2.8.1"
+
 "@turf/convex@7.3.5":
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/@turf/convex/-/convex-7.3.5.tgz#8781b7a53855195224f02e003df6205c3ad3afc2"
@@ -4109,6 +4125,15 @@
     "@turf/clone" "7.3.5"
     "@turf/helpers" "7.3.5"
     "@turf/meta" "7.3.5"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.8.1"
+
+"@turf/tin@7.4.0":
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/@turf/tin/-/tin-7.4.0.tgz#4073ef896faeb7ca986cda6e669dde17af5d1cec"
+  integrity sha512-54uBeNKIP8GufZCdeMUMy33e0blR4w0JoE6sYO8I6ZPshNRbVbI24ck+kREVMjzNyeuhL+l7DUrNEn/pcDgBRg==
+  dependencies:
+    "@turf/helpers" "7.4.0"
     "@types/geojson" "^7946.0.10"
     tslib "^2.8.1"
 
@@ -6212,7 +6237,7 @@ comlink@^4.4.2:
   resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.4.2.tgz#cbbcd82742fbebc06489c28a183eedc5c60a2bca"
   integrity sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==
 
-commander@^2.19.0, commander@^2.20.0:
+commander@2, commander@^2.19.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.yarnpkg.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -15049,6 +15074,20 @@ to-through@^2.0.0:
   integrity sha512-+QIz37Ly7acM4EMdw2PRN389OneM5+d844tirkGp4dPKzI5OE72V9OsbFp+CIYJDahZ41ZV05hNtcPAQUAm9/Q==
   dependencies:
     through2 "^2.0.3"
+
+topojson-client@3.x:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/topojson-client/-/topojson-client-3.1.0.tgz#22e8b1ed08a2b922feeb4af6f53b6ef09a467b99"
+  integrity sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==
+  dependencies:
+    commander "2"
+
+topojson-server@3.x:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/topojson-server/-/topojson-server-3.0.1.tgz#d2b3ec095b6732299be76a48406111b3201a34f5"
+  integrity sha512-/VS9j/ffKr2XAOjlZ9CgyyeLmgJ9dMwq6Y0YEON8O7p/tGGk+dCWnrE03zEdu7i4L7YsFZLEPZPzCvcB7lEEXw==
+  dependencies:
+    commander "2"
 
 tough-cookie@^4.0.0:
   version "4.1.2"
