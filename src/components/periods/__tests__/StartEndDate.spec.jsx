@@ -1,22 +1,19 @@
-import { render, screen, within } from '@testing-library/react'
+import { screen, within } from '@testing-library/react'
 import React from 'react'
-import { Provider } from 'react-redux'
-import configureMockStore from 'redux-mock-store'
+import { renderWithRedux } from '../../../test-utils.jsx'
 import StartEndDate from '../StartEndDate.jsx'
 
-const mockStore = configureMockStore()
-
 describe('StartEndDate Component', () => {
-    let store
+    let initialState
     let props
 
     beforeEach(() => {
-        store = mockStore({
+        initialState = {
             layerEdit: {
                 startDate: '2023-01-01',
                 endDate: '2023-12-31',
             },
-        })
+        }
         props = {
             periodsSettings: {
                 calendar: 'gregorian',
@@ -28,11 +25,7 @@ describe('StartEndDate Component', () => {
     })
 
     it('renders StartEndDate with initial dates', () => {
-        render(
-            <Provider store={store}>
-                <StartEndDate {...props} />
-            </Provider>
-        )
+        renderWithRedux(<StartEndDate {...props} />, { initialState })
         const startDateInput = screen.getByTestId('start-date-input-content')
 
         const input = within(startDateInput).getByRole('textbox')
