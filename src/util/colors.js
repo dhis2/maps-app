@@ -1,3 +1,4 @@
+import { COLOR_SET_DEFAULT, colorSets } from '@dhis2/analytics'
 import { hcl } from 'd3-color'
 import { isString } from 'lodash/fp'
 import colorbrewer from '../constants/colorbrewer.js'
@@ -64,9 +65,11 @@ export const getColorScale = (palette) =>
             colorbrewer[name][palette.length].join(',') === palette.join(',')
     )
 
-// Mockup for DHIS2-21461: distinct series colors for a chart map's segments
+// Mockup for DHIS2-21461: distinct series colors for a chart map's segments.
+// Reuses the Data Visualizer's default color set so chart maps match the
+// rest of DHIS2 analytics rather than introducing a separate palette.
 export const getChartSeriesColors = (count) =>
-    getColorPalette('Set1', Math.max(3, Math.min(count, 9))).slice(0, count)
+    colorSets[COLOR_SET_DEFAULT].colors.slice(0, count)
 
 export const defaultColorScaleName = 'YlOrBr'
 export const defaultClasses = 5
