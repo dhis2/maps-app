@@ -15,8 +15,13 @@ import { getContrastColor } from './colors.js'
 // is the reference, not the other way around, so a chart marker and the
 // tooltip it opens read as the same translucent surface
 const MARKER_BG = 'var(--marker-bg, rgba(255, 255, 255, 0.9))'
-const MARKER_SHADOW = 'drop-shadow(0 1px 3px rgba(0,0,0,0.45))'
-const MARKER_SHADOW_HOVER = 'drop-shadow(0 3px 6px rgba(0,0,0,0.55))'
+// A thin outer outline is what gives the marker definition against the
+// basemap, not a shadow: filter: drop-shadow() paints its shadow directly
+// behind the marker's own content in the same pass, and on a marker this
+// small that shadow shows through the translucent MARKER_BG fill across
+// nearly the whole shape rather than just its edges, visibly darkening it
+// below the tooltip's own reference shade
+const MARKER_OUTLINE = 'rgba(0,0,0,0.22)'
 const LABEL_COLOR = '#33373d'
 
 // Escapes text going into the hover tooltip's HTML (segment names come
@@ -146,7 +151,7 @@ export const buildDonutSvg = (segments, size) => {
     const strokeWidth = 1.5 / getDonutHoverScale(size)
 
     if (!total) {
-        return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${r}" cy="${r}" r="${ring}" fill="#dcdcdc" stroke="${MARKER_BG}" stroke-width="${strokeWidth}" /><circle cx="${r}" cy="${r}" r="${r0}" fill="${MARKER_BG}" /></svg>`
+        return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${r}" cy="${r}" r="${ring}" fill="#dcdcdc" stroke="${MARKER_OUTLINE}" stroke-width="${strokeWidth}" /><circle cx="${r}" cy="${r}" r="${r0}" fill="${MARKER_BG}" /></svg>`
     }
 
     // A single segment covering everything can't be drawn as an SVG arc
@@ -154,7 +159,7 @@ export const buildDonutSvg = (segments, size) => {
     if (positive.length === 1) {
         return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${r}" cy="${r}" r="${ring}" fill="${
             positive[0].color
-        }" stroke="${MARKER_BG}" stroke-width="${strokeWidth}" /><circle cx="${r}" cy="${r}" r="${r0}" fill="${MARKER_BG}" />${donutCenterLabel(
+        }" stroke="${MARKER_OUTLINE}" stroke-width="${strokeWidth}" /><circle cx="${r}" cy="${r}" r="${r0}" fill="${MARKER_BG}" />${donutCenterLabel(
             r,
             r0,
             total
@@ -217,10 +222,18 @@ export const buildDonutSvg = (segments, size) => {
 
     // The hole background circle paints before the percent labels (not
     // after) so a label that happens to sit right at the inner ring edge
-    // never gets clipped by it — text always needs to be the topmost layer
+    // never gets clipped by it — text always needs to be the topmost layer.
+    // The outer outline is a separate stroke-only circle on top of the
+    // wedges rather than being added to each wedge's own stroke, since
+    // wedges already use their stroke for the (differently-colored)
+    // separator between adjacent segments.
     return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">${wedges}<circle cx="${r}" cy="${r}" r="${r0}" fill="${MARKER_BG}" />${percentLabels.join(
         ''
-    )}${donutCenterLabel(r, r0, total)}</svg>`
+    )}${donutCenterLabel(
+        r,
+        r0,
+        total
+    )}<circle cx="${r}" cy="${r}" r="${ring}" fill="none" stroke="${MARKER_OUTLINE}" stroke-width="${strokeWidth}" /></svg>`
 }
 
 // Bar layout is entirely fixed in pixels — width per bar, gap, and max
@@ -311,12 +324,15 @@ export const buildBarSvg = (segments, maxValue) => {
 
     // A faint card behind the bars anchors them to a baseline instead of
     // leaving them floating on top of the basemap, kept tight and mostly
-    // transparent so it reads as a chart, not a UI placeholder
+    // transparent so it reads as a chart, not a UI placeholder. The thin
+    // outline (not a shadow — see MARKER_OUTLINE) is what gives the card
+    // its edge definition against the basemap, the same as the donut's
+    // outer ring.
     return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect x="0.5" y="0.5" width="${
         width - 1
     }" height="${
         height - 1
-    }" rx="${BAR_CARD_RADIUS}" fill="${MARKER_BG}" stroke="rgba(0,0,0,0.15)" stroke-width="${strokeWidth}" />${label}${axis}${bars}<line x1="${BAR_AXIS_WIDTH}" y1="${baselineY}" x2="${
+    }" rx="${BAR_CARD_RADIUS}" fill="${MARKER_BG}" stroke="${MARKER_OUTLINE}" stroke-width="${strokeWidth}" />${label}${axis}${bars}<line x1="${BAR_AXIS_WIDTH}" y1="${baselineY}" x2="${
         width - BAR_PAD_RIGHT
     }" y2="${baselineY}" stroke="rgba(0,0,0,0.25)" stroke-width="${strokeWidth}" /></svg>`
 }
@@ -326,8 +342,8 @@ export const buildBarSvg = (segments, maxValue) => {
 export const TOOLTIP_OFFSET_X = 40
 
 // Returns a positioned, clickable DOM element for a maplibre-gl Marker.
-// The chart itself lives in an inner wrapper so hover styling (transform,
-// filter) never touches the outer element's transform, which maplibre-gl
+// The chart itself lives in an inner wrapper so hover styling (transform)
+// never touches the outer element's transform, which maplibre-gl
 // overwrites directly to position the marker on the map. size only applies
 // to donuts (bar layout is fixed, see buildBarSvg); maxValue only to bars.
 export const createChartMarkerElement = (
@@ -344,8 +360,7 @@ export const createChartMarkerElement = (
             : getDonutHoverScale(size)
 
     const inner = document.createElement('div')
-    inner.style.filter = MARKER_SHADOW
-    inner.style.transition = 'transform 120ms ease-out, filter 120ms ease-out'
+    inner.style.transition = 'transform 120ms ease-out'
     inner.style.transformOrigin = 'center'
     inner.innerHTML =
         chartType === CHART_TYPE_BAR
@@ -357,12 +372,10 @@ export const createChartMarkerElement = (
         // relying on the tooltip) is what makes fine detail like donut
         // percentages actually readable without zooming the whole map
         inner.style.transform = `scale(${hoverScale})`
-        inner.style.filter = MARKER_SHADOW_HOVER
         el.style.zIndex = 1
     })
     el.addEventListener('mouseleave', () => {
         inner.style.transform = ''
-        inner.style.filter = MARKER_SHADOW
         el.style.zIndex = ''
     })
 
