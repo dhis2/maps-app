@@ -1,3 +1,4 @@
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../constants/layers.js'
 import { getAnalyticsRequest } from '../event.js'
 
 const mockRequestInstance = {
@@ -137,5 +138,29 @@ describe('getAnalyticsRequest', () => {
             '2023Q1',
             '2023Q2',
         ])
+    })
+
+    it('never adds geometrySource as a dimension when it is the labelDataItem', async () => {
+        const layer = {
+            ...baseLayer,
+            labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(
+            getDimensionCalls(EVENT_COORDINATE_GEOMETRY_SOURCE)
+        ).toHaveLength(0)
+    })
+
+    it('adds a non-geometrySource labelDataItem as a dimension', async () => {
+        const layer = {
+            ...baseLayer,
+            labelDataItem: { id: 'fakeDataElId' },
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(getDimensionCalls('fakeDataElId')).toHaveLength(1)
     })
 })

@@ -21,6 +21,7 @@ export const SYSTEM_SETTINGS = [
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
+    'orgUnitCentroidsInEventsAnalytics',
     ...Object.keys(MAP_SERVICE_KEY_TESTS),
 ]
 

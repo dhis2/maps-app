@@ -41,6 +41,7 @@ const validLayerProperties = [
     'displayName',
     'endDate',
     'eventCoordinateField',
+    'fallbackCoordinateField',
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',

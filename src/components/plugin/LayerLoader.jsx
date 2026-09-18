@@ -58,7 +58,7 @@ const LayerLoader = ({ config, onLoad }) => {
             baseUrl,
             analyticsEngine, // Thematic and Event loader
             periodTypeData, // Thematic and Event loader
-            serverVersion, // Tracked entity loader
+            serverVersion, // Tracked entity and Event loader
         }).then((result) => {
             onLoad(result)
         })

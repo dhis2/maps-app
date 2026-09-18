@@ -82,6 +82,7 @@ const Legend = ({
     description,
     filters,
     coordinateFields,
+    fallbackCoordinateField,
     groups,
     unit,
     items,
@@ -343,7 +344,13 @@ const Legend = ({
                 <div className={styles.coordinateFields}>
                     <div>{i18n.t('Coordinate field')}</div>
                     {coordinateFields.map((coordinateField, index) => (
-                        <div key={index}>{coordinateField}</div>
+                        <div key={index}>
+                            {coordinateField}
+                            {fallbackCoordinateField &&
+                                ` (${i18n.t(
+                                    'fallback'
+                                )}: ${fallbackCoordinateField})`}
+                        </div>
                     ))}
                 </div>
             )}
@@ -402,6 +409,7 @@ Legend.propTypes = {
     eventsOutsideOrgUnitsCount: PropTypes.number,
     eventsWithoutCoordinatesCount: PropTypes.number,
     explanation: PropTypes.array,
+    fallbackCoordinateField: PropTypes.string,
     filters: PropTypes.array,
     groups: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
     isPlugin: PropTypes.bool,

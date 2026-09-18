@@ -2,6 +2,7 @@ import {
     EVENT_CLIENT_PAGE_SIZE,
     EVENT_COORDINATE_CASCADING,
     EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -90,6 +91,7 @@ export const getAnalyticsRequest = async (
     // Add label data item dimension if not already in the request
     if (
         labelDataItem?.id &&
+        labelDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE &&
         !dataItems.some((item) => item.dimension === labelDataItem.id)
     ) {
         dataItems.push({ dimension: labelDataItem.id })

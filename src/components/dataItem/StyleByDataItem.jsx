@@ -1,9 +1,12 @@
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { Help } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setStyleDataItem } from '../../actions/layerEdit.js'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../constants/layers.js'
+import { serverSupportsGeometrySource } from '../../util/versionToggle.js'
 import { SelectField } from '../core/index.js'
 import DataItemStyle from './DataItemStyle.jsx'
 import { useEventDataItems } from './EventDataItemsProvider.jsx'
@@ -15,10 +18,16 @@ const excludeTypes = [
     'COORDINATE',
 ]
 
+const GEOMETRY_SOURCE_ITEM = {
+    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+    name: i18n.t('Geometry source'),
+}
+
 // Style by data item is used by event layer, and can be reused for TEI layer in the future.
 // Displays a select field with data items that support styling.
 // Styling options are shown when a data item is selected.
 const StyleByDataItem = ({ error }) => {
+    const { serverVersion } = useConfig()
     const styleDataItem = useSelector((state) => state.layerEdit.styleDataItem)
     const dispatch = useDispatch()
     const { eventDataItems } = useEventDataItems({ excludeTypes })
@@ -32,7 +41,14 @@ const StyleByDataItem = ({ error }) => {
         return null
     }
 
-    const dataItems = [ITEM_NONE, ...eventDataItems]
+    // VERSION-TOGGLE: geometrySource only exists on 2.44+ - see util/versionToggle.js.
+    const dataItems = [
+        ITEM_NONE,
+        ...(serverSupportsGeometrySource(serverVersion)
+            ? [GEOMETRY_SOURCE_ITEM]
+            : []),
+        ...eventDataItems,
+    ]
 
     const internalError =
         styleDataItem && !dataItems.find((item) => item.id === styleDataItem.id)

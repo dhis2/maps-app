@@ -7,6 +7,7 @@ import {
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../constants/layers.js'
 import { START_END_DATES } from '../constants/periods.js'
 import {
@@ -254,6 +255,18 @@ const layerEdit = (state = null, action) => {
 
             return newState
 
+        case types.LAYER_EDIT_STYLE_DATA_ITEM_GEOMETRY_SOURCE_SET:
+            return {
+                ...state,
+                styleDataItem: {
+                    ...state.styleDataItem,
+                    values: {
+                        ...state.styleDataItem?.values,
+                        [action.value]: action.color,
+                    },
+                },
+            }
+
         case types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET:
             newState = {
                 ...state,
@@ -359,8 +372,22 @@ const layerEdit = (state = null, action) => {
 
             if (action.fieldId === NONE) {
                 delete newState.fallbackCoordinateField
+                delete newState.fallbackCoordinateFieldType
+                if (
+                    newState.styleDataItem?.id ===
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                ) {
+                    newState.styleDataItem = null
+                }
+                if (
+                    newState.labelDataItem?.id ===
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                ) {
+                    newState.labelDataItem = null
+                }
             } else {
                 newState.fallbackCoordinateField = action.fieldId
+                newState.fallbackCoordinateFieldType = action.fieldType
             }
 
             return newState

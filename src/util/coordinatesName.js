@@ -4,19 +4,21 @@ import {
     EVENT_PROGRAM_ATTRIBUTES_QUERY,
 } from '../util/event.js'
 
-export const loadEventCoordinateFieldName = async ({
+// Resolves a coordinate field id to its name/valueType - only custom DE/TEA
+// fields need the query, built-in fields (psigeometry etc.) are static.
+export const loadEventCoordinateField = async ({
     program,
     programStage,
-    eventCoordinateField,
+    fieldId,
     engine,
     displayNameProp,
 }) => {
-    if (!eventCoordinateField) {
-        return
+    if (!fieldId) {
+        return undefined
     }
 
-    if (COORDINATE_FIELD_NAMES[eventCoordinateField]) {
-        return COORDINATE_FIELD_NAMES[eventCoordinateField]
+    if (COORDINATE_FIELD_NAMES[fieldId]) {
+        return { name: COORDINATE_FIELD_NAMES[fieldId] }
     }
 
     const { programStage: programStageData } = await engine.query(
@@ -28,10 +30,13 @@ export const loadEventCoordinateFieldName = async ({
     const { programStageDataElements } = programStageData
     if (Array.isArray(programStageDataElements)) {
         const coordElement = programStageDataElements.find(
-            (d) => d.dataElement.id === eventCoordinateField
+            (d) => d.dataElement.id === fieldId
         )
         if (coordElement) {
-            return coordElement.dataElement.name
+            return {
+                name: coordElement.dataElement.name,
+                valueType: coordElement.dataElement.valueType,
+            }
         }
     }
 
@@ -47,10 +52,15 @@ export const loadEventCoordinateFieldName = async ({
     const { programTrackedEntityAttributes } = programData
     if (Array.isArray(programTrackedEntityAttributes)) {
         const coordAttribute = programTrackedEntityAttributes.find(
-            (d) => d.trackedEntityAttribute.id === eventCoordinateField
+            (d) => d.trackedEntityAttribute.id === fieldId
         )
         if (coordAttribute) {
-            return coordAttribute.trackedEntityAttribute.name
+            return {
+                name: coordAttribute.trackedEntityAttribute.name,
+                valueType: coordAttribute.trackedEntityAttribute.valueType,
+            }
         }
     }
+
+    return undefined
 }
