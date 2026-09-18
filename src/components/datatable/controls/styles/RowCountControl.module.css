@@ -1,0 +1,6 @@
+.rowCount {
+    font-size: 11px;
+    color: var(--colors-grey600);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
