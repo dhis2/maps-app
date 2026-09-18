@@ -161,6 +161,9 @@ const loadEventLayer = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
+        eventHeatmap: eventHeatmapFromConfig,
+        heatIntensity: heatIntensityFromConfig,
+        heatRadius: heatRadiusFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -201,6 +204,15 @@ const loadEventLayer = async ({
             ...noDataLegendFromConfig,
             color: config.noDataColor,
         }
+    }
+    if (eventHeatmapFromConfig !== undefined) {
+        config.eventHeatmap = eventHeatmapFromConfig
+    }
+    if (heatIntensityFromConfig !== undefined) {
+        config.heatIntensity = heatIntensityFromConfig
+    }
+    if (heatRadiusFromConfig !== undefined) {
+        config.heatRadius = heatRadiusFromConfig
     }
     delete config.noDataColor
     delete config.config

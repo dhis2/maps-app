@@ -42,9 +42,12 @@ const validLayerProperties = [
     'endDate',
     'eventCoordinateField',
     'eventClustering',
+    'eventHeatmap',
     'eventPointColor',
     'eventPointRadius',
     'eventStatus',
+    'heatIntensity',
+    'heatRadius',
     'featureStyle', // used by GEOJSON_URL_LAYER, stored in layer config
     'filter',
     'filters',
@@ -180,6 +183,15 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
+    if (layer.eventHeatmap !== undefined) {
+        configData.eventHeatmap = layer.eventHeatmap
+    }
+    if (layer.heatIntensity !== undefined) {
+        configData.heatIntensity = layer.heatIntensity
+    }
+    if (layer.heatRadius !== undefined) {
+        configData.heatRadius = layer.heatRadius
+    }
     return configData
 }
 
@@ -194,6 +206,9 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.countFeaturesWithoutCoordinates
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
+    delete layer.eventHeatmap
+    delete layer.heatIntensity
+    delete layer.heatRadius
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {
