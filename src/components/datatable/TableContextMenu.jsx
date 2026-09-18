@@ -18,6 +18,7 @@ import {
     EVENT_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    TRACKED_ENTITY_LAYER,
 } from '../../constants/layers.js'
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
 import { drillUpDown } from '../../util/map.js'
@@ -29,6 +30,7 @@ const UNDRILLABLE_LAYERS = new Set([
     FACILITY_LAYER,
     EVENT_LAYER,
     GEOJSON_URL_LAYER,
+    TRACKED_ENTITY_LAYER,
 ])
 
 const TableContextMenu = ({
@@ -63,7 +65,8 @@ const TableContextMenu = ({
 
     const canDrill = !UNDRILLABLE_LAYERS.has(layerType)
 
-    const canViewProfile = id && layerType !== EVENT_LAYER
+    const canViewProfile =
+        id && layerType !== EVENT_LAYER && layerType !== TRACKED_ENTITY_LAYER
 
     return (
         <>
