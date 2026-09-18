@@ -47,6 +47,8 @@ export default class OrgUnitLayer extends Layer {
             },
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
 
         if (labels) {
@@ -97,6 +99,10 @@ export default class OrgUnitLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.setState({ popup: evt })
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.setState({ popup: evt })
+        }
     }
 }

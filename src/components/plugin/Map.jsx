@@ -12,6 +12,7 @@ import React, {
     useEffect,
     useRef,
 } from 'react'
+import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
 import MapView from '../map/MapView.jsx'
@@ -55,6 +56,8 @@ const Map = forwardRef((props, ref) => {
     const [isFullscreen, setIsFullscreen] = useState(
         () => !!getFullscreenDoc().fullscreenElement
     )
+    const [hoveredFeature, setHoveredFeature] = useState(null)
+    const highlightFeature = useDebouncedHighlightFeature(setHoveredFeature)
 
     const onResize = () => setResizeCount((state) => state + 1)
 
@@ -180,6 +183,8 @@ const Map = forwardRef((props, ref) => {
                 bounds={defaultBounds}
                 openContextMenu={setContextMenu}
                 resizeCount={resizeCount}
+                feature={hoveredFeature}
+                highlightFeature={highlightFeature}
             />
             {mapViews.length > 0 && (
                 <Legend
