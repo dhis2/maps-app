@@ -2,6 +2,7 @@ import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setMapBounds } from '../../actions/dataTable.js'
+import { isDataTableOpen } from '../../util/dataTable.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.jsx'
 import NorthArrow from '../download/NorthArrow.jsx'
@@ -26,7 +27,9 @@ const MapPosition = () => {
     const { id: mapId, mapViews: layers } = useSelector((state) => state.map)
     const { downloadMode, layersPanelOpen, rightPanelOpen, dataTableHeight } =
         useSelector((state) => state.ui)
-    const dataTableOpen = useSelector((state) => !!state.dataTable)
+    const dataTableOpen = useSelector((state) =>
+        isDataTableOpen(state.dataTable)
+    )
 
     const downloadMapInfoOpen =
         downloadMode &&

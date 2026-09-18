@@ -12,6 +12,7 @@ import {
     isPinnedGroupEnd,
     reorderHeaderKeys,
     reverseVisibleKeys,
+    sortColumnOptions,
     togglePinnedKey,
     toggleVisibleKey,
 } from '../tableColumns.js'
@@ -438,6 +439,38 @@ describe('getColumnDistinctValues', () => {
     })
 })
 
+describe('sortColumnOptions', () => {
+    it('returns null when there are no distinct values', () => {
+        expect(sortColumnOptions(null)).toBe(null)
+    })
+
+    it('sorts each column ascending by default', () => {
+        const distinctValues = {
+            rawValue: { values: ['30', '10', '20'], type: TYPE_NUMBER },
+        }
+        expect(sortColumnOptions(distinctValues)).toEqual({
+            rawValue: [{ value: '10' }, { value: '20' }, { value: '30' }],
+        })
+    })
+
+    it('sorts the active sort field descending, leaving other columns ascending', () => {
+        const distinctValues = {
+            rawValue: { values: ['30', '10', '20'], type: TYPE_NUMBER },
+            name: { values: ['B', 'A'], type: 'string' },
+        }
+        const result = sortColumnOptions(distinctValues, {
+            sortField: 'rawValue',
+            sortDirection: 'desc',
+        })
+        expect(result.rawValue).toEqual([
+            { value: '30' },
+            { value: '20' },
+            { value: '10' },
+        ])
+        expect(result.name).toEqual([{ value: 'A' }, { value: 'B' }])
+    })
+})
+
 describe('buildRowCells', () => {
     const rowHeaders = [
         { dataKey: 'name', type: 'string' },
@@ -479,6 +512,19 @@ describe('filterHeadersByName', () => {
 
     it('returns every header when the search text is empty', () => {
         expect(filterHeadersByName(headers, '')).toEqual(headers)
+    })
+
+    it('matches against configName instead of name when present', () => {
+        const withConfigName = [
+            ...headers,
+            {
+                dataKey: 'rawValue2',
+                name: 'Value (Jan 2023)',
+                configName: 'Value (Current period)',
+            },
+        ]
+        const result = filterHeadersByName(withConfigName, 'current period')
+        expect(result.map((h) => h.dataKey)).toEqual(['rawValue2'])
     })
 })
 
