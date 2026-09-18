@@ -3,6 +3,7 @@ import {
     DRILL_UP,
     DRILL_DOWN,
     VIEW_PROFILE,
+    ZOOM_TO_FEATURE,
     SHOW_LONG_LAT,
     expectContextMenuOptions,
 } from '../../elements/map_context_menu.js'
@@ -539,6 +540,7 @@ context('Thematic Layers', () => {
             { name: DRILL_UP, disabled: true },
             { name: DRILL_DOWN },
             { name: VIEW_PROFILE },
+            { name: ZOOM_TO_FEATURE },
             { name: SHOW_LONG_LAT },
         ])
     })
@@ -723,6 +725,7 @@ context('Thematic Layers', () => {
             { name: DRILL_UP, disabled: true },
             { name: DRILL_DOWN },
             { name: VIEW_PROFILE },
+            { name: ZOOM_TO_FEATURE },
         ])
     })
 

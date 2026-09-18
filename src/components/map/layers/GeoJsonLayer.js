@@ -1,7 +1,6 @@
 import { GEOJSON_LAYER } from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
-import { getGeojsonDisplayData } from '../../../util/geojson.js'
-import { formatWithSeparator } from '../../../util/numbers.js'
+import { getGeojsonFeatureProfile } from '../../../util/geojson.js'
 import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
@@ -45,6 +44,9 @@ class GeoJsonLayer extends Layer {
             onClick: isPlugin
                 ? Function.prototype
                 : this.onFeatureClick.bind(this),
+            onRightClick: isPlugin
+                ? undefined
+                : this.onFeatureRightClick.bind(this),
         })
 
         map.addLayer(this.layer)
@@ -55,27 +57,19 @@ class GeoJsonLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        const { keyAnalysisDigitGroupSeparator } = this.props
+        const { name, keyAnalysisDigitGroupSeparator } = this.props
 
         const feature = this.props.data.find(
             (d) => d.properties.id === evt.feature.properties.id
         )
 
-        const data = getGeojsonDisplayData(feature).reduce(
-            (acc, { dataKey, value }) => {
-                acc[dataKey] = formatWithSeparator(
-                    value,
-                    keyAnalysisDigitGroupSeparator
-                )
-                return acc
-            },
-            {}
+        this.props.setFeatureProfile(
+            getGeojsonFeatureProfile(
+                feature,
+                name,
+                keyAnalysisDigitGroupSeparator
+            )
         )
-
-        this.props.setFeatureProfile({
-            name: this.props.name,
-            data,
-        })
     }
 }
 
