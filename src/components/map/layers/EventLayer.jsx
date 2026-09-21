@@ -5,11 +5,15 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_COORDINATE_GEOMETRY_SOURCE,
+    EVENT_COORDINATE_DEFAULT,
     LABEL_TEMPLATE_NAME_ONLY,
     LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
-import { loadEventCoordinateField } from '../../../util/coordinatesName.js'
+import {
+    loadEventCoordinateField,
+    resolveGeometrySourceName,
+} from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
     EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
@@ -90,10 +94,14 @@ class EventLayer extends Layer {
         const noDataLabel = i18n.t('No data')
         const formatItemValue = (feature, dataItem) => {
             const v = feature.properties[dataItem.id]
-            const resolved =
+            // No fallback configured means the point can only be from the main field.
+            const geometrySource =
                 dataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE
-                    ? geometrySourceNames?.[v] ?? v
-                    : v
+                    ? v ?? eventCoordinateField ?? EVENT_COORDINATE_DEFAULT
+                    : null
+            const resolved = geometrySource
+                ? resolveGeometrySourceName(geometrySource, geometrySourceNames)
+                : v
             return (
                 (resolved != null &&
                     resolved !== '' &&

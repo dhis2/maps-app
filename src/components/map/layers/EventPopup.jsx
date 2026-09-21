@@ -3,6 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
 import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../../constants/layers.js'
+import { resolveGeometrySourceName } from '../../../util/coordinatesName.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
     formatDatetime,
@@ -12,9 +13,6 @@ import {
 import { ORG_UNIT_QUERY } from '../../../util/orgUnits.js'
 import Popup from '../Popup.jsx'
 import styles from './styles/Popup.module.css'
-
-const resolveGeometrySourceLabel = (geometrySource, geometrySourceNames) =>
-    geometrySourceNames?.[geometrySource] ?? geometrySource
 
 const EVENTS_QUERY = {
     events: {
@@ -141,6 +139,11 @@ const EventPopup = ({
         })
     }
 
+    const geometrySource = feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE]
+    const coordinateFieldLabel = geometrySource
+        ? resolveGeometrySourceName(geometrySource, geometrySourceNames)
+        : eventCoordinateFieldName || i18n.t('Event location')
+
     return (
         <Popup
             coordinates={coordinates}
@@ -167,26 +170,8 @@ const EventPopup = ({
                             })}
                         {type === 'Point' && (
                             <tr>
-                                <th>
-                                    {eventCoordinateFieldName ||
-                                        i18n.t('Event location')}
-                                </th>
+                                <th>{coordinateFieldLabel}</th>
                                 <td>{formatCoordinate(coord)}</td>
-                            </tr>
-                        )}
-                        {feature.properties[
-                            EVENT_COORDINATE_GEOMETRY_SOURCE
-                        ] && (
-                            <tr>
-                                <th>{i18n.t('Geometry source')}</th>
-                                <td>
-                                    {resolveGeometrySourceLabel(
-                                        feature.properties[
-                                            EVENT_COORDINATE_GEOMETRY_SOURCE
-                                        ],
-                                        geometrySourceNames
-                                    )}
-                                </td>
                             </tr>
                         )}
                         {orgUnit && (

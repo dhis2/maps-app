@@ -683,6 +683,30 @@ describe('styleByDataItem', () => {
         })
     })
 
+    it('should default geometrySource to the main coordinate field when no fallback is configured', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red' },
+            },
+            eventCoordinateField: 'ougeometry',
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+            },
+            data: [
+                { properties: {} }, // no fallback configured - backend never sends geometrySource
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
+        })
+    })
+
     it('should include unclassified and no-data events when configured (option set)', async () => {
         const config = {
             styleDataItem: {

@@ -6,10 +6,12 @@ import {
     CLASSIFICATION_LOGARITHMIC,
     CLASSIFICATION_STANDARD_DEVIATION,
     EVENT_COORDINATE_GEOMETRY_SOURCE,
+    EVENT_COORDINATE_DEFAULT,
     COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
+import { resolveGeometrySourceName } from '../util/coordinatesName.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
@@ -93,6 +95,7 @@ const styleByGeometrySource = async (config) => {
         eventPointRadius,
         noDataLegend,
         geometrySourceNames,
+        eventCoordinateField,
     } = config
     const { values } = styleDataItem
     const names = geometrySourceNames || COORDINATE_FIELD_NAMES
@@ -100,7 +103,7 @@ const styleByGeometrySource = async (config) => {
     // Build legend items from stored color-per-source values
     legend.unit = i18n.t('Geometry source')
     legend.items = Object.entries(values || {}).map(([sourceId, color]) => ({
-        name: names[sourceId] ?? sourceId,
+        name: resolveGeometrySourceName(sourceId, names),
         color,
         sourceId,
     }))
@@ -113,8 +116,11 @@ const styleByGeometrySource = async (config) => {
     )
 
     config.data = data.reduce((acc, feature) => {
+        // No fallback configured means the point can only be from the main field.
         const geometrySource =
-            feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE]
+            feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE] ??
+            eventCoordinateField ??
+            EVENT_COORDINATE_DEFAULT
         const item = geometrySource ? itemBySource[geometrySource] : null
         const isNoData = !geometrySource || !item
 
@@ -126,7 +132,7 @@ const styleByGeometrySource = async (config) => {
             item: isNoData ? noDataLegendItem : item,
             value: isNoData
                 ? i18n.t('Not set')
-                : names[geometrySource] ?? geometrySource,
+                : resolveGeometrySourceName(geometrySource, names),
         })
         return acc
     }, [])

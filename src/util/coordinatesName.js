@@ -64,3 +64,6 @@ export const loadEventCoordinateField = async ({
 
     return undefined
 }
+
+export const resolveGeometrySourceName = (id, geometrySourceNames) =>
+    geometrySourceNames?.[id] ?? id
