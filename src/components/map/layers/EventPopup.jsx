@@ -124,19 +124,24 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
-    const dataValueIndex = dataValues.findIndex(
-        (d) => d.dataElement === styleDataItem?.id
-    )
-    if (dataValueIndex !== -1) {
-        dataValues[dataValueIndex] = {
-            dataElement: styleDataItem?.id,
-            value: feature.properties.value,
+    if (
+        styleDataItem &&
+        styleDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE
+    ) {
+        const dataValueIndex = dataValues.findIndex(
+            (d) => d.dataElement === styleDataItem.id
+        )
+        if (dataValueIndex !== -1) {
+            dataValues[dataValueIndex] = {
+                dataElement: styleDataItem.id,
+                value: feature.properties.value,
+            }
+        } else {
+            dataValues.push({
+                dataElement: styleDataItem.id,
+                value: feature.properties.value,
+            })
         }
-    } else {
-        dataValues.push({
-            dataElement: styleDataItem?.id,
-            value: feature.properties.value,
-        })
     }
 
     const geometrySource = feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE]

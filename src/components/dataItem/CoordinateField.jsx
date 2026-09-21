@@ -76,6 +76,11 @@ const CoordinateField = ({
 }) => {
     const { serverVersion } = useConfig()
     const isFallback = !!eventCoordinateField
+    // true sentinel means the main field is at its implicit default
+    const mainFieldId =
+        eventCoordinateField === true
+            ? EVENT_COORDINATE_DEFAULT
+            : eventCoordinateField
     const includeTypes = getIncludeTypes(isFallback, serverVersion)
 
     const {
@@ -112,10 +117,6 @@ const CoordinateField = ({
             name: i18n.t('Event location'),
         })
 
-        if (!trackedEntityType) {
-            return fields
-        }
-
         if (trackedEntityType?.id) {
             fields.push({
                 id: EVENT_COORDINATE_ENROLLMENT,
@@ -127,14 +128,12 @@ const CoordinateField = ({
             })
         }
 
-        if (eventDataItems) {
+        if (trackedEntityType && eventDataItems) {
             fields.push(...eventDataItems)
         }
 
-        return isFallback
-            ? fields.filter((f) => f.id !== eventCoordinateField)
-            : fields
-    }, [trackedEntityType, eventDataItems, eventCoordinateField, isFallback])
+        return isFallback ? fields.filter((f) => f.id !== mainFieldId) : fields
+    }, [trackedEntityType, eventDataItems, mainFieldId, isFallback])
 
     const helpText = getHelpText({
         program,

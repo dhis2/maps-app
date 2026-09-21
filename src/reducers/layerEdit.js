@@ -73,6 +73,7 @@ const layerEdit = (state = null, action) => {
                 programStage: null,
                 styleDataItem: null,
                 labelDataItem: null,
+                hasTrackedEntityType: null,
             }
 
         case types.LAYER_EDIT_PROGRAM_STAGE_SET:

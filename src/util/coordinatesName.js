@@ -92,7 +92,8 @@ export const getDefaultGeometrySourceColor = (
     if (id === eventCoordinateFieldFallback) {
         return qualitativeColors[9]
     }
-    return qualitativeColors[0]
+    // Unrecognized source id - last unused palette slot, avoids collisions
+    return qualitativeColors[8]
 }
 
 const expandField = (fieldId, hasTei) => {

@@ -74,6 +74,26 @@ describe('CoordinateField', () => {
         })
     })
 
+    it('excludes "Event location" from the fallback options when the main field is left at its implicit default', () => {
+        mockUseConfig.mockReturnValue({ serverVersion: { minor: 44 } })
+
+        render(
+            <CoordinateField
+                value={null}
+                onChange={jest.fn()}
+                program={{}}
+                eventCoordinateField={true}
+            />
+        )
+
+        fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
+
+        const labels = screen
+            .getAllByTestId('dhis2-uicore-singleselectoption')
+            .map((el) => el.textContent)
+        expect(labels).not.toContain('Event location')
+    })
+
     it('renders the OU-type field as a selectable option when included', async () => {
         mockUseConfig.mockReturnValue({ serverVersion: { minor: 44 } })
         // Custom items only appear once a tracked entity type exists.

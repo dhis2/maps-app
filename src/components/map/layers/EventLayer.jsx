@@ -378,6 +378,7 @@ class EventLayer extends Layer {
 
         if (
             styleDataItem &&
+            styleDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE &&
             !displayItems.some((item) => item.id === styleDataItem.id)
         ) {
             const programResponse = await engine.query(

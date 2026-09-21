@@ -76,12 +76,13 @@ describe('layerEdit reducer', () => {
             expect(result.countFeaturesWithoutCoordinates).toBe(true)
         })
 
-        it('resets columns/programStage/styleDataItem/labelDataItem when the program changes', () => {
+        it('resets columns/programStage/styleDataItem/labelDataItem/hasTrackedEntityType when the program changes', () => {
             const state = {
                 columns: [{ dimension: 'dx' }],
                 programStage: { id: 'stage1' },
                 styleDataItem: { id: 'sd1' },
                 labelDataItem: { id: 'ld1' },
+                hasTrackedEntityType: true,
             }
 
             const result = layerEdit(state, {
@@ -96,7 +97,34 @@ describe('layerEdit reducer', () => {
                 programStage: null,
                 styleDataItem: null,
                 labelDataItem: null,
+                hasTrackedEntityType: null,
             })
+        })
+
+        it("resets hasTrackedEntityType to null pending the new program's TEI query, closing the stale-cascade window", () => {
+            const afterProgramChange = layerEdit(
+                {
+                    hasTrackedEntityType: true,
+                    eventCoordinateField: 'psigeometry',
+                    eventCoordinateFieldFallback: 'cascading',
+                },
+                {
+                    type: types.LAYER_EDIT_PROGRAM_SET,
+                    program: { id: 'prog2' },
+                }
+            )
+
+            expect(afterProgramChange.hasTrackedEntityType).toBe(null)
+
+            const afterStyleSet = layerEdit(afterProgramChange, {
+                type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
+                dataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+            })
+
+            expect(Object.keys(afterStyleSet.styleDataItem.values)).toEqual([
+                'psigeometry',
+                'ougeometry',
+            ])
         })
 
         it('sets program to null when the program is cleared', () => {
