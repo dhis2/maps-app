@@ -18,6 +18,7 @@ const MapContainer = ({ visualization }) => {
     useEffect(() => {
         const {
             basemap: visBasemap,
+            basemaps: visBasemaps,
             mapViews,
             id,
             ...otherMapProps
@@ -41,7 +42,7 @@ const MapContainer = ({ visualization }) => {
                 )
             } else {
                 initialConfig = getMigratedMapConfig(
-                    { basemap: visBasemap, mapViews },
+                    { basemap: visBasemap, basemaps: visBasemaps, mapViews },
                     keyDefaultBaseMap
                 )
             }

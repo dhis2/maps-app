@@ -1,3 +1,11 @@
+## [101.17.3](https://github.com/dhis2/maps-app/compare/v101.17.2...v101.17.3) (2026-09-17)
+
+
+### Bug Fixes
+
+* pass basemaps field through in dashboard embed config [DHIS2-22110] ([#3772](https://github.com/dhis2/maps-app/issues/3772)) ([c1bbc33](https://github.com/dhis2/maps-app/commit/c1bbc3300c6f02a64774f63845f0506b88b457cd))
+* use policy-compliant tile URL for OSM Detailed basemap [DHIS2-22122] ([#3773](https://github.com/dhis2/maps-app/issues/3773)) ([36f7f8d](https://github.com/dhis2/maps-app/commit/36f7f8d9cd4889adf2c9e9d541592f197bc8e571))
+
 ## [101.17.2](https://github.com/dhis2/maps-app/compare/v101.17.1...v101.17.2) (2026-09-08)
 
 
