@@ -19,8 +19,8 @@ const GeometrySourceStyle = () => {
     const eventCoordinateField = useSelector(
         (state) => state.layerEdit.eventCoordinateField
     )
-    const fallbackCoordinateField = useSelector(
-        (state) => state.layerEdit.fallbackCoordinateField
+    const eventCoordinateFieldFallback = useSelector(
+        (state) => state.layerEdit.eventCoordinateFieldFallback
     )
     const { eventDataItems, trackedEntityType } = useEventDataItems({
         includeTypes: ['COORDINATE', 'ORGANISATION_UNIT'],
@@ -30,7 +30,7 @@ const GeometrySourceStyle = () => {
 
     const sources = getPossibleGeometrySources(
         eventCoordinateField,
-        fallbackCoordinateField,
+        eventCoordinateFieldFallback,
         hasTei
     )
 
@@ -60,7 +60,7 @@ const GeometrySourceStyle = () => {
                         values[sourceId] ??
                         getDefaultGeometrySourceColor(sourceId, {
                             eventCoordinateField,
-                            fallbackCoordinateField,
+                            eventCoordinateFieldFallback,
                         })
                     }
                     onChange={(color) =>

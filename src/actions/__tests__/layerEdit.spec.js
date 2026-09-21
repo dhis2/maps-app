@@ -19,7 +19,7 @@ import {
     setLegendIsolated,
     setEventStatus,
     setEventCoordinateField,
-    setFallbackCoordinateField,
+    setEventCoordinateFieldFallback,
     setEventClustering,
     setCountFeaturesWithoutCoordinates,
     setCountEventsOutsideOrgUnits,
@@ -186,9 +186,9 @@ describe('layerEdit simple action creators', () => {
             rest: { fieldId: 'field1', fieldType: 'COORDINATE' },
         },
         {
-            creator: setFallbackCoordinateField,
+            creator: setEventCoordinateFieldFallback,
             args: ['field1'],
-            type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+            type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
             rest: { fieldId: 'field1' },
         },
         {

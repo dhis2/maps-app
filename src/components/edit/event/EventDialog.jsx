@@ -13,7 +13,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    setFallbackCoordinateField,
+    setEventCoordinateFieldFallback,
     setPeriods,
     setPeriodType,
     setStartDate,
@@ -80,8 +80,8 @@ const EventDialog = ({
     eventPointColor,
     eventPointRadius,
     eventStatus,
-    fallbackCoordinateField = 'none',
-    fallbackCoordinateFieldType = 'none',
+    eventCoordinateFieldFallback = 'none',
+    eventCoordinateFieldFallbackType = 'none',
     filters,
     legendIsolated,
     legendSet,
@@ -323,21 +323,21 @@ const EventDialog = ({
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}
-                                value={fallbackCoordinateField}
-                                type={fallbackCoordinateFieldType}
+                                value={eventCoordinateFieldFallback}
+                                type={eventCoordinateFieldFallbackType}
                                 eventCoordinateField={
                                     eventCoordinateField || true
                                 }
                                 onChange={(fieldId, fieldType) =>
                                     dispatch(
-                                        setFallbackCoordinateField(
+                                        setEventCoordinateFieldFallback(
                                             fieldId,
                                             fieldType
                                         )
                                     )
                                 }
                                 className={styles.select}
-                                dataTest="fallbackcoordinatefield"
+                                dataTest="eventcoordinatefieldfallback"
                             />
                             <EventStatusSelect
                                 value={eventStatus}
@@ -569,12 +569,12 @@ EventDialog.propTypes = {
     endDate: PropTypes.string,
     eventClustering: PropTypes.bool,
     eventCoordinateField: PropTypes.string,
+    eventCoordinateFieldFallback: PropTypes.string,
+    eventCoordinateFieldFallbackType: PropTypes.string,
     eventCoordinateFieldType: PropTypes.string,
     eventPointColor: PropTypes.string,
     eventPointRadius: PropTypes.number,
     eventStatus: PropTypes.string,
-    fallbackCoordinateField: PropTypes.string,
-    fallbackCoordinateFieldType: PropTypes.string,
     filters: PropTypes.array,
     legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,

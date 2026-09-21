@@ -463,6 +463,27 @@ describe('layerEdit reducer', () => {
             expect(result.styleDataItem).toBe(dataItem)
         })
 
+        it('populates styleDataItem.values immediately when geometry source is selected', () => {
+            const result = layerEdit(
+                {
+                    eventCoordinateField: 'customDataElement1',
+                    eventCoordinateFieldFallback: 'customDataElement2',
+                },
+                {
+                    type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
+                    dataItem: {
+                        id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                        name: 'Geometry source',
+                    },
+                }
+            )
+
+            expect(result.styleDataItem.values).toEqual({
+                customDataElement1: expect.any(String),
+                customDataElement2: expect.any(String),
+            })
+        })
+
         it('sets option-set options and clears method/classes/colorScale', () => {
             const state = {
                 method: CLASSIFICATION_EQUAL_INTERVALS,
@@ -813,57 +834,61 @@ describe('layerEdit reducer', () => {
             expect(result.eventCoordinateFieldType).toBe('COORDINATE')
         })
 
-        describe('LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET', () => {
-            it('deletes fallbackCoordinateField when set to NONE', () => {
+        describe('LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET', () => {
+            it('deletes eventCoordinateFieldFallback when set to NONE', () => {
                 const result = layerEdit(
-                    { fallbackCoordinateField: 'field1' },
+                    { eventCoordinateFieldFallback: 'field1' },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: NONE,
                     }
                 )
 
-                expect(result.fallbackCoordinateField).toBeUndefined()
+                expect(result.eventCoordinateFieldFallback).toBeUndefined()
             })
 
-            it('sets fallbackCoordinateField for any other value', () => {
+            it('sets eventCoordinateFieldFallback for any other value', () => {
                 const result = layerEdit(
                     {},
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: 'field1',
                     }
                 )
 
-                expect(result.fallbackCoordinateField).toBe('field1')
+                expect(result.eventCoordinateFieldFallback).toBe('field1')
             })
 
-            it('clears styleDataItem and labelDataItem set to geometry source when fallback is cleared', () => {
+            it('leaves styleDataItem and labelDataItem set to geometry source when fallback is cleared', () => {
                 const result = layerEdit(
                     {
-                        fallbackCoordinateField: 'field1',
+                        eventCoordinateFieldFallback: 'field1',
                         styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
                         labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
                     },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: NONE,
                     }
                 )
 
-                expect(result.styleDataItem).toBeNull()
-                expect(result.labelDataItem).toBeNull()
+                expect(result.styleDataItem.id).toBe(
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                )
+                expect(result.labelDataItem).toEqual({
+                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                })
             })
 
             it('leaves unrelated styleDataItem and labelDataItem untouched when fallback is cleared', () => {
                 const result = layerEdit(
                     {
-                        fallbackCoordinateField: 'field1',
+                        eventCoordinateFieldFallback: 'field1',
                         styleDataItem: { id: 'someOtherField' },
                         labelDataItem: { id: 'someOtherField' },
                     },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: NONE,
                     }
                 )
@@ -875,12 +900,12 @@ describe('layerEdit reducer', () => {
             it('leaves styleDataItem and labelDataItem set to geometry source untouched when fallback is changed (not cleared)', () => {
                 const result = layerEdit(
                     {
-                        fallbackCoordinateField: 'field1',
+                        eventCoordinateFieldFallback: 'field1',
                         styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
                         labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
                     },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: 'cascading',
                     }
                 )
@@ -897,14 +922,14 @@ describe('layerEdit reducer', () => {
                 const result = layerEdit(
                     {
                         eventCoordinateField: 'ougeometry',
-                        fallbackCoordinateField: 'field1',
+                        eventCoordinateFieldFallback: 'field1',
                         styleDataItem: {
                             id: EVENT_COORDINATE_GEOMETRY_SOURCE,
                             values: { ougeometry: '#111', field1: '#222' },
                         },
                     },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: 'field2',
                         fieldType: 'COORDINATE',
                     }
@@ -972,7 +997,7 @@ describe('layerEdit reducer', () => {
             it('syncs styleDataItem.values when styling by geometry source (cascading, TEI type resolved)', () => {
                 const result = layerEdit(
                     {
-                        fallbackCoordinateField: 'cascading',
+                        eventCoordinateFieldFallback: 'cascading',
                         styleDataItem: {
                             id: EVENT_COORDINATE_GEOMETRY_SOURCE,
                             values: {},
@@ -1481,32 +1506,34 @@ describe('layerEdit reducer', () => {
         expect(layerEdit(state, { type: 'UNKNOWN' })).toBe(state)
     })
 
-    it('sets fallbackCoordinateField and fallbackCoordinateFieldType together', () => {
+    it('sets eventCoordinateFieldFallback and eventCoordinateFieldFallbackType together', () => {
         const result = layerEdit(
             {},
             {
-                type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                 fieldId: 'deId123456',
                 fieldType: 'ORGANISATION_UNIT',
             }
         )
 
-        expect(result.fallbackCoordinateField).toBe('deId123456')
-        expect(result.fallbackCoordinateFieldType).toBe('ORGANISATION_UNIT')
+        expect(result.eventCoordinateFieldFallback).toBe('deId123456')
+        expect(result.eventCoordinateFieldFallbackType).toBe(
+            'ORGANISATION_UNIT'
+        )
     })
 
-    it('clears fallbackCoordinateField and fallbackCoordinateFieldType when set to none', () => {
+    it('clears eventCoordinateFieldFallback and eventCoordinateFieldFallbackType when set to none', () => {
         const state = {
-            fallbackCoordinateField: 'deId123456',
-            fallbackCoordinateFieldType: 'ORGANISATION_UNIT',
+            eventCoordinateFieldFallback: 'deId123456',
+            eventCoordinateFieldFallbackType: 'ORGANISATION_UNIT',
         }
 
         const result = layerEdit(state, {
-            type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+            type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
             fieldId: 'none',
         })
 
-        expect(result.fallbackCoordinateField).toBeUndefined()
-        expect(result.fallbackCoordinateFieldType).toBeUndefined()
+        expect(result.eventCoordinateFieldFallback).toBeUndefined()
+        expect(result.eventCoordinateFieldFallbackType).toBeUndefined()
     })
 })

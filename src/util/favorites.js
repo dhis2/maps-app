@@ -8,6 +8,7 @@ import {
     THEMATIC_LAYER,
     TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
+import { serverSupportsEventCoordinateFieldFallback } from './versionToggle.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
 const validMapProperties = [
@@ -41,7 +42,7 @@ const validLayerProperties = [
     'displayName',
     'endDate',
     'eventCoordinateField',
-    'fallbackCoordinateField',
+    'eventCoordinateFieldFallback',
     'eventClustering',
     'eventPointColor',
     'eventPointRadius',
@@ -120,7 +121,7 @@ export const cleanMapConfig = ({
     ...omitBy(isNil, pick(validMapProperties, config)),
     ...getBasemapPayload(config.basemap, defaultBasemapId, serverVersion),
     mapViews: config.mapViews.map((view) =>
-        cleanLayerConfig(view, cleanMapviewConfig)
+        cleanLayerConfig(view, cleanMapviewConfig, serverVersion)
     ),
 })
 
@@ -148,17 +149,18 @@ const getBasemapPayload = (basemap, defaultBasemapId, serverVersion) => {
     }
 }
 
-const cleanLayerConfig = (layer, cleanMapviewConfig) => ({
+const cleanLayerConfig = (layer, cleanMapviewConfig, serverVersion) => ({
     ...models2objects(
         pick(validLayerProperties, {
             ...layer,
             hidden: layer.isVisible === false,
         }),
-        cleanMapviewConfig
+        cleanMapviewConfig,
+        serverVersion
     ),
 })
 
-const buildCommonLayerConfigData = (layer) => {
+const buildCommonLayerConfigData = (layer, serverVersion) => {
     const configData = {}
     if (layer.legendDecimalPlaces !== undefined) {
         configData.legendDecimalPlaces = layer.legendDecimalPlaces
@@ -181,10 +183,20 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
+    // VERSION-TOGGLE: eventCoordinateFieldFallback isn't a schema field
+    // pre-2.43 - see util/versionToggle.js. Store it in the config blob
+    // instead so it still round-trips on older servers.
+    if (
+        layer.eventCoordinateFieldFallback &&
+        !serverSupportsEventCoordinateFieldFallback(serverVersion)
+    ) {
+        configData.eventCoordinateFieldFallback =
+            layer.eventCoordinateFieldFallback
+    }
     return configData
 }
 
-const deleteCommonLayerConfigProps = (layer) => {
+const deleteCommonLayerConfigProps = (layer, serverVersion) => {
     if (layer.noDataLegend) {
         layer.noDataColor = layer.noDataLegend.color // noDataColor is the DHIS2 API schema field — store color there for backward compatibility
     }
@@ -195,6 +207,9 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.countFeaturesWithoutCoordinates
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
+    if (!serverSupportsEventCoordinateFieldFallback(serverVersion)) {
+        delete layer.eventCoordinateFieldFallback
+    }
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {
@@ -237,7 +252,7 @@ const deleteTrackedEntityLayerProps = (layer) => {
 }
 
 // TODO: This feels hacky, find better way to clean map configs before saving
-const models2objects = (layer, cleanMapviewConfig) => {
+const models2objects = (layer, cleanMapviewConfig, serverVersion) => {
     const { layer: layerType } = layer
 
     Object.keys(layer).forEach((key) => {
@@ -279,12 +294,12 @@ const models2objects = (layer, cleanMapviewConfig) => {
         layerType === FACILITY_LAYER
     ) {
         if (cleanMapviewConfig) {
-            const configData = buildCommonLayerConfigData(layer)
+            const configData = buildCommonLayerConfigData(layer, serverVersion)
             if (Object.keys(configData).length) {
                 layer.config = JSON.stringify(configData)
             }
         }
-        deleteCommonLayerConfigProps(layer)
+        deleteCommonLayerConfigProps(layer, serverVersion)
     }
     delete layer.id
 

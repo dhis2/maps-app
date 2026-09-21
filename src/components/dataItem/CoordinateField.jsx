@@ -25,7 +25,7 @@ const getIncludeTypes = (isFallback, serverVersion) => {
     const includeTypes = [...coordinateValueTypes]
 
     if (isFallback) {
-        // VERSION-TOGGLE: fallbackCoordinateField pointed at a custom
+        // VERSION-TOGGLE: eventCoordinateFieldFallback pointed at a custom
         // ORGANISATION_UNIT field crashes pre-2.44 - see util/versionToggle.js
         if (serverSupportsGeometrySource(serverVersion)) {
             includeTypes.push(...ouValueTypes)

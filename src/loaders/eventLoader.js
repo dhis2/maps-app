@@ -93,7 +93,7 @@ const unknownErrorAlert = {
     code: CUSTOM_ALERT,
     message: i18n.t('An unknown error occurred while reading layer data'),
 }
-const fallbackCoordinateFieldUnsupportedAlert = {
+const eventCoordinateFieldFallbackUnsupportedAlert = {
     warning: true,
     code: CUSTOM_ALERT,
     message: i18n.t(
@@ -110,7 +110,7 @@ export const isUnsupportedFallbackField = (fallbackField, serverVersion) =>
 export const getGeometrySourceNames = ({
     eventCoordinateField,
     coordinateField,
-    fallbackCoordinateField,
+    eventCoordinateFieldFallback,
     fallbackField,
 }) => ({
     ...COORDINATE_FIELD_NAMES,
@@ -119,8 +119,8 @@ export const getGeometrySourceNames = ({
             [eventCoordinateField]: coordinateField.name,
         }),
     ...(fallbackField &&
-        fallbackCoordinateField !== EVENT_COORDINATE_CASCADING && {
-            [fallbackCoordinateField]: fallbackField.name,
+        eventCoordinateFieldFallback !== EVENT_COORDINATE_CASCADING && {
+            [eventCoordinateFieldFallback]: fallbackField.name,
         }),
 })
 
@@ -201,6 +201,7 @@ const loadEventLayer = async ({
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
         labelDataItem,
+        eventCoordinateFieldFallback: eventCoordinateFieldFallbackFromConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -235,6 +236,16 @@ const loadEventLayer = async ({
     }
     if (noDataLegendFromConfig) {
         config.noDataLegend = noDataLegendFromConfig
+    }
+    // VERSION-TOGGLE: eventCoordinateFieldFallback isn't a schema field
+    // pre-2.43 - see util/versionToggle.js. Read it back from the config
+    // blob if it wasn't saved as a native property.
+    if (
+        eventCoordinateFieldFallbackFromConfig &&
+        !config.eventCoordinateFieldFallback
+    ) {
+        config.eventCoordinateFieldFallback =
+            eventCoordinateFieldFallbackFromConfig
     }
     if (config.noDataColor) {
         config.noDataLegend = {
@@ -283,21 +294,21 @@ const loadEventLayer = async ({
     // -----
 
     let fallbackField =
-        config.fallbackCoordinateField &&
-        config.fallbackCoordinateField !== EVENT_COORDINATE_CASCADING
+        config.eventCoordinateFieldFallback &&
+        config.eventCoordinateFieldFallback !== EVENT_COORDINATE_CASCADING
             ? await loadEventCoordinateField({
                   program,
                   programStage,
-                  fieldId: config.fallbackCoordinateField,
+                  fieldId: config.eventCoordinateFieldFallback,
                   engine,
                   displayNameProp,
               })
             : null
 
     if (isUnsupportedFallbackField(fallbackField, serverVersion)) {
-        delete config.fallbackCoordinateField
+        delete config.eventCoordinateFieldFallback
         fallbackField = null
-        alerts.push(fallbackCoordinateFieldUnsupportedAlert)
+        alerts.push(eventCoordinateFieldFallbackUnsupportedAlert)
     }
 
     const coordinateField = await loadEventCoordinateField({
@@ -311,7 +322,7 @@ const loadEventLayer = async ({
     config.geometrySourceNames = getGeometrySourceNames({
         eventCoordinateField,
         coordinateField,
-        fallbackCoordinateField: config.fallbackCoordinateField,
+        eventCoordinateFieldFallback: config.eventCoordinateFieldFallback,
         fallbackField,
     })
 
@@ -490,10 +501,10 @@ const loadEventLayer = async ({
         config.legend.coordinateFields = [coordinateField.name]
     }
 
-    if (config.fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
-        config.legend.fallbackCoordinateField = i18n.t('Cascading')
+    if (config.eventCoordinateFieldFallback === EVENT_COORDINATE_CASCADING) {
+        config.legend.eventCoordinateFieldFallback = i18n.t('Cascading')
     } else if (fallbackField) {
-        config.legend.fallbackCoordinateField = fallbackField.name
+        config.legend.eventCoordinateFieldFallback = fallbackField.name
     }
 
     // Legend items & explanation

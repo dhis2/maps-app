@@ -31,7 +31,7 @@ const syncGeometrySourceValues = (state) => {
     }
     const sources = getPossibleGeometrySources(
         state.eventCoordinateField,
-        state.fallbackCoordinateField,
+        state.eventCoordinateFieldFallback,
         state.hasTrackedEntityType
     )
     const prevValues = state.styleDataItem.values || {}
@@ -43,7 +43,8 @@ const syncGeometrySourceValues = (state) => {
                 prevValues[id] ??
                     getDefaultGeometrySourceColor(id, {
                         eventCoordinateField: state.eventCoordinateField,
-                        fallbackCoordinateField: state.fallbackCoordinateField,
+                        eventCoordinateFieldFallback:
+                            state.eventCoordinateFieldFallback,
                     }),
             ])
         ),
@@ -242,10 +243,12 @@ const layerEdit = (state = null, action) => {
         }
 
         case types.LAYER_EDIT_STYLE_DATA_ITEM_SET:
-            return {
+            newState = {
                 ...state,
                 styleDataItem: action.dataItem,
             }
+            newState.styleDataItem = syncGeometrySourceValues(newState)
+            return newState
 
         // Set options to data element option set
         case types.LAYER_EDIT_STYLE_DATA_ITEM_OPTIONS_SET:
@@ -398,27 +401,15 @@ const layerEdit = (state = null, action) => {
             newState.styleDataItem = syncGeometrySourceValues(newState)
             return newState
 
-        case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
+        case types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET:
             newState = { ...state }
 
             if (action.fieldId === NONE) {
-                delete newState.fallbackCoordinateField
-                delete newState.fallbackCoordinateFieldType
-                if (
-                    newState.styleDataItem?.id ===
-                    EVENT_COORDINATE_GEOMETRY_SOURCE
-                ) {
-                    newState.styleDataItem = null
-                }
-                if (
-                    newState.labelDataItem?.id ===
-                    EVENT_COORDINATE_GEOMETRY_SOURCE
-                ) {
-                    newState.labelDataItem = null
-                }
+                delete newState.eventCoordinateFieldFallback
+                delete newState.eventCoordinateFieldFallbackType
             } else {
-                newState.fallbackCoordinateField = action.fieldId
-                newState.fallbackCoordinateFieldType = action.fieldType
+                newState.eventCoordinateFieldFallback = action.fieldId
+                newState.eventCoordinateFieldFallbackType = action.fieldType
             }
 
             newState.styleDataItem = syncGeometrySourceValues(newState)

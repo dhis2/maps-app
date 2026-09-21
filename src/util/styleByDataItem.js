@@ -98,19 +98,19 @@ const styleByGeometrySource = async (config) => {
         legend,
         eventPointRadius,
         eventCoordinateField,
-        fallbackCoordinateField,
+        eventCoordinateFieldFallback,
         hasTrackedEntityType,
     } = config
     const { values } = styleDataItem
     const names = config.geometrySourceNames || COORDINATE_FIELD_NAMES
     const possibleSources = getPossibleGeometrySources(
         eventCoordinateField,
-        fallbackCoordinateField,
+        eventCoordinateFieldFallback,
         hasTrackedEntityType
     )
 
     // Ordered main field first, then fallback (cascading order if applicable).
-    legend.unit = i18n.t('Geometry source')
+    legend.unit = i18n.t('Coordinate source')
     legend.items = possibleSources
         .filter((sourceId) => values?.[sourceId])
         .map((sourceId) => ({
@@ -136,7 +136,7 @@ const styleByGeometrySource = async (config) => {
             itemBySource[geometrySource] = {
                 color: getDefaultGeometrySourceColor(geometrySource, {
                     eventCoordinateField,
-                    fallbackCoordinateField,
+                    eventCoordinateFieldFallback,
                 }),
                 radius: eventPointRadius || EVENT_RADIUS,
                 count: 0,

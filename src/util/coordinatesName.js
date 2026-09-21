@@ -81,16 +81,16 @@ export const resolveGeometrySourceName = (id, geometrySourceNames) =>
 
 export const getDefaultGeometrySourceColor = (
     id,
-    { eventCoordinateField, fallbackCoordinateField }
+    { eventCoordinateField, eventCoordinateFieldFallback }
 ) => {
     if (GEOMETRY_SOURCE_COLORS[id]) {
         return GEOMETRY_SOURCE_COLORS[id]
     }
     if (id === eventCoordinateField) {
-        return qualitativeColors[4]
+        return qualitativeColors[11]
     }
-    if (id === fallbackCoordinateField) {
-        return qualitativeColors[5]
+    if (id === eventCoordinateFieldFallback) {
+        return qualitativeColors[9]
     }
     return qualitativeColors[0]
 }
@@ -99,8 +99,8 @@ const expandField = (fieldId, hasTei) => {
     if (fieldId === EVENT_COORDINATE_CASCADING) {
         return hasTei
             ? [
-                  EVENT_COORDINATE_ENROLLMENT,
                   EVENT_COORDINATE_DEFAULT,
+                  EVENT_COORDINATE_ENROLLMENT,
                   EVENT_COORDINATE_TRACKED_ENTITY,
                   EVENT_COORDINATE_ORG_UNIT,
               ]
@@ -119,7 +119,7 @@ export const loadHasTrackedEntityType = async ({ program, engine }) => {
 
 export const getPossibleGeometrySources = (
     eventCoordinateField,
-    fallbackCoordinateField,
+    eventCoordinateFieldFallback,
     hasTei
 ) => {
     const main = expandField(
@@ -127,8 +127,8 @@ export const getPossibleGeometrySources = (
         hasTei
     )
     const fallback =
-        fallbackCoordinateField && fallbackCoordinateField !== NONE
-            ? expandField(fallbackCoordinateField, hasTei)
+        eventCoordinateFieldFallback && eventCoordinateFieldFallback !== NONE
+            ? expandField(eventCoordinateFieldFallback, hasTei)
             : []
     return [...new Set([...main, ...fallback])]
 }

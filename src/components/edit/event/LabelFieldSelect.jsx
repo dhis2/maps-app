@@ -12,7 +12,7 @@ const ITEM_NONE = { id: 'none', name: i18n.t('None') }
 
 const GEOMETRY_SOURCE_ITEM = {
     id: EVENT_COORDINATE_GEOMETRY_SOURCE,
-    name: i18n.t('Geometry source'),
+    name: i18n.t('Coordinate source'),
 }
 
 const LabelFieldSelect = () => {

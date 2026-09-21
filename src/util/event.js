@@ -84,7 +84,7 @@ export const getAnalyticsRequest = async (
         labelDataItem,
         eventStatus,
         eventCoordinateField = EVENT_COORDINATE_DEFAULT,
-        fallbackCoordinateField,
+        eventCoordinateFieldFallback,
         relativePeriodDate,
         isExtended,
         countFeaturesWithoutCoordinates,
@@ -167,14 +167,14 @@ export const getAnalyticsRequest = async (
     analyticsRequest =
         analyticsRequest.withCoordinateField(eventCoordinateField)
 
-    if (fallbackCoordinateField) {
-        if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
+    if (eventCoordinateFieldFallback) {
+        if (eventCoordinateFieldFallback === EVENT_COORDINATE_CASCADING) {
             analyticsRequest = analyticsRequest.withParameters({
                 defaultCoordinateFallback: true,
             })
         } else {
             analyticsRequest = analyticsRequest.withParameters({
-                fallbackCoordinateField,
+                eventCoordinateFieldFallback,
             })
         }
     }

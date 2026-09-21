@@ -796,7 +796,7 @@ describe('getGeometrySourceNames', () => {
 
     test('adds the fallback field name when it is a custom field', () => {
         const names = getGeometrySourceNames({
-            fallbackCoordinateField: 'customDataElement2',
+            eventCoordinateFieldFallback: 'customDataElement2',
             fallbackField: { name: 'My fallback field' },
         })
 
@@ -810,7 +810,7 @@ describe('getGeometrySourceNames', () => {
         const names = getGeometrySourceNames({
             eventCoordinateField: 'customDataElement1',
             coordinateField: { name: 'My custom field' },
-            fallbackCoordinateField: 'customDataElement2',
+            eventCoordinateFieldFallback: 'customDataElement2',
             fallbackField: { name: 'My fallback field' },
         })
 
@@ -823,7 +823,7 @@ describe('getGeometrySourceNames', () => {
 
     test('excludes the fallback field id when it is cascading', () => {
         const names = getGeometrySourceNames({
-            fallbackCoordinateField: EVENT_COORDINATE_CASCADING,
+            eventCoordinateFieldFallback: EVENT_COORDINATE_CASCADING,
             fallbackField: null,
         })
 

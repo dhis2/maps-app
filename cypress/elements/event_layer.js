@@ -85,10 +85,10 @@ export class EventLayer extends Layer {
 
     selectFallbackCoordinate(coordinate) {
         cy.getByDataTest(
-            'fallbackcoordinatefield-content',
+            'eventcoordinatefieldfallback-content',
             EXTENDED_TIMEOUT
         ).should(($el) => expect($el.text().trim().length).to.be.greaterThan(0))
-        selectPopperOption('fallbackcoordinatefield-content', coordinate)
+        selectPopperOption('eventcoordinatefieldfallback-content', coordinate)
 
         return this
     }

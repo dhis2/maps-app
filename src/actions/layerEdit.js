@@ -127,8 +127,8 @@ export const setEventCoordinateField = (fieldId, fieldType) => ({
 })
 
 // Set fallback coordinate field
-export const setFallbackCoordinateField = (fieldId, fieldType) => ({
-    type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+export const setEventCoordinateFieldFallback = (fieldId, fieldType) => ({
+    type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
     fieldId,
     fieldType,
 })

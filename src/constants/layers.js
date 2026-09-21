@@ -118,9 +118,9 @@ export const COORDINATE_FIELD_NAMES = {
 }
 export const GEOMETRY_SOURCE_COLORS = {
     [EVENT_COORDINATE_DEFAULT]: qualitativeColors[0],
-    [EVENT_COORDINATE_ORG_UNIT]: qualitativeColors[1],
-    [EVENT_COORDINATE_ENROLLMENT]: qualitativeColors[2],
-    [EVENT_COORDINATE_TRACKED_ENTITY]: qualitativeColors[3],
+    [EVENT_COORDINATE_ENROLLMENT]: qualitativeColors[1],
+    [EVENT_COORDINATE_TRACKED_ENTITY]: qualitativeColors[2],
+    [EVENT_COORDINATE_ORG_UNIT]: qualitativeColors[10],
 }
 export const EVENT_CENTROID_DEFAULT = [
     EVENT_COORDINATE_DEFAULT,

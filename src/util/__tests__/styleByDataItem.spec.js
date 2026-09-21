@@ -620,7 +620,7 @@ describe('styleByDataItem', () => {
                 values: { ougeometry: 'red', abcDataElementUid1: 'blue' },
             },
             eventCoordinateField: 'abcDataElementUid1',
-            fallbackCoordinateField: 'ougeometry',
+            eventCoordinateFieldFallback: 'ougeometry',
             geometrySourceNames: {
                 ougeometry: 'Organisation unit location',
                 abcDataElementUid1: 'My custom field',
@@ -759,7 +759,7 @@ describe('styleByDataItem', () => {
                 },
             },
             eventCoordinateField: 'customDataElement1',
-            fallbackCoordinateField: EVENT_COORDINATE_CASCADING,
+            eventCoordinateFieldFallback: EVENT_COORDINATE_CASCADING,
             hasTrackedEntityType: true,
             geometrySourceNames: {
                 customDataElement1: 'My custom field',
@@ -772,8 +772,8 @@ describe('styleByDataItem', () => {
 
         expect(result.legend.items.map((i) => i.sourceId)).toEqual([
             'customDataElement1',
-            'pigeometry',
             'psigeometry',
+            'pigeometry',
             'teigeometry',
             'ougeometry',
         ])

@@ -20,7 +20,7 @@ const excludeTypes = [
 
 const GEOMETRY_SOURCE_ITEM = {
     id: EVENT_COORDINATE_GEOMETRY_SOURCE,
-    name: i18n.t('Geometry source'),
+    name: i18n.t('Coordinate source'),
 }
 
 // Style by data item is used by event layer, and can be reused for TEI layer in the future.

@@ -1,6 +1,7 @@
 import {
     serverSupportsGeometrySource,
     serverSupportsOrgUnitCoordinateField,
+    serverSupportsEventCoordinateFieldFallback,
 } from '../versionToggle.js'
 
 describe('serverSupportsGeometrySource', () => {
@@ -57,5 +58,31 @@ describe('serverSupportsOrgUnitCoordinateField', () => {
 
     it('returns false when serverVersion is undefined', () => {
         expect(serverSupportsOrgUnitCoordinateField(undefined)).toBe(false)
+    })
+})
+
+describe('serverSupportsEventCoordinateFieldFallback', () => {
+    it('returns false below 2.43', () => {
+        expect(serverSupportsEventCoordinateFieldFallback({ minor: 42 })).toBe(
+            false
+        )
+    })
+
+    it('returns true at 2.43', () => {
+        expect(serverSupportsEventCoordinateFieldFallback({ minor: 43 })).toBe(
+            true
+        )
+    })
+
+    it('returns true above 2.43', () => {
+        expect(serverSupportsEventCoordinateFieldFallback({ minor: 44 })).toBe(
+            true
+        )
+    })
+
+    it('returns false when serverVersion is undefined', () => {
+        expect(serverSupportsEventCoordinateFieldFallback(undefined)).toBe(
+            false
+        )
     })
 })

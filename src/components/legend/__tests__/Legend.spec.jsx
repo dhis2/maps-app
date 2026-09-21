@@ -20,7 +20,7 @@ describe('Legend coordinate field / fallback display', () => {
         render(
             <Legend
                 coordinateFields={['Event location']}
-                fallbackCoordinateField="Organisation unit location"
+                eventCoordinateFieldFallback="Organisation unit location"
             />
         )
 
