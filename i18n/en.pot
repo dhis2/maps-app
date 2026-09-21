@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-15T16:43:35.708Z\n"
-"PO-Revision-Date: 2026-09-15T16:43:35.708Z\n"
+"POT-Creation-Date: 2026-09-21T08:26:16.426Z\n"
+"PO-Revision-Date: 2026-09-21T08:26:16.426Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -83,6 +83,18 @@ msgstr "Yes"
 msgid "No"
 msgstr "No"
 
+msgid "Select a program to see additional coordinate options"
+msgstr "Select a program to see additional coordinate options"
+
+msgid "Event > enrollment > tracked entity > org unit coordinate"
+msgstr "Event > enrollment > tracked entity > org unit coordinate"
+
+msgid "Event > org unit coordinate"
+msgstr "Event > org unit coordinate"
+
+msgid "Select a program stage to see additional coordinate options"
+msgstr "Select a program stage to see additional coordinate options"
+
 msgid "None"
 msgstr "None"
 
@@ -100,18 +112,6 @@ msgstr "Enrollment location"
 
 msgid "Tracked entity location"
 msgstr "Tracked entity location"
-
-msgid "Event > enrollment > tracked entity > org unit coordinate"
-msgstr "Event > enrollment > tracked entity > org unit coordinate"
-
-msgid "Event > org unit coordinate"
-msgstr "Event > org unit coordinate"
-
-msgid "Select a program stage to see additional coordinate options"
-msgstr "Select a program stage to see additional coordinate options"
-
-msgid "Select a program to see additional coordinate options"
-msgstr "Select a program to see additional coordinate options"
 
 msgid "Fallback coordinate field"
 msgstr "Fallback coordinate field"

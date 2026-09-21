@@ -343,8 +343,8 @@ const Legend = ({
             {Array.isArray(coordinateFields) && (
                 <div className={styles.coordinateFields}>
                     <div>{i18n.t('Coordinate field')}</div>
-                    {coordinateFields.map((coordinateField, index) => (
-                        <div key={index}>
+                    {coordinateFields.map((coordinateField) => (
+                        <div key={coordinateField}>
                             {coordinateField}
                             {fallbackCoordinateField &&
                                 ` (${i18n.t(

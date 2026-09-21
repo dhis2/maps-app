@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import CoordinateField from '../CoordinateField.jsx'
 
@@ -87,11 +87,7 @@ describe('CoordinateField', () => {
             <CoordinateField value={null} onChange={jest.fn()} program={{}} />
         )
 
-        await act(async () => {
-            await fireEvent.click(
-                screen.getByTestId('dhis2-uicore-select-input')
-            )
-        })
+        fireEvent.click(screen.getByTestId('dhis2-uicore-select-input'))
 
         const labels = screen
             .getAllByTestId('dhis2-uicore-singleselectoption')
