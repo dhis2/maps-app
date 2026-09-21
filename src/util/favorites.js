@@ -251,6 +251,50 @@ const deleteTrackedEntityLayerProps = (layer) => {
     delete layer.periodType
 }
 
+const applyEarthEngineLayerConfig = (layer, cleanMapviewConfig) => {
+    if (cleanMapviewConfig) {
+        layer.config = JSON.stringify(buildEarthEngineLayerConfigData(layer))
+    }
+    deleteEarthEngineLayerProps(layer)
+}
+
+const applyTrackedEntityLayerConfig = (layer, cleanMapviewConfig) => {
+    if (cleanMapviewConfig) {
+        layer.config = JSON.stringify(buildTrackedEntityLayerConfigData(layer))
+    }
+    deleteTrackedEntityLayerProps(layer)
+}
+
+const applyGeoJsonUrlLayerConfig = (layer, cleanMapviewConfig) => {
+    if (cleanMapviewConfig) {
+        layer.config = {
+            ...layer.config,
+            featureStyle: { ...layer.featureStyle },
+        }
+    }
+    delete layer.featureStyle
+}
+
+const applyCommonLayerConfig = (layer, cleanMapviewConfig, serverVersion) => {
+    if (cleanMapviewConfig) {
+        const configData = buildCommonLayerConfigData(layer, serverVersion)
+        if (Object.keys(configData).length) {
+            layer.config = JSON.stringify(configData)
+        }
+    }
+    deleteCommonLayerConfigProps(layer, serverVersion)
+}
+
+const applyLayerTypeConfigByType = {
+    [EARTH_ENGINE_LAYER]: applyEarthEngineLayerConfig,
+    [TRACKED_ENTITY_LAYER]: applyTrackedEntityLayerConfig,
+    [GEOJSON_URL_LAYER]: applyGeoJsonUrlLayerConfig,
+    [EVENT_LAYER]: applyCommonLayerConfig,
+    [THEMATIC_LAYER]: applyCommonLayerConfig,
+    [ORG_UNIT_LAYER]: applyCommonLayerConfig,
+    [FACILITY_LAYER]: applyCommonLayerConfig,
+}
+
 // TODO: This feels hacky, find better way to clean map configs before saving
 const models2objects = (layer, cleanMapviewConfig, serverVersion) => {
     const { layer: layerType } = layer
@@ -265,41 +309,9 @@ const models2objects = (layer, cleanMapviewConfig, serverVersion) => {
         layer.rows = layer.rows.map(cleanDimension)
     }
 
-    if (layerType === EARTH_ENGINE_LAYER) {
-        if (cleanMapviewConfig) {
-            layer.config = JSON.stringify(
-                buildEarthEngineLayerConfigData(layer)
-            )
-        }
-        deleteEarthEngineLayerProps(layer)
-    } else if (layerType === TRACKED_ENTITY_LAYER) {
-        if (cleanMapviewConfig) {
-            layer.config = JSON.stringify(
-                buildTrackedEntityLayerConfigData(layer)
-            )
-        }
-        deleteTrackedEntityLayerProps(layer)
-    } else if (layerType === GEOJSON_URL_LAYER) {
-        if (cleanMapviewConfig) {
-            layer.config = {
-                ...layer.config,
-                featureStyle: { ...layer.featureStyle },
-            }
-        }
-        delete layer.featureStyle
-    } else if (
-        layerType === EVENT_LAYER ||
-        layerType === THEMATIC_LAYER ||
-        layerType === ORG_UNIT_LAYER ||
-        layerType === FACILITY_LAYER
-    ) {
-        if (cleanMapviewConfig) {
-            const configData = buildCommonLayerConfigData(layer, serverVersion)
-            if (Object.keys(configData).length) {
-                layer.config = JSON.stringify(configData)
-            }
-        }
-        deleteCommonLayerConfigProps(layer, serverVersion)
+    const applyLayerTypeConfig = applyLayerTypeConfigByType[layerType]
+    if (applyLayerTypeConfig) {
+        applyLayerTypeConfig(layer, cleanMapviewConfig, serverVersion)
     }
     delete layer.id
 
