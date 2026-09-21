@@ -94,6 +94,34 @@ describe('getAnalyticsRequest', () => {
         expect(getDimensionCalls('fakeDataElId')[0][1]).toBe('LT:80')
     })
 
+    it('sends a specific fallback field as fallbackCoordinateField', async () => {
+        const layer = {
+            ...baseLayer,
+            eventCoordinateField: 'psigeometry',
+            eventCoordinateFieldFallback: 'pigeometry',
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(mockRequestInstance.withParameters).toHaveBeenCalledWith({
+            fallbackCoordinateField: 'pigeometry',
+        })
+    })
+
+    it('sends defaultCoordinateFallback for a cascading fallback', async () => {
+        const layer = {
+            ...baseLayer,
+            eventCoordinateField: 'psigeometry',
+            eventCoordinateFieldFallback: 'cascading',
+        }
+
+        await getAnalyticsRequest(layer, baseContext)
+
+        expect(mockRequestInstance.withParameters).toHaveBeenCalledWith({
+            defaultCoordinateFallback: true,
+        })
+    })
+
     it('falls back to start/end dates when no period is selected', async () => {
         await getAnalyticsRequest(baseLayer, baseContext)
 

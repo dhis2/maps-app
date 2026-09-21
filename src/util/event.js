@@ -174,7 +174,7 @@ export const getAnalyticsRequest = async (
             })
         } else {
             analyticsRequest = analyticsRequest.withParameters({
-                eventCoordinateFieldFallback,
+                fallbackCoordinateField: eventCoordinateFieldFallback,
             })
         }
     }

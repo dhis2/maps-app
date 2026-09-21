@@ -34,15 +34,6 @@ const DataItemStyle = ({ dataItem, style }) => {
         return (
             <div style={style}>
                 <GeometrySourceStyle />
-                <div className={styles.flexColumnFlow}>
-                    <div className={styles.flexColumn}>
-                        <NoDataLegend
-                            label={i18n.t('Include events with no data')}
-                            value={noDataLegend}
-                            onChange={(v) => dispatch(setNoDataLegend(v))}
-                        />
-                    </div>
-                </div>
             </div>
         )
     }

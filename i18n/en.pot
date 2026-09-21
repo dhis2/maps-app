@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-21T14:14:37.990Z\n"
-"PO-Revision-Date: 2026-09-21T14:14:37.990Z\n"
+"POT-Creation-Date: 2026-09-21T14:42:04.085Z\n"
+"PO-Revision-Date: 2026-09-21T14:42:04.085Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -119,11 +119,11 @@ msgstr "Fallback coordinate field"
 msgid "Coordinate field"
 msgstr "Coordinate field"
 
-msgid "Include events with no data"
-msgstr "Include events with no data"
-
 msgid "Include unclassified events"
 msgstr "Include unclassified events"
+
+msgid "Include events with no data"
+msgstr "Include events with no data"
 
 msgid "Coordinate source"
 msgstr "Coordinate source"
