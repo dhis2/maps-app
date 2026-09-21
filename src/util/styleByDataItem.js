@@ -11,7 +11,11 @@ import {
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
-import { resolveGeometrySourceName } from '../util/coordinatesName.js'
+import {
+    getDefaultGeometrySourceColor,
+    getPossibleGeometrySources,
+    resolveGeometrySourceName,
+} from '../util/coordinatesName.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
@@ -93,26 +97,31 @@ const styleByGeometrySource = async (config) => {
         data,
         legend,
         eventPointRadius,
-        noDataLegend,
-        geometrySourceNames,
         eventCoordinateField,
+        fallbackCoordinateField,
+        hasTrackedEntityType,
     } = config
     const { values } = styleDataItem
-    const names = geometrySourceNames || COORDINATE_FIELD_NAMES
+    const names = config.geometrySourceNames || COORDINATE_FIELD_NAMES
+    const possibleSources = getPossibleGeometrySources(
+        eventCoordinateField,
+        fallbackCoordinateField,
+        hasTrackedEntityType
+    )
 
-    // Build legend items from stored color-per-source values
+    // Ordered main field first, then fallback (cascading order if applicable).
     legend.unit = i18n.t('Geometry source')
-    legend.items = Object.entries(values || {}).map(([sourceId, color]) => ({
-        name: resolveGeometrySourceName(sourceId, names),
-        color,
-        sourceId,
-    }))
-
-    const { noDataLegendItem } = addSpecialLegendItems(legend, { noDataLegend })
+    legend.items = possibleSources
+        .filter((sourceId) => values?.[sourceId])
+        .map((sourceId) => ({
+            name: resolveGeometrySourceName(sourceId, names),
+            color: values[sourceId],
+            sourceId,
+        }))
     stampLegendItems(legend.items, eventPointRadius)
 
     const itemBySource = Object.fromEntries(
-        legend.items.filter((i) => i.sourceId).map((i) => [i.sourceId, i])
+        legend.items.map((i) => [i.sourceId, i])
     )
 
     config.data = data.reduce((acc, feature) => {
@@ -121,18 +130,23 @@ const styleByGeometrySource = async (config) => {
             feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE] ??
             eventCoordinateField ??
             EVENT_COORDINATE_DEFAULT
-        const item = geometrySource ? itemBySource[geometrySource] : null
-        const isNoData = !geometrySource || !item
 
-        if (isNoData && !noDataLegendItem) {
-            return acc
+        // Backfills a color without adding a legend entry for it.
+        if (!itemBySource[geometrySource]) {
+            itemBySource[geometrySource] = {
+                color: getDefaultGeometrySourceColor(geometrySource, {
+                    eventCoordinateField,
+                    fallbackCoordinateField,
+                }),
+                radius: eventPointRadius || EVENT_RADIUS,
+                count: 0,
+                colorGroup: legend.items.length,
+            }
         }
 
         addFeature(acc, feature, {
-            item: isNoData ? noDataLegendItem : item,
-            value: isNoData
-                ? i18n.t('Not set')
-                : resolveGeometrySourceName(geometrySource, names),
+            item: itemBySource[geometrySource],
+            value: resolveGeometrySourceName(geometrySource, names),
         })
         return acc
     }, [])

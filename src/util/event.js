@@ -33,6 +33,16 @@ export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
     },
 }
 
+export const EVENT_PROGRAM_TRACKED_ENTITY_TYPE_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: {
+            fields: 'trackedEntityType[id]',
+        },
+    },
+}
+
 // Empty filter sometimes returned for saved maps
 // Dimension without filter and empty items array returns false
 const isValidDimension = ({ dimension, filter, items }) =>

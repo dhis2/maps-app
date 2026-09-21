@@ -1,7 +1,18 @@
-import { COORDINATE_FIELD_NAMES } from '../constants/layers.js'
+import { qualitativeColors } from '../constants/colors.js'
+import {
+    COORDINATE_FIELD_NAMES,
+    GEOMETRY_SOURCE_COLORS,
+    EVENT_COORDINATE_CASCADING,
+    EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_ENROLLMENT,
+    EVENT_COORDINATE_ORG_UNIT,
+    EVENT_COORDINATE_TRACKED_ENTITY,
+    NONE,
+} from '../constants/layers.js'
 import {
     EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
     EVENT_PROGRAM_ATTRIBUTES_QUERY,
+    EVENT_PROGRAM_TRACKED_ENTITY_TYPE_QUERY,
 } from '../util/event.js'
 
 // Resolves a coordinate field id to its name/valueType - only custom DE/TEA
@@ -67,3 +78,57 @@ export const loadEventCoordinateField = async ({
 
 export const resolveGeometrySourceName = (id, geometrySourceNames) =>
     geometrySourceNames?.[id] ?? id
+
+export const getDefaultGeometrySourceColor = (
+    id,
+    { eventCoordinateField, fallbackCoordinateField }
+) => {
+    if (GEOMETRY_SOURCE_COLORS[id]) {
+        return GEOMETRY_SOURCE_COLORS[id]
+    }
+    if (id === eventCoordinateField) {
+        return qualitativeColors[4]
+    }
+    if (id === fallbackCoordinateField) {
+        return qualitativeColors[5]
+    }
+    return qualitativeColors[0]
+}
+
+const expandField = (fieldId, hasTei) => {
+    if (fieldId === EVENT_COORDINATE_CASCADING) {
+        return hasTei
+            ? [
+                  EVENT_COORDINATE_ENROLLMENT,
+                  EVENT_COORDINATE_DEFAULT,
+                  EVENT_COORDINATE_TRACKED_ENTITY,
+                  EVENT_COORDINATE_ORG_UNIT,
+              ]
+            : [EVENT_COORDINATE_DEFAULT, EVENT_COORDINATE_ORG_UNIT]
+    }
+    return [fieldId]
+}
+
+export const loadHasTrackedEntityType = async ({ program, engine }) => {
+    const { program: programData } = await engine.query(
+        EVENT_PROGRAM_TRACKED_ENTITY_TYPE_QUERY,
+        { variables: { id: program.id } }
+    )
+    return !!programData?.trackedEntityType?.id
+}
+
+export const getPossibleGeometrySources = (
+    eventCoordinateField,
+    fallbackCoordinateField,
+    hasTei
+) => {
+    const main = expandField(
+        eventCoordinateField ?? EVENT_COORDINATE_DEFAULT,
+        hasTei
+    )
+    const fallback =
+        fallbackCoordinateField && fallbackCoordinateField !== NONE
+            ? expandField(fallbackCoordinateField, hasTei)
+            : []
+    return [...new Set([...main, ...fallback])]
+}

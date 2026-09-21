@@ -20,6 +20,35 @@ import {
     splitFilterColumns,
     compactFilterColumns,
 } from '../util/analytics.js'
+import {
+    getDefaultGeometrySourceColor,
+    getPossibleGeometrySources,
+} from '../util/coordinatesName.js'
+
+const syncGeometrySourceValues = (state) => {
+    if (state.styleDataItem?.id !== EVENT_COORDINATE_GEOMETRY_SOURCE) {
+        return state.styleDataItem
+    }
+    const sources = getPossibleGeometrySources(
+        state.eventCoordinateField,
+        state.fallbackCoordinateField,
+        state.hasTrackedEntityType
+    )
+    const prevValues = state.styleDataItem.values || {}
+    return {
+        ...state.styleDataItem,
+        values: Object.fromEntries(
+            sources.map((id) => [
+                id,
+                prevValues[id] ??
+                    getDefaultGeometrySourceColor(id, {
+                        eventCoordinateField: state.eventCoordinateField,
+                        fallbackCoordinateField: state.fallbackCoordinateField,
+                    }),
+            ])
+        ),
+    }
+}
 
 const layerEdit = (state = null, action) => {
     let newState
@@ -361,11 +390,13 @@ const layerEdit = (state = null, action) => {
             return newState
 
         case types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET:
-            return {
+            newState = {
                 ...state,
                 eventCoordinateField: action.fieldId,
                 eventCoordinateFieldType: action.fieldType,
             }
+            newState.styleDataItem = syncGeometrySourceValues(newState)
+            return newState
 
         case types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET:
             newState = { ...state }
@@ -390,6 +421,12 @@ const layerEdit = (state = null, action) => {
                 newState.fallbackCoordinateFieldType = action.fieldType
             }
 
+            newState.styleDataItem = syncGeometrySourceValues(newState)
+            return newState
+
+        case types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET:
+            newState = { ...state, hasTrackedEntityType: action.value }
+            newState.styleDataItem = syncGeometrySourceValues(newState)
             return newState
 
         case types.LAYER_EDIT_EVENT_CLUSTERING_SET:

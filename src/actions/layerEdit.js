@@ -81,6 +81,11 @@ export const setGeometrySourceStyle = (value, color) => ({
     color,
 })
 
+export const setHasTrackedEntityType = (value) => ({
+    type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+    value,
+})
+
 // Set thematic map type (choropleth, bubble map)
 export const setThematicMapType = (type) => ({
     type: types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET,

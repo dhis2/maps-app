@@ -13,6 +13,7 @@ import {
     EVENT_COLOR,
     EVENT_RADIUS,
     EVENT_COORDINATE_CASCADING,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
     COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes } from '../constants/valueTypes.js'
@@ -25,7 +26,10 @@ import {
 } from '../util/analytics.js'
 import { cssColor, getContrastColor } from '../util/colors.js'
 import { parseJsonConfig } from '../util/config.js'
-import { loadEventCoordinateField } from '../util/coordinatesName.js'
+import {
+    loadEventCoordinateField,
+    loadHasTrackedEntityType,
+} from '../util/coordinatesName.js'
 import { getAnalyticsRequest, loadData } from '../util/event.js'
 import {
     getBounds,
@@ -389,6 +393,12 @@ const loadEventLayer = async ({
         }
 
         if (styleDataItem) {
+            if (styleDataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE) {
+                config.hasTrackedEntityType = await loadHasTrackedEntityType({
+                    program,
+                    engine,
+                })
+            }
             await styleByDataItem(config, engine)
         }
 

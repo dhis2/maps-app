@@ -885,12 +885,113 @@ describe('layerEdit reducer', () => {
                     }
                 )
 
-                expect(result.styleDataItem).toEqual({
-                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
-                })
+                expect(result.styleDataItem.id).toBe(
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                )
                 expect(result.labelDataItem).toEqual({
                     id: EVENT_COORDINATE_GEOMETRY_SOURCE,
                 })
+            })
+
+            it('syncs styleDataItem.values to the new fallback when styling by geometry source', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateField: 'ougeometry',
+                        fallbackCoordinateField: 'field1',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: { ougeometry: '#111', field1: '#222' },
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        fieldId: 'field2',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem.values).toEqual(
+                    expect.objectContaining({
+                        ougeometry: '#111',
+                        field2: expect.any(String),
+                    })
+                )
+                expect(result.styleDataItem.values.field1).toBeUndefined()
+            })
+        })
+
+        describe('LAYER_EDIT_EVENT_COORDINATE_FIELD_SET', () => {
+            it('leaves styleDataItem untouched when not styling by geometry source', () => {
+                const result = layerEdit(
+                    { styleDataItem: { id: 'someOtherField' } },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
+                        fieldId: 'field1',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem).toEqual({ id: 'someOtherField' })
+            })
+
+            it('syncs styleDataItem.values to the new main field when styling by geometry source', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateField: 'ougeometry',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: { ougeometry: '#111' },
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
+                        fieldId: 'field1',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem.values).toEqual({
+                    field1: expect.any(String),
+                })
+            })
+        })
+
+        describe('LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET', () => {
+            it('sets hasTrackedEntityType', () => {
+                const result = layerEdit(
+                    {},
+                    {
+                        type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+                        value: true,
+                    }
+                )
+
+                expect(result.hasTrackedEntityType).toBe(true)
+            })
+
+            it('syncs styleDataItem.values when styling by geometry source (cascading, TEI type resolved)', () => {
+                const result = layerEdit(
+                    {
+                        fallbackCoordinateField: 'cascading',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: {},
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+                        value: true,
+                    }
+                )
+
+                expect(Object.keys(result.styleDataItem.values)).toEqual(
+                    expect.arrayContaining([
+                        'pigeometry',
+                        'psigeometry',
+                        'teigeometry',
+                        'ougeometry',
+                    ])
+                )
             })
         })
 
