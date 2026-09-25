@@ -4,11 +4,16 @@ import React from 'react'
 import {
     EVENT_COLOR,
     EVENT_RADIUS,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
+    EVENT_COORDINATE_DEFAULT,
     LABEL_TEMPLATE_NAME_ONLY,
     LABEL_TEMPLATE_TOOLTIP_ONLY,
 } from '../../../constants/layers.js'
 import { getContrastColor } from '../../../util/colors.js'
-import { loadEventCoordinateFieldName } from '../../../util/coordinatesName.js'
+import {
+    loadEventCoordinateField,
+    resolveGeometrySourceName,
+} from '../../../util/coordinatesName.js'
 import {
     getAnalyticsRequest,
     EVENT_PROGRAM_STAGE_DATA_ELEMENTS_QUERY,
@@ -62,6 +67,7 @@ class EventLayer extends Layer {
             labelFontSize,
             labelFontWeight,
             labelFontStyle,
+            geometrySourceNames,
         } = this.props
 
         const analyticsEngine = Analytics.getAnalytics(engine)
@@ -88,11 +94,19 @@ class EventLayer extends Layer {
         const noDataLabel = i18n.t('No data')
         const formatItemValue = (feature, dataItem) => {
             const v = feature.properties[dataItem.id]
+            // No fallback configured means the point can only be from the main field.
+            const geometrySource =
+                dataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE
+                    ? v ?? eventCoordinateField ?? EVENT_COORDINATE_DEFAULT
+                    : null
+            const resolved = geometrySource
+                ? resolveGeometrySourceName(geometrySource, geometrySourceNames)
+                : v
             return (
-                (v != null &&
-                    v !== '' &&
+                (resolved != null &&
+                    resolved !== '' &&
                     formatValueForDisplay({
-                        value: String(v),
+                        value: String(resolved),
                         valueType: dataItem.valueType,
                         options: dataItem.options,
                         keyAnalysisDigitGroupSeparator,
@@ -250,8 +264,12 @@ class EventLayer extends Layer {
     }
 
     render() {
-        const { styleDataItem, nameProperty, keyAnalysisDigitGroupSeparator } =
-            this.props
+        const {
+            styleDataItem,
+            nameProperty,
+            keyAnalysisDigitGroupSeparator,
+            geometrySourceNames,
+        } = this.props
         const { popup, displayItems, eventCoordinateFieldName } = this.state
 
         return popup && displayItems ? (
@@ -262,6 +280,7 @@ class EventLayer extends Layer {
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 displayItems={displayItems}
                 eventCoordinateFieldName={eventCoordinateFieldName}
+                geometrySourceNames={geometrySourceNames}
                 onClose={this.onPopupClose}
             />
         ) : null
@@ -359,6 +378,7 @@ class EventLayer extends Layer {
 
         if (
             styleDataItem &&
+            styleDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE &&
             !displayItems.some((item) => item.id === styleDataItem.id)
         ) {
             const programResponse = await engine.query(
@@ -404,13 +424,15 @@ class EventLayer extends Layer {
             ]
         }
 
-        const eventCoordinateFieldName = await loadEventCoordinateFieldName({
-            program,
-            programStage,
-            eventCoordinateField,
-            engine,
-            displayNameProp,
-        })
+        const eventCoordinateFieldName = (
+            await loadEventCoordinateField({
+                program,
+                programStage,
+                fieldId: eventCoordinateField,
+                engine,
+                displayNameProp,
+            })
+        )?.name
 
         this.setState({ displayItems, eventCoordinateFieldName })
     }

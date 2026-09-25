@@ -6,6 +6,7 @@ import {
     setNoDataLegend,
     setUnclassifiedLegend,
 } from '../../actions/layerEdit.js'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../constants/layers.js'
 import {
     numberValueTypes,
     booleanValueTypes,
@@ -15,6 +16,7 @@ import NoDataLegend from '../edit/shared/NoDataLegend.jsx'
 import UnclassifiedLegend from '../edit/shared/UnclassifiedLegend.jsx'
 import OptionSetStyle from '../optionSet/OptionSetStyle.jsx'
 import BooleanStyle from './BooleanStyle.jsx'
+import GeometrySourceStyle from './GeometrySourceStyle.jsx'
 import styles from './styles/DataItemStyle.module.css'
 
 const DataItemStyle = ({ dataItem, style }) => {
@@ -26,6 +28,14 @@ const DataItemStyle = ({ dataItem, style }) => {
 
     if (!dataItem) {
         return null
+    }
+
+    if (dataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE) {
+        return (
+            <div style={style}>
+                <GeometrySourceStyle />
+            </div>
+        )
     }
 
     const { valueType, optionSet } = dataItem

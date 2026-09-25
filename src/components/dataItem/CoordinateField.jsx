@@ -10,8 +10,59 @@ import {
     EVENT_COORDINATE_CASCADING,
     NONE,
 } from '../../constants/layers.js'
+import {
+    coordinateValueTypes,
+    ouValueTypes,
+} from '../../constants/valueTypes.js'
+import {
+    serverSupportsGeometrySource,
+    serverSupportsOrgUnitCoordinateField,
+} from '../../util/versionToggle.js'
 import { SelectField } from '../core/index.js'
 import { useEventDataItems } from './EventDataItemsProvider.jsx'
+
+const getIncludeTypes = (isFallback, serverVersion) => {
+    const includeTypes = [...coordinateValueTypes]
+
+    if (isFallback) {
+        // VERSION-TOGGLE: eventCoordinateFieldFallback pointed at a custom
+        // ORGANISATION_UNIT field crashes pre-2.44 - see util/versionToggle.js
+        if (serverSupportsGeometrySource(serverVersion)) {
+            includeTypes.push(...ouValueTypes)
+        }
+        return includeTypes
+    }
+
+    // VERSION-TOGGLE: ORGANISATION_UNIT isn't a valid coordinate field
+    // pre-2.40.8/2.41.4/2.42 - see util/versionToggle.js
+    if (serverSupportsOrgUnitCoordinateField(serverVersion)) {
+        includeTypes.push(...ouValueTypes)
+    }
+
+    return includeTypes
+}
+
+const getHelpText = ({ program, programStage, value, trackedEntityType }) => {
+    if (!program) {
+        return i18n.t('Select a program to see additional coordinate options')
+    }
+
+    if (value === EVENT_COORDINATE_CASCADING) {
+        return trackedEntityType?.id
+            ? i18n.t(
+                  'Event > enrollment > tracked entity > org unit coordinate'
+              )
+            : i18n.t('Event > org unit coordinate')
+    }
+
+    if (!programStage && trackedEntityType?.id) {
+        return i18n.t(
+            'Select a program stage to see additional coordinate options'
+        )
+    }
+
+    return null
+}
 
 const CoordinateField = ({
     value,
@@ -21,22 +72,16 @@ const CoordinateField = ({
     eventCoordinateField,
     onChange,
     className,
+    dataTest = 'coordinatefield',
 }) => {
     const { serverVersion } = useConfig()
-
-    // VERSION-TOGGLE
-    // https://dhis2.atlassian.net/browse/DHIS2-19010 and:
-    // - [2.40.8] https://github.com/dhis2/dhis2-core/commit/f2286a5aa70b2957bd24925776e9394cd67d44c1
-    // - [2.41.4] https://github.com/dhis2/dhis2-core/commit/19f29f27385cfae1c7fac234439f49987ec2abe4
-    // - [2.42.0] https://github.com/dhis2/dhis2-core/commit/e5b29f4f1dbee791be9e6befb8a304151a1661c9
-    const includeTypes = ['COORDINATE']
-    if (
-        (serverVersion.minor === 40 && serverVersion.patch >= 8) ||
-        (serverVersion.minor === 41 && serverVersion.patch >= 4) ||
-        serverVersion.minor >= 42
-    ) {
-        includeTypes.push('ORGANISATION_UNIT')
-    }
+    const isFallback = !!eventCoordinateField
+    // true sentinel means the main field is at its implicit default
+    const mainFieldId =
+        eventCoordinateField === true
+            ? EVENT_COORDINATE_DEFAULT
+            : eventCoordinateField
+    const includeTypes = getIncludeTypes(isFallback, serverVersion)
 
     const {
         eventDataItems,
@@ -44,10 +89,12 @@ const CoordinateField = ({
         loading: itemsLoading,
     } = useEventDataItems({ includeTypes })
 
-    const defaultValue = eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT
+    const defaultValue = useMemo(
+        () => (eventCoordinateField ? NONE : EVENT_COORDINATE_DEFAULT),
+        [eventCoordinateField]
+    )
 
     const fields = useMemo(() => {
-        const isFallback = !!eventCoordinateField
         const fields = []
 
         if (isFallback) {
@@ -70,10 +117,6 @@ const CoordinateField = ({
             name: i18n.t('Event location'),
         })
 
-        if (!trackedEntityType) {
-            return fields
-        }
-
         if (trackedEntityType?.id) {
             fields.push({
                 id: EVENT_COORDINATE_ENROLLMENT,
@@ -85,40 +128,19 @@ const CoordinateField = ({
             })
         }
 
-        if (eventDataItems) {
+        if (trackedEntityType && eventDataItems) {
             fields.push(...eventDataItems)
         }
 
-        if (isFallback) {
-            fields.push({
-                id: EVENT_COORDINATE_ORG_UNIT,
-                name: i18n.t('Organisation unit location'),
-            })
-        }
+        return isFallback ? fields.filter((f) => f.id !== mainFieldId) : fields
+    }, [trackedEntityType, eventDataItems, mainFieldId, isFallback])
 
-        return eventCoordinateField
-            ? fields.filter((f) => f.id !== eventCoordinateField)
-            : fields
-    }, [trackedEntityType, eventDataItems, eventCoordinateField])
-
-    let helpText = null
-    if (program) {
-        if (!programStage && trackedEntityType) {
-            helpText = i18n.t(
-                'Select a program stage to see additional coordinate options'
-            )
-        } else if (value === EVENT_COORDINATE_CASCADING) {
-            helpText = trackedEntityType
-                ? i18n.t(
-                      'Enrollment > event > tracked entity > org unit coordinate'
-                  )
-                : i18n.t('Event > org unit coordinate')
-        }
-    } else {
-        helpText = i18n.t(
-            'Select a program to see additional coordinate options'
-        )
-    }
+    const helpText = getHelpText({
+        program,
+        programStage,
+        value,
+        trackedEntityType,
+    })
 
     // Initiate type when editing saved layer
     useEffect(() => {
@@ -135,7 +157,9 @@ const CoordinateField = ({
         if (
             trackedEntityType &&
             eventDataItems &&
-            !fields.find((f) => f.id === value)
+            !fields.some((f) => f.id === value) &&
+            value !== defaultValue &&
+            fields.length > 0
         ) {
             onChange(defaultValue, defaultValue)
         }
@@ -156,7 +180,7 @@ const CoordinateField = ({
                     : i18n.t('Coordinate field')
             }
             items={fields}
-            value={fields.find((f) => f.id === value) ? value : null}
+            value={fields.some((f) => f.id === value) ? value : null}
             loading={
                 !!program && value !== EVENT_COORDINATE_DEFAULT && itemsLoading
             }
@@ -165,7 +189,7 @@ const CoordinateField = ({
                 onChange(field.id, field.valueType || field.id)
             }
             className={className}
-            dataTest="coordinatefield"
+            dataTest={dataTest}
         />
     )
 }
@@ -173,7 +197,11 @@ const CoordinateField = ({
 CoordinateField.propTypes = {
     onChange: PropTypes.func.isRequired,
     className: PropTypes.string,
-    eventCoordinateField: PropTypes.string,
+    dataTest: PropTypes.string,
+    eventCoordinateField: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.bool,
+    ]),
     program: PropTypes.object,
     programStage: PropTypes.object,
     type: PropTypes.string,

@@ -19,7 +19,7 @@ import {
     setLegendIsolated,
     setEventStatus,
     setEventCoordinateField,
-    setFallbackCoordinateField,
+    setEventCoordinateFieldFallback,
     setEventClustering,
     setCountFeaturesWithoutCoordinates,
     setCountEventsOutsideOrgUnits,
@@ -66,6 +66,7 @@ import {
     setEarthEnginePeriod,
     setFeatureStyle,
     setLabelDataItem,
+    setHasTrackedEntityType,
 } from '../layerEdit.js'
 
 describe('layerEdit simple action creators', () => {
@@ -185,9 +186,9 @@ describe('layerEdit simple action creators', () => {
             rest: { fieldId: 'field1', fieldType: 'COORDINATE' },
         },
         {
-            creator: setFallbackCoordinateField,
+            creator: setEventCoordinateFieldFallback,
             args: ['field1'],
-            type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+            type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
             rest: { fieldId: 'field1' },
         },
         {
@@ -459,6 +460,12 @@ describe('layerEdit simple action creators', () => {
             args: [{ id: 'de1' }],
             type: types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET,
             rest: { item: { id: 'de1' } },
+        },
+        {
+            creator: setHasTrackedEntityType,
+            args: [true],
+            type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+            rest: { value: true },
         },
     ])(
         '$creator.name creates the expected action',
