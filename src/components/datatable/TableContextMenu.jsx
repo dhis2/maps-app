@@ -167,7 +167,7 @@ const TableContextMenu = ({
                                         zoom: true,
                                     })
                                 )
-                                onClose()
+                                onClose(true)
                             }}
                         />
                     )}
@@ -183,7 +183,7 @@ const TableContextMenu = ({
                                     zoom: true,
                                 })
                             )
-                            onClose()
+                            onClose(true)
                         }}
                     />
                     <MenuItem
@@ -200,7 +200,7 @@ const TableContextMenu = ({
                                     zoom: true,
                                 })
                             )
-                            onClose()
+                            onClose(true)
                         }}
                     />
                     <MenuItem
@@ -217,7 +217,7 @@ const TableContextMenu = ({
                                     zoom: true,
                                 })
                             )
-                            onClose()
+                            onClose(true)
                         }}
                     />
                 </Menu>

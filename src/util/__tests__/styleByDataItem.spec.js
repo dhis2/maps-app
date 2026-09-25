@@ -119,6 +119,7 @@ describe('styleByDataItem', () => {
                 }),
             ])
         )
+        expect(result.styleDataItem.name).toEqual(STYLE_DATA_ITEM_NAME)
     })
 
     it('should include no-data events when noDataLegend is configured (default)', async () => {
@@ -231,6 +232,7 @@ describe('styleByDataItem', () => {
             ])
         )
         expect(result.legend.unit).toEqual(LEGEND_SET_NAME)
+        expect(result.styleDataItem.name).toEqual(STYLE_DATA_ITEM_NAME)
     })
 
     it('should include outside and no-data features when unclassifiedLegend and noDataLegend are configured (predefined)', async () => {
@@ -353,6 +355,7 @@ describe('styleByDataItem', () => {
             ])
         )
         expect(result.legend.unit).toEqual(STYLE_DATA_ITEM_NAME)
+        expect(result.styleDataItem.name).toEqual(STYLE_DATA_ITEM_NAME)
     })
 
     it('should include no-data features when noDataLegend is configured (auto)', async () => {
@@ -446,6 +449,7 @@ describe('styleByDataItem', () => {
             ])
         )
         expect(result.legend.unit).toEqual(STYLE_DATA_ITEM_NAME)
+        expect(result.styleDataItem.name).toEqual(STYLE_DATA_ITEM_NAME)
     })
 
     it('should include unclassified and no-data events when configured (boolean)', async () => {

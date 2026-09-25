@@ -1,18 +1,23 @@
 import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
+import { DATA_TABLE_LAYER_TYPES } from '../constants/layers.js'
 
 export const isFilterable = (dataKey, type) => !!type
 
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
 
-export const getNextSorting = (name, { sortField, sortDirection }) => {
+export const getNextSorting = (
+    name,
+    { sortField, sortDirection },
+    { defaultSortField = 'name', defaultSortDirection = SORT_ASCENDING } = {}
+) => {
     if (name !== sortField) {
         return { sortField: name, sortDirection: SORT_ASCENDING }
     }
     if (sortDirection === SORT_ASCENDING) {
         return { sortField: name, sortDirection: SORT_DESCENDING }
     }
-    return { sortField: null, sortDirection: SORT_ASCENDING }
+    return { sortField: defaultSortField, sortDirection: defaultSortDirection }
 }
 
 export const getRowId = (row) =>
@@ -24,7 +29,7 @@ export const getRowClickAction = (
 ) => {
     if (event.shiftKey) {
         if (lastClickedRowIndex === null) {
-            return { type: 'toggle', id }
+            return { type: 'range', ids: [id] }
         }
         const [start, end] = [lastClickedRowIndex, rowIndex].sort(
             (a, b) => a - b
@@ -53,6 +58,17 @@ export const hasActiveDataTableFilters = ({
     !!globalSearch?.trim() ||
     selectionFilter?.length > 0 ||
     !!showOnlyFeaturesInView
+
+export const isDataTableOpen = ({ openIds, isPanelVisible }) =>
+    isPanelVisible && openIds.length > 0
+
+export const getEligibleDataTableLayers = (mapViews) =>
+    mapViews.filter(
+        (l) => DATA_TABLE_LAYER_TYPES.includes(l.layer) && l.isLoaded
+    )
+
+export const getLayerSelectedIds = (selection, layerId) =>
+    selection?.layerId === layerId ? selection.ids ?? [] : []
 
 export const buildFeatureIndex = (data) => {
     const index = new Map()

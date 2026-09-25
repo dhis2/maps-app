@@ -170,7 +170,7 @@ describe('buildTableData - multi-period thematic layer', () => {
         p2: { a: { value: 2 } },
     }
 
-    test('timeline: overlays the external period’s value/color/legend/range and adds one column per other period', () => {
+    test('timeline: overlays the external period’s value/color/legend/range and adds one fixed column per period, including the external one', () => {
         const data = [feature('a')]
         const result = buildTableData(THEMATIC_LAYER, {
             data,
@@ -187,9 +187,9 @@ describe('buildTableData - multi-period thematic layer', () => {
             color: '#f00',
             legend: 'Low',
             range: '0-1',
+            period_p1_rawValue: 1,
             period_p2_rawValue: 2,
         })
-        expect(result.data[0].period_p1_rawValue).toBeUndefined()
     })
 
     test('split (non-timeline): adds one column per period, with no current-period overlay', () => {

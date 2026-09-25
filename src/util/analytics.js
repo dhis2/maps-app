@@ -47,6 +47,7 @@ export const setDataItemInColumns = (dataItem, dimension) => {
                           expression: dataItem.expression,
                           dimensionItemType: dim.itemType,
                           legendSet: dataItem.legendSet, // TODO: Keep outside of columns?
+                          aggregationType: dataItem.aggregationType,
                       },
                   ],
                   { objectName: dim.objectName }

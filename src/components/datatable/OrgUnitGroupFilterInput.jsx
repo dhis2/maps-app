@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
-import { setDataFilter, clearDataFilter } from '../../actions/dataFilters.js'
 import { ORG_UNIT_GROUPS_GRANULARITY } from '../../constants/dataTable.js'
 import { isOrgUnitGroupFilter } from '../../util/filter.js'
 import {
@@ -36,9 +35,9 @@ const parseFilterValue = (filterValue) => ({
 })
 
 const OrgUnitGroupFilterInput = ({
-    dataKey,
     name,
-    layerId,
+    onChange,
+    onClear,
     filterValue,
     options,
     idToName,
@@ -50,10 +49,7 @@ const OrgUnitGroupFilterInput = ({
     )
 
     const commitSearch = useCallback(
-        (
-            text,
-            { tree, dispatch, layerId: layerIdArg, dataKey: dataKeyArg }
-        ) => {
+        (text, { tree, onChange: onChangeArg }) => {
             const matches = getOrgUnitSearchMatches(
                 tree,
                 text.toLowerCase(),
@@ -66,25 +62,19 @@ const OrgUnitGroupFilterInput = ({
                 .map((key) => nodeByKey.get(key))
                 .filter(Boolean)
                 .map((node) => node.prefix)
-            if (!matchedPrefixes.length) {
-                dispatch(clearDataFilter(layerIdArg, dataKeyArg))
-                return
-            }
-            dispatch(
-                setDataFilter(layerIdArg, dataKeyArg, {
-                    granularity: ORG_UNIT_GROUPS_GRANULARITY,
-                    prefixes: matchedPrefixes,
-                    searchDerived: true,
-                    searchText: text,
-                })
-            )
+            onChangeArg({
+                granularity: ORG_UNIT_GROUPS_GRANULARITY,
+                prefixes: matchedPrefixes,
+                searchDerived: true,
+                searchText: text,
+            })
         },
         [idToName]
     )
 
     const groupFilter = useGroupFilterInput({
-        dataKey,
-        layerId,
+        onChange,
+        onClear,
         filterValue,
         options,
         granularity: ORG_UNIT_GROUPS_GRANULARITY,
@@ -106,17 +96,17 @@ const OrgUnitGroupFilterInput = ({
 }
 
 OrgUnitGroupFilterInput.propTypes = {
-    dataKey: PropTypes.string.isRequired,
     idToName: PropTypes.instanceOf(Map).isRequired,
     name: PropTypes.string.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string }))
         .isRequired,
+    onChange: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     filterValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
         PropTypes.object,
     ]),
-    layerId: PropTypes.string,
 }
 
 export default OrgUnitGroupFilterInput

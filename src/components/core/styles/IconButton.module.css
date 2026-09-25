@@ -1,6 +1,9 @@
 .iconButton {
     width: 28px;
     height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
     background-color: transparent;
     border-radius: 5px;
@@ -16,6 +19,13 @@
 
 .iconButton:not(.disabled):hover {
     background-color: var(--colors-grey200);
+}
+
+.iconButton > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
 }
 
 .iconButton svg {

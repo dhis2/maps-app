@@ -16,6 +16,12 @@
     margin-top: 1px;
 }
 
-.menuButton {
+.trailingActions {
+    display: flex;
+    align-items: center;
     margin-left: auto;
+}
+
+.clearDataFiltersButton {
+    margin-right: var(--spacers-dp8);
 }

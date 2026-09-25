@@ -3,8 +3,9 @@ import {
     SENTINEL_NO_VALUE,
     DATE_GROUPS_GRANULARITY,
     ORG_UNIT_GROUPS_GRANULARITY,
+    TYPE_NUMBER,
 } from '../constants/dataTable.js'
-import { formatOrgUnitPathBreadcrumb } from './orgUnitGroups.js'
+import { formatCellText } from './cellValue.js'
 
 // Distinguishes a prefix-group filter (date-groups, org-unit-groups, ...)
 export const isPrefixGroupFilter = (filter, granularity) =>
@@ -13,9 +14,9 @@ export const isPrefixGroupFilter = (filter, granularity) =>
     !Array.isArray(filter) &&
     filter.granularity === granularity
 
-export const prefixGroupFilter = (value, { prefixes }) => {
+export const prefixGroupFilter = (value, { prefixes, searchDerived }) => {
     if (!prefixes?.length) {
-        return true
+        return !searchDerived
     }
     const stringValue = value == null ? SENTINEL_NO_VALUE : String(value)
     return prefixes.some((prefix) => {
@@ -104,36 +105,37 @@ export const numericFilter = (value, filter) => {
     })
 }
 
+const getSearchableTexts = (value, header, formatArgs) => {
+    if (value == null) {
+        return []
+    }
+    const formatted = formatCellText(value, {
+        renderer: header.renderer,
+        type: header.type,
+        ...formatArgs,
+    })
+    return header.type === TYPE_NUMBER
+        ? [String(value), formatted]
+        : [formatted]
+}
+
 export const filterByGlobalSearch = (
     data,
     searchString,
-    { stringDataKeys = [], orgUnitDataKeys = [], idToName } = {}
+    { headers = [], orgUnitIdToName, keyAnalysisDigitGroupSeparator } = {}
 ) => {
-    if (
-        !searchString?.trim() ||
-        (!stringDataKeys.length && !orgUnitDataKeys.length)
-    ) {
+    if (!searchString?.trim() || !headers.length) {
         return data
     }
     const lower = searchString.toLowerCase()
     return data.filter((item) => {
         const props = item.properties || item
-        const stringMatch = stringDataKeys.some((key) => {
-            const val = props[key]
-            return val != null && String(val).toLowerCase().includes(lower)
-        })
-        if (stringMatch) {
-            return true
-        }
-        return orgUnitDataKeys.some((key) => {
-            const val = props[key]
-            return (
-                val != null &&
-                formatOrgUnitPathBreadcrumb(val, idToName)
-                    .toLowerCase()
-                    .includes(lower)
-            )
-        })
+        return headers.some((header) =>
+            getSearchableTexts(props[header.dataKey], header, {
+                orgUnitIdToName,
+                keyAnalysisDigitGroupSeparator,
+            }).some((text) => text.toLowerCase().includes(lower))
+        )
     })
 }
 
