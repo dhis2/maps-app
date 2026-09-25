@@ -23,12 +23,8 @@ export const toggleShowOnlyFeaturesInView = () => ({
     type: types.TOGGLE_SHOW_ONLY_IN_VIEW,
 })
 
-export const toggleShowOnlySelected = () => ({
-    type: types.TOGGLE_SHOW_ONLY_SELECTED,
-})
-
-export const setShowOnlySelected = (value) => ({
-    type: types.SHOW_ONLY_SELECTED_SET,
+export const setSelectionFilter = (value) => ({
+    type: types.SELECTION_FILTER_SET,
     value,
 })
 

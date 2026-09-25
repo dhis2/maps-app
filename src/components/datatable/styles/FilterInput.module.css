@@ -1,0 +1,170 @@
+.filterTrigger {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.filterTrigger :global(input.dense) {
+    padding: 4px 6px;
+    font-size: 11px;
+}
+
+.filterTrigger :global(input::placeholder) {
+    color: var(--colors-grey400);
+}
+
+.dropdownPopper {
+    background-color: var(--colors-white);
+    border-radius: 4px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: var(--elevations-popover);
+}
+
+.dropdownPopperAbove {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.searchableFilterPopover {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacers-dp8);
+    min-width: 140px;
+    box-sizing: border-box;
+}
+
+.reversedOrder .multiSelectPopover {
+    order: 0;
+}
+
+.reversedOrder .pinnedOptions {
+    order: 1;
+    border-bottom: none;
+    border-top: 1px solid var(--colors-grey300);
+}
+
+.reversedOrder .customFilterRow {
+    order: 2;
+}
+
+.pinnedOptions {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--colors-grey300);
+}
+
+/* !important beats @dhis2/ui's own Checkbox label font-size. */
+.pinnedOptions :global(label) {
+    font-size: 11px !important;
+}
+
+.reverseSelectionButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--colors-grey700);
+    cursor: pointer;
+}
+
+.reverseSelectionButton:hover:not(:disabled) {
+    background: var(--colors-grey100);
+}
+
+.reverseSelectionButton:disabled {
+    color: var(--colors-grey400);
+    cursor: not-allowed;
+}
+
+.multiSelectPopover {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+/* Same override as .pinnedOptions above. */
+.multiSelectPopover :global(label) {
+    font-size: 11px !important;
+}
+
+.monoOption :global(label) {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+}
+
+/* !important beats @dhis2/ui's own Checkbox label color. */
+.specialOption :global(label) {
+    color: var(--colors-grey700) !important;
+    font-style: italic;
+}
+
+.noResults {
+    padding: 4px 2px;
+    font-size: 11px;
+    font-style: italic;
+    color: var(--colors-grey600);
+}
+
+.customFilterRow {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    text-align: left;
+    font-size: 11px;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 3px;
+    background: var(--colors-blue050);
+    color: var(--colors-blue700);
+    cursor: pointer;
+}
+
+.customFilterRow svg {
+    flex-shrink: 0;
+}
+
+.customFilterRow:hover,
+.customFilterRow.highlighted {
+    background: var(--colors-blue100);
+}
+
+.customFilterTag {
+    color: var(--colors-blue700);
+    white-space: nowrap;
+}
+
+.customFilterExpr {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.multiSelectPopover .highlighted {
+    background: var(--colors-grey100);
+}
+
+.filterHelpTooltip {
+    z-index: 2000;
+    max-width: 300px;
+    padding: 4px 6px;
+    background-color: var(--colors-grey900);
+    border-radius: 3px;
+    color: var(--colors-white);
+    font-size: 11px;
+    line-height: 17px;
+    word-break: normal;
+    overflow-wrap: break-word;
+}
