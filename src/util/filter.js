@@ -2,16 +2,18 @@ import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
     DATE_GROUPS_GRANULARITY,
+    ORG_UNIT_GROUPS_GRANULARITY,
 } from '../constants/dataTable.js'
+import { formatOrgUnitPathBreadcrumb } from './orgUnitGroups.js'
 
-// Distinguishes a date-groups filter
-export const isDateGroupFilter = (filter) =>
+// Distinguishes a prefix-group filter (date-groups, org-unit-groups, ...)
+export const isPrefixGroupFilter = (filter, granularity) =>
     filter != null &&
     typeof filter === 'object' &&
     !Array.isArray(filter) &&
-    filter.granularity === DATE_GROUPS_GRANULARITY
+    filter.granularity === granularity
 
-export const dateGroupFilter = (value, { prefixes }) => {
+export const prefixGroupFilter = (value, { prefixes }) => {
     if (!prefixes?.length) {
         return true
     }
@@ -26,6 +28,18 @@ export const dateGroupFilter = (value, { prefixes }) => {
         return stringValue.startsWith(prefix)
     })
 }
+
+export const isDateGroupFilter = (filter) =>
+    isPrefixGroupFilter(filter, DATE_GROUPS_GRANULARITY)
+export const isOrgUnitGroupFilter = (filter) =>
+    isPrefixGroupFilter(filter, ORG_UNIT_GROUPS_GRANULARITY)
+
+export const isOrgUnitValueFilter = (filter) =>
+    filter != null &&
+    typeof filter === 'object' &&
+    !Array.isArray(filter) &&
+    Array.isArray(filter.values) &&
+    filter.searchDerived === true
 
 // Filters an array of object with a set of filters
 export const filterData = (data, filters) => {
@@ -44,14 +58,19 @@ export const filterData = (data, filters) => {
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
 
-            if (isDateGroupFilter(filter)) {
-                return dateGroupFilter(value, filter)
+            if (isDateGroupFilter(filter) || isOrgUnitGroupFilter(filter)) {
+                return prefixGroupFilter(value, filter)
+            }
+
+            const stringValue =
+                value == null ? SENTINEL_NO_VALUE : String(value)
+
+            if (isOrgUnitValueFilter(filter)) {
+                return filter.values.includes(stringValue)
             }
 
             if (Array.isArray(filter)) {
                 // Multi-select: OR match against the raw stored value
-                const stringValue =
-                    value == null ? SENTINEL_NO_VALUE : String(value)
                 return (
                     filter.length === 0 ||
                     filter.includes(stringValue) ||
@@ -85,17 +104,35 @@ export const numericFilter = (value, filter) => {
     })
 }
 
-// Case-insensitive match against any of the given string fields
-export const filterByGlobalSearch = (data, searchString, stringDataKeys) => {
-    if (!searchString?.trim() || !stringDataKeys?.length) {
+export const filterByGlobalSearch = (
+    data,
+    searchString,
+    { stringDataKeys = [], orgUnitDataKeys = [], idToName } = {}
+) => {
+    if (
+        !searchString?.trim() ||
+        (!stringDataKeys.length && !orgUnitDataKeys.length)
+    ) {
         return data
     }
     const lower = searchString.toLowerCase()
     return data.filter((item) => {
         const props = item.properties || item
-        return stringDataKeys.some((key) => {
+        const stringMatch = stringDataKeys.some((key) => {
             const val = props[key]
             return val != null && String(val).toLowerCase().includes(lower)
+        })
+        if (stringMatch) {
+            return true
+        }
+        return orgUnitDataKeys.some((key) => {
+            const val = props[key]
+            return (
+                val != null &&
+                formatOrgUnitPathBreadcrumb(val, idToName)
+                    .toLowerCase()
+                    .includes(lower)
+            )
         })
     })
 }

@@ -11,10 +11,15 @@ import {
     SENTINEL_NO_VALUE,
     RENDERER_COLOR,
     RENDERER_ICON,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_NUMBER,
-    // TYPE_DATE,
-    // TYPE_DATETIME,
-    // TYPE_TIME,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_TIME,
+    TYPE_ORG_UNIT,
+    ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
 import {
@@ -35,15 +40,21 @@ import {
     toggleAnyValue,
     toggleRealValue,
 } from '../../util/filterSelection.js'
+import { formatBoolean } from '../../util/helpers.js'
 import { formatWithSeparator } from '../../util/numbers.js'
+import {
+    formatOrgUnitPathBreadcrumb,
+    formatOrgUnitOwnName,
+} from '../../util/orgUnitGroups.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
-// import DateGroupFilterInput from './DateGroupFilterInput.jsx'
+import DateGroupFilterInput from './DateGroupFilterInput.jsx'
 import {
     FilterDropdownPopover,
     getDropdownPlacement,
 } from './FilterDropdownPopover.jsx'
 import FilterHelpTooltip from './FilterHelpTooltip.jsx'
+import OrgUnitGroupFilterInput from './OrgUnitGroupFilterInput.jsx'
 import styles from './styles/FilterInput.module.css'
 
 const NUMERIC_HELP_HEIGHT = 140
@@ -110,10 +121,30 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         applyValues(next)
     }
 
-    const applyCustomFilter = (text) =>
-        text
-            ? dispatch(setDataFilter(layerId, dataKey, text))
-            : dispatch(clearDataFilter(layerId, dataKey))
+    const isOrgUnitRenderer =
+        renderer === RENDERER_ORG_UNIT || renderer === RENDERER_ORG_UNIT_NAME
+
+    const applyCustomFilter = (text) => {
+        if (!text) {
+            dispatch(clearDataFilter(layerId, dataKey))
+            return
+        }
+        if (isOrgUnitRenderer) {
+            const lower = text.toLowerCase()
+            const values = realValues.filter((value) =>
+                resolveLabel(value).toLowerCase().includes(lower)
+            )
+            dispatch(
+                setDataFilter(layerId, dataKey, {
+                    values,
+                    searchDerived: true,
+                    searchText: text,
+                })
+            )
+            return
+        }
+        dispatch(setDataFilter(layerId, dataKey, text))
+    }
 
     const isIconColumn = renderer === RENDERER_ICON
 
@@ -156,9 +187,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         const font = `11px ${getComputedStyle(document.body).fontFamily}`
         const maxLabelWidth = measureMaxTextWidth(labels, font)
         return getPopoverWidth(maxLabelWidth)
-        // resolveLabel's identity only changes alongside type/optionSet, which don't change without realOptions changing too
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [realOptions, hasNotSetOption])
+    }, [realOptions, hasNotSetOption, resolveLabel])
 
     const onToggleAnyValue = () => applyValues(toggleAnyValue(selected))
 
@@ -446,6 +475,8 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
                                             className={cx(
                                                 styles.denseCheckbox,
                                                 (dataKey === 'id' ||
+                                                    dataKey ===
+                                                        ORG_UNIT_ID_DATA_KEY ||
                                                     renderer ===
                                                         RENDERER_COLOR) &&
                                                     styles.monoOption,
@@ -484,7 +515,7 @@ SearchableFilterPopover.propTypes = {
 }
 
 const PlainSearchableFilter = (props) => {
-    const { type } = props
+    const { type, renderer, orgUnitIdToName } = props
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -494,6 +525,15 @@ const PlainSearchableFilter = (props) => {
             if (value === SENTINEL_NO_VALUE) {
                 return i18n.t('No value')
             }
+            if (renderer === RENDERER_ORG_UNIT) {
+                return formatOrgUnitPathBreadcrumb(value, orgUnitIdToName)
+            }
+            if (renderer === RENDERER_ORG_UNIT_NAME) {
+                return formatOrgUnitOwnName(value, orgUnitIdToName)
+            }
+            if (renderer === RENDERER_BOOLEAN) {
+                return formatBoolean(value)
+            }
             return type === TYPE_NUMBER
                 ? formatWithSeparator(
                       Number(value),
@@ -501,13 +541,15 @@ const PlainSearchableFilter = (props) => {
                   )
                 : value
         },
-        [type, keyAnalysisDigitGroupSeparator]
+        [type, renderer, orgUnitIdToName, keyAnalysisDigitGroupSeparator]
     )
 
     return <SearchableFilterPopover {...props} resolveLabel={resolveLabel} />
 }
 
 PlainSearchableFilter.propTypes = {
+    orgUnitIdToName: PropTypes.instanceOf(Map),
+    renderer: PropTypes.string,
     type: PropTypes.string,
 }
 
@@ -545,6 +587,7 @@ const FilterInput = React.memo(function FilterInput({
     options,
     optionSetId,
     renderer,
+    orgUnitIdToName,
 }) {
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
@@ -561,32 +604,51 @@ const FilterInput = React.memo(function FilterInput({
 
     const filterValue = filters?.[dataKey]
 
-    /* const isDateType =
-        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME */
+    const isDateType =
+        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
 
-    /* return isDateType ? (
-        <DateGroupFilterInput
-            dataKey={dataKey}
-            name={name}
-            layerId={layerId}
-            filterValue={filterValue}
-            options={options ?? []}
-            type={type}
-        />
-    ) : */
+    if (isDateType) {
+        return (
+            <DateGroupFilterInput
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+                type={type}
+            />
+        )
+    }
 
-    return optionSetId ? (
-        <OptionSetSearchableFilter
-            dataKey={dataKey}
-            name={name}
-            layerId={layerId}
-            filterValue={filterValue}
-            options={options ?? []}
-            optionSetId={optionSetId}
-            type={type}
-            renderer={renderer}
-        />
-    ) : (
+    if (type === TYPE_ORG_UNIT) {
+        return (
+            <OrgUnitGroupFilterInput
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+                idToName={orgUnitIdToName}
+            />
+        )
+    }
+
+    if (optionSetId) {
+        return (
+            <OptionSetSearchableFilter
+                dataKey={dataKey}
+                name={name}
+                layerId={layerId}
+                filterValue={filterValue}
+                options={options ?? []}
+                optionSetId={optionSetId}
+                type={type}
+                renderer={renderer}
+            />
+        )
+    }
+
+    return (
         <PlainSearchableFilter
             dataKey={dataKey}
             name={name}
@@ -595,6 +657,7 @@ const FilterInput = React.memo(function FilterInput({
             options={options ?? []}
             type={type}
             renderer={renderer}
+            orgUnitIdToName={orgUnitIdToName}
         />
     )
 })
@@ -605,6 +668,7 @@ FilterInput.propTypes = {
     type: PropTypes.string.isRequired,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
+    orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
 }
 
