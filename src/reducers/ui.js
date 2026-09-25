@@ -14,6 +14,7 @@ const defaultState = {
     selectionFilter: [],
     highlightColor: null,
     lastClickedFeature: null,
+    activeTimelinePeriod: null,
 }
 
 const ui = (state = defaultState, action) => {
@@ -119,6 +120,12 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 lastClickedFeature: action.payload,
+            }
+
+        case types.ACTIVE_TIMELINE_PERIOD_SET:
+            return {
+                ...state,
+                activeTimelinePeriod: action.period,
             }
 
         default:

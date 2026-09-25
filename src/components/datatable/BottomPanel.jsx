@@ -16,8 +16,7 @@ import {
 } from '../../actions/dataTable.js'
 import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { getCssVar } from '../../util/helpers.js'
-import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
+import { hasActiveDataTableFilters } from '../../util/dataTable.js'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
@@ -31,12 +30,12 @@ import ShowInViewControl from './controls/ShowInViewControl.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import styles from './styles/BottomPanel.module.css'
+import { usePanelHeights } from './usePanelHeights.js'
 
 const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
-    const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
     const activeLayerId = useSelector((state) => state.dataTable)
     const activeLayer = useSelector((state) =>
         state.map.mapViews.find((l) => l.id === activeLayerId)
@@ -49,9 +48,9 @@ const BottomPanel = () => {
     const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
-    const { height } = useWindowDimensions()
     const panelRef = useRef(null)
     const isDraggingRef = useRef(false)
+    const preDragCollapsedRef = useRef(false)
     const [panelWidth, setPanelWidth] = useState(0)
     const [totalCount, setTotalCount] = useState(null)
     const [filteredCount, setFilteredCount] = useState(null)
@@ -60,18 +59,15 @@ const BottomPanel = () => {
     const globalSearch = useDebouncedValue(searchInputValue, 200)
     const [headersByLayer, setHeadersByLayer] = useState(null)
 
-    const hasActiveFilters =
-        Object.keys(dataFilters).length > 0 ||
-        searchInputValue.trim() !== '' ||
-        selectionFilter?.length > 0 ||
-        showOnlyFeaturesInView
+    const hasActiveFilters = hasActiveDataTableFilters({
+        dataFilters,
+        globalSearch: searchInputValue,
+        selectionFilter,
+        showOnlyFeaturesInView,
+    })
 
-    const maxHeight =
-        height - getCssVar('--header-height') - getCssVar('--toolbar-height')
-    const tableHeight =
-        dataTableHeight < maxHeight ? dataTableHeight : maxHeight
-    const collapsedHeight = getCssVar('--data-table-controls-height')
-    const displayHeight = isCollapsed ? collapsedHeight : tableHeight
+    const { maxHeight, collapsedHeight, displayHeight } =
+        usePanelHeights(isCollapsed)
 
     const toggleCollapsed = useCallback(
         () => setIsCollapsed((collapsed) => !collapsed),
@@ -90,7 +86,8 @@ const BottomPanel = () => {
 
     const onResizeStart = useCallback(() => {
         isDraggingRef.current = true
-    }, [])
+        preDragCollapsedRef.current = isCollapsed
+    }, [isCollapsed])
 
     const onResize = useCallback(
         (h) => {
@@ -115,6 +112,15 @@ const BottomPanel = () => {
         },
         [dispatch]
     )
+
+    const onResizeCancel = useCallback(() => {
+        isDraggingRef.current = false
+        setIsCollapsed(preDragCollapsedRef.current)
+        document.documentElement.style.setProperty(
+            '--data-table-height',
+            `${displayHeight}px`
+        )
+    }, [displayHeight])
 
     const onCountChange = useCallback((total, filtered) => {
         setTotalCount(total)
@@ -217,6 +223,7 @@ const BottomPanel = () => {
                     onResizeStart={onResizeStart}
                     onResize={onResize}
                     onResizeEnd={onResizeEnd}
+                    onResizeCancel={onResizeCancel}
                 />
                 <RowCountControl
                     totalCount={totalCount}
@@ -238,19 +245,17 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>
-            {!isCollapsed && (
-                <div className={styles.tableContainer}>
-                    <ErrorBoundary>
-                        <DataTable
-                            availableWidth={panelWidth}
-                            onCountChange={onCountChange}
-                            onHeadersChange={onHeadersChange}
-                            globalSearch={globalSearch}
-                            onClearFilters={onClearFilters}
-                        />
-                    </ErrorBoundary>
-                </div>
-            )}
+            <div className={styles.tableContainer}>
+                <ErrorBoundary>
+                    <DataTable
+                        availableWidth={panelWidth}
+                        onCountChange={onCountChange}
+                        onHeadersChange={onHeadersChange}
+                        globalSearch={globalSearch}
+                        onClearFilters={onClearFilters}
+                    />
+                </ErrorBoundary>
+            </div>
         </div>
     )
 }

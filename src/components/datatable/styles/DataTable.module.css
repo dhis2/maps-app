@@ -22,6 +22,13 @@ th.monoCell {
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
+.iconCell {
+    display: block;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
 th.checkboxCell,
 td.checkboxCell {
     width: 76px;
@@ -67,6 +74,10 @@ th.hovered {
     align-items: flex-start;
     min-width: 0;
     gap: 2px;
+}
+
+.headerTitle {
+    padding-top: var(--spacers-dp4);
 }
 
 .reverseButton {
@@ -149,14 +160,32 @@ th.hovered {
 
 .loadingReason {
     font-size: 12px;
-    color: var(--colors-grey700);
+    color: var(--colors-white);
 }
 
 .noSupport {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
     color: var(--colors-grey600);
     font-style: italic;
+    font-size: 12px;
+}
+
+.editLayerLink {
+    font-size: 12px;
+    font-style: normal;
+    color: var(--colors-blue600);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.editLayerLink:hover {
+    color: var(--colors-blue700);
 }

@@ -31,6 +31,7 @@ const LayerLoader = ({ config, onLoad }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
         currentUser,
+        spatialSupport,
     } = useCachedData()
     const {
         keyAnalysisDisplayProperty,
@@ -59,6 +60,7 @@ const LayerLoader = ({ config, onLoad }) => {
             analyticsEngine, // Thematic and Event loader
             periodTypeData, // Thematic and Event loader
             serverVersion, // Tracked entity loader
+            spatialSupport, // Event loader
         }).then((result) => {
             onLoad(result)
         })
@@ -74,6 +76,7 @@ const LayerLoader = ({ config, onLoad }) => {
         keyAnalysisDisplayProperty,
         keyAnalysisDigitGroupSeparator,
         serverVersion,
+        spatialSupport,
     ])
 
     return null
