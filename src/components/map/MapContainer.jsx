@@ -1,10 +1,16 @@
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
-import { setFeatureProfile } from '../../actions/feature.js'
+import {
+    highlightFeature,
+    setFeatureProfile,
+    clickFeature,
+} from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
+import { toggleFeatureSelection } from '../../actions/selection.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
+import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import MapLoadingMask from './MapLoadingMask.jsx'
 import MapName from './MapName.jsx'
 import MapView from './MapView.jsx'
@@ -17,9 +23,20 @@ const MapContainer = ({ resizeCount, setMap }) => {
         (state) => !!state.interpretation.id
     )
     const feature = useSelector((state) => state.feature)
-    const { layersSorting } = useSelector((state) => state.ui)
+    const selection = useSelector((state) => state.selection)
+    const { layersSorting, highlightColor, showOnlySelected } = useSelector(
+        (state) => state.ui
+    )
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
+
+    const dispatchHighlightFeature = useCallback(
+        (payload) => dispatch(highlightFeature(payload)),
+        [dispatch]
+    )
+    const debouncedHighlightFeature = useDebouncedHighlightFeature(
+        dispatchHighlightFeature
+    )
 
     const loadedMapViews = mapViews.filter((layer) => layer.isLoaded)
     const isLoading = loadedMapViews.length !== mapViews.length
@@ -33,6 +50,14 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 layers={loadedMapViews}
                 bounds={bounds}
                 feature={feature}
+                selection={selection}
+                highlightColor={highlightColor}
+                showOnlySelected={showOnlySelected}
+                highlightFeature={debouncedHighlightFeature}
+                clickFeature={(payload) => dispatch(clickFeature(payload))}
+                toggleFeatureSelection={(id, layerId) =>
+                    dispatch(toggleFeatureSelection(id, layerId))
+                }
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
                 coordinatePopup={coordinatePopup}
                 interpretationModalOpen={interpretationModalOpen}
