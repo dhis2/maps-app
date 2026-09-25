@@ -1,0 +1,28 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.wrapper:hover {
+    background-color: var(--colors-grey300);
+}
+
+/* !important beats @dhis2/ui's own ColorPicker field margin. */
+.colorPicker {
+    margin-bottom: 0 !important;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* !important beats @dhis2/ui's own ColorPicker label size. */
+.colorPicker label {
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 16px !important;
+    min-height: 16px !important;
+}

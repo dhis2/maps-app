@@ -65,13 +65,19 @@ const facilityLoader = async ({
     // Config parsing
     // -----
 
-    const { countFeaturesWithoutCoordinates, unclassifiedLegend } =
-        parseJsonConfig(config.config)
+    const {
+        countFeaturesWithoutCoordinates,
+        unclassifiedLegend,
+        dataTableColumnConfig,
+    } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
     }
     if (unclassifiedLegend) {
         config.unclassifiedLegend = unclassifiedLegend
+    }
+    if (dataTableColumnConfig) {
+        config.dataTableColumnConfig = dataTableColumnConfig
     }
     delete config.config
 
