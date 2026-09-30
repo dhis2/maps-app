@@ -1,3 +1,12 @@
+## [101.17.5](https://github.com/dhis2/maps-app/compare/v101.17.4...v101.17.5) (2026-09-30)
+
+
+### Bug Fixes
+
+* keep the legend within its box on small dashboard map items ([a3eddfb](https://github.com/dhis2/maps-app/commit/a3eddfb881bea26629b171eec3ef30adcc96917e))
+* prevent dashboard map items from getting stuck while loading ([4d01b53](https://github.com/dhis2/maps-app/commit/4d01b530aebeaa15d904a8a51ed7c5e23e9d781b))
+* show Earth Engine layers in dashboard map items on 2.43+ [DHIS2-22188] ([71b7143](https://github.com/dhis2/maps-app/commit/71b7143cd2c526f6b460afd813cacd4cf3e76fe7))
+
 ## [101.17.4](https://github.com/dhis2/maps-app/compare/v101.17.3...v101.17.4) (2026-09-25)
 
 
