@@ -27,7 +27,7 @@ const LayerToolbarMoreMenu = ({
     toggleDataTable,
     openAs,
     downloadData,
-    dataTableOpen,
+    openIds,
     hasOrgUnitData,
     isLoading,
     hasError,
@@ -43,8 +43,7 @@ const LayerToolbarMoreMenu = ({
         return null
     }
 
-    const showDataTableDisabled =
-        !hasOrgUnitData && (!dataTableOpen || dataTableOpen !== layer.id)
+    const showDataTableDisabled = !hasOrgUnitData && !openIds.includes(layer.id)
 
     return (
         <>
@@ -71,7 +70,7 @@ const LayerToolbarMoreMenu = ({
                             {toggleDataTable && (
                                 <MenuItem
                                     label={
-                                        dataTableOpen === layer.id
+                                        openIds.includes(layer.id)
                                             ? i18n.t('Hide data table')
                                             : i18n.t('Show data table')
                                     }
@@ -149,13 +148,13 @@ const LayerToolbarMoreMenu = ({
 }
 
 LayerToolbarMoreMenu.propTypes = {
-    dataTableOpen: PropTypes.string,
     downloadData: PropTypes.func,
     hasError: PropTypes.bool,
     hasOrgUnitData: PropTypes.bool,
     isLoading: PropTypes.bool,
     layer: PropTypes.object,
     openAs: PropTypes.func,
+    openIds: PropTypes.arrayOf(PropTypes.string),
     toggleDataTable: PropTypes.func,
     onDuplicate: PropTypes.func,
     onEdit: PropTypes.func,
@@ -166,7 +165,7 @@ const DEFAULT_EMPTY_LAYER = {}
 
 export default connect(
     (
-        { dataTable: dataTableOpen, aggregations },
+        { dataTable: { openIds }, aggregations },
         { layer = DEFAULT_EMPTY_LAYER }
     ) => {
         const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
@@ -179,6 +178,6 @@ export default connect(
         const isLoading =
             isEarthEngine && hasOrgUnitData && !aggregations[layer.id]
 
-        return { dataTableOpen, hasOrgUnitData, isLoading }
+        return { openIds, hasOrgUnitData, isLoading }
     }
 )(LayerToolbarMoreMenu)

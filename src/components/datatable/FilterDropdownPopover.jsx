@@ -1,6 +1,7 @@
 import { Layer, Popper } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
+import useKeyDown from '../../hooks/useKeyDown.js'
 
 const ESTIMATED_POPOVER_HEIGHT = 340 // Rough popover height used to flip the dropdown when there isn't room to open downward
 
@@ -28,18 +29,22 @@ export const FilterDropdownPopover = ({
     onClickOutside,
     className,
     children,
-}) => (
-    <Layer onBackdropClick={onClickOutside}>
-        <Popper
-            placement={placement}
-            reference={reference}
-            modifiers={dropdownModifiers}
-            className={className}
-        >
-            {children}
-        </Popper>
-    </Layer>
-)
+}) => {
+    useKeyDown('Escape', onClickOutside)
+
+    return (
+        <Layer onBackdropClick={onClickOutside}>
+            <Popper
+                placement={placement}
+                reference={reference}
+                modifiers={dropdownModifiers}
+                className={className}
+            >
+                {children}
+            </Popper>
+        </Layer>
+    )
+}
 
 FilterDropdownPopover.propTypes = {
     children: PropTypes.node.isRequired,

@@ -2,6 +2,7 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import { setDataTableColumnConfig } from '../../../actions/dataTable.js'
 import { DATA_TABLE_COLUMN_CONFIG_SET } from '../../../constants/actionTypes.js'
 import ColumnPickerControl from '../controls/ColumnPickerControl.jsx'
 
@@ -18,8 +19,10 @@ const renderColumnPicker = (props) => {
     const result = render(
         <Provider store={store}>
             <ColumnPickerControl
-                layerId="layer1"
                 allHeaders={headers}
+                onChange={(config) =>
+                    store.dispatch(setDataTableColumnConfig('layer1', config))
+                }
                 {...props}
             />
         </Provider>
@@ -64,6 +67,16 @@ describe('ColumnPicker trigger', () => {
         expect(screen.getByLabelText('Name')).toBeChecked()
         expect(screen.getByLabelText('Value')).toBeChecked()
         expect(screen.getByLabelText('Legend')).toBeChecked()
+    })
+
+    test('pressing Escape closes the popover', () => {
+        renderColumnPicker()
+        openPicker()
+        expect(screen.getByLabelText('Name')).toBeInTheDocument()
+
+        fireEvent.keyDown(window, { key: 'Escape' })
+
+        expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
     })
 })
 
@@ -353,6 +366,27 @@ describe('ColumnPicker search', () => {
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
+    })
+})
+
+describe('ColumnPicker configName (timeline current-period columns)', () => {
+    test('shows configName instead of the period-specific name, when present', () => {
+        const headersWithConfigName = [
+            ...headers,
+            {
+                name: 'Range (Jan 2023)',
+                configName: 'Range (Current period)',
+                dataKey: 'range',
+            },
+        ]
+        renderColumnPicker({ allHeaders: headersWithConfigName })
+        openPicker()
+        expect(
+            screen.getByLabelText('Range (Current period)')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByLabelText('Range (Jan 2023)')
+        ).not.toBeInTheDocument()
     })
 })
 

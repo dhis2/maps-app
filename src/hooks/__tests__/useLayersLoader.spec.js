@@ -79,7 +79,7 @@ describe('useLayersLoader - data table reload trigger', () => {
                     { ...baseLayer, serverCluster: true, isExtended: false },
                 ],
             },
-            dataTable: 'a',
+            dataTable: { openIds: ['a'] },
         })
 
         expect(store.getActions()).toEqual([])
@@ -97,7 +97,7 @@ describe('useLayersLoader - data table reload trigger', () => {
                     },
                 ],
             },
-            dataTable: 'a',
+            dataTable: { openIds: ['a'] },
         })
 
         expect(store.getActions()).toEqual([
@@ -117,7 +117,7 @@ describe('useLayersLoader - data table reload trigger', () => {
                     },
                 ],
             },
-            dataTable: 'a',
+            dataTable: { openIds: ['a'] },
         })
 
         expect(store.getActions()).toEqual([])
@@ -130,12 +130,25 @@ describe('useLayersLoader - data table reload trigger', () => {
                     { ...baseLayer, serverCluster: false, isExtended: false },
                 ],
             },
-            dataTable: 'a',
+            dataTable: { openIds: ['a'] },
         })
 
         expect(store.getActions()).toEqual([
             { type: 'LAYER_LOADING_SET', id: 'a' },
         ])
+    })
+
+    test('does not reload a layer whose own tab is closed, even when another layer tab is open', () => {
+        const { store } = renderWithStore({
+            map: {
+                mapViews: [
+                    { ...baseLayer, serverCluster: false, isExtended: false },
+                ],
+            },
+            dataTable: { openIds: ['someOtherLayer'] },
+        })
+
+        expect(store.getActions()).toEqual([])
     })
 })
 
@@ -147,7 +160,7 @@ describe('useLayersLoader - spatialSupport plumbing', () => {
             map: {
                 mapViews: [{ ...baseLayer, isLoaded: false }],
             },
-            dataTable: null,
+            dataTable: { openIds: [] },
         })
 
         expect(eventLoader).toHaveBeenCalledWith(
@@ -162,7 +175,7 @@ describe('useLayersLoader - spatialSupport plumbing', () => {
             map: {
                 mapViews: [{ ...baseLayer, isLoaded: false }],
             },
-            dataTable: null,
+            dataTable: { openIds: [] },
         })
 
         expect(eventLoader).toHaveBeenCalledWith(

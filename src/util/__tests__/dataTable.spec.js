@@ -1,10 +1,14 @@
+import { EXTERNAL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
 import {
     buildFeatureIndex,
+    getEligibleDataTableLayers,
+    getLayerSelectedIds,
     getNextSorting,
     getPanelHeights,
     getRowClickAction,
     getRowId,
     hasActiveDataTableFilters,
+    isDataTableOpen,
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
@@ -68,13 +72,13 @@ describe('getRowClickAction', () => {
         ).toEqual({ type: 'toggle', id: 'b' })
     })
 
-    test('shift-click with no prior anchor falls back to a single-row toggle', () => {
+    test('shift-click with no prior anchor selects just that row, never deselects it', () => {
         expect(
             getRowClickAction(
                 { shiftKey: true },
                 { id: 'c', rowIndex: 2, rows, lastClickedRowIndex: null }
             )
-        ).toEqual({ type: 'toggle', id: 'c' })
+        ).toEqual({ type: 'range', ids: ['c'] })
     })
 
     test('shift-click with a prior anchor selects the range between them', () => {
@@ -109,16 +113,32 @@ describe('getNextSorting', () => {
         ).toEqual({ sortField: 'name', sortDirection: 'desc' })
     })
 
-    test('clicking the descending-sorted column clears back to natural order', () => {
+    test('clicking the descending-sorted default column resets to itself ascending - a 2-state toggle since it already is the default', () => {
         expect(
             getNextSorting('name', { sortField: 'name', sortDirection: 'desc' })
-        ).toEqual({ sortField: null, sortDirection: 'asc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'asc' })
     })
 
     test('clicking a different column restarts the cycle at ascending', () => {
         expect(
             getNextSorting('type', { sortField: 'name', sortDirection: 'desc' })
         ).toEqual({ sortField: 'type', sortDirection: 'asc' })
+    })
+
+    test("clicking a non-default column's third time (descending) resets to the table's actual default sort, matching what it shows on initial load - not an unsorted/natural-order state", () => {
+        expect(
+            getNextSorting('type', { sortField: 'type', sortDirection: 'desc' })
+        ).toEqual({ sortField: 'name', sortDirection: 'asc' })
+    })
+
+    test('honors a custom defaultSortField/defaultSortDirection when resetting', () => {
+        expect(
+            getNextSorting(
+                'type',
+                { sortField: 'type', sortDirection: 'desc' },
+                { defaultSortField: 'level', defaultSortDirection: 'desc' }
+            )
+        ).toEqual({ sortField: 'level', sortDirection: 'desc' })
     })
 })
 
@@ -203,6 +223,100 @@ describe('buildFeatureIndex', () => {
     test('returns an empty index for missing/empty data', () => {
         expect(buildFeatureIndex(undefined).size).toBe(0)
         expect(buildFeatureIndex([]).size).toBe(0)
+    })
+})
+
+describe('getEligibleDataTableLayers', () => {
+    test('includes data-table-capable layer types that have finished loading', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: true, data: [{}] },
+            {
+                id: 'b',
+                layer: THEMATIC_LAYER,
+                isLoaded: true,
+                data: [{}, {}],
+            },
+        ]
+        expect(getEligibleDataTableLayers(mapViews).map((l) => l.id)).toEqual([
+            'a',
+            'b',
+        ])
+    })
+
+    test('excludes layer types with no data table support', () => {
+        const mapViews = [
+            { id: 'a', layer: EXTERNAL_LAYER, isLoaded: true, data: [{}] },
+        ]
+        expect(getEligibleDataTableLayers(mapViews)).toEqual([])
+    })
+
+    test('excludes a data-table-capable layer that has not finished loading yet', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: false, data: [{}] },
+        ]
+        expect(getEligibleDataTableLayers(mapViews)).toEqual([])
+    })
+
+    test('includes a loaded, data-table-capable layer with no valid data - the caller shows an explanatory message instead of hiding it', () => {
+        const mapViews = [
+            { id: 'a', layer: THEMATIC_LAYER, isLoaded: true, data: [] },
+        ]
+        expect(getEligibleDataTableLayers(mapViews).map((l) => l.id)).toEqual([
+            'a',
+        ])
+    })
+})
+
+describe('isDataTableOpen', () => {
+    test('is open when at least one tab is open and the panel is visible', () => {
+        expect(
+            isDataTableOpen({
+                openIds: ['layer1'],
+                isPanelVisible: true,
+            })
+        ).toBe(true)
+    })
+
+    test('is closed when there are no open tabs', () => {
+        expect(
+            isDataTableOpen({
+                openIds: [],
+                isPanelVisible: true,
+            })
+        ).toBe(false)
+    })
+
+    test('is closed when the panel is hidden, even with open tabs', () => {
+        expect(
+            isDataTableOpen({
+                openIds: ['layer1'],
+                isPanelVisible: false,
+            })
+        ).toBe(false)
+    })
+})
+
+describe('getLayerSelectedIds', () => {
+    test('returns an empty array when there is no selection', () => {
+        expect(getLayerSelectedIds(null, 'layer1')).toEqual([])
+    })
+
+    test("returns this layer's own selected ids when selection.layerId matches", () => {
+        expect(
+            getLayerSelectedIds(
+                { layerId: 'layer1', ids: ['a', 'b'] },
+                'layer1'
+            )
+        ).toEqual(['a', 'b'])
+    })
+
+    test('returns an empty array when selection belongs to another layer', () => {
+        expect(
+            getLayerSelectedIds(
+                { layerId: 'other-layer', ids: ['a'] },
+                'layer1'
+            )
+        ).toEqual([])
     })
 })
 
