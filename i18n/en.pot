@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-09-10T13:44:55.087Z\n"
+"PO-Revision-Date: 2026-09-10T13:44:55.087Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -37,6 +37,9 @@ msgstr "Classification"
 
 msgid "Classes"
 msgstr "Classes"
+
+msgid "Color scale"
+msgstr "Color scale"
 
 msgid "Auto"
 msgstr "Auto"
@@ -436,6 +439,9 @@ msgstr "Group events"
 
 msgid "View all events"
 msgstr "View all events"
+
+msgid "View heat map"
+msgstr "View heat map"
 
 msgid "Radius"
 msgstr "Radius"
