@@ -20,6 +20,8 @@ import { getRoundToPrecisionFn, formatWithSeparator } from '../util/numbers.js'
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    attachOrgUnitPaths,
+    getMissingOrgUnitId,
     getOrgUnitsWithoutCoordsCount,
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
@@ -139,7 +141,11 @@ const earthEngineLoader = async ({
                 } else {
                     orgUnitsWithoutCoordsCount = result.count
                     if (result.count > 0) {
-                        config.dataWithoutCoords = result.missingOrgUnits
+                        config.dataWithoutCoords = await attachOrgUnitPaths(
+                            result.missingOrgUnits,
+                            engine,
+                            getMissingOrgUnitId
+                        )
                     }
                 }
             }

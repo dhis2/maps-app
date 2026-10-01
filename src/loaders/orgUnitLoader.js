@@ -11,10 +11,11 @@ import { parseJsonConfig } from '../util/config.js'
 import { toGeoJson } from '../util/map.js'
 import {
     addAssociatedGeometries,
+    attachOrgUnitPaths,
     getStyledOrgUnits,
     getCoordinateField,
+    getMissingOrgUnitId,
     getOrgUnitsWithoutCoordsCount,
-    fetchOrgUnitDetails,
     addGroupCountsToLegend,
     addLevelCountsToLegend,
     loadGroupSetData,
@@ -22,7 +23,7 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-const applyMissingCoordsCount = async (
+export const applyMissingCoordsCount = async (
     config,
     { engine, orgUnitIds, userId, features, legend, alerts }
 ) => {
@@ -42,18 +43,11 @@ const applyMissingCoordsCount = async (
     }
     legend.orgUnitsWithoutCoordinatesCount = result.count
     if (result.count > 0) {
-        const details = await fetchOrgUnitDetails(
+        config.dataWithoutCoords = await attachOrgUnitPaths(
+            result.missingOrgUnits,
             engine,
-            result.missingOrgUnits.map((o) => o.id)
+            getMissingOrgUnitId
         )
-        config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
-            ...ou,
-            properties: {
-                ...ou.properties,
-                level: details[ou.id]?.level,
-                parentName: details[ou.id]?.parentName,
-            },
-        }))
     }
 }
 

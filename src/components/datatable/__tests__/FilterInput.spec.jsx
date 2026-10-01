@@ -7,7 +7,11 @@ import {
     DATA_FILTER_SET,
     DATA_FILTER_CLEAR,
 } from '../../../constants/actionTypes.js'
-import { SENTINEL_ANY_VALUE } from '../../../constants/dataTable.js'
+import {
+    SENTINEL_ANY_VALUE,
+    RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
+} from '../../../constants/dataTable.js'
 import useOptionSet from '../../../hooks/useOptionSet.js'
 import FilterInput from '../FilterInput.jsx'
 
@@ -240,6 +244,28 @@ describe('FilterInput multi-select path (no optionSetId)', () => {
         openPopover('Legend')
         expect(screen.getByLabelText('1000')).toBeInTheDocument()
     })
+
+    test("renders a boolean column's raw values as Yes/No checkbox labels", () => {
+        const { store } = renderFilterInput({
+            dataKey: 'followUp',
+            name: 'Follow-up',
+            renderer: RENDERER_BOOLEAN,
+            options: [{ value: '1' }, { value: '0' }],
+        })
+        openPopover('Follow-up')
+        const yes = screen.getByLabelText('Yes')
+        const no = screen.getByLabelText('No')
+        expect(yes).toBeInTheDocument()
+        expect(no).toBeInTheDocument()
+        // The underlying dispatched filter value stays the raw stored string
+        fireEvent.click(yes)
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'followUp',
+            filter: ['1'],
+        })
+    })
 })
 
 describe('FilterInput multi-select path (optionSetId)', () => {
@@ -459,6 +485,83 @@ describe('FilterInput searchable popover — custom filter row', () => {
             layerId: 'layer1',
             fieldId: 'legend',
         })
+    })
+})
+
+describe('FilterInput searchable popover — org-unit-flavored plain-text column', () => {
+    const options = [{ value: 'facility1' }, { value: 'facility2' }]
+    const orgUnitIdToName = new Map([
+        ['facility1', 'Moyowa CHC'],
+        ['facility2', 'Tihun CHC'],
+    ])
+
+    test('resolves typed text to the matching raw value(s), not the raw typed text', () => {
+        const { store } = renderFilterInput({
+            dataKey: 'orgUnitOwn',
+            name: 'Org unit',
+            renderer: RENDERER_ORG_UNIT_NAME,
+            options,
+            orgUnitIdToName,
+        })
+        openPopover('Org unit')
+        fireEvent.change(getInput('Org unit'), {
+            target: { value: 'Moyowa' },
+        })
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'orgUnitOwn',
+            filter: {
+                values: ['facility1'],
+                searchDerived: true,
+                searchText: 'Moyowa',
+            },
+        })
+    })
+
+    test('resolves to an empty values list (matches nothing) rather than falling back to raw-text matching', () => {
+        const { store } = renderFilterInput({
+            dataKey: 'orgUnitOwn',
+            name: 'Org unit',
+            renderer: RENDERER_ORG_UNIT_NAME,
+            options,
+            orgUnitIdToName,
+        })
+        openPopover('Org unit')
+        fireEvent.change(getInput('Org unit'), {
+            target: { value: 'no such place' },
+        })
+        expect(store.getActions()).toContainEqual({
+            type: DATA_FILTER_SET,
+            layerId: 'layer1',
+            fieldId: 'orgUnitOwn',
+            filter: {
+                values: [],
+                searchDerived: true,
+                searchText: 'no such place',
+            },
+        })
+    })
+
+    test('does not show any checkbox as checked while the search-derived filter is active', () => {
+        renderFilterInput(
+            {
+                dataKey: 'orgUnitOwn',
+                name: 'Org unit',
+                renderer: RENDERER_ORG_UNIT_NAME,
+                options,
+                orgUnitIdToName,
+            },
+            {
+                orgUnitOwn: {
+                    values: ['facility1'],
+                    searchDerived: true,
+                    searchText: 'Moyowa',
+                },
+            }
+        )
+        openPopover('Org unit')
+        expect(screen.getByLabelText('Moyowa CHC')).not.toBeChecked()
     })
 })
 
