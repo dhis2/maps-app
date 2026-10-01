@@ -18,3 +18,7 @@ src/locales
 .idea
 .vscode
 maps-app.code-workspace
+
+# Claude Code (personal/runtime, not shared config)
+.claude/settings.local.json
+.claude/worktrees/
