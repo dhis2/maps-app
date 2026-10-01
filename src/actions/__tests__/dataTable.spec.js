@@ -3,6 +3,7 @@ import {
     closeDataTable,
     toggleDataTable,
     resizeDataTable,
+    setActiveTimelinePeriod,
 } from '../dataTable.js'
 
 describe('closeDataTable', () => {
@@ -27,6 +28,16 @@ describe('resizeDataTable', () => {
         expect(resizeDataTable(300)).toEqual({
             type: types.DATA_TABLE_RESIZE,
             height: 300,
+        })
+    })
+})
+
+describe('setActiveTimelinePeriod', () => {
+    it('creates an ACTIVE_TIMELINE_PERIOD_SET action', () => {
+        const period = { id: '202301', name: 'January 2023' }
+        expect(setActiveTimelinePeriod(period)).toEqual({
+            type: types.ACTIVE_TIMELINE_PERIOD_SET,
+            period,
         })
     })
 })

@@ -1,7 +1,10 @@
 import {
+    buildFeatureIndex,
     getNextSorting,
+    getPanelHeights,
     getRowClickAction,
     getRowId,
+    hasActiveDataTableFilters,
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
@@ -127,5 +130,120 @@ describe('isFilterable', () => {
 
     test('excludes columns with no type (no known filter UI for them)', () => {
         expect(isFilterable('someKey', undefined)).toBe(false)
+    })
+})
+
+describe('hasActiveDataTableFilters', () => {
+    const empty = {
+        dataFilters: {},
+        globalSearch: '',
+        selectionFilter: [],
+        showOnlyFeaturesInView: false,
+    }
+
+    test('is false when nothing is filtered', () => {
+        expect(hasActiveDataTableFilters(empty)).toBe(false)
+    })
+
+    test('is true when a column filter is set', () => {
+        expect(
+            hasActiveDataTableFilters({
+                ...empty,
+                dataFilters: { name: 'foo' },
+            })
+        ).toBe(true)
+    })
+
+    test('is true for a non-blank global search, trimmed', () => {
+        expect(
+            hasActiveDataTableFilters({ ...empty, globalSearch: '  ' })
+        ).toBe(false)
+        expect(
+            hasActiveDataTableFilters({ ...empty, globalSearch: ' foo ' })
+        ).toBe(true)
+    })
+
+    test('is true when a selection filter is applied', () => {
+        expect(
+            hasActiveDataTableFilters({
+                ...empty,
+                selectionFilter: ['selected'],
+            })
+        ).toBe(true)
+    })
+
+    test('is true when showOnlyFeaturesInView is on, even with nothing else set', () => {
+        expect(
+            hasActiveDataTableFilters({
+                ...empty,
+                showOnlyFeaturesInView: true,
+            })
+        ).toBe(true)
+    })
+})
+
+describe('buildFeatureIndex', () => {
+    test('indexes features by properties.id when present', () => {
+        const data = [{ properties: { id: 'a' } }, { properties: { id: 'b' } }]
+        const index = buildFeatureIndex(data)
+        expect(index.get('a')).toBe(data[0])
+        expect(index.get('b')).toBe(data[1])
+    })
+
+    test('falls back to the feature’s own top-level id', () => {
+        const feature = { id: 'a', properties: {} }
+        expect(buildFeatureIndex([feature]).get('a')).toBe(feature)
+    })
+
+    test('skips features with no id anywhere', () => {
+        const index = buildFeatureIndex([{ properties: {} }])
+        expect(index.size).toBe(0)
+    })
+
+    test('returns an empty index for missing/empty data', () => {
+        expect(buildFeatureIndex(undefined).size).toBe(0)
+        expect(buildFeatureIndex([]).size).toBe(0)
+    })
+})
+
+describe('getPanelHeights', () => {
+    test('clamps the table height to the window, minus header/toolbar', () => {
+        const result = getPanelHeights({
+            windowHeight: 800,
+            dataTableHeight: 1000,
+            isCollapsed: false,
+            headerHeight: 50,
+            toolbarHeight: 50,
+            controlsHeight: 32,
+        })
+        expect(result).toEqual({
+            maxHeight: 700,
+            collapsedHeight: 32,
+            displayHeight: 700,
+        })
+    })
+
+    test('uses the saved height as-is when it already fits', () => {
+        const result = getPanelHeights({
+            windowHeight: 800,
+            dataTableHeight: 300,
+            isCollapsed: false,
+            headerHeight: 50,
+            toolbarHeight: 50,
+            controlsHeight: 32,
+        })
+        expect(result.displayHeight).toBe(300)
+    })
+
+    test('collapses to just the controls height, regardless of the saved height', () => {
+        const result = getPanelHeights({
+            windowHeight: 800,
+            dataTableHeight: 300,
+            isCollapsed: true,
+            headerHeight: 50,
+            toolbarHeight: 50,
+            controlsHeight: 32,
+        })
+        expect(result.displayHeight).toBe(32)
     })
 })

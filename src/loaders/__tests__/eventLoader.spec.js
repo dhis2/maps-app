@@ -4,12 +4,16 @@ import {
     USER_ORG_UNIT_GRANDCHILDREN,
 } from '@dhis2/analytics'
 import { WARNING_OU_BOUNDARIES_FETCH_FAILED } from '../../constants/alerts.js'
+import { EVENT_SERVER_CLUSTER_COUNT } from '../../constants/layers.js'
 import { getUserOrgUnitIdsByKeyword } from '../../util/orgUnits.js'
 import {
     GEOFEATURES_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
-import { excludeEventsOutsideOrgUnits } from '../eventLoader.js'
+import eventLoader, {
+    excludeEventsOutsideOrgUnits,
+    shouldUseServerCluster,
+} from '../eventLoader.js'
 
 // [0,0]-[10,10]
 const SQUARE_A = [
@@ -727,5 +731,180 @@ describe('excludeEventsOutsideOrgUnits', () => {
         })
 
         expect(config.legend.orgUnitsWithoutBoundaryCount).toBeUndefined()
+    })
+})
+
+describe('shouldUseServerCluster', () => {
+    const overThreshold = EVENT_SERVER_CLUSTER_COUNT + 1
+
+    test('returns true when over threshold and the backend supports spatial clustering', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(true)
+    })
+
+    test('returns false when over threshold but the backend has no spatial support', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: false,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when over threshold but spatialSupport is undefined (fails closed)', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: undefined,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when under threshold, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: EVENT_SERVER_CLUSTER_COUNT,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when countFeaturesWithoutCoordinates is set, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: true,
+                countEventsOutsideOrgUnits: false,
+                spatialSupport: true,
+            })
+        ).toBe(false)
+    })
+
+    test('returns false when countEventsOutsideOrgUnits is set, regardless of spatialSupport', () => {
+        expect(
+            shouldUseServerCluster({
+                count: overThreshold,
+                countFeaturesWithoutCoordinates: false,
+                countEventsOutsideOrgUnits: true,
+                spatialSupport: true,
+            })
+        ).toBe(false)
+    })
+})
+
+// A minimal chainable stand-in for the real analytics request builder
+class FakeAnalyticsRequest {
+    withProgram() {
+        return this
+    }
+    withStage() {
+        return this
+    }
+    withCoordinatesOnly() {
+        return this
+    }
+    withStartDate() {
+        return this
+    }
+    withEndDate() {
+        return this
+    }
+    addPeriodFilter() {
+        return this
+    }
+    withRelativePeriodDate() {
+        return this
+    }
+    addOrgUnitDimension() {
+        return this
+    }
+    addDimension() {
+        return this
+    }
+    withCoordinateField() {
+        return this
+    }
+    withEventStatus() {
+        return this
+    }
+    withPageSize() {
+        return this
+    }
+}
+
+describe('eventLoader - isExtended vs serverCluster', () => {
+    const overThreshold = EVENT_SERVER_CLUSTER_COUNT + 1
+
+    const baseConfig = () => ({
+        program: { id: 'prog1' },
+        programStage: { id: 'stage1', name: 'Stage 1' },
+        columns: [],
+        filters: [],
+        rows: [],
+        eventClustering: true,
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+    })
+
+    const makeArgs = (config) => ({
+        config,
+        engine: {
+            query: jest.fn().mockResolvedValue({
+                programStage: { programStageDataElements: [] },
+            }),
+        },
+        keyAnalysisDisplayProperty: 'name',
+        keyAnalysisDigitGroupSeparator: 'NONE',
+        analyticsEngine: {
+            request: FakeAnalyticsRequest,
+            events: {
+                getCount: jest
+                    .fn()
+                    .mockResolvedValue({ count: overThreshold, extent: null }),
+                getQuery: jest.fn().mockResolvedValue({
+                    headers: [],
+                    metaData: { items: {}, pager: { total: 0 } },
+                    rows: [],
+                }),
+            },
+        },
+        periodTypeData: undefined,
+        loadExtended: true,
+        spatialSupport: true,
+    })
+
+    test('does not claim the table has extended data when the layer ends up server-clustered', async () => {
+        const result = await eventLoader(makeArgs(baseConfig()))
+
+        expect(result.serverCluster).toBe(true)
+        expect(result.isExtended).toBe(false)
+        expect(result.data).toBeUndefined()
+        // Server clustering isn't capped - the legend shows the true total.
+        expect(result.legend.items[0].count).toBe(overThreshold)
+    })
+
+    test('forceClientCluster loads the extended dataset instead of staying server-clustered', async () => {
+        const result = await eventLoader(
+            makeArgs({ ...baseConfig(), forceClientCluster: true })
+        )
+
+        expect(result.serverCluster).toBe(false)
+        expect(result.isExtended).toBe(true)
+        expect(result.data).toEqual([])
+        // Once rendering client-side, the legend must reflect what was
+        // actually loaded (capped), not the raw analytics total.
+        expect(result.legend.items[0].count).toBe(0)
     })
 })
