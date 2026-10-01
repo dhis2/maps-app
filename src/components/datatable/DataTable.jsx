@@ -9,7 +9,9 @@ import {
     ComponentCover,
     CenteredContent,
     CircularLoader,
-    Tooltip,
+    Popper,
+    Portal,
+    IconSync16,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -23,27 +25,171 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
+import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import {
     toggleFeatureSelection,
-    selectAllFeatures,
     selectFeatureRange,
-    clearSelection,
 } from '../../actions/selection.js'
+import {
+    SENTINEL_SELECTED_ROW,
+    SORT_ASCENDING,
+    SORT_DESCENDING,
+} from '../../constants/dataTable.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
 import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import Checkbox from '../core/Checkbox.jsx'
 import { SortIcon } from '../core/icons.jsx'
+import {
+    FilterDropdownPopover,
+    getDropdownPlacement,
+} from './FilterDropdownPopover.jsx'
 import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
+import { useColumnWidths } from './useColumnWidths.js'
+import { useRowSelection } from './useRowSelection.js'
 import { useTableData } from './useTableData.js'
 
-const ASCENDING = 'asc'
-const DESCENDING = 'desc'
+const SELECTION_FILTER_OPTIONS = [
+    { value: SELECTION_FILTER_SELECTED, label: i18n.t('Selected') },
+    { value: SELECTION_FILTER_NOT_SELECTED, label: i18n.t('Not selected') },
+]
+
+export const isFilterable = (dataKey, type) => !!type
+
+const SelectionFilterButton = ({ value, onChange }) => {
+    const anchorRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleValue = (optionValue) => {
+        const next = value.includes(optionValue)
+            ? value.filter((v) => v !== optionValue)
+            : [...value, optionValue]
+        onChange(next)
+    }
+
+    const buttonLabel =
+        value.length === 0
+            ? i18n.t('All')
+            : i18n.t('{{count}} selected', { count: value.length })
+
+    const anchorRect = anchorRef.current?.getBoundingClientRect()
+    const { dropdownPlacement } = getDropdownPlacement(anchorRect)
+
+    return (
+        <>
+            <button
+                type="button"
+                ref={anchorRef}
+                className={styles.selectionFilterButton}
+                data-test="data-table-selection-filter-button"
+                onClick={() => setIsOpen((o) => !o)}
+            >
+                {buttonLabel}
+            </button>
+            {isOpen && (
+                <FilterDropdownPopover
+                    reference={anchorRef}
+                    placement={dropdownPlacement}
+                    onClickOutside={() => setIsOpen(false)}
+                >
+                    <div className={styles.selectionFilterPopover}>
+                        {SELECTION_FILTER_OPTIONS.map((option) => (
+                            <Checkbox
+                                key={option.value}
+                                label={option.label}
+                                checked={value.includes(option.value)}
+                                onChange={() => toggleValue(option.value)}
+                                style={{ margin: '4px 0' }}
+                            />
+                        ))}
+                    </div>
+                </FilterDropdownPopover>
+            )}
+        </>
+    )
+}
+
+SelectionFilterButton.propTypes = {
+    value: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onChange: PropTypes.func.isRequired,
+}
+
+const topTooltipModifiers = [{ name: 'offset', options: { offset: [0, 4] } }]
+
+const TopTooltip = ({ content, children }) => {
+    const [open, setOpen] = useState(false)
+    const referenceRef = useRef(null)
+    const openTimerRef = useRef(null)
+    const closeTimerRef = useRef(null)
+
+    const onOpen = () => {
+        clearTimeout(closeTimerRef.current)
+        openTimerRef.current = setTimeout(() => setOpen(true), 200)
+    }
+
+    const onClose = () => {
+        clearTimeout(openTimerRef.current)
+        closeTimerRef.current = setTimeout(() => setOpen(false), 200)
+    }
+
+    useEffect(
+        () => () => {
+            clearTimeout(openTimerRef.current)
+            clearTimeout(closeTimerRef.current)
+        },
+        []
+    )
+
+    return (
+        <span
+            ref={referenceRef}
+            onMouseOver={onOpen}
+            onMouseOut={onClose}
+            onFocus={onOpen}
+            onBlur={onClose}
+        >
+            {children}
+            {open && (
+                <Portal>
+                    <Popper
+                        placement="top"
+                        reference={referenceRef}
+                        modifiers={topTooltipModifiers}
+                    >
+                        <div className={styles.topTooltipContent}>
+                            {content}
+                        </div>
+                    </Popper>
+                </Portal>
+            )}
+        </span>
+    )
+}
+
+TopTooltip.propTypes = {
+    children: PropTypes.node.isRequired,
+    content: PropTypes.node.isRequired,
+}
 
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
+
+export const getNextSorting = (name, { sortField, sortDirection }) => {
+    if (name !== sortField) {
+        return { sortField: name, sortDirection: SORT_ASCENDING }
+    }
+    if (sortDirection === SORT_ASCENDING) {
+        return { sortField: name, sortDirection: SORT_DESCENDING }
+    }
+    return { sortField: null, sortDirection: SORT_ASCENDING }
+}
 
 const getRowId = (row) =>
     row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
@@ -115,31 +261,60 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
+const EmptyPlaceholder = ({ context }) => (
+    <tbody>
+        <tr>
+            <td colSpan={99999}>
+                <div className={styles.noResults}>
+                    {context.totalCount > 0 ? (
+                        <>
+                            {i18n.t('No features match your filters')}
+                            {context.hasActiveFilters && (
+                                <button
+                                    type="button"
+                                    className={styles.clearFiltersLink}
+                                    onClick={context.onClearFilters}
+                                >
+                                    {i18n.t('Clear filters')}
+                                </button>
+                            )}
+                        </>
+                    ) : (
+                        i18n.t('No results found')
+                    )}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+)
+
+EmptyPlaceholder.propTypes = {
+    context: PropTypes.shape({
+        hasActiveFilters: PropTypes.bool,
+        totalCount: PropTypes.number,
+        onClearFilters: PropTypes.func,
+    }),
+}
+
 const TableComponents = {
     Table: DataTableWithVirtuosoContext,
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
-    EmptyPlaceholder: () => (
-        <tr>
-            <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {i18n.t('No results found')}
-                </div>
-            </td>
-        </tr>
-    ),
+    EmptyPlaceholder,
 }
 
-const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
+const Table = ({
+    availableWidth,
+    onCountChange,
+    globalSearch,
+    onClearFilters,
+}) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    const headerRowRef = useRef(null)
     const virtuosoRef = useRef(null)
-    const [columnWidths, setColumnWidths] = useState([])
-    const minColumnWidthsRef = useRef([])
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
 
@@ -150,11 +325,12 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
         (state) => state.ui.showOnlyFeaturesInView
     )
     const mapBounds = useSelector((state) => state.ui.mapBounds)
+    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
             sortField: 'name',
-            sortDirection: ASCENDING,
+            sortDirection: SORT_ASCENDING,
         }
     )
 
@@ -162,13 +338,7 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
 
     const sortData = useCallback(
         ({ name }) => {
-            setSorting({
-                sortField: name,
-                sortDirection:
-                    name === sortField && sortDirection === ASCENDING
-                        ? DESCENDING
-                        : ASCENDING,
-            })
+            setSorting(getNextSorting(name, { sortField, sortDirection }))
         },
         [sortField, sortDirection]
     )
@@ -235,16 +405,31 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
     )
     const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
-    const { headers, rows, isLoading, error, totalCount, filteredCount } =
-        useTableData({
-            layer,
-            sortField,
-            sortDirection,
-            showOnlyFeaturesInView,
-            mapBounds,
-            showOnlySelected,
-            selectedIdSet,
-        })
+    const {
+        headers,
+        rows,
+        isLoading,
+        loadingReason,
+        error,
+        totalCount,
+        filteredCount,
+        columnOptions,
+    } = useTableData({
+        layer,
+        sortField,
+        sortDirection,
+        showOnlyFeaturesInView,
+        mapBounds,
+        selectionFilter,
+        selectedIdSet,
+        globalSearch,
+    })
+
+    const { headerRowRef, columnWidths } = useColumnWidths({
+        availableWidth,
+        headers,
+        error,
+    })
 
     useEffect(() => {
         onCountChange?.(totalCount, filteredCount)
@@ -302,6 +487,11 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
         [dispatch, layer.id]
     )
 
+    const hasActiveFilters =
+        Object.keys(layer.dataFilters ?? {}).length > 0 ||
+        !!globalSearch?.trim() ||
+        selectionFilter?.length > 0
+
     const tableContext = useMemo(
         () => ({
             onMouseEnter: setFeatureHighlight,
@@ -310,6 +500,9 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
             onRowClick,
             onRowDoubleClick,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
+            totalCount,
+            hasActiveFilters,
+            onClearFilters,
         }),
         [
             setFeatureHighlight,
@@ -318,6 +511,9 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
             onRowClick,
             onRowDoubleClick,
             columnWidths,
+            totalCount,
+            hasActiveFilters,
+            onClearFilters,
         ]
     )
 
@@ -350,83 +546,14 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
         () => rows?.map(getRowId).filter(Boolean) ?? [],
         [rows]
     )
-    const allRowIdSet = useMemo(() => new Set(allRowIds), [allRowIds])
 
-    const isAllSelected = useMemo(
-        () =>
-            allRowIds.length > 0 &&
-            allRowIds.every((id) => selectedIdSet.has(id)),
-        [allRowIds, selectedIdSet]
-    )
-
-    const onToggleSelectAll = useCallback(() => {
-        const nextIds = isAllSelected
-            ? selectedIds.filter((id) => !allRowIdSet.has(id))
-            : [...new Set([...selectedIds, ...allRowIds])]
-
-        if (nextIds.length) {
-            dispatch(selectAllFeatures(nextIds, layer.id))
-        } else {
-            dispatch(clearSelection())
-        }
-    }, [dispatch, isAllSelected, allRowIds, allRowIdSet, selectedIds, layer.id])
-
-    useEffect(() => {
-        // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
-        if (columnWidths.length === 0 && headerRowRef.current) {
-            const frameId = requestAnimationFrame(() => {
-                if (!headerRowRef.current) {
-                    return
-                }
-
-                const measuredColumnWidths = []
-
-                const dataCells = Array.from(headerRowRef.current.cells).slice(
-                    1
-                )
-
-                for (const cell of dataCells) {
-                    const rect = cell.getBoundingClientRect()
-                    measuredColumnWidths.push(Math.floor(rect.width))
-                }
-
-                minColumnWidthsRef.current = measuredColumnWidths
-                setColumnWidths(measuredColumnWidths)
-            })
-
-            return () => cancelAnimationFrame(frameId)
-        }
-    }, [columnWidths])
-
-    useEffect(() => {
-        // Reset to auto layout for re-measurement when headers change
-        if (!error) {
-            minColumnWidthsRef.current = []
-            setColumnWidths([])
-        }
-    }, [headers, error])
-
-    useEffect(() => {
-        // Scale column widths proportionally on resize, clamped to initial measured widths
-        if (!error) {
-            setColumnWidths((prev) => {
-                if (prev.length === 0) {
-                    return prev
-                }
-                const prevTotal = prev.reduce((sum, w) => sum + w, 0)
-                if (prevTotal === 0 || availableWidth === 0) {
-                    return []
-                }
-                const minWidths = minColumnWidthsRef.current
-                return prev.map((w, i) =>
-                    Math.max(
-                        minWidths[i] ?? 0,
-                        Math.round((w / prevTotal) * availableWidth)
-                    )
-                )
-            })
-        }
-    }, [availableWidth, error])
+    const { isAllSelected, onToggleSelectAll, onReverseSelection } =
+        useRowSelection({
+            selectedIds,
+            selectedIdSet,
+            allRowIds,
+            layerId: layer.id,
+        })
 
     if (error) {
         return <p className={styles.noSupport}>{error}</p>
@@ -444,68 +571,135 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                 }}
                 data={rows}
                 computeItemKey={(index, row) => getRowId(row) ?? index}
+                increaseViewportBy={{ top: 400, bottom: 400 }}
                 fixedHeaderContent={() => (
                     <DataTableRow ref={headerRowRef}>
                         <DataTableColumnHeader
                             className={styles.checkboxCell}
-                            width="32px"
+                            width="76px"
+                            onFilterIconClick={Function.prototype}
+                            showFilter={true}
+                            filter={
+                                <SelectionFilterButton
+                                    value={selectionFilter ?? []}
+                                    onChange={(next) =>
+                                        dispatch(setSelectionFilter(next))
+                                    }
+                                />
+                            }
                         >
-                            <input
-                                type="checkbox"
-                                title={i18n.t('Select all')}
-                                checked={isAllSelected}
-                                onChange={onToggleSelectAll}
-                            />
-                        </DataTableColumnHeader>
-                        {headers.map(({ name, dataKey, type }, index) => (
-                            <DataTableColumnHeader
-                                className={styles.columnHeader}
-                                key={`${dataKey}-${index}`}
-                                onFilterIconClick={type && Function.prototype}
-                                showFilter={!!type && dataKey !== 'index'}
-                                name={dataKey}
-                                filter={
-                                    type && (
-                                        <FilterInput
-                                            type={type}
-                                            dataKey={dataKey}
-                                            name={name}
-                                        />
-                                    )
-                                }
-                                width={
-                                    columnWidths.length > 0
-                                        ? `${columnWidths[index]}px`
-                                        : 'auto'
-                                }
-                            >
-                                <span className={styles.headerContent}>
-                                    {name}
-                                    <Tooltip
-                                        content={i18n.t('Sort by {{column}}', {
-                                            column: name,
-                                        })}
+                            <div className={styles.checkboxHeaderContent}>
+                                <TopTooltip
+                                    content={i18n.t('Select all visible rows')}
+                                >
+                                    <input
+                                        type="checkbox"
+                                        aria-label={i18n.t(
+                                            'Select all visible rows'
+                                        )}
+                                        checked={isAllSelected}
+                                        onChange={onToggleSelectAll}
+                                    />
+                                </TopTooltip>
+                                <TopTooltip
+                                    content={i18n.t(
+                                        'Reverse selection of visible rows'
+                                    )}
+                                >
+                                    <button
+                                        type="button"
+                                        className={styles.reverseButton}
+                                        data-test="data-table-reverse-selection"
+                                        disabled={allRowIds.length === 0}
+                                        onClick={onReverseSelection}
                                     >
-                                        <button
-                                            type="button"
-                                            className={styles.sortButton}
-                                            data-test={`data-table-column-sort-button-${name}`}
-                                            onClick={() =>
-                                                sortData({ name: dataKey })
+                                        <IconSync16 />
+                                    </button>
+                                </TopTooltip>
+                                <TopTooltip
+                                    content={i18n.t('Sort by Selected')}
+                                >
+                                    <button
+                                        type="button"
+                                        className={styles.sortButton}
+                                        data-test="data-table-column-sort-button-selected"
+                                        onClick={() =>
+                                            sortData({
+                                                name: SENTINEL_SELECTED_ROW,
+                                            })
+                                        }
+                                    >
+                                        <SortIcon
+                                            direction={
+                                                sortField ===
+                                                SENTINEL_SELECTED_ROW
+                                                    ? sortDirection
+                                                    : null
                                             }
-                                        >
-                                            <SortIcon
-                                                direction={
-                                                    dataKey === sortField
-                                                        ? sortDirection
-                                                        : null
-                                                }
+                                        />
+                                    </button>
+                                </TopTooltip>
+                            </div>
+                        </DataTableColumnHeader>
+                        {headers.map(
+                            ({ name, dataKey, type, optionSet }, index) => (
+                                <DataTableColumnHeader
+                                    className={styles.columnHeader}
+                                    key={`${dataKey}-${index}`}
+                                    onFilterIconClick={
+                                        isFilterable(dataKey, type) &&
+                                        Function.prototype
+                                    }
+                                    showFilter={isFilterable(dataKey, type)}
+                                    name={dataKey}
+                                    filter={
+                                        isFilterable(dataKey, type) && (
+                                            <FilterInput
+                                                type={type}
+                                                dataKey={dataKey}
+                                                name={name}
+                                                options={columnOptions[dataKey]}
+                                                optionSetId={optionSet?.id}
                                             />
-                                        </button>
-                                    </Tooltip>
-                                </span>
-                            </DataTableColumnHeader>
-                        ))}
+                                        )
+                                    }
+                                    width={
+                                        columnWidths.length > 0
+                                            ? `${columnWidths[index]}px`
+                                            : 'auto'
+                                    }
+                                >
+                                    <span className={styles.headerContent}>
+                                        {name}
+                                        <TopTooltip
+                                            content={i18n.t(
+                                                'Sort by {{column}}',
+                                                { column: name }
+                                            )}
+                                        >
+                                            <button
+                                                type="button"
+                                                className={styles.sortButton}
+                                                data-test={`data-table-column-sort-button-${name}`}
+                                                onClick={() =>
+                                                    sortData({
+                                                        name: dataKey,
+                                                    })
+                                                }
+                                            >
+                                                <SortIcon
+                                                    direction={
+                                                        dataKey === sortField
+                                                            ? sortDirection
+                                                            : null
+                                                    }
+                                                />
+                                            </button>
+                                        </TopTooltip>
+                                    </span>
+                                </DataTableColumnHeader>
+                            )
+                        )}
                     </DataTableRow>
                 )}
                 itemContent={(_, row) => {
@@ -548,8 +742,13 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                                         [styles.lightText]:
                                             dataKey === 'color' &&
                                             isDarkColor(value),
-                                        [styles.selected]: isSelected,
-                                        [styles.hovered]: isHovered,
+                                        [styles.monoCell]:
+                                            dataKey === 'id' ||
+                                            dataKey === 'color',
+                                        [styles.selected]:
+                                            isSelected && dataKey !== 'color',
+                                        [styles.hovered]:
+                                            isHovered && dataKey !== 'color',
                                     })}
                                     backgroundColor={
                                         dataKey === 'color' ? value : null
@@ -571,7 +770,14 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
             {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
                 <ComponentCover>
                     <CenteredContent>
-                        <CircularLoader />
+                        <div className={styles.loadingContent}>
+                            <CircularLoader />
+                            {loadingReason && (
+                                <span className={styles.loadingReason}>
+                                    {loadingReason}
+                                </span>
+                            )}
+                        </div>
                     </CenteredContent>
                 </ComponentCover>
             )}
@@ -579,6 +785,7 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
                 contextMenu={tableContextMenu}
                 layer={layer}
                 selectedIds={selectedIds}
+                filteredIds={hasActiveFilters ? allRowIds : null}
                 onClose={() => setTableContextMenu(null)}
             />
         </>
@@ -587,7 +794,8 @@ const Table = ({ availableWidth, onCountChange, showOnlySelected }) => {
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
-    showOnlySelected: PropTypes.bool,
+    globalSearch: PropTypes.string,
+    onClearFilters: PropTypes.func,
     onCountChange: PropTypes.func,
 }
 
