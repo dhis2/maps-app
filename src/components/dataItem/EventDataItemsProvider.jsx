@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types'
-import React, { createContext, useContext, useMemo } from 'react'
+import React, { createContext, useContext, useEffect, useMemo } from 'react'
+import { useDispatch } from 'react-redux'
+import { setHasTrackedEntityType } from '../../actions/layerEdit.js'
 import { useProgramStageDataElements } from '../../hooks/useProgramStageDataElements.js'
 import { useProgramTrackedEntityAttributes } from '../../hooks/useProgramTrackedEntityAttributes.js'
 import { combineDataItems } from '../../util/analytics.js'
@@ -9,8 +11,10 @@ const EventDataItemsCtx = createContext(null)
 // Fetches program stage data elements and program tracked entity attributes
 // once, and shares them with every useEventDataItems() call within — avoids
 // duplicate network requests when several components need the same
-// program/programStage's data items, each with their own type filter.
+// program/programStage's data items, each with their own type filter. Also
+// mirrors hasTrackedEntityType into redux for the reducer to read.
 const EventDataItemsProvider = ({ programId, programStageId, children }) => {
+    const dispatch = useDispatch()
     const { dataElements, loading: dataElementsLoading } =
         useProgramStageDataElements({ programStageId })
     const {
@@ -18,6 +22,12 @@ const EventDataItemsProvider = ({ programId, programStageId, children }) => {
         trackedEntityType,
         loading: attributesLoading,
     } = useProgramTrackedEntityAttributes({ programId })
+
+    useEffect(() => {
+        if (trackedEntityType !== null) {
+            dispatch(setHasTrackedEntityType(!!trackedEntityType?.id))
+        }
+    }, [trackedEntityType, dispatch])
 
     const value = useMemo(
         () => ({

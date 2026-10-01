@@ -5,9 +5,17 @@ import {
     CLASSIFICATION_PREDEFINED,
     CLASSIFICATION_LOGARITHMIC,
     CLASSIFICATION_STANDARD_DEVIATION,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
+    EVENT_COORDINATE_DEFAULT,
+    COORDINATE_FIELD_NAMES,
 } from '../constants/layers.js'
 import { numberValueTypes, booleanValueTypes } from '../constants/valueTypes.js'
 import { cssColor } from '../util/colors.js'
+import {
+    getDefaultGeometrySourceColor,
+    getPossibleGeometrySources,
+    resolveGeometrySourceName,
+} from '../util/coordinatesName.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
@@ -68,7 +76,9 @@ const addFeature = (acc, feature, { item, value }) => {
 // This function is modifiyng the config object before it's added to the redux store
 export const styleByDataItem = async (config, engine) => {
     const { styleDataItem } = config
-    if (styleDataItem.optionSet) {
+    if (styleDataItem.id === EVENT_COORDINATE_GEOMETRY_SOURCE) {
+        await styleByGeometrySource(config)
+    } else if (styleDataItem.optionSet) {
         await styleByOptionSet(config, engine)
     } else if (numberValueTypes.includes(styleDataItem.valueType)) {
         await styleByNumeric(config, engine)
@@ -77,6 +87,69 @@ export const styleByDataItem = async (config, engine) => {
     } else {
         await styleByDefault(config, engine)
     }
+
+    return config
+}
+
+const styleByGeometrySource = async (config) => {
+    const {
+        styleDataItem,
+        data,
+        legend,
+        eventPointRadius,
+        eventCoordinateField,
+        eventCoordinateFieldFallback,
+        hasTrackedEntityType,
+    } = config
+    const { values } = styleDataItem
+    const names = config.geometrySourceNames || COORDINATE_FIELD_NAMES
+    const possibleSources = getPossibleGeometrySources(
+        eventCoordinateField,
+        eventCoordinateFieldFallback,
+        hasTrackedEntityType
+    )
+
+    // Ordered main field first, then fallback (cascading order if applicable).
+    legend.unit = i18n.t('Coordinate source')
+    legend.items = possibleSources
+        .filter((sourceId) => values?.[sourceId])
+        .map((sourceId) => ({
+            name: resolveGeometrySourceName(sourceId, names),
+            color: values[sourceId],
+            sourceId,
+        }))
+    stampLegendItems(legend.items, eventPointRadius)
+
+    const itemBySource = Object.fromEntries(
+        legend.items.map((i) => [i.sourceId, i])
+    )
+
+    config.data = data.reduce((acc, feature) => {
+        // No fallback configured means the point can only be from the main field.
+        const geometrySource =
+            feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE] ??
+            eventCoordinateField ??
+            EVENT_COORDINATE_DEFAULT
+
+        // Backfills a color without adding a legend entry for it.
+        if (!itemBySource[geometrySource]) {
+            itemBySource[geometrySource] = {
+                color: getDefaultGeometrySourceColor(geometrySource, {
+                    eventCoordinateField,
+                    eventCoordinateFieldFallback,
+                }),
+                radius: eventPointRadius || EVENT_RADIUS,
+                count: 0,
+                colorGroup: legend.items.length,
+            }
+        }
+
+        addFeature(acc, feature, {
+            item: itemBySource[geometrySource],
+            value: resolveGeometrySourceName(geometrySource, names),
+        })
+        return acc
+    }, [])
 
     return config
 }
