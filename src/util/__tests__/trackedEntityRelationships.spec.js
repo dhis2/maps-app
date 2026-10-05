@@ -3,6 +3,39 @@ import {
     loadTrackedEntityRelationships,
 } from '../trackedEntityRelationships.js'
 
+const GEOMETRY = { coordinates: 'x/y' }
+
+const rel = (relationship, from, to) => ({
+    bidirectional: false,
+    relationship,
+    relationshipType: 'relationshipTypeId1',
+    from: { trackedEntity: { trackedEntity: from } },
+    to: { trackedEntity: { trackedEntity: to } },
+})
+
+const biRel = (relationship, from, to) => ({
+    ...rel(relationship, from, to),
+    bidirectional: true,
+})
+
+const instance = (id, relationships) => ({
+    id,
+    geometry: GEOMETRY,
+    ...(relationships && { relationships }),
+})
+
+const teConstraint = (program) => ({
+    relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+    trackedEntityType: { id: 'trackedEntityType1' },
+    program: { id: program },
+})
+
+const teRelationshipType = (fromProgram, toProgram) => ({
+    id: 'relationshipTypeId1',
+    fromConstraint: teConstraint(fromProgram),
+    toConstraint: teConstraint(toProgram),
+})
+
 const expectResultToMatchExpected = (result, expected) => {
     expect(result).toHaveProperty('primary')
     expect(result).toHaveProperty('relationships')
@@ -18,388 +51,110 @@ const expectResultToMatchExpected = (result, expected) => {
 
 describe('getDataWithRelationships', () => {
     const mockSourceInstances = [
-        {
-            // Missing geometry
-            id: 'teFrom1',
-            relationships: [],
-        },
-        {
-            // Missing relationships
-            id: 'teFrom2',
-            geometry: { coordinates: 'x/y' },
-            relationships: [],
-        },
-        {
-            // Wrong relationship type
-            id: 'teFrom3',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    relationship: 'relationship3',
-                    relationshipType: 'relationshipTypeId0',
-                },
-            ],
-        },
-        {
-            // Unidirectional relationship, TE is the target of the relationship, source is in another program
-            id: 'teFrom4',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship4',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo4',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom4',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Unidirectional relationship, target is in same program
-            id: 'teFrom5',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship5',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom5',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo5',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Bidirectional relationship, target is in same program
-            id: 'teFrom6',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship6',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo6',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom6',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Bidirectional relationship, but target is in another program
-            id: 'teFrom7',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship7',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom7',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo7',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Two unidirectional relationship, targets are in another program
-            id: 'teFrom8',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship8A',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom8',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo8A',
-                        },
-                    },
-                },
-                {
-                    bidirectional: false,
-                    relationship: 'relationship8B',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom8',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo8B',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Two TE with single unidirectional relationship,
-            // pointing at the same target in another program
-            id: 'teFrom9A',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship9A',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom9A',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo9',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            // Two TE with single unidirectional relationship,
-            // pointing at the same target in another program
-            id: 'teFrom9B',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship9B',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom9B',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo9',
-                        },
-                    },
-                },
-            ],
-        },
+        // Missing geometry
+        { id: 'teFrom1', relationships: [] },
+        // Missing relationships
+        instance('teFrom2', []),
+        // Wrong relationship type
+        instance('teFrom3', [
+            {
+                relationship: 'relationship3',
+                relationshipType: 'relationshipTypeId0',
+            },
+        ]),
+        // Unidirectional relationship, TE is the target of the relationship, source is in another program
+        instance('teFrom4', [rel('relationship4', 'teTo4', 'teFrom4')]),
+        // Unidirectional relationship, target is in same program
+        instance('teFrom5', [rel('relationship5', 'teFrom5', 'teTo5')]),
+        // Bidirectional relationship, target is in same program
+        instance('teFrom6', [biRel('relationship6', 'teTo6', 'teFrom6')]),
+        // Bidirectional relationship, but target is in another program
+        instance('teFrom7', [biRel('relationship7', 'teFrom7', 'teTo7')]),
+        // Two unidirectional relationship, targets are in another program
+        instance('teFrom8', [
+            rel('relationship8A', 'teFrom8', 'teTo8A'),
+            rel('relationship8B', 'teFrom8', 'teTo8B'),
+        ]),
+        // Two TE with single unidirectional relationship,
+        // pointing at the same target in another program
+        instance('teFrom9A', [biRel('relationship9A', 'teFrom9A', 'teTo9')]),
+        instance('teFrom9B', [biRel('relationship9B', 'teFrom9B', 'teTo9')]),
         { id: 'teTo1', relationships: [] },
-        {
-            id: 'teTo2',
-            geometry: { coordinates: 'x/y' },
-            relationships: [],
-        },
-        {
-            id: 'teTo3',
-            geometry: { coordinates: 'x/y' },
-            relationships: [],
-        },
-        {
-            id: 'teTo5',
-            geometry: { coordinates: 'x/y' },
-            relationships: [],
-        },
-        {
-            id: 'teTo6',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship6',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo6',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom6',
-                        },
-                    },
-                },
-            ],
-        },
+        instance('teTo2', []),
+        instance('teTo3', []),
+        instance('teTo5', []),
+        instance('teTo6', [biRel('relationship6', 'teTo6', 'teFrom6')]),
     ]
     const mockTargetInstances = [
         { id: 'teTo1' },
-        { id: 'teTo2', geometry: { coordinates: 'x/y' } },
-        { id: 'teTo3', geometry: { coordinates: 'x/y' } },
-        {
-            id: 'teTo4',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship4',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo4',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom4',
-                        },
-                    },
-                },
-            ],
-        },
-        { id: 'teTo5', geometry: { coordinates: 'x/y' } },
-        {
-            id: 'teTo6',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship6',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo6',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom6',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            id: 'teTo7',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: true,
-                    relationship: 'relationship7',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom7',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo7',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            id: 'teTo8A',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship8A',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom8',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo8A',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            id: 'teTo8B',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship8B',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom8',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo8B',
-                        },
-                    },
-                },
-            ],
-        },
-        {
-            id: 'teTo9',
-            geometry: { coordinates: 'x/y' },
-            relationships: [
-                {
-                    bidirectional: false,
-                    relationship: 'relationship9A',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom9A',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo9',
-                        },
-                    },
-                },
-                {
-                    bidirectional: false,
-                    relationship: 'relationship9B',
-                    relationshipType: 'relationshipTypeId1',
-                    from: {
-                        trackedEntity: {
-                            trackedEntity: 'teFrom9B',
-                        },
-                    },
-                    to: {
-                        trackedEntity: {
-                            trackedEntity: 'teTo9',
-                        },
-                    },
-                },
-            ],
-        },
+        instance('teTo2'),
+        instance('teTo3'),
+        instance('teTo4', [rel('relationship4', 'teTo4', 'teFrom4')]),
+        instance('teTo5'),
+        instance('teTo6', [biRel('relationship6', 'teTo6', 'teFrom6')]),
+        instance('teTo7', [biRel('relationship7', 'teFrom7', 'teTo7')]),
+        instance('teTo8A', [rel('relationship8A', 'teFrom8', 'teTo8A')]),
+        instance('teTo8B', [rel('relationship8B', 'teFrom8', 'teTo8B')]),
+        instance('teTo9', [
+            rel('relationship9A', 'teFrom9A', 'teTo9'),
+            rel('relationship9B', 'teFrom9B', 'teTo9'),
+        ]),
     ]
     const OUProps = {
         orgUnits: 'someOU',
         orgUnitsMode: 'someOUMode',
     }
+    const expectedPrimary = [
+        'teFrom2',
+        'teFrom3',
+        'teFrom4',
+        'teFrom5',
+        'teFrom6',
+        'teFrom7',
+        'teFrom8',
+        'teFrom9A',
+        'teFrom9B',
+        'teTo2',
+        'teTo3',
+        'teTo5',
+        'teTo6',
+    ]
+    // Same TE type, different program: targets come from the program2 query
+    const expectedOtherProgram = {
+        primary: expectedPrimary,
+        relationships: [
+            'relationship5',
+            'relationship6',
+            'relationship7',
+            'relationship8A',
+            'relationship8B',
+            'relationship9A',
+            'relationship9B',
+        ],
+        secondary: ['teTo5', 'teTo6', 'teTo7', 'teTo8A', 'teTo8B', 'teTo9'],
+    }
+    const expectProgram2Query = (engine) =>
+        expect(engine.query).toHaveBeenCalledWith(
+            {
+                tei: {
+                    resource: 'tracker/trackedEntities',
+                    params: expect.anything(),
+                },
+            },
+            expect.objectContaining({
+                variables: {
+                    fields: [
+                        'trackedEntity~rename(id)',
+                        'geometry',
+                        'relationships',
+                    ],
+                    orgUnits: 'someOU',
+                    orgUnitMode: undefined,
+                    program: 'program2',
+                    trackedEntityType: undefined,
+                },
+            })
+        )
     let mockEngine
 
     beforeEach(() => {
@@ -436,138 +191,37 @@ describe('getDataWithRelationships', () => {
     })
 
     test('Same TE type and same program', async () => {
-        const relationshipType = {
-            id: 'relationshipTypeId1',
-            fromConstraint: {
-                relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                trackedEntityType: {
-                    id: 'trackedEntityType1',
-                },
-                program: {
-                    id: 'program1',
-                },
-            },
-            toConstraint: {
-                relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                trackedEntityType: {
-                    id: 'trackedEntityType1',
-                },
-                program: {
-                    id: 'program1',
-                },
-            },
-        }
-        const expected = {
-            primary: [
-                'teFrom2',
-                'teFrom3',
-                'teFrom4',
-                'teFrom5',
-                'teFrom6',
-                'teFrom7',
-                'teFrom8',
-                'teFrom9A',
-                'teFrom9B',
-                'teTo2',
-                'teTo3',
-                'teTo5',
-                'teTo6',
-            ],
-            relationships: ['relationship5', 'relationship6'],
-            secondary: ['teFrom6', 'teTo5', 'teTo6'],
-        }
-
         const result = await getDataWithRelationships({
             serverVersion: { minor: 41 },
             instances: mockSourceInstances,
-            queryOptions: { relationshipType, ...OUProps },
+            queryOptions: {
+                relationshipType: teRelationshipType('program1', 'program1'),
+                ...OUProps,
+            },
             engine: mockEngine,
         })
 
-        expectResultToMatchExpected(result, expected)
-
+        expectResultToMatchExpected(result, {
+            primary: expectedPrimary,
+            relationships: ['relationship5', 'relationship6'],
+            secondary: ['teFrom6', 'teTo5', 'teTo6'],
+        })
         expect(mockEngine.query).not.toHaveBeenCalled()
     })
 
     test('Same TE type and different program', async () => {
-        const relationshipType = {
-            id: 'relationshipTypeId1',
-            fromConstraint: {
-                relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                trackedEntityType: {
-                    id: 'trackedEntityType1',
-                },
-                program: {
-                    id: 'program1',
-                },
-            },
-            toConstraint: {
-                relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                trackedEntityType: {
-                    id: 'trackedEntityType1',
-                },
-                program: {
-                    id: 'program2',
-                },
-            },
-        }
-        const expected = {
-            primary: [
-                'teFrom2',
-                'teFrom3',
-                'teFrom4',
-                'teFrom5',
-                'teFrom6',
-                'teFrom7',
-                'teFrom8',
-                'teFrom9A',
-                'teFrom9B',
-                'teTo2',
-                'teTo3',
-                'teTo5',
-                'teTo6',
-            ],
-            relationships: [
-                'relationship5',
-                'relationship6',
-                'relationship7',
-                'relationship8A',
-                'relationship8B',
-                'relationship9A',
-                'relationship9B',
-            ],
-            secondary: ['teTo5', 'teTo6', 'teTo7', 'teTo8A', 'teTo8B', 'teTo9'],
-        }
         const result = await getDataWithRelationships({
             serverVersion: { minor: 41 },
             instances: mockSourceInstances,
-            queryOptions: { relationshipType, ...OUProps },
+            queryOptions: {
+                relationshipType: teRelationshipType('program1', 'program2'),
+                ...OUProps,
+            },
             engine: mockEngine,
         })
 
-        expectResultToMatchExpected(result, expected)
-
-        expect(mockEngine.query).toHaveBeenCalledWith(
-            {
-                tei: {
-                    resource: 'tracker/trackedEntities',
-                    params: expect.anything(),
-                },
-            },
-            expect.objectContaining({
-                variables: {
-                    fields: [
-                        'trackedEntity~rename(id)',
-                        'geometry',
-                        'relationships',
-                    ],
-                    orgUnits: 'someOU',
-                    orgUnitMode: undefined,
-                    program: 'program2',
-                    trackedEntityType: undefined,
-                },
-            })
-        )
+        expectResultToMatchExpected(result, expectedOtherProgram)
+        expectProgram2Query(mockEngine)
     })
 
     it.each([
@@ -582,101 +236,29 @@ describe('getDataWithRelationships', () => {
             serverVersion: { minor: 41 },
         },
     ])(
-        '$versionString should use the tracker api root property "$trackerRootProp" and resource "$resource"',
+        '$versionString should use the tracker api root property "$trackerRootProp"',
         async ({ serverVersion, trackerRootProp }) => {
-            const relationshipType = {
-                id: 'relationshipTypeId1',
-                fromConstraint: {
-                    relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                    trackedEntityType: {
-                        id: 'trackedEntityType1',
-                    },
-                    program: {
-                        id: 'program1',
-                    },
-                },
-                toConstraint: {
-                    relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-                    trackedEntityType: {
-                        id: 'trackedEntityType1',
-                    },
-                    program: {
-                        id: 'program2',
-                    },
-                },
-            }
-            const expected = {
-                primary: [
-                    'teFrom2',
-                    'teFrom3',
-                    'teFrom4',
-                    'teFrom5',
-                    'teFrom6',
-                    'teFrom7',
-                    'teFrom8',
-                    'teFrom9A',
-                    'teFrom9B',
-                    'teTo2',
-                    'teTo3',
-                    'teTo5',
-                    'teTo6',
-                ],
-                relationships: [
-                    'relationship5',
-                    'relationship6',
-                    'relationship7',
-                    'relationship8A',
-                    'relationship8B',
-                    'relationship9A',
-                    'relationship9B',
-                ],
-                secondary: [
-                    'teTo5',
-                    'teTo6',
-                    'teTo7',
-                    'teTo8A',
-                    'teTo8B',
-                    'teTo9',
-                ],
-            }
-
-            const mockData = {
-                tei: { [trackerRootProp]: mockTargetInstances },
-            }
-
             mockEngine = {
-                query: jest.fn().mockResolvedValue(mockData),
+                query: jest.fn().mockResolvedValue({
+                    tei: { [trackerRootProp]: mockTargetInstances },
+                }),
             }
 
             const result = await getDataWithRelationships({
                 serverVersion,
                 instances: mockSourceInstances,
-                queryOptions: { relationshipType, ...OUProps },
+                queryOptions: {
+                    relationshipType: teRelationshipType(
+                        'program1',
+                        'program2'
+                    ),
+                    ...OUProps,
+                },
                 engine: mockEngine,
             })
 
-            expectResultToMatchExpected(result, expected)
-            expect(mockEngine.query).toHaveBeenCalledWith(
-                {
-                    tei: {
-                        resource: 'tracker/trackedEntities',
-                        params: expect.anything(),
-                    },
-                },
-                expect.objectContaining({
-                    variables: {
-                        fields: [
-                            'trackedEntity~rename(id)',
-                            'geometry',
-                            'relationships',
-                        ],
-                        orgUnits: 'someOU',
-                        orgUnitMode: undefined,
-                        program: 'program2',
-                        trackedEntityType: undefined,
-                    },
-                })
-            )
+            expectResultToMatchExpected(result, expectedOtherProgram)
+            expectProgram2Query(mockEngine)
         }
     )
 })
