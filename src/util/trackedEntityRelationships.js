@@ -122,7 +122,7 @@ const getInstanceRelationships = (
                     id,
                     from,
                     reversedTo,
-                    bidirectional: !!bidirectional,
+                    bidirectional: true,
                 }
             }
         }
@@ -147,7 +147,12 @@ export const getDataWithRelationships = async ({
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        return []
+        // Only relationships between tracked entities can be shown
+        return {
+            primary: Object.values(normalizeInstances(sourceInstances)),
+            relationships: [],
+            secondary: [],
+        }
     }
 
     const isRecursiveTrackedEntityType =
@@ -162,29 +167,11 @@ export const getDataWithRelationships = async ({
     // Use target as source if from/to TE Types and Programs match, otherwise
     // fetch/re-fetch using program if available TE type otherwise
     let recursiveProp = null
-    if (
-        isRecursiveTrackedEntityType && // Same TE Type
-        !isRecursiveProgram && // Different Program
-        isToProgramDefined // Defined 'To' Program
-    ) {
-        recursiveProp = {
-            program: to.program.id,
-        }
-    } else if (
-        isRecursiveTrackedEntityType && // Same TE Type
-        !isRecursiveProgram && // Different Program
-        !isToProgramDefined // Not Defined 'To' Program
-    ) {
-        recursiveProp = {
-            type: to.trackedEntityType,
-        }
-    } else if (
-        !isRecursiveTrackedEntityType && // Different TE Type
-        !isRecursiveProgram // Different Program
-    ) {
-        recursiveProp = {
-            type: to.trackedEntityType,
-        }
+    if (!isRecursiveProgram) {
+        recursiveProp =
+            isRecursiveTrackedEntityType && isToProgramDefined
+                ? { program: to.program.id } // Same TE type, defined 'to' program
+                : { type: to.trackedEntityType } // Different TE type, or no 'to' program
     }
 
     // Keep TEI with coords and convert array to object (id = key)
@@ -192,7 +179,7 @@ export const getDataWithRelationships = async ({
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
-    if (isRecursiveTrackedEntityType & isRecursiveProgram) {
+    if (isRecursiveTrackedEntityType && isRecursiveProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // VERSION-TOGGLE: see util/versionToggle.js

@@ -61,7 +61,7 @@ export const useLayersLoader = () => {
                 userId,
                 userOrgUnitIdsByKeyword, // Event loader
                 baseUrl,
-                analyticsEngine, // Thematic and Event loader
+                analyticsEngine, // Thematic, Event and Tracked entity loader
                 periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader

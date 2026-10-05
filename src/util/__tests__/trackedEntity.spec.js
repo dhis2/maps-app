@@ -231,6 +231,24 @@ describe('loadTrackedEntitiesFromAnalytics', () => {
         ).toBe(1)
     })
 
+    it('is truncated when the server returns fewer rows than requested', async () => {
+        // e.g. capped by the analytics max limit setting
+        mockEngine.query.mockResolvedValueOnce({
+            data: response([['te1', '', 'POINT(1 2)', '1', '2']], {
+                page: 1,
+                isLastPage: false,
+            }),
+        })
+
+        const { isTruncated } = await loadTrackedEntitiesFromAnalytics({
+            config: baseConfig,
+            analyticsEngine,
+            serverVersion: v42,
+        })
+
+        expect(isTruncated).toBe(true)
+    })
+
     it('is not truncated when empty, although isLastPage is false', async () => {
         mockEngine.query.mockResolvedValueOnce({
             data: response([], { page: 1, isLastPage: false }),

@@ -114,6 +114,82 @@ describe('trackedEntityLoader', () => {
         expect(engine.query.mock.calls[0][1].variables.followUp).toBe('TRUE')
     })
 
+    it('loads relationships from the tracker API and adds them to the legend', async () => {
+        const relationship = {
+            relationship: 'rel1',
+            relationshipType: 'relType',
+            from: { trackedEntity: { trackedEntity: 'te1' } },
+            to: { trackedEntity: { trackedEntity: 'te2' } },
+        }
+        const constraint = {
+            relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+            trackedEntityType: { id: 'teTypeId' },
+        }
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({
+                    trackedEntities: {
+                        trackedEntities: [
+                            {
+                                id: 'te1',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [1, 2],
+                                },
+                                relationships: [relationship],
+                            },
+                            {
+                                id: 'te2',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [3, 4],
+                                },
+                                relationships: [relationship],
+                            },
+                        ],
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        id: 'relType',
+                        displayName: 'Contact',
+                        fromConstraint: constraint,
+                        toConstraint: constraint,
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await trackedEntityLoader({
+            // Saved maps store relationships in the config JSON
+            config: {
+                ...baseConfig,
+                config: JSON.stringify({ relationships: { type: 'relType' } }),
+            },
+            engine,
+            analyticsEngine: {},
+            serverVersion: v41,
+        })
+
+        expect(loadTrackedEntitiesFromAnalytics).not.toHaveBeenCalled()
+        expect(result.relationships.map((r) => r.id)).toEqual(['rel1'])
+        expect(result.secondaryData.map((f) => f.properties.id)).toEqual([
+            'te2',
+        ])
+        expect(result.legend.items.map((item) => item.name)).toEqual([
+            'Person',
+            'Contact',
+            'Person (related)',
+        ])
+        expect(result.alerts).toEqual([])
+    })
+
     it('warns when the result is truncated', async () => {
         loadTrackedEntitiesFromAnalytics.mockResolvedValue({
             data: [point],

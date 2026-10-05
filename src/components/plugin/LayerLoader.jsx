@@ -62,7 +62,7 @@ const LayerLoader = ({ config, onLoad }) => {
             userId,
             userOrgUnitIdsByKeyword, // Event loader
             baseUrl,
-            analyticsEngine, // Thematic and Event loader
+            analyticsEngine, // Thematic, Event and Tracked entity loader
             periodTypeData, // Thematic and Event loader
             serverVersion, // Tracked entity loader
         }).then((result) => {

@@ -184,10 +184,11 @@ export const loadTrackedEntitiesFromAnalytics = async ({
 
     return {
         data: createTrackedEntityFeatures(response, serverVersion),
-        // isLastPage is false for empty results, so also check the page is full
+        // isLastPage is false for empty results. Not comparing with pageSize,
+        // as the server can return fewer rows (analytics max limit setting)
         isTruncated:
             response.metaData?.pager?.isLastPage === false &&
-            response.rows.length >= pageSize,
+            response.rows.length > 0,
     }
 }
 
@@ -224,17 +225,19 @@ const getTrackerParams = (filters, isTracker41Api) => {
               skipPaging: true,
           }
 
-    const periodParams = period
-        ? period.isEnrollmentPeriod
-            ? {
-                  enrollmentEnrolledAfter: period.startDate,
-                  enrollmentEnrolledBefore: period.endDate,
-              }
-            : {
-                  updatedAfter: period.startDate,
-                  updatedBefore: period.endDate,
-              }
-        : {}
+    let periodParams = {}
+
+    if (period?.isEnrollmentPeriod) {
+        periodParams = {
+            enrollmentEnrolledAfter: period.startDate,
+            enrollmentEnrolledBefore: period.endDate,
+        }
+    } else if (period) {
+        periodParams = {
+            updatedAfter: period.startDate,
+            updatedBefore: period.endDate,
+        }
+    }
 
     return {
         fields: TRACKER_FIELDS,

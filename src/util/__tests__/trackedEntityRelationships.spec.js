@@ -428,7 +428,10 @@ describe('getDataWithRelationships', () => {
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
         })
-        expect(result).toEqual([]) // This the current behavior but it should be revised
+        // Tracked entities are still shown, without relationships
+        expect(result.primary.length).toBeGreaterThan(0)
+        expect(result.relationships).toEqual([])
+        expect(result.secondary).toEqual([])
         expect(mockEngine.query).not.toHaveBeenCalled()
     })
 
