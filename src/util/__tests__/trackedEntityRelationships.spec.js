@@ -1,4 +1,7 @@
-import { getDataWithRelationships } from '../teiRelationshipsParser.js'
+import {
+    getDataWithRelationships,
+    loadTrackedEntityRelationships,
+} from '../trackedEntityRelationships.js'
 
 const expectResultToMatchExpected = (result, expected) => {
     expect(result).toHaveProperty('primary')
@@ -420,7 +423,7 @@ describe('getDataWithRelationships', () => {
         }
 
         const result = await getDataWithRelationships({
-            isVersion40: false,
+            serverVersion: { minor: 41 },
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -472,7 +475,7 @@ describe('getDataWithRelationships', () => {
         }
 
         const result = await getDataWithRelationships({
-            isVersion40: false,
+            serverVersion: { minor: 41 },
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -533,7 +536,7 @@ describe('getDataWithRelationships', () => {
             secondary: ['teTo5', 'teTo6', 'teTo7', 'teTo8A', 'teTo8B', 'teTo9'],
         }
         const result = await getDataWithRelationships({
-            isVersion40: false,
+            serverVersion: { minor: 41 },
             instances: mockSourceInstances,
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
@@ -568,16 +571,16 @@ describe('getDataWithRelationships', () => {
         {
             trackerRootProp: 'instances',
             versionString: '2.40',
-            isVersion40: true,
+            serverVersion: { minor: 40 },
         },
         {
             trackerRootProp: 'trackedEntities',
             versionString: '2.41',
-            isVersion40: false,
+            serverVersion: { minor: 41 },
         },
     ])(
         '$versionString should use the tracker api root property "$trackerRootProp" and resource "$resource"',
-        async ({ isVersion40, trackerRootProp }) => {
+        async ({ serverVersion, trackerRootProp }) => {
             const relationshipType = {
                 id: 'relationshipTypeId1',
                 fromConstraint: {
@@ -643,7 +646,7 @@ describe('getDataWithRelationships', () => {
             }
 
             const result = await getDataWithRelationships({
-                isVersion40,
+                serverVersion,
                 instances: mockSourceInstances,
                 queryOptions: { relationshipType, ...OUProps },
                 engine: mockEngine,
@@ -673,4 +676,63 @@ describe('getDataWithRelationships', () => {
             )
         }
     )
+})
+
+describe('loadTrackedEntityRelationships', () => {
+    const constraint = {
+        relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+        trackedEntityType: { id: 'teType' },
+    }
+    const relationshipType = {
+        id: 'relType',
+        displayName: 'Contact',
+        fromConstraint: constraint,
+        toConstraint: constraint,
+    }
+    const relatedEntityType = { displayName: 'Person', featureType: 'POINT' }
+    const relationship = {
+        relationship: 'rel1',
+        relationshipType: 'relType',
+        from: { trackedEntity: { trackedEntity: 'te1' } },
+        to: { trackedEntity: { trackedEntity: 'te2' } },
+    }
+    const instances = [
+        {
+            id: 'te1',
+            geometry: { type: 'Point', coordinates: [1, 2] },
+            relationships: [relationship],
+        },
+        {
+            id: 'te2',
+            geometry: { type: 'Point', coordinates: [3, 4] },
+            relationships: [relationship],
+        },
+    ]
+
+    it('returns features, relationships and the types for the legend', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({ relationshipType })
+                .mockResolvedValueOnce({ relatedEntityType }),
+        }
+
+        const result = await loadTrackedEntityRelationships({
+            config: { relationshipType: 'relType' },
+            engine,
+            serverVersion: { minor: 41 },
+            instances,
+            orgUnits: 'ou1',
+        })
+
+        // Same type and program on both sides: no extra instance query
+        expect(engine.query).toHaveBeenCalledTimes(2)
+        expect(result.relationshipType).toBe(relationshipType)
+        expect(result.relatedEntityType).toBe(relatedEntityType)
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1', 'te2'])
+        expect(result.relationships.map((r) => r.id)).toEqual(['rel1'])
+        expect(result.secondaryData.map((f) => f.properties.id)).toEqual([
+            'te2',
+        ])
+    })
 })
