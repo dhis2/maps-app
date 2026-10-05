@@ -197,7 +197,7 @@ export const loadTrackedEntitiesFromAnalytics = async ({
 
 // Row limit of the tracker API, applied even with paging off
 // VERSION-TOGGLE: setting renamed in 2.41 - see util/versionToggle.js
-export const getTrackerMaxLimit = (systemSettings = {}, serverVersion) => {
+export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
     const limit = Number(
         serverSupportsTracker41Api(serverVersion)
             ? systemSettings.KeyTrackedEntityMaxLimit
