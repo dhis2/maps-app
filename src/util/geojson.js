@@ -92,7 +92,7 @@ export const trackedEntityGeometryTypes = new Set([
     GEO_TYPE_MULTIPOLYGON,
 ])
 
-// Tracker analytics returns geometries as (E)WKT, with or without an SRID prefix
+// Tracker analytics geometries are (E)WKT, with or without an SRID prefix
 export const parseWkt = (wkt) => {
     if (typeof wkt !== 'string' || !wkt) {
         return null

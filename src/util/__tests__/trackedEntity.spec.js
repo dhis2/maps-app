@@ -3,6 +3,7 @@ import {
     canLoadTrackedEntitiesFromAnalytics,
     createTrackedEntityFeatures,
     getTrackedEntityDefaultOrgUnitMode,
+    getTrackerMaxLimit,
     loadTrackedEntitiesFromAnalytics,
     loadTrackedEntitiesFromTracker,
 } from '../trackedEntity.js'
@@ -31,12 +32,12 @@ const response = (rows, pager = { page: 1, isLastPage: true }) => ({
 })
 
 // Returns the variables the analytics client sends to the data engine
-const loadAndGetVariables = async (config) => {
+const loadAndGetVariables = async (config, serverVersion = v42) => {
     mockEngine.query.mockResolvedValueOnce({ data: response([]) })
     await loadTrackedEntitiesFromAnalytics({
         config,
         analyticsEngine,
-        serverVersion: v42,
+        serverVersion,
     })
     return mockEngine.query.mock.calls[0][1].variables
 }
@@ -55,9 +56,18 @@ describe('getTrackedEntityAnalyticsRequest', () => {
         expect(variables.dimensions).toEqual(['ou:ou1;ou2'])
         // The loader resolves the default org unit mode
         expect(variables.parameters).toEqual({
+            headers: 'trackedentity,geometry',
             geometryOnly: true,
             pageSize: 50000,
         })
+    })
+
+    it('only asks for the id and geometry columns, named by version', async () => {
+        const variables = await loadAndGetVariables(baseConfig, { minor: 41 })
+
+        expect(variables.parameters.headers).toBe(
+            'trackedentityinstanceuid,geometry'
+        )
     })
 
     it('passes program and qualified program status as query params', async () => {
@@ -444,5 +454,83 @@ describe('canLoadTrackedEntitiesFromAnalytics', () => {
         expect(canLoadTrackedEntitiesFromAnalytics(config, { minor })).toBe(
             expected
         )
+    })
+})
+
+describe('getTrackerMaxLimit', () => {
+    const systemSettings = {
+        KeyTrackedEntityInstanceMaxLimit: 40000,
+        KeyTrackedEntityMaxLimit: 50000,
+    }
+
+    it('reads the setting name of the server version', () => {
+        expect(getTrackerMaxLimit(systemSettings, { minor: 40 })).toBe(40000)
+        expect(getTrackerMaxLimit(systemSettings, { minor: 41 })).toBe(50000)
+    })
+
+    it.each([0, -1, undefined, ''])('treats %p as unlimited', (value) => {
+        expect(
+            getTrackerMaxLimit(
+                { KeyTrackedEntityMaxLimit: value },
+                { minor: 41 }
+            )
+        ).toBeNull()
+    })
+})
+
+describe('loadTrackedEntitiesFromTracker fields', () => {
+    const getFields = async (config) => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                trackedEntities: { trackedEntities: [] },
+            }),
+        }
+        await loadTrackedEntitiesFromTracker({
+            config,
+            engine,
+            serverVersion: { minor: 41 },
+        })
+        return engine.query.mock.calls[0][1].variables.fields
+    }
+
+    it('only asks for relationships when the layer shows them', async () => {
+        expect(await getFields(baseConfig)).toEqual([
+            'trackedEntity~rename(id)',
+            'geometry',
+        ])
+        expect(
+            await getFields({ ...baseConfig, relationshipType: 'relType' })
+        ).toContain('relationships')
+    })
+})
+
+describe('loadTrackedEntitiesFromTracker truncation', () => {
+    const trackedEntities = [
+        { id: 'te1', geometry: { type: 'Point', coordinates: [1, 2] } },
+        { id: 'te2' },
+    ]
+    const load = (maxLimit) =>
+        loadTrackedEntitiesFromTracker({
+            config: baseConfig,
+            engine: {
+                query: jest.fn().mockResolvedValue({
+                    trackedEntities: { trackedEntities },
+                }),
+            },
+            serverVersion: { minor: 41 },
+            maxLimit,
+        })
+
+    it('is truncated when the limit is reached, counting entities without geometry', async () => {
+        const { data, isTruncated, limit } = await load(2)
+
+        expect(data).toHaveLength(1)
+        expect(isTruncated).toBe(true)
+        expect(limit).toBe(2)
+    })
+
+    it('is not truncated below the limit, or without one', async () => {
+        expect((await load(3)).isTruncated).toBe(false)
+        expect((await load(null)).isTruncated).toBe(false)
     })
 })

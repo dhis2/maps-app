@@ -194,6 +194,7 @@ describe('trackedEntityLoader', () => {
         loadTrackedEntitiesFromAnalytics.mockResolvedValue({
             data: [point],
             isTruncated: true,
+            limit: 50000,
         })
 
         const result = await trackedEntityLoader({
@@ -210,6 +211,30 @@ describe('trackedEntityLoader', () => {
                 code: 'CUSTOM_ALERT',
                 message:
                     'Tracked entity: Displaying first 50,000 tracked entities',
+            }),
+        ])
+    })
+
+    it('warns when the tracker API hits the server limit', async () => {
+        const engine = createEngine({
+            instances: [
+                { id: 'te1', geometry: { type: 'Point', coordinates: [1, 2] } },
+                { id: 'te2' },
+            ],
+        })
+
+        const result = await trackedEntityLoader({
+            config: { ...baseConfig },
+            engine,
+            analyticsEngine: {},
+            serverVersion: v40,
+            KeyTrackedEntityInstanceMaxLimit: 2,
+        })
+
+        expect(result.alerts).toEqual([
+            expect.objectContaining({
+                warning: true,
+                message: 'Tracked entity: Displaying first 2 tracked entities',
             }),
         ])
     })

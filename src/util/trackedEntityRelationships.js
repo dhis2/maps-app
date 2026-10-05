@@ -6,8 +6,7 @@ const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 // Related instances (tracker API)
 // -----
 
-// VERSION-TOGGLE: tracker API params changed in 2.41 - remove TEI_40_QUERY
-// when 2.41 is the lowest supported version, see util/versionToggle.js
+// VERSION-TOGGLE: see util/versionToggle.js
 const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
@@ -248,7 +247,7 @@ const TRACKED_ENTITY_TYPE_QUERY = {
     },
 }
 
-// Instances from loadTrackedEntitiesFromTracker include their relationships
+// Instances must include their relationships (loadTrackedEntitiesFromTracker)
 export const loadTrackedEntityRelationships = async ({
     config,
     engine,

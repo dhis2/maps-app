@@ -5,7 +5,6 @@ import {
     WARNING_NO_DATA,
 } from '../constants/alerts.js'
 import {
-    TEI_CLIENT_PAGE_SIZE,
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATED_COLOR,
@@ -19,6 +18,7 @@ import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
     canLoadTrackedEntitiesFromAnalytics,
     getTrackedEntityDefaultOrgUnitMode,
+    getTrackerMaxLimit,
     loadTrackedEntitiesFromAnalytics,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
@@ -83,6 +83,8 @@ const trackedEntityLoader = async ({
     analyticsEngine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
+    KeyTrackedEntityInstanceMaxLimit,
+    KeyTrackedEntityMaxLimit,
 }) => {
     parseJsonConfig(config)
 
@@ -156,6 +158,13 @@ const trackedEntityLoader = async ({
                   config: loadConfig,
                   engine,
                   serverVersion,
+                  maxLimit: getTrackerMaxLimit(
+                      {
+                          KeyTrackedEntityInstanceMaxLimit,
+                          KeyTrackedEntityMaxLimit,
+                      },
+                      serverVersion
+                  ),
               })
 
         data = result.data
@@ -186,7 +195,7 @@ const trackedEntityLoader = async ({
                     'Displaying first {{pageSize}} tracked entities',
                     {
                         pageSize: formatWithSeparator(
-                            TEI_CLIENT_PAGE_SIZE,
+                            result.limit,
                             keyAnalysisDigitGroupSeparator
                         ),
                     }

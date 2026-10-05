@@ -44,27 +44,23 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 // Filters
 // -----
 
-// VERSION-TOGGLE: follows the API default - tracker analytics includes all org
-// units below the selected ones (like Line Listing), while the 2.40 tracker API
-// doesn't - see util/versionToggle.js
+// VERSION-TOGGLE: each API's own default - see util/versionToggle.js
 export const getTrackedEntityDefaultOrgUnitMode = (serverVersion) =>
     serverSupportsTrackedEntityAnalytics(serverVersion)
         ? ORG_UNIT_MODE_DESCENDANTS
         : ORG_UNIT_MODE_SELECTED
 
-// Tracker analytics can't return relationships or filter by follow-up, so the
-// tracker API is used for those
+// Tracker analytics can't return relationships or filter by follow-up
 export const canLoadTrackedEntitiesFromAnalytics = (
     { program, followUp, relationshipType },
     serverVersion
 ) =>
-    // VERSION-TOGGLE: no analytics endpoint on 2.40 - see util/versionToggle.js
+    // VERSION-TOGGLE: see util/versionToggle.js
     serverSupportsTrackedEntityAnalytics(serverVersion) &&
     !relationshipType &&
     !(program && followUp)
 
-// Layer config => filters shared by the analytics and tracker requests, so both
-// APIs apply the same rules. Each loader maps them to its own param names.
+// Filters shared by the analytics and tracker requests
 const getTrackedEntityFilters = ({
     trackedEntityType,
     program,
@@ -101,9 +97,15 @@ const getTrackedEntityFilters = ({
 // Analytics (2.41+)
 // -----
 
+// VERSION-TOGGLE: see util/versionToggle.js
+const getAnalyticsIdColumn = (serverVersion) =>
+    serverSupportsTrackedEntityAnalyticsIdColumn(serverVersion)
+        ? 'trackedentity'
+        : 'trackedentityinstanceuid'
+
 export const getTrackedEntityAnalyticsRequest = (
     config,
-    { analyticsEngine }
+    { analyticsEngine, serverVersion }
 ) => {
     const {
         trackedEntityTypeId,
@@ -122,12 +124,13 @@ export const getTrackedEntityAnalyticsRequest = (
         request = request.withOuMode(orgUnitMode)
     }
 
-    // Program is a query param here: withProgram() would add it to the path.
-    // Date params are top-level, not dimensions/filters, and enrollment-scoped
-    // params are qualified with the program: "<program>.<period>".
+    // withProgram() would put the program in the path. Date params are top-level
+    // and enrollment ones are qualified with the program: "<program>.<period>"
     const range = period && `${period.startDate}_${period.endDate}`
 
     return request.withParameters({
+        // Every attribute and org unit column comes back otherwise
+        headers: `${getAnalyticsIdColumn(serverVersion)},geometry`,
         // coordinatesOnly would exclude polygons
         geometryOnly: true,
         ...(programId && { program: programId }),
@@ -145,12 +148,7 @@ export const createTrackedEntityFeatures = (
     { headers, rows },
     serverVersion
 ) => {
-    // VERSION-TOGGLE: see util/versionToggle.js
-    const idColName = serverSupportsTrackedEntityAnalyticsIdColumn(
-        serverVersion
-    )
-        ? 'trackedentity'
-        : 'trackedentityinstanceuid'
+    const idColName = getAnalyticsIdColumn(serverVersion)
     const idCol = headers.findIndex((h) => h.name === idColName)
     const geomCol = headers.findIndex((h) => h.name === 'geometry')
 
@@ -177,6 +175,7 @@ export const loadTrackedEntitiesFromAnalytics = async ({
 }) => {
     const request = getTrackedEntityAnalyticsRequest(config, {
         analyticsEngine,
+        serverVersion,
     })
     const response = await analyticsEngine.trackedEntities.getQuery(
         request.withPageSize(pageSize)
@@ -184,25 +183,39 @@ export const loadTrackedEntitiesFromAnalytics = async ({
 
     return {
         data: createTrackedEntityFeatures(response, serverVersion),
-        // isLastPage is false for empty results. Not comparing with pageSize,
-        // as the server can return fewer rows (analytics max limit setting)
+        // isLastPage is false for empty results, and the server can return fewer
+        // rows than pageSize (analytics max limit setting)
         isTruncated:
             response.metaData?.pager?.isLastPage === false &&
             response.rows.length > 0,
+        limit: pageSize,
     }
 }
 
-// Tracker API (2.40 and relationships)
+// Tracker API (2.40, relationships and follow-up)
 // -----
 
-const TRACKER_FIELDS = ['trackedEntity~rename(id)', 'geometry', 'relationships']
+// Row limit of the tracker API, applied even with paging off
+// VERSION-TOGGLE: setting renamed in 2.41 - see util/versionToggle.js
+export const getTrackerMaxLimit = (systemSettings = {}, serverVersion) => {
+    const limit = Number(
+        serverSupportsTracker41Api(serverVersion)
+            ? systemSettings.KeyTrackedEntityMaxLimit
+            : systemSettings.KeyTrackedEntityInstanceMaxLimit
+    )
+    return limit > 0 ? limit : null
+}
+
+const TRACKER_FIELDS = ['trackedEntity~rename(id)', 'geometry']
+// Expensive, so only for layers showing relationships
+const TRACKER_RELATIONSHIP_FIELDS = [...TRACKER_FIELDS, 'relationships']
 
 const TRACKED_ENTITIES_QUERY = {
     resource: 'tracker/trackedEntities',
     params: (params) => params,
 }
 
-const getTrackerParams = (filters, isTracker41Api) => {
+const getTrackerParams = (filters, isTracker41Api, withRelationships) => {
     const {
         trackedEntityTypeId,
         programId,
@@ -240,7 +253,9 @@ const getTrackerParams = (filters, isTracker41Api) => {
     }
 
     return {
-        fields: TRACKER_FIELDS,
+        fields: withRelationships
+            ? TRACKER_RELATIONSHIP_FIELDS
+            : TRACKER_FIELDS,
         program: programId,
         programStatus,
         // The tracker API doesn't accept both program and type
@@ -258,17 +273,18 @@ export const createTrackedEntityInstanceFeatures = (instances) =>
         properties: { id },
     }))
 
-// Instances include the relationships analytics can't return
 export const loadTrackedEntitiesFromTracker = async ({
     config,
     engine,
     serverVersion,
+    maxLimit,
 }) => {
     // VERSION-TOGGLE: see util/versionToggle.js
     const isTracker41Api = serverSupportsTracker41Api(serverVersion)
     const params = getTrackerParams(
         getTrackedEntityFilters(config),
-        isTracker41Api
+        isTracker41Api,
+        Boolean(config.relationshipType)
     )
 
     const { trackedEntities: response } = await engine.query(
@@ -276,9 +292,9 @@ export const loadTrackedEntitiesFromTracker = async ({
         { variables: params }
     )
 
-    const instances = response[
-        isTracker41Api ? 'trackedEntities' : 'instances'
-    ].filter(
+    const allInstances =
+        response[isTracker41Api ? 'trackedEntities' : 'instances']
+    const instances = allInstances.filter(
         (instance) =>
             trackedEntityGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
@@ -286,6 +302,9 @@ export const loadTrackedEntitiesFromTracker = async ({
 
     return {
         data: createTrackedEntityInstanceFeatures(instances),
+        // No truncation flag from the API: count all rows, geometry or not
+        isTruncated: Boolean(maxLimit) && allInstances.length >= maxLimit,
+        limit: maxLimit,
         instances,
         // Formatted for the relationships request
         orgUnits: isTracker41Api ? params.orgUnits : params.orgUnit,
