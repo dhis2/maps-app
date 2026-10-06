@@ -1,3 +1,4 @@
+import { LAYER_ALERT_NO_DATA } from '../../constants/layerAlerts.js'
 import { getHashUrlParam } from '../history.js'
 import { createLayerAlert } from '../layerAlerts.js'
 import { getPreviewAlerts, withPreviewAlerts } from '../layerAlertsPreview.js'
@@ -22,7 +23,10 @@ describe('getPreviewAlerts', () => {
 })
 
 describe('withPreviewAlerts', () => {
-    const layer = { id: 'layer1', alerts: [createLayerAlert('NO_DATA')] }
+    const layer = {
+        id: 'layer1',
+        alerts: [createLayerAlert(LAYER_ALERT_NO_DATA)],
+    }
 
     it('returns the layer unchanged without the URL param', () => {
         getHashUrlParam.mockReturnValue(undefined)

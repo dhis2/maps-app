@@ -1,5 +1,9 @@
 import { act, render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
+import {
+    LAYER_ALERT_NO_DATA,
+    LAYER_ALERT_PROGRAM_UNAVAILABLE,
+} from '../../../constants/layerAlerts.js'
 import { createLayerAlert } from '../../../util/layerAlerts.js'
 import LayerAlerts from '../LayerAlerts.jsx'
 
@@ -11,14 +15,14 @@ jest.mock('@dhis2/app-runtime', () => ({
     }),
 }))
 
-const error = createLayerAlert('PROGRAM_UNAVAILABLE', {
+const error = createLayerAlert(LAYER_ALERT_PROGRAM_UNAVAILABLE, {
     details: {
         httpStatusCode: 409,
         errorCode: 'E7129',
         message: 'Program not found',
     },
 })
-const warning = createLayerAlert('NO_DATA')
+const warning = createLayerAlert(LAYER_ALERT_NO_DATA)
 
 describe('LayerAlerts', () => {
     afterEach(() => {

@@ -1,5 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
 import {
+    ANALYTICS_FALLBACK_CODES,
+    LAYER_ALERT_NO_DATA,
+    LAYER_ALERT_RELATIONSHIPS_FAILED,
+    LAYER_ALERT_TRACKED_ENTITIES_TRUNCATED,
+} from '../constants/layerAlerts.js'
+import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATED_COLOR,
@@ -76,11 +82,6 @@ const getRelationshipLegendItems = ({
         },
     ]
 }
-
-// Analytics can't be used, but the tracker API can: the type has no events
-// or its tables were never generated (E7144), or the user can't view event
-// analytics (E7217)
-const ANALYTICS_FALLBACK_CODES = new Set(['E7144', 'E7217'])
 
 // Tracker analytics where possible, otherwise the tracker API
 const loadTrackedEntities = async ({
@@ -196,7 +197,7 @@ const trackedEntityLoader = async ({
                 orgUnits: result.orgUnits,
             }).catch((error) => {
                 alerts.push(
-                    createLayerAlert('RELATIONSHIPS_FAILED', {
+                    createLayerAlert(LAYER_ALERT_RELATIONSHIPS_FAILED, {
                         details: getErrorDetails(error),
                     })
                 )
@@ -216,7 +217,7 @@ const trackedEntityLoader = async ({
 
         if (result.isTruncated) {
             alerts.push(
-                createLayerAlert('TRACKED_ENTITIES_TRUNCATED', {
+                createLayerAlert(LAYER_ALERT_TRACKED_ENTITIES_TRUNCATED, {
                     params: {
                         limit: formatWithSeparator(
                             result.limit,
@@ -228,7 +229,7 @@ const trackedEntityLoader = async ({
         }
 
         if (!data.length) {
-            alerts.push(createLayerAlert('NO_DATA'))
+            alerts.push(createLayerAlert(LAYER_ALERT_NO_DATA))
         }
     } catch (error) {
         alerts.push(createLayerAlertFromError(error))

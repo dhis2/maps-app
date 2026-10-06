@@ -1,4 +1,8 @@
-import { ALERT_SEVERITY, LAYER_ALERTS } from '../constants/layerAlerts.js'
+import {
+    ALERT_SEVERITY,
+    LAYER_ALERTS,
+    LAYER_ALERT_NO_ACCESS,
+} from '../constants/layerAlerts.js'
 import { getHashUrlParam } from './history.js'
 import { createLayerAlert } from './layerAlerts.js'
 
@@ -18,7 +22,7 @@ const getPreviewDetails = (id, severity) => {
     if (severity !== ALERT_SEVERITY.ERROR) {
         return
     }
-    return id === 'NO_ACCESS'
+    return id === LAYER_ALERT_NO_ACCESS
         ? { ...PREVIEW_DETAILS, httpStatusCode: 403 }
         : PREVIEW_DETAILS
 }

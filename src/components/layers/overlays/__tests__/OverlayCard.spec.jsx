@@ -2,6 +2,10 @@ import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
+import {
+    LAYER_ALERT_LOAD_FAILED,
+    LAYER_ALERT_NO_DATA,
+} from '../../../../constants/layerAlerts.js'
 import { createLayerAlert } from '../../../../util/layerAlerts.js'
 import OverlayCard from '../OverlayCard.jsx'
 
@@ -99,7 +103,7 @@ describe('OverlayCard', () => {
 
         test('shows warnings above the legend', () => {
             const { container } = renderWithAlerts([
-                createLayerAlert('NO_DATA'),
+                createLayerAlert(LAYER_ALERT_NO_DATA),
             ])
             const text = container.textContent
 
@@ -134,7 +138,7 @@ describe('OverlayCard', () => {
 
         test('keeps the legend under an error', () => {
             const { container } = renderWithAlerts([
-                createLayerAlert('LOAD_FAILED'),
+                createLayerAlert(LAYER_ALERT_LOAD_FAILED),
             ])
             const text = container.textContent
 

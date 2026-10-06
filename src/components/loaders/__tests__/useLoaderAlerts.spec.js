@@ -1,4 +1,8 @@
 import { renderHook } from '@testing-library/react'
+import {
+    LAYER_ALERT_LOAD_FAILED,
+    LAYER_ALERT_NO_DATA,
+} from '../../../constants/layerAlerts.js'
 import { createLayerAlert } from '../../../util/layerAlerts.js'
 import useLoaderAlerts from '../useLoaderAlerts.js'
 
@@ -29,8 +33,8 @@ describe('useLoaderAlerts', () => {
         const { result } = renderHook(() => useLoaderAlerts())
 
         result.current.showAlerts([
-            createLayerAlert('NO_DATA'),
-            createLayerAlert('LOAD_FAILED'),
+            createLayerAlert(LAYER_ALERT_NO_DATA),
+            createLayerAlert(LAYER_ALERT_LOAD_FAILED),
         ])
 
         expect(mockShow).not.toHaveBeenCalled()

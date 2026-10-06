@@ -1,4 +1,9 @@
 import {
+    LAYER_ALERT_LOAD_FAILED,
+    LAYER_ALERT_NO_DATA,
+    LAYER_ALERT_TRACKED_ENTITIES_TRUNCATED,
+} from '../../constants/layerAlerts.js'
+import {
     createLayerAlert,
     createLayerAlertFromError,
     formatAlertDetails,
@@ -18,7 +23,7 @@ const fetchError = (details, type = 'unknown') =>
 describe('createLayerAlert', () => {
     it('builds an alert from the catalog', () => {
         expect(
-            createLayerAlert('TRACKED_ENTITIES_TRUNCATED', {
+            createLayerAlert(LAYER_ALERT_TRACKED_ENTITIES_TRUNCATED, {
                 params: { limit: '50,000' },
             })
         ).toEqual({
@@ -31,7 +36,9 @@ describe('createLayerAlert', () => {
 
     it('adds details when given', () => {
         expect(
-            createLayerAlert('LOAD_FAILED', { details: { message: 'Boom' } })
+            createLayerAlert(LAYER_ALERT_LOAD_FAILED, {
+                details: { message: 'Boom' },
+            })
         ).toMatchObject({
             severity: 'error',
             details: { message: 'Boom' },
@@ -85,8 +92,8 @@ describe('createLayerAlertFromError', () => {
 })
 
 describe('alert helpers', () => {
-    const warning = createLayerAlert('NO_DATA')
-    const error = createLayerAlert('LOAD_FAILED')
+    const warning = createLayerAlert(LAYER_ALERT_NO_DATA)
+    const error = createLayerAlert(LAYER_ALERT_LOAD_FAILED)
 
     it('tells new alerts from older { code, message } ones', () => {
         expect(isLayerAlert(warning)).toBe(true)
@@ -161,7 +168,7 @@ describe('throwWithRequest', () => {
 
 describe('getLayerAlerts', () => {
     it('returns the layer alerts', () => {
-        const alerts = [createLayerAlert('NO_DATA')]
+        const alerts = [createLayerAlert(LAYER_ALERT_NO_DATA)]
         expect(getLayerAlerts({ alerts })).toBe(alerts)
         expect(getLayerAlerts({})).toEqual([])
     })

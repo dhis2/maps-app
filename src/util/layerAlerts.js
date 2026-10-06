@@ -3,6 +3,8 @@ import {
     ALERT_SEVERITY,
     ERROR_CODE_ALERTS,
     LAYER_ALERTS,
+    LAYER_ALERT_LOAD_FAILED,
+    LAYER_ALERT_NO_ACCESS,
     SEVERITY_ORDER,
 } from '../constants/layerAlerts.js'
 
@@ -45,17 +47,20 @@ export const createLayerAlertFromError = (error) => {
         error?.type === 'access' || details.httpStatusCode === 403
     const id =
         ERROR_CODE_ALERTS[details.errorCode] ??
-        (isAccessError ? 'NO_ACCESS' : 'LOAD_FAILED')
+        (isAccessError ? LAYER_ALERT_NO_ACCESS : LAYER_ALERT_LOAD_FAILED)
 
     return createLayerAlert(id, { details })
 }
 
 // LEGACY-ALERTS: loaders not migrated yet return loadError and
 // { code, message } alerts. Remove when every loader returns layer alerts
-export const getLayerAlerts = ({ alerts = [], loadError } = {}) =>
-    loadError
-        ? [{ ...createLayerAlert('LOAD_FAILED'), description: loadError }]
-        : alerts
+export const getLayerAlerts = ({ alerts = [], loadError } = {}) => {
+    if (!loadError) {
+        return alerts
+    }
+    const alert = createLayerAlert(LAYER_ALERT_LOAD_FAILED)
+    return [{ ...alert, description: loadError }]
+}
 
 // LEGACY-ALERTS: remove when every loader returns layer alerts
 export const isLayerAlert = (alert) => Boolean(alert?.severity)

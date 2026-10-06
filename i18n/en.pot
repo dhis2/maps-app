@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-06T09:18:23.920Z\n"
-"PO-Revision-Date: 2026-10-06T09:18:23.920Z\n"
+"POT-Creation-Date: 2026-10-06T10:56:29.553Z\n"
+"PO-Revision-Date: 2026-10-06T10:56:29.553Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1869,6 +1869,9 @@ msgstr "Start/end dates"
 msgid "Cancelled"
 msgstr "Cancelled"
 
+msgid "Layer"
+msgstr "Layer"
+
 msgid "Could not count org units without coordinates"
 msgstr "Could not count org units without coordinates"
 
@@ -1916,9 +1919,6 @@ msgstr "Line"
 
 msgid "Point"
 msgstr "Point"
-
-msgid "Layer"
-msgstr "Layer"
 
 msgid "Organisation units"
 msgstr "Organisation units"

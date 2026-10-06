@@ -1,5 +1,9 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
+import {
+    LAYER_ALERT_LOAD_FAILED,
+    LAYER_ALERT_NO_DATA,
+} from '../../../constants/layerAlerts.js'
 import { createLayerAlert } from '../../../util/layerAlerts.js'
 import LegendLayer from '../LegendLayer.jsx'
 
@@ -116,7 +120,7 @@ describe('LegendLayer', () => {
             <LegendLayer
                 id="layer-1"
                 legend={legend}
-                alerts={[createLayerAlert('NO_DATA')]}
+                alerts={[createLayerAlert(LAYER_ALERT_NO_DATA)]}
             />
         )
         const text = container.textContent
@@ -134,7 +138,7 @@ describe('LegendLayer', () => {
                 id="layer-1"
                 name="My Layer"
                 legend={legend}
-                alerts={[createLayerAlert('LOAD_FAILED')]}
+                alerts={[createLayerAlert(LAYER_ALERT_LOAD_FAILED)]}
             />
         )
         expect(screen.getByText('Failed to load layer')).toBeInTheDocument()
