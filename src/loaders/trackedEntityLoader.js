@@ -18,6 +18,7 @@ import {
 } from '../util/geojson.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
 import { getDataWithRelationships } from '../util/trackedEntityRelationships.js'
+import { serverSupportsTracker41Api } from '../util/versionToggle.js'
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
@@ -278,8 +279,8 @@ const trackedEntityLoader = async ({
         ],
     }
 
-    // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    const isVersion40 = `${serverVersion.minor}` === '40'
+    // VERSION-TOGGLE: see util/versionToggle.js
+    const isVersion40 = !serverSupportsTracker41Api(serverVersion)
 
     const orgUnits = getOrgUnitsFromRows(rows)
         .map((ou) => ou.id)
