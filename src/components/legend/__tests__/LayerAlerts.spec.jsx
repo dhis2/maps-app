@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react'
+import { act, render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { createLayerAlert } from '../../../util/layerAlerts.js'
 import LayerAlerts from '../LayerAlerts.jsx'
@@ -11,11 +11,13 @@ jest.mock('@dhis2/app-runtime', () => ({
     }),
 }))
 
-const error = createLayerAlert(
-    'PROGRAM_UNAVAILABLE',
-    {},
-    { httpStatusCode: 409, errorCode: 'E7129', message: 'Program not found' }
-)
+const error = createLayerAlert('PROGRAM_UNAVAILABLE', {
+    details: {
+        httpStatusCode: 409,
+        errorCode: 'E7129',
+        message: 'Program not found',
+    },
+})
 const warning = createLayerAlert('NO_DATA')
 
 describe('LayerAlerts', () => {
@@ -45,6 +47,11 @@ describe('LayerAlerts', () => {
         expect(screen.queryByText('Details')).not.toBeInTheDocument()
     })
 
+    afterEach(() => {
+        delete navigator.clipboard
+        jest.useRealTimers()
+    })
+
     it('shows and copies the details', async () => {
         const writeText = jest.fn().mockResolvedValue()
         Object.assign(navigator, { clipboard: { writeText } })
@@ -62,6 +69,10 @@ describe('LayerAlerts', () => {
 
         expect(screen.queryByText('Copy')).not.toBeInTheDocument()
         fireEvent.click(screen.getByText('Details'))
+        expect(screen.getByText('Hide details')).toHaveAttribute(
+            'aria-expanded',
+            'true'
+        )
         const details = screen.getByTestId('layer-alert-details')
         expect(details).toHaveTextContent('E7129')
         expect(details).toHaveTextContent('Program not found')
@@ -76,5 +87,28 @@ describe('LayerAlerts', () => {
         expect(await screen.findByText('Copied')).toBeInTheDocument()
         // The plugin legend pins on click
         expect(onParentClick).not.toHaveBeenCalled()
+    })
+
+    it('shows "Copied" for a moment only', async () => {
+        jest.useFakeTimers()
+        Object.assign(navigator, {
+            clipboard: { writeText: jest.fn().mockResolvedValue() },
+        })
+        render(<LayerAlerts alerts={[error]} />)
+
+        fireEvent.click(screen.getByText('Details'))
+        fireEvent.click(screen.getByText('Copy'))
+        expect(await screen.findByText('Copied')).toBeInTheDocument()
+
+        act(() => jest.advanceTimersByTime(2000))
+        expect(screen.getByText('Copy')).toBeInTheDocument()
+    })
+
+    it('offers no copy without clipboard access', () => {
+        render(<LayerAlerts alerts={[error]} />)
+
+        fireEvent.click(screen.getByText('Details'))
+        expect(screen.getByTestId('layer-alert-details')).toBeInTheDocument()
+        expect(screen.queryByText('Copy')).not.toBeInTheDocument()
     })
 })

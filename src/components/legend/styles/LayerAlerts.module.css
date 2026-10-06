@@ -82,5 +82,5 @@
     display: inline;
     font-family: Menlo, Courier, monospace;
     margin: 0;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }

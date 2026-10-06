@@ -7,7 +7,7 @@ import {
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ALERT_SEVERITY } from '../../constants/layerAlerts.js'
 import {
     formatAlertDetails,
@@ -23,6 +23,11 @@ const ICONS = {
     [ALERT_SEVERITY.INFO]: <IconInfoFilled16 />,
 }
 
+const COPIED_DURATION = 2000
+
+// Not available outside HTTPS, or in an iframe without clipboard permission
+const canCopy = () => Boolean(navigator.clipboard?.writeText)
+
 // Clicks must not reach the plugin legend, which pins on click
 const handleClick = (onClick) => (event) => {
     event.stopPropagation()
@@ -35,17 +40,28 @@ const LayerAlert = ({ alert, layerName, layerType }) => {
     const [isCopied, setIsCopied] = useState(false)
     const { severity, title, description, details } = alert
 
-    const copyDetails = async () => {
-        await navigator.clipboard.writeText(
-            formatAlertDetails(alert, {
-                layerName,
-                layerType,
-                serverVersion,
-                appVersion,
-            })
-        )
-        setIsCopied(true)
-    }
+    useEffect(() => {
+        if (isCopied) {
+            const timeout = setTimeout(
+                () => setIsCopied(false),
+                COPIED_DURATION
+            )
+            return () => clearTimeout(timeout)
+        }
+    }, [isCopied])
+
+    const copyDetails = () =>
+        navigator.clipboard
+            .writeText(
+                formatAlertDetails(alert, {
+                    layerName,
+                    layerType,
+                    serverVersion,
+                    appVersion,
+                })
+            )
+            .then(() => setIsCopied(true))
+            .catch(() => {}) // The details can still be selected and copied
 
     return (
         <div
@@ -64,6 +80,7 @@ const LayerAlert = ({ alert, layerName, layerType }) => {
                             <button
                                 type="button"
                                 className={styles.link}
+                                aria-expanded={showDetails}
                                 onClick={handleClick(() =>
                                     setShowDetails(!showDetails)
                                 )}
@@ -72,7 +89,7 @@ const LayerAlert = ({ alert, layerName, layerType }) => {
                                     ? i18n.t('Hide details')
                                     : i18n.t('Details')}
                             </button>
-                            {showDetails && (
+                            {showDetails && canCopy() && (
                                 <button
                                     type="button"
                                     className={styles.link}
@@ -119,7 +136,6 @@ LayerAlert.propTypes = {
 
 const NO_ALERTS = []
 
-// Renders the alerts in this format, errors first
 const LayerAlerts = ({ alerts = NO_ALERTS, layerName, layerType }) => {
     const layerAlerts = sortBySeverity(alerts.filter(isLayerAlert))
 

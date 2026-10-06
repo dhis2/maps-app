@@ -1,12 +1,12 @@
 import {
-    createErrorAlert,
     createLayerAlert,
+    createLayerAlertFromError,
     formatAlertDetails,
     getLayerAlerts,
-    getPreviewAlerts,
     hasLayerError,
     isLayerAlert,
     sortBySeverity,
+    throwWithRequest,
 } from '../layerAlerts.js'
 
 const fetchError = (details, type = 'unknown') =>
@@ -18,7 +18,9 @@ const fetchError = (details, type = 'unknown') =>
 describe('createLayerAlert', () => {
     it('builds an alert from the catalog', () => {
         expect(
-            createLayerAlert('TRACKED_ENTITIES_TRUNCATED', { limit: '50,000' })
+            createLayerAlert('TRACKED_ENTITIES_TRUNCATED', {
+                params: { limit: '50,000' },
+            })
         ).toEqual({
             id: 'TRACKED_ENTITIES_TRUNCATED',
             severity: 'warning',
@@ -29,7 +31,7 @@ describe('createLayerAlert', () => {
 
     it('adds details when given', () => {
         expect(
-            createLayerAlert('LOAD_FAILED', {}, { message: 'Boom' })
+            createLayerAlert('LOAD_FAILED', { details: { message: 'Boom' } })
         ).toMatchObject({
             severity: 'error',
             details: { message: 'Boom' },
@@ -37,28 +39,27 @@ describe('createLayerAlert', () => {
     })
 })
 
-describe('createErrorAlert', () => {
-    const errorCodes = { E7129: 'PROGRAM_UNAVAILABLE' }
-
+describe('createLayerAlertFromError', () => {
     it('maps access errors', () => {
         expect(
-            createErrorAlert(fetchError({ httpStatusCode: 403 }, 'access')).id
+            createLayerAlertFromError(
+                fetchError({ httpStatusCode: 403 }, 'access')
+            ).id
         ).toBe('NO_ACCESS')
-        expect(createErrorAlert(fetchError({ httpStatusCode: 403 })).id).toBe(
-            'NO_ACCESS'
-        )
+        expect(
+            createLayerAlertFromError(fetchError({ httpStatusCode: 403 })).id
+        ).toBe('NO_ACCESS')
     })
 
-    it('maps error codes given by the loader, and keeps the server details', () => {
+    it('maps known error codes, and keeps the server details', () => {
         const error = fetchError({
             httpStatusCode: 409,
             errorCode: 'E7129',
             message: 'Program is specified but does not exist',
         })
-        // Added by the loader that made the request
         error.request = 'analytics/trackedEntities/query'
 
-        const alert = createErrorAlert(error, { errorCodes })
+        const alert = createLayerAlertFromError(error)
 
         expect(alert).toMatchObject({
             id: 'PROGRAM_UNAVAILABLE',
@@ -73,13 +74,13 @@ describe('createErrorAlert', () => {
     })
 
     it('falls back to a generic error for anything else', () => {
-        expect(createErrorAlert(new Error('Boom'), { errorCodes })).toEqual({
+        expect(createLayerAlertFromError(new Error('Boom'))).toEqual({
             id: 'LOAD_FAILED',
             severity: 'error',
             title: 'Failed to load layer',
             details: { message: 'Boom' },
         })
-        expect(createErrorAlert('Boom').details.message).toBe('Boom')
+        expect(createLayerAlertFromError('Boom').details.message).toBe('Boom')
     })
 })
 
@@ -107,7 +108,7 @@ describe('alert helpers', () => {
 
     it('formats details as plain text', () => {
         const text = formatAlertDetails(
-            createErrorAlert(
+            createLayerAlertFromError(
                 Object.assign(
                     fetchError({ httpStatusCode: 409, errorCode: 'E7144' }),
                     { request: 'analytics/trackedEntities/query' }
@@ -139,23 +140,22 @@ describe('alert helpers', () => {
     })
 })
 
-describe('getPreviewAlerts', () => {
-    it('shows every alert, with sample details on errors', () => {
-        const alerts = getPreviewAlerts()
+describe('throwWithRequest', () => {
+    it('adds the failed request to the error and rethrows it', async () => {
+        const error = new Error('Boom')
 
-        expect(alerts.map((alert) => alert.id)).toContain('NO_DATA')
-        expect(alerts.map((alert) => alert.id)).toContain('LOAD_FAILED')
-        alerts.forEach((alert) =>
-            expect(Boolean(alert.details)).toBe(alert.severity === 'error')
-        )
-        expect(
-            alerts.find((alert) => alert.id === 'TRACKED_ENTITIES_TRUNCATED')
-                .title
-        ).toBe('Showing the first 50,000 tracked entities')
-        expect(
-            alerts.find((alert) => alert.id === 'NO_ACCESS').details
-                .httpStatusCode
-        ).toBe(403)
+        await expect(
+            Promise.reject(error).catch(throwWithRequest('analytics/query'))
+        ).rejects.toBe(error)
+        expect(error.request).toBe('analytics/query')
+    })
+
+    it('keeps the request of a deeper call', async () => {
+        const error = Object.assign(new Error('Boom'), { request: 'first' })
+
+        await expect(
+            Promise.reject(error).catch(throwWithRequest('second'))
+        ).rejects.toMatchObject({ request: 'first' })
     })
 })
 

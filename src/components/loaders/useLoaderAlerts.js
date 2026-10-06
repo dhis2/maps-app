@@ -45,8 +45,8 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
         onHidden: loaderAlertAction,
     })
 
-    // Layer alerts are shown in the legend instead. Temporary: remove this hook
-    // once every loader returns layer alerts (see util/layerAlerts.js)
+    // LEGACY-ALERTS: layer alerts are shown in the legend instead. Remove this
+    // hook when every loader returns layer alerts
     const showAlerts = (alerts) => {
         alerts
             .filter((alert) => !isLayerAlert(alert))

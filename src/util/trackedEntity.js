@@ -9,6 +9,7 @@ import {
     parseWkt,
     trackedEntityGeometryTypes,
 } from './geojson.js'
+import { throwWithRequest } from './layerAlerts.js'
 import { trimTime } from './time.js'
 import {
     serverSupportsTracker41Api,
@@ -177,9 +178,9 @@ export const loadTrackedEntitiesFromAnalytics = async ({
         analyticsEngine,
         serverVersion,
     })
-    const response = await analyticsEngine.trackedEntities.getQuery(
-        request.withPageSize(pageSize)
-    )
+    const response = await analyticsEngine.trackedEntities
+        .getQuery(request.withPageSize(pageSize))
+        .catch(throwWithRequest('analytics/trackedEntities/query'))
 
     return {
         data: createTrackedEntityFeatures(response, serverVersion),
@@ -287,10 +288,12 @@ export const loadTrackedEntitiesFromTracker = async ({
         Boolean(config.relationshipType)
     )
 
-    const { trackedEntities: response } = await engine.query(
-        { trackedEntities: TRACKED_ENTITIES_QUERY },
-        { variables: params }
-    )
+    const { trackedEntities: response } = await engine
+        .query(
+            { trackedEntities: TRACKED_ENTITIES_QUERY },
+            { variables: params }
+        )
+        .catch(throwWithRequest(TRACKED_ENTITIES_QUERY.resource))
 
     const allInstances =
         response[isTracker41Api ? 'trackedEntities' : 'instances']

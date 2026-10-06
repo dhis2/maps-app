@@ -6,7 +6,9 @@ export const ALERT_SEVERITY = {
     INFO: 'info',
 }
 
-const { ERROR, WARNING } = ALERT_SEVERITY
+const { ERROR, WARNING, INFO } = ALERT_SEVERITY
+
+export const SEVERITY_ORDER = [ERROR, WARNING, INFO]
 
 // Deleted and no longer accessible look the same to the app: say both
 const unavailableHint = () =>
@@ -14,7 +16,6 @@ const unavailableHint = () =>
         'It may have been deleted, or your access to it may have changed. Contact your system administrator if you need it.'
     )
 
-// Every layer alert: severity and user-facing wording, from its params
 export const LAYER_ALERTS = {
     LOAD_FAILED: {
         severity: ERROR,
@@ -64,4 +65,14 @@ export const LAYER_ALERTS = {
         title: () => i18n.t('Relationships could not be loaded'),
         description: unavailableHint,
     },
+}
+
+// DHIS2 error codes with a more specific alert than LOAD_FAILED, from
+// analytics (E7...) and the tracker API (E1...)
+export const ERROR_CODE_ALERTS = {
+    E1003: 'PROGRAM_UNAVAILABLE',
+    E7120: 'ORG_UNITS_UNAVAILABLE',
+    E7125: 'TRACKED_ENTITY_TYPE_UNAVAILABLE',
+    E7129: 'PROGRAM_UNAVAILABLE',
+    E7143: 'ORG_UNITS_UNAVAILABLE',
 }

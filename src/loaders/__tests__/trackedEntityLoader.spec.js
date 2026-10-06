@@ -254,10 +254,14 @@ describe('trackedEntityLoader', () => {
     })
 
     it('returns an error alert instead of throwing', async () => {
-        loadTrackedEntitiesFromAnalytics.mockRejectedValue(new Error('Boom'))
+        loadTrackedEntitiesFromAnalytics.mockRejectedValue(
+            Object.assign(new Error('Boom'), {
+                request: 'analytics/trackedEntities/query',
+            })
+        )
 
         const result = await trackedEntityLoader({
-            config: { ...baseConfig, loadError: 'Previous error' },
+            config: { ...baseConfig },
             engine: createEngine(),
             analyticsEngine: {},
             serverVersion: v41,
@@ -273,7 +277,6 @@ describe('trackedEntityLoader', () => {
                 },
             }),
         ])
-        expect(result.loadError).toBeUndefined()
         expect(result.data).toEqual([])
         expect(result.isLoaded).toBe(true)
     })
@@ -433,7 +436,10 @@ describe('trackedEntityLoader errors', () => {
             expect.objectContaining({
                 id: 'RELATIONSHIPS_FAILED',
                 severity: 'warning',
-                details: expect.objectContaining({ httpStatusCode: 404 }),
+                details: expect.objectContaining({
+                    httpStatusCode: 404,
+                    request: 'relationshipTypes',
+                }),
             }),
         ])
     })

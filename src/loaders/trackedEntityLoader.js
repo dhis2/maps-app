@@ -9,8 +9,8 @@ import {
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import {
-    createErrorAlert,
     createLayerAlert,
+    createLayerAlertFromError,
     getErrorDetails,
 } from '../util/layerAlerts.js'
 import { formatWithSeparator } from '../util/numbers.js'
@@ -82,27 +82,6 @@ const getRelationshipLegendItems = ({
 // analytics (E7217)
 const ANALYTICS_FALLBACK_CODES = new Set(['E7144', 'E7217'])
 
-// Analytics (E7...) and tracker API (E1...) codes. No access and deleted look
-// the same: both say "does not exist"
-const ERROR_CODES = {
-    E7129: 'PROGRAM_UNAVAILABLE',
-    E1003: 'PROGRAM_UNAVAILABLE',
-    E7125: 'TRACKED_ENTITY_TYPE_UNAVAILABLE',
-    E7120: 'ORG_UNITS_UNAVAILABLE',
-    E7143: 'ORG_UNITS_UNAVAILABLE',
-}
-
-const ANALYTICS_REQUEST = 'analytics/trackedEntities/query'
-const TRACKER_REQUEST = 'tracker/trackedEntities'
-
-// Adds the failed request to the error, for the alert details
-const addRequest = (error, request) => {
-    if (error instanceof Object) {
-        error.request ??= request
-    }
-    return error
-}
-
 // Tracker analytics where possible, otherwise the tracker API
 const loadTrackedEntities = async ({
     config,
@@ -120,7 +99,7 @@ const loadTrackedEntities = async ({
             })
         } catch (error) {
             if (!ANALYTICS_FALLBACK_CODES.has(error.details?.errorCode)) {
-                throw addRequest(error, ANALYTICS_REQUEST)
+                throw error
             }
         }
     }
@@ -129,8 +108,6 @@ const loadTrackedEntities = async ({
         engine,
         serverVersion,
         maxLimit,
-    }).catch((error) => {
-        throw addRequest(error, TRACKER_REQUEST)
     })
 }
 
@@ -219,11 +196,9 @@ const trackedEntityLoader = async ({
                 orgUnits: result.orgUnits,
             }).catch((error) => {
                 alerts.push(
-                    createLayerAlert(
-                        'RELATIONSHIPS_FAILED',
-                        {},
-                        getErrorDetails(error)
-                    )
+                    createLayerAlert('RELATIONSHIPS_FAILED', {
+                        details: getErrorDetails(error),
+                    })
                 )
                 return null
             })
@@ -242,10 +217,12 @@ const trackedEntityLoader = async ({
         if (result.isTruncated) {
             alerts.push(
                 createLayerAlert('TRACKED_ENTITIES_TRUNCATED', {
-                    limit: formatWithSeparator(
-                        result.limit,
-                        keyAnalysisDigitGroupSeparator
-                    ),
+                    params: {
+                        limit: formatWithSeparator(
+                            result.limit,
+                            keyAnalysisDigitGroupSeparator
+                        ),
+                    },
                 })
             )
         }
@@ -254,7 +231,7 @@ const trackedEntityLoader = async ({
             alerts.push(createLayerAlert('NO_DATA'))
         }
     } catch (error) {
-        alerts.push(createErrorAlert(error, { errorCodes: ERROR_CODES }))
+        alerts.push(createLayerAlertFromError(error))
     }
 
     return {
@@ -266,8 +243,6 @@ const trackedEntityLoader = async ({
         secondaryData,
         legend,
         alerts,
-        // The config can still have the previous load's error
-        loadError: undefined,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,

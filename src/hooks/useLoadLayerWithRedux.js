@@ -3,26 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setLayerLoading, updateLayer } from '../actions/layers.js'
 import useLoaderAlerts from '../components/loaders/useLoaderAlerts.js'
 import { EVENT_LAYER } from '../constants/layers.js'
-import { getHashUrlParam } from '../util/history.js'
-import { getPreviewAlerts } from '../util/layerAlerts.js'
+import { withPreviewAlerts } from '../util/layerAlertsPreview.js'
 import { useLoadLayer } from './useLoadLayer.js'
 
-// Adds the developer preview alerts (#/?alertPreview) the layer doesn't have
-const withPreviewAlerts = (result) => {
-    if (getHashUrlParam('alertPreview') === undefined) {
-        return result
-    }
-    const ids = (result.alerts ?? []).map((alert) => alert.id)
-    return {
-        ...result,
-        alerts: [
-            ...(result.alerts ?? []),
-            ...getPreviewAlerts().filter((alert) => !ids.includes(alert.id)),
-        ],
-    }
-}
-
-export const useLayersLoader = () => {
+// useLoadLayer for the app: loads the layers of the redux store that are not
+// loaded yet, and stores the results
+export const useLoadLayerWithRedux = () => {
     const { loadLayer, canLoadLayer } = useLoadLayer()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
@@ -53,6 +39,7 @@ export const useLayersLoader = () => {
             const result = withPreviewAlerts(
                 await loadLayer(config, { loadExtended: !!dataTable })
             )
+            // LEGACY-ALERTS: snackbars for loaders not migrated yet
             if (result.alerts) {
                 showAlerts(result.alerts)
             }

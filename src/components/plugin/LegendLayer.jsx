@@ -14,6 +14,7 @@ const DEFAULT_NO_ALERTS = []
 const LegendLayerAlerts = ({ alerts, name, layerType }) => (
     <>
         <LayerAlerts alerts={alerts} layerName={name} layerType={layerType} />
+        {/* LEGACY-ALERTS: remove when every loader returns layer alerts */}
         {alerts
             .filter((alert) => !isLayerAlert(alert))
             .map((alert, index) => (

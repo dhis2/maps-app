@@ -1,7 +1,7 @@
 import cx from 'classnames'
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useLayersLoader } from '../../hooks/useLayersLoader.js'
+import { useLoadLayerWithRedux } from '../../hooks/useLoadLayerWithRedux.js'
 import BottomPanel from '../datatable/BottomPanel.jsx'
 import DownloadModeMenu from '../download/DownloadMenubar.jsx'
 import DownloadSettings from '../download/DownloadSettings.jsx'
@@ -30,7 +30,7 @@ const App = () => {
 
     useLoadMap()
     useLoadDataStore()
-    useLayersLoader()
+    useLoadLayerWithRedux()
 
     const [interpretationsRenderCount, setInterpretationsRenderCount] =
         useState(1)

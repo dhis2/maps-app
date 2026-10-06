@@ -1,13 +1,12 @@
 import i18n from '@dhis2/d2-i18n'
-import { ALERT_SEVERITY, LAYER_ALERTS } from '../constants/layerAlerts.js'
+import {
+    ALERT_SEVERITY,
+    ERROR_CODE_ALERTS,
+    LAYER_ALERTS,
+    SEVERITY_ORDER,
+} from '../constants/layerAlerts.js'
 
-const SEVERITY_ORDER = [
-    ALERT_SEVERITY.ERROR,
-    ALERT_SEVERITY.WARNING,
-    ALERT_SEVERITY.INFO,
-]
-
-export const createLayerAlert = (id, params = {}, details) => {
+export const createLayerAlert = (id, { params = {}, details } = {}) => {
     const { severity, title, description } = LAYER_ALERTS[id]
 
     return {
@@ -19,8 +18,7 @@ export const createLayerAlert = (id, params = {}, details) => {
     }
 }
 
-// What the server said, from a data engine FetchError (details from the API)
-// or a plain Error. Loaders can add the failed request as error.request
+// What the server said, from a data engine FetchError or a plain Error
 export const getErrorDetails = (error) => {
     const { httpStatusCode, errorCode, message } = error?.details ?? {}
     return {
@@ -31,27 +29,35 @@ export const getErrorDetails = (error) => {
     }
 }
 
-// errorCodes maps the DHIS2 error codes of a loader's requests to alert ids.
-// A specific code says more than a 403 alone
-export const createErrorAlert = (error, { errorCodes = {} } = {}) => {
+// For .catch(): adds the failed request to the error, for the alert details
+export const throwWithRequest = (request) => (error) => {
+    if (error instanceof Object) {
+        error.request ??= request
+    }
+    throw error
+}
+
+// An error alert for any thrown error. A known error code says more than a
+// 403 alone
+export const createLayerAlertFromError = (error) => {
     const details = getErrorDetails(error)
     const isAccessError =
         error?.type === 'access' || details.httpStatusCode === 403
     const id =
-        errorCodes[details.errorCode] ??
+        ERROR_CODE_ALERTS[details.errorCode] ??
         (isAccessError ? 'NO_ACCESS' : 'LOAD_FAILED')
 
-    return createLayerAlert(id, {}, details)
+    return createLayerAlert(id, { details })
 }
 
-// The alerts to show for a layer. Older loaders return loadError, a readable
-// message, instead of an error alert
+// LEGACY-ALERTS: loaders not migrated yet return loadError and
+// { code, message } alerts. Remove when every loader returns layer alerts
 export const getLayerAlerts = ({ alerts = [], loadError } = {}) =>
     loadError
         ? [{ ...createLayerAlert('LOAD_FAILED'), description: loadError }]
         : alerts
 
-// Alerts in this format; older loaders still return { code, message }
+// LEGACY-ALERTS: remove when every loader returns layer alerts
 export const isLayerAlert = (alert) => Boolean(alert?.severity)
 
 export const hasLayerError = (layer) =>
@@ -75,7 +81,6 @@ const formatVersion = (version) =>
 
 const hasValue = ([, value]) => value !== undefined && value !== ''
 
-// The technical details as [label, value] rows, shown under "Details"
 export const getDetailRows = ({
     httpStatusCode,
     errorCode,
@@ -89,8 +94,7 @@ export const getDetailRows = ({
         [i18n.t('Request'), request],
     ].filter(hasValue)
 
-// Plain text to send to an administrator or developer: the context, then
-// the technical details
+// Plain text for an administrator or developer
 export const formatAlertDetails = (
     alert,
     { layerName, layerType, serverVersion, appVersion, date = new Date() } = {}
@@ -107,28 +111,3 @@ export const formatAlertDetails = (
         .filter(hasValue)
         .map(([label, value]) => `${label}: ${value}`)
         .join('\n')
-
-const PREVIEW_PARAMS = { limit: '50,000' }
-const PREVIEW_DETAILS = {
-    httpStatusCode: 409,
-    errorCode: 'E0000',
-    message: 'Sample server message',
-    request: 'analytics/sample/query',
-}
-
-// Developer preview: every alert on every layer, when the URL hash has
-// "alertPreview" (e.g. #/?alertPreview)
-export const getPreviewAlerts = () =>
-    Object.entries(LAYER_ALERTS).map(([id, { severity }]) =>
-        createLayerAlert(
-            id,
-            PREVIEW_PARAMS,
-            severity === ALERT_SEVERITY.ERROR
-                ? {
-                      ...PREVIEW_DETAILS,
-                      // Access errors are the 403s
-                      ...(id === 'NO_ACCESS' && { httpStatusCode: 403 }),
-                  }
-                : undefined
-        )
-    )
