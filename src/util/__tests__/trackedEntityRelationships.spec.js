@@ -263,6 +263,93 @@ describe('getDataWithRelationships', () => {
     )
 })
 
+describe('getDataWithRelationships target query', () => {
+    // `program` is left out, not undefined: the code checks 'program' in to
+    const constraint = ({ type = 'type1', program } = {}) => ({
+        relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+        trackedEntityType: { id: type },
+        ...(program && { program: { id: program } }),
+    })
+
+    it.each([
+        {
+            name: 'same type, different programs, to program set',
+            from: { program: 'program1' },
+            to: { program: 'program2' },
+            query: { program: 'program2', trackedEntityType: undefined },
+        },
+        {
+            name: 'same type, different programs, no to program',
+            from: { program: 'program1' },
+            to: {},
+            query: { program: undefined, trackedEntityType: 'type1' },
+        },
+        {
+            name: 'different types, different programs, to program set',
+            from: { program: 'program1' },
+            to: { type: 'type2', program: 'program2' },
+            query: { program: undefined, trackedEntityType: 'type2' },
+        },
+        {
+            name: 'different types, different programs, no to program',
+            from: { program: 'program1' },
+            to: { type: 'type2' },
+            query: { program: undefined, trackedEntityType: 'type2' },
+        },
+        {
+            name: 'different types, same program',
+            from: { program: 'program1' },
+            to: { type: 'type2', program: 'program1' },
+            query: { program: undefined, trackedEntityType: undefined },
+        },
+        {
+            name: 'different types, no programs',
+            from: {},
+            to: { type: 'type2' },
+            query: { program: undefined, trackedEntityType: undefined },
+        },
+        {
+            name: 'same type, same program',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: null,
+        },
+        {
+            name: 'same type, no programs',
+            from: {},
+            to: {},
+            query: null,
+        },
+    ])('$name', async ({ from, to, query }) => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValue({ tei: { trackedEntities: [] } }),
+        }
+
+        await getDataWithRelationships({
+            serverVersion: { minor: 41 },
+            instances: [instance('te1', [rel('relationship1', 'te1', 'te2')])],
+            queryOptions: {
+                relationshipType: {
+                    id: 'relationshipTypeId1',
+                    fromConstraint: constraint(from),
+                    toConstraint: constraint(to),
+                },
+                orgUnits: 'ou1',
+            },
+            engine,
+        })
+
+        if (query) {
+            expect(engine.query.mock.calls[0][1].variables).toMatchObject(query)
+        } else {
+            // The targets are among the loaded instances
+            expect(engine.query).not.toHaveBeenCalled()
+        }
+    })
+})
+
 describe('loadTrackedEntityRelationships', () => {
     const constraint = {
         relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
