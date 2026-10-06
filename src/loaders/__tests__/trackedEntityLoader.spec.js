@@ -129,11 +129,7 @@ describe('trackedEntityLoader tracker request', () => {
         expect(getRequest(engine)).toEqual({
             resource: 'tracker/trackedEntities',
             params: {
-                fields: [
-                    'trackedEntity~rename(id)',
-                    'geometry',
-                    'relationships',
-                ],
+                fields: ['trackedEntity~rename(id)', 'geometry'],
                 orgUnits: 'ou1,ou2',
                 orgUnitMode: 'DESCENDANTS',
                 program: 'program1',
@@ -161,11 +157,7 @@ describe('trackedEntityLoader tracker request', () => {
         expect(getRequest(engine)).toEqual({
             resource: 'tracker/trackedEntities',
             params: {
-                fields: [
-                    'trackedEntity~rename(id)',
-                    'geometry',
-                    'relationships',
-                ],
+                fields: ['trackedEntity~rename(id)', 'geometry'],
                 orgUnit: 'ou1;ou2',
                 ouMode: 'DESCENDANTS',
                 program: 'program1',
@@ -573,11 +565,7 @@ describe('trackedEntityLoader relationships', () => {
             expect(getRequest(engine, 3)).toEqual({
                 resource: 'tracker/trackedEntities',
                 params: {
-                    fields: [
-                        'trackedEntity~rename(id)',
-                        'geometry',
-                        'relationships',
-                    ],
+                    fields: ['trackedEntity~rename(id)', 'geometry'],
                     program: 'program2',
                     ...params,
                 },
@@ -585,7 +573,7 @@ describe('trackedEntityLoader relationships', () => {
         }
     )
 
-    it('rejects for a relationship type not between tracked entities', async () => {
+    it('shows the tracked entities for a relationship to events', async () => {
         const engine = {
             query: jest
                 .fn()
@@ -596,31 +584,39 @@ describe('trackedEntityLoader relationships', () => {
                     relationshipType: {
                         ...relationshipType,
                         toConstraint: {
-                            ...constraint,
-                            relationshipEntity: 'PROGRAM_INSTANCE',
+                            relationshipEntity: 'PROGRAM_STAGE_INSTANCE',
                         },
-                    },
-                })
-                .mockResolvedValueOnce({
-                    relatedEntityType: {
-                        displayName: 'Contact person',
-                        featureType: 'POINT',
                     },
                 }),
         }
 
-        await expect(
-            trackedEntityLoader({
-                config: {
-                    ...baseConfig,
-                    program,
-                    config: JSON.stringify({
-                        relationships: { type: 'relType1' },
-                    }),
-                },
-                engine,
-                serverVersion: v41,
-            })
-        ).rejects.toThrow(TypeError)
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        // No request for the related type, and nothing to add to the legend
+        expect(engine.query).toHaveBeenCalledTimes(2)
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.relationships).toEqual([])
+        expect(result.secondaryData).toEqual([])
+        expect(result.legend.items).toHaveLength(1)
+    })
+
+    it('requests the relationships of each tracked entity', async () => {
+        const { engine } = await loadWithRelationships()
+
+        expect(getRequest(engine).params.fields).toEqual([
+            'trackedEntity~rename(id)',
+            'geometry',
+            'relationships',
+        ])
     })
 })
