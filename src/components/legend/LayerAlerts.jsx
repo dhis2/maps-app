@@ -17,7 +17,7 @@ import {
 } from '../../util/layerAlerts.js'
 import styles from './styles/LayerAlerts.module.css'
 
-const ICONS = {
+export const ALERT_ICONS = {
     [ALERT_SEVERITY.ERROR]: <IconErrorFilled16 />,
     [ALERT_SEVERITY.WARNING]: <IconWarningFilled16 />,
     [ALERT_SEVERITY.INFO]: <IconInfoFilled16 />,
@@ -68,7 +68,7 @@ const LayerAlert = ({ alert, layerName, layerType }) => {
             className={cx(styles.alert, styles[severity])}
             data-test={`layer-alert-${severity}`}
         >
-            <span className={styles.icon}>{ICONS[severity]}</span>
+            <span className={styles.icon}>{ALERT_ICONS[severity]}</span>
             <div className={styles.body}>
                 <div className={styles.title}>{title}</div>
                 {description && (

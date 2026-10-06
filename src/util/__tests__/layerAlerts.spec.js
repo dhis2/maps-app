@@ -8,6 +8,7 @@ import {
     createLayerAlertFromError,
     formatAlertDetails,
     getLayerAlerts,
+    getMostSevereAlert,
     hasLayerError,
     isLayerAlert,
     sortBySeverity,
@@ -94,6 +95,17 @@ describe('createLayerAlertFromError', () => {
 describe('alert helpers', () => {
     const warning = createLayerAlert(LAYER_ALERT_NO_DATA)
     const error = createLayerAlert(LAYER_ALERT_LOAD_FAILED)
+
+    it('finds the most severe alert of the layers', () => {
+        expect(
+            getMostSevereAlert([
+                { alerts: [warning] },
+                {},
+                { alerts: [{ code: 'ERROR_CRITICAL' }, error] },
+            ])
+        ).toBe(error)
+        expect(getMostSevereAlert([{ alerts: [] }])).toBeUndefined()
+    })
 
     it('tells new alerts from older { code, message } ones', () => {
         expect(isLayerAlert(warning)).toBe(true)

@@ -2,8 +2,19 @@ import i18n from '@dhis2/d2-i18n'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useState, useEffect } from 'react'
+import { ALERT_SEVERITY } from '../../constants/layerAlerts.js'
+import { getMostSevereAlert } from '../../util/layerAlerts.js'
+import { ALERT_ICONS } from '../legend/LayerAlerts.jsx'
 import LegendLayer from './LegendLayer.jsx'
 import './styles/Legend.css'
+
+// Shown on the closed legend, as alerts are only visible when it is open
+const BADGE_SEVERITIES = [ALERT_SEVERITY.ERROR, ALERT_SEVERITY.WARNING]
+
+const getBadgeTitle = (severity) =>
+    severity === ALERT_SEVERITY.ERROR
+        ? i18n.t('Legend (a layer has an error)')
+        : i18n.t('Legend (a layer has a warning)')
 
 // Renders a legend for all map layers
 const Legend = ({ layers, toggleLayerVisibility, isFullscreen }) => {
@@ -19,6 +30,9 @@ const Legend = ({ layers, toggleLayerVisibility, isFullscreen }) => {
             setIsPinned(false)
         }
     }, [isFullscreen])
+
+    const badgeSeverity = getMostSevereAlert(layers)?.severity
+    const hasBadge = BADGE_SEVERITIES.includes(badgeSeverity)
 
     const legendLayers = layers
         .filter((layer) => layer.legend || layer.alerts?.length)
@@ -51,9 +65,25 @@ const Legend = ({ layers, toggleLayerVisibility, isFullscreen }) => {
             ) : (
                 <div
                     className="dhis2-map-legend-button"
-                    title={i18n.t('Legend')}
+                    title={
+                        hasBadge
+                            ? getBadgeTitle(badgeSeverity)
+                            : i18n.t('Legend')
+                    }
                     onMouseEnter={() => setIsOpen(true)}
-                />
+                >
+                    {hasBadge && (
+                        <span
+                            className={cx(
+                                'dhis2-map-legend-badge',
+                                badgeSeverity
+                            )}
+                            data-test={`legend-badge-${badgeSeverity}`}
+                        >
+                            {ALERT_ICONS[badgeSeverity]}
+                        </span>
+                    )}
+                </div>
             )}
         </div>
     )

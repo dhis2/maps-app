@@ -77,6 +77,11 @@ export const sortBySeverity = (alerts) =>
             SEVERITY_ORDER.indexOf(b.severity)
     )
 
+export const getMostSevereAlert = (layers) =>
+    sortBySeverity(
+        layers.flatMap((layer) => (layer.alerts ?? []).filter(isLayerAlert))
+    )[0]
+
 const formatVersion = (version) =>
     version?.full ||
     (version &&

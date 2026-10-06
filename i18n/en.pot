@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-06T10:56:29.553Z\n"
-"PO-Revision-Date: 2026-10-06T10:56:29.553Z\n"
+"POT-Creation-Date: 2026-10-06T11:43:15.235Z\n"
+"PO-Revision-Date: 2026-10-06T11:43:15.235Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1075,6 +1075,12 @@ msgstr "End date"
 
 msgid "Not available offline"
 msgstr "Not available offline"
+
+msgid "Legend (a layer has an error)"
+msgstr "Legend (a layer has an error)"
+
+msgid "Legend (a layer has a warning)"
+msgstr "Legend (a layer has a warning)"
 
 msgid "Click to unpin legend"
 msgstr "Click to unpin legend"
