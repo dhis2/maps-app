@@ -1,3 +1,6 @@
+import { createTrackedEntityInstanceFeatures } from './trackedEntity.js'
+import { serverSupportsTracker41Api } from './versionToggle.js'
+
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
 const TEI_40_QUERY = {
@@ -212,5 +215,68 @@ export const getDataWithRelationships = async ({
         primary: Object.values(normalizedSourceInstances),
         relationships: Object.values(relationshipsById),
         secondary: targetInstances,
+    }
+}
+
+const RELATIONSHIP_TYPES_QUERY = {
+    resource: 'relationshipTypes',
+    id: ({ id }) => id,
+}
+
+const TRACKED_ENTITY_TYPES_QUERY = {
+    resource: 'trackedEntityTypes',
+    id: ({ id }) => id,
+    params: {
+        fields: 'displayName,featureType',
+    },
+}
+
+// The instances must include their relationships
+export const loadTrackedEntityRelationships = async ({
+    config,
+    engine,
+    serverVersion,
+    instances,
+    orgUnits,
+}) => {
+    const {
+        relationshipType: relationshipTypeID,
+        organisationUnitSelectionMode,
+    } = config
+
+    const { relationshipType } = await engine.query(
+        { relationshipType: RELATIONSHIP_TYPES_QUERY },
+        { variables: { id: relationshipTypeID } }
+    )
+
+    const { relatedEntityType } = await engine.query(
+        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+        {
+            variables: {
+                id: relationshipType.toConstraint.trackedEntityType.id,
+            },
+        }
+    )
+
+    const dataWithRels = await getDataWithRelationships({
+        // VERSION-TOGGLE: see util/versionToggle.js
+        isVersion40: !serverSupportsTracker41Api(serverVersion),
+        instances,
+        queryOptions: {
+            relationshipType,
+            orgUnits,
+            organisationUnitSelectionMode,
+        },
+        engine,
+    })
+
+    return {
+        data: createTrackedEntityInstanceFeatures(dataWithRels.primary),
+        relationships: dataWithRels.relationships,
+        secondaryData: createTrackedEntityInstanceFeatures(
+            dataWithRels.secondary
+        ),
+        relationshipType,
+        relatedEntityType,
     }
 }
