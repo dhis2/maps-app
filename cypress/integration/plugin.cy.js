@@ -280,10 +280,12 @@ describe('Dashboard plugin', () => {
             )
         })
 
-        // TODO: unskip when maps-gl Layer.setVisibility resets the map's cached
-        // interactive layer ids (Map.getEventFeature), which are cached without
-        // the layer by any map event while it is hidden
-        it.skip('keeps a layer interactive after a map event while hidden', () => {
+        // TODO: https://dhis2.atlassian.net/browse/DHIS2-22233
+        // Unskip when maps-gl Layer.setVisibility resets the map's cached
+        // interactive layer ids. They are cached on the first map event
+        // (Map.getEventFeature), so a right-click while the layer is hidden,
+        // before any other map event, leaves it non-interactive once shown
+        it.skip('keeps a layer interactive after a right-click while hidden', () => {
             visitPlugin(thematicMap)
             waitForPluginMap()
 
@@ -329,8 +331,9 @@ describe('Dashboard plugin', () => {
             getPluginLegendAlerts().should('not.exist')
         })
 
-        // TODO: unskip when didViewsChange (src/util/pluginHelper.js) compares
-        // the number of map views, layer types and data items
+        // TODO: https://dhis2.atlassian.net/browse/DHIS2-22234
+        // Unskip when didViewsChange (src/util/pluginHelper.js) compares the
+        // number of map views, layer types and data items
         describe.skip('changes not detected by didViewsChange', () => {
             it('updates the map when the new visualization has more layers', () => {
                 visitPluginAndWaitForData(thematicMap)
