@@ -110,6 +110,9 @@ const layer = (state, action) => {
             return {
                 ...state,
                 isLoading: true,
+                // Not shown while reloading
+                alerts: undefined,
+                loadError: undefined, // LEGACY-ALERTS
             }
 
         case types.LAYER_TOGGLE_VISIBILITY:

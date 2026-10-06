@@ -241,6 +241,21 @@ describe('loadTrackedEntitiesFromAnalytics', () => {
         ).toBe(1)
     })
 
+    it('adds the request to a failed request error', async () => {
+        mockEngine.query.mockRejectedValueOnce(new Error('Boom'))
+
+        await expect(
+            loadTrackedEntitiesFromAnalytics({
+                config: baseConfig,
+                analyticsEngine,
+                serverVersion: v42,
+            })
+        ).rejects.toMatchObject({
+            message: 'Boom',
+            request: 'analytics/trackedEntities/query',
+        })
+    })
+
     it('is truncated when the server returns fewer rows than requested', async () => {
         // e.g. capped by the analytics max limit setting
         mockEngine.query.mockResolvedValueOnce({

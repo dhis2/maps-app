@@ -17,7 +17,6 @@ import {
 import {
     ALERT_SUCCESS,
     ALERT_MESSAGE_DYNAMIC,
-    ERROR_CRITICAL,
 } from '../../../constants/alerts.js'
 import {
     DOWNLOADABLE_LAYER_TYPES,
@@ -30,8 +29,9 @@ import {
     APP_URLS,
     CURRENT_AO_KEY,
 } from '../../../util/analyticalObject.js'
+import { getLayerAlerts, hasLayerError } from '../../../util/layerAlerts.js'
+import LayerAlerts from '../../legend/LayerAlerts.jsx'
 import Legend from '../../legend/Legend.jsx'
-import LegendAlert from '../../legend/LegendAlert.jsx'
 import DataDownloadDialog from '../download/DataDownloadDialog.jsx'
 import LayerCard from '../LayerCard.jsx'
 import styles from './styles/OverlayCard.module.css'
@@ -60,35 +60,30 @@ const OverlayCard = ({
         isVisible,
         layer: layerType,
         isLoaded,
-        loadError,
     } = layer
+    const hasError = hasLayerError(layer)
 
     const canEdit = layerType !== EXTERNAL_LAYER
     const canToggleDataTable = DATA_TABLE_LAYER_TYPES.includes(layerType)
     const canDownload = DOWNLOADABLE_LAYER_TYPES.includes(layerType)
     const canOpenAs = OPEN_AS_LAYER_TYPES.includes(layerType)
 
-    const getCardContent = () => {
-        if (loadError) {
-            return (
-                <div
-                    data-test="load-error-noticebox"
-                    className={styles.loadError}
-                >
-                    <LegendAlert
-                        alert={{ code: ERROR_CRITICAL, message: loadError }}
-                    />
-                </div>
-            )
-        }
-        return (
-            legend && (
+    const getCardContent = () => (
+        <div className={styles.content}>
+            <div className={styles.alerts}>
+                <LayerAlerts
+                    alerts={getLayerAlerts(layer)}
+                    layerName={name}
+                    layerType={layerType}
+                />
+            </div>
+            {legend && (
                 <div className={styles.legend}>
                     <Legend {...legend} />
                 </div>
-            )
-        )
-    }
+            )}
+        </div>
+    )
 
     return (
         <>
@@ -140,7 +135,7 @@ const OverlayCard = ({
                           }
                         : undefined
                 }
-                hasError={!!loadError}
+                hasError={hasError}
             >
                 {getCardContent()}
             </LayerCard>

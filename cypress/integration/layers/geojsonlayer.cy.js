@@ -53,7 +53,7 @@ describe('GeoJSON URL Layer', () => {
             .contains(OVERLAY_TITLE)
             .should('be.visible')
 
-        cy.getByDataTest('load-error-noticebox').should('not.exist')
+        cy.getByDataTest('layer-alert-error').should('not.exist')
 
         // open the data table
         cy.getByDataTest('moremenubutton').first().click()
@@ -127,11 +127,11 @@ describe('GeoJSON URL Layer', () => {
             .should('be.visible')
 
         // check that an error is displayed in the layer card
-        cy.getByDataTest('load-error-noticebox').should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error').should('be.visible')
+        cy.getByDataTest('layer-alert-error')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )
@@ -191,11 +191,11 @@ describe('GeoJSON URL Layer', () => {
             .should('be.visible')
 
         // check that an error is displayed in the layer card
-        cy.getByDataTest('load-error-noticebox').should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error').should('be.visible')
+        cy.getByDataTest('layer-alert-error')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error')
             .contains(
                 'There was a problem with this layer. Contact a system administrator.'
             )

@@ -67,11 +67,9 @@ describe('Fetch errors', () => {
 
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
         cy.getByDataTest('basemapcard', EXTENDED_TIMEOUT).should('be.visible')
-        cy.getByDataTest('load-error-noticebox', EXTENDED_TIMEOUT).within(
-            () => {
-                cy.contains('Failed to load layer').should('be.visible')
-            }
-        )
+        cy.getByDataTest('layer-alert-error', EXTENDED_TIMEOUT).within(() => {
+            cy.contains('Failed to load layer').should('be.visible')
+        })
     })
 
     // TODO - need to make changes in analytics CachedDataProvider to make this test pass

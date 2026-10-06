@@ -804,11 +804,11 @@ context('Thematic Layers', () => {
             .should('be.visible')
 
         // check that an error is displayed in the layer card
-        cy.getByDataTest('load-error-noticebox').should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error').should('be.visible')
+        cy.getByDataTest('layer-alert-error')
             .contains('Failed to load layer')
             .should('be.visible')
-        cy.getByDataTest('load-error-noticebox')
+        cy.getByDataTest('layer-alert-error')
             .contains(
                 'Organisation unit or organisation unit level is not valid'
             )

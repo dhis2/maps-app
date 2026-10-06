@@ -12,11 +12,11 @@ import React, {
     useEffect,
     useRef,
 } from 'react'
+import { useLoadLayer } from '../../hooks/useLoadLayer.js'
 import { drillUpDown } from '../../util/map.js'
 import { didViewsChange } from '../../util/pluginHelper.js'
 import MapView from '../map/MapView.jsx'
 import ContextMenu from './ContextMenu.jsx'
-import LayerLoader from './LayerLoader.jsx'
 import Legend from './Legend.jsx'
 import styles from './styles/Map.module.css'
 
@@ -91,6 +91,30 @@ const Map = forwardRef((props, ref) => {
         }
     }, [])
 
+    // Loads each config object once, when it can be loaded. Runs after every
+    // render: new views, a drill or period types arriving can all allow more
+    const { loadLayer, canLoadLayer } = useLoadLayer()
+    const requestedConfigs = useRef(new WeakSet())
+
+    useEffect(() => {
+        layers.current
+            .filter(
+                (config) =>
+                    !config.isLoaded &&
+                    !requestedConfigs.current.has(config) &&
+                    canLoadLayer(config)
+            )
+            .forEach((config) => {
+                requestedConfigs.current.add(config)
+                loadLayer(config).then((layer) => {
+                    // Views changed meanwhile: the result is outdated
+                    if (layers.current.includes(config)) {
+                        onLayerLoad(layer)
+                    }
+                })
+            })
+    })
+
     // TODO: Remove when map.js is refactored
     useEffect(() => {
         if (getResizeFunction) {
@@ -140,17 +164,9 @@ const Map = forwardRef((props, ref) => {
     }
 
     if (!mapIsLoaded) {
-        const layersToLoad = layers.current.filter((config) => !config.isLoaded)
         return (
             <CenteredContent>
                 <CircularLoader />
-                {layersToLoad.map((config) => (
-                    <LayerLoader
-                        key={config.id}
-                        config={config}
-                        onLoad={onLayerLoad}
-                    />
-                ))}
             </CenteredContent>
         )
     }

@@ -1,3 +1,4 @@
+import { throwWithRequest } from './layerAlerts.js'
 import { createTrackedEntityInstanceFeatures } from './trackedEntity.js'
 import { serverSupportsTracker41Api } from './versionToggle.js'
 
@@ -183,18 +184,21 @@ export const getDataWithRelationships = async ({
     } else {
         // VERSION-TOGGLE: see util/versionToggle.js
         const isTracker41Api = serverSupportsTracker41Api(serverVersion)
-        const { tei } = await engine.query(
-            { tei: isTracker41Api ? TEI_41_QUERY : TEI_40_QUERY },
-            {
-                variables: {
-                    fields,
-                    orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
-                    program: recursiveProp?.program,
-                    trackedEntityType: recursiveProp?.type?.id,
-                },
-            }
-        )
+        const teiQuery = isTracker41Api ? TEI_41_QUERY : TEI_40_QUERY
+        const { tei } = await engine
+            .query(
+                { tei: teiQuery },
+                {
+                    variables: {
+                        fields,
+                        orgUnits,
+                        orgUnitMode: organisationUnitSelectionMode,
+                        program: recursiveProp?.program,
+                        trackedEntityType: recursiveProp?.type?.id,
+                    },
+                }
+            )
+            .catch(throwWithRequest(teiQuery.resource))
 
         normalizedPotentialTargetInstances = normalizeInstances(
             tei[isTracker41Api ? 'trackedEntities' : 'instances']
@@ -260,19 +264,23 @@ export const loadTrackedEntityRelationships = async ({
         organisationUnitSelectionMode,
     } = config
 
-    const { relationshipType } = await engine.query(
-        { relationshipType: RELATIONSHIP_TYPE_QUERY },
-        { variables: { id: relationshipTypeId } }
-    )
+    const { relationshipType } = await engine
+        .query(
+            { relationshipType: RELATIONSHIP_TYPE_QUERY },
+            { variables: { id: relationshipTypeId } }
+        )
+        .catch(throwWithRequest(RELATIONSHIP_TYPE_QUERY.resource))
 
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPE_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
+    const { relatedEntityType } = await engine
+        .query(
+            { relatedEntityType: TRACKED_ENTITY_TYPE_QUERY },
+            {
+                variables: {
+                    id: relationshipType.toConstraint.trackedEntityType.id,
+                },
+            }
+        )
+        .catch(throwWithRequest(TRACKED_ENTITY_TYPE_QUERY.resource))
 
     const { primary, relationships, secondary } =
         await getDataWithRelationships({
