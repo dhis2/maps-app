@@ -207,10 +207,9 @@ describe('trackedEntityLoader', () => {
 
         expect(result.alerts).toEqual([
             expect.objectContaining({
-                warning: true,
-                code: 'CUSTOM_ALERT',
-                message:
-                    'Tracked entity: Displaying first 50,000 tracked entities',
+                id: 'TRACKED_ENTITIES_TRUNCATED',
+                severity: 'warning',
+                title: 'Showing the first 50,000 tracked entities',
             }),
         ])
     })
@@ -233,8 +232,8 @@ describe('trackedEntityLoader', () => {
 
         expect(result.alerts).toEqual([
             expect.objectContaining({
-                warning: true,
-                message: 'Tracked entity: Displaying first 2 tracked entities',
+                id: 'TRACKED_ENTITIES_TRUNCATED',
+                title: 'Showing the first 2 tracked entities',
             }),
         ])
     })
@@ -250,34 +249,36 @@ describe('trackedEntityLoader', () => {
         })
 
         expect(result.alerts).toEqual([
-            { code: 'WARNING_NO_DATA', message: 'Person' },
+            expect.objectContaining({ id: 'NO_DATA', severity: 'warning' }),
         ])
     })
 
-    it('sets a load error instead of throwing', async () => {
-        loadTrackedEntitiesFromAnalytics.mockRejectedValue(
-            new Error('Please ensure analytics job was run')
-        )
+    it('returns an error alert instead of throwing', async () => {
+        loadTrackedEntitiesFromAnalytics.mockRejectedValue(new Error('Boom'))
 
         const result = await trackedEntityLoader({
-            config: { ...baseConfig },
+            config: { ...baseConfig, loadError: 'Previous error' },
             engine: createEngine(),
             analyticsEngine: {},
             serverVersion: v41,
         })
 
-        expect(result.loadError).toBe('Please ensure analytics job was run')
         expect(result.alerts).toEqual([
-            {
-                code: 'ERROR_CRITICAL',
-                message: 'Please ensure analytics job was run',
-            },
+            expect.objectContaining({
+                id: 'LOAD_FAILED',
+                severity: 'error',
+                details: {
+                    message: 'Boom',
+                    request: 'analytics/trackedEntities/query',
+                },
+            }),
         ])
+        expect(result.loadError).toBeUndefined()
         expect(result.data).toEqual([])
         expect(result.isLoaded).toBe(true)
     })
 
-    it('sets a load error when the tracker API fails', async () => {
+    it('returns an error alert when the tracker API fails', async () => {
         const engine = { query: jest.fn().mockRejectedValue(new Error('Boom')) }
 
         const result = await trackedEntityLoader({
@@ -287,8 +288,179 @@ describe('trackedEntityLoader', () => {
             serverVersion: v40,
         })
 
-        expect(result.loadError).toBe('Boom')
+        expect(result.alerts).toEqual([
+            expect.objectContaining({
+                id: 'LOAD_FAILED',
+                details: {
+                    message: 'Boom',
+                    request: 'tracker/trackedEntities',
+                },
+            }),
+        ])
         expect(result.isLoaded).toBe(true)
+    })
+})
+
+describe('trackedEntityLoader errors', () => {
+    const fetchError = (details, type = 'unknown') =>
+        Object.assign(new Error(details.message ?? 'Server error'), {
+            type,
+            details,
+        })
+    const load = (overrides = {}) =>
+        trackedEntityLoader({
+            config: { ...baseConfig },
+            engine: createEngine({ trackedEntities: [] }),
+            analyticsEngine: {},
+            serverVersion: v41,
+            ...overrides,
+        })
+
+    beforeEach(() => {
+        jest.clearAllMocks()
+    })
+
+    it.each(['E7144', 'E7217'])(
+        'falls back to the tracker API on analytics error %s',
+        async (errorCode) => {
+            loadTrackedEntitiesFromAnalytics.mockRejectedValue(
+                fetchError({ errorCode })
+            )
+            const engine = createEngine({
+                trackedEntities: [
+                    {
+                        id: 'te1',
+                        geometry: { type: 'Point', coordinates: [1, 2] },
+                    },
+                ],
+            })
+
+            const result = await load({ engine })
+
+            expect(engine.query).toHaveBeenCalledTimes(1)
+            expect(result.data).toEqual([point])
+            expect(result.alerts).toEqual([])
+        }
+    )
+
+    it.each([
+        [
+            'no access',
+            fetchError({ httpStatusCode: 403 }, 'access'),
+            'NO_ACCESS',
+        ],
+        [
+            'a missing program',
+            fetchError({ errorCode: 'E7129' }),
+            'PROGRAM_UNAVAILABLE',
+        ],
+        [
+            'a missing tracked entity type',
+            fetchError({ errorCode: 'E7125' }),
+            'TRACKED_ENTITY_TYPE_UNAVAILABLE',
+        ],
+        [
+            'org units outside the user access',
+            fetchError({ errorCode: 'E7120' }),
+            'ORG_UNITS_UNAVAILABLE',
+        ],
+        [
+            'invalid org units',
+            fetchError({ errorCode: 'E7143' }),
+            'ORG_UNITS_UNAVAILABLE',
+        ],
+        ['any other error', fetchError({ errorCode: 'E7999' }), 'LOAD_FAILED'],
+    ])('maps %s to %s', async (_, error, id) => {
+        loadTrackedEntitiesFromAnalytics.mockRejectedValue(error)
+
+        const result = await load()
+
+        expect(result.alerts).toEqual([
+            expect.objectContaining({ id, severity: 'error' }),
+        ])
+    })
+
+    it('maps tracker API errors too', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockRejectedValue(
+                    fetchError({ httpStatusCode: 400, errorCode: 'E1003' })
+                ),
+        }
+
+        const result = await load({ engine, serverVersion: v40 })
+
+        expect(result.alerts).toEqual([
+            expect.objectContaining({
+                id: 'PROGRAM_UNAVAILABLE',
+                details: expect.objectContaining({
+                    errorCode: 'E1003',
+                    request: 'tracker/trackedEntities',
+                }),
+            }),
+        ])
+    })
+
+    it('keeps the tracked entities when relationships fail to load', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({
+                    trackedEntities: {
+                        trackedEntities: [
+                            {
+                                id: 'te1',
+                                geometry: {
+                                    type: 'Point',
+                                    coordinates: [1, 2],
+                                },
+                            },
+                        ],
+                    },
+                })
+                .mockRejectedValueOnce(fetchError({ httpStatusCode: 404 })),
+        }
+
+        const result = await load({
+            config: { ...baseConfig, relationshipType: 'relType' },
+            engine,
+        })
+
+        expect(result.data).toEqual([point])
+        expect(result.relationships).toBeUndefined()
+        expect(result.alerts).toEqual([
+            expect.objectContaining({
+                id: 'RELATIONSHIPS_FAILED',
+                severity: 'warning',
+                details: expect.objectContaining({ httpStatusCode: 404 }),
+            }),
+        ])
+    })
+
+    it('shows an unknown program status as is', async () => {
+        loadTrackedEntitiesFromAnalytics.mockResolvedValue({ data: [point] })
+
+        const result = await load({
+            config: {
+                ...baseConfig,
+                program: { id: 'programId', name: 'Malaria' },
+                programStatus: 'UNKNOWN',
+            },
+        })
+
+        expect(result.legend.explanation).toEqual(['Program status: UNKNOWN'])
+    })
+
+    it('finishes loading when the config is broken', async () => {
+        const result = await load({
+            config: { ...baseConfig, trackedEntityType: undefined },
+        })
+
+        expect(result.isLoaded).toBe(true)
+        expect(result.alerts).toEqual([
+            expect.objectContaining({ id: 'LOAD_FAILED', severity: 'error' }),
+        ])
     })
 })
 

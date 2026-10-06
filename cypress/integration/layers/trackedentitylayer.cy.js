@@ -39,6 +39,25 @@ describe('Tracked Entity Layers', () => {
         Layer.validateCardItems(['Malaria Entity'])
     })
 
+    it('shows a warning in the layer card when there is no data', () => {
+        selectTeTypeAndProgram(
+            Layer,
+            'Malaria Entity',
+            'Malaria case diagnosis, treatment and investigation'
+        )
+
+        Layer.selectTab('Period')
+            .typeStartDate('1990-01-01')
+            .typeEndDate('1990-12-31')
+            .addToMap()
+
+        Layer.validateDialogClosed(true)
+
+        cy.getByDataTest('layer-alert-warning', EXTENDED_TIMEOUT)
+            .should('contain', 'No data found')
+            .and('contain', "Data you don't have access to is not shown")
+    })
+
     it('opens a tracked entity layer popup', () => {
         selectTeTypeAndProgram(
             Layer,

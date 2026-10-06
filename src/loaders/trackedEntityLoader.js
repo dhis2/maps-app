@@ -1,10 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import {
-    CUSTOM_ALERT,
-    ERROR_CRITICAL,
-    WARNING_NO_DATA,
-} from '../constants/alerts.js'
-import {
     TEI_COLOR,
     TEI_RADIUS,
     TEI_RELATED_COLOR,
@@ -13,6 +8,11 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
+import {
+    createErrorAlert,
+    createLayerAlert,
+    getErrorDetails,
+} from '../util/layerAlerts.js'
 import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
@@ -77,6 +77,96 @@ const getRelationshipLegendItems = ({
     ]
 }
 
+// Analytics can't be used, but the tracker API can: the type has no events
+// or its tables were never generated (E7144), or the user can't view event
+// analytics (E7217)
+const ANALYTICS_FALLBACK_CODES = new Set(['E7144', 'E7217'])
+
+// Analytics (E7...) and tracker API (E1...) codes. No access and deleted look
+// the same: both say "does not exist"
+const ERROR_CODES = {
+    E7129: 'PROGRAM_UNAVAILABLE',
+    E1003: 'PROGRAM_UNAVAILABLE',
+    E7125: 'TRACKED_ENTITY_TYPE_UNAVAILABLE',
+    E7120: 'ORG_UNITS_UNAVAILABLE',
+    E7143: 'ORG_UNITS_UNAVAILABLE',
+}
+
+const ANALYTICS_REQUEST = 'analytics/trackedEntities/query'
+const TRACKER_REQUEST = 'tracker/trackedEntities'
+
+// Adds the failed request to the error, for the alert details
+const addRequest = (error, request) => {
+    if (error instanceof Object) {
+        error.request ??= request
+    }
+    return error
+}
+
+// Tracker analytics where possible, otherwise the tracker API
+const loadTrackedEntities = async ({
+    config,
+    engine,
+    analyticsEngine,
+    serverVersion,
+    maxLimit,
+}) => {
+    if (canLoadTrackedEntitiesFromAnalytics(config, serverVersion)) {
+        try {
+            return await loadTrackedEntitiesFromAnalytics({
+                config,
+                analyticsEngine,
+                serverVersion,
+            })
+        } catch (error) {
+            if (!ANALYTICS_FALLBACK_CODES.has(error.details?.errorCode)) {
+                throw addRequest(error, ANALYTICS_REQUEST)
+            }
+        }
+    }
+    return loadTrackedEntitiesFromTracker({
+        config,
+        engine,
+        serverVersion,
+        maxLimit,
+    }).catch((error) => {
+        throw addRequest(error, TRACKER_REQUEST)
+    })
+}
+
+const createLegend = ({
+    name,
+    trackedEntityType,
+    program,
+    programStatus,
+    startDate,
+    endDate,
+    eventPointColor,
+    eventPointRadius,
+    areaRadius,
+}) => ({
+    title: name,
+    period: formatStartEndDate(getDateArray(startDate), getDateArray(endDate)),
+    items: [
+        {
+            name:
+                trackedEntityType.name +
+                (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
+            color: eventPointColor || TEI_COLOR,
+            radius: eventPointRadius || TEI_RADIUS,
+        },
+    ],
+    ...(program &&
+        programStatus && {
+            explanation: [
+                `${i18n.t('Program status')}: ${
+                    getProgramStatuses().find((s) => s.id === programStatus)
+                        ?.name ?? programStatus
+                }`,
+            ],
+        }),
+})
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -89,51 +179,11 @@ const trackedEntityLoader = async ({
     parseJsonConfig(config)
 
     const {
-        trackedEntityType,
         program,
-        programStatus,
         relationshipType: relationshipTypeID,
-        startDate,
-        endDate,
         organisationUnitSelectionMode,
-        eventPointColor,
-        eventPointRadius,
-        areaRadius,
     } = config
-
-    // Legend skeleton
-    // -----
-
-    const name = program ? program.name : i18n.t('Tracked entity')
-
-    const legend = {
-        title: name,
-        period: formatStartEndDate(
-            getDateArray(startDate),
-            getDateArray(endDate)
-        ),
-        items: [
-            {
-                name:
-                    trackedEntityType.name +
-                    (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
-                color: eventPointColor || TEI_COLOR,
-                radius: eventPointRadius || TEI_RADIUS,
-            },
-        ],
-    }
-
-    if (program && programStatus) {
-        legend.explanation = [
-            `${i18n.t('Program status')}: ${
-                getProgramStatuses().find((s) => s.id === programStatus).name
-            }`,
-        ]
-    }
-
-    // Data loading
-    // -----
-
+    const name = program?.name || i18n.t('Tracked entity')
     const alerts = []
     const loadConfig = {
         ...config,
@@ -142,82 +192,69 @@ const trackedEntityLoader = async ({
             getTrackedEntityDefaultOrgUnitMode(serverVersion),
     }
     let data = []
-    let relationships, secondaryData, loadError
+    let legend, relationships, secondaryData
 
     try {
-        const result = canLoadTrackedEntitiesFromAnalytics(
-            loadConfig,
-            serverVersion
-        )
-            ? await loadTrackedEntitiesFromAnalytics({
-                  config: loadConfig,
-                  analyticsEngine,
-                  serverVersion,
-              })
-            : await loadTrackedEntitiesFromTracker({
-                  config: loadConfig,
-                  engine,
-                  serverVersion,
-                  maxLimit: getTrackerMaxLimit(
-                      {
-                          KeyTrackedEntityInstanceMaxLimit,
-                          KeyTrackedEntityMaxLimit,
-                      },
-                      serverVersion
-                  ),
-              })
+        legend = createLegend({ ...config, name })
 
+        const result = await loadTrackedEntities({
+            config: loadConfig,
+            engine,
+            analyticsEngine,
+            serverVersion,
+            maxLimit: getTrackerMaxLimit(
+                { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
+                serverVersion
+            ),
+        })
         data = result.data
 
         if (relationshipTypeID) {
+            // The tracked entities are still shown when this fails
             const relationshipResult = await loadTrackedEntityRelationships({
                 config: loadConfig,
                 engine,
                 serverVersion,
                 instances: result.instances,
                 orgUnits: result.orgUnits,
+            }).catch((error) => {
+                alerts.push(
+                    createLayerAlert(
+                        'RELATIONSHIPS_FAILED',
+                        {},
+                        getErrorDetails(error)
+                    )
+                )
+                return null
             })
 
-            ;({ data, relationships, secondaryData } = relationshipResult)
-            legend.items.push(
-                ...getRelationshipLegendItems({
-                    ...config,
-                    ...relationshipResult,
+            if (relationshipResult) {
+                ;({ data, relationships, secondaryData } = relationshipResult)
+                legend.items.push(
+                    ...getRelationshipLegendItems({
+                        ...config,
+                        ...relationshipResult,
+                    })
+                )
+            }
+        }
+
+        if (result.isTruncated) {
+            alerts.push(
+                createLayerAlert('TRACKED_ENTITIES_TRUNCATED', {
+                    limit: formatWithSeparator(
+                        result.limit,
+                        keyAnalysisDigitGroupSeparator
+                    ),
                 })
             )
         }
 
-        if (result.isTruncated) {
-            alerts.push({
-                warning: true,
-                code: CUSTOM_ALERT,
-                message: `${name}: ${i18n.t(
-                    'Displaying first {{pageSize}} tracked entities',
-                    {
-                        pageSize: formatWithSeparator(
-                            result.limit,
-                            keyAnalysisDigitGroupSeparator
-                        ),
-                    }
-                )}`,
-            })
+        if (!data.length) {
+            alerts.push(createLayerAlert('NO_DATA'))
         }
     } catch (error) {
-        loadError = error.message || i18n.t('an error occurred')
-        alerts.push({
-            code: ERROR_CRITICAL,
-            message: loadError,
-        })
-    }
-
-    // Result alert
-    // -----
-
-    if (!loadError && !data.length) {
-        alerts.push({
-            code: WARNING_NO_DATA,
-            message: trackedEntityType.name,
-        })
+        alerts.push(createErrorAlert(error, { errorCodes: ERROR_CODES }))
     }
 
     return {
@@ -229,7 +266,8 @@ const trackedEntityLoader = async ({
         secondaryData,
         legend,
         alerts,
-        loadError,
+        // The config can still have the previous load's error
+        loadError: undefined,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,

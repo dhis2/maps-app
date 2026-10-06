@@ -45,7 +45,7 @@ describe('Error handling check for all layer types', () => {
                 409: 'Simulated error with status code 409',
             }
 
-            cy.getByDataTest('load-error-noticebox', EXTENDED_TIMEOUT).within(
+            cy.getByDataTest('layer-alert-error', EXTENDED_TIMEOUT).within(
                 () => {
                     cy.contains('Failed to load layer').should('be.visible')
                     cy.contains(errorMessage[error]).should('be.visible')

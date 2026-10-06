@@ -1,4 +1,4 @@
-import { onFullscreenChange, resizeAndFitBounds } from '../map.js'
+import { drillUpDown, onFullscreenChange, resizeAndFitBounds } from '../map.js'
 
 const bounds = [
     [0, 0],
@@ -98,5 +98,29 @@ describe('onFullscreenChange', () => {
 
         expect(exitMap.resize).toHaveBeenCalledTimes(1)
         expect(exitMap.fitBounds).toHaveBeenCalledWith(bounds)
+    })
+})
+
+describe('drillUpDown', () => {
+    it('reloads the layer without its previous alerts', () => {
+        const layer = drillUpDown(
+            {
+                id: 'layer1',
+                isLoaded: true,
+                alerts: [{ id: 'NO_DATA', severity: 'warning' }],
+                loadError: 'Boom',
+            },
+            'parentId',
+            '/root',
+            3
+        )
+
+        expect(layer).toMatchObject({ isLoaded: false, isLoading: false })
+        expect(layer.alerts).toBeUndefined()
+        expect(layer.loadError).toBeUndefined()
+        expect(layer.rows[0].items).toEqual([
+            { id: 'parentId', path: '/root/parentId' },
+            { id: 'LEVEL-3' },
+        ])
     })
 })

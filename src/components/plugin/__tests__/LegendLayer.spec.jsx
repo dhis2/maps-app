@@ -1,13 +1,23 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
+import { createLayerAlert } from '../../../util/layerAlerts.js'
 import LegendLayer from '../LegendLayer.jsx'
 
 jest.mock('@dhis2/d2-i18n', () => ({ t: (s) => s }))
 jest.mock('@dhis2/ui', () => ({
     IconView24: () => <span>eye-open</span>,
     IconViewOff24: () => <span>eye-off</span>,
+    IconErrorFilled16: () => <span>error-icon</span>,
+    IconWarningFilled16: () => <span>warning-icon</span>,
+    IconInfoFilled16: () => <span>info-icon</span>,
 }))
-jest.mock('../../legend/Legend.jsx', () => () => null)
+jest.mock('@dhis2/app-runtime', () => ({
+    useConfig: () => ({ serverVersion: { major: 2, minor: 43 } }),
+}))
+jest.mock('../../legend/Legend.jsx', () => {
+    const MockLegend = () => <div>legend-items</div>
+    return MockLegend
+})
 jest.mock('../../../util/legend.js', () => ({
     getRenderingLabel: () => '',
 }))
@@ -99,5 +109,35 @@ describe('LegendLayer', () => {
         )
         fireEvent.click(screen.getByTitle('Hide layer'))
         expect(parentClick).not.toHaveBeenCalled()
+    })
+
+    test('shows layer alerts between the title and the legend', () => {
+        const { container } = render(
+            <LegendLayer
+                id="layer-1"
+                legend={legend}
+                alerts={[createLayerAlert('NO_DATA')]}
+            />
+        )
+        const text = container.textContent
+        expect(text.indexOf('My Layer')).toBeLessThan(
+            text.indexOf('No data found')
+        )
+        expect(text.indexOf('No data found')).toBeLessThan(
+            text.indexOf('legend-items')
+        )
+    })
+
+    test('keeps the legend under an error', () => {
+        render(
+            <LegendLayer
+                id="layer-1"
+                name="My Layer"
+                legend={legend}
+                alerts={[createLayerAlert('LOAD_FAILED')]}
+            />
+        )
+        expect(screen.getByText('Failed to load layer')).toBeInTheDocument()
+        expect(screen.getByText('legend-items')).toBeInTheDocument()
     })
 })

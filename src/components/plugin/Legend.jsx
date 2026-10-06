@@ -21,7 +21,7 @@ const Legend = ({ layers, toggleLayerVisibility, isFullscreen }) => {
     }, [isFullscreen])
 
     const legendLayers = layers
-        .filter((layer) => layer.legend || layer.alerts)
+        .filter((layer) => layer.legend || layer.alerts?.length)
         .reverse() // Show top layer first
 
     return (

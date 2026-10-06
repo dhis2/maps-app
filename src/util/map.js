@@ -75,6 +75,8 @@ export const drillUpDown = (layerConfig, parentId, parentGraph, level) => ({
     ],
     isLoaded: false,
     isLoading: false,
+    alerts: undefined,
+    loadError: undefined,
 })
 
 export const resizeAndFitBounds = (map) => {

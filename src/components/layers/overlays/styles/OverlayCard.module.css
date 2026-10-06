@@ -1,11 +1,16 @@
-.legend {
-    padding-left: var(--spacers-dp32);
+/* One scroll area for alerts and legend: the card can't be taller than the
+   screen */
+.content {
     max-height: 400px;
     overflow-y: auto;
     overflow-x: hidden;
 }
 
-.loadError {
-    padding: var(--spacers-dp8);
+/* Icons centered under the drag handle (left: dp4, 24px wide) */
+.alerts {
+    padding: 0 var(--spacers-dp8) 0 var(--spacers-dp4);
+}
+
+.legend {
     padding-left: var(--spacers-dp32);
 }

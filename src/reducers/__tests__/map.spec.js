@@ -386,6 +386,27 @@ describe('map reducer - per-layer delegation', () => {
             expect(result.mapViews[0].isLoading).toBe(true)
             expect(result.mapViews[1]).toBe(other)
         })
+
+        it('clears the previous alerts and load error', () => {
+            const state = {
+                ...defaultState,
+                mapViews: [
+                    {
+                        id: 'layer1',
+                        alerts: [{ id: 'NO_DATA', severity: 'warning' }],
+                        loadError: 'Boom',
+                    },
+                ],
+            }
+
+            const result = map(state, {
+                type: types.LAYER_LOADING_SET,
+                id: 'layer1',
+            })
+
+            expect(result.mapViews[0].alerts).toBeUndefined()
+            expect(result.mapViews[0].loadError).toBeUndefined()
+        })
     })
 
     describe('LAYER_TOGGLE_VISIBILITY', () => {

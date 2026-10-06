@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-05T12:46:47.530Z\n"
-"PO-Revision-Date: 2026-10-05T12:46:47.531Z\n"
+"POT-Creation-Date: 2026-10-06T09:18:23.920Z\n"
+"PO-Revision-Date: 2026-10-06T09:18:23.920Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -709,6 +709,18 @@ msgstr "Duplicate layer"
 
 msgid "Remove layer"
 msgstr "Remove layer"
+
+msgid "Hide details"
+msgstr "Hide details"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "Copied"
+msgstr "Copied"
+
+msgid "Copy"
+msgstr "Copy"
 
 msgid "Filters"
 msgstr "Filters"
@@ -1732,6 +1744,44 @@ msgstr "Active"
 msgid "Completed"
 msgstr "Completed"
 
+msgid ""
+"It may have been deleted, or your access to it may have changed. Contact "
+"your system administrator if you need it."
+msgstr ""
+"It may have been deleted, or your access to it may have changed. Contact "
+"your system administrator if you need it."
+
+msgid "You don't have access to this layer's data"
+msgstr "You don't have access to this layer's data"
+
+msgid "Your access may have changed. Contact your system administrator."
+msgstr "Your access may have changed. Contact your system administrator."
+
+msgid "This layer's program is not available"
+msgstr "This layer's program is not available"
+
+msgid "This layer's tracked entity type is not available"
+msgstr "This layer's tracked entity type is not available"
+
+msgid "This layer's org units are not available"
+msgstr "This layer's org units are not available"
+
+msgid ""
+"Check the period, filters and org units. Data you don't have access to is "
+"not shown."
+msgstr ""
+"Check the period, filters and org units. Data you don't have access to is "
+"not shown."
+
+msgid "Showing the first {{limit}} tracked entities"
+msgstr "Showing the first {{limit}} tracked entities"
+
+msgid "Narrow the period or org units to see all of them."
+msgstr "Narrow the period or org units to see all of them."
+
+msgid "Relationships could not be loaded"
+msgstr "Relationships could not be loaded"
+
 msgid "Choropleth"
 msgstr "Choropleth"
 
@@ -1867,6 +1917,9 @@ msgstr "Line"
 msgid "Point"
 msgstr "Point"
 
+msgid "Layer"
+msgstr "Layer"
+
 msgid "Organisation units"
 msgstr "Organisation units"
 
@@ -1884,9 +1937,6 @@ msgstr "related"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
-
-msgid "Displaying first {{pageSize}} tracked entities"
-msgstr "Displaying first {{pageSize}} tracked entities"
 
 msgid "not one of"
 msgstr "not one of"
@@ -1933,6 +1983,33 @@ msgstr "Tracked entities"
 
 msgid "Org units"
 msgstr "Org units"
+
+msgid "HTTP status"
+msgstr "HTTP status"
+
+msgid "Error code"
+msgstr "Error code"
+
+msgid "Server message"
+msgstr "Server message"
+
+msgid "Request"
+msgstr "Request"
+
+msgid "Problem"
+msgstr "Problem"
+
+msgid "App version"
+msgstr "App version"
+
+msgid "Server version"
+msgstr "Server version"
+
+msgid "Time"
+msgstr "Time"
+
+msgid "Alert"
+msgstr "Alert"
 
 msgid "Facility"
 msgstr "Facility"

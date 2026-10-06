@@ -10,6 +10,7 @@ import {
     ERROR_CRITICAL,
     CUSTOM_ALERT,
 } from '../../constants/alerts.js'
+import { isLayerAlert } from '../../util/layerAlerts.js'
 
 function useLoaderAlerts(loaderAlertAction = Function.prototype) {
     const errorAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
@@ -44,64 +45,68 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
         onHidden: loaderAlertAction,
     })
 
+    // Layer alerts are shown in the legend instead. Temporary: remove this hook
+    // once every loader returns layer alerts (see util/layerAlerts.js)
     const showAlerts = (alerts) => {
-        alerts.forEach(({ message: msg, code, warning, critical }) => {
-            switch (code) {
-                case WARNING_NO_DATA: {
-                    noDataAlert.show({
-                        msg: `${msg}: ${i18n.t('No data found')}`,
-                    })
-                    break
-                }
-                case WARNING_ALL_EVENTS_OUTSIDE_OU: {
-                    noDataAlert.show({
-                        msg: `${msg}: ${i18n.t(
-                            'All events outside org unit boundaries'
-                        )}`,
-                    })
-                    break
-                }
-                case WARNING_NO_OU_COORD: {
-                    noOUCoordinatesAlert.show({
-                        msg: i18n.t(
-                            'Selected org units: No coordinates found',
-                            { nsSeparator: '^^' }
-                        ),
-                    })
-                    break
-                }
-                case WARNING_NO_GEOMETRY_COORD: {
-                    noGeometryCoordinatesAlert.show({
-                        msg: `${msg}: ${i18n.t('No coordinates found')}`,
-                    })
-                    break
-                }
-                case WARNING_OU_BOUNDARIES_FETCH_FAILED: {
-                    ouBoundariesFetchFailedAlert.show({
-                        msg: `${msg}: ${i18n.t(
-                            'Could not check org unit boundaries'
-                        )}`,
-                    })
-                    break
-                }
-                case ERROR_CRITICAL: {
-                    errorAlert.show({ msg: `${i18n.t('Error')}: ${msg}` })
-                    break
-                }
-                case CUSTOM_ALERT: {
-                    if (critical) {
-                        errorAlert.show({ msg })
-                    } else if (warning) {
-                        warningAlert.show({ msg })
-                    } else {
-                        infoAlert.show({ msg })
+        alerts
+            .filter((alert) => !isLayerAlert(alert))
+            .forEach(({ message: msg, code, warning, critical }) => {
+                switch (code) {
+                    case WARNING_NO_DATA: {
+                        noDataAlert.show({
+                            msg: `${msg}: ${i18n.t('No data found')}`,
+                        })
+                        break
                     }
-                    break
+                    case WARNING_ALL_EVENTS_OUTSIDE_OU: {
+                        noDataAlert.show({
+                            msg: `${msg}: ${i18n.t(
+                                'All events outside org unit boundaries'
+                            )}`,
+                        })
+                        break
+                    }
+                    case WARNING_NO_OU_COORD: {
+                        noOUCoordinatesAlert.show({
+                            msg: i18n.t(
+                                'Selected org units: No coordinates found',
+                                { nsSeparator: '^^' }
+                            ),
+                        })
+                        break
+                    }
+                    case WARNING_NO_GEOMETRY_COORD: {
+                        noGeometryCoordinatesAlert.show({
+                            msg: `${msg}: ${i18n.t('No coordinates found')}`,
+                        })
+                        break
+                    }
+                    case WARNING_OU_BOUNDARIES_FETCH_FAILED: {
+                        ouBoundariesFetchFailedAlert.show({
+                            msg: `${msg}: ${i18n.t(
+                                'Could not check org unit boundaries'
+                            )}`,
+                        })
+                        break
+                    }
+                    case ERROR_CRITICAL: {
+                        errorAlert.show({ msg: `${i18n.t('Error')}: ${msg}` })
+                        break
+                    }
+                    case CUSTOM_ALERT: {
+                        if (critical) {
+                            errorAlert.show({ msg })
+                        } else if (warning) {
+                            warningAlert.show({ msg })
+                        } else {
+                            infoAlert.show({ msg })
+                        }
+                        break
+                    }
+                    default:
+                        break
                 }
-                default:
-                    break
-            }
-        })
+            })
     }
 
     return { showAlerts }
