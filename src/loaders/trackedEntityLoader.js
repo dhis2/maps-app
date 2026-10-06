@@ -87,6 +87,9 @@ const trackedEntityLoader = async ({
         eventPointColor,
         eventPointRadius,
         areaRadius,
+        relatedPointColor,
+        relatedPointRadius,
+        relationshipLineColor,
     } = config
 
     const name = program ? program.name : i18n.t('Tracked entity')
@@ -144,7 +147,13 @@ const trackedEntityLoader = async ({
 
         ;({ data, relationships, secondaryData } = relationshipResult)
         legend.items.push(
-            ...getRelationshipLegendItems({ ...config, ...relationshipResult })
+            ...getRelationshipLegendItems({
+                relationshipType: relationshipResult.relationshipType,
+                relatedEntityType: relationshipResult.relatedEntityType,
+                relatedPointColor,
+                relatedPointRadius,
+                relationshipLineColor,
+            })
         )
     } else {
         data = createTrackedEntityInstanceFeatures(instances)
