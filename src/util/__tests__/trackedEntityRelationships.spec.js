@@ -767,10 +767,70 @@ describe('getDataWithRelationships target query', () => {
         })
 
         if (query) {
-            expect(engine.query.mock.calls[0][1].variables).toMatchObject(query)
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            expect(tei.params(variables)).toMatchObject(query)
         } else {
             // The targets are among the loaded instances
             expect(engine.query).not.toHaveBeenCalled()
         }
     })
+
+    it.each([
+        {
+            version: '2.40',
+            isVersion40: true,
+            root: 'instances',
+            orgUnits: 'ou1;ou2',
+            params: {
+                orgUnit: 'ou1;ou2',
+                ouMode: 'DESCENDANTS',
+                skipPaging: true,
+            },
+        },
+        {
+            version: '2.41',
+            isVersion40: false,
+            root: 'trackedEntities',
+            orgUnits: 'ou1,ou2',
+            params: {
+                orgUnits: 'ou1,ou2',
+                orgUnitMode: 'DESCENDANTS',
+                paging: false,
+            },
+        },
+    ])(
+        'requests the related tracked entities on $version',
+        async ({ isVersion40, root, orgUnits, params }) => {
+            const engine = {
+                query: jest.fn().mockResolvedValue({ tei: { [root]: [] } }),
+            }
+
+            await getDataWithRelationships({
+                isVersion40,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint({ program: 'program2' }),
+                    },
+                    orgUnits,
+                    organisationUnitSelectionMode: 'DESCENDANTS',
+                },
+                engine,
+            })
+
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            expect(tei.resource).toBe('tracker/trackedEntities')
+            expect(tei.params(variables)).toEqual({
+                fields: [
+                    'trackedEntity~rename(id)',
+                    'geometry',
+                    'relationships',
+                ],
+                program: 'program2',
+                ...params,
+            })
+        }
+    )
 })
