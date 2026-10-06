@@ -1,14 +1,14 @@
 import {
     applyDashboardFilters,
     clickPluginContextMenuItem,
-    expectPluginAttribution,
-    expectPluginLayerLegend,
     fetchChartAsMapVisualization,
     fetchMapVisualization,
     getLegendVisibilityButton,
     getPlugin,
+    getPluginAttribution,
     getPluginContextMenuItems,
-    openPluginLegend,
+    getPluginLegendAlerts,
+    getPluginLegendTitles,
     resizePlugin,
     rightClickPluginMapCenter,
     sendPluginProps,
@@ -127,7 +127,11 @@ describe('Dashboard plugin', () => {
         it('renders a thematic map from dashboard props', () => {
             visitPlugin(thematicMap)
             waitForPluginMap()
-            expectPluginLayerLegend(getDataItemName(thematicMap))
+            getPluginLegendTitles().should(
+                'contain',
+                getDataItemName(thematicMap)
+            )
+            getPluginLegendAlerts().should('not.exist')
         })
 
         it('loads a map from its id when the dashboard sends no map views', () => {
@@ -144,7 +148,11 @@ describe('Dashboard plugin', () => {
 
             cy.wait('@getMap', EXTENDED_TIMEOUT)
             waitForPluginMap()
-            expectPluginLayerLegend(getDataItemName(thematicMap))
+            getPluginLegendTitles().should(
+                'contain',
+                getDataItemName(thematicMap)
+            )
+            getPluginLegendAlerts().should('not.exist')
         })
 
         it('shows a chart as a thematic map ("View as map")', () => {
@@ -157,7 +165,8 @@ describe('Dashboard plugin', () => {
                 visitPlugin(chart)
                 expectAnalyticsDimension('@analytics', 'dx', [dataItem.id])
                 waitForPluginMap()
-                expectPluginLayerLegend(dataItem.name)
+                getPluginLegendTitles().should('contain', dataItem.name)
+                getPluginLegendAlerts().should('not.exist')
             })
         })
 
@@ -193,7 +202,8 @@ describe('Dashboard plugin', () => {
 
                 cy.wait('@layerRequest', EXTENDED_TIMEOUT)
                 waitForPluginMap()
-                expectPluginLayerLegend()
+                getPluginLegendTitles().should('not.be.empty')
+                getPluginLegendAlerts().should('not.exist')
             })
         })
     })
@@ -207,9 +217,7 @@ describe('Dashboard plugin', () => {
             visitPlugin(thematicMap)
 
             waitForPluginMap()
-            openPluginLegend()
-                .find('.dhis2-map-legend-alert')
-                .should('contain', 'Failed to load layer')
+            getPluginLegendAlerts().should('contain', 'Failed to load layer')
         })
 
         it('shows an alert in the legend when a layer has no data', () => {
@@ -222,9 +230,7 @@ describe('Dashboard plugin', () => {
             visitPlugin(thematicMap)
 
             waitForPluginMap()
-            openPluginLegend()
-                .find('.dhis2-map-legend-alert')
-                .should('contain', 'No data found')
+            getPluginLegendAlerts().should('contain', 'No data found')
         })
     })
 
@@ -316,7 +322,11 @@ describe('Dashboard plugin', () => {
             sendPluginProps(chiefdomMap)
             expectAnalyticsDimension('@analytics', 'ou', ['LEVEL-3'])
             waitForPluginMap()
-            expectPluginLayerLegend(getDataItemName(chiefdomMap))
+            getPluginLegendTitles().should(
+                'contain',
+                getDataItemName(chiefdomMap)
+            )
+            getPluginLegendAlerts().should('not.exist')
         })
 
         // TODO: unskip when didViewsChange (src/util/pluginHelper.js) compares
@@ -335,9 +345,7 @@ describe('Dashboard plugin', () => {
                 })
                 cy.wait(['@analytics', '@analytics'], EXTENDED_TIMEOUT)
                 waitForPluginMap()
-                openPluginLegend()
-                    .find('.dhis2-map-legend-title-text')
-                    .should('have.length', 2)
+                getPluginLegendTitles().should('have.length', 2)
             })
 
             it('updates the map when only the data item changes', () => {
@@ -374,6 +382,7 @@ describe('Dashboard plugin', () => {
             )
             waitForPluginMap()
             cy.wait('@openStreetMap', EXTENDED_TIMEOUT)
+            getPluginAttribution('OpenStreetMap').should('exist')
         })
 
         it('uses a legacy external basemap string', () => {
@@ -383,6 +392,7 @@ describe('Dashboard plugin', () => {
             )
             waitForPluginMap()
             cy.wait('@externalDark', EXTENDED_TIMEOUT)
+            getPluginAttribution('CARTO').should('exist')
         })
 
         it('uses the fallback basemap when no basemap and no system default are set', () => {
@@ -391,7 +401,7 @@ describe('Dashboard plugin', () => {
             visitPlugin(withBasemap(thematicMap, {}))
             waitForPluginMap()
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
-            expectPluginAttribution('OpenFreeMap', true)
+            getPluginAttribution('OpenFreeMap').should('exist')
         })
 
         it('uses the system default basemap when the basemap is unknown', () => {
@@ -402,6 +412,7 @@ describe('Dashboard plugin', () => {
             )
             waitForPluginMap()
             cy.wait('@externalDark', EXTENDED_TIMEOUT)
+            getPluginAttribution('CARTO').should('exist')
         })
 
         it('uses the fallback basemap when the basemap and system default are both invalid', () => {
@@ -412,6 +423,7 @@ describe('Dashboard plugin', () => {
             )
             waitForPluginMap()
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
+            getPluginAttribution('OpenFreeMap').should('exist')
         })
 
         it('uses the fallback basemap when external map layers fail to load', () => {
@@ -426,6 +438,7 @@ describe('Dashboard plugin', () => {
             cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
             waitForPluginMap()
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
+            getPluginAttribution('OpenFreeMap').should('exist')
         })
 
         it('uses an internal basemap when external map layers fail to load', () => {
@@ -440,6 +453,7 @@ describe('Dashboard plugin', () => {
             cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
             waitForPluginMap()
             cy.wait('@osmDark', EXTENDED_TIMEOUT)
+            getPluginAttribution('OpenFreeMap').should('exist')
         })
 
         // A hidden vector basemap still loads its tiles, so these check the
@@ -450,7 +464,7 @@ describe('Dashboard plugin', () => {
             visitPlugin(withBasemap(thematicMap, { basemap: 'none' }))
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
             waitForPluginMap()
-            expectPluginAttribution('OpenFreeMap', false)
+            getPluginAttribution('OpenFreeMap').should('not.exist')
         })
 
         // VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
@@ -464,7 +478,7 @@ describe('Dashboard plugin', () => {
                     })
                 )
                 waitForPluginMap()
-                expectPluginAttribution('OpenStreetMap', false)
+                getPluginAttribution('OpenStreetMap').should('not.exist')
             }
         )
     })

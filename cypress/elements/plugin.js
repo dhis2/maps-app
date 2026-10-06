@@ -195,26 +195,13 @@ export const openPluginLegend = () => {
 export const getLegendVisibilityButton = () =>
     openPluginLegend().find('.dhis2-map-legend-visibility-btn')
 
-// A loaded layer has a legend title and no alerts (load errors and warnings
-// are shown as legend alerts)
-export const expectPluginLayerLegend = (title) => {
-    openPluginLegend()
-        .find('.dhis2-map-legend-title-text')
-        .should(title ? 'contain' : 'not.be.empty', title)
-    getPluginLegend().find('.dhis2-map-legend-alert').should('not.exist')
-}
+export const getPluginLegendTitles = () =>
+    openPluginLegend().find('.dhis2-map-legend-title-text')
 
-// Basemap attributions are only rendered for visible basemaps
-export const expectPluginAttribution = (text, isShown) =>
-    getPlugin()
-        .find('.dhis2-map')
-        .should(($map) => {
-            const shownLinks = $map
-                .find('.maplibregl-ctrl-attrib a')
-                .filter(
-                    (_, link) =>
-                        link.textContent.includes(text) &&
-                        link.offsetParent !== null
-                )
-            expect(shownLinks.length > 0).to.equal(isShown)
-        })
+// Load errors and warnings are shown as legend alerts
+export const getPluginLegendAlerts = () =>
+    openPluginLegend().find('.dhis2-map-legend-alert')
+
+// Basemap attributions are only shown for visible basemaps
+export const getPluginAttribution = (text) =>
+    getPlugin().find(`.maplibregl-ctrl-attrib a:visible:contains("${text}")`)
