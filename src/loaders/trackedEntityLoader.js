@@ -14,21 +14,7 @@ import {
     createTrackedEntityInstanceFeatures,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
-import { getDataWithRelationships } from '../util/trackedEntityRelationships.js'
-import { serverSupportsTracker41Api } from '../util/versionToggle.js'
-
-const RELATIONSHIP_TYPES_QUERY = {
-    resource: 'relationshipTypes',
-    id: ({ id }) => id,
-}
-
-const TRACKED_ENTITY_TYPES_QUERY = {
-    resource: 'trackedEntityTypes',
-    id: ({ id }) => id,
-    params: {
-        fields: 'displayName,featureType',
-    },
-}
+import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
 
 export const parseJsonConfig = (config) => {
     if (!config.config || typeof config.config !== 'string') {
@@ -55,36 +41,17 @@ export const parseJsonConfig = (config) => {
     delete config.config
 }
 
-const fetchRelationshipData = async ({
-    engine,
-    isVersion40,
-    instances,
-    relationshipTypeID,
-    orgUnits,
-    organisationUnitSelectionMode,
+const getRelationshipLegendItems = ({
+    relationshipType,
+    relatedEntityType,
     relatedPointColor,
     relatedPointRadius,
     relationshipLineColor,
-    legend,
 }) => {
-    const { relationshipType } = await engine.query(
-        { relationshipType: RELATIONSHIP_TYPES_QUERY },
-        { variables: { id: relationshipTypeID } }
-    )
-
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
-
     const isPoint =
         relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
-    legend.items.push(
+    return [
         {
             type: GEO_TYPE_LINE,
             name: relationshipType.displayName,
@@ -98,27 +65,8 @@ const fetchRelationshipData = async ({
                 ? relatedPointRadius || TEI_RELATED_RADIUS
                 : undefined,
             weight: isPoint ? undefined : 1,
-        }
-    )
-
-    const dataWithRels = await getDataWithRelationships({
-        isVersion40,
-        instances,
-        queryOptions: {
-            relationshipType,
-            orgUnits,
-            organisationUnitSelectionMode,
         },
-        engine,
-    })
-
-    return {
-        data: createTrackedEntityInstanceFeatures(dataWithRels.primary),
-        relationships: dataWithRels.relationships,
-        secondaryData: createTrackedEntityInstanceFeatures(
-            dataWithRels.secondary
-        ),
-    }
+    ]
 }
 
 const trackedEntityLoader = async ({
@@ -136,7 +84,6 @@ const trackedEntityLoader = async ({
         relationshipType: relationshipTypeID,
         startDate,
         endDate,
-        organisationUnitSelectionMode,
         eventPointColor,
         eventPointRadius,
         areaRadius,
@@ -190,19 +137,24 @@ const trackedEntityLoader = async ({
     let data, relationships, secondaryData
 
     if (relationshipTypeID) {
-        ;({ data, relationships, secondaryData } = await fetchRelationshipData({
+        const relationshipResult = await loadTrackedEntityRelationships({
+            config,
             engine,
-            // VERSION-TOGGLE: see util/versionToggle.js
-            isVersion40: !serverSupportsTracker41Api(serverVersion),
+            serverVersion,
             instances,
-            relationshipTypeID,
             orgUnits,
-            organisationUnitSelectionMode,
-            relatedPointColor,
-            relatedPointRadius,
-            relationshipLineColor,
-            legend,
-        }))
+        })
+
+        ;({ data, relationships, secondaryData } = relationshipResult)
+        legend.items.push(
+            ...getRelationshipLegendItems({
+                relationshipType: relationshipResult.relationshipType,
+                relatedEntityType: relationshipResult.relatedEntityType,
+                relatedPointColor,
+                relatedPointRadius,
+                relationshipLineColor,
+            })
+        )
     } else {
         data = createTrackedEntityInstanceFeatures(instances)
     }
