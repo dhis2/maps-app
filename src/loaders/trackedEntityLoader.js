@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { WARNING_NO_DATA } from '../constants/alerts.js'
+import { ERROR_CRITICAL, WARNING_NO_DATA } from '../constants/alerts.js'
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -120,48 +120,55 @@ const trackedEntityLoader = async ({
         }`
     }
 
-    const { instances, orgUnits } = await loadTrackedEntitiesFromTracker({
-        config,
-        engine,
-        serverVersion,
-    })
+    let alert, loadError, relationships, secondaryData
+    let data = []
 
-    let alert
-
-    if (!instances.length) {
-        alert = {
-            code: WARNING_NO_DATA,
-            message: trackedEntityType.name,
-        }
-    }
-
-    let data, relationships, secondaryData
-
-    if (relationshipTypeID) {
-        const relationshipResult = await loadTrackedEntityRelationships({
+    try {
+        const { instances, orgUnits } = await loadTrackedEntitiesFromTracker({
             config,
             engine,
             serverVersion,
-            instances,
-            orgUnits,
         })
 
-        ;({ data, relationships, secondaryData } = relationshipResult)
-
-        // Only relationships between tracked entities are drawn
-        if (relationshipResult.relatedEntityType) {
-            legend.items.push(
-                ...getRelationshipLegendItems({
-                    relationshipType: relationshipResult.relationshipType,
-                    relatedEntityType: relationshipResult.relatedEntityType,
-                    relatedPointColor,
-                    relatedPointRadius,
-                    relationshipLineColor,
-                })
-            )
+        if (!instances.length) {
+            alert = {
+                code: WARNING_NO_DATA,
+                message: trackedEntityType.name,
+            }
         }
-    } else {
-        data = createTrackedEntityInstanceFeatures(instances)
+
+        if (relationshipTypeID) {
+            const relationshipResult = await loadTrackedEntityRelationships({
+                config,
+                engine,
+                serverVersion,
+                instances,
+                orgUnits,
+            })
+
+            // Only relationships between tracked entities are drawn
+            if (relationshipResult.relatedEntityType) {
+                legend.items.push(
+                    ...getRelationshipLegendItems({
+                        relationshipType: relationshipResult.relationshipType,
+                        relatedEntityType: relationshipResult.relatedEntityType,
+                        relatedPointColor,
+                        relatedPointRadius,
+                        relationshipLineColor,
+                    })
+                )
+            }
+
+            ;({ data, relationships, secondaryData } = relationshipResult)
+        } else {
+            data = createTrackedEntityInstanceFeatures(instances)
+        }
+    } catch (error) {
+        loadError = error.message || error
+        alert = {
+            code: ERROR_CRITICAL,
+            message: loadError,
+        }
     }
 
     if (explanation) {
@@ -176,7 +183,9 @@ const trackedEntityLoader = async ({
         relationships,
         secondaryData,
         legend,
-        ...(alert ? { alerts: [alert] } : {}),
+        // Always set, as the config can have the previous load's alerts and error
+        alerts: alert ? [alert] : undefined,
+        loadError,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,

@@ -382,16 +382,35 @@ describe('trackedEntityLoader result', () => {
         expect((await result).data).toEqual([])
     })
 
-    it('rejects when the request fails', async () => {
+    it('finishes loading with an error when the request fails', async () => {
         const engine = { query: jest.fn().mockRejectedValue(new Error('Boom')) }
 
-        await expect(
-            trackedEntityLoader({
-                config: { ...baseConfig },
-                engine,
-                serverVersion: v41,
-            })
-        ).rejects.toThrow('Boom')
+        const result = await trackedEntityLoader({
+            config: { ...baseConfig },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result).toMatchObject({
+            data: [],
+            loadError: 'Boom',
+            alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            isLoaded: true,
+            isLoading: false,
+        })
+    })
+
+    it('clears the alerts and error of a previous load', async () => {
+        const { result } = load({
+            config: {
+                loadError: 'Boom',
+                alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            },
+            instances: [point('te1')],
+        })
+
+        expect((await result).loadError).toBeUndefined()
+        expect((await result).alerts).toBeUndefined()
     })
 })
 
@@ -618,5 +637,38 @@ describe('trackedEntityLoader relationships', () => {
             'geometry',
             'relationships',
         ])
+    })
+
+    it('finishes loading with an error when a relationship request fails', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockRejectedValueOnce(new Error('Not found')),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result).toMatchObject({
+            data: [],
+            loadError: 'Not found',
+            alerts: [{ code: 'ERROR_CRITICAL', message: 'Not found' }],
+            isLoaded: true,
+        })
+        expect(result.relationships).toBeUndefined()
+        expect(result.secondaryData).toBeUndefined()
+        expect(result.legend.items).toHaveLength(1)
     })
 })
