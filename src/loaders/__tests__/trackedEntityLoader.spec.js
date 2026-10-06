@@ -178,12 +178,27 @@ describe('trackedEntityLoader tracker request', () => {
     })
 
     it.each([
-        [v40, false, 'FALSE'],
-        [v40, undefined, undefined],
-        [v41, false, undefined],
+        {
+            version: '2.40',
+            serverVersion: v40,
+            followUp: false,
+            expected: 'FALSE',
+        },
+        {
+            version: '2.40',
+            serverVersion: v40,
+            followUp: undefined,
+            expected: undefined,
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            followUp: false,
+            expected: undefined,
+        },
     ])(
-        'on %p sends followUp %p as %p',
-        async (serverVersion, followUp, expected) => {
+        'on $version sends followUp $followUp as $expected',
+        async ({ serverVersion, followUp, expected }) => {
             const { engine, result } = load({
                 serverVersion,
                 config: { program, followUp },
@@ -194,9 +209,12 @@ describe('trackedEntityLoader tracker request', () => {
         }
     )
 
-    it.each([[v40], [v41]])(
-        'on %p requests a type by last updated date without a program',
-        async (serverVersion) => {
+    it.each([
+        { version: '2.40', serverVersion: v40 },
+        { version: '2.41', serverVersion: v41 },
+    ])(
+        'on $version requests a type by last updated date without a program',
+        async ({ serverVersion }) => {
             const { engine, result } = load({
                 serverVersion,
                 config: { programStatus: 'ACTIVE', followUp: true },
@@ -456,5 +474,122 @@ describe('trackedEntityLoader relationships', () => {
                 weight: undefined,
             },
         ])
+    })
+
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            root: 'instances',
+            params: {
+                orgUnit: 'ou1;ou2',
+                ouMode: 'DESCENDANTS',
+                skipPaging: true,
+            },
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            root: 'trackedEntities',
+            params: {
+                orgUnits: 'ou1,ou2',
+                orgUnitMode: 'DESCENDANTS',
+                paging: false,
+            },
+        },
+    ])(
+        'requests the related tracked entities with the layer org units on $version',
+        async ({ serverVersion, root, params }) => {
+            const engine = {
+                query: jest
+                    .fn()
+                    .mockResolvedValueOnce(
+                        trackerResponse(serverVersion, [
+                            withRelationships(point('te1')),
+                        ])
+                    )
+                    .mockResolvedValueOnce({
+                        relationshipType: {
+                            ...relationshipType,
+                            toConstraint: {
+                                ...constraint,
+                                program: { id: 'program2' },
+                            },
+                        },
+                    })
+                    .mockResolvedValueOnce({
+                        relatedEntityType: {
+                            displayName: 'Contact person',
+                            featureType: 'POINT',
+                        },
+                    })
+                    .mockResolvedValueOnce({ tei: { [root]: [] } }),
+            }
+
+            await trackedEntityLoader({
+                config: {
+                    ...baseConfig,
+                    program,
+                    config: JSON.stringify({
+                        relationships: { type: 'relType1' },
+                    }),
+                },
+                engine,
+                serverVersion,
+            })
+
+            expect(engine.query).toHaveBeenCalledTimes(4)
+            expect(getRequest(engine, 3)).toEqual({
+                resource: 'tracker/trackedEntities',
+                params: {
+                    fields: [
+                        'trackedEntity~rename(id)',
+                        'geometry',
+                        'relationships',
+                    ],
+                    program: 'program2',
+                    ...params,
+                },
+            })
+        }
+    )
+
+    it('rejects for a relationship type not between tracked entities', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        toConstraint: {
+                            ...constraint,
+                            relationshipEntity: 'PROGRAM_INSTANCE',
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        await expect(
+            trackedEntityLoader({
+                config: {
+                    ...baseConfig,
+                    program,
+                    config: JSON.stringify({
+                        relationships: { type: 'relType1' },
+                    }),
+                },
+                engine,
+                serverVersion: v41,
+            })
+        ).rejects.toThrow(TypeError)
     })
 })
