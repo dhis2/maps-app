@@ -21,6 +21,11 @@ const error = createLayerAlert('PROGRAM_UNAVAILABLE', {
 const warning = createLayerAlert('NO_DATA')
 
 describe('LayerAlerts', () => {
+    afterEach(() => {
+        delete navigator.clipboard
+        jest.useRealTimers()
+    })
+
     it('renders nothing without alerts in this format', () => {
         const { container } = render(
             <LayerAlerts alerts={[{ code: 'WARNING_NO_DATA', message: 'x' }]} />
@@ -45,11 +50,6 @@ describe('LayerAlerts', () => {
     it('only offers details when the alert has them', () => {
         render(<LayerAlerts alerts={[warning]} />)
         expect(screen.queryByText('Details')).not.toBeInTheDocument()
-    })
-
-    afterEach(() => {
-        delete navigator.clipboard
-        jest.useRealTimers()
     })
 
     it('shows and copies the details', async () => {
