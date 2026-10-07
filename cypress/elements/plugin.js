@@ -1,11 +1,10 @@
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
-// Not real files: both are served by cy.intercept so the host page is
-// same-origin with plugin.html, which getPlugin needs to read the iframe
-// document. pluginHost.html loads post-robot from POST_ROBOT_URL.
+// Dev-only page rendering the plugin with the app-runtime Plugin component
+// (src/plugin-host). Same-origin with plugin.html, so getPlugin can read the
+// iframe document.
 const HOST_URL = '/plugin-host.html'
-const POST_ROBOT_URL = '/plugin-host/post-robot.min.js'
-const PLUGIN_IFRAME = '#plugin-iframe'
+const PLUGIN_IFRAME = '[data-test="plugin-host-iframe-wrap"] iframe'
 
 // Requests to the DHIS2 API, mirroring how the dashboard app loads its items
 // ----------------------------------------------------------------------------
@@ -104,6 +103,7 @@ export const applyDashboardFilters = (visualization, filters) => ({
 // Host page standing in for the dashboard app
 // -------------------------------------------
 
+// The props the dashboard app sends to a map item (IframePlugin)
 const getPluginProps = (visualization, extraProps = {}) => ({
     isVisualizationLoaded: true,
     forDashboard: true,
@@ -114,37 +114,38 @@ const getPluginProps = (visualization, extraProps = {}) => ({
     ...extraProps,
 })
 
-export const visitPlugin = (visualization, extraProps) => {
-    // post-robot is a transitive dependency (via the app shell), served from
-    // the same copy the plugin bundles so both ends share its protocol
-    cy.readFile('node_modules/post-robot/dist/post-robot.min.js').then(
-        (script) => {
-            cy.intercept('GET', POST_ROBOT_URL, {
-                body: script,
-                headers: { 'content-type': 'application/javascript' },
-            })
-        }
-    )
-    cy.intercept('GET', HOST_URL, { fixture: 'pluginHost.html' })
-
+// The item size defaults to the host page's (a new dashboard item)
+export const visitPlugin = (visualization, { extraProps, size } = {}) =>
     cy.visit(HOST_URL, {
         onBeforeLoad: (win) => {
             win.pluginProps = getPluginProps(visualization, extraProps)
+            win.pluginSize = size
         },
     })
-}
 
+// The host page registers its setters once it has mounted, after the page
+// load, so these retry until they exist
 export const sendPluginProps = (visualization, extraProps) =>
     cy
         .window()
-        .then((win) =>
-            win.sendPluginProps(getPluginProps(visualization, extraProps))
+        .its('setPluginProps')
+        .then((setPluginProps) =>
+            setPluginProps(getPluginProps(visualization, extraProps))
         )
 
 export const resizePlugin = (width, height) =>
     cy
-        .get(PLUGIN_IFRAME)
-        .invoke('css', { width: `${width}px`, height: `${height}px` })
+        .window()
+        .its('setPluginSize')
+        .then((setPluginSize) => setPluginSize({ width, height }))
+
+// Like the dashboard's "View fullscreen". A real click, as browsers only allow
+// fullscreen after a user gesture.
+export const enterPluginFullscreen = () =>
+    cy.get('[data-test="plugin-host-fullscreen"]').realClick()
+
+export const exitPluginFullscreen = () =>
+    cy.document().then((doc) => doc.exitFullscreen())
 
 // Elements inside the plugin iframe. The plugin components have no data-test
 // attributes (unlike the app's), so class names and labels are used instead.

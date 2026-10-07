@@ -1,12 +1,15 @@
 import {
     applyDashboardFilters,
     clickPluginContextMenuItem,
+    enterPluginFullscreen,
+    exitPluginFullscreen,
     fetchChartAsMapVisualization,
     fetchMapVisualization,
     getLegendVisibilityButton,
     getPlugin,
     getPluginAttribution,
     getPluginContextMenuItems,
+    getPluginLegend,
     getPluginLegendAlerts,
     getPluginLegendTitles,
     resizePlugin,
@@ -314,6 +317,45 @@ describe('Dashboard plugin', () => {
             waitForPluginMap()
             cy.get('@analytics.all').should('have.length', 1)
         })
+
+        // TODO: https://dhis2.atlassian.net/browse/DHIS2-22246
+        // Unskip when the maps-gl Attribution control expands again on
+        // a wider map. It forces compact mode the first time the attribution
+        // doesn't fit, and maplibre then keeps it collapsed on every resize.
+        it.skip('expands the basemap attribution when the item is resized wider', () => {
+            visitPlugin(withBasemap(thematicMap, { basemap: 'osmLight' }))
+            waitForPluginMap()
+
+            // Collapsed into a button on a new (narrow) dashboard item
+            getPluginAttribution('OpenFreeMap').should('not.exist')
+
+            resizePlugin(800, 500)
+            waitForPluginMap()
+            getPluginAttribution('OpenFreeMap').should('exist')
+        })
+
+        it('pins the legend open while the item is shown fullscreen', () => {
+            visitPlugin(thematicMap)
+            waitForPluginMap()
+            getPluginLegend().should('not.have.class', 'pinned')
+
+            enterPluginFullscreen()
+            cy.document().its('fullscreenElement').should('exist')
+            getPluginLegend()
+                .should('have.class', 'pinned')
+                .find('.dhis2-map-legend-content')
+                .should('be.visible')
+            cy.window().then((win) =>
+                getPlugin()
+                    .find('.dhis2-map canvas')
+                    .should(($canvas) =>
+                        expect($canvas.width()).to.be.closeTo(win.innerWidth, 2)
+                    )
+            )
+
+            exitPluginFullscreen()
+            getPluginLegend().should('not.have.class', 'pinned')
+        })
     })
 
     describe('visualization updates', () => {
@@ -373,6 +415,10 @@ describe('Dashboard plugin', () => {
     })
 
     describe('basemaps', () => {
+        // Attributions collapse into a button on a narrow map, so the basemap
+        // tests use a wide item to check them
+        const WIDE_ITEM_SIZE = { width: 800, height: 500 }
+
         // VERSION-TOGGLE: https://dhis2.atlassian.net/browse/DHIS2-20417
         // Maps only have the basemaps array from 2.43, earlier versions send
         // the legacy basemap string covered below
@@ -381,7 +427,8 @@ describe('Dashboard plugin', () => {
             visitPlugin(
                 withBasemap(thematicMap, {
                     basemaps: [{ id: 'openStreetMap' }],
-                })
+                }),
+                { size: WIDE_ITEM_SIZE }
             )
             waitForPluginMap()
             cy.wait('@openStreetMap', EXTENDED_TIMEOUT)
@@ -391,7 +438,8 @@ describe('Dashboard plugin', () => {
         it('uses a legacy external basemap string', () => {
             interceptBasemap('externalDark')
             visitPlugin(
-                withBasemap(thematicMap, { basemap: EXTERNAL_BASEMAP_ID })
+                withBasemap(thematicMap, { basemap: EXTERNAL_BASEMAP_ID }),
+                { size: WIDE_ITEM_SIZE }
             )
             waitForPluginMap()
             cy.wait('@externalDark', EXTENDED_TIMEOUT)
@@ -401,7 +449,7 @@ describe('Dashboard plugin', () => {
         it('uses the fallback basemap when no basemap and no system default are set', () => {
             setDefaultBasemapSetting(undefined)
             interceptBasemap('osmLight')
-            visitPlugin(withBasemap(thematicMap, {}))
+            visitPlugin(withBasemap(thematicMap, {}), { size: WIDE_ITEM_SIZE })
             waitForPluginMap()
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
             getPluginAttribution('OpenFreeMap').should('exist')
@@ -411,7 +459,8 @@ describe('Dashboard plugin', () => {
             setDefaultBasemapSetting(EXTERNAL_BASEMAP_ID)
             interceptBasemap('externalDark')
             visitPlugin(
-                withBasemap(thematicMap, { basemap: UNKNOWN_BASEMAP_ID })
+                withBasemap(thematicMap, { basemap: UNKNOWN_BASEMAP_ID }),
+                { size: WIDE_ITEM_SIZE }
             )
             waitForPluginMap()
             cy.wait('@externalDark', EXTENDED_TIMEOUT)
@@ -422,7 +471,8 @@ describe('Dashboard plugin', () => {
             setDefaultBasemapSetting('noexist')
             interceptBasemap('osmLight')
             visitPlugin(
-                withBasemap(thematicMap, { basemap: UNKNOWN_BASEMAP_ID })
+                withBasemap(thematicMap, { basemap: UNKNOWN_BASEMAP_ID }),
+                { size: WIDE_ITEM_SIZE }
             )
             waitForPluginMap()
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
@@ -436,7 +486,8 @@ describe('Dashboard plugin', () => {
             )
             interceptBasemap('osmLight')
             visitPlugin(
-                withBasemap(thematicMap, { basemap: EXTERNAL_BASEMAP_ID })
+                withBasemap(thematicMap, { basemap: EXTERNAL_BASEMAP_ID }),
+                { size: WIDE_ITEM_SIZE }
             )
             cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
             waitForPluginMap()
@@ -452,7 +503,9 @@ describe('Dashboard plugin', () => {
                 'externalMapLayers'
             )
             interceptBasemap('osmDark')
-            visitPlugin(withBasemap(thematicMap, { basemap: 'osmDark' }))
+            visitPlugin(withBasemap(thematicMap, { basemap: 'osmDark' }), {
+                size: WIDE_ITEM_SIZE,
+            })
             cy.wait('@externalMapLayers', EXTENDED_TIMEOUT)
             waitForPluginMap()
             cy.wait('@osmDark', EXTENDED_TIMEOUT)
@@ -464,7 +517,9 @@ describe('Dashboard plugin', () => {
         it('hides the default basemap when the legacy basemap is none', () => {
             setDefaultBasemapSetting(undefined)
             interceptBasemap('osmLight')
-            visitPlugin(withBasemap(thematicMap, { basemap: 'none' }))
+            visitPlugin(withBasemap(thematicMap, { basemap: 'none' }), {
+                size: WIDE_ITEM_SIZE,
+            })
             cy.wait('@osmLight', EXTENDED_TIMEOUT)
             waitForPluginMap()
             getPluginAttribution('OpenFreeMap').should('not.exist')
@@ -478,7 +533,8 @@ describe('Dashboard plugin', () => {
                 visitPlugin(
                     withBasemap(thematicMap, {
                         basemaps: [{ id: 'openStreetMap', hidden: true }],
-                    })
+                    }),
+                    { size: WIDE_ITEM_SIZE }
                 )
                 waitForPluginMap()
                 getPluginAttribution('OpenStreetMap').should('not.exist')
