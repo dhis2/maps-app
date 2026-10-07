@@ -1,6 +1,7 @@
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../constants/layers.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
@@ -141,6 +142,7 @@ export const createEventFeatures = (response, config = {}) => {
 // Include column for data element used for styling (if not already used in filter)
 export const addStyleDataItem = (dataItems, styleDataItem) =>
     styleDataItem &&
+    styleDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE &&
     !dataItems.find((item) => item.dimension === styleDataItem.id)
         ? [
               ...dataItems,

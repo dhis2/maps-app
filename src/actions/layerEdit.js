@@ -75,6 +75,17 @@ export const setBooleanStyle = (value, color) => ({
     color,
 })
 
+export const setGeometrySourceStyle = (value, color) => ({
+    type: types.LAYER_EDIT_STYLE_DATA_ITEM_GEOMETRY_SOURCE_SET,
+    value,
+    color,
+})
+
+export const setHasTrackedEntityType = (value) => ({
+    type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+    value,
+})
+
 // Set thematic map type (choropleth, bubble map)
 export const setThematicMapType = (type) => ({
     type: types.LAYER_EDIT_THEMATIC_MAP_TYPE_SET,
@@ -116,9 +127,10 @@ export const setEventCoordinateField = (fieldId, fieldType) => ({
 })
 
 // Set fallback coordinate field
-export const setFallbackCoordinateField = (fieldId) => ({
-    type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+export const setEventCoordinateFieldFallback = (fieldId, fieldType) => ({
+    type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
     fieldId,
+    fieldType,
 })
 
 // Set if event clustering should be used (event)

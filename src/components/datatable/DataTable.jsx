@@ -215,6 +215,10 @@ const Table = ({ availableWidth }) => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
         if (columnWidths.length === 0 && headerRowRef.current) {
             requestAnimationFrame(() => {
+                if (!headerRowRef.current) {
+                    return
+                }
+
                 const measuredColumnWidths = []
 
                 for (const cell of headerRowRef.current.cells) {

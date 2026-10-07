@@ -2,6 +2,7 @@ import {
     EVENT_CLIENT_PAGE_SIZE,
     EVENT_COORDINATE_CASCADING,
     EVENT_COORDINATE_DEFAULT,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../constants/layers.js'
 import {
     getOrgUnitsFromRows,
@@ -29,6 +30,16 @@ export const EVENT_PROGRAM_ATTRIBUTES_QUERY = {
             fields: `programTrackedEntityAttributes[trackedEntityAttribute[id,${nameProperty}~rename(name),optionSet,valueType]]`,
             paging: false,
         }),
+    },
+}
+
+export const EVENT_PROGRAM_TRACKED_ENTITY_TYPE_QUERY = {
+    program: {
+        resource: 'programs',
+        id: ({ id }) => id,
+        params: {
+            fields: 'trackedEntityType[id]',
+        },
     },
 }
 
@@ -73,7 +84,7 @@ export const getAnalyticsRequest = async (
         labelDataItem,
         eventStatus,
         eventCoordinateField = EVENT_COORDINATE_DEFAULT,
-        fallbackCoordinateField,
+        eventCoordinateFieldFallback,
         relativePeriodDate,
         isExtended,
         countFeaturesWithoutCoordinates,
@@ -90,6 +101,7 @@ export const getAnalyticsRequest = async (
     // Add label data item dimension if not already in the request
     if (
         labelDataItem?.id &&
+        labelDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE &&
         !dataItems.some((item) => item.dimension === labelDataItem.id)
     ) {
         dataItems.push({ dimension: labelDataItem.id })
@@ -155,14 +167,14 @@ export const getAnalyticsRequest = async (
     analyticsRequest =
         analyticsRequest.withCoordinateField(eventCoordinateField)
 
-    if (fallbackCoordinateField) {
-        if (fallbackCoordinateField === EVENT_COORDINATE_CASCADING) {
+    if (eventCoordinateFieldFallback) {
+        if (eventCoordinateFieldFallback === EVENT_COORDINATE_CASCADING) {
             analyticsRequest = analyticsRequest.withParameters({
                 defaultCoordinateFallback: true,
             })
         } else {
             analyticsRequest = analyticsRequest.withParameters({
-                fallbackCoordinateField,
+                fallbackCoordinateField: eventCoordinateFieldFallback,
             })
         }
     }
