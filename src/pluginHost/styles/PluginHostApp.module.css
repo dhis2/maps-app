@@ -1,0 +1,17 @@
+.page {
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.page input,
+.page select,
+.page button {
+    height: 24px;
+    font: inherit;
+}

@@ -1,0 +1,27 @@
+.form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 8px;
+}
+
+.field {
+    display: grid;
+    gap: 4px;
+}
+
+.input {
+    width: 100%;
+}
+
+.mapId {
+    width: 300px;
+}
+
+.period {
+    width: 180px;
+}
+
+.orgUnits {
+    width: 220px;
+}

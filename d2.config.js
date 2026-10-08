@@ -46,50 +46,8 @@ const config = {
         },
     },
 
-    viteConfigExtensions: {
-        optimizeDeps: {
-            // Excluded so Vite serves maps-gl via /@fs/... with its full
-            // transform pipeline, which lets the EE worker URL resolve to the
-            // actual source file (rather than /.vite/earthengine/... where
-            // bare imports are not rewritten).
-            exclude: ['@dhis2/maps-gl'],
-            // maps-gl's CJS deps must be listed explicitly; Vite's scanner
-            // won't traverse an excluded package to discover them.
-            include: [
-                'maplibre-gl',
-                'fetch-jsonp',
-                'lodash.throttle',
-                '@mapbox/sphericalmercator',
-                '@turf/area',
-                '@turf/bbox',
-                '@turf/buffer',
-                '@turf/center-of-mass',
-                '@turf/centroid',
-                '@turf/circle',
-                '@turf/jsts',
-                '@turf/length',
-                'comlink',
-                'concaveman',
-                'polylabel',
-                'pretty-bytes',
-                'suggestions',
-                'uuid',
-            ],
-            esbuildOptions: {
-                target: 'es2022',
-            },
-        },
-        build: {
-            target: 'es2022',
-            rollupOptions: {
-                output: {
-                    manualChunks: {
-                        'maps-gl': ['@dhis2/maps-gl'],
-                    },
-                },
-            },
-        },
-    },
+    // Keeps the Vite config out of the built app's d2.config.json
+    viteConfigExtensions: 'vite-extensions.config.mjs',
 
     entryPoints: {
         app: './src/AppWrapper.jsx',

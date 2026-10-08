@@ -37,6 +37,12 @@ You must run `yarn build` before running `yarn deploy`.<br />
 
 See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) for more information.
 
+## Simulating the dashboard plugin
+
+With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://localhost:3000/plugin-host.html) and log in to see a dev-only page that runs the dashboard plugin in an iframe, the way a dashboard does (with the `Plugin` component from `@dhis2/app-runtime`). Pick a map, then try what a dashboard does with it: filters, resizing, fullscreen.
+
+The plugin e2e tests (`cypress/integration/plugin.cy.js`) use the same page, sending the plugin dashboard-like props through `window.setPluginProps`.
+
 ## Cypress Cloud
 
 To record tests in Cypress Cloud, you can use one of the following methods based on your needs:
