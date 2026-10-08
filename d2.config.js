@@ -46,8 +46,7 @@ const config = {
         },
     },
 
-    // A path rather than an object: the build copies this config into
-    // d2.config.json, where the Vite config has no place
+    // Keeps the Vite config out of the built app's d2.config.json
     viteConfigExtensions: 'vite-extensions.config.mjs',
 
     entryPoints: {

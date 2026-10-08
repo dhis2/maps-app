@@ -4,9 +4,7 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import { PluginHostApp } from './PluginHostApp.jsx'
 
-// The parts of the app shell's AppAdapter config (.d2/shell/src/App.jsx) the
-// host needs. Without a base URL (dev), AppAdapter uses the server stored in
-// localStorage or asks for it in its login modal.
+// Subset of the app shell's AppAdapter config (.d2/shell/src/App.jsx)
 const config = {
     url: process.env.REACT_APP_DHIS2_BASE_URL,
     appName: process.env.REACT_APP_DHIS2_APP_NAME || '',

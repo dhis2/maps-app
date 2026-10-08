@@ -41,7 +41,7 @@
     },
     "cypress/integration/plugin.cy.js": {
         "include": true,
-        "duration": 210
+        "duration": 256
     },
     "cypress/integration/pushAnalytics.cy.js": {
         "include": true,

@@ -29,8 +29,7 @@ export const PluginHostApp = () => {
     const [isFullscreen, setIsFullscreen] = useState(false)
     const itemRef = useRef()
 
-    // Like the dashboard's slideshow, which shows an item fullscreen: the
-    // plugin reacts to the fullscreenchange event in its parent document
+    // Like the dashboard's slideshow fullscreen
     useEffect(() => {
         const onFullscreenChange = () =>
             setIsFullscreen(
@@ -86,7 +85,6 @@ export const PluginHostApp = () => {
             >
                 <label style={{ display: 'grid', gap: 4, width: 300 }}>
                     Map id
-                    {/* Native input, not a @dhis2/ui one: cy.type needs a real <input> */}
                     <input
                         type="text"
                         data-test="plugin-host-map-id-input"

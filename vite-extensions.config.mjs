@@ -4,10 +4,8 @@ import path from 'node:path'
 const HOST_PAGE_ROUTE = '/plugin-host.html'
 const HOST_PAGE_DIR = 'src/plugin-host'
 
-// Serves a dev-only page that renders the dashboard plugin with the
-// app-runtime Plugin component, the way a dashboard does. Vite's root is
-// .d2/shell, so a page kept in src is outside it and is served by hand, with
-// its entry referenced via /@fs. It is never added to the build inputs.
+// Dev-only /plugin-host.html (src/plugin-host). It is outside Vite's root
+// (.d2/shell), so it is served by hand, and it is never built.
 const servePluginHost = () => ({
     name: 'maps:serve-plugin-host',
     apply: 'serve',

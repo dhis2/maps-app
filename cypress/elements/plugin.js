@@ -1,16 +1,13 @@
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
-// Dev-only page rendering the plugin with the app-runtime Plugin component
-// (src/plugin-host). Same-origin with plugin.html, so getPlugin can read the
-// iframe document.
+// Dev-only host page (src/plugin-host), same-origin with plugin.html
 const HOST_URL = '/plugin-host.html'
 const PLUGIN_IFRAME = '[data-test="plugin-host-iframe-wrap"] iframe'
 
-// Requests to the DHIS2 API, mirroring how the dashboard app loads its items
-// ----------------------------------------------------------------------------
+// DHIS2 API requests, as the dashboard app makes them
+// ---------------------------------------------------
 
-// Same fields the dashboard app requests for its items (getFavoriteFields and
-// getMapFields)
+// Same fields as the dashboard app's getFavoriteFields and getMapFields
 const DIMENSION_FIELDS =
     'dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType],dimensionType,program[id],optionSet[id],valueType'
 const AXES_FIELDS = ['columns', 'rows', 'filters']
@@ -60,8 +57,7 @@ export const fetchMapVisualization = (mapId) =>
         .request(`${getApiBaseUrl()}/api/maps/${mapId}?fields=${MAP_FIELDS}`)
         .its('body')
 
-// A chart shown with "View as map" on a dashboard is sent without its id and
-// without mapViews (getVisualizationConfig in the dashboard app)
+// "View as map" sends a chart without id and mapViews (getVisualizationConfig)
 export const fetchChartAsMapVisualization = (visualizationId) =>
     cy
         .request(
@@ -70,9 +66,7 @@ export const fetchChartAsMapVisualization = (visualizationId) =>
         .its('body')
         .then((visualization) => ({ ...visualization, id: undefined }))
 
-// Mirrors the dashboard app's getFilteredVisualization: filters only apply to
-// thematic and event layers, replacing the items of a matching dimension or
-// adding the dimension as a filter when it is not used by the layer.
+// Mirrors the dashboard app's getFilteredVisualization
 export const applyDashboardFilters = (visualization, filters) => ({
     ...visualization,
     mapViews: visualization.mapViews.map((mapView) => {
@@ -114,7 +108,6 @@ const getPluginProps = (visualization, extraProps = {}) => ({
     ...extraProps,
 })
 
-// The item size defaults to the host page's (a new dashboard item)
 export const visitPlugin = (visualization, { extraProps, size } = {}) =>
     cy.visit(HOST_URL, {
         onBeforeLoad: (win) => {
@@ -123,8 +116,7 @@ export const visitPlugin = (visualization, { extraProps, size } = {}) =>
         },
     })
 
-// The host page registers its setters once it has mounted, after the page
-// load, so these retry until they exist
+// The host registers its setters after mounting, so retry until they exist
 export const sendPluginProps = (visualization, extraProps) =>
     cy
         .window()
@@ -139,17 +131,17 @@ export const resizePlugin = (width, height) =>
         .its('setPluginSize')
         .then((setPluginSize) => setPluginSize({ width, height }))
 
-// Like the dashboard's "View fullscreen". A real click, as browsers only allow
-// fullscreen after a user gesture.
+// A real click: browsers only allow fullscreen after a user gesture
 export const enterPluginFullscreen = () =>
     cy.get('[data-test="plugin-host-fullscreen"]').realClick()
 
 export const exitPluginFullscreen = () =>
     cy.document().then((doc) => doc.exitFullscreen())
 
-// Elements inside the plugin iframe. The plugin components have no data-test
-// attributes (unlike the app's), so class names and labels are used instead.
-// ----------------------------------------------------------------------------
+// Elements inside the plugin iframe
+// ---------------------------------
+// The plugin components have no data-test attributes, so class names and
+// labels are used instead
 
 // Kept as a pure query chain so Cypress re-queries the iframe document after
 // it navigates from about:blank to plugin.html
@@ -199,7 +191,6 @@ export const getLegendVisibilityButton = () =>
 export const getPluginLegendTitles = () =>
     openPluginLegend().find('.dhis2-map-legend-title-text')
 
-// Load errors and warnings are shown as legend alerts
 export const getPluginLegendAlerts = () =>
     openPluginLegend().find('.dhis2-map-legend-alert')
 
