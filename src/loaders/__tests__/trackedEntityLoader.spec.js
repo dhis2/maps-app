@@ -57,6 +57,7 @@ describe('parseJsonConfig', () => {
 
 const v40 = { major: 2, minor: 40, patch: 0 }
 const v41 = { major: 2, minor: 41, patch: 0 }
+const v42 = { major: 2, minor: 42, patch: 0 }
 
 const trackedEntityType = { id: 'teType1', name: 'Person' }
 const program = { id: 'program1', name: 'Malaria case' }
@@ -144,6 +145,18 @@ describe('trackedEntityLoader tracker request', () => {
                 paging: false,
             },
         })
+    })
+
+    it('sends the program status as enrollment status on 2.42+', async () => {
+        const { engine, result } = load({
+            serverVersion: v42,
+            config: { program, programStatus: 'ACTIVE' },
+        })
+        await result
+
+        const { params } = getRequest(engine)
+        expect(params.enrollmentStatus).toBe('ACTIVE')
+        expect(params.programStatus).toBeUndefined()
     })
 
     it('requests a program with its filters on 2.40', async () => {

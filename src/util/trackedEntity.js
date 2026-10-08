@@ -6,7 +6,10 @@ import {
     GEO_TYPE_FEATURE,
 } from './geojson.js'
 import { trimTime } from './time.js'
-import { serverSupportsTracker41Api } from './versionToggle.js'
+import {
+    serverSupportsTracker41Api,
+    serverSupportsTrackerEnrollmentStatus,
+} from './versionToggle.js'
 
 export const TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     trackedEntityType: {
@@ -80,6 +83,7 @@ const TEI_41_QUERY = {
         orgUnitMode,
         program,
         programStatus,
+        isEnrollmentStatus,
         followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
@@ -91,7 +95,8 @@ const TEI_41_QUERY = {
         orgUnits,
         orgUnitMode,
         program,
-        programStatus,
+        [isEnrollmentStatus ? 'enrollmentStatus' : 'programStatus']:
+            programStatus,
         followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
@@ -175,18 +180,23 @@ export const loadTrackedEntitiesFromTracker = async ({
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: buildQueryVariables({
-                fields: fieldsWithRelationships,
-                orgUnits,
-                orgUnitMode: organisationUnitSelectionMode,
-                program,
-                programStatus,
-                followUp,
-                trackedEntityType,
-                periodType,
-                startDate,
-                endDate,
-            }),
+            variables: {
+                ...buildQueryVariables({
+                    fields: fieldsWithRelationships,
+                    orgUnits,
+                    orgUnitMode: organisationUnitSelectionMode,
+                    program,
+                    programStatus,
+                    followUp,
+                    trackedEntityType,
+                    periodType,
+                    startDate,
+                    endDate,
+                }),
+                // VERSION-TOGGLE: see util/versionToggle.js
+                isEnrollmentStatus:
+                    serverSupportsTrackerEnrollmentStatus(serverVersion),
+            },
         }
     )
 
