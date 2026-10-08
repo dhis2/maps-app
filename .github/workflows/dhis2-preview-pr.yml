@@ -32,7 +32,7 @@ jobs:
             - name: Build
               run: yarn d2-app-scripts build --standalone
               env:
-                  # Adds the dev-only /plugin-host.html page (see README)
+                  # Adds the /plugin-host.html page, never built for releases (see README)
                   BUILD_PLUGIN_HOST: true
 
             - name: Deploy
