@@ -39,7 +39,7 @@ See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) fo
 
 ## Simulating the dashboard plugin
 
-With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://localhost:3000/plugin-host.html) and log in to see a dev-only page that runs the dashboard plugin in an iframe, the way a dashboard does (with the `Plugin` component from `@dhis2/app-runtime`). Pick a map, then try what a dashboard does with it: filters, resizing, fullscreen.
+With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://localhost:3000/plugin-host.html) and log in to see a dev-only page that runs the dashboard plugin in an iframe, the way a dashboard does (with the `Plugin` component from `@dhis2/app-runtime`). Pick a map, then try what a dashboard does with it: filters, resizing, fullscreen. PR previews include it too, at `/plugin-host.html` on the Netlify preview URL.
 
 The plugin e2e tests (`cypress/integration/plugin.cy.js`) use the same page, sending the plugin dashboard-like props through `window.setPluginProps`.
 
