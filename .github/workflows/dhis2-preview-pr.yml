@@ -9,7 +9,9 @@ name: 'dhis2: pr preview'
 #       NETLIFY_SITE_ID
 # - Customize the 'jobs.build.steps.netlify-deploy.publish-dir' property
 
-on: pull_request
+on:
+    pull_request:
+        types: ['opened', 'labeled', 'reopened', 'synchronize']
 
 concurrency:
     group: ${{ github.workflow}}-${{ github.ref }}
@@ -18,7 +20,8 @@ concurrency:
 jobs:
     preview:
         runs-on: ubuntu-latest
-        if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]'"
+        # A new label only triggers a rebuild when it's the plugin host one
+        if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]' && (github.event.action != 'labeled' || github.event.label.name == 'preview plugin')"
         steps:
             - uses: actions/checkout@v7
             - uses: actions/setup-node@v7
@@ -33,7 +36,7 @@ jobs:
               run: yarn d2-app-scripts build --standalone
               env:
                   # Adds the /plugin-host.html page, never built for releases (see README)
-                  BUILD_PLUGIN_HOST: true
+                  BUILD_PLUGIN_HOST: ${{ contains(github.event.pull_request.labels.*.name, 'preview plugin') }}
 
             - name: Deploy
               id: netlify-deploy
