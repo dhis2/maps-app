@@ -383,6 +383,7 @@ describe('trackedEntityLoader result', () => {
         expect((await result).legend.explanation).toBeUndefined()
     })
 
+    // Not possible from the app, only in a map created or edited elsewhere
     it('shows an unknown program status as is', async () => {
         const { result } = load({
             config: { program, programStatus: 'UNKNOWN' },
