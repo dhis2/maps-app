@@ -1,56 +1,18 @@
+import { getDashboardItemProps } from '../../src/pluginHost/pluginHostHelpers.js'
+import {
+    FAVORITE_FIELDS,
+    MAP_FIELDS,
+} from '../../src/pluginHost/pluginHostQueries.js'
 import { EXTENDED_TIMEOUT, getApiBaseUrl } from '../support/util.js'
 
-// Dev-only host page (src/plugin-host), same-origin with plugin.html
+export { applyDashboardFilters } from '../../src/pluginHost/pluginHostHelpers.js'
+
+// Dev-only host page (src/pluginHost), same-origin with plugin.html
 const HOST_URL = '/plugin-host.html'
 const PLUGIN_IFRAME = '[data-test="plugin-host-iframe-wrap"] iframe'
 
 // DHIS2 API requests, as the dashboard app makes them
 // ---------------------------------------------------
-
-// Same fields as the dashboard app's getFavoriteFields and getMapFields
-const DIMENSION_FIELDS =
-    'dimension,legendSet[id],filter,programStage,items[dimensionItem~rename(id),displayName~rename(name),dimensionItemType],dimensionType,program[id],optionSet[id],valueType'
-const AXES_FIELDS = ['columns', 'rows', 'filters']
-    .map((axis) => `${axis}[${DIMENSION_FIELDS}]`)
-    .join(',')
-const FAVORITE_FIELDS = [
-    'id',
-    'displayName~rename(name)',
-    'type',
-    'displayDescription~rename(description)',
-    AXES_FIELDS,
-    '*',
-    '!attributeDimensions',
-    '!attributeValues',
-    '!category',
-    '!categoryDimensions',
-    '!categoryOptionGroupSetDimensions',
-    '!columnDimensions',
-    '!dataDimensionItems',
-    '!dataElementDimensions',
-    '!dataElementGroupSetDimensions',
-    '!filterDimensions',
-    '!itemOrganisationUnitGroups',
-    '!lastUpdatedBy',
-    '!organisationUnitGroupSetDimensions',
-    '!organisationUnitLevels',
-    '!organisationUnits',
-    '!programIndicatorDimensions',
-    '!relativePeriods',
-    '!reportParams',
-    '!rowDimensions',
-    '!translations',
-    '!userOrganisationUnit',
-    '!userOrganisationUnitChildren',
-    '!userOrganisationUnitGrandChildren',
-].join(',')
-const MAP_VIEW_FIELDS = [
-    FAVORITE_FIELDS,
-    'program[id,displayName~rename(name)]',
-    'programStage[id,displayName~rename(name)]',
-    'trackedEntityType[id,displayName~rename(name)]',
-].join(',')
-const MAP_FIELDS = `id,displayName~rename(name),user,longitude,latitude,zoom,basemap,basemaps,mapViews[${MAP_VIEW_FIELDS}]`
 
 export const fetchMapVisualization = (mapId) =>
     cy
@@ -66,47 +28,16 @@ export const fetchChartAsMapVisualization = (visualizationId) =>
         .its('body')
         .then((visualization) => ({ ...visualization, id: undefined }))
 
-// Mirrors the dashboard app's getFilteredVisualization
-export const applyDashboardFilters = (visualization, filters) => ({
-    ...visualization,
-    mapViews: visualization.mapViews.map((mapView) => {
-        if (!/thematic|event/.test(mapView.layer)) {
-            return mapView
-        }
-
-        const rows = mapView.rows.map((obj) => ({ ...obj }))
-        const columns = mapView.columns.map((obj) => ({ ...obj }))
-        const mapViewFilters = mapView.filters.map((obj) => ({ ...obj }))
-
-        Object.entries(filters).forEach(([dimension, items]) => {
-            const matches = [...rows, ...columns, ...mapViewFilters].filter(
-                (obj) => obj.dimension === dimension
-            )
-
-            if (matches.length) {
-                matches.forEach((obj) => (obj.items = items))
-            } else {
-                mapViewFilters.push({ dimension, items })
-            }
-        })
-
-        return { ...mapView, rows, columns, filters: mapViewFilters }
-    }),
-})
-
 // Host page standing in for the dashboard app
 // -------------------------------------------
 
-// The props the dashboard app sends to a map item (IframePlugin)
-const getPluginProps = (visualization, extraProps = {}) => ({
-    isVisualizationLoaded: true,
-    forDashboard: true,
-    displayProperty: 'name',
-    visualization,
-    cacheId: `cypress-${visualization.id ?? 'item'}`,
-    isParentCached: false,
+const getPluginProps = (visualization, extraProps) => ({
+    ...getDashboardItemProps(visualization),
     ...extraProps,
 })
+
+// Without props, for using the page's own controls
+export const visitPluginHost = () => cy.visit(HOST_URL)
 
 export const visitPlugin = (visualization, { extraProps, size } = {}) =>
     cy.visit(HOST_URL, {

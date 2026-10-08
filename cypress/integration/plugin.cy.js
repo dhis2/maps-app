@@ -16,6 +16,7 @@ import {
     rightClickPluginMapCenter,
     sendPluginProps,
     visitPlugin,
+    visitPluginHost,
     waitForPluginMap,
 } from '../elements/plugin.js'
 import { EXTENDED_TIMEOUT } from '../support/util.js'
@@ -590,6 +591,26 @@ describe('Dashboard plugin', () => {
 
             sendPluginProps(thematicMap)
             expectAnalyticsDimension('@analytics', 'pe', [PINNED_PERIOD.id])
+            waitForPluginMap()
+        })
+
+        it('applies filters picked on the host page', () => {
+            cy.intercept(ANALYTICS_DATA_ENDPOINT).as('analytics')
+            visitPluginHost()
+
+            cy.getByDataTest('plugin-host-map-id-input').type(THEMATIC_MAP_ID)
+            cy.getByDataTest('plugin-host-map-id-submit').click()
+            cy.wait('@analytics', EXTENDED_TIMEOUT)
+            waitForPluginMap()
+
+            cy.getByDataTest('plugin-host-period-filter').type('LAST_12_MONTHS')
+            cy.getByDataTest('plugin-host-org-unit-filter').type(BO_DISTRICT_ID)
+            cy.getByDataTest('plugin-host-apply-filters').click()
+            cy.wait('@analytics', EXTENDED_TIMEOUT).then((interception) => {
+                const url = decodedUrl(interception)
+                expect(url).to.match(/pe:[^&]*LAST_12_MONTHS/)
+                expect(url).to.match(new RegExp(`ou:[^&]*${BO_DISTRICT_ID}`))
+            })
             waitForPluginMap()
         })
 

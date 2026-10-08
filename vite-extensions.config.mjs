@@ -2,9 +2,9 @@ import fs from 'node:fs/promises'
 import path from 'node:path'
 
 const HOST_PAGE_ROUTE = '/plugin-host.html'
-const HOST_PAGE_DIR = 'src/plugin-host'
+const HOST_PAGE_DIR = 'src/pluginHost'
 
-// Dev-only /plugin-host.html (src/plugin-host). It is outside Vite's root
+// Dev-only /plugin-host.html (src/pluginHost). It is outside Vite's root
 // (.d2/shell), so it is served by hand, and it is never built.
 const servePluginHost = () => ({
     name: 'maps:serve-plugin-host',
