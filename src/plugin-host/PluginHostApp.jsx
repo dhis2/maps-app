@@ -84,7 +84,7 @@ export const PluginHostApp = () => {
                 style={{ display: 'flex', alignItems: 'end', gap: 8 }}
             >
                 <label style={{ display: 'grid', gap: 4, width: 300 }}>
-                    Map id
+                    <span>Map id</span>
                     <input
                         type="text"
                         data-test="plugin-host-map-id-input"
