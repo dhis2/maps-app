@@ -52,6 +52,8 @@ To record tests in Cypress Cloud, you can use one of the following methods based
 
 This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
 
+To also run the e2e tests against the DHIS2 development version, apply the `e2e dev` label to your pull request.
+
 ## Learn More
 
 You can learn more about the platform in the [DHIS2 Application Platform Documentation](https://platform.dhis2.nu/).

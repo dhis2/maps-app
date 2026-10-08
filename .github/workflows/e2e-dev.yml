@@ -6,8 +6,8 @@ on:
 
 env:
     CI: true
-    DEV_URL: 'https://test.e2e.dhis2.org/analytics-dev'
-    API_VERSION: 42
+    DEV_URL: 'https://dev.im.dhis2.org/analytics-dev'
+    API_VERSION: 44
     SHOULD_RECORD: ${{ contains(github.event.pull_request.labels.*.name, 'e2e record') }}
 
 concurrency:
