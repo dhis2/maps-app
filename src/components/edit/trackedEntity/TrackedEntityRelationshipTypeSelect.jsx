@@ -9,11 +9,19 @@ const RELATIONSHIP_TYPES_QUERY = {
     relationshipTypes: {
         resource: 'relationshipTypes',
         params: {
-            fields: ['id', 'displayName~rename(name)', 'fromConstraint'],
+            fields: [
+                'id',
+                'displayName~rename(name)',
+                'fromConstraint',
+                'toConstraint',
+            ],
         },
     },
 }
 
+const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
+
+// Only relationships between tracked entities can be shown
 const TrackedEntityRelationshipTypeSelect = ({
     trackedEntityType,
     value,
@@ -25,11 +33,12 @@ const TrackedEntityRelationshipTypeSelect = ({
     const types = useMemo(
         () =>
             data?.relationshipTypes.relationshipTypes.filter(
-                (type) =>
-                    type.fromConstraint.relationshipEntity ===
-                        'TRACKED_ENTITY_INSTANCE' &&
-                    type.fromConstraint.trackedEntityType.id ===
-                        trackedEntityType.id
+                ({ fromConstraint, toConstraint }) =>
+                    fromConstraint.relationshipEntity ===
+                        TRACKED_ENTITY_INSTANCE &&
+                    toConstraint.relationshipEntity ===
+                        TRACKED_ENTITY_INSTANCE &&
+                    fromConstraint.trackedEntityType.id === trackedEntityType.id
             ) || [],
         [data, trackedEntityType.id]
     )
