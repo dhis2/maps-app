@@ -2,9 +2,23 @@ import '@dhis2/cypress-commands'
 import 'cypress-wait-until'
 import { EXTENDED_TIMEOUT } from './util.js'
 
-Cypress.Commands.add('getByDataTest', (selector, ...args) =>
-    cy.get(`[data-test="${selector}"]`, ...args)
-)
+// Queries rather than commands: a chain after them (.find, .contains, .should)
+// is retried from the start, so it survives the app re-rendering the element
+Cypress.Commands.addQuery('getByDataTest', function (selector, options = {}) {
+    if (options.timeout !== undefined) {
+        this.set('timeout', options.timeout)
+    }
+    const getFn = cy.now('get', `[data-test="${selector}"]`, options)
+    return () => getFn()
+})
+
+Cypress.Commands.addQuery('findByDataTest', function (selector, options = {}) {
+    if (options.timeout !== undefined) {
+        this.set('timeout', options.timeout)
+    }
+    const findFn = cy.now('find', `[data-test="${selector}"]`, options)
+    return (subject) => findFn(subject)
+})
 
 Cypress.Commands.add('waitForMap', (options = {}) => {
     const timeout = options.timeout ?? EXTENDED_TIMEOUT.timeout
@@ -28,15 +42,6 @@ Cypress.Commands.add('waitForMap', (options = {}) => {
         })
     })
 })
-Cypress.Commands.add(
-    'findByDataTest',
-    {
-        prevSubject: true,
-    },
-    (subject, selector, ...args) =>
-        cy.wrap(subject).find(`[data-test="${selector}"]`, ...args)
-)
-
 Cypress.Commands.add(
     'containsExact',
     {
