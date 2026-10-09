@@ -32,6 +32,19 @@
     color: var(--colors-white);
 }
 
+.iconCentered {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--colors-white);
+}
+
 .dark {
     color: var(--colors-grey900);
+}
+
+.unset {
+    border-style: dashed;
 }
