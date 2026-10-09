@@ -276,8 +276,7 @@ export const getTrackedEntityAnalyticsRequest = (
         // Analytics defaults to all levels below, the tracker API to selected
         .withOuMode(organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED)
 
-    // withProgram() would put the program in the path. Enrollment filters are
-    // qualified with the program: "<program>.<value>"
+    // withProgram() would put the program in the path
     return request.withParameters({
         // Every attribute and org unit column comes back otherwise
         headers: `${getAnalyticsIdColumn(serverVersion)},geometry`,

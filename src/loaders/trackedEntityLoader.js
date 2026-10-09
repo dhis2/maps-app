@@ -141,7 +141,6 @@ const trackedEntityLoader = async ({
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
             serverVersion
         )
-        // Tracker analytics where possible, otherwise the tracker API
         const result = canLoadTrackedEntitiesFromAnalytics(
             config,
             serverVersion
