@@ -144,18 +144,16 @@ const trackedEntityLoader = async ({
             ]
         }
 
+        const maxLimit = getTrackerMaxLimit(
+            { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
+            serverVersion
+        )
         const result = await loadTrackedEntities({
             config: loadConfig,
             engine,
             analyticsEngine,
             serverVersion,
-            maxLimit: getTrackerMaxLimit(
-                {
-                    KeyTrackedEntityInstanceMaxLimit,
-                    KeyTrackedEntityMaxLimit,
-                },
-                serverVersion
-            ),
+            maxLimit,
         })
         data = result.data
 
@@ -205,6 +203,7 @@ const trackedEntityLoader = async ({
                 // Relationship layers always load from the tracker API
                 instances: result.instances,
                 orgUnits: result.orgUnits,
+                maxLimit,
             }).catch(() => {
                 alerts.push({
                     warning: true,
@@ -215,6 +214,22 @@ const trackedEntityLoader = async ({
                 })
                 return null
             })
+
+            if (relationshipResult?.isTruncated) {
+                alerts.push({
+                    warning: true,
+                    code: CUSTOM_ALERT,
+                    message: `${name}: ${i18n.t(
+                        'Displaying first {{limit}} related tracked entities',
+                        {
+                            limit: formatWithSeparator(
+                                maxLimit,
+                                keyAnalysisDigitGroupSeparator
+                            ),
+                        }
+                    )}`,
+                })
+            }
 
             // Only relationships between tracked entities are drawn
             if (relationshipResult?.relatedEntityType) {
