@@ -17,45 +17,7 @@ jest.mock('../../../core/index.js', () => {
     return { SelectField }
 })
 
-const trackedEntity = (id) => ({
-    relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
-    trackedEntityType: { id },
-})
-const event = { relationshipEntity: 'PROGRAM_STAGE_INSTANCE' }
-const enrollment = { relationshipEntity: 'PROGRAM_INSTANCE' }
-
-const relationshipTypes = [
-    {
-        id: 'r1',
-        name: 'Case to contact',
-        fromConstraint: trackedEntity('person'),
-        toConstraint: trackedEntity('person'),
-    },
-    {
-        id: 'r2',
-        name: 'Case to visit',
-        fromConstraint: trackedEntity('person'),
-        toConstraint: event,
-    },
-    {
-        id: 'r3',
-        name: 'Case to enrollment',
-        fromConstraint: trackedEntity('person'),
-        toConstraint: enrollment,
-    },
-    {
-        id: 'r4',
-        name: 'Focus to case',
-        fromConstraint: trackedEntity('focus'),
-        toConstraint: trackedEntity('person'),
-    },
-    {
-        id: 'r5',
-        name: 'Visit to case',
-        fromConstraint: event,
-        toConstraint: trackedEntity('person'),
-    },
-]
+const relationshipTypes = [{ id: 'r1', name: 'Case to contact' }]
 
 const renderSelect = () =>
     render(
@@ -66,7 +28,24 @@ const renderSelect = () =>
     )
 
 describe('TrackedEntityRelationshipTypeSelect', () => {
-    it('offers the relationships from the type to tracked entities', () => {
+    it('requests all relationship types between tracked entities from the type', () => {
+        useDataQuery.mockReturnValue({ loading: true })
+        renderSelect()
+
+        const [query, { variables }] = useDataQuery.mock.calls[0]
+        expect(variables).toEqual({ trackedEntityType: 'person' })
+        expect(query.relationshipTypes.params(variables)).toEqual({
+            fields: ['id', 'displayName~rename(name)'],
+            filter: [
+                'fromConstraint.relationshipEntity:eq:TRACKED_ENTITY_INSTANCE',
+                'toConstraint.relationshipEntity:eq:TRACKED_ENTITY_INSTANCE',
+                'fromConstraint.trackedEntityType.id:eq:person',
+            ],
+            paging: false,
+        })
+    })
+
+    it('offers the returned relationship types', () => {
         useDataQuery.mockReturnValue({
             data: { relationshipTypes: { relationshipTypes } },
         })
@@ -79,11 +58,7 @@ describe('TrackedEntityRelationshipTypeSelect', () => {
 
     it('says when the type has none', () => {
         useDataQuery.mockReturnValue({
-            data: {
-                relationshipTypes: {
-                    relationshipTypes: relationshipTypes.slice(1),
-                },
-            },
+            data: { relationshipTypes: { relationshipTypes: [] } },
         })
         renderSelect()
 
