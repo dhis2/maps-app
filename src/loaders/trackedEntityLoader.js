@@ -16,8 +16,9 @@ import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    createTrackedEntityInstanceFeatures,
     getTrackerMaxLimit,
+    canLoadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromAnalytics,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
@@ -75,9 +76,73 @@ const getRelationshipLegendItems = ({
     ]
 }
 
+const getLegend = ({
+    name,
+    trackedEntityType,
+    program,
+    programStatus,
+    startDate,
+    endDate,
+    eventPointColor,
+    eventPointRadius,
+    areaRadius,
+}) => {
+    const legend = {
+        title: name,
+        period: formatStartEndDate(
+            getDateArray(startDate),
+            getDateArray(endDate)
+        ),
+        items: [
+            {
+                name:
+                    trackedEntityType.name +
+                    (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
+                color: eventPointColor || TEI_COLOR,
+                radius: eventPointRadius || TEI_RADIUS,
+            },
+        ],
+    }
+
+    if (program && programStatus) {
+        legend.explanation = [
+            `${i18n.t('Program status')}: ${
+                getProgramStatuses().find((s) => s.id === programStatus)
+                    ?.name ?? programStatus
+            }`,
+        ]
+    }
+
+    return legend
+}
+
+const getTruncatedMessage = (result, keyAnalysisDigitGroupSeparator) => {
+    const limit = formatWithSeparator(
+        result.limit,
+        keyAnalysisDigitGroupSeparator
+    )
+
+    // Only analytics returns the total
+    if (!result.total) {
+        return i18n.t('Displaying first {{limit}} tracked entities', { limit })
+    }
+
+    return i18n.t(
+        'Displaying first {{limit}} tracked entities out of {{total}}',
+        {
+            limit,
+            total: formatWithSeparator(
+                result.total,
+                keyAnalysisDigitGroupSeparator
+            ),
+        }
+    )
+}
+
 const trackedEntityLoader = async ({
     config,
     engine,
+    analyticsEngine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
     KeyTrackedEntityInstanceMaxLimit,
@@ -107,70 +172,57 @@ const trackedEntityLoader = async ({
     let data = []
 
     try {
-        legend = {
-            title: name,
-            period: formatStartEndDate(
-                getDateArray(startDate),
-                getDateArray(endDate)
-            ),
-            items: [
-                {
-                    name:
-                        trackedEntityType.name +
-                        (areaRadius
-                            ? ` + ${areaRadius} ${'m'} ${'buffer'}`
-                            : ''),
-                    color: eventPointColor || TEI_COLOR,
-                    radius: eventPointRadius || TEI_RADIUS,
-                },
-            ],
-        }
-
-        if (program && programStatus) {
-            legend.explanation = [
-                `${i18n.t('Program status')}: ${
-                    getProgramStatuses().find((s) => s.id === programStatus)
-                        ?.name ?? programStatus
-                }`,
-            ]
-        }
+        legend = getLegend({
+            name,
+            trackedEntityType,
+            program,
+            programStatus,
+            startDate,
+            endDate,
+            eventPointColor,
+            eventPointRadius,
+            areaRadius,
+        })
 
         const maxLimit = getTrackerMaxLimit(
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
             serverVersion
         )
-        const { instances, orgUnits, isTruncated, limit } =
-            await loadTrackedEntitiesFromTracker({
-                config,
-                engine,
-                serverVersion,
-                maxLimit,
-            })
+        const result = canLoadTrackedEntitiesFromAnalytics(
+            config,
+            serverVersion
+        )
+            ? await loadTrackedEntitiesFromAnalytics({
+                  config,
+                  analyticsEngine,
+                  serverVersion,
+              })
+            : await loadTrackedEntitiesFromTracker({
+                  config,
+                  engine,
+                  serverVersion,
+                  maxLimit,
+              })
+        data = result.data
 
-        if (isTruncated) {
+        // At the tracker API limit or the analytics page size
+        if (result.isTruncated) {
             alerts.push({
                 warning: true,
                 code: CUSTOM_ALERT,
-                message: `${name}: ${i18n.t(
-                    'Displaying first {{limit}} tracked entities',
-                    {
-                        limit: formatWithSeparator(
-                            limit,
-                            keyAnalysisDigitGroupSeparator
-                        ),
-                    }
+                message: `${name}: ${getTruncatedMessage(
+                    result,
+                    keyAnalysisDigitGroupSeparator
                 )}`,
             })
         }
 
-        if (!instances.length) {
+        if (!data.length) {
             alerts.push({
                 code: WARNING_NO_DATA,
                 message: trackedEntityType.name,
             })
         }
-
-        data = createTrackedEntityInstanceFeatures(instances)
 
         if (relationshipTypeID) {
             // The tracked entities are still shown when this fails
@@ -178,8 +230,9 @@ const trackedEntityLoader = async ({
                 config,
                 engine,
                 serverVersion,
-                instances,
-                orgUnits,
+                // Relationship layers always load from the tracker API
+                instances: result.instances,
+                orgUnits: result.orgUnits,
                 maxLimit,
             }).catch(() => {
                 alerts.push({

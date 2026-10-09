@@ -1,5 +1,13 @@
+import { Analytics } from '@dhis2/analytics'
+import { canLoadTrackedEntitiesFromAnalytics } from '../../util/trackedEntity.js'
 import trackedEntityLoader, { parseJsonConfig } from '../trackedEntityLoader.js'
 
+// The tracker request tests run on every version; the analytics group uses the
+// real choice
+jest.mock('../../util/trackedEntity.js', () => ({
+    ...jest.requireActual('../../util/trackedEntity.js'),
+    canLoadTrackedEntitiesFromAnalytics: jest.fn(() => false),
+}))
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
@@ -845,6 +853,281 @@ describe('trackedEntityLoader tracker limit', () => {
                 message:
                     'Malaria case: Displaying first 2 related tracked entities',
             },
+        ])
+    })
+})
+
+describe('trackedEntityLoader tracker analytics', () => {
+    const v42 = { major: 2, minor: 42, patch: 0 }
+
+    const analyticsResponse = (
+        rows,
+        total = rows.length,
+        idColumn = 'trackedentity'
+    ) => ({
+        data: {
+            headers: [{ name: idColumn }, { name: 'geometry' }],
+            rows,
+            metaData: { pager: { page: 1, total } },
+        },
+    })
+
+    const isAnalyticsCall = ([query]) => 'data' in query
+
+    const { canLoadTrackedEntitiesFromAnalytics: canLoadFromAnalytics } =
+        jest.requireActual('../../util/trackedEntity.js')
+
+    beforeEach(() => {
+        canLoadTrackedEntitiesFromAnalytics.mockImplementation(
+            canLoadFromAnalytics
+        )
+    })
+
+    afterEach(() => {
+        canLoadTrackedEntitiesFromAnalytics.mockImplementation(() => false)
+    })
+
+    // getAnalytics keeps the first engine it gets, so the tests share one
+    const engine = { query: jest.fn() }
+    const analyticsEngine = Analytics.getAnalytics(engine)
+
+    const loadWithAnalytics = async ({
+        config = {},
+        serverVersion = v42,
+        analytics = () => Promise.resolve(analyticsResponse([])),
+    } = {}) => {
+        engine.query.mockReset()
+        engine.query.mockImplementation((query) =>
+            'data' in query
+                ? analytics()
+                : Promise.resolve(
+                      trackerResponse(serverVersion, [point('te9')])
+                  )
+        )
+        const result = await trackedEntityLoader({
+            config: { ...baseConfig, ...config },
+            engine,
+            analyticsEngine,
+            keyAnalysisDigitGroupSeparator: 'SPACE',
+            serverVersion,
+        })
+        const calls = engine.query.mock.calls
+        return {
+            result,
+            analyticsCalls: calls.filter(isAnalyticsCall),
+            trackerCalls: calls.filter((call) => !isAnalyticsCall(call)),
+        }
+    }
+
+    it('loads the tracked entities from analytics on 2.41+', async () => {
+        const { result, trackerCalls } = await loadWithAnalytics({
+            analytics: () =>
+                Promise.resolve(
+                    analyticsResponse([
+                        ['te1', 'POINT(1 2)'],
+                        ['te2', 'SRID=4326;POLYGON((0 0,1 0,1 1,0 0))'],
+                        ['te3', ''],
+                        ['te4', 'LINESTRING(0 0,1 1)'],
+                    ])
+                ),
+        })
+
+        expect(trackerCalls).toHaveLength(0)
+        expect(result.data).toEqual([
+            {
+                type: 'Feature',
+                geometry: { type: 'Point', coordinates: [1, 2] },
+                properties: { id: 'te1' },
+            },
+            {
+                type: 'Feature',
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [
+                        [
+                            [0, 0],
+                            [1, 0],
+                            [1, 1],
+                            [0, 0],
+                        ],
+                    ],
+                },
+                properties: { id: 'te2' },
+            },
+        ])
+    })
+
+    it('requests the id and geometry of the tracked entities', async () => {
+        const { analyticsCalls } = await loadWithAnalytics()
+        const { variables } = analyticsCalls[0][1]
+
+        expect(variables).toMatchObject({
+            path: 'trackedEntities/query',
+            trackedEntityType: 'teType1',
+            dimensions: ['ou:ou1;ou2'],
+        })
+        // Not in the path: trackedEntities/query/{program} is invalid
+        expect(variables.program).toBeUndefined()
+        expect(variables.parameters).toEqual({
+            headers: 'trackedentity,geometry',
+            geometryOnly: true,
+            ouMode: 'DESCENDANTS',
+            lastUpdated: '2024-01-01_2024-12-31',
+            pageSize: 50000,
+            totalPages: true,
+        })
+    })
+
+    it('names the id column trackedentityinstanceuid on 2.41', async () => {
+        const { result, analyticsCalls } = await loadWithAnalytics({
+            serverVersion: v41,
+            analytics: () =>
+                Promise.resolve(
+                    analyticsResponse(
+                        [['te1', 'POINT(1 2)']],
+                        1,
+                        'trackedentityinstanceuid'
+                    )
+                ),
+        })
+
+        expect(analyticsCalls[0][1].variables.parameters.headers).toBe(
+            'trackedentityinstanceuid,geometry'
+        )
+        expect(result.data[0].properties.id).toBe('te1')
+    })
+
+    it('qualifies the program filters with the program', async () => {
+        const { analyticsCalls } = await loadWithAnalytics({
+            config: {
+                program,
+                programStatus: 'ACTIVE',
+                periodType: 'program',
+            },
+        })
+
+        expect(analyticsCalls[0][1].variables.parameters).toMatchObject({
+            program: 'program1',
+            enrollmentStatus: 'program1.ACTIVE',
+            enrollmentDate: 'program1.2024-01-01_2024-12-31',
+        })
+        expect(
+            analyticsCalls[0][1].variables.parameters.lastUpdated
+        ).toBeUndefined()
+    })
+
+    // Not possible from the app, only in a map created or edited elsewhere
+    it('ignores the program filters without a program', async () => {
+        const { analyticsCalls } = await loadWithAnalytics({
+            config: { programStatus: 'ACTIVE', periodType: 'program' },
+        })
+        const { parameters } = analyticsCalls[0][1].variables
+
+        expect(parameters.enrollmentStatus).toBeUndefined()
+        expect(parameters.enrollmentDate).toBeUndefined()
+        expect(parameters.lastUpdated).toBe('2024-01-01_2024-12-31')
+    })
+
+    it('keeps selected org units only when the layer has no mode', async () => {
+        const { analyticsCalls } = await loadWithAnalytics({
+            config: { organisationUnitSelectionMode: undefined },
+        })
+
+        expect(analyticsCalls[0][1].variables.parameters.ouMode).toBe(
+            'SELECTED'
+        )
+    })
+
+    it.each([
+        { name: 'on 2.40', serverVersion: v40, config: {} },
+        {
+            name: 'with follow-up',
+            serverVersion: v42,
+            config: { program, followUp: true },
+        },
+        {
+            name: 'for relationships',
+            serverVersion: v42,
+            config: {
+                program,
+                config: JSON.stringify({ relationships: { type: 'relType1' } }),
+            },
+        },
+    ])(
+        'loads from the tracker API $name',
+        async ({ serverVersion, config }) => {
+            const { result, analyticsCalls } = await loadWithAnalytics({
+                serverVersion,
+                config,
+            })
+
+            expect(analyticsCalls).toHaveLength(0)
+            expect(result.data.map((f) => f.properties.id)).toEqual(['te9'])
+        }
+    )
+
+    it.each([['E7144'], ['E7217']])(
+        'shows %s as an error without trying the tracker API',
+        async (errorCode) => {
+            const { result, trackerCalls } = await loadWithAnalytics({
+                analytics: () =>
+                    Promise.reject({
+                        message: 'Analytics refused',
+                        details: { errorCode },
+                    }),
+            })
+
+            expect(trackerCalls).toHaveLength(0)
+            expect(result.loadError).toBe('Analytics refused')
+        }
+    )
+
+    it('shows other analytics errors', async () => {
+        const { result, trackerCalls } = await loadWithAnalytics({
+            analytics: () =>
+                Promise.reject({
+                    message: 'Program is specified but does not exist',
+                    details: { errorCode: 'E7129' },
+                }),
+        })
+
+        expect(trackerCalls).toHaveLength(0)
+        expect(result.loadError).toBe('Program is specified but does not exist')
+    })
+
+    it('warns with the number of rows and the total when there are more', async () => {
+        const { result } = await loadWithAnalytics({
+            config: { program },
+            // The server can return fewer rows than the page size
+            analytics: () =>
+                Promise.resolve(
+                    analyticsResponse(
+                        [
+                            ['te1', 'POINT(1 2)'],
+                            ['te2', 'POINT(3 4)'],
+                        ],
+                        250000
+                    )
+                ),
+        })
+
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message:
+                    'Malaria case: Displaying first 2 tracked entities out of 250 000',
+            },
+        ])
+    })
+
+    it('does not warn for an empty result', async () => {
+        const { result } = await loadWithAnalytics({
+            analytics: () => Promise.resolve(analyticsResponse([], 0)),
+        })
+
+        expect(result.alerts).toEqual([
+            { code: 'WARNING_NO_DATA', message: 'Person' },
         ])
     })
 })

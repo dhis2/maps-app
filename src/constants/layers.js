@@ -122,6 +122,7 @@ export const EVENT_CENTROID_DEFAULT = [
 ]
 
 /* TEI LAYER */
+export const TEI_CLIENT_PAGE_SIZE = 50000
 export const TEI_COLOR = '#BB0000'
 export const TEI_RADIUS = 6
 export const TEI_BUFFER = 100

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-09T10:39:43.423Z\n"
-"PO-Revision-Date: 2026-10-09T10:39:43.423Z\n"
+"POT-Creation-Date: 2026-10-09T20:00:52.510Z\n"
+"PO-Revision-Date: 2026-10-09T20:00:52.511Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -599,6 +599,15 @@ msgstr "No relationship types were found for tracked entity type {{type}}"
 
 msgid "Relationship type"
 msgstr "Relationship type"
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
 
 msgid "No data to show for this feature."
 msgstr "No data to show for this feature."
@@ -1882,11 +1891,14 @@ msgstr "Thematic layer"
 msgid "related"
 msgstr "related"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
 msgid "Displaying first {{limit}} tracked entities"
 msgstr "Displaying first {{limit}} tracked entities"
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr "Displaying first {{limit}} tracked entities out of {{total}}"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "Relationships could not be loaded"
 msgstr "Relationships could not be loaded"
