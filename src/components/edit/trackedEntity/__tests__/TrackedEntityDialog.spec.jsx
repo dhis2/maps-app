@@ -17,7 +17,7 @@ jest.mock('../../../orgunits/OrgUnitSelect.jsx', () => () => null)
 jest.mock('../../../periods/StartEndDate.jsx', () => () => null)
 jest.mock('../../shared/BufferRadius.jsx', () => () => null)
 
-const slowLoading = 'May cause slow layer loading.'
+const trackerData = /come from tracker data instead of analytics/
 
 const renderDialog = ({ minor = 43, ...props } = {}) => {
     useConfig.mockReturnValue({ serverVersion: { minor } })
@@ -35,33 +35,33 @@ const renderDialog = ({ minor = 43, ...props } = {}) => {
     )
 }
 
-describe('TrackedEntityDialog slow loading notice', () => {
-    it('warns when follow-up is checked on 2.41+', () => {
+describe('TrackedEntityDialog tracker data notice', () => {
+    it('explains the access rules when follow-up is checked on 2.41+', () => {
         renderDialog({ followUp: true })
 
-        expect(screen.getByText(slowLoading)).toBeInTheDocument()
+        expect(screen.getByText(trackerData)).toBeInTheDocument()
     })
 
     it.each([
         { name: 'without follow-up', props: { followUp: false } },
         { name: 'on 2.40', props: { followUp: true, minor: 40 } },
-    ])('does not warn $name', ({ props }) => {
+    ])('does not show it $name', ({ props }) => {
         renderDialog(props)
 
-        expect(screen.queryByText(slowLoading)).not.toBeInTheDocument()
+        expect(screen.queryByText(trackerData)).not.toBeInTheDocument()
     })
 
-    it('warns when relationships are shown on 2.41+', () => {
+    it('explains the access rules when relationships are shown on 2.41+', () => {
         renderDialog({ relationshipType: 'relType1' })
         fireEvent.click(screen.getByText('Relationships'))
 
-        expect(screen.getByText(slowLoading)).toBeInTheDocument()
+        expect(screen.getByText(trackerData)).toBeInTheDocument()
     })
 
-    it('does not warn for relationships on 2.40', () => {
+    it('does not show it for relationships on 2.40', () => {
         renderDialog({ relationshipType: 'relType1', minor: 40 })
         fireEvent.click(screen.getByText('Relationships'))
 
-        expect(screen.queryByText(slowLoading)).not.toBeInTheDocument()
+        expect(screen.queryByText(trackerData)).not.toBeInTheDocument()
     })
 })

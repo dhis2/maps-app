@@ -49,11 +49,11 @@ import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
-import SlowLoadingNotice from '../shared/SlowLoadingNotice.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import PeriodTypeSelect from './PeriodTypeSelect.jsx'
 import ProgramStatusSelect from './ProgramStatusSelect.jsx'
 import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect.jsx'
+import TrackerDataNotice from './TrackerDataNotice.jsx'
 
 const TrackedEntityDialog = ({
     eventPointColor,
@@ -78,7 +78,7 @@ const TrackedEntityDialog = ({
     const dispatch = useDispatch()
     const { serverVersion } = useConfig()
     // VERSION-TOGGLE: see util/versionToggle.js
-    // Follow-up and relationships can't use tracker analytics, which is faster
+    // Follow-up and relationships can't use tracker analytics
     const hasAnalytics = serverSupportsTrackedEntityAnalytics(serverVersion)
     const [tab, setTab] = useState('data')
     const [showRelationshipsChecked, setShowRelationshipsChecked] =
@@ -216,7 +216,7 @@ const TrackedEntityDialog = ({
                             />
                         )}
                         {program && followUp && hasAnalytics && (
-                            <SlowLoadingNotice />
+                            <TrackerDataNotice />
                         )}
                     </div>
                 )}
@@ -250,7 +250,7 @@ const TrackedEntityDialog = ({
                                 }}
                             />
                             {showRelationshipsChecked && hasAnalytics && (
-                                <SlowLoadingNotice />
+                                <TrackerDataNotice />
                             )}
                             {showRelationshipsChecked && (
                                 <TrackedEntityRelationshipTypeSelect
