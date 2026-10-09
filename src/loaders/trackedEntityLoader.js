@@ -115,7 +115,8 @@ const trackedEntityLoader = async ({
 
     if (program && programStatus) {
         explanation = `${i18n.t('Program status')}: ${
-            getProgramStatuses().find((s) => s.id === programStatus).name
+            getProgramStatuses().find((s) => s.id === programStatus)?.name ??
+            programStatus
         }`
     }
 
