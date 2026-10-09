@@ -9,6 +9,7 @@ import {
     ComponentCover,
     CenteredContent,
     CircularLoader,
+    Tooltip,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -22,14 +23,14 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
-import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
-import { setOrgUnitProfile } from '../../actions/orgUnits.js'
-import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
+import { highlightFeature } from '../../actions/feature.js'
 import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
+import TableContextMenu from './TableContextMenu.jsx'
 import { useTableData } from './useTableData.js'
 
 const ASCENDING = 'asc'
@@ -60,16 +61,16 @@ DataTableWithVirtuosoContext.propTypes = {
 
 const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
     <DataTableRow
-        onClick={() => context.onClick(item)}
         onMouseEnter={() => context.onMouseEnter(item)}
         onMouseLeave={context.onMouseLeave}
+        onContextMenu={(e) => context.onContextMenu(e, item)}
         {...props}
     />
 )
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
-        onClick: PropTypes.func,
+        onContextMenu: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
     }),
@@ -98,7 +99,7 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ availableWidth }) => {
+const Table = ({ availableWidth, onCountChange }) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -126,38 +127,12 @@ const Table = ({ availableWidth }) => {
             setSorting({
                 sortField: name,
                 sortDirection:
-                    sortDirection === ASCENDING ? DESCENDING : ASCENDING,
+                    name === sortField && sortDirection === ASCENDING
+                        ? DESCENDING
+                        : ASCENDING,
             })
         },
-        [sortDirection]
-    )
-
-    const showDetailView = useCallback(
-        (row) => {
-            if (layer.layer === EVENT_LAYER) {
-                return
-            }
-
-            if (layer.layer === GEOJSON_URL_LAYER) {
-                const { name } = layer
-
-                const data = row.reduce((acc, { dataKey, value }) => {
-                    acc[dataKey] = value
-                    return acc
-                }, {})
-
-                dispatch(
-                    setFeatureProfile({
-                        name,
-                        data,
-                    })
-                )
-            } else {
-                const id = row.find((r) => r.dataKey === 'id')?.value
-                id && dispatch(setOrgUnitProfile(id))
-            }
-        },
-        [dispatch, layer]
+        [sortField, sortDirection]
     )
 
     const setFeatureHighlight = useCallback(
@@ -190,26 +165,59 @@ const Table = ({ availableWidth }) => {
         [dispatch]
     )
 
+    const featureById = useMemo(() => {
+        const map = new Map()
+        layer.data?.forEach((f) => {
+            const id = f.properties?.id ?? f.id
+            if (id != null) {
+                map.set(id, f)
+            }
+        })
+        return map
+    }, [layer.data])
+
+    const [tableContextMenu, setTableContextMenu] = useState(null)
+
+    const onRowContextMenu = useCallback(
+        (e, row) => {
+            e.preventDefault()
+            const id =
+                row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
+            const feature = featureById.get(id)
+            setTableContextMenu({
+                x: e.clientX,
+                y: e.clientY,
+                featureProps: feature?.properties ?? { id },
+            })
+        },
+        [featureById]
+    )
+
     const tableContext = useMemo(
         () => ({
-            onClick: showDetailView,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
+            onContextMenu: onRowContextMenu,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
         }),
         [
-            showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
+            onRowContextMenu,
             columnWidths,
         ]
     )
 
-    const { headers, rows, isLoading, error } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-    })
+    const { headers, rows, isLoading, error, totalCount, filteredCount } =
+        useTableData({
+            layer,
+            sortField,
+            sortDirection,
+        })
+
+    useEffect(() => {
+        onCountChange?.(totalCount, filteredCount)
+    }, [onCountChange, totalCount, filteredCount])
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -278,15 +286,6 @@ const Table = ({ availableWidth }) => {
                             <DataTableColumnHeader
                                 className={styles.columnHeader}
                                 key={`${dataKey}-${index}`}
-                                onSortIconClick={sortData}
-                                sortDirection={
-                                    dataKey === sortField
-                                        ? sortDirection
-                                        : 'default'
-                                }
-                                sortIconTitle={i18n.t('Sort by {{column}}', {
-                                    column: name,
-                                })}
                                 onFilterIconClick={type && Function.prototype}
                                 showFilter={!!type && dataKey !== 'index'}
                                 name={dataKey}
@@ -305,7 +304,31 @@ const Table = ({ availableWidth }) => {
                                         : 'auto'
                                 }
                             >
-                                {name}
+                                <span className={styles.headerContent}>
+                                    {name}
+                                    <Tooltip
+                                        content={i18n.t('Sort by {{column}}', {
+                                            column: name,
+                                        })}
+                                    >
+                                        <button
+                                            type="button"
+                                            className={styles.sortButton}
+                                            data-test={`data-table-column-sort-button-${name}`}
+                                            onClick={() =>
+                                                sortData({ name: dataKey })
+                                            }
+                                        >
+                                            <SortIcon
+                                                direction={
+                                                    dataKey === sortField
+                                                        ? sortDirection
+                                                        : null
+                                                }
+                                            />
+                                        </button>
+                                    </Tooltip>
+                                </span>
                             </DataTableColumnHeader>
                         ))}
                     </DataTableRow>
@@ -331,19 +354,25 @@ const Table = ({ availableWidth }) => {
                     ))
                 }
             />
-            {isLoading && (
+            {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
                 <ComponentCover>
                     <CenteredContent>
                         <CircularLoader />
                     </CenteredContent>
                 </ComponentCover>
             )}
+            <TableContextMenu
+                contextMenu={tableContextMenu}
+                layer={layer}
+                onClose={() => setTableContextMenu(null)}
+            />
         </>
     )
 }
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    onCountChange: PropTypes.func,
 }
 
 export default Table
