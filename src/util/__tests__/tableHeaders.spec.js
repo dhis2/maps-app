@@ -1,4 +1,8 @@
-import { RENDERER_DATE } from '../../constants/dataTable.js'
+import {
+    RENDERER_DATE,
+    RENDERER_ORG_UNIT,
+    RENDERER_BOOLEAN,
+} from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
@@ -30,15 +34,15 @@ describe('getHeadersForLayer - thematic', () => {
             isMultiPeriodThematic: false,
         })
         expect(dataKeys(result)).toEqual([
-            'name',
             'id',
-            'rawValue',
+            'orgUnitOwn',
             'level',
-            'parentName',
-            'type',
+            'orgUnitPath',
+            'rawValue',
             'legend',
             'range',
             'color',
+            'type',
         ])
     })
 
@@ -54,10 +58,10 @@ describe('getHeadersForLayer - thematic', () => {
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
-                'name',
                 'id',
+                'orgUnitOwn',
+                'orgUnitPath',
                 'level',
-                'parentName',
                 'type',
                 'period_p1_rawValue',
                 'period_p2_rawValue',
@@ -96,7 +100,14 @@ describe('getHeadersForLayer - event', () => {
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         expect(dataKeys(result)).toEqual(
-            expect.arrayContaining(['ouname', 'id', 'eventdate', 'w75KJ2mc4zz'])
+            expect.arrayContaining([
+                'id',
+                'orgUnitId',
+                'orgUnitOwn',
+                'eventdate',
+                'orgUnitPath',
+                'w75KJ2mc4zz',
+            ])
         )
         expect(dataKeys(result)).not.toContain('not-a-uid')
         const ageHeader = result.headers.find(
@@ -125,6 +136,16 @@ describe('getHeadersForLayer - event', () => {
                 valueType: 'TEXT',
                 optionSet: { id: 'os1' },
             },
+            {
+                name: 'c3d4e5f6a7b',
+                column: 'Referred by facility',
+                valueType: 'ORGANISATION_UNIT',
+            },
+            {
+                name: 'd4e5f6a7b8c',
+                column: 'Follow-up',
+                valueType: 'BOOLEAN',
+            },
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         const headerFor = (dataKey) =>
@@ -135,11 +156,29 @@ describe('getHeadersForLayer - event', () => {
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
         expect(typeOf('a1b2c3d4e5f')).toBe(TYPE_DATE)
         expect(typeOf('b2c3d4e5f6a')).toBe(TYPE_STRING)
+        expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
+        expect(typeOf('d4e5f6a7b8c')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
         expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
         expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
         expect(headerFor('a1b2c3d4e5f').renderer).toBe(RENDERER_DATE)
         expect(headerFor('b2c3d4e5f6a').renderer).toBeUndefined()
+        expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
+        expect(headerFor('d4e5f6a7b8c').renderer).toBe(RENDERER_BOOLEAN)
+    })
+
+    test('option-set-backed custom field carries the optionSet id onto the header', () => {
+        const layerHeaders = [
+            {
+                name: 'b2c3d4e5f6a',
+                column: 'Gender',
+                valueType: 'TEXT',
+                optionSet: { id: 'os1' },
+            },
+        ]
+        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
+        const header = result.headers.find((h) => h.dataKey === 'b2c3d4e5f6a')
+        expect(header.optionSet).toEqual({ id: 'os1' })
     })
 
     test('adds the org unit boundary column only when countEventsOutsideOrgUnits is set', () => {
@@ -150,6 +189,25 @@ describe('getHeadersForLayer - event', () => {
         })
         expect(dataKeys(without)).not.toContain('ouBoundary')
         expect(dataKeys(withBoundary)).toContain('ouBoundary')
+    })
+
+    test('does not duplicate the fixed "Last updated" column when the analytics response happens to include a same-named header ("lastupdated" coincidentally matches the 11-char isValidUid shape)', () => {
+        const layerHeaders = [
+            {
+                name: 'lastupdated',
+                column: 'Last updated on',
+                valueType: 'DATE',
+            },
+        ]
+        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
+        const lastUpdatedHeaders = result.headers.filter(
+            (h) => h.dataKey === 'lastupdated'
+        )
+        expect(lastUpdatedHeaders).toHaveLength(1)
+        expect(lastUpdatedHeaders[0]).toMatchObject({
+            name: 'Last updated',
+            type: TYPE_DATETIME,
+        })
     })
 
     test('adds legend/range/color only when styled by a data item', () => {
@@ -172,11 +230,11 @@ describe('getHeadersForLayer - org unit / facility', () => {
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
-                'name',
                 'id',
+                'orgUnitOwn',
                 'level',
-                'parentName',
                 'type',
+                'orgUnitPath',
                 'color',
                 'iconUrl',
             ])
@@ -188,7 +246,14 @@ describe('getHeadersForLayer - org unit / facility', () => {
         const result = getHeadersForLayer(FACILITY_LAYER, {
             data: [{ group: 'g1' }],
         })
-        expect(dataKeys(result)).toEqual(['name', 'id', 'type', 'group'])
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'group',
+            'type',
+        ])
     })
 })
 
@@ -201,14 +266,35 @@ describe('getHeadersForLayer - tracked entity', () => {
         const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
             layerHeaders,
         })
-        expect(dataKeys(result)).toEqual(['id', 'w75KJ2mc4zz', 'color'])
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitId',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'createdAt',
+            'updatedAt',
+            'w75KJ2mc4zz',
+            'color',
+            'type',
+        ])
         const nameHeader = result.headers.find(
             (h) => h.dataKey === 'w75KJ2mc4zz'
         )
         expect(nameHeader.type).toBe(TYPE_STRING)
+        const createdHeader = result.headers.find(
+            (h) => h.dataKey === 'createdAt'
+        )
+        expect(createdHeader.type).toBe(TYPE_DATETIME)
+        expect(createdHeader.renderer).toBe(RENDERER_DATE)
+        const updatedHeader = result.headers.find(
+            (h) => h.dataKey === 'updatedAt'
+        )
+        expect(updatedHeader.type).toBe(TYPE_DATETIME)
+        expect(updatedHeader.renderer).toBe(RENDERER_DATE)
     })
 
-    test('custom DATE/DATETIME/TIME attributes get their matching type', () => {
+    test('custom DATE/DATETIME/TIME/BOOLEAN attributes get their matching type', () => {
         const layerHeaders = [
             {
                 name: 'Date of birth',
@@ -221,6 +307,16 @@ describe('getHeadersForLayer - tracked entity', () => {
                 valueType: 'DATETIME',
             },
             { name: 'Visit time', dataKey: 'oZg33kd9taw', valueType: 'TIME' },
+            {
+                name: 'Referred by facility',
+                dataKey: 'c3d4e5f6a7b',
+                valueType: 'ORGANISATION_UNIT',
+            },
+            {
+                name: 'Follow-up',
+                dataKey: 'd4e5f6a7b8c',
+                valueType: 'BOOLEAN',
+            },
         ]
         const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
             layerHeaders,
@@ -231,9 +327,30 @@ describe('getHeadersForLayer - tracked entity', () => {
         expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
         expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
         expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
+        expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
+        expect(typeOf('d4e5f6a7b8c')).toBe(TYPE_STRING)
         expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
         expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
         expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
+        expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
+        expect(headerFor('d4e5f6a7b8c').renderer).toBe(RENDERER_BOOLEAN)
+    })
+
+    test('option-set-backed custom attribute carries the optionSet id onto the header (was silently dropped before)', () => {
+        const layerHeaders = [
+            {
+                name: 'Gender',
+                dataKey: 'b2c3d4e5f6a',
+                valueType: 'TEXT',
+                optionSet: { id: 'os1' },
+            },
+        ]
+        const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
+            layerHeaders,
+        })
+        const header = result.headers.find((h) => h.dataKey === 'b2c3d4e5f6a')
+        expect(header.optionSet).toEqual({ id: 'os1' })
+        expect(header.type).toBe(TYPE_STRING)
     })
 })
 
@@ -247,7 +364,13 @@ describe('getHeadersForLayer - earth engine', () => {
             },
         })
         expect(dataKeys(result)).toEqual(
-            expect.arrayContaining(['name', 'id', 'type', '1'])
+            expect.arrayContaining([
+                'id',
+                'orgUnitOwn',
+                'orgUnitPath',
+                'type',
+                '1',
+            ])
         )
         const classHeader = result.headers.find((h) => h.dataKey === '1')
         expect(classHeader.name).toBe('Forest')
