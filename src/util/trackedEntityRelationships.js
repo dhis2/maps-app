@@ -122,7 +122,8 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
+// Only the source instances' relationships are read
+const fields = ['trackedEntity~rename(id)', 'geometry']
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
@@ -139,7 +140,12 @@ export const getDataWithRelationships = async ({
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        return []
+        // Only relationships between tracked entities can be shown
+        return {
+            primary: Object.values(normalizeInstances(sourceInstances)),
+            relationships: [],
+            secondary: [],
+        }
     }
 
     const isRecursiveTrackedEntityType =
@@ -154,7 +160,7 @@ export const getDataWithRelationships = async ({
     // Use target as source if from/to TE Types and Programs match, otherwise
     // fetch/re-fetch using program if available TE type otherwise
     let recursiveProp = null
-    if (!isRecursiveProgram) {
+    if (!(isRecursiveTrackedEntityType && isRecursiveProgram)) {
         recursiveProp =
             isRecursiveTrackedEntityType && isToProgramDefined
                 ? { program: to.program.id } // Same TE type, defined 'to' program
@@ -249,14 +255,15 @@ export const loadTrackedEntityRelationships = async ({
         { variables: { id: relationshipTypeID } }
     )
 
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
+    // Relationships to events or enrollments have no related type
+    const relatedEntityTypeId =
+        relationshipType.toConstraint.trackedEntityType?.id
+    const { relatedEntityType } = relatedEntityTypeId
+        ? await engine.query(
+              { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+              { variables: { id: relatedEntityTypeId } }
+          )
+        : {}
 
     const dataWithRels = await getDataWithRelationships({
         // VERSION-TOGGLE: see util/versionToggle.js

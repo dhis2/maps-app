@@ -425,7 +425,14 @@ describe('getDataWithRelationships', () => {
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
         })
-        expect(result).toEqual([]) // This the current behavior but it should be revised
+        // The tracked entities are shown, without relationships
+        expect(result).toEqual({
+            primary: mockSourceInstances.filter(
+                (instance) => instance.geometry?.coordinates
+            ),
+            relationships: [],
+            secondary: [],
+        })
         expect(mockEngine.query).not.toHaveBeenCalled()
     })
 
@@ -550,11 +557,7 @@ describe('getDataWithRelationships', () => {
             },
             expect.objectContaining({
                 variables: {
-                    fields: [
-                        'trackedEntity~rename(id)',
-                        'geometry',
-                        'relationships',
-                    ],
+                    fields: ['trackedEntity~rename(id)', 'geometry'],
                     orgUnits: 'someOU',
                     orgUnitMode: undefined,
                     program: 'program2',
@@ -659,11 +662,7 @@ describe('getDataWithRelationships', () => {
                 },
                 expect.objectContaining({
                     variables: {
-                        fields: [
-                            'trackedEntity~rename(id)',
-                            'geometry',
-                            'relationships',
-                        ],
+                        fields: ['trackedEntity~rename(id)', 'geometry'],
                         orgUnits: 'someOU',
                         orgUnitMode: undefined,
                         program: 'program2',
@@ -725,13 +724,13 @@ describe('getDataWithRelationships target query', () => {
             name: 'different types, same program',
             from: { program: 'program1' },
             to: { type: 'type2', program: 'program1' },
-            query: { program: undefined, trackedEntityType: undefined },
+            query: { program: undefined, trackedEntityType: 'type2' },
         },
         {
             name: 'different types, no programs',
             from: {},
             to: { type: 'type2' },
-            query: { program: undefined, trackedEntityType: undefined },
+            query: { program: undefined, trackedEntityType: 'type2' },
         },
         {
             name: 'same type, same program',
@@ -823,11 +822,7 @@ describe('getDataWithRelationships target query', () => {
             const [[{ tei }, { variables }]] = engine.query.mock.calls
             expect(tei.resource).toBe('tracker/trackedEntities')
             expect(tei.params(variables)).toEqual({
-                fields: [
-                    'trackedEntity~rename(id)',
-                    'geometry',
-                    'relationships',
-                ],
+                fields: ['trackedEntity~rename(id)', 'geometry'],
                 program: 'program2',
                 ...params,
             })

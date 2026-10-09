@@ -166,6 +166,7 @@ export const loadTrackedEntitiesFromTracker = async ({
         endDate,
         rows,
         organisationUnitSelectionMode,
+        relationshipType,
     } = config
 
     // VERSION-TOGGLE: see util/versionToggle.js
@@ -175,14 +176,17 @@ export const loadTrackedEntitiesFromTracker = async ({
         .map((ou) => ou.id)
         .join(isVersion40 ? ';' : ',')
 
-    const fieldsWithRelationships = [...fields, 'relationships']
+    // Slow to fetch, so only for layers showing relationships
+    const requestFields = relationshipType
+        ? [...fields, 'relationships']
+        : fields
 
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
             variables: {
                 ...buildQueryVariables({
-                    fields: fieldsWithRelationships,
+                    fields: requestFields,
                     orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
                     program,

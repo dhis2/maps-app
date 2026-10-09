@@ -147,15 +147,19 @@ const trackedEntityLoader = async ({
         })
 
         ;({ data, relationships, secondaryData } = relationshipResult)
-        legend.items.push(
-            ...getRelationshipLegendItems({
-                relationshipType: relationshipResult.relationshipType,
-                relatedEntityType: relationshipResult.relatedEntityType,
-                relatedPointColor,
-                relatedPointRadius,
-                relationshipLineColor,
-            })
-        )
+
+        // Only relationships between tracked entities are drawn
+        if (relationshipResult.relatedEntityType) {
+            legend.items.push(
+                ...getRelationshipLegendItems({
+                    relationshipType: relationshipResult.relationshipType,
+                    relatedEntityType: relationshipResult.relatedEntityType,
+                    relatedPointColor,
+                    relatedPointRadius,
+                    relationshipLineColor,
+                })
+            )
+        }
     } else {
         data = createTrackedEntityInstanceFeatures(instances)
     }
