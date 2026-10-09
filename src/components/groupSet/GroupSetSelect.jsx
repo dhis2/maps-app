@@ -58,7 +58,13 @@ const GroupSetSelect = ({
 
     let selectValue = null
     if (!(error || internalError)) {
-        selectValue = value ? value.id : ITEM_NONE.id
+        if (value) {
+            selectValue = value.id
+        } else if (allowNone) {
+            // ITEM_NONE is only added to groupSets when allowNone is true - falling
+            // back to it otherwise would select a value with no matching option.
+            selectValue = ITEM_NONE.id
+        }
     }
 
     return (
