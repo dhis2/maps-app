@@ -76,6 +76,69 @@ const getRelationshipLegendItems = ({
     ]
 }
 
+const getLegend = ({
+    name,
+    trackedEntityType,
+    program,
+    programStatus,
+    startDate,
+    endDate,
+    eventPointColor,
+    eventPointRadius,
+    areaRadius,
+}) => {
+    const legend = {
+        title: name,
+        period: formatStartEndDate(
+            getDateArray(startDate),
+            getDateArray(endDate)
+        ),
+        items: [
+            {
+                name:
+                    trackedEntityType.name +
+                    (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
+                color: eventPointColor || TEI_COLOR,
+                radius: eventPointRadius || TEI_RADIUS,
+            },
+        ],
+    }
+
+    if (program && programStatus) {
+        legend.explanation = [
+            `${i18n.t('Program status')}: ${
+                getProgramStatuses().find((s) => s.id === programStatus)
+                    ?.name ?? programStatus
+            }`,
+        ]
+    }
+
+    return legend
+}
+
+const getTruncatedMessage = (result, keyAnalysisDigitGroupSeparator) => {
+    const limit = formatWithSeparator(
+        result.limit,
+        keyAnalysisDigitGroupSeparator
+    )
+
+    // Only analytics returns the total
+    if (!result.total) {
+        return i18n.t('Displaying first {{limit}} tracked entities', { limit })
+    }
+
+    return i18n.t(
+        'Displaying first {{limit}} tracked entities out of {{total}}',
+        {
+            limit,
+            total: formatWithSeparator(
+                result.total,
+                keyAnalysisDigitGroupSeparator
+            ),
+        }
+    )
+}
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -109,33 +172,17 @@ const trackedEntityLoader = async ({
     let data = []
 
     try {
-        legend = {
-            title: name,
-            period: formatStartEndDate(
-                getDateArray(startDate),
-                getDateArray(endDate)
-            ),
-            items: [
-                {
-                    name:
-                        trackedEntityType.name +
-                        (areaRadius
-                            ? ` + ${areaRadius} ${'m'} ${'buffer'}`
-                            : ''),
-                    color: eventPointColor || TEI_COLOR,
-                    radius: eventPointRadius || TEI_RADIUS,
-                },
-            ],
-        }
-
-        if (program && programStatus) {
-            legend.explanation = [
-                `${i18n.t('Program status')}: ${
-                    getProgramStatuses().find((s) => s.id === programStatus)
-                        ?.name ?? programStatus
-                }`,
-            ]
-        }
+        legend = getLegend({
+            name,
+            trackedEntityType,
+            program,
+            programStatus,
+            startDate,
+            endDate,
+            eventPointColor,
+            eventPointRadius,
+            areaRadius,
+        })
 
         const maxLimit = getTrackerMaxLimit(
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
@@ -158,33 +205,15 @@ const trackedEntityLoader = async ({
               })
         data = result.data
 
-        // At the tracker API limit or the analytics page size. Only analytics
-        // returns the total
+        // At the tracker API limit or the analytics page size
         if (result.isTruncated) {
-            const limit = formatWithSeparator(
-                result.limit,
-                keyAnalysisDigitGroupSeparator
-            )
-            const total = formatWithSeparator(
-                result.total,
-                keyAnalysisDigitGroupSeparator
-            )
             alerts.push({
                 warning: true,
                 code: CUSTOM_ALERT,
-                message: `${name}: ${
-                    result.total
-                        ? i18n.t(
-                              'Displaying first {{limit}} tracked entities out of {{total}}',
-                              { limit, total }
-                          )
-                        : i18n.t(
-                              'Displaying first {{limit}} tracked entities',
-                              {
-                                  limit,
-                              }
-                          )
-                }`,
+                message: `${name}: ${getTruncatedMessage(
+                    result,
+                    keyAnalysisDigitGroupSeparator
+                )}`,
             })
         }
 
