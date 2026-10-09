@@ -899,13 +899,13 @@ describe('trackedEntityLoader tracker analytics', () => {
 
     const analyticsResponse = (
         rows,
-        isLastPage = true,
+        total = rows.length,
         idColumn = 'trackedentity'
     ) => ({
         data: {
             headers: [{ name: idColumn }, { name: 'geometry' }],
             rows,
-            metaData: { pager: { page: 1, isLastPage } },
+            metaData: { pager: { page: 1, total } },
         },
     })
 
@@ -998,6 +998,7 @@ describe('trackedEntityLoader tracker analytics', () => {
             ouMode: 'DESCENDANTS',
             lastUpdated: '2024-01-01_2024-12-31',
             pageSize: 50000,
+            totalPages: true,
         })
     })
 
@@ -1008,7 +1009,7 @@ describe('trackedEntityLoader tracker analytics', () => {
                 Promise.resolve(
                     analyticsResponse(
                         [['te1', 'POINT(1 2)']],
-                        true,
+                        1,
                         'trackedentityinstanceuid'
                     )
                 ),
@@ -1115,7 +1116,7 @@ describe('trackedEntityLoader tracker analytics', () => {
         expect(result.loadError).toBe('Program is specified but does not exist')
     })
 
-    it('warns with the number of rows when there are more', async () => {
+    it('warns with the number of rows and the total when there are more', async () => {
         const { result } = await loadWithAnalytics({
             config: { program },
             // The server can return fewer rows than the page size
@@ -1126,7 +1127,7 @@ describe('trackedEntityLoader tracker analytics', () => {
                             ['te1', 'POINT(1 2)'],
                             ['te2', 'POINT(3 4)'],
                         ],
-                        false
+                        250000
                     )
                 ),
         })
@@ -1135,14 +1136,15 @@ describe('trackedEntityLoader tracker analytics', () => {
             {
                 warning: true,
                 code: 'CUSTOM_ALERT',
-                message: 'Malaria case: Displaying first 2 tracked entities',
+                message:
+                    'Malaria case: Displaying first 2 tracked entities out of 250 000',
             },
         ])
     })
 
     it('does not warn for an empty result', async () => {
         const { result } = await loadWithAnalytics({
-            analytics: () => Promise.resolve(analyticsResponse([], false)),
+            analytics: () => Promise.resolve(analyticsResponse([], 0)),
         })
 
         expect(result.alerts).toEqual([
