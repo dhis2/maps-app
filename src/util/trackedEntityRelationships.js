@@ -129,6 +129,7 @@ export const getDataWithRelationships = async ({
     instances: sourceInstances,
     queryOptions,
     engine,
+    maxLimit,
 }) => {
     const { relationshipType, orgUnits, organisationUnitSelectionMode } =
         queryOptions
@@ -172,6 +173,7 @@ export const getDataWithRelationships = async ({
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
+    let isTruncated = false
     if (isRecursiveTrackedEntityType && isRecursiveProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
@@ -189,9 +191,14 @@ export const getDataWithRelationships = async ({
             }
         )
 
-        normalizedPotentialTargetInstances = normalizeInstances(
+        const potentialTargetInstances =
             tei[isVersion40 ? 'instances' : 'trackedEntities']
+        normalizedPotentialTargetInstances = normalizeInstances(
+            potentialTargetInstances
         )
+        // Capped by the tracker API limit like the source instances
+        isTruncated =
+            Boolean(maxLimit) && potentialTargetInstances.length >= maxLimit
     }
 
     const targetInstanceIds = []
@@ -221,6 +228,7 @@ export const getDataWithRelationships = async ({
         primary: Object.values(normalizedSourceInstances),
         relationships: Object.values(relationshipsById),
         secondary: targetInstances,
+        isTruncated,
     }
 }
 
@@ -244,6 +252,7 @@ export const loadTrackedEntityRelationships = async ({
     serverVersion,
     instances,
     orgUnits,
+    maxLimit,
 }) => {
     const {
         relationshipType: relationshipTypeID,
@@ -275,6 +284,7 @@ export const loadTrackedEntityRelationships = async ({
             organisationUnitSelectionMode,
         },
         engine,
+        maxLimit,
     })
 
     return {
@@ -285,5 +295,6 @@ export const loadTrackedEntityRelationships = async ({
         ),
         relationshipType,
         relatedEntityType,
+        isTruncated: dataWithRels.isTruncated,
     }
 }
