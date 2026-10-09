@@ -57,6 +57,18 @@ export const setDataItem = (dataItem, dimension) => ({
     dimension,
 })
 
+// Set chart series data items (thematic chart map) — mockup for DHIS2-21461
+export const setChartDataItems = (dataItems) => ({
+    type: types.LAYER_EDIT_CHART_DATA_ITEMS_SET,
+    dataItems,
+})
+
+// Set chart type: donut or bar (thematic chart map)
+export const setChartType = (chartType) => ({
+    type: types.LAYER_EDIT_CHART_TYPE_SET,
+    chartType,
+})
+
 // Set data element used for styling (event)
 export const setStyleDataItem = (dataItem) => ({
     type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
