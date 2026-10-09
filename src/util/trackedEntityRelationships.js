@@ -131,17 +131,19 @@ export const getDataWithRelationships = async ({
     engine,
     maxLimit,
 }) => {
-    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
-        queryOptions
+    const { relationshipType, orgUnits, orgUnitMode } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
+    // Only relationships between tracked entities can be shown. Without
+    // tracked entities, there is nothing to relate (and no org units to
+    // request when the selected org units have no children)
     if (
+        !sourceInstances.length ||
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        // Only relationships between tracked entities can be shown
         return {
             primary: Object.values(normalizeInstances(sourceInstances)),
             relationships: [],
@@ -184,7 +186,7 @@ export const getDataWithRelationships = async ({
                 variables: {
                     fields,
                     orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
+                    orgUnitMode,
                     program: recursiveProp?.program,
                     trackedEntityType: recursiveProp?.type?.id,
                 },
@@ -252,12 +254,10 @@ export const loadTrackedEntityRelationships = async ({
     serverVersion,
     instances,
     orgUnits,
+    orgUnitMode,
     maxLimit,
 }) => {
-    const {
-        relationshipType: relationshipTypeID,
-        organisationUnitSelectionMode,
-    } = config
+    const { relationshipType: relationshipTypeID } = config
 
     const { relationshipType } = await engine.query(
         { relationshipType: RELATIONSHIP_TYPES_QUERY },
@@ -281,7 +281,7 @@ export const loadTrackedEntityRelationships = async ({
         queryOptions: {
             relationshipType,
             orgUnits,
-            organisationUnitSelectionMode,
+            orgUnitMode,
         },
         engine,
         maxLimit,

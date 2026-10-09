@@ -284,13 +284,128 @@ describe('trackedEntityLoader tracker request', () => {
         expect(getRequest(engine).params.trackedEntityType).toBeUndefined()
     })
 
-    it('sends no org unit mode when the layer has none', async () => {
-        const { engine, result } = load({
-            config: { organisationUnitSelectionMode: undefined },
-        })
-        await result
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            param: 'ouMode',
+            mode: 'SELECTED',
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            param: 'orgUnitMode',
+            mode: 'DESCENDANTS',
+        },
+    ])(
+        'on $version defaults the org unit mode to $mode',
+        async ({ serverVersion, param, mode }) => {
+            const { engine, result } = load({
+                serverVersion,
+                config: { organisationUnitSelectionMode: undefined },
+            })
+            await result
 
-        expect(getRequest(engine).params.orgUnitMode).toBeUndefined()
+            expect(getRequest(engine).params[param]).toBe(mode)
+        }
+    )
+
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            param: 'ouMode',
+            mode: 'DESCENDANTS',
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            param: 'orgUnitMode',
+            mode: 'SELECTED',
+        },
+    ])(
+        'on $version keeps the org unit mode of the layer',
+        async ({ serverVersion, param, mode }) => {
+            const { engine, result } = load({
+                serverVersion,
+                config: { organisationUnitSelectionMode: mode },
+            })
+            await result
+
+            expect(getRequest(engine).params[param]).toBe(mode)
+        }
+    )
+})
+
+describe('trackedEntityLoader tracker children mode', () => {
+    const children = { organisationUnits: [{ id: 'ou3' }, { id: 'ou4' }] }
+
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            params: { orgUnit: 'ou3;ou4', ouMode: 'SELECTED' },
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            params: { orgUnits: 'ou3,ou4', orgUnitMode: 'SELECTED' },
+        },
+    ])(
+        'on $version requests the children of the selected org units only',
+        async ({ serverVersion, params }) => {
+            const engine = {
+                query: jest
+                    .fn()
+                    .mockResolvedValueOnce({ children })
+                    .mockResolvedValueOnce(
+                        trackerResponse(serverVersion, [point('te1')])
+                    ),
+            }
+
+            const result = await trackedEntityLoader({
+                config: {
+                    ...baseConfig,
+                    organisationUnitSelectionMode: 'CHILDREN',
+                },
+                engine,
+                serverVersion,
+            })
+
+            expect(getRequest(engine, 0)).toEqual({
+                resource: 'organisationUnits',
+                params: {
+                    fields: 'id',
+                    filter: 'parent.id:in:[ou1,ou2]',
+                    paging: false,
+                },
+            })
+            expect(getRequest(engine, 1).params).toMatchObject(params)
+            expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        }
+    )
+
+    it('shows no data without requesting tracked entities when there are no children', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({ children: { organisationUnits: [] } }),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                organisationUnitSelectionMode: 'CHILDREN',
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(engine.query).toHaveBeenCalledTimes(1)
+        expect(result.data).toEqual([])
+        expect(result.alerts).toEqual([
+            { code: 'WARNING_NO_DATA', message: 'Person' },
+        ])
     })
 })
 
@@ -634,6 +749,91 @@ describe('trackedEntityLoader relationships', () => {
             })
         }
     )
+
+    it('requests the related tracked entities with the default org unit mode', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        toConstraint: {
+                            ...constraint,
+                            program: { id: 'program2' },
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                })
+                .mockResolvedValueOnce({ tei: { trackedEntities: [] } }),
+        }
+
+        await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                organisationUnitSelectionMode: undefined,
+                program,
+                config: JSON.stringify({ relationships: { type: 'relType1' } }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(getRequest(engine, 0).params.orgUnitMode).toBe('DESCENDANTS')
+        expect(getRequest(engine, 3).params.orgUnitMode).toBe('DESCENDANTS')
+    })
+
+    it('requests the related tracked entities in the children of the selected org units', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({
+                    children: { organisationUnits: [{ id: 'ou3' }] },
+                })
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        toConstraint: {
+                            ...constraint,
+                            program: { id: 'program2' },
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                })
+                .mockResolvedValueOnce({ tei: { trackedEntities: [] } }),
+        }
+
+        await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                organisationUnitSelectionMode: 'CHILDREN',
+                program,
+                config: JSON.stringify({ relationships: { type: 'relType1' } }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(getRequest(engine, 4).params).toMatchObject({
+            orgUnits: 'ou3',
+            orgUnitMode: 'SELECTED',
+        })
+    })
 
     it('shows the tracked entities for a relationship to events', async () => {
         const engine = {
@@ -1028,13 +1228,13 @@ describe('trackedEntityLoader tracker analytics', () => {
         expect(parameters.lastUpdated).toBe('2024-01-01_2024-12-31')
     })
 
-    it('keeps selected org units only when the layer has no mode', async () => {
+    it('uses all levels below when the layer has no org unit mode', async () => {
         const { analyticsCalls } = await loadWithAnalytics({
             config: { organisationUnitSelectionMode: undefined },
         })
 
         expect(analyticsCalls[0][1].variables.parameters.ouMode).toBe(
-            'SELECTED'
+            'DESCENDANTS'
         )
     })
 

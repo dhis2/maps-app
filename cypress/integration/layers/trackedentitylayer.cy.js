@@ -49,6 +49,8 @@ describe('Tracked Entity Layers', () => {
         Layer.selectTab('Period')
             .typeStartDate('2018-00-00')
             .selectTab('Org Units')
+            // Only the facility: all levels below are included by default
+            .unselectOu('Sierra Leone')
             .openOu('Bo')
             .openOu('Badjia')
             .selectOu('Njandama MCHP')
