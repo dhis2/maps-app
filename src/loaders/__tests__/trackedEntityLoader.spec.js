@@ -241,6 +241,7 @@ describe('trackedEntityLoader tracker request', () => {
     ])(
         'on $version ignores the program filters without a program',
         async ({ serverVersion }) => {
+            // Not possible from the app, only in a map created or edited elsewhere
             const { engine, result } = load({
                 serverVersion,
                 config: {
