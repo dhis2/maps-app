@@ -1,3 +1,4 @@
+import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -35,6 +36,7 @@ import usePrevious from '../../../hooks/usePrevious.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { getStartEndDateError } from '../../../util/time.js'
+import { serverSupportsTrackedEntityAnalytics } from '../../../util/versionToggle.js'
 import {
     Tab,
     Tabs,
@@ -47,6 +49,7 @@ import StartEndDate from '../../periods/StartEndDate.jsx'
 import ProgramSelect from '../../program/ProgramSelect.jsx'
 import TrackedEntityTypeSelect from '../../trackedEntity/TrackedEntityTypeSelect.jsx'
 import BufferRadius from '../shared/BufferRadius.jsx'
+import SlowLoadingNotice from '../shared/SlowLoadingNotice.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import PeriodTypeSelect from './PeriodTypeSelect.jsx'
 import ProgramStatusSelect from './ProgramStatusSelect.jsx'
@@ -73,6 +76,10 @@ const TrackedEntityDialog = ({
     onLayerValidation,
 }) => {
     const dispatch = useDispatch()
+    const { serverVersion } = useConfig()
+    // VERSION-TOGGLE: see util/versionToggle.js
+    // Follow-up and relationships can't use tracker analytics, which is faster
+    const hasAnalytics = serverSupportsTrackedEntityAnalytics(serverVersion)
     const [tab, setTab] = useState('data')
     const [showRelationshipsChecked, setShowRelationshipsChecked] =
         useState(false)
@@ -208,6 +215,9 @@ const TrackedEntityDialog = ({
                                 }
                             />
                         )}
+                        {program && followUp && hasAnalytics && (
+                            <SlowLoadingNotice />
+                        )}
                     </div>
                 )}
                 {tab === 'relationships' &&
@@ -239,6 +249,9 @@ const TrackedEntityDialog = ({
                                     marginBottom: 12,
                                 }}
                             />
+                            {showRelationshipsChecked && hasAnalytics && (
+                                <SlowLoadingNotice />
+                            )}
                             {showRelationshipsChecked && (
                                 <TrackedEntityRelationshipTypeSelect
                                     trackedEntityType={trackedEntityType}

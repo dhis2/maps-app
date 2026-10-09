@@ -352,39 +352,3 @@ export const loadTrackedEntitiesFromAnalytics = async ({
         total,
     }
 }
-
-// Choosing the API
-// -----
-
-// Analytics can't be used, but the tracker API can: the type has no analytics
-// table yet (E7144), or the user can't view event analytics (E7217)
-const ANALYTICS_FALLBACK_CODES = new Set(['E7144', 'E7217'])
-
-// Tracker analytics where possible, otherwise the tracker API
-export const loadTrackedEntities = async ({
-    config,
-    engine,
-    analyticsEngine,
-    serverVersion,
-    maxLimit,
-}) => {
-    if (canLoadTrackedEntitiesFromAnalytics(config, serverVersion)) {
-        try {
-            return await loadTrackedEntitiesFromAnalytics({
-                config,
-                analyticsEngine,
-                serverVersion,
-            })
-        } catch (error) {
-            if (!ANALYTICS_FALLBACK_CODES.has(error.details?.errorCode)) {
-                throw error
-            }
-        }
-    }
-    return loadTrackedEntitiesFromTracker({
-        config,
-        engine,
-        serverVersion,
-        maxLimit,
-    })
-}
