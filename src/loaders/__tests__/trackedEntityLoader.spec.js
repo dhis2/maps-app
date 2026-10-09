@@ -414,6 +414,20 @@ describe('trackedEntityLoader result', () => {
         })
     })
 
+    it('finishes loading with an error for a layer without dates', async () => {
+        const { engine, result } = load({
+            config: { startDate: undefined, endDate: undefined },
+        })
+
+        expect(await result).toMatchObject({
+            data: [],
+            alerts: [{ code: 'ERROR_CRITICAL' }],
+            isLoaded: true,
+        })
+        expect((await result).loadError).toBeDefined()
+        expect(engine.query).not.toHaveBeenCalled()
+    })
+
     it('clears the alerts and error of a previous load', async () => {
         const { result } = load({
             config: {
@@ -653,7 +667,7 @@ describe('trackedEntityLoader relationships', () => {
         ])
     })
 
-    it('finishes loading with an error when a relationship request fails', async () => {
+    it('shows the tracked entities with a warning when a relationship request fails', async () => {
         const engine = {
             query: jest
                 .fn()
@@ -675,12 +689,15 @@ describe('trackedEntityLoader relationships', () => {
             serverVersion: v41,
         })
 
-        expect(result).toMatchObject({
-            data: [],
-            loadError: 'Not found',
-            alerts: [{ code: 'ERROR_CRITICAL', message: 'Not found' }],
-            isLoaded: true,
-        })
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message: 'Malaria case: Relationships could not be loaded',
+            },
+        ])
+        expect(result.loadError).toBeUndefined()
         expect(result.relationships).toBeUndefined()
         expect(result.secondaryData).toBeUndefined()
         expect(result.legend.items).toHaveLength(1)
