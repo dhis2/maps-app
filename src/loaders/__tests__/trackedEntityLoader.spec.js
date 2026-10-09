@@ -1,6 +1,13 @@
 import { Analytics } from '@dhis2/analytics'
+import { canLoadTrackedEntitiesFromAnalytics } from '../../util/trackedEntity.js'
 import trackedEntityLoader, { parseJsonConfig } from '../trackedEntityLoader.js'
 
+// The tracker request tests run on every version; the analytics group uses the
+// real choice
+jest.mock('../../util/trackedEntity.js', () => ({
+    ...jest.requireActual('../../util/trackedEntity.js'),
+    canLoadTrackedEntitiesFromAnalytics: jest.fn(() => false),
+}))
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
 }))
@@ -83,28 +90,6 @@ const point = (id, coordinates = [1, 2]) => ({
     geometry: { type: 'Point', coordinates },
 })
 
-// Tracker analytics without a table for the type (E7144): the loader uses the
-// tracker API, which these tests check
-const noAnalytics = () => {
-    const request = {
-        withTrackedEntityType: () => request,
-        addOrgUnitDimension: () => request,
-        withOuMode: () => request,
-        withParameters: () => request,
-        withPageSize: () => request,
-    }
-    return {
-        request: function () {
-            return request
-        },
-        trackedEntities: {
-            getQuery: jest
-                .fn()
-                .mockRejectedValue({ details: { errorCode: 'E7144' } }),
-        },
-    }
-}
-
 // The request the data engine sends: resource and final URL params
 const getRequest = (engine, call = 0) => {
     const [query, { variables }] = engine.query.mock.calls[call]
@@ -136,7 +121,6 @@ const load = ({
     const result = trackedEntityLoader({
         config: { ...baseConfig, ...config },
         engine,
-        analyticsEngine: noAnalytics(),
         keyAnalysisDigitGroupSeparator: 'SPACE',
         serverVersion,
         ...settings,
@@ -433,7 +417,6 @@ describe('trackedEntityLoader result', () => {
         const result = await trackedEntityLoader({
             config: { ...baseConfig },
             engine,
-            analyticsEngine: noAnalytics(),
             serverVersion: v41,
         })
 
@@ -525,7 +508,6 @@ describe('trackedEntityLoader relationships', () => {
                 }),
             },
             engine,
-            analyticsEngine: noAnalytics(),
             serverVersion: v41,
         })
         return { engine, result }
@@ -638,7 +620,6 @@ describe('trackedEntityLoader relationships', () => {
                     }),
                 },
                 engine,
-                analyticsEngine: noAnalytics(),
                 serverVersion,
             })
 
@@ -680,7 +661,6 @@ describe('trackedEntityLoader relationships', () => {
                 }),
             },
             engine,
-            analyticsEngine: noAnalytics(),
             serverVersion: v41,
         })
 
@@ -721,7 +701,6 @@ describe('trackedEntityLoader relationships', () => {
                 }),
             },
             engine,
-            analyticsEngine: noAnalytics(),
             serverVersion: v41,
         })
 
@@ -894,6 +873,19 @@ describe('trackedEntityLoader tracker analytics', () => {
     })
 
     const isAnalyticsCall = ([query]) => 'data' in query
+
+    const { canLoadTrackedEntitiesFromAnalytics: canLoadFromAnalytics } =
+        jest.requireActual('../../util/trackedEntity.js')
+
+    beforeEach(() => {
+        canLoadTrackedEntitiesFromAnalytics.mockImplementation(
+            canLoadFromAnalytics
+        )
+    })
+
+    afterEach(() => {
+        canLoadTrackedEntitiesFromAnalytics.mockImplementation(() => false)
+    })
 
     // getAnalytics keeps the first engine it gets, so the tests share one
     const engine = { query: jest.fn() }
@@ -1075,15 +1067,18 @@ describe('trackedEntityLoader tracker analytics', () => {
     )
 
     it.each([['E7144'], ['E7217']])(
-        'falls back to the tracker API on %s',
+        'shows %s as an error without trying the tracker API',
         async (errorCode) => {
             const { result, trackerCalls } = await loadWithAnalytics({
-                analytics: () => Promise.reject({ details: { errorCode } }),
+                analytics: () =>
+                    Promise.reject({
+                        message: 'Analytics refused',
+                        details: { errorCode },
+                    }),
             })
 
-            expect(trackerCalls).toHaveLength(1)
-            expect(result.data.map((f) => f.properties.id)).toEqual(['te9'])
-            expect(result.loadError).toBeUndefined()
+            expect(trackerCalls).toHaveLength(0)
+            expect(result.loadError).toBe('Analytics refused')
         }
     )
 

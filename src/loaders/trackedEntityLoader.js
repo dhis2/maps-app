@@ -17,7 +17,9 @@ import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
     getTrackerMaxLimit,
-    loadTrackedEntities,
+    canLoadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
 
@@ -139,13 +141,22 @@ const trackedEntityLoader = async ({
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
             serverVersion
         )
-        const result = await loadTrackedEntities({
+        // Tracker analytics where possible, otherwise the tracker API
+        const result = canLoadTrackedEntitiesFromAnalytics(
             config,
-            engine,
-            analyticsEngine,
-            serverVersion,
-            maxLimit,
-        })
+            serverVersion
+        )
+            ? await loadTrackedEntitiesFromAnalytics({
+                  config,
+                  analyticsEngine,
+                  serverVersion,
+              })
+            : await loadTrackedEntitiesFromTracker({
+                  config,
+                  engine,
+                  serverVersion,
+                  maxLimit,
+              })
         data = result.data
 
         // At the tracker API limit or the analytics page size. Only analytics
