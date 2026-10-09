@@ -397,16 +397,49 @@ describe('trackedEntityLoader result', () => {
         expect((await result).data).toEqual([])
     })
 
-    it('rejects when the request fails', async () => {
+    it('finishes loading with an error when the request fails', async () => {
         const engine = { query: jest.fn().mockRejectedValue(new Error('Boom')) }
 
-        await expect(
-            trackedEntityLoader({
-                config: { ...baseConfig },
-                engine,
-                serverVersion: v41,
-            })
-        ).rejects.toThrow('Boom')
+        const result = await trackedEntityLoader({
+            config: { ...baseConfig },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result).toMatchObject({
+            data: [],
+            loadError: 'Boom',
+            alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            isLoaded: true,
+            isLoading: false,
+        })
+    })
+
+    it('finishes loading with an error for a layer without dates', async () => {
+        const { engine, result } = load({
+            config: { startDate: undefined, endDate: undefined },
+        })
+
+        expect(await result).toMatchObject({
+            data: [],
+            alerts: [{ code: 'ERROR_CRITICAL' }],
+            isLoaded: true,
+        })
+        expect((await result).loadError).toBeDefined()
+        expect(engine.query).not.toHaveBeenCalled()
+    })
+
+    it('clears the alerts and error of a previous load', async () => {
+        const { result } = load({
+            config: {
+                loadError: 'Boom',
+                alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            },
+            instances: [point('te1')],
+        })
+
+        expect((await result).loadError).toBeUndefined()
+        expect((await result).alerts).toBeUndefined()
     })
 })
 
@@ -633,5 +666,41 @@ describe('trackedEntityLoader relationships', () => {
             'geometry',
             'relationships',
         ])
+    })
+
+    it('shows the tracked entities with a warning when a relationship request fails', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockRejectedValueOnce(new Error('Not found')),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message: 'Malaria case: Relationships could not be loaded',
+            },
+        ])
+        expect(result.loadError).toBeUndefined()
+        expect(result.relationships).toBeUndefined()
+        expect(result.secondaryData).toBeUndefined()
+        expect(result.legend.items).toHaveLength(1)
     })
 })
