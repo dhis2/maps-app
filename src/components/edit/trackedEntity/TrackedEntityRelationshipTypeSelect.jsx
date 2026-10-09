@@ -2,46 +2,38 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { SelectField } from '../../core/index.js'
-
-const RELATIONSHIP_TYPES_QUERY = {
-    relationshipTypes: {
-        resource: 'relationshipTypes',
-        params: {
-            fields: [
-                'id',
-                'displayName~rename(name)',
-                'fromConstraint',
-                'toConstraint',
-            ],
-        },
-    },
-}
 
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
 
 // Only relationships between tracked entities can be shown
+const RELATIONSHIP_TYPES_QUERY = {
+    relationshipTypes: {
+        resource: 'relationshipTypes',
+        params: ({ trackedEntityType }) => ({
+            fields: ['id', 'displayName~rename(name)'],
+            filter: [
+                `fromConstraint.relationshipEntity:eq:${TRACKED_ENTITY_INSTANCE}`,
+                `toConstraint.relationshipEntity:eq:${TRACKED_ENTITY_INSTANCE}`,
+                `fromConstraint.trackedEntityType.id:eq:${trackedEntityType}`,
+            ],
+            paging: false,
+        }),
+    },
+}
+
 const TrackedEntityRelationshipTypeSelect = ({
     trackedEntityType,
     value,
     onChange,
     className,
 }) => {
-    const { loading, data, error } = useDataQuery(RELATIONSHIP_TYPES_QUERY)
+    const { loading, data, error } = useDataQuery(RELATIONSHIP_TYPES_QUERY, {
+        variables: { trackedEntityType: trackedEntityType.id },
+    })
 
-    const types = useMemo(
-        () =>
-            data?.relationshipTypes.relationshipTypes.filter(
-                ({ fromConstraint, toConstraint }) =>
-                    fromConstraint.relationshipEntity ===
-                        TRACKED_ENTITY_INSTANCE &&
-                    toConstraint.relationshipEntity ===
-                        TRACKED_ENTITY_INSTANCE &&
-                    fromConstraint.trackedEntityType.id === trackedEntityType.id
-            ) || [],
-        [data, trackedEntityType.id]
-    )
+    const types = data?.relationshipTypes.relationshipTypes || []
 
     if (loading) {
         return <CircularLoader small />
