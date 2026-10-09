@@ -13,9 +13,11 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
+import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
     createTrackedEntityInstanceFeatures,
+    getTrackerMaxLimit,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
@@ -78,6 +80,8 @@ const trackedEntityLoader = async ({
     engine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
+    KeyTrackedEntityInstanceMaxLimit,
+    KeyTrackedEntityMaxLimit,
 }) => {
     parseJsonConfig(config)
 
@@ -131,11 +135,35 @@ const trackedEntityLoader = async ({
             ]
         }
 
-        const { instances, orgUnits } = await loadTrackedEntitiesFromTracker({
-            config,
-            engine,
-            serverVersion,
-        })
+        const { instances, orgUnits, isTruncated, limit } =
+            await loadTrackedEntitiesFromTracker({
+                config,
+                engine,
+                serverVersion,
+                maxLimit: getTrackerMaxLimit(
+                    {
+                        KeyTrackedEntityInstanceMaxLimit,
+                        KeyTrackedEntityMaxLimit,
+                    },
+                    serverVersion
+                ),
+            })
+
+        if (isTruncated) {
+            alerts.push({
+                warning: true,
+                code: CUSTOM_ALERT,
+                message: `${name}: ${i18n.t(
+                    'Displaying first {{limit}} tracked entities',
+                    {
+                        limit: formatWithSeparator(
+                            limit,
+                            keyAnalysisDigitGroupSeparator
+                        ),
+                    }
+                )}`,
+            })
+        }
 
         if (!instances.length) {
             alerts.push({

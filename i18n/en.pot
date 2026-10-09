@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-09T07:56:21.746Z\n"
-"PO-Revision-Date: 2026-10-09T07:56:21.747Z\n"
+"POT-Creation-Date: 2026-10-09T08:57:22.096Z\n"
+"PO-Revision-Date: 2026-10-09T08:57:22.097Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1884,6 +1884,9 @@ msgstr "related"
 
 msgid "Tracked entity"
 msgstr "Tracked entity"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr "Displaying first {{limit}} tracked entities"
 
 msgid "Relationships could not be loaded"
 msgstr "Relationships could not be loaded"

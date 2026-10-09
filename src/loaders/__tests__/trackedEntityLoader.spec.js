@@ -99,7 +99,12 @@ const trackerResponse = (serverVersion, instances) => ({
     },
 })
 
-const load = ({ config = {}, serverVersion = v41, instances = [] } = {}) => {
+const load = ({
+    config = {},
+    serverVersion = v41,
+    instances = [],
+    settings = {},
+} = {}) => {
     const engine = {
         query: jest
             .fn()
@@ -110,6 +115,7 @@ const load = ({ config = {}, serverVersion = v41, instances = [] } = {}) => {
         engine,
         keyAnalysisDigitGroupSeparator: 'SPACE',
         serverVersion,
+        ...settings,
     })
     return { engine, result }
 }
@@ -702,5 +708,75 @@ describe('trackedEntityLoader relationships', () => {
         expect(result.relationships).toBeUndefined()
         expect(result.secondaryData).toBeUndefined()
         expect(result.legend.items).toHaveLength(1)
+    })
+})
+
+describe('trackedEntityLoader tracker limit', () => {
+    const truncated = {
+        warning: true,
+        code: 'CUSTOM_ALERT',
+        message: 'Malaria case: Displaying first 2 tracked entities',
+    }
+
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            settings: { KeyTrackedEntityInstanceMaxLimit: 2 },
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            settings: { KeyTrackedEntityMaxLimit: 2 },
+        },
+    ])(
+        'warns on $version when the limit is reached',
+        async ({ serverVersion, settings }) => {
+            const { result } = load({
+                serverVersion,
+                settings,
+                config: { program },
+                // Rows without geometry count too
+                instances: [point('te1'), { id: 'te2' }],
+            })
+
+            expect((await result).alerts).toEqual([truncated])
+        }
+    )
+
+    it('does not warn below the limit', async () => {
+        const { result } = load({
+            settings: { KeyTrackedEntityMaxLimit: 3 },
+            config: { program },
+            instances: [point('te1'), point('te2', [3, 4])],
+        })
+
+        expect((await result).alerts).toBeUndefined()
+    })
+
+    it('reads the limit setting of the server version', async () => {
+        const { result } = load({
+            serverVersion: v40,
+            settings: { KeyTrackedEntityMaxLimit: 1 },
+            config: { program },
+            instances: [point('te1'), point('te2', [3, 4])],
+        })
+
+        expect((await result).alerts).toBeUndefined()
+    })
+
+    it('formats the limit with the digit group separator', async () => {
+        const instances = Array.from({ length: 1000 }, (_, i) =>
+            point(`te${i}`)
+        )
+        const { result } = load({
+            settings: { KeyTrackedEntityMaxLimit: 1000 },
+            config: { program },
+            instances,
+        })
+
+        expect((await result).alerts[0].message).toBe(
+            'Malaria case: Displaying first 1 000 tracked entities'
+        )
     })
 })
