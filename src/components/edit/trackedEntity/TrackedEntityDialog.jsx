@@ -52,6 +52,7 @@ import BufferRadius from '../shared/BufferRadius.jsx'
 import styles from '../styles/LayerDialog.module.css'
 import PeriodTypeSelect from './PeriodTypeSelect.jsx'
 import ProgramStatusSelect from './ProgramStatusSelect.jsx'
+import dialogStyles from './styles/TrackedEntityDialog.module.css'
 import TrackedEntityRelationshipTypeSelect from './TrackedEntityRelationshipTypeSelect.jsx'
 import TrackerDataNotice from './TrackerDataNotice.jsx'
 
@@ -216,13 +217,18 @@ const TrackedEntityDialog = ({
                             />
                         )}
                         {program && followUp && hasAnalytics && (
-                            <TrackerDataNotice />
+                            <TrackerDataNotice className={styles.select} />
                         )}
                     </div>
                 )}
                 {tab === 'relationships' &&
                     (trackedEntityType ? (
-                        <div className={styles.flexRowFlow}>
+                        <div
+                            className={cx(
+                                styles.flexRowFlow,
+                                dialogStyles.relationships
+                            )}
+                        >
                             <div className={styles.notice}>
                                 <NoticeBox warning title="Warning">
                                     {i18n.t(
