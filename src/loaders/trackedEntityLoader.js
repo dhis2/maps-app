@@ -150,20 +150,33 @@ const trackedEntityLoader = async ({
         })
         data = result.data
 
-        // At the tracker API limit or the analytics page size
+        // At the tracker API limit or the analytics page size. Only analytics
+        // returns the total
         if (result.isTruncated) {
+            const limit = formatWithSeparator(
+                result.limit,
+                keyAnalysisDigitGroupSeparator
+            )
+            const total = formatWithSeparator(
+                result.total,
+                keyAnalysisDigitGroupSeparator
+            )
             alerts.push({
                 warning: true,
                 code: CUSTOM_ALERT,
-                message: `${name}: ${i18n.t(
-                    'Displaying first {{limit}} tracked entities',
-                    {
-                        limit: formatWithSeparator(
-                            result.limit,
-                            keyAnalysisDigitGroupSeparator
-                        ),
-                    }
-                )}`,
+                message: `${name}: ${
+                    result.total
+                        ? i18n.t(
+                              'Displaying first {{limit}} tracked entities out of {{total}}',
+                              { limit, total }
+                          )
+                        : i18n.t(
+                              'Displaying first {{limit}} tracked entities',
+                              {
+                                  limit,
+                              }
+                          )
+                }`,
             })
         }
 

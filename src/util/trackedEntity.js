@@ -328,17 +328,17 @@ export const loadTrackedEntitiesFromAnalytics = async ({
         serverVersion,
     })
     const response = await analyticsEngine.trackedEntities.getQuery(
-        request.withPageSize(pageSize)
+        request.withPageSize(pageSize).withParameters({ totalPages: true })
     )
+    const total = response.metaData?.pager?.total
+    const count = response.rows.length
 
     return {
         data: createTrackedEntityFeatures(response, serverVersion),
-        // isLastPage is false for empty results, and the server can return
-        // fewer rows than pageSize (analytics max limit setting)
-        isTruncated:
-            response.metaData?.pager?.isLastPage === false &&
-            response.rows.length > 0,
-        limit: response.rows.length,
+        // The server can return fewer rows than pageSize (analytics max limit)
+        isTruncated: total > count,
+        limit: count,
+        total,
     }
 }
 
