@@ -213,6 +213,7 @@ const trackedEntityLoader = async ({
                 // Relationship layers always load from the tracker API
                 instances: result.instances,
                 orgUnits: result.orgUnits,
+                orgUnitMode: result.orgUnitMode,
                 maxLimit,
             }).catch(() => {
                 alerts.push({

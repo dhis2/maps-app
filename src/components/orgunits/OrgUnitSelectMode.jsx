@@ -27,7 +27,7 @@ const OrgUnitSelectMode = () => {
             },
             {
                 id: ORG_UNIT_MODE_CHILDREN,
-                name: i18n.t('Selected and below'),
+                name: i18n.t('Immediate children'),
             },
             {
                 id: ORG_UNIT_MODE_DESCENDANTS,

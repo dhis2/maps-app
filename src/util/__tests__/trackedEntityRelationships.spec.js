@@ -814,7 +814,7 @@ describe('getDataWithRelationships target query', () => {
                         toConstraint: constraint({ program: 'program2' }),
                     },
                     orgUnits,
-                    organisationUnitSelectionMode: 'DESCENDANTS',
+                    orgUnitMode: 'DESCENDANTS',
                 },
                 engine,
             })

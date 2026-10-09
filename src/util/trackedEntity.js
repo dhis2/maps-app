@@ -1,5 +1,6 @@
 import { TEI_CLIENT_PAGE_SIZE } from '../constants/layers.js'
 import {
+    ORG_UNIT_MODE_CHILDREN,
     ORG_UNIT_MODE_DESCENDANTS,
     ORG_UNIT_MODE_SELECTED,
 } from '../constants/orgUnits.js'
@@ -135,6 +136,33 @@ export const createTrackedEntityInstanceFeatures = (instances) =>
         },
     }))
 
+const ORG_UNIT_CHILDREN_QUERY = {
+    resource: 'organisationUnits',
+    params: ({ parents }) => ({
+        fields: 'id',
+        filter: `parent.id:in:[${parents.join(',')}]`,
+        paging: false,
+    }),
+}
+
+// The tracker API's CHILDREN mode includes the selected org units, unlike
+// analytics, so the children are requested in SELECTED mode instead
+const getTrackerOrgUnits = async ({ engine, orgUnitIds, orgUnitMode }) => {
+    if (orgUnitMode !== ORG_UNIT_MODE_CHILDREN) {
+        return { orgUnitIds, orgUnitMode }
+    }
+
+    const { children } = await engine.query(
+        { children: ORG_UNIT_CHILDREN_QUERY },
+        { variables: { parents: orgUnitIds } }
+    )
+
+    return {
+        orgUnitIds: children.organisationUnits.map(({ id }) => id),
+        orgUnitMode: ORG_UNIT_MODE_SELECTED,
+    }
+}
+
 const buildQueryVariables = ({
     fields,
     orgUnits,
@@ -192,9 +220,24 @@ export const loadTrackedEntitiesFromTracker = async ({
     // VERSION-TOGGLE: see util/versionToggle.js
     const isVersion40 = !serverSupportsTracker41Api(serverVersion)
 
-    const orgUnits = getOrgUnitsFromRows(rows)
-        .map((ou) => ou.id)
-        .join(isVersion40 ? ';' : ',')
+    const { orgUnitIds, orgUnitMode } = await getTrackerOrgUnits({
+        engine,
+        orgUnitIds: getOrgUnitsFromRows(rows).map((ou) => ou.id),
+        orgUnitMode: organisationUnitSelectionMode,
+    })
+    const orgUnits = orgUnitIds.join(isVersion40 ? ';' : ',')
+
+    // Without org units, the tracker API would use all accessible ones
+    if (!orgUnitIds.length) {
+        return {
+            data: [],
+            instances: [],
+            orgUnits,
+            orgUnitMode,
+            isTruncated: false,
+            limit: maxLimit,
+        }
+    }
 
     // Slow to fetch, so only for layers showing relationships
     const requestFields = relationshipType
@@ -208,7 +251,7 @@ export const loadTrackedEntitiesFromTracker = async ({
                 ...buildQueryVariables({
                     fields: requestFields,
                     orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
+                    orgUnitMode,
                     program,
                     programStatus,
                     followUp,
@@ -235,8 +278,9 @@ export const loadTrackedEntitiesFromTracker = async ({
     return {
         data: createTrackedEntityInstanceFeatures(instances),
         instances,
-        // orgUnits is formatted for the relationships request
+        // Org units and mode for the relationships request
         orgUnits,
+        orgUnitMode,
         // The API returns at most maxLimit rows and no total, so reaching the
         // limit is the only sign of a cut (a total of exactly maxLimit also
         // warns). All rows count, geometry or not

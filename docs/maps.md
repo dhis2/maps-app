@@ -687,7 +687,7 @@ opens the Tracked entity layer configuration dialog.
 
     -   **Selected only**: Include tracked entities belonging to selected org units only.
 
-    -   **Selected and below**: Include tracked entities in and right below selected org units.
+    -   **Immediate children**: Include tracked entities in the org units right below selected org units, not in the selected org units themselves.
 
     -   **Selected and all below**: Include tracked entities in and all below selected org units.
 
