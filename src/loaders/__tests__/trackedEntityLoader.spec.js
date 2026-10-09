@@ -754,7 +754,8 @@ describe('trackedEntityLoader tracker limit', () => {
         expect((await result).alerts).toBeUndefined()
     })
 
-    it('reads the limit setting of the server version', async () => {
+    // 2.40 only knows KeyTrackedEntityInstanceMaxLimit
+    it('ignores the 2.41+ limit setting on 2.40', async () => {
         const { result } = load({
             serverVersion: v40,
             settings: { KeyTrackedEntityMaxLimit: 1 },

@@ -229,8 +229,9 @@ export const loadTrackedEntitiesFromTracker = async ({
         instances,
         // orgUnits is formatted for the relationships request
         orgUnits,
-        // No truncation flag from the API: count all rows, geometry or not.
-        // A total of exactly the limit also warns, which is still true
+        // The API returns at most maxLimit rows and no total, so reaching the
+        // limit is the only sign of a cut (a total of exactly maxLimit also
+        // warns). All rows count, geometry or not
         isTruncated: Boolean(maxLimit) && allInstances.length >= maxLimit,
         limit: maxLimit,
     }
