@@ -1,4 +1,6 @@
 import {
+    serverSupportsTrackedEntityAnalytics,
+    serverSupportsTrackedEntityAnalyticsIdColumn,
     serverSupportsTracker41Api,
     serverSupportsTrackerEnrollmentStatus,
 } from '../versionToggle.js'
@@ -22,5 +24,27 @@ describe('serverSupportsTrackerEnrollmentStatus', () => {
         expect(serverSupportsTrackerEnrollmentStatus(serverVersion)).toBe(
             expected
         )
+    })
+})
+
+describe('serverSupportsTrackedEntityAnalytics', () => {
+    it.each([
+        [{ minor: 40 }, false],
+        [{ minor: 41 }, true],
+    ])('%p returns %p', (serverVersion, expected) => {
+        expect(serverSupportsTrackedEntityAnalytics(serverVersion)).toBe(
+            expected
+        )
+    })
+})
+
+describe('serverSupportsTrackedEntityAnalyticsIdColumn', () => {
+    it.each([
+        [{ minor: 41 }, false],
+        [{ minor: 42 }, true],
+    ])('%p returns %p', (serverVersion, expected) => {
+        expect(
+            serverSupportsTrackedEntityAnalyticsIdColumn(serverVersion)
+        ).toBe(expected)
     })
 })

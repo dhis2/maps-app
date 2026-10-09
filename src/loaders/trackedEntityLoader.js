@@ -16,9 +16,8 @@ import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    createTrackedEntityInstanceFeatures,
     getTrackerMaxLimit,
-    loadTrackedEntitiesFromTracker,
+    loadTrackedEntities,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
 
@@ -78,6 +77,7 @@ const getRelationshipLegendItems = ({
 const trackedEntityLoader = async ({
     config,
     engine,
+    analyticsEngine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
     KeyTrackedEntityInstanceMaxLimit,
@@ -135,21 +135,23 @@ const trackedEntityLoader = async ({
             ]
         }
 
-        const { instances, orgUnits, isTruncated, limit } =
-            await loadTrackedEntitiesFromTracker({
-                config,
-                engine,
-                serverVersion,
-                maxLimit: getTrackerMaxLimit(
-                    {
-                        KeyTrackedEntityInstanceMaxLimit,
-                        KeyTrackedEntityMaxLimit,
-                    },
-                    serverVersion
-                ),
-            })
+        const result = await loadTrackedEntities({
+            config,
+            engine,
+            analyticsEngine,
+            serverVersion,
+            maxLimit: getTrackerMaxLimit(
+                {
+                    KeyTrackedEntityInstanceMaxLimit,
+                    KeyTrackedEntityMaxLimit,
+                },
+                serverVersion
+            ),
+        })
+        data = result.data
 
-        if (isTruncated) {
+        // At the tracker API limit or the analytics page size
+        if (result.isTruncated) {
             alerts.push({
                 warning: true,
                 code: CUSTOM_ALERT,
@@ -157,7 +159,7 @@ const trackedEntityLoader = async ({
                     'Displaying first {{limit}} tracked entities',
                     {
                         limit: formatWithSeparator(
-                            limit,
+                            result.limit,
                             keyAnalysisDigitGroupSeparator
                         ),
                     }
@@ -165,14 +167,12 @@ const trackedEntityLoader = async ({
             })
         }
 
-        if (!instances.length) {
+        if (!data.length) {
             alerts.push({
                 code: WARNING_NO_DATA,
                 message: trackedEntityType.name,
             })
         }
-
-        data = createTrackedEntityInstanceFeatures(instances)
 
         if (relationshipTypeID) {
             // The tracked entities are still shown when this fails
@@ -180,8 +180,9 @@ const trackedEntityLoader = async ({
                 config,
                 engine,
                 serverVersion,
-                instances,
-                orgUnits,
+                // Relationship layers always load from the tracker API
+                instances: result.instances,
+                orgUnits: result.orgUnits,
             }).catch(() => {
                 alerts.push({
                     warning: true,

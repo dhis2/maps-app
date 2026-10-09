@@ -10,6 +10,7 @@ import {
     createEventFeatures,
     getGeojsonDisplayData,
     buildGeoJsonFeatures,
+    parseWkt,
     isPointInsideOrgUnits,
 } from '../geojson.js'
 
@@ -959,5 +960,110 @@ describe('geojson utils', () => {
             }
             expect(getCentroid(unknown)).toBeNull()
         })
+    })
+})
+
+describe('parseWkt', () => {
+    it('parses a point with SRID prefix', () => {
+        expect(parseWkt('SRID=4326;POINT(-11.8079 8.3394)')).toEqual({
+            type: 'Point',
+            coordinates: [-11.8079, 8.3394],
+        })
+    })
+
+    it('parses a point without SRID prefix', () => {
+        expect(parseWkt('POINT(-11.8079 8.3394)')).toEqual({
+            type: 'Point',
+            coordinates: [-11.8079, 8.3394],
+        })
+    })
+
+    it('parses a polygon', () => {
+        expect(
+            parseWkt(
+                'SRID=4326;POLYGON((-11.8049 8.3374,-11.8032 8.3436,-11.8076 8.3441,-11.8049 8.3374))'
+            )
+        ).toEqual({
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [-11.8049, 8.3374],
+                    [-11.8032, 8.3436],
+                    [-11.8076, 8.3441],
+                    [-11.8049, 8.3374],
+                ],
+            ],
+        })
+    })
+
+    it('parses a polygon with a hole and whitespace', () => {
+        expect(
+            parseWkt(
+                'POLYGON ((0 0, 10 0, 10 10, 0 10, 0 0), (2 2, 4 2, 4 4, 2 2))'
+            )
+        ).toEqual({
+            type: 'Polygon',
+            coordinates: [
+                [
+                    [0, 0],
+                    [10, 0],
+                    [10, 10],
+                    [0, 10],
+                    [0, 0],
+                ],
+                [
+                    [2, 2],
+                    [4, 2],
+                    [4, 4],
+                    [2, 2],
+                ],
+            ],
+        })
+    })
+
+    it('parses a multipolygon', () => {
+        expect(
+            parseWkt(
+                'MULTIPOLYGON(((0 0,1 0,1 1,0 0)),((5 5,6 5,6 6,5 5),(5.2 5.2,5.4 5.2,5.4 5.4,5.2 5.2)))'
+            )
+        ).toEqual({
+            type: 'MultiPolygon',
+            coordinates: [
+                [
+                    [
+                        [0, 0],
+                        [1, 0],
+                        [1, 1],
+                        [0, 0],
+                    ],
+                ],
+                [
+                    [
+                        [5, 5],
+                        [6, 5],
+                        [6, 6],
+                        [5, 5],
+                    ],
+                    [
+                        [5.2, 5.2],
+                        [5.4, 5.2],
+                        [5.4, 5.4],
+                        [5.2, 5.2],
+                    ],
+                ],
+            ],
+        })
+    })
+
+    it.each([
+        [''],
+        [null],
+        [undefined],
+        ['LINESTRING(0 0,1 1)'],
+        ['POINT EMPTY'],
+        ['POLYGON((0 0,1 0,1 1,0 0)'],
+        ['{"type":"Point","coordinates":[0,0]}'],
+    ])('returns null for unsupported or invalid input %p', (input) => {
+        expect(parseWkt(input)).toBeNull()
     })
 })

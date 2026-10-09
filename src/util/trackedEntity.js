@@ -1,13 +1,16 @@
+import { TEI_CLIENT_PAGE_SIZE } from '../constants/layers.js'
+import { ORG_UNIT_MODE_SELECTED } from '../constants/orgUnits.js'
 import { getOrgUnitsFromRows } from './analytics.js'
 import {
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
     GEO_TYPE_FEATURE,
+    parseWkt,
+    trackedEntityGeometryTypes,
 } from './geojson.js'
 import { trimTime } from './time.js'
 import {
     serverSupportsTracker41Api,
+    serverSupportsTrackedEntityAnalytics,
+    serverSupportsTrackedEntityAnalyticsIdColumn,
     serverSupportsTrackerEnrollmentStatus,
 } from './versionToggle.js'
 
@@ -49,13 +52,6 @@ export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
 }
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
-
-// Valid geometry types for TEIs
-const teiGeometryTypes = new Set([
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-])
 
 const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
@@ -221,11 +217,12 @@ export const loadTrackedEntitiesFromTracker = async ({
         trackedEntities[isVersion40 ? 'instances' : 'trackedEntities']
     const instances = allInstances.filter(
         (instance) =>
-            teiGeometryTypes.has(instance.geometry?.type) &&
+            trackedEntityGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 
     return {
+        data: createTrackedEntityInstanceFeatures(instances),
         instances,
         // orgUnits is formatted for the relationships request
         orgUnits,
@@ -234,4 +231,149 @@ export const loadTrackedEntitiesFromTracker = async ({
         isTruncated: Boolean(maxLimit) && allInstances.length >= maxLimit,
         limit: maxLimit,
     }
+}
+
+// Tracker analytics (2.41+)
+// -----
+
+// Tracker analytics can't return relationships or filter by follow-up
+export const canLoadTrackedEntitiesFromAnalytics = (
+    { program, followUp, relationshipType },
+    serverVersion
+) =>
+    // VERSION-TOGGLE: see util/versionToggle.js
+    serverSupportsTrackedEntityAnalytics(serverVersion) &&
+    !relationshipType &&
+    !(program && followUp)
+
+// VERSION-TOGGLE: see util/versionToggle.js
+const getAnalyticsIdColumn = (serverVersion) =>
+    serverSupportsTrackedEntityAnalyticsIdColumn(serverVersion)
+        ? 'trackedentity'
+        : 'trackedentityinstanceuid'
+
+export const getTrackedEntityAnalyticsRequest = (
+    {
+        trackedEntityType,
+        program,
+        programStatus,
+        periodType,
+        startDate,
+        endDate,
+        rows,
+        organisationUnitSelectionMode,
+    },
+    { analyticsEngine, serverVersion }
+) => {
+    // Same rules as the tracker request: program filters need a program
+    const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
+    const range = `${trimTime(startDate)}_${trimTime(endDate)}`
+
+    const request = new analyticsEngine.request()
+        .withTrackedEntityType(trackedEntityType.id)
+        .addOrgUnitDimension(getOrgUnitsFromRows(rows).map((ou) => ou.id))
+        // Analytics defaults to all levels below, the tracker API to selected
+        .withOuMode(organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED)
+
+    // withProgram() would put the program in the path. Enrollment filters are
+    // qualified with the program: "<program>.<value>"
+    return request.withParameters({
+        // Every attribute and org unit column comes back otherwise
+        headers: `${getAnalyticsIdColumn(serverVersion)},geometry`,
+        // coordinatesOnly would exclude polygons
+        geometryOnly: true,
+        ...(program && { program: program.id }),
+        ...(program &&
+            programStatus && {
+                enrollmentStatus: `${program.id}.${programStatus}`,
+            }),
+        ...(isEnrollmentPeriod
+            ? { enrollmentDate: `${program.id}.${range}` }
+            : { lastUpdated: range }),
+    })
+}
+
+export const createTrackedEntityFeatures = (
+    { headers, rows },
+    serverVersion
+) => {
+    const idCol = headers.findIndex(
+        (header) => header.name === getAnalyticsIdColumn(serverVersion)
+    )
+    const geomCol = headers.findIndex((header) => header.name === 'geometry')
+
+    return rows.reduce((features, row) => {
+        const geometry = parseWkt(row[geomCol])
+
+        if (geometry) {
+            features.push({
+                type: GEO_TYPE_FEATURE,
+                geometry,
+                properties: { id: row[idCol] },
+            })
+        }
+
+        return features
+    }, [])
+}
+
+export const loadTrackedEntitiesFromAnalytics = async ({
+    config,
+    analyticsEngine,
+    serverVersion,
+    pageSize = TEI_CLIENT_PAGE_SIZE,
+}) => {
+    const request = getTrackedEntityAnalyticsRequest(config, {
+        analyticsEngine,
+        serverVersion,
+    })
+    const response = await analyticsEngine.trackedEntities.getQuery(
+        request.withPageSize(pageSize)
+    )
+
+    return {
+        data: createTrackedEntityFeatures(response, serverVersion),
+        // isLastPage is false for empty results, and the server can return
+        // fewer rows than pageSize (analytics max limit setting)
+        isTruncated:
+            response.metaData?.pager?.isLastPage === false &&
+            response.rows.length > 0,
+        limit: response.rows.length,
+    }
+}
+
+// Choosing the API
+// -----
+
+// Analytics can't be used, but the tracker API can: the type has no analytics
+// table yet (E7144), or the user can't view event analytics (E7217)
+const ANALYTICS_FALLBACK_CODES = new Set(['E7144', 'E7217'])
+
+// Tracker analytics where possible, otherwise the tracker API
+export const loadTrackedEntities = async ({
+    config,
+    engine,
+    analyticsEngine,
+    serverVersion,
+    maxLimit,
+}) => {
+    if (canLoadTrackedEntitiesFromAnalytics(config, serverVersion)) {
+        try {
+            return await loadTrackedEntitiesFromAnalytics({
+                config,
+                analyticsEngine,
+                serverVersion,
+            })
+        } catch (error) {
+            if (!ANALYTICS_FALLBACK_CODES.has(error.details?.errorCode)) {
+                throw error
+            }
+        }
+    }
+    return loadTrackedEntitiesFromTracker({
+        config,
+        engine,
+        serverVersion,
+        maxLimit,
+    })
 }
