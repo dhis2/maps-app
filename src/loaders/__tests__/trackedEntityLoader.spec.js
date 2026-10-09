@@ -300,14 +300,57 @@ describe('trackedEntityLoader tracker request', () => {
         expect(getRequest(engine).params.trackedEntityType).toBeUndefined()
     })
 
-    it('sends no org unit mode when the layer has none', async () => {
-        const { engine, result } = load({
-            config: { organisationUnitSelectionMode: undefined },
-        })
-        await result
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            param: 'ouMode',
+            mode: 'SELECTED',
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            param: 'orgUnitMode',
+            mode: 'DESCENDANTS',
+        },
+    ])(
+        'on $version defaults the org unit mode to $mode',
+        async ({ serverVersion, param, mode }) => {
+            const { engine, result } = load({
+                serverVersion,
+                config: { organisationUnitSelectionMode: undefined },
+            })
+            await result
 
-        expect(getRequest(engine).params.orgUnitMode).toBeUndefined()
-    })
+            expect(getRequest(engine).params[param]).toBe(mode)
+        }
+    )
+
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
+            param: 'ouMode',
+            mode: 'CHILDREN',
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            param: 'orgUnitMode',
+            mode: 'SELECTED',
+        },
+    ])(
+        'on $version keeps the org unit mode of the layer',
+        async ({ serverVersion, param, mode }) => {
+            const { engine, result } = load({
+                serverVersion,
+                config: { organisationUnitSelectionMode: mode },
+            })
+            await result
+
+            expect(getRequest(engine).params[param]).toBe(mode)
+        }
+    )
 })
 
 describe('trackedEntityLoader result', () => {
@@ -654,6 +697,47 @@ describe('trackedEntityLoader relationships', () => {
         }
     )
 
+    it('requests the related tracked entities with the default org unit mode', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        toConstraint: {
+                            ...constraint,
+                            program: { id: 'program2' },
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                })
+                .mockResolvedValueOnce({ tei: { trackedEntities: [] } }),
+        }
+
+        await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                organisationUnitSelectionMode: undefined,
+                program,
+                config: JSON.stringify({ relationships: { type: 'relType1' } }),
+            },
+            engine,
+            analyticsEngine: noAnalytics(),
+            serverVersion: v41,
+        })
+
+        expect(getRequest(engine, 0).params.orgUnitMode).toBe('DESCENDANTS')
+        expect(getRequest(engine, 3).params.orgUnitMode).toBe('DESCENDANTS')
+    })
+
     it('shows the tracked entities for a relationship to events', async () => {
         const engine = {
             query: jest
@@ -967,13 +1051,13 @@ describe('trackedEntityLoader tracker analytics', () => {
         expect(parameters.lastUpdated).toBe('2024-01-01_2024-12-31')
     })
 
-    it('keeps selected org units only when the layer has no mode', async () => {
+    it('uses all levels below when the layer has no org unit mode', async () => {
         const { analyticsCalls } = await loadWithAnalytics({
             config: { organisationUnitSelectionMode: undefined },
         })
 
         expect(analyticsCalls[0][1].variables.parameters.ouMode).toBe(
-            'SELECTED'
+            'DESCENDANTS'
         )
     })
 

@@ -1,5 +1,8 @@
 import { TEI_CLIENT_PAGE_SIZE } from '../constants/layers.js'
-import { ORG_UNIT_MODE_SELECTED } from '../constants/orgUnits.js'
+import {
+    ORG_UNIT_MODE_DESCENDANTS,
+    ORG_UNIT_MODE_SELECTED,
+} from '../constants/orgUnits.js'
 import { getOrgUnitsFromRows } from './analytics.js'
 import {
     GEO_TYPE_FEATURE,
@@ -35,6 +38,14 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
         }),
     },
 }
+
+// Org unit mode used when the layer has none: all levels below on 2.41+,
+// the selected org units only on 2.40
+// VERSION-TOGGLE: see util/versionToggle.js
+export const getTrackedEntityDefaultOrgUnitMode = (serverVersion) =>
+    serverSupportsTrackedEntityAnalytics(serverVersion)
+        ? ORG_UNIT_MODE_DESCENDANTS
+        : ORG_UNIT_MODE_SELECTED
 
 // Tracker API
 // -----
@@ -272,8 +283,7 @@ export const getTrackedEntityAnalyticsRequest = (
     const request = new analyticsEngine.request()
         .withTrackedEntityType(trackedEntityType.id)
         .addOrgUnitDimension(getOrgUnitsFromRows(rows).map((ou) => ou.id))
-        // Analytics defaults to all levels below, the tracker API to selected
-        .withOuMode(organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED)
+        .withOuMode(organisationUnitSelectionMode)
 
     // withProgram() would put the program in the path. Enrollment filters are
     // qualified with the program: "<program>.<value>"

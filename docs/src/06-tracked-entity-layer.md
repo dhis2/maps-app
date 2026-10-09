@@ -63,6 +63,8 @@ opens the Tracked entity layer configuration dialog.
 
     -   **Selected and all below**: Include tracked entities in and all below selected org units.
 
+    The default is **Selected and all below** from DHIS2 2.41, and **Selected only** on 2.40.
+
 #### 5. Style
 
 ![](../resources/images/maps_tracked_entity_layer_dialog_STYLE.png)

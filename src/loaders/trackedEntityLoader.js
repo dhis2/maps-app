@@ -16,6 +16,7 @@ import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
+    getTrackedEntityDefaultOrgUnitMode,
     getTrackerMaxLimit,
     loadTrackedEntities,
 } from '../util/trackedEntity.js'
@@ -85,6 +86,14 @@ const trackedEntityLoader = async ({
 }) => {
     parseJsonConfig(config)
 
+    // The main and relationship requests share the default org unit mode
+    const loadConfig = {
+        ...config,
+        organisationUnitSelectionMode:
+            config.organisationUnitSelectionMode ||
+            getTrackedEntityDefaultOrgUnitMode(serverVersion),
+    }
+
     const {
         trackedEntityType,
         program,
@@ -136,7 +145,7 @@ const trackedEntityLoader = async ({
         }
 
         const result = await loadTrackedEntities({
-            config,
+            config: loadConfig,
             engine,
             analyticsEngine,
             serverVersion,
@@ -177,7 +186,7 @@ const trackedEntityLoader = async ({
         if (relationshipTypeID) {
             // The tracked entities are still shown when this fails
             const relationshipResult = await loadTrackedEntityRelationships({
-                config,
+                config: loadConfig,
                 engine,
                 serverVersion,
                 // Relationship layers always load from the tracker API
