@@ -9,7 +9,7 @@ const TrackerDataNotice = () => (
     <div className={styles.notice}>
         <NoticeBox info>
             {i18n.t(
-                'With this option, tracked entities come from tracker data instead of analytics, so they depend on your data capture and search org units rather than your data output and analysis org units.'
+                'With this option, tracked entities are loaded directly from captured data, not from analytics tables. Your data capture permissions apply instead of your analytics permissions.'
             )}
         </NoticeBox>
     </div>

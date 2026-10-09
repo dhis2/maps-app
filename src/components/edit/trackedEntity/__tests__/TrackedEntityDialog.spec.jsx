@@ -17,7 +17,7 @@ jest.mock('../../../orgunits/OrgUnitSelect.jsx', () => () => null)
 jest.mock('../../../periods/StartEndDate.jsx', () => () => null)
 jest.mock('../../shared/BufferRadius.jsx', () => () => null)
 
-const trackerData = /come from tracker data instead of analytics/
+const trackerData = /loaded directly from captured data, not from analytics tables/
 
 const renderDialog = ({ minor = 43, ...props } = {}) => {
     useConfig.mockReturnValue({ serverVersion: { minor } })
