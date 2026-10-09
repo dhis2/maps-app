@@ -56,6 +56,17 @@ describe('setDataItemInColumns', () => {
         const dataItem = { id: 'item1', name: 'Item 1' }
         expect(setDataItemInColumns(dataItem, 'invalid')).toEqual([])
     })
+
+    it('stores aggregationType alongside the data item when present', () => {
+        const dataItem = {
+            id: 'item1',
+            name: 'Item 1',
+            aggregationType: 'AVERAGE',
+        }
+        const result = setDataItemInColumns(dataItem, 'dataElement')
+
+        expect(result[0].items[0].aggregationType).toBe('AVERAGE')
+    })
 })
 
 describe('getOrgUnitsFromRows', () => {

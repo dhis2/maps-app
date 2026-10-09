@@ -1,6 +1,7 @@
 import React, {
     useRef,
     useCallback,
+    useMemo,
     useState,
     useEffect,
     useLayoutEffect,
@@ -13,17 +14,24 @@ import {
     toggleShowOnlyFeaturesInView,
     setSelectionFilter,
     setHighlightColor,
+    toggleDataTable,
+    setDataTableColumnConfig,
+    setActiveDataTableLayer,
 } from '../../actions/dataTable.js'
 import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { hasActiveDataTableFilters } from '../../util/dataTable.js'
-import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
+import {
+    getEligibleDataTableLayers,
+    hasActiveDataTableFilters,
+} from '../../util/dataTable.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
 import CollapseControl from './controls/CollapseControl.jsx'
 import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
 import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
 import HighlightColorControl from './controls/HighlightColorControl.jsx'
+import LayerSelectorControl from './controls/LayerSelectorControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
 import ShowInViewControl from './controls/ShowInViewControl.jsx'
@@ -36,10 +44,27 @@ const MIN_HEIGHT = 50
 const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
-    const activeLayerId = useSelector((state) => state.dataTable)
-    const activeLayer = useSelector((state) =>
-        state.map.mapViews.find((l) => l.id === activeLayerId)
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
+    const { openIds, activeLayerId: storedActiveLayerId } = useSelector(
+        (state) => state.dataTable
     )
+    const mapViews = useSelector((state) => state.map.mapViews)
+    const activeLayerId =
+        storedActiveLayerId && openIds.includes(storedActiveLayerId)
+            ? storedActiveLayerId
+            : openIds[openIds.length - 1] ?? null
+
+    const eligibleLayers = useMemo(() => {
+        const loaded = getEligibleDataTableLayers(mapViews).reverse()
+        const stillOpen = openIds
+            .map((id) => mapViews.find((l) => l.id === id))
+            .filter((l) => l && !loaded.some((el) => el.id === l.id))
+        return [...loaded, ...stillOpen]
+    }, [mapViews, openIds])
+
+    const activeLayer = mapViews.find((l) => l.id === activeLayerId)
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
@@ -76,7 +101,10 @@ const BottomPanel = () => {
 
     const onControlsDoubleClick = useCallback(
         (e) => {
-            if (e.target.closest('button, input, label')) {
+            if (
+                e.target.closest('button, input, label, select') ||
+                !e.currentTarget.contains(e.target)
+            ) {
                 return
             }
             toggleCollapsed()
@@ -138,12 +166,14 @@ const BottomPanel = () => {
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
-        dispatch(setSelectionFilter([]))
-        setSearchInputValue('')
         if (showOnlyFeaturesInView) {
             dispatch(toggleShowOnlyFeaturesInView())
         }
-    }, [dispatch, activeLayerId, showOnlyFeaturesInView])
+        if (selectionFilter?.length) {
+            dispatch(setSelectionFilter([]))
+        }
+        setSearchInputValue('')
+    }, [dispatch, activeLayerId, showOnlyFeaturesInView, selectionFilter])
 
     const onToggleShowOnlyFeaturesInView = useCallback(() => {
         dispatch(toggleShowOnlyFeaturesInView())
@@ -178,9 +208,13 @@ const BottomPanel = () => {
 
     useEffect(() => {
         const observer = new ResizeObserver(() => {
-            if (panelRef.current) {
-                setPanelWidth(panelRef.current.getBoundingClientRect().width)
+            if (!panelRef.current) {
+                return
             }
+            const width = Math.round(
+                panelRef.current.getBoundingClientRect().width
+            )
+            setPanelWidth((prev) => (prev === width ? prev : width))
         })
         if (panelRef.current) {
             observer.observe(panelRef.current)
@@ -205,16 +239,29 @@ const BottomPanel = () => {
                     onClick={toggleCollapsed}
                 />
                 <span className={styles.divider} />
-                <ActiveLayerControl name={activeLayer?.name} />
+                <LayerSelectorControl
+                    layers={eligibleLayers}
+                    activeLayerId={activeLayerId}
+                    onSelectLayer={(id) => {
+                        dispatch(setActiveDataTableLayer(id))
+                        if (!openIds.includes(id)) {
+                            dispatch(toggleDataTable(id))
+                        }
+                    }}
+                />
                 <span className={styles.divider} />
                 <HighlightColorControl
                     color={highlightColor}
                     onChange={onHighlightColorChange}
                 />
                 <ColumnPickerControl
-                    layerId={activeLayerId}
                     allHeaders={allHeaders}
                     columnConfig={activeLayer?.dataTableColumnConfig}
+                    onChange={(config) =>
+                        dispatch(
+                            setDataTableColumnConfig(activeLayerId, config)
+                        )
+                    }
                 />
                 <span className={styles.divider} />
                 <ResizeHandleControl
@@ -228,6 +275,9 @@ const BottomPanel = () => {
                 <RowCountControl
                     totalCount={totalCount}
                     filteredCount={filteredCount}
+                    keyAnalysisDigitGroupSeparator={
+                        keyAnalysisDigitGroupSeparator
+                    }
                 />
                 <span className={styles.divider} />
                 <ClearFiltersControl
@@ -248,6 +298,7 @@ const BottomPanel = () => {
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
                     <DataTable
+                        activeLayerId={activeLayerId}
                         availableWidth={panelWidth}
                         onCountChange={onCountChange}
                         onHeadersChange={onHeadersChange}

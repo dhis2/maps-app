@@ -93,4 +93,34 @@ describe('LayerToolbar', () => {
         expect(toggleVisibleFn).toHaveBeenCalledTimes(1)
         expect(editFn).toHaveBeenCalledTimes(1)
     })
+
+    it('Should not render a clear-filters button when the layer has no active dataFilters', () => {
+        const { container } = render(<LayerToolbar {...props} />)
+        expect(
+            container.querySelector(
+                '[data-test="layer-clear-data-filters-button"]'
+            )
+        ).not.toBeInTheDocument()
+    })
+
+    it('Should render a clear-filters button when onClearDataFilters is provided', () => {
+        const { container } = render(
+            <LayerToolbar {...props} onClearDataFilters={jest.fn()} />
+        )
+        expect(container).toMatchSnapshot()
+    })
+
+    it('Should call onClearDataFilters callback on button press', async () => {
+        const clearDataFiltersFn = jest.fn()
+        const { container } = render(
+            <LayerToolbar {...props} onClearDataFilters={clearDataFiltersFn} />
+        )
+
+        await fireEvent.click(
+            container.querySelector(
+                '[data-test="layer-clear-data-filters-button"]'
+            )
+        )
+        expect(clearDataFiltersFn).toHaveBeenCalledTimes(1)
+    })
 })
