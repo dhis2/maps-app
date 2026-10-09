@@ -36,6 +36,18 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 // Tracker API
 // -----
 
+// Row limit of the tracker API, applied even with paging off
+// VERSION-TOGGLE: KeyTrackedEntityInstanceMaxLimit deprecated in 2.41 for
+// KeyTrackedEntityMaxLimit, which 2.41+ servers apply
+export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
+    const limit = Number(
+        serverSupportsTracker41Api(serverVersion)
+            ? systemSettings.KeyTrackedEntityMaxLimit
+            : systemSettings.KeyTrackedEntityInstanceMaxLimit
+    )
+    return limit > 0 ? limit : null
+}
+
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
@@ -155,6 +167,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     config,
     engine,
     serverVersion,
+    maxLimit,
 }) => {
     const {
         trackedEntityType,
@@ -204,14 +217,22 @@ export const loadTrackedEntitiesFromTracker = async ({
         }
     )
 
-    const instances = trackedEntities[
-        isVersion40 ? 'instances' : 'trackedEntities'
-    ].filter(
+    const allInstances =
+        trackedEntities[isVersion40 ? 'instances' : 'trackedEntities']
+    const instances = allInstances.filter(
         (instance) =>
             teiGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 
-    // orgUnits is formatted for the relationships request
-    return { instances, orgUnits }
+    return {
+        instances,
+        // orgUnits is formatted for the relationships request
+        orgUnits,
+        // The API returns at most maxLimit rows and no total, so reaching the
+        // limit is the only sign of a cut (a total of exactly maxLimit also
+        // warns). All rows count, geometry or not
+        isTruncated: Boolean(maxLimit) && allInstances.length >= maxLimit,
+        limit: maxLimit,
+    }
 }

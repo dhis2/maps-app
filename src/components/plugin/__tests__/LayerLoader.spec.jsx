@@ -15,7 +15,11 @@ jest.mock('@dhis2/app-runtime', () => ({
 }))
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
     useCachedData: () => ({
-        systemSettings: { keyAnalysisDigitGroupSeparator: 'SPACE' },
+        systemSettings: {
+            keyAnalysisDigitGroupSeparator: 'SPACE',
+            KeyTrackedEntityInstanceMaxLimit: 40000,
+            KeyTrackedEntityMaxLimit: 50000,
+        },
         currentUser: {
             keyAnalysisDisplayProperty: 'name',
             id: 'user',
@@ -57,6 +61,25 @@ describe('LayerLoader', () => {
         await waitFor(() => expect(onLoad).toHaveBeenCalled())
         expect(earthEngineLoader).toHaveBeenCalledTimes(1)
         expect(onLoad).toHaveBeenCalledTimes(1)
+    })
+
+    test('passes the tracker limit settings to the loader', async () => {
+        useDataOutputPeriodTypes.mockReturnValue(loadedPeriodTypes)
+        render(
+            <LayerLoader
+                config={{ id: 'ee', layer: 'earthEngine' }}
+                onLoad={jest.fn()}
+            />
+        )
+
+        await waitFor(() =>
+            expect(earthEngineLoader).toHaveBeenCalledWith(
+                expect.objectContaining({
+                    KeyTrackedEntityInstanceMaxLimit: 40000,
+                    KeyTrackedEntityMaxLimit: 50000,
+                })
+            )
+        )
     })
 
     test('waits for period types before loading a thematic layer', async () => {
