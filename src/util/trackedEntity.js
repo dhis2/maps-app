@@ -286,8 +286,7 @@ export const getTrackedEntityAnalyticsRequest = (
         .addOrgUnitDimension(getOrgUnitsFromRows(rows).map((ou) => ou.id))
         .withOuMode(organisationUnitSelectionMode)
 
-    // withProgram() would put the program in the path. Enrollment filters are
-    // qualified with the program: "<program>.<value>"
+    // withProgram() would put the program in the path
     return request.withParameters({
         // Every attribute and org unit column comes back otherwise
         headers: `${getAnalyticsIdColumn(serverVersion)},geometry`,

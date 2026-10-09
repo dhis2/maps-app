@@ -1,4 +1,3 @@
-import { useConfig } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import { NoticeBox, IconErrorFilled24 } from '@dhis2/ui'
 import cx from 'classnames'
@@ -36,7 +35,6 @@ import usePrevious from '../../../hooks/usePrevious.js'
 import { getOrgUnitsFromRows } from '../../../util/analytics.js'
 import { getDefaultDatesInCalendar } from '../../../util/date.js'
 import { getStartEndDateError } from '../../../util/time.js'
-import { serverSupportsTrackedEntityAnalytics } from '../../../util/versionToggle.js'
 import {
     Tab,
     Tabs,
@@ -77,10 +75,6 @@ const TrackedEntityDialog = ({
     onLayerValidation,
 }) => {
     const dispatch = useDispatch()
-    const { serverVersion } = useConfig()
-    // VERSION-TOGGLE: see util/versionToggle.js
-    // Follow-up and relationships can't use tracker analytics
-    const hasAnalytics = serverSupportsTrackedEntityAnalytics(serverVersion)
     const [tab, setTab] = useState('data')
     const [showRelationshipsChecked, setShowRelationshipsChecked] =
         useState(false)
@@ -216,7 +210,7 @@ const TrackedEntityDialog = ({
                                 }
                             />
                         )}
-                        {program && followUp && hasAnalytics && (
+                        {program && followUp && (
                             <TrackerDataNotice className={styles.select} />
                         )}
                     </div>
@@ -255,9 +249,7 @@ const TrackedEntityDialog = ({
                                     marginBottom: 12,
                                 }}
                             />
-                            {showRelationshipsChecked && hasAnalytics && (
-                                <TrackerDataNotice />
-                            )}
+                            {showRelationshipsChecked && <TrackerDataNotice />}
                             {showRelationshipsChecked && (
                                 <TrackedEntityRelationshipTypeSelect
                                     trackedEntityType={trackedEntityType}
