@@ -11,6 +11,7 @@ import {
     setEventStatus,
     setEventCoordinateField,
     setEventClustering,
+    setEventHeatmap,
     setEventPointColor,
     setEventPointRadius,
     // setFallbackCoordinateField,
@@ -41,6 +42,7 @@ import {
     splitFilterColumns,
 } from '../../../util/analytics.js'
 import { cssColor } from '../../../util/colors.js'
+import ContinuousScale from '../../classification/ContinuousScale.jsx'
 import { isValidIsolatedClass } from '../../classification/IsolatedClass.jsx'
 import {
     Tab,
@@ -77,6 +79,7 @@ const EventDialog = ({
     eventClustering,
     eventCoordinateField,
     eventCoordinateFieldType,
+    eventHeatmap,
     eventPointColor,
     eventPointRadius,
     eventStatus,
@@ -448,9 +451,10 @@ const EventDialog = ({
                                         id="cluster"
                                         img="images/cluster.png"
                                         title={i18n.t('Group events')}
-                                        onClick={() =>
+                                        onClick={() => {
                                             dispatch(setEventClustering(true))
-                                        }
+                                            dispatch(setEventHeatmap(false))
+                                        }}
                                         isSelected={eventClustering}
                                         className={styles.flexInnerColumn}
                                     />
@@ -458,10 +462,24 @@ const EventDialog = ({
                                         id="nocluster"
                                         img="images/nocluster.png"
                                         title={i18n.t('View all events')}
-                                        onClick={() =>
+                                        onClick={() => {
                                             dispatch(setEventClustering(false))
+                                            dispatch(setEventHeatmap(false))
+                                        }}
+                                        isSelected={
+                                            !eventClustering && !eventHeatmap
                                         }
-                                        isSelected={!eventClustering}
+                                        className={styles.flexInnerColumn}
+                                    />
+                                    <ImageSelect
+                                        id="heat"
+                                        img="images/heatmap.png"
+                                        title={i18n.t('View heat map')}
+                                        onClick={() => {
+                                            dispatch(setEventClustering(false))
+                                            dispatch(setEventHeatmap(true))
+                                        }}
+                                        isSelected={eventHeatmap}
                                         className={styles.flexInnerColumn}
                                     />
                                 </div>
@@ -494,7 +512,7 @@ const EventDialog = ({
                                 </div>
                                 <GeometryCentroid tab={'style'} />
                                 <BufferRadius
-                                    disabled={eventClustering}
+                                    disabled={eventClustering || eventHeatmap}
                                     defaultRadius={EVENT_BUFFER}
                                 />
                                 <LabelFieldSelect />
@@ -526,7 +544,9 @@ const EventDialog = ({
                                 />
                             </div>
                             <div className={styles.flexColumn}>
-                                {program ? (
+                                {eventHeatmap ? (
+                                    <ContinuousScale />
+                                ) : program ? (
                                     <StyleByDataItem
                                         error={!legendSet && legendSetError}
                                     />
@@ -559,6 +579,7 @@ EventDialog.propTypes = {
     eventClustering: PropTypes.bool,
     eventCoordinateField: PropTypes.string,
     eventCoordinateFieldType: PropTypes.string,
+    eventHeatmap: PropTypes.bool,
     eventPointColor: PropTypes.string,
     eventPointRadius: PropTypes.number,
     eventStatus: PropTypes.string,

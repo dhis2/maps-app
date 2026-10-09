@@ -38,10 +38,13 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             bounds,
             data,
             engine,
+            eventHeatmap,
             eventClustering,
             eventCoordinateField,
             eventPointColor,
@@ -62,6 +65,8 @@ class EventLayer extends Layer {
             labelFontSize,
             labelFontWeight,
             labelFontStyle,
+            classes,
+            colorScale,
         } = this.props
 
         const analyticsEngine = Analytics.getAnalytics(engine)
@@ -122,6 +127,8 @@ class EventLayer extends Layer {
             id,
             index,
             opacity,
+            heatIntensity,
+            heatRadius,
             isVisible,
             data: labeledData,
             fillColor,
@@ -155,6 +162,9 @@ class EventLayer extends Layer {
             engine,
             analyticsEngine,
             geometryCentroid,
+            eventHeatmap,
+            classes,
+            colorScale,
         })
 
         if (program && programStage) {
@@ -194,6 +204,9 @@ class EventLayer extends Layer {
             engine,
             analyticsEngine,
             geometryCentroid,
+            eventHeatmap,
+            classes,
+            colorScale,
         }
     ) {
         let eventRequest
@@ -238,6 +251,23 @@ class EventLayer extends Layer {
                     config.type = 'clientCluster'
                 }
             }
+        } else if (eventHeatmap) {
+            config.type = 'heat'
+            config.heatWeight = 1
+
+            const step = 1 / classes
+            const colorScaleReady = colorScale.flatMap((heatColor, i) => [
+                (i + 1) * step,
+                heatColor,
+            ])
+            config.heatColor = [
+                'interpolate',
+                ['linear'],
+                ['heatmap-density'],
+                0,
+                'rgba(33,102,172,0)',
+                ...colorScaleReady,
+            ]
         } else if (areaRadius) {
             config.buffer = areaRadius
             config.bufferStyle = {
