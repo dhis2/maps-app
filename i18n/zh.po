@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -237,6 +237,12 @@ msgstr "下载地图"
 
 msgid "Show map name"
 msgstr "显示地图名称"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr "可以通过“文件”>“重命名”菜单更改名称"
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr "在保存地图时，或通过“文件”>“重命名”菜单设置地图名称"
 
 msgid "Show map description"
 msgstr "显示地图说明"
@@ -1104,6 +1110,12 @@ msgstr "标准差"
 
 msgid "OSM Light"
 msgstr "OSM轻量"
+
+msgid "OSM Dark"
+msgstr "OSM Dark"
+
+msgid "OSM Fiord"
+msgstr "OSM Fiord"
 
 msgid "OSM Detailed"
 msgstr "OSM详细图"

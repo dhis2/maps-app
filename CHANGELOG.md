@@ -1,3 +1,27 @@
+## [101.17.5](https://github.com/dhis2/maps-app/compare/v101.17.4...v101.17.5) (2026-09-30)
+
+
+### Bug Fixes
+
+* keep the legend within its box on small dashboard map items ([a3eddfb](https://github.com/dhis2/maps-app/commit/a3eddfb881bea26629b171eec3ef30adcc96917e))
+* prevent dashboard map items from getting stuck while loading ([4d01b53](https://github.com/dhis2/maps-app/commit/4d01b530aebeaa15d904a8a51ed7c5e23e9d781b))
+* show Earth Engine layers in dashboard map items on 2.43+ [DHIS2-22188] ([71b7143](https://github.com/dhis2/maps-app/commit/71b7143cd2c526f6b460afd813cacd4cf3e76fe7))
+
+## [101.17.4](https://github.com/dhis2/maps-app/compare/v101.17.3...v101.17.4) (2026-09-25)
+
+
+### Bug Fixes
+
+* **translations:** sync translations from transifex (master) ([b6b9735](https://github.com/dhis2/maps-app/commit/b6b9735e5b1aa4c4b2525c7eccb2210bbb1c0151))
+
+## [101.17.3](https://github.com/dhis2/maps-app/compare/v101.17.2...v101.17.3) (2026-09-17)
+
+
+### Bug Fixes
+
+* pass basemaps field through in dashboard embed config [DHIS2-22110] ([#3772](https://github.com/dhis2/maps-app/issues/3772)) ([c1bbc33](https://github.com/dhis2/maps-app/commit/c1bbc3300c6f02a64774f63845f0506b88b457cd))
+* use policy-compliant tile URL for OSM Detailed basemap [DHIS2-22122] ([#3773](https://github.com/dhis2/maps-app/issues/3773)) ([36f7f8d](https://github.com/dhis2/maps-app/commit/36f7f8d9cd4889adf2c9e9d541592f197bc8e571))
+
 ## [101.17.2](https://github.com/dhis2/maps-app/compare/v101.17.1...v101.17.2) (2026-09-08)
 
 

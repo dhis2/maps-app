@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/hisp-uio/teams/100509/zh_CN/)\n"
@@ -234,6 +234,12 @@ msgid "Download map"
 msgstr ""
 
 msgid "Show map name"
+msgstr ""
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show map description"
@@ -1103,6 +1109,12 @@ msgstr ""
 msgid "OSM Light"
 msgstr "OSM轻量"
 
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
+
 msgid "OSM Detailed"
 msgstr "OSM详细图"
 
@@ -1549,7 +1561,7 @@ msgid "Female 90 years and above"
 msgstr ""
 
 msgid "Population WorldPop Global2"
-msgstr ""
+msgstr "人口WorldPop Global2"
 
 msgid "CHIRPS"
 msgstr ""
