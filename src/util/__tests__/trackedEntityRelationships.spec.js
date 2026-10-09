@@ -864,4 +864,30 @@ describe('getDataWithRelationships target query', () => {
             expect(result.isTruncated).toBe(expected)
         }
     )
+
+    it('requests no related tracked entities without tracked entities', async () => {
+        const engine = { query: jest.fn() }
+
+        const result = await getDataWithRelationships({
+            isVersion40: false,
+            instances: [],
+            queryOptions: {
+                relationshipType: {
+                    id: 'relationshipTypeId1',
+                    fromConstraint: constraint({ program: 'program1' }),
+                    toConstraint: constraint({ program: 'program2' }),
+                },
+                orgUnits: '',
+                orgUnitMode: 'SELECTED',
+            },
+            engine,
+        })
+
+        expect(engine.query).not.toHaveBeenCalled()
+        expect(result).toEqual({
+            primary: [],
+            relationships: [],
+            secondary: [],
+        })
+    })
 })

@@ -136,11 +136,14 @@ export const getDataWithRelationships = async ({
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
+    // Only relationships between tracked entities can be shown. Without
+    // tracked entities, there is nothing to relate (and no org units to
+    // request when the selected org units have no children)
     if (
+        !sourceInstances.length ||
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        // Only relationships between tracked entities can be shown
         return {
             primary: Object.values(normalizeInstances(sourceInstances)),
             relationships: [],
@@ -175,10 +178,6 @@ export const getDataWithRelationships = async ({
     let isTruncated = false
     if (isRecursiveTrackedEntityType && isRecursiveProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
-    } else if (!sourceInstances.length) {
-        // No relationships to draw, and no org units to request when CHILDREN
-        // has none
-        normalizedPotentialTargetInstances = {}
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
