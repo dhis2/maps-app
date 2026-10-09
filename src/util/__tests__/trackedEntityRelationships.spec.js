@@ -828,4 +828,40 @@ describe('getDataWithRelationships target query', () => {
             })
         }
     )
+
+    it.each([
+        { name: 'reaches', maxLimit: 2, expected: true },
+        { name: 'stays below', maxLimit: 3, expected: false },
+        { name: 'has no', maxLimit: null, expected: false },
+    ])(
+        'flags the related request as cut when it $name the limit',
+        async ({ maxLimit, expected }) => {
+            const target = (id) => ({
+                id,
+                geometry: { type: 'Point', coordinates: [1, 2] },
+            })
+            const engine = {
+                query: jest.fn().mockResolvedValue({
+                    tei: { trackedEntities: [target('te2'), target('te3')] },
+                }),
+            }
+
+            const result = await getDataWithRelationships({
+                isVersion40: false,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint({ program: 'program2' }),
+                    },
+                    orgUnits: 'ou1',
+                },
+                engine,
+                maxLimit,
+            })
+
+            expect(result.isTruncated).toBe(expected)
+        }
+    )
 })

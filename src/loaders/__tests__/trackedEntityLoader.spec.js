@@ -780,4 +780,71 @@ describe('trackedEntityLoader tracker limit', () => {
             'Malaria case: Displaying first 1 000 tracked entities'
         )
     })
+
+    it('warns when the related tracked entities reach the limit', async () => {
+        const constraint = (program) => ({
+            relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+            trackedEntityType: { id: 'teType1' },
+            program: { id: program },
+        })
+        const relationship = {
+            relationship: 'rel1',
+            relationshipType: 'relType1',
+            from: { trackedEntity: { trackedEntity: 'te1' } },
+            to: { trackedEntity: { trackedEntity: 'te2' } },
+        }
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [
+                        { ...point('te1'), relationships: [relationship] },
+                    ])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        id: 'relType1',
+                        displayName: 'Contact',
+                        fromConstraint: constraint('program1'),
+                        toConstraint: constraint('program2'),
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                })
+                .mockResolvedValueOnce({
+                    tei: {
+                        trackedEntities: [
+                            point('te2', [3, 4]),
+                            point('te3', [5, 6]),
+                        ],
+                    },
+                }),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+            KeyTrackedEntityMaxLimit: 2,
+        })
+
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message:
+                    'Malaria case: Displaying first 2 related tracked entities',
+            },
+        ])
+    })
 })
