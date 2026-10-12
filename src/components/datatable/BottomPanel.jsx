@@ -1,4 +1,3 @@
-import { IconCross16 } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
@@ -14,6 +13,7 @@ import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
+import DataTableToolbar from './toolbar/DataTableToolbar.jsx'
 import styles from './styles/BottomPanel.module.css'
 
 // Container for DataTable
@@ -71,19 +71,14 @@ const BottomPanel = () => {
             className={styles.bottomPanel}
             data-test="bottom-panel"
         >
-            <div className={styles.dataTableControls}>
+            <div className={styles.resizeArea}>
                 <ResizeHandle
                     maxHeight={maxHeight}
                     onResize={onResize}
                     onResizeEnd={(height) => dispatch(resizeDataTable(height))}
                 />
-                <button
-                    className={styles.closeIcon}
-                    onClick={() => dispatch(closeDataTable())}
-                >
-                    <IconCross16 />
-                </button>
             </div>
+            <DataTableToolbar />
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
                     <DataTable availableWidth={panelWidth} />

@@ -4,6 +4,11 @@ export const closeDataTable = () => ({
     type: types.DATA_TABLE_CLOSE,
 })
 
+export const openDataTable = (id) => ({
+    type: types.DATA_TABLE_OPEN,
+    id,
+})
+
 export const toggleDataTable = (id) => ({
     type: types.DATA_TABLE_TOGGLE,
     id,

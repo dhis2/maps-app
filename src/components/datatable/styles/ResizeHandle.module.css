@@ -4,16 +4,11 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    z-index: 1500;
-    cursor: grab;
+    cursor: row-resize;
+    color: transparent;
 }
 
 .resizeHandle:hover,
 .resizeHandle:active {
-    background-color: var(--colors-grey300);
-    color: var(--colors-grey900);
-}
-
-.resizeHandle:active {
-    cursor: grabbing;
+    background-color: var(--colors-blue200);
 }
