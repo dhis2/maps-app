@@ -87,13 +87,8 @@ td.lightText {
     width: 100%;
 }
 
-.noResults {
-    display: flex;
-    color: var(--colors-grey600);
-    align-items: center;
-    justify-content: center;
-    font-style: italic;
-    min-height: 40px;
+.emptyCell {
+    padding: 0;
 }
 
 .noSupport {

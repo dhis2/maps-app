@@ -22,6 +22,7 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
+import { clearDataFilter } from '../../actions/dataFilters.js'
 import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
@@ -29,6 +30,7 @@ import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnsModal from './ColumnsModal.jsx'
+import EmptyState from './EmptyState.jsx'
 import ActiveFiltersBar from './filters/ActiveFiltersBar.jsx'
 import HeaderFilter from './filters/HeaderFilter.jsx'
 import styles from './styles/DataTable.module.css'
@@ -102,12 +104,13 @@ const TableComponents = {
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
-    EmptyPlaceholder: () => (
+    EmptyPlaceholder: ({ context }) => (
         <tr>
-            <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {i18n.t('No results found')}
-                </div>
+            <td colSpan={99999} className={styles.emptyCell}>
+                <EmptyState
+                    hasFilters={context.hasFilters}
+                    onClearFilters={context.onClearFilters}
+                />
             </td>
         </tr>
     ),
@@ -211,8 +214,20 @@ const Table = ({
         [dispatch]
     )
 
+    const hasFilters = Object.keys(layer.dataFilters || {}).length > 0
+
+    const clearFilters = useCallback(
+        () =>
+            Object.keys(layer.dataFilters || {}).forEach((key) =>
+                dispatch(clearDataFilter(layer.id, key))
+            ),
+        [dispatch, layer.id, layer.dataFilters]
+    )
+
     const tableContext = useMemo(
         () => ({
+            hasFilters,
+            onClearFilters: clearFilters,
             onClick: showDetailView,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
@@ -223,6 +238,8 @@ const Table = ({
             revealedId,
         }),
         [
+            hasFilters,
+            clearFilters,
             showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
@@ -342,6 +359,7 @@ const Table = ({
                 layerId={layer.id}
                 filters={layer.dataFilters}
                 headers={allHeaders}
+                data={data}
                 rowCount={rows?.length ?? 0}
                 totalCount={totalCount}
             />

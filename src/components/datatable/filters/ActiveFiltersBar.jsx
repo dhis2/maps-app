@@ -1,16 +1,66 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, Chip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter } from '../../../actions/dataFilters.js'
+import FilterPopover from './FilterPopover.jsx'
 import { getFilterSummary } from './filterHelpers.js'
 import styles from './styles/Filters.module.css'
+
+// Clicking the chip reopens the column's filter, anchored to the chip so it
+// works even when the column is scrolled out of view or hidden
+const FilterChip = ({ layerId, dataKey, header, filter, data }) => {
+    const dispatch = useDispatch()
+    const anchorRef = useRef()
+    const [isOpen, setIsOpen] = useState(false)
+    const isEditable = !!header?.filterType && typeof filter === 'object'
+
+    return (
+        <span
+            ref={anchorRef}
+            className={styles.chipAnchor}
+            title={isEditable ? i18n.t('Edit filter') : undefined}
+        >
+            <Chip
+                dense
+                onClick={isEditable ? () => setIsOpen(true) : undefined}
+                onRemove={() => dispatch(clearDataFilter(layerId, dataKey))}
+                dataTest={`data-table-filter-chip-${dataKey}`}
+            >
+                <span className={styles.chipColumn}>
+                    {header?.name ?? dataKey}
+                </span>{' '}
+                {getFilterSummary(filter)}
+            </Chip>
+            {isOpen && (
+                <FilterPopover
+                    anchorRef={anchorRef}
+                    layerId={layerId}
+                    header={header}
+                    filter={filter}
+                    data={data}
+                    onClose={() => setIsOpen(false)}
+                />
+            )}
+        </span>
+    )
+}
+
+FilterChip.propTypes = {
+    dataKey: PropTypes.string.isRequired,
+    filter: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+        .isRequired,
+    layerId: PropTypes.string.isRequired,
+    data: PropTypes.array,
+    header: PropTypes.object,
+}
 
 const ActiveFiltersBar = ({
     layerId,
     filters,
     headers,
+    data,
     rowCount,
     totalCount,
 }) => {
@@ -21,23 +71,18 @@ const ActiveFiltersBar = ({
         return null
     }
 
-    const getColumnName = (key) =>
-        headers?.find((h) => h.dataKey === key)?.name ?? key
-
     return (
         <div className={styles.filtersBar} data-test="data-table-filters-bar">
             <div className={styles.chips}>
                 {keys.map((key) => (
-                    <Chip
+                    <FilterChip
                         key={key}
-                        dense
-                        onRemove={() => dispatch(clearDataFilter(layerId, key))}
-                    >
-                        <span className={styles.chipColumn}>
-                            {getColumnName(key)}
-                        </span>{' '}
-                        {getFilterSummary(filters[key])}
-                    </Chip>
+                        layerId={layerId}
+                        dataKey={key}
+                        header={headers?.find((h) => h.dataKey === key)}
+                        filter={filters[key]}
+                        data={data}
+                    />
                 ))}
                 <Button
                     small
@@ -66,6 +111,7 @@ ActiveFiltersBar.propTypes = {
     layerId: PropTypes.string.isRequired,
     rowCount: PropTypes.number.isRequired,
     totalCount: PropTypes.number.isRequired,
+    data: PropTypes.array,
     filters: PropTypes.object,
     headers: PropTypes.array,
 }

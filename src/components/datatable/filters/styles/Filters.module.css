@@ -247,7 +247,8 @@
     justify-content: space-between;
     gap: var(--spacers-dp12);
     min-height: 36px;
-    padding: 2px var(--spacers-dp12);
+    /* Chips add 4px of margin, so the first chip lines up with the cell text */
+    padding: 2px var(--spacers-dp12) 2px var(--spacers-dp8);
     background: var(--colors-grey050);
     border-bottom: 1px solid var(--colors-grey300);
     flex-shrink: 0;
@@ -259,6 +260,10 @@
     align-items: center;
     gap: 0 var(--spacers-dp4);
     min-width: 0;
+}
+
+.chipAnchor {
+    display: inline-flex;
 }
 
 .chipColumn {
