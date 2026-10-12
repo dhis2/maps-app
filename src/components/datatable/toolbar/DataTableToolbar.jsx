@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconCross16, IconTable16, Tooltip } from '@dhis2/ui'
+import { Button, IconCross16, Tooltip } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -13,9 +13,6 @@ const DataTableToolbar = ({ onColumnsClick }) => {
     return (
         <div className={styles.toolbar} data-test="data-table-toolbar">
             <div className={styles.start}>
-                <span className={styles.tableIcon}>
-                    <IconTable16 />
-                </span>
                 <LayerSwitcher />
             </div>
             <div className={styles.end}>

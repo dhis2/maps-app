@@ -3,8 +3,8 @@
     align-items: center;
     justify-content: space-between;
     gap: var(--spacers-dp8);
-    height: 36px;
-    padding: 0 var(--spacers-dp4) 0 var(--spacers-dp12);
+    height: 40px;
+    padding: 0 var(--spacers-dp4) 0 var(--spacers-dp8);
     background: var(--colors-white);
     border-bottom: 1px solid var(--colors-grey300);
     flex-shrink: 0;
@@ -22,51 +22,18 @@
     flex-shrink: 0;
 }
 
-.tableIcon {
-    display: flex;
-    color: var(--colors-grey600);
-    margin-right: var(--spacers-dp4);
-}
-
 .layerSwitcher {
-    all: unset;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacers-dp4);
+    width: 280px;
     min-width: 0;
-    max-width: 480px;
-    height: 28px;
-    padding: 0 var(--spacers-dp8);
-    margin-left: calc(-1 * var(--spacers-dp8));
-    border-radius: 3px;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--colors-grey900);
-    cursor: pointer;
-}
-
-.layerSwitcher:hover:enabled {
-    background: var(--colors-grey200);
-}
-
-.layerSwitcher:focus-visible {
-    outline: 3px solid var(--theme-focus);
-    outline-offset: -3px;
-}
-
-.layerSwitcher:disabled {
-    cursor: default;
-}
-
-.layerSwitcher svg {
-    flex-shrink: 0;
-    color: var(--colors-grey700);
 }
 
 .layerName {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
 }
 
 .divider {
