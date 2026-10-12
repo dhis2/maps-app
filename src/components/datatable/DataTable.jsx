@@ -29,7 +29,8 @@ import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnsModal from './ColumnsModal.jsx'
-import FilterInput from './FilterInput.jsx'
+import ActiveFiltersBar from './filters/ActiveFiltersBar.jsx'
+import HeaderFilter from './filters/HeaderFilter.jsx'
 import styles from './styles/DataTable.module.css'
 import { useTableData } from './useTableData.js'
 
@@ -209,12 +210,13 @@ const Table = ({
         ]
     )
 
-    const { headers, allHeaders, rows, isLoading, error } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-        visibleColumns,
-    })
+    const { headers, allHeaders, data, totalCount, rows, isLoading, error } =
+        useTableData({
+            layer,
+            sortField,
+            sortDirection,
+            visibleColumns,
+        })
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -268,51 +270,63 @@ const Table = ({
     }
 
     return (
-        <>
+        <div className={styles.tableWrapper}>
+            <ActiveFiltersBar
+                layerId={layer.id}
+                filters={layer.dataFilters}
+                headers={allHeaders}
+                rowCount={rows?.length ?? 0}
+                totalCount={totalCount}
+            />
             <TableVirtuoso
                 context={tableContext}
                 components={TableComponents}
                 style={{
-                    height: '100%',
+                    flex: 1,
                     width: '100%',
                 }}
                 data={rows}
                 fixedHeaderContent={() => (
                     <DataTableRow ref={headerRowRef}>
-                        {headers.map(({ name, dataKey, type }, index) => (
-                            <DataTableColumnHeader
-                                className={styles.columnHeader}
-                                key={`${dataKey}-${index}`}
-                                onSortIconClick={sortData}
-                                sortDirection={
-                                    dataKey === sortField
-                                        ? sortDirection
-                                        : DEFAULT
-                                }
-                                sortIconTitle={i18n.t('Sort by {{column}}', {
-                                    column: name,
-                                })}
-                                onFilterIconClick={type && Function.prototype}
-                                showFilter={!!type && dataKey !== 'index'}
-                                name={dataKey}
-                                filter={
-                                    type && (
-                                        <FilterInput
-                                            type={type}
-                                            dataKey={dataKey}
-                                            name={name}
+                        {headers.map((header, index) => {
+                            const { name, dataKey } = header
+                            return (
+                                <DataTableColumnHeader
+                                    className={styles.columnHeader}
+                                    key={`${dataKey}-${index}`}
+                                    onSortIconClick={sortData}
+                                    sortDirection={
+                                        dataKey === sortField
+                                            ? sortDirection
+                                            : DEFAULT
+                                    }
+                                    sortIconTitle={i18n.t(
+                                        'Sort by {{column}}',
+                                        {
+                                            column: name,
+                                        }
+                                    )}
+                                    name={dataKey}
+                                    width={
+                                        columnWidths.length > 0
+                                            ? `${columnWidths[index]}px`
+                                            : 'auto'
+                                    }
+                                >
+                                    <span className={styles.headerContent}>
+                                        <span>{name}</span>
+                                        <HeaderFilter
+                                            layerId={layer.id}
+                                            header={header}
+                                            filter={
+                                                layer.dataFilters?.[dataKey]
+                                            }
+                                            data={data}
                                         />
-                                    )
-                                }
-                                width={
-                                    columnWidths.length > 0
-                                        ? `${columnWidths[index]}px`
-                                        : 'auto'
-                                }
-                            >
-                                {name}
-                            </DataTableColumnHeader>
-                        ))}
+                                    </span>
+                                </DataTableColumnHeader>
+                            )
+                        })}
                     </DataTableRow>
                 )}
                 itemContent={(_, row) =>
@@ -361,7 +375,7 @@ const Table = ({
                     </CenteredContent>
                 </ComponentCover>
             )}
-        </>
+        </div>
     )
 }
 

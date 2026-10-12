@@ -9,7 +9,12 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
-import { numberValueTypes } from '../../constants/valueTypes.js'
+import {
+    numberValueTypes,
+    booleanValueTypes,
+    dateValueTypes,
+    datetimeValueTypes,
+} from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData } from '../../util/geojson.js'
@@ -22,6 +27,13 @@ const ASCENDING = 'asc'
 const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
+
+// Filter editors used in the column header popovers
+export const FILTER_TEXT = 'text'
+export const FILTER_NUMBER = 'number'
+export const FILTER_OPTIONS = 'options'
+export const FILTER_DATE = 'date'
+export const FILTER_ORG_UNIT = 'orgUnit' // deferred until org unit search exists
 
 const INDEX = 'index'
 const NAME = 'name'
@@ -74,21 +86,48 @@ const defaultFieldsMap = () => ({
         type: TYPE_STRING,
         mono: true,
     },
-    [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
+    [LEVEL]: {
+        name: i18n.t('Level'),
+        dataKey: LEVEL,
+        type: TYPE_NUMBER,
+        filterType: FILTER_OPTIONS,
+    },
     [PARENT_NAME]: {
         name: i18n.t('Parent'),
         dataKey: PARENT_NAME,
         type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
     },
-    [TYPE]: { name: i18n.t('Type'), dataKey: TYPE, type: TYPE_STRING },
+    [TYPE]: {
+        name: i18n.t('Type'),
+        dataKey: TYPE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
-    [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
-    [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
-    [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
+    [LEGEND]: {
+        name: i18n.t('Legend'),
+        dataKey: LEGEND,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
+    [RANGE]: {
+        name: i18n.t('Range'),
+        dataKey: RANGE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
+    [OUNAME]: {
+        name: i18n.t('Org unit'),
+        dataKey: OUNAME,
+        type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
+    },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
     },
     [EVENTDATE]: {
         name: i18n.t('Event time'),
@@ -100,6 +139,7 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Color'),
         dataKey: COLOR,
         type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
         renderer: 'rendercolor',
     },
 })
@@ -124,6 +164,22 @@ const getThematicHeaders = () =>
         [CODE, TYPE, COLOR, INDEX]
     )
 
+const getEventFilterType = (valueType, optionSet) => {
+    if (optionSet || booleanValueTypes.includes(valueType)) {
+        return FILTER_OPTIONS
+    }
+    if (
+        dateValueTypes.includes(valueType) ||
+        datetimeValueTypes.includes(valueType)
+    ) {
+        return FILTER_DATE
+    }
+    if (numberValueTypes.includes(valueType)) {
+        return FILTER_NUMBER
+    }
+    return FILTER_TEXT
+}
+
 const getEventHeaders = ({
     layerHeaders = [],
     styleDataItem,
@@ -144,6 +200,7 @@ const getEventHeaders = ({
                 !optionSet && numberValueTypes.includes(valueType)
                     ? TYPE_NUMBER
                     : TYPE_STRING,
+            filterType: getEventFilterType(valueType, optionSet),
         }))
 
     return fields
@@ -328,7 +385,16 @@ export const useTableData = ({
             errorCode.current = ERROR_NO_HEADERS
             return null
         }
-        return headers
+        return headers.map((h) => ({
+            ...h,
+            filterType:
+                h.filterType ||
+                (h.type === TYPE_NUMBER
+                    ? FILTER_NUMBER
+                    : h.type === TYPE_DATE
+                    ? FILTER_DATE
+                    : FILTER_TEXT),
+        }))
     }, [
         layerType,
         aggregationType,
@@ -444,6 +510,8 @@ export const useTableData = ({
     return {
         headers: visibleHeaders,
         allHeaders: headers,
+        data: dataWithAggregations,
+        totalCount: dataWithAggregations?.length ?? 0,
         rows,
         isLoading,
         error: getErrorCodeText(errorCode.current),

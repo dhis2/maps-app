@@ -41,20 +41,28 @@ td.lightText {
     justify-content: space-between;
 }
 
-.columnHeader :global(input.dense) {
-    padding: 4px 6px;
+.tableWrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-.columnHeader :global(input::placeholder) {
-    color: var(--colors-grey400);
+/* Name + filter button fill the space before the sort icon */
+.columnHeader :global(span.top) {
+    align-items: center;
 }
 
-/* Hide the filter icon */
-.columnHeader
-    > :global(span.container)
-    > :global(span.top)
-    > button:last-of-type {
-    visibility: hidden;
+.columnHeader :global(span.content) {
+    flex: 1;
+    min-width: 0;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp4);
+    width: 100%;
 }
 
 .noResults {
