@@ -112,11 +112,19 @@ const parseDuration = (iso) => {
         [timePart, TIME_UNITS],
     ]
     for (const [part, units] of parts) {
-        for (const [, value, unit] of part.matchAll(/(\d+)([A-Z])/g)) {
-            if (!units[unit]) {
+        let value = ''
+        for (const char of part) {
+            if (char >= '0' && char <= '9') {
+                value += char
+            } else if (units[char] && value) {
+                duration[units[char]] = Number(value)
+                value = ''
+            } else {
                 return null
             }
-            duration[units[unit]] = Number(value)
+        }
+        if (value) {
+            return null // A number without a unit
         }
     }
     return Object.values(duration).some(Boolean) ? duration : null
