@@ -33,6 +33,28 @@ td.mono {
     box-shadow: inset 0 0 0 1px rgba(33, 41, 52, 0.15);
 }
 
+.highlightedRow > td {
+    background-color: var(--colors-blue100) !important;
+}
+
+.highlightedRow > td:first-child {
+    box-shadow: inset 3px 0 0 var(--colors-blue600);
+}
+
+.revealedRow > td {
+    animation: reveal 1.6s ease-out;
+}
+
+@keyframes reveal {
+    0%,
+    30% {
+        background-color: var(--colors-blue200);
+    }
+    100% {
+        background-color: var(--colors-blue100);
+    }
+}
+
 td.lightText {
     color: var(--colors-white);
 }

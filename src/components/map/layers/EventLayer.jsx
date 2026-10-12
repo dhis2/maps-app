@@ -257,6 +257,7 @@ class EventLayer extends Layer {
         return popup && displayItems ? (
             <EventPopup
                 {...popup}
+                layerId={this.props.id}
                 styleDataItem={styleDataItem}
                 nameProperty={nameProperty}
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}

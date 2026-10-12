@@ -45,6 +45,11 @@ const DEFAULT = 'default'
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
 
+// Map hovers carry the maps-gl source id rather than the app layer id, so
+// they are matched on feature id only (org unit / event ids are unique enough)
+const isFeatureInLayer = (feature, layerId) =>
+    !!feature && (feature.origin === 'map' || feature.layerId === layerId)
+
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
         {...props}
@@ -61,6 +66,13 @@ DataTableWithVirtuosoContext.propTypes = {
 
 const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
     <DataTableRow
+        className={cx({
+            [styles.highlightedRow]:
+                context.highlightedId &&
+                item?.[0]?.itemId === context.highlightedId,
+            [styles.revealedRow]:
+                context.revealedId && item?.[0]?.itemId === context.revealedId,
+        })}
         onClick={() => context.onClick(item)}
         onMouseEnter={() => context.onMouseEnter(item)}
         onMouseLeave={context.onMouseLeave}
@@ -70,6 +82,8 @@ const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
+        highlightedId: PropTypes.string,
+        revealedId: PropTypes.string,
         onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
@@ -111,6 +125,8 @@ const Table = ({
     } = useCachedData()
 
     const headerRowRef = useRef(null)
+    const virtuosoRef = useRef(null)
+    const [revealedId, setRevealedId] = useState()
     const [columnWidths, setColumnWidths] = useState([])
     const minColumnWidthsRef = useRef([])
     const { mapViews } = useSelector((state) => state.map)
@@ -201,12 +217,19 @@ const Table = ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
+            highlightedId: isFeatureInLayer(feature, layer.id)
+                ? feature.id
+                : undefined,
+            revealedId,
         }),
         [
             showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
             columnWidths,
+            feature,
+            layer.id,
+            revealedId,
         ]
     )
 
@@ -217,6 +240,50 @@ const Table = ({
             sortDirection,
             visibleColumns,
         })
+
+    // When the table opens from a popup, start scrolled to that row
+    const initialIndexRef = useRef()
+    if (initialIndexRef.current === undefined && rows) {
+        const index =
+            feature?.origin === 'popup' && isFeatureInLayer(feature, layer.id)
+                ? rows.findIndex((row) => row[0]?.itemId === feature.id)
+                : -1
+        initialIndexRef.current = Math.max(index, 0)
+    }
+
+    // Map hover / popup -> scroll the feature's row into view. A popup request
+    // also flashes the row so it is easy to spot.
+
+    useEffect(() => {
+        if (
+            !feature ||
+            feature.origin === 'table' ||
+            !isFeatureInLayer(feature, layer.id) ||
+            !rows
+        ) {
+            return
+        }
+        const index = rows.findIndex((row) => row[0]?.itemId === feature.id)
+        if (index === -1) {
+            return
+        }
+        const scroll = () =>
+            virtuosoRef.current?.scrollToIndex({ index, align: 'center' })
+
+        if (feature.origin !== 'popup') {
+            scroll()
+            return
+        }
+
+        // The table may have just opened: wait for Virtuoso to measure rows
+        const scrollTimeout = setTimeout(scroll, 300)
+        setRevealedId(feature.id)
+        const revealTimeout = setTimeout(() => setRevealedId(undefined), 1800)
+        return () => {
+            clearTimeout(scrollTimeout)
+            clearTimeout(revealTimeout)
+        }
+    }, [feature, layer.id, rows])
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -279,6 +346,11 @@ const Table = ({
                 totalCount={totalCount}
             />
             <TableVirtuoso
+                ref={virtuosoRef}
+                initialTopMostItemIndex={{
+                    index: initialIndexRef.current ?? 0,
+                    align: 'center',
+                }}
                 context={tableContext}
                 components={TableComponents}
                 style={{
