@@ -1,13 +1,6 @@
-.description {
-    margin: 0 0 var(--spacers-dp16) 0;
+.rightHeader {
+    margin: var(--spacers-dp8) 0;
     font-size: 14px;
-    line-height: 20px;
-    color: var(--colors-grey700);
-}
-
-.listHeader {
-    margin: 0 0 var(--spacers-dp8) 0;
-    font-size: 13px;
     font-weight: 500;
     color: var(--colors-grey900);
 }
@@ -19,7 +12,11 @@
     text-align: center;
 }
 
+/* Own footer instead of ModalActions, which shrink-wraps its content to the
+   right and so can't push the reset button to the left edge */
 .actions {
+    order: 3;
+    margin-top: var(--spacers-dp16);
     display: flex;
     align-items: center;
     justify-content: space-between;

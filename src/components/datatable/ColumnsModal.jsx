@@ -3,7 +3,6 @@ import {
     Button,
     ButtonStrip,
     Modal,
-    ModalActions,
     ModalContent,
     ModalTitle,
     Transfer,
@@ -15,13 +14,7 @@ import styles from './styles/ColumnsModal.module.css'
 const getDefaultColumns = (allHeaders) =>
     allHeaders.filter((h) => !h.hidden).map((h) => h.dataKey)
 
-const ColumnsModal = ({
-    layerName,
-    allHeaders,
-    selected,
-    onApply,
-    onClose,
-}) => {
+const ColumnsModal = ({ allHeaders, selected, onApply, onClose }) => {
     const [picked, setPicked] = useState(selected)
 
     const options = allHeaders.map(({ name, dataKey }) => ({
@@ -35,15 +28,14 @@ const ColumnsModal = ({
         picked.every((key, i) => key === defaults[i])
 
     return (
-        <Modal position="middle" onClose={onClose} dataTest="columns-modal">
-            <ModalTitle>{i18n.t('Columns')}</ModalTitle>
+        <Modal
+            large
+            position="middle"
+            onClose={onClose}
+            dataTest="columns-modal"
+        >
+            <ModalTitle>{i18n.t('Manage data table columns')}</ModalTitle>
             <ModalContent>
-                <p className={styles.description}>
-                    {i18n.t(
-                        'Choose and order the columns shown in the data table for {{- layerName}}.',
-                        { layerName }
-                    )}
-                </p>
                 <Transfer
                     options={options}
                     selected={picked}
@@ -51,14 +43,9 @@ const ColumnsModal = ({
                     enableOrderChange
                     filterable
                     filterPlaceholder={i18n.t('Search available columns')}
-                    leftHeader={
-                        <p className={styles.listHeader}>
-                            {i18n.t('Available columns')}
-                        </p>
-                    }
                     rightHeader={
-                        <p className={styles.listHeader}>
-                            {i18n.t('Columns in table')}
+                        <p className={styles.rightHeader}>
+                            {i18n.t('Selected columns')}
                         </p>
                     }
                     selectedEmptyComponent={
@@ -67,35 +54,32 @@ const ColumnsModal = ({
                         </p>
                     }
                     height="320px"
-                    optionsWidth="280px"
-                    selectedWidth="280px"
+                    optionsWidth="340px"
+                    selectedWidth="340px"
                 />
             </ModalContent>
-            <ModalActions>
-                <div className={styles.actions}>
-                    <Button
-                        small
-                        secondary
-                        disabled={isDefault}
-                        onClick={() => setPicked(defaults)}
-                    >
-                        {i18n.t('Reset to default columns')}
+            <div className={styles.actions}>
+                <Button
+                    secondary
+                    disabled={isDefault}
+                    onClick={() => setPicked(defaults)}
+                >
+                    {i18n.t('Reset to default')}
+                </Button>
+                <ButtonStrip end>
+                    <Button secondary onClick={onClose}>
+                        {i18n.t('Cancel')}
                     </Button>
-                    <ButtonStrip end>
-                        <Button secondary onClick={onClose}>
-                            {i18n.t('Cancel')}
-                        </Button>
-                        <Button
-                            primary
-                            disabled={!picked.length}
-                            onClick={() => onApply(picked)}
-                            dataTest="columns-modal-apply"
-                        >
-                            {i18n.t('Update columns')}
-                        </Button>
-                    </ButtonStrip>
-                </div>
-            </ModalActions>
+                    <Button
+                        primary
+                        disabled={!picked.length}
+                        onClick={() => onApply(picked)}
+                        dataTest="columns-modal-apply"
+                    >
+                        {i18n.t('Update columns')}
+                    </Button>
+                </ButtonStrip>
+            </div>
         </Modal>
     )
 }
@@ -111,7 +95,6 @@ ColumnsModal.propTypes = {
     selected: PropTypes.arrayOf(PropTypes.string).isRequired,
     onApply: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    layerName: PropTypes.string,
 }
 
 export default ColumnsModal

@@ -433,7 +433,6 @@ const Table = ({
             />
             {showColumnsModal && allHeaders && (
                 <ColumnsModal
-                    layerName={layer.name}
                     allHeaders={allHeaders}
                     selected={headers.map((h) => h.dataKey)}
                     onApply={onColumnsChange}
