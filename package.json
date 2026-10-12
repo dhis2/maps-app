@@ -46,6 +46,7 @@
         "start-server-and-test": "^2.1.3"
     },
     "dependencies": {
+        "@carbonplan/zarr-layer": "0.9.1",
         "@dhis2/analytics": "^29.5.5",
         "@dhis2/app-runtime": "^3.17.3",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
@@ -59,6 +60,7 @@
         "@turf/centroid": "^7.4.0",
         "abortcontroller-polyfill": "^1.7.8",
         "array-move": "^4.0.0",
+        "chroma-js": "3.2.0",
         "classnames": "^2.5.1",
         "d3-array": "^3.2.4",
         "d3-axis": "^3.0.0",

@@ -11,7 +11,10 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addLayer, updateLayer, cancelLayer } from '../../actions/layers.js'
-import { EARTH_ENGINE_LAYER } from '../../constants/layers.js'
+import {
+    EARTH_ENGINE_LAYER,
+    OPEN_CLIMATE_SERVICE_LAYER,
+} from '../../constants/layers.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { useOrgUnits } from '../OrgUnitsProvider.jsx'
@@ -19,6 +22,7 @@ import EarthEngineDialog from './earthEngine/EarthEngineDialog.jsx'
 import EventDialog from './event/EventDialog.jsx'
 import FacilityDialog from './FacilityDialog.jsx'
 import GeoJsonDialog from './geoJson/GeoJsonDialog.jsx'
+import OpenClimateServiceDialog from './openClimateService/OpenClimateServiceDialog.jsx'
 import OrgUnitDialog from './orgUnit/OrgUnitDialog.jsx'
 import styles from './styles/LayerEdit.module.css'
 import ThematicDialog from './thematic/ThematicDialog.jsx'
@@ -32,6 +36,7 @@ const layerDialogs = {
     orgUnit: OrgUnitDialog,
     earthEngine: EarthEngineDialog,
     geoJsonUrl: GeoJsonDialog,
+    openClimateService: OpenClimateServiceDialog,
 }
 
 const getLayerNames = () => ({
@@ -89,7 +94,7 @@ const LayerEdit = ({ layer, addLayer, updateLayer, cancelLayer }) => {
 
     let name = getLayerNames()[type]
 
-    if (type === EARTH_ENGINE_LAYER) {
+    if (type === EARTH_ENGINE_LAYER || type === OPEN_CLIMATE_SERVICE_LAYER) {
         name = layer.name.toLowerCase()
     }
 

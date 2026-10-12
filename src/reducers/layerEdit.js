@@ -608,6 +608,18 @@ const layerEdit = (state = null, action) => {
                 period: action.payload,
             }
 
+        case types.LAYER_EDIT_OPEN_CLIMATE_SERVICE_SELECTION_SET:
+            return {
+                ...state,
+                config: {
+                    ...state.config,
+                    selection: {
+                        ...state.config?.selection,
+                        ...action.payload,
+                    },
+                },
+            }
+
         case types.LAYER_EDIT_LABEL_DATA_ITEM_ID_SET:
             newState = { ...state }
             if (action.item) {

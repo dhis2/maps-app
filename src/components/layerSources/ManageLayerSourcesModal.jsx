@@ -13,6 +13,7 @@ import getEarthEngineLayers from '../../constants/earthEngineLayers/index.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../hooks/useManagedLayerSourcesStore.js'
 import LayerSource from './LayerSource.jsx'
+import OpenClimateServiceSource from './OpenClimateServiceSource.jsx'
 import styles from './styles/ManageLayerSourcesModal.module.css'
 
 const nonLegacyEarthEngineLayers = getEarthEngineLayers()
@@ -42,6 +43,10 @@ const ManageLayerSourcesModal = ({ onClose }) => {
                         'Choose which layer sources are available to add to maps. This selection applies to all users.'
                     )}
                 </div>
+                <OpenClimateServiceSource />
+                <h2 className={styles.sectionHeader}>
+                    {i18n.t('Google Earth Engine')}
+                </h2>
                 {layerSources.map((layerSource) => (
                     <LayerSource
                         key={layerSource.layerId}

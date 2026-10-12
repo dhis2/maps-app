@@ -1,0 +1,82 @@
+import openClimateServiceLoader from '../openClimateServiceLoader.js'
+
+jest.mock('../../components/map/MapApi.js', () => ({
+    loadEarthEngineWorker: jest.fn(),
+}))
+
+const collection = {
+    id: 'chirps3_precipitation_monthly_normal_1991_2020',
+    title: 'Precipitation monthly normal',
+    description: 'Average CHIRPS rainfall for each calendar month',
+    'cube:dimensions': {
+        month: { type: 'other', values: [1, 2, 3], step: 1 },
+    },
+    'cube:variables': { precip: { unit: 'mm/d' } },
+    renders: {
+        default: {
+            rescale: [[0, 20]],
+            colormap_name: 'blues',
+            'open_climate_service:variable': 'precip',
+            nodata: -9999,
+        },
+    },
+    assets: { zarr: { href: 'http://ocs/zarr/normal' } },
+}
+
+const engine = (settings) => ({
+    query: jest.fn().mockResolvedValue({ settings }),
+})
+
+describe('openClimateServiceLoader', () => {
+    beforeEach(() => {
+        global.fetch = jest.fn().mockResolvedValue({
+            ok: true,
+            json: () => Promise.resolve(collection),
+        })
+    })
+
+    it('loads a saved layer', async () => {
+        const result = await openClimateServiceLoader({
+            config: {
+                id: 'layer1',
+                layer: 'openClimateService',
+                config: JSON.stringify({
+                    datasetId: collection.id,
+                    selection: { month: 3 },
+                }),
+            },
+            engine: engine({ url: 'http://ocs/' }),
+        })
+
+        expect(global.fetch).toHaveBeenCalledWith(
+            'http://ocs/stac/collections/chirps3_precipitation_monthly_normal_1991_2020'
+        )
+        expect(result.name).toBe('Precipitation monthly normal')
+        expect(result.render.selector).toEqual({ month: 2 })
+        expect(result.render.fillValue).toBe(-9999)
+        expect(result.legend.unit).toBe('mm/d')
+        expect(result.legend.items).toHaveLength(7)
+        expect(result.isLoaded).toBe(true)
+        expect(result.alerts).toBeUndefined()
+    })
+
+    it('keeps the saved config, so unset dimensions follow the latest data', async () => {
+        const config = { datasetId: collection.id }
+        const result = await openClimateServiceLoader({
+            config: { id: 'layer1', config },
+            engine: engine({ url: 'http://ocs' }),
+        })
+        expect(result.config).toEqual(config)
+        expect(result.render.selector).toEqual({ month: 0 })
+    })
+
+    it('alerts when no Open Climate Service is linked', async () => {
+        const result = await openClimateServiceLoader({
+            config: { id: 'layer1', config: { datasetId: collection.id } },
+            engine: { query: jest.fn().mockRejectedValue(new Error()) },
+        })
+        expect(result.render).toBeUndefined()
+        expect(result.alerts[0].critical).toBe(true)
+        expect(result.isLoaded).toBe(true)
+    })
+})

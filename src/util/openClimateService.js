@@ -1,0 +1,264 @@
+import { scale } from 'chroma-js'
+import { OPEN_CLIMATE_SERVICE_LAYER } from '../constants/layers.js'
+import {
+    MAPS_APP_NAMESPACE,
+    MAPS_APP_KEY_OPEN_CLIMATE_SERVICE,
+} from '../constants/settings.js'
+
+// Client for an Open Climate Service (OCS) instance. Published datasets are
+// listed in the instance's STAC catalog, and each raster collection points to
+// a GeoZarr store that is rendered in the browser (see ZarrLayer.js).
+// Mirrors the OCS map viewer, so a dataset looks the same in both places.
+
+export const OPEN_CLIMATE_SERVICE_RESOURCE = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_OPEN_CLIMATE_SERVICE}`
+
+const MAX_STEPS = 50000
+const LEGEND_CLASSES = 7
+
+export const normalizeUrl = (url = '') => url.trim().replace(/\/+$/, '')
+
+// Returns { url, hidden } for the linked OCS, or null if no instance is linked
+export const fetchOpenClimateServiceSettings = async (engine) => {
+    try {
+        const { settings } = await engine.query({
+            settings: { resource: OPEN_CLIMATE_SERVICE_RESOURCE },
+        })
+        return settings?.url
+            ? { ...settings, url: normalizeUrl(settings.url) }
+            : null
+    } catch {
+        return null // Key is missing
+    }
+}
+
+export const fetchOpenClimateServiceUrl = async (engine) =>
+    (await fetchOpenClimateServiceSettings(engine))?.url || null
+
+const fetchJson = async (url) => {
+    const response = await fetch(url)
+    if (!response.ok) {
+        throw new Error(`${url} returned HTTP ${response.status}`)
+    }
+    return response.json()
+}
+
+export const fetchCollection = (url, datasetId) =>
+    fetchJson(`${url}/stac/collections/${encodeURIComponent(datasetId)}`)
+
+// Raster collections have a Zarr asset, feature collections do not
+const isRasterCollection = (collection) =>
+    Boolean(collection?.assets?.zarr?.href)
+
+const collectionsCache = {}
+
+// Published raster collections of an instance, fetched once per url
+export const fetchRasterCollections = (url) => {
+    if (!collectionsCache[url]) {
+        collectionsCache[url] = fetchJson(`${url}/stac`)
+            .then((catalog) =>
+                Promise.all(
+                    (catalog.links || [])
+                        .filter((link) => link.rel === 'child')
+                        .map((link) => fetchJson(link.href).catch(() => null))
+                )
+            )
+            .then((collections) => collections.filter(isRasterCollection))
+            .catch((error) => {
+                delete collectionsCache[url]
+                throw error
+            })
+    }
+    return collectionsCache[url]
+}
+
+// A collection as an entry in the add layer popover
+export const getLayerSource = (collection) => ({
+    layer: OPEN_CLIMATE_SERVICE_LAYER,
+    layerId: `${OPEN_CLIMATE_SERVICE_LAYER}:${collection.id}`,
+    name: collection.title || collection.id,
+    img: collection.assets?.thumbnail?.href,
+    description: collection.description,
+    source: 'Open Climate Service',
+    config: { datasetId: collection.id },
+})
+
+// ISO 8601 duration, e.g. P1M or P7D
+const parseDuration = (iso) => {
+    const match =
+        /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/.exec(
+            iso
+        )
+    if (!match) {
+        return null
+    }
+    const [years, months, weeks, days, hours, minutes, seconds] = match
+        .slice(1)
+        .map((v) => (v ? Number(v) : 0))
+    const duration = { years, months, weeks, days, hours, minutes, seconds }
+    return Object.values(duration).some(Boolean) ? duration : null
+}
+
+const advance = (date, d) => {
+    const next = new Date(date.getTime())
+    next.setUTCFullYear(next.getUTCFullYear() + d.years)
+    next.setUTCMonth(next.getUTCMonth() + d.months)
+    next.setUTCDate(next.getUTCDate() + d.weeks * 7 + d.days)
+    next.setUTCHours(next.getUTCHours() + d.hours)
+    next.setUTCMinutes(next.getUTCMinutes() + d.minutes)
+    next.setUTCSeconds(next.getUTCSeconds() + d.seconds)
+    return next
+}
+
+// Expand a temporal extent by its step into date strings
+const getTemporalSteps = ([start, end], step) => {
+    const duration = parseDuration(String(step))
+    let current = new Date(start)
+    const last = new Date(end)
+    if (!duration || isNaN(current) || isNaN(last)) {
+        return []
+    }
+    const isSubDaily = duration.hours || duration.minutes || duration.seconds
+    const steps = []
+    while (current <= last && steps.length < MAX_STEPS) {
+        const iso = current.toISOString()
+        steps.push(isSubDaily ? iso.slice(0, 16) : iso.slice(0, 10))
+        const next = advance(current, duration)
+        if (next <= current) {
+            break
+        }
+        current = next
+    }
+    return steps
+}
+
+// Non-spatial dimensions to select a slice from (time, month, etc.)
+export const getDimensions = (collection) =>
+    Object.entries(collection['cube:dimensions'] || {})
+        .filter(([, dim]) => dim.type !== 'spatial' && dim.type !== 'bands')
+        .map(([key, dim]) => {
+            const isTemporal = dim.type === 'temporal'
+            const steps = Array.isArray(dim.values)
+                ? dim.values
+                : isTemporal && Array.isArray(dim.extent)
+                ? getTemporalSteps(dim.extent, dim.step)
+                : []
+            return { key, isTemporal, step: dim.step, steps }
+        })
+        .filter((dim) => dim.steps.length > 0)
+
+// Default to the latest time step and the first value of other dimensions
+export const getDefaultSelection = (dimensions) =>
+    Object.fromEntries(
+        dimensions.map(({ key, isTemporal, steps }) => [
+            key,
+            isTemporal ? steps[steps.length - 1] : steps[0],
+        ])
+    )
+
+// Saved selections are values (stable as a dataset grows), the layer needs indexes
+export const getSelectionIndexes = (dimensions, selection = {}) => {
+    const defaults = getDefaultSelection(dimensions)
+    return Object.fromEntries(
+        dimensions.map(({ key, steps }) => {
+            const index = steps.findIndex(
+                (value) => String(value) === String(selection[key])
+            )
+            const fallback = steps.findIndex((value) => value === defaults[key])
+            return [key, index === -1 ? fallback : index]
+        })
+    )
+}
+
+const MONTH_STEP = /^P1M$/
+const YEAR_STEP = /^P1Y$/
+
+const formatMonth = (month) =>
+    new Date(Date.UTC(2000, month - 1)).toLocaleDateString(undefined, {
+        month: 'long',
+        timeZone: 'UTC',
+    })
+
+export const formatStep = (value, { key, isTemporal, step }) => {
+    if (key === 'month' && Number.isInteger(value)) {
+        return formatMonth(value) // Climate normals have a month dimension
+    }
+    if (!isTemporal) {
+        return String(value)
+    }
+    const date = new Date(value)
+    if (MONTH_STEP.test(step)) {
+        return date.toLocaleDateString(undefined, {
+            year: 'numeric',
+            month: 'long',
+            timeZone: 'UTC',
+        })
+    }
+    if (YEAR_STEP.test(step)) {
+        return String(date.getUTCFullYear())
+    }
+    return String(value)
+}
+
+export const getSelectionName = (dimensions, selection = {}) =>
+    dimensions
+        .map((dim) => formatStep(selection[dim.key], dim))
+        .filter(Boolean)
+        .join(', ')
+
+// A colormap name (ColorBrewer/D3, `_r` reverses) as a list of colors
+export const getColormap = (name = 'viridis', count = 256) => {
+    const reversed = name.endsWith('_r')
+    const scaleName = reversed ? name.slice(0, -2) : name
+    let colors
+    try {
+        colors = scale(scaleName).colors(count)
+    } catch {
+        colors = scale('viridis').colors(count)
+    }
+    return reversed ? colors.reverse() : colors
+}
+
+// What the layer needs to render a collection, from its render hints
+export const getRenderOptions = (collection) => {
+    const render = collection.renders?.default || {}
+    const zarr = collection.assets.zarr
+    const variable =
+        render['open_climate_service:variable'] ||
+        Object.keys(collection['cube:variables'] || {})[0]
+    const [min, max] = render.rescale?.[0] || [0, 100]
+    const [x1, y1, x2, y2] = collection.extent?.spatial?.bbox?.[0] || []
+    let crs = collection['proj:code'] || 'EPSG:4326'
+
+    // CRS84 aliases are geographic WGS84, which ZarrLayer knows as EPSG:4326
+    if (
+        crs
+            .toUpperCase()
+            .replace(/[^A-Z0-9]/g, '')
+            .endsWith('CRS84')
+    ) {
+        crs = 'EPSG:4326'
+    }
+
+    return {
+        source: zarr.href,
+        variable,
+        min,
+        max,
+        colormapName: render.colormap_name || 'viridis',
+        fillValue: render.nodata ?? null,
+        zarrVersion: zarr['zarr:zarr_format'] ?? null,
+        crs,
+        proj4: collection['open_climate_service:proj4'] ?? null,
+        unit: collection['cube:variables']?.[variable]?.unit,
+        bounds:
+            x1 === undefined
+                ? null
+                : [
+                      [x1, y1],
+                      [x2, y2],
+                  ], // WGS84
+    }
+}
+
+export const getLegendColors = (colormapName) =>
+    getColormap(colormapName, LEGEND_CLASSES)
