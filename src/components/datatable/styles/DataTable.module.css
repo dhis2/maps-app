@@ -16,6 +16,23 @@ td.dataCell:hover {
     cursor: default;
 }
 
+td.mono {
+    font-family: Menlo, Consolas, 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--colors-grey800);
+    letter-spacing: 0;
+}
+
+.swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 2px;
+    vertical-align: -1px;
+    box-shadow: inset 0 0 0 1px rgba(33, 41, 52, 0.15);
+}
+
 td.lightText {
     color: var(--colors-white);
 }

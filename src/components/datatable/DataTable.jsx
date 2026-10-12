@@ -32,8 +32,7 @@ import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import { useTableData } from './useTableData.js'
 
-const ASCENDING = 'asc'
-const DESCENDING = 'desc'
+const DEFAULT = 'default'
 
 // Decides whether a row's highlight should be cleared on mouse leave.
 // When hovering to the next row the next element is a `TD`, in which case
@@ -114,23 +113,21 @@ const Table = ({ availableWidth }) => {
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
-            sortField: 'name',
-            sortDirection: ASCENDING,
+            sortField: null,
+            sortDirection: DEFAULT,
         }
     )
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
 
-    const sortData = useCallback(
-        ({ name }) => {
-            setSorting({
-                sortField: name,
-                sortDirection:
-                    sortDirection === ASCENDING ? DESCENDING : ASCENDING,
-            })
-        },
-        [sortDirection]
-    )
+    // 3-state sort: default (layer order) -> ascending -> descending
+    const sortData = useCallback(({ name, direction }) => {
+        setSorting(
+            direction === DEFAULT
+                ? { sortField: null, sortDirection: DEFAULT }
+                : { sortField: name, sortDirection: direction }
+        )
+    }, [])
 
     const showDetailView = useCallback(
         (row) => {
@@ -282,7 +279,7 @@ const Table = ({ availableWidth }) => {
                                 sortDirection={
                                     dataKey === sortField
                                         ? sortDirection
-                                        : 'default'
+                                        : DEFAULT
                                 }
                                 sortIconTitle={i18n.t('Sort by {{column}}', {
                                     column: name,
@@ -311,18 +308,27 @@ const Table = ({ availableWidth }) => {
                     </DataTableRow>
                 )}
                 itemContent={(_, row) =>
-                    row.map(({ dataKey, value, align }) => (
+                    row.map(({ dataKey, value, align, mono, swatch }) => (
                         <DataTableCell
                             key={`dtcell-${dataKey}`}
                             className={cx(styles.dataCell, {
+                                [styles.mono]: mono,
                                 [styles.lightText]:
                                     dataKey === 'color' && isDarkColor(value),
                             })}
                             backgroundColor={dataKey === 'color' ? value : null}
                             align={align}
                         >
+                            {swatch && value && (
+                                <span
+                                    className={styles.swatch}
+                                    style={{ backgroundColor: swatch }}
+                                />
+                            )}
                             {dataKey === 'color'
                                 ? value?.toLowerCase()
+                                : mono
+                                ? value
                                 : formatWithSeparator(
                                       value,
                                       keyAnalysisDigitGroupSeparator
