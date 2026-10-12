@@ -1,4 +1,4 @@
-/* Header filter button */
+/* Header filter button, matching the @dhis2/ui sort icon (TableHeaderCellAction) */
 
 .filterButton {
     all: unset;
@@ -8,20 +8,16 @@
     flex-shrink: 0;
     width: 24px;
     height: 24px;
-    border-radius: 3px;
+    border-radius: 4px;
     color: var(--colors-grey500);
     cursor: pointer;
 }
 
 .filterButton:hover:enabled,
+.filterButton:focus-visible,
 .filterButtonOpen {
     color: var(--colors-grey900);
-    background: var(--colors-grey200);
-}
-
-.filterButton:focus-visible {
-    outline: 2px solid var(--theme-focus);
-    outline-offset: -2px;
+    background: var(--colors-grey400);
 }
 
 .filterButton:disabled {
@@ -29,10 +25,11 @@
     cursor: not-allowed;
 }
 
+/* Stays blue on hover so the active state is never lost */
 .filterButtonActive,
-.filterButtonActive:hover:enabled {
+.filterButtonActive:hover:enabled,
+.filterButtonActive:focus-visible {
     color: var(--colors-blue700);
-    background: var(--colors-blue050);
 }
 
 /* Popover */
@@ -43,10 +40,49 @@
 }
 
 .popoverHeader {
-    padding: var(--spacers-dp12) var(--spacers-dp16) 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp8);
+    padding: var(--spacers-dp8) var(--spacers-dp8) 0 var(--spacers-dp16);
+}
+
+.popoverTitle {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     font-size: 14px;
     font-weight: 500;
     color: var(--colors-grey900);
+}
+
+.popoverTitleLabel {
+    font-weight: 400;
+    color: var(--colors-grey700);
+}
+
+.closeButton {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    color: var(--colors-grey600);
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    color: var(--colors-grey900);
+    background: var(--colors-grey200);
+}
+
+.closeButton:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: -2px;
 }
 
 .popoverBody {
@@ -57,7 +93,7 @@
     display: flex;
     justify-content: flex-end;
     gap: var(--spacers-dp8);
-    padding: var(--spacers-dp8) var(--spacers-dp16) var(--spacers-dp12);
+    padding: var(--spacers-dp8) var(--spacers-dp16);
     border-top: 1px solid var(--colors-grey200);
 }
 
@@ -84,6 +120,11 @@
     flex: 0 0 auto;
     font-size: 13px;
     color: var(--colors-grey700);
+}
+
+/* Sits right under the inputs rather than a full stack gap away */
+.stack > .rangeError {
+    margin-top: calc(-1 * var(--spacers-dp8));
 }
 
 /* Options */

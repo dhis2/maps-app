@@ -3,13 +3,14 @@ import { InputField } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getDatePresets } from './filterHelpers.js'
+import { getDatePresets, getFilterError } from './filterHelpers.js'
 import styles from './styles/Filters.module.css'
 
 const DateFilter = ({ draft, onChange }) => {
     const filter = { type: 'date', ...draft }
     const presets = getDatePresets()
     const update = (changes) => onChange({ ...filter, ...changes })
+    const error = getFilterError(filter)
 
     return (
         <div className={styles.stack}>
@@ -48,6 +49,8 @@ const DateFilter = ({ draft, onChange }) => {
                     label={i18n.t('To')}
                     value={filter.to ?? ''}
                     min={filter.from || undefined}
+                    error={!!error}
+                    validationText={error ?? undefined}
                     onChange={({ value }) => update({ to: value })}
                     dataTest="filter-date-to"
                 />

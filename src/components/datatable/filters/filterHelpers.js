@@ -22,8 +22,8 @@ export const isEmptyFilter = (filter) => {
             return isBlank(filter.value)
         case 'number':
             return (
-                isBlank(filter.value) ||
-                (filter.operator === 'between' && isBlank(filter.value2))
+                isBlank(filter.value) &&
+                (filter.operator !== 'between' || isBlank(filter.value2))
             )
         case 'options':
             return !filter.values?.length
@@ -33,6 +33,72 @@ export const isEmptyFilter = (filter) => {
             return true
     }
 }
+
+// "Between" needs both bounds before it can be applied
+const isIncompleteFilter = (filter) =>
+    filter?.type === 'number' &&
+    filter.operator === 'between' &&
+    isBlank(filter.value) !== isBlank(filter.value2)
+
+// Range errors shown inline on the second input
+export const getFilterError = (filter) => {
+    if (
+        filter?.type === 'number' &&
+        filter.operator === 'between' &&
+        !isBlank(filter.value) &&
+        !isBlank(filter.value2) &&
+        Number(filter.value) > Number(filter.value2)
+    ) {
+        return i18n.t('Max must be greater than Min')
+    }
+    if (
+        filter?.type === 'date' &&
+        filter.from &&
+        filter.to &&
+        filter.from > filter.to
+    ) {
+        return i18n.t('To must be after From')
+    }
+    return null
+}
+
+export const isValidFilter = (filter) =>
+    !isIncompleteFilter(filter) && !getFilterError(filter)
+
+// Canonical form so that equivalent drafts compare equal
+const normalizeFilter = (filter) => {
+    if (typeof filter === 'string') {
+        return filter
+    }
+    if (isEmptyFilter(filter)) {
+        return null
+    }
+    switch (filter.type) {
+        case 'number':
+            return {
+                type: 'number',
+                operator: filter.operator,
+                value: String(filter.value),
+                value2:
+                    filter.operator === 'between'
+                        ? String(filter.value2)
+                        : undefined,
+            }
+        case 'options':
+            return { type: 'options', values: [...filter.values].sort() }
+        case 'date':
+            return {
+                type: 'date',
+                from: filter.from || undefined,
+                to: filter.to || undefined,
+            }
+        default:
+            return { type: filter.type, value: filter.value }
+    }
+}
+
+export const isSameFilter = (a, b) =>
+    JSON.stringify(normalizeFilter(a)) === JSON.stringify(normalizeFilter(b))
 
 export const getEmptyOptionLabel = () => i18n.t('(No value)')
 

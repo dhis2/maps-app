@@ -1,5 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconFilter16, Popover } from '@dhis2/ui'
+import { Button, IconCross16, IconFilter16, Popover } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, { useMemo, useRef, useState } from 'react'
@@ -14,7 +14,7 @@ import {
     FILTER_ORG_UNIT,
 } from '../useTableData.js'
 import DateFilter from './DateFilter.jsx'
-import { isEmptyFilter } from './filterHelpers.js'
+import { isEmptyFilter, isSameFilter, isValidFilter } from './filterHelpers.js'
 import NumberFilter from './NumberFilter.jsx'
 import OptionsFilter from './OptionsFilter.jsx'
 import styles from './styles/Filters.module.css'
@@ -60,6 +60,7 @@ const HeaderFilter = ({ layerId, header, filter, data }) => {
     const [draft, setDraft] = useState()
     const { name, dataKey, filterType } = header
     const isActive = !!filter
+    const canApply = !isSameFilter(draft, filter) && isValidFilter(draft)
 
     const options = useMemo(
         () =>
@@ -92,6 +93,9 @@ const HeaderFilter = ({ layerId, header, filter, data }) => {
 
     const apply = (event) => {
         event?.preventDefault()
+        if (!canApply) {
+            return
+        }
         if (isEmptyFilter(draft)) {
             dispatch(clearDataFilter(layerId, dataKey))
         } else {
@@ -143,9 +147,30 @@ const HeaderFilter = ({ layerId, header, filter, data }) => {
                     onClickOutside={() => setIsOpen(false)}
                     dataTest="data-table-filter-popover"
                 >
-                    <form className={styles.popover} onSubmit={apply}>
+                    <form
+                        className={styles.popover}
+                        onSubmit={apply}
+                        aria-label={i18n.t('Filter by {{column}}', {
+                            column: name,
+                        })}
+                    >
                         <div className={styles.popoverHeader}>
-                            {i18n.t('Filter by {{column}}', { column: name })}
+                            <span className={styles.popoverTitle}>
+                                <span className={styles.popoverTitleLabel}>
+                                    {i18n.t('Filter:')}
+                                </span>{' '}
+                                {name}
+                            </span>
+                            <button
+                                type="button"
+                                className={styles.closeButton}
+                                onClick={() => setIsOpen(false)}
+                                aria-label={i18n.t('Close')}
+                                title={i18n.t('Close')}
+                                data-test="data-table-filter-close"
+                            >
+                                <IconCross16 />
+                            </button>
                         </div>
                         <div className={styles.popoverBody}>
                             <Editor
@@ -167,6 +192,7 @@ const HeaderFilter = ({ layerId, header, filter, data }) => {
                                 small
                                 primary
                                 type="submit"
+                                disabled={!canApply}
                                 dataTest="data-table-filter-apply"
                             >
                                 {i18n.t('Apply')}
