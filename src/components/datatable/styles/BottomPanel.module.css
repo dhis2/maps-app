@@ -20,9 +20,9 @@
 
 .resizeArea {
     position: absolute;
-    top: -4px;
+    top: -5px;
     left: 0;
     right: 0;
-    height: 8px;
+    height: 10px;
     z-index: 10;
 }

@@ -1,14 +1,33 @@
+/* Full-size hit area; the visible highlight is a thin line drawn over the panel's top border */
 .resizeHandle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
     width: 100%;
     height: 100%;
     cursor: row-resize;
-    color: transparent;
+    touch-action: none;
 }
 
-.resizeHandle:hover,
-.resizeHandle:active {
-    background-color: var(--colors-blue200);
+.resizeHandle::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 3px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    /* No transition here so the line hides immediately on mouse out */
+    transition: none;
+    pointer-events: none;
+}
+
+/* Delay before showing so the highlight doesn't flash when the cursor just passes over */
+.resizeHandle:hover::after {
+    background-color: var(--theme-focus);
+    transition: background-color 100ms ease 200ms;
+}
+
+.resizeHandle.dragging::after {
+    background-color: var(--theme-focus);
+    transition: none;
 }
