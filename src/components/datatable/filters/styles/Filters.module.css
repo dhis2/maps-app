@@ -233,37 +233,6 @@
 
 /* Date */
 
-.presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--spacers-dp4);
-}
-
-.preset {
-    all: unset;
-    padding: 3px 8px;
-    border: 1px solid var(--colors-grey400);
-    border-radius: 12px;
-    font-size: 12px;
-    color: var(--colors-grey800);
-    cursor: pointer;
-}
-
-.preset:hover {
-    background: var(--colors-grey100);
-}
-
-.preset:focus-visible {
-    outline: 2px solid var(--theme-focus);
-}
-
-.presetActive,
-.presetActive:hover {
-    border-color: var(--colors-blue600);
-    background: var(--colors-blue050);
-    color: var(--colors-blue800);
-}
-
 .dateInputs {
     display: grid;
     grid-template-columns: 1fr 1fr;
