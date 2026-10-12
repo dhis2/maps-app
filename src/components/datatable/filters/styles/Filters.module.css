@@ -8,9 +8,17 @@
     flex-shrink: 0;
     width: 24px;
     height: 24px;
+    position: relative;
     border-radius: 4px;
     color: var(--colors-grey500);
     cursor: pointer;
+    /* Matches whatever is behind the button so the dot looks cut out */
+    --dot-ring: var(--colors-grey200);
+}
+
+/* :where keeps this below the button's own hover and open states */
+:global(:where(thead tr:hover)) .filterButton {
+    --dot-ring: var(--colors-grey300);
 }
 
 .filterButton:hover:enabled,
@@ -18,6 +26,7 @@
 .filterButtonOpen {
     color: var(--colors-grey900);
     background: var(--colors-grey400);
+    --dot-ring: var(--colors-grey400);
 }
 
 .filterButton:disabled {
@@ -30,6 +39,18 @@
 .filterButtonActive:hover:enabled,
 .filterButtonActive:focus-visible {
     color: var(--colors-blue700);
+}
+
+.filterButtonActive::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--colors-blue700);
+    box-shadow: 0 0 0 2px var(--dot-ring);
 }
 
 /* Popover */
