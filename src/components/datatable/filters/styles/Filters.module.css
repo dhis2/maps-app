@@ -158,11 +158,6 @@
     color: var(--colors-grey700);
 }
 
-.linkButtons {
-    display: flex;
-    gap: var(--spacers-dp8);
-}
-
 .linkButton {
     all: unset;
     font-size: 12px;
@@ -170,13 +165,14 @@
     cursor: pointer;
 }
 
-.linkButton:hover:enabled {
+.linkButton:hover {
     text-decoration: underline;
 }
 
-.linkButton:disabled {
-    color: var(--colors-grey500);
-    cursor: default;
+.linkButton:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
 }
 
 .optionList {
@@ -188,11 +184,20 @@
 }
 
 .option {
+    border-radius: 3px;
+}
+
+.optionCheckbox {
+    padding: 2px var(--spacers-dp8);
+}
+
+.optionLabel {
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: space-between;
-    padding: 2px var(--spacers-dp8);
-    border-radius: 3px;
+    gap: var(--spacers-dp8);
+    min-width: 0;
 }
 
 .option:hover {

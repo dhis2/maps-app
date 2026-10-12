@@ -26,6 +26,32 @@ const OptionsFilter = ({ draft, options, onChange }) => {
                 : [...selected, value]
         )
 
+    // Acts on the visible options only, so a search narrows what it touches
+    const visibleValues = visibleOptions.map((o) => o.value)
+    const allVisibleSelected = visibleValues.every((v) => selected.includes(v))
+
+    const toggleVisible = () =>
+        setSelected(
+            allVisibleSelected
+                ? selected.filter((v) => !visibleValues.includes(v))
+                : [...new Set([...selected, ...visibleValues])]
+        )
+
+    const getToggleLabel = () => {
+        if (!search) {
+            return allVisibleSelected
+                ? i18n.t('Deselect all')
+                : i18n.t('Select all')
+        }
+        return allVisibleSelected
+            ? i18n.t('Deselect {{count}} matching', {
+                  count: visibleValues.length,
+              })
+            : i18n.t('Select {{count}} matching', {
+                  count: visibleValues.length,
+              })
+    }
+
     return (
         <div className={styles.stack}>
             {options.length > SEARCH_THRESHOLD && (
@@ -47,55 +73,51 @@ const OptionsFilter = ({ draft, options, onChange }) => {
                               count: options.length,
                           })}
                 </span>
-                <span className={styles.linkButtons}>
+                {visibleOptions.length > 0 && (
                     <button
                         type="button"
                         className={styles.linkButton}
-                        onClick={() =>
-                            setSelected([
-                                ...new Set([
-                                    ...selected,
-                                    ...visibleOptions.map((o) => o.value),
-                                ]),
-                            ])
-                        }
+                        onClick={toggleVisible}
+                        data-test="filter-options-toggle-all"
                     >
-                        {i18n.t('Select all')}
+                        {getToggleLabel()}
                     </button>
-                    <button
-                        type="button"
-                        className={styles.linkButton}
-                        disabled={!selected.length}
-                        onClick={() => setSelected([])}
-                    >
-                        {i18n.t('Deselect all')}
-                    </button>
-                </span>
+                )}
             </div>
             <ul className={styles.optionList} data-test="filter-options-list">
                 {visibleOptions.map(({ value, label, count, color }) => (
                     <li key={value} className={styles.option}>
+                        {/* The label fills the row, so the whole row toggles */}
                         <Checkbox
                             dense
+                            className={styles.optionCheckbox}
                             checked={selected.includes(value)}
                             onChange={() => toggle(value)}
                             label={
-                                <span
-                                    className={
-                                        value === '' ? styles.emptyOption : ''
-                                    }
-                                >
-                                    {color && (
-                                        <span
-                                            className={styles.swatch}
-                                            style={{ backgroundColor: color }}
-                                        />
-                                    )}
-                                    {label || getEmptyOptionLabel()}
+                                <span className={styles.optionLabel}>
+                                    <span
+                                        className={
+                                            value === ''
+                                                ? styles.emptyOption
+                                                : ''
+                                        }
+                                    >
+                                        {color && (
+                                            <span
+                                                className={styles.swatch}
+                                                style={{
+                                                    backgroundColor: color,
+                                                }}
+                                            />
+                                        )}
+                                        {label || getEmptyOptionLabel()}
+                                    </span>
+                                    <span className={styles.count}>
+                                        {count}
+                                    </span>
                                 </span>
                             }
                         />
-                        <span className={styles.count}>{count}</span>
                     </li>
                 ))}
                 {!visibleOptions.length && (
