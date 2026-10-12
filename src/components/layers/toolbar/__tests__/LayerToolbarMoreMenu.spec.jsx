@@ -84,7 +84,7 @@ describe('LayerToolbarMoreMenu', () => {
         })
     })
 
-    test('renders two MenuItems with no divider if only passed toggleDataTable and downloadData', async () => {
+    test('renders Download data only if only passed downloadData', async () => {
         const store = {
             aggregations: {},
         }
@@ -96,61 +96,24 @@ describe('LayerToolbarMoreMenu', () => {
 
         render(
             <Provider store={mockStore(store)}>
-                <LayerToolbarMoreMenu
-                    layer={layer}
-                    toggleDataTable={jest.fn()}
-                    downloadData={jest.fn()}
-                />
+                <LayerToolbarMoreMenu layer={layer} downloadData={jest.fn()} />
             </Provider>
         )
 
         fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
-            expect(screen.queryByText('Show data table')).toBeTruthy()
             expect(screen.queryByText('Download data')).toBeTruthy()
-            // confirm the divider is not present
-            expect(screen.getByRole('menu').children.length).toEqual(2)
-
-            expect(screen.queryByText('Open as chart')).toBeNull()
-            expect(screen.queryByText('Edit layer')).toBeNull()
-            expect(screen.queryByText('Remove layer')).toBeNull()
-        })
-    })
-
-    test('renders only toggleDataTable menu', async () => {
-        const store = {
-            aggregations: {},
-        }
-
-        const layer = {
-            id: 'rainbowdash',
-            data: 'hasdata',
-        }
-
-        render(
-            <Provider store={mockStore(store)}>
-                <LayerToolbarMoreMenu
-                    layer={layer}
-                    toggleDataTable={jest.fn()}
-                />
-            </Provider>
-        )
-
-        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
-
-        await waitFor(() => {
-            expect(screen.queryByText('Show data table')).toBeTruthy()
             expect(screen.getByRole('menu').children.length).toEqual(1)
 
+            expect(screen.queryByText('Show data table')).toBeNull()
             expect(screen.queryByText('Open as chart')).toBeNull()
-            expect(screen.queryByText('Download data')).toBeNull()
             expect(screen.queryByText('Edit layer')).toBeNull()
             expect(screen.queryByText('Remove layer')).toBeNull()
         })
     })
 
-    test('renders three MenuItems WITH divider if passed toggleDataTable, onEdit, and onRemove', async () => {
+    test('renders three MenuItems WITH divider if passed downloadData, onEdit, and onRemove', async () => {
         const store = {
             aggregations: {},
         }
@@ -164,43 +127,6 @@ describe('LayerToolbarMoreMenu', () => {
             <Provider store={mockStore(store)}>
                 <LayerToolbarMoreMenu
                     layer={layer}
-                    toggleDataTable={jest.fn()}
-                    onRemove={jest.fn()}
-                    onEdit={jest.fn()}
-                />
-            </Provider>
-        )
-
-        fireEvent.click(screen.getByLabelText('Toggle layer menu'))
-
-        await waitFor(() => {
-            expect(screen.queryByText('Show data table')).toBeTruthy()
-            expect(screen.queryByText('Edit layer')).toBeTruthy()
-            expect(screen.queryByText('Remove layer')).toBeTruthy()
-
-            // confirm the divider is present (1 more list item)
-            expect(screen.getByRole('menu').children.length).toEqual(4)
-
-            expect(screen.queryByText('Open as chart')).toBeNull()
-            expect(screen.queryByText('Download data')).toBeNull()
-        })
-    })
-
-    test('renders four MenuItems WITH divider if passed toggleDataTable, downloadData, onEdit, and onRemove', async () => {
-        const store = {
-            aggregations: {},
-        }
-
-        const layer = {
-            id: 'rainbowdash',
-            data: 'hasdata',
-        }
-
-        render(
-            <Provider store={mockStore(store)}>
-                <LayerToolbarMoreMenu
-                    layer={layer}
-                    toggleDataTable={jest.fn()}
                     onRemove={jest.fn()}
                     onEdit={jest.fn()}
                     downloadData={jest.fn()}
@@ -211,12 +137,11 @@ describe('LayerToolbarMoreMenu', () => {
         fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
-            expect(screen.queryByText('Show data table')).toBeTruthy()
             expect(screen.queryByText('Download data')).toBeTruthy()
             expect(screen.queryByText('Edit layer')).toBeTruthy()
             expect(screen.queryByText('Remove layer')).toBeTruthy()
             // confirm the divider is present (1 more list item)
-            expect(screen.getByRole('menu').children.length).toEqual(5)
+            expect(screen.getByRole('menu').children.length).toEqual(4)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
         })
@@ -273,7 +198,6 @@ describe('LayerToolbarMoreMenu', () => {
             <Provider store={mockStore(store)}>
                 <LayerToolbarMoreMenu
                     layer={layer}
-                    toggleDataTable={jest.fn()}
                     onRemove={jest.fn()}
                     onEdit={jest.fn()}
                     downloadData={jest.fn()}
@@ -285,14 +209,6 @@ describe('LayerToolbarMoreMenu', () => {
         fireEvent.click(screen.getByLabelText('Toggle layer menu'))
 
         await waitFor(() => {
-            expect(screen.queryByText('Show data table')).toBeTruthy()
-            expect(
-                screen
-                    .queryByText('Show data table')
-                    .closest('li')
-                    .classList.contains('disabled')
-            ).toBe(true)
-
             expect(screen.queryByText('Download data')).toBeTruthy()
             expect(
                 screen
@@ -316,7 +232,7 @@ describe('LayerToolbarMoreMenu', () => {
                     .classList.contains('disabled')
             ).toBe(false)
             // confirm the divider is present (1 more list item)
-            expect(screen.getByRole('menu').children.length).toEqual(5)
+            expect(screen.getByRole('menu').children.length).toEqual(4)
 
             expect(screen.queryByText('Open as chart')).toBeNull()
         })

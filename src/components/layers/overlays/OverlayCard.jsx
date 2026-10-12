@@ -4,7 +4,7 @@ import { useSetting } from '@dhis2/app-service-datastore'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { toggleDataTable } from '../../../actions/dataTable.js'
 import {
     editLayer,
@@ -50,7 +50,6 @@ const OverlayCard = ({
     const { baseUrl } = useConfig()
     const [, /* actual value not used */ { set }] = useSetting(CURRENT_AO_KEY)
     const layerRemovedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, ALERT_SUCCESS)
-    const dataTableLayerId = useSelector((state) => state.dataTable)
 
     const {
         id,
@@ -102,7 +101,6 @@ const OverlayCard = ({
                 opacity={opacity}
                 isOverlay={true}
                 isExpanded={isExpanded}
-                isInDataTable={dataTableLayerId === id}
                 isVisible={isVisible}
                 toggleExpand={() => toggleLayerExpand(id)}
                 onEdit={canEdit ? () => editLayer(layer) : undefined}

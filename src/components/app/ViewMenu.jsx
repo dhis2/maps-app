@@ -4,7 +4,6 @@ import {
     HoverMenuListItem,
 } from '@dhis2/analytics'
 import i18n from '@dhis2/d2-i18n'
-import { IconTable16 } from '@dhis2/ui'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { closeDataTable, openDataTable } from '../../actions/dataTable.js'
@@ -23,7 +22,6 @@ const ViewMenu = () => {
         <HoverMenuDropdown label={i18n.t('View')} dataTest="view-menu">
             <HoverMenuList dense>
                 <HoverMenuListItem
-                    icon={<IconTable16 />}
                     label={
                         activeLayer
                             ? i18n.t('Hide data table')

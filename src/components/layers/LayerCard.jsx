@@ -1,10 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
-import {
-    Card,
-    IconChevronUp24,
-    IconChevronDown24,
-    IconTable16,
-} from '@dhis2/ui'
+import { Card, IconChevronUp24, IconChevronDown24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -20,7 +15,6 @@ const LayerCard = ({
     subtitle,
     isOverlay,
     isExpanded,
-    isInDataTable,
     toggleExpand,
     children,
     ...layerToolbarProps
@@ -44,15 +38,6 @@ const LayerCard = ({
                             {subtitle}
                             {getRenderingLabel(layer?.renderingStrategy)}
                         </h3>
-                    )}
-                    {isInDataTable && (
-                        <div
-                            className={styles.dataTableIndicator}
-                            data-test="layercard-data-table-indicator"
-                        >
-                            <IconTable16 />
-                            {i18n.t('Shown in data table')}
-                        </div>
                     )}
                 </div>
                 <div className={styles.action}>
@@ -88,7 +73,6 @@ LayerCard.propTypes = {
         PropTypes.arrayOf(PropTypes.node),
         PropTypes.node,
     ]),
-    isInDataTable: PropTypes.bool,
     isOverlay: PropTypes.bool,
     layer: PropTypes.object,
     subtitle: PropTypes.string,

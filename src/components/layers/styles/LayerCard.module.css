@@ -43,23 +43,6 @@
     color: var(--colors-grey800);
 }
 
-.dataTableIndicator {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacers-dp4);
-    margin: var(--spacers-dp4) 0 var(--spacers-dp8) 0;
-    padding: 2px 6px 2px 4px;
-    border-radius: 3px;
-    background: var(--colors-blue050);
-    color: var(--colors-blue800);
-    font-size: 12px;
-    line-height: 16px;
-}
-
-.overlay .dataTableIndicator {
-    margin-left: var(--spacers-dp16);
-}
-
 .overlay h2,
 .overlay h3 {
     padding-left: var(--spacers-dp16);
