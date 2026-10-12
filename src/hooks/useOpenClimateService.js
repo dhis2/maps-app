@@ -12,22 +12,24 @@ import {
 let storedSettings
 
 // The Open Climate Service linked to this DHIS2 instance, and its published
-// raster datasets as layer sources. All published datasets are available to
-// add to maps, unless hidden by an administrator.
+// raster datasets as layer sources. An administrator chooses which datasets
+// are available to add to maps.
 const useOpenClimateService = () => {
     const engine = useDataEngine()
     const [settings, setSettings] = useState(storedSettings)
     const [layerSources, setLayerSources] = useState([])
     const [error, setError] = useState()
     const url = settings?.url
-    const hidden = useMemo(() => settings?.hidden || [], [settings])
+    const enabled = useMemo(() => settings?.enabled || [], [settings])
 
     useEffect(() => {
         if (storedSettings === undefined) {
-            fetchOpenClimateServiceSettings(engine).then((settings) => {
-                storedSettings = settings
-                setSettings(settings)
-            })
+            fetchOpenClimateServiceSettings(engine)
+                .then((settings) => {
+                    storedSettings = settings
+                    setSettings(settings)
+                })
+                .catch(setError)
         }
     }, [engine])
 
@@ -68,7 +70,7 @@ const useOpenClimateService = () => {
         async (newUrl) => {
             const url = normalizeUrl(newUrl)
             await fetchRasterCollections(url)
-            await save({ url, hidden: [] })
+            await save({ url, enabled: [] })
         },
         [save]
     )
@@ -86,17 +88,17 @@ const useOpenClimateService = () => {
         (datasetId, isVisible) =>
             save({
                 url,
-                hidden: isVisible
-                    ? hidden.filter((id) => id !== datasetId)
-                    : [...hidden, datasetId],
+                enabled: isVisible
+                    ? [...enabled, datasetId]
+                    : enabled.filter((id) => id !== datasetId),
             }),
-        [save, url, hidden]
+        [save, url, enabled]
     )
 
     return {
         url,
         layerSources,
-        hidden,
+        enabled,
         error,
         link,
         unlink,

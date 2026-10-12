@@ -6,9 +6,9 @@ import LayerSource from './LayerSource.jsx'
 import styles from './styles/OpenClimateServiceSource.module.css'
 
 // Link an Open Climate Service instance. Its published raster datasets are
-// then available to add to maps, and can be hidden one by one.
+// listed, and the administrator chooses which are available to add to maps.
 const OpenClimateServiceSource = () => {
-    const { url, layerSources, hidden, error, link, unlink, setVisibility } =
+    const { url, layerSources, enabled, error, link, unlink, setVisibility } =
         useOpenClimateService()
     const [value, setValue] = useState('')
     const [linkError, setLinkError] = useState()
@@ -84,7 +84,7 @@ const OpenClimateServiceSource = () => {
                     <LayerSource
                         key={layerSource.layerId}
                         layerSource={layerSource}
-                        isAdded={!hidden.includes(datasetId)}
+                        isAdded={enabled.includes(datasetId)}
                         onShow={() => setVisibility(datasetId, true)}
                         onHide={() => setVisibility(datasetId, false)}
                     />

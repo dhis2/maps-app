@@ -15,9 +15,16 @@ export const OPEN_CLIMATE_SERVICE_RESOURCE = `dataStore/${MAPS_APP_NAMESPACE}/${
 const MAX_STEPS = 50000
 const LEGEND_CLASSES = 7
 
-export const normalizeUrl = (url = '') => url.trim().replace(/\/+$/, '')
+// Trims whitespace and trailing slashes
+export const normalizeUrl = (url = '') => {
+    let normalized = url.trim()
+    while (normalized.endsWith('/')) {
+        normalized = normalized.slice(0, -1)
+    }
+    return normalized
+}
 
-// Returns { url, hidden } for the linked OCS, or null if no instance is linked
+// Returns { url, enabled } for the linked OCS, or null if no instance is linked
 export const fetchOpenClimateServiceSettings = async (engine) => {
     try {
         const { settings } = await engine.query({
@@ -82,24 +89,41 @@ export const getLayerSource = (collection) => ({
     config: { datasetId: collection.id },
 })
 
+const DATE_UNITS = { Y: 'years', M: 'months', W: 'weeks', D: 'days' }
+const TIME_UNITS = { H: 'hours', M: 'minutes', S: 'seconds' }
+
 // ISO 8601 duration, e.g. P1M or P7D
 const parseDuration = (iso) => {
-    const match =
-        /^P(?:(\d+)Y)?(?:(\d+)M)?(?:(\d+)W)?(?:(\d+)D)?(?:T(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?)?$/.exec(
-            iso
-        )
-    if (!match) {
+    if (!iso.startsWith('P')) {
         return null
     }
-    const [years, months, weeks, days, hours, minutes, seconds] = match
-        .slice(1)
-        .map((v) => (v ? Number(v) : 0))
-    const duration = { years, months, weeks, days, hours, minutes, seconds }
+    const [datePart, timePart = ''] = iso.slice(1).split('T')
+    const duration = {
+        years: 0,
+        months: 0,
+        weeks: 0,
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+    }
+    const parts = [
+        [datePart, DATE_UNITS],
+        [timePart, TIME_UNITS],
+    ]
+    for (const [part, units] of parts) {
+        for (const [, value, unit] of part.matchAll(/(\d+)([A-Z])/g)) {
+            if (!units[unit]) {
+                return null
+            }
+            duration[units[unit]] = Number(value)
+        }
+    }
     return Object.values(duration).some(Boolean) ? duration : null
 }
 
 const advance = (date, d) => {
-    const next = new Date(date.getTime())
+    const next = new Date(date)
     next.setUTCFullYear(next.getUTCFullYear() + d.years)
     next.setUTCMonth(next.getUTCMonth() + d.months)
     next.setUTCDate(next.getUTCDate() + d.weeks * 7 + d.days)
@@ -114,7 +138,11 @@ const getTemporalSteps = ([start, end], step) => {
     const duration = parseDuration(String(step))
     let current = new Date(start)
     const last = new Date(end)
-    if (!duration || isNaN(current) || isNaN(last)) {
+    if (
+        !duration ||
+        Number.isNaN(current.getTime()) ||
+        Number.isNaN(last.getTime())
+    ) {
         return []
     }
     const isSubDaily = duration.hours || duration.minutes || duration.seconds
@@ -131,19 +159,26 @@ const getTemporalSteps = ([start, end], step) => {
     return steps
 }
 
+const getSteps = (dim) => {
+    if (Array.isArray(dim.values)) {
+        return dim.values
+    }
+    if (dim.type === 'temporal' && Array.isArray(dim.extent)) {
+        return getTemporalSteps(dim.extent, dim.step)
+    }
+    return []
+}
+
 // Non-spatial dimensions to select a slice from (time, month, etc.)
 export const getDimensions = (collection) =>
     Object.entries(collection['cube:dimensions'] || {})
         .filter(([, dim]) => dim.type !== 'spatial' && dim.type !== 'bands')
-        .map(([key, dim]) => {
-            const isTemporal = dim.type === 'temporal'
-            const steps = Array.isArray(dim.values)
-                ? dim.values
-                : isTemporal && Array.isArray(dim.extent)
-                ? getTemporalSteps(dim.extent, dim.step)
-                : []
-            return { key, isTemporal, step: dim.step, steps }
-        })
+        .map(([key, dim]) => ({
+            key,
+            isTemporal: dim.type === 'temporal',
+            step: dim.step,
+            steps: getSteps(dim),
+        }))
         .filter((dim) => dim.steps.length > 0)
 
 // Default to the latest time step and the first value of other dimensions
@@ -163,14 +198,11 @@ export const getSelectionIndexes = (dimensions, selection = {}) => {
             const index = steps.findIndex(
                 (value) => String(value) === String(selection[key])
             )
-            const fallback = steps.findIndex((value) => value === defaults[key])
+            const fallback = steps.indexOf(defaults[key])
             return [key, index === -1 ? fallback : index]
         })
     )
 }
-
-const MONTH_STEP = /^P1M$/
-const YEAR_STEP = /^P1Y$/
 
 const formatMonth = (month) =>
     new Date(Date.UTC(2000, month - 1)).toLocaleDateString(undefined, {
@@ -186,14 +218,14 @@ export const formatStep = (value, { key, isTemporal, step }) => {
         return String(value)
     }
     const date = new Date(value)
-    if (MONTH_STEP.test(step)) {
+    if (step === 'P1M') {
         return date.toLocaleDateString(undefined, {
             year: 'numeric',
             month: 'long',
             timeZone: 'UTC',
         })
     }
-    if (YEAR_STEP.test(step)) {
+    if (step === 'P1Y') {
         return String(date.getUTCFullYear())
     }
     return String(value)

@@ -105,40 +105,44 @@ const OpenClimateServiceDialog = ({
         }
     }, [validateLayer, onLayerValidation, collection])
 
+    let content
+
+    if (error) {
+        content = <div className={styles.error}>{error}</div>
+    } else if (collection) {
+        content = (
+            <div className={styles.flexRowFlow}>
+                {collection.description && (
+                    <div className={styles.paragraph}>
+                        {collection.description}
+                    </div>
+                )}
+                {dimensions.map((dimension) => (
+                    <DimensionSelect
+                        key={dimension.key}
+                        dimension={dimension}
+                        value={values[dimension.key]}
+                        onChange={(value) =>
+                            dispatch(
+                                setOpenClimateServiceSelection({
+                                    [dimension.key]: value,
+                                })
+                            )
+                        }
+                    />
+                ))}
+            </div>
+        )
+    } else {
+        content = <CircularLoader small />
+    }
+
     return (
         <div className={styles.content}>
             <Tabs value={tab} onChange={setTab}>
                 <Tab value="data">{i18n.t('Data')}</Tab>
             </Tabs>
-            <div className={styles.tabContent}>
-                {error ? (
-                    <div className={styles.error}>{error}</div>
-                ) : !collection ? (
-                    <CircularLoader small />
-                ) : (
-                    <div className={styles.flexRowFlow}>
-                        {collection.description && (
-                            <div className={styles.paragraph}>
-                                {collection.description}
-                            </div>
-                        )}
-                        {dimensions.map((dimension) => (
-                            <DimensionSelect
-                                key={dimension.key}
-                                dimension={dimension}
-                                value={values[dimension.key]}
-                                onChange={(value) =>
-                                    dispatch(
-                                        setOpenClimateServiceSelection({
-                                            [dimension.key]: value,
-                                        })
-                                    )
-                                }
-                            />
-                        ))}
-                    </div>
-                )}
-            </div>
+            <div className={styles.tabContent}>{content}</div>
         </div>
     )
 }

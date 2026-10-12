@@ -3,7 +3,7 @@ import { getColormap } from '../../../../util/openClimateService.js'
 // Renders a GeoZarr store with @carbonplan/zarr-layer (a MapLibre custom layer).
 // Implements the layer interface that the maps-gl map expects (addTo, removeFrom,
 // move, setIndex, ...), as maps-gl does not have a Zarr layer type.
-// TODO: Move to maps-gl as a layer type
+// It could move to maps-gl as a layer type.
 class ZarrLayer {
     constructor(options) {
         this.options = options
@@ -143,12 +143,18 @@ class ZarrLayer {
         return this.options.render.bounds
     }
 
-    // Events are not supported, as the layer has no features
-    on() {}
+    // The layer has no features, so it fires no events
+    on() {
+        return this
+    }
 
-    off() {}
+    off() {
+        return this
+    }
 
-    fire() {}
+    fire() {
+        return this
+    }
 }
 
 export default ZarrLayer

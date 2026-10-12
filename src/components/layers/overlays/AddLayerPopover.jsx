@@ -45,13 +45,13 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const dispatch = useDispatch()
     const { defaultLayerSources } = useCachedData()
     const { managedLayerSources } = useManagedLayerSourcesStore()
-    const { layerSources: openClimateServiceLayers, hidden } =
+    const { layerSources: openClimateServiceLayers, enabled } =
         useOpenClimateService()
     const layerSources = includeManagedLayers(
         defaultLayerSources,
         managedLayerSources,
-        openClimateServiceLayers.filter(
-            ({ config }) => !hidden.includes(config.datasetId)
+        openClimateServiceLayers.filter(({ config }) =>
+            enabled.includes(config.datasetId)
         )
     )
     const groupedLayerSources = groupLayerSources(layerSources)

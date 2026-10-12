@@ -5,6 +5,7 @@ import {
     getDimensions,
     getRenderOptions,
     getSelectionIndexes,
+    normalizeUrl,
 } from '../openClimateService.js'
 
 const collection = {
@@ -52,6 +53,34 @@ describe('openClimateService', () => {
                 steps: ['2025-11-01', '2025-12-01', '2026-01-01', '2026-02-01'],
             },
         ])
+    })
+
+    it.each([
+        ['P7D', ['2026-01-01', '2026-01-08', '2026-01-15']],
+        ['P1Y', ['2026-01-01']],
+        ['PT6H', ['2026-01-01T00:00', '2026-01-01T06:00', '2026-01-01T12:00']],
+        ['P1X', []],
+        ['P', []],
+    ])('expands the duration %s', (step, expected) => {
+        const [dim] = getDimensions({
+            'cube:dimensions': {
+                t: {
+                    type: 'temporal',
+                    extent: [
+                        '2026-01-01T00:00:00Z',
+                        step === 'PT6H'
+                            ? '2026-01-01T12:00:00Z'
+                            : '2026-01-15T00:00:00Z',
+                    ],
+                    step,
+                },
+            },
+        })
+        expect(dim?.steps || []).toEqual(expected)
+    })
+
+    it('trims trailing slashes from a url', () => {
+        expect(normalizeUrl(' http://ocs/api// ')).toBe('http://ocs/api')
     })
 
     it('keeps the values of a non-temporal dimension', () => {
