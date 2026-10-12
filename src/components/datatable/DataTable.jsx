@@ -28,6 +28,7 @@ import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import ColumnsModal from './ColumnsModal.jsx'
 import FilterInput from './FilterInput.jsx'
 import styles from './styles/DataTable.module.css'
 import { useTableData } from './useTableData.js'
@@ -97,7 +98,13 @@ const TableComponents = {
     ),
 }
 
-const Table = ({ availableWidth }) => {
+const Table = ({
+    availableWidth,
+    visibleColumns,
+    showColumnsModal,
+    onColumnsModalClose,
+    onColumnsChange,
+}) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -202,10 +209,11 @@ const Table = ({ availableWidth }) => {
         ]
     )
 
-    const { headers, rows, isLoading, error } = useTableData({
+    const { headers, allHeaders, rows, isLoading, error } = useTableData({
         layer,
         sortField,
         sortDirection,
+        visibleColumns,
     })
 
     useEffect(() => {
@@ -337,6 +345,15 @@ const Table = ({ availableWidth }) => {
                     ))
                 }
             />
+            {showColumnsModal && allHeaders && (
+                <ColumnsModal
+                    layerName={layer.name}
+                    allHeaders={allHeaders}
+                    selected={headers.map((h) => h.dataKey)}
+                    onApply={onColumnsChange}
+                    onClose={onColumnsModalClose}
+                />
+            )}
             {isLoading && (
                 <ComponentCover>
                     <CenteredContent>
@@ -350,6 +367,10 @@ const Table = ({ availableWidth }) => {
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    showColumnsModal: PropTypes.bool,
+    visibleColumns: PropTypes.arrayOf(PropTypes.string),
+    onColumnsChange: PropTypes.func,
+    onColumnsModalClose: PropTypes.func,
 }
 
 export default Table
