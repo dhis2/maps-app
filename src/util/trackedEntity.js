@@ -96,7 +96,7 @@ export const TEI_41_QUERY = {
         orgUnitMode,
         program,
         programStatus,
-        isEnrollmentStatus,
+        enrollmentStatus,
         followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
@@ -108,8 +108,8 @@ export const TEI_41_QUERY = {
         orgUnits,
         orgUnitMode,
         program,
-        [isEnrollmentStatus ? 'enrollmentStatus' : 'programStatus']:
-            programStatus,
+        programStatus,
+        enrollmentStatus,
         followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
@@ -140,16 +140,21 @@ const buildQueryVariables = ({
     periodType,
     startDate,
     endDate,
+    serverVersion,
 }) => {
     // Program status, follow-up and enrollment dates only apply to a program
     const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
+    // VERSION-TOGGLE: see util/versionToggle.js
+    const statusParam = serverSupportsTrackerEnrollmentStatus(serverVersion)
+        ? 'enrollmentStatus'
+        : 'programStatus'
 
     return {
         fields,
         orgUnits,
         orgUnitMode,
         program: program?.id,
-        programStatus: program ? programStatus : undefined,
+        [statusParam]: program ? programStatus : undefined,
         // Unchecked means no filter, not "not marked for follow-up"
         followUp: program && followUp ? 'TRUE' : undefined,
         trackedEntityType: program ? undefined : trackedEntityType?.id,
@@ -198,23 +203,19 @@ export const loadTrackedEntitiesFromTracker = async ({
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: {
-                ...buildQueryVariables({
-                    fields: requestFields,
-                    orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
-                    program,
-                    programStatus,
-                    followUp,
-                    trackedEntityType,
-                    periodType,
-                    startDate,
-                    endDate,
-                }),
-                // VERSION-TOGGLE: see util/versionToggle.js
-                isEnrollmentStatus:
-                    serverSupportsTrackerEnrollmentStatus(serverVersion),
-            },
+            variables: buildQueryVariables({
+                fields: requestFields,
+                orgUnits,
+                orgUnitMode: organisationUnitSelectionMode,
+                program,
+                programStatus,
+                followUp,
+                trackedEntityType,
+                periodType,
+                startDate,
+                endDate,
+                serverVersion,
+            }),
         }
     )
 
