@@ -193,7 +193,14 @@ export const getMaxMonthsInYear = (year, calendar) => {
 
 export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const { day, month, eraYear: year } = getNowInCalendar(calendarName)
+    const {
+        day,
+        month,
+        eraYear,
+        year: calendarYear,
+    } = getNowInCalendar(calendarName)
+    // eraYear is undefined for calendars without eras (e.g. islamic)
+    const year = eraYear ?? calendarYear
     const formatDateString = (y, m, d) =>
         `${y}-${m.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
     return {
@@ -205,7 +212,8 @@ export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
 export const getCurrentYearInCalendar = (calendar) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
     const today = getNowInCalendar(calendarName)
-    return today.eraYear
+    // eraYear is undefined for calendars without eras (e.g. islamic)
+    return today.eraYear ?? today.year
 }
 
 export function replaceAt(str, index, replacement) {

@@ -170,6 +170,15 @@ describe('getCurrentYearInCalendar', () => {
     it('returns the current year', () => {
         expect(getCurrentYearInCalendar('gregory')).toBe(2024)
     })
+
+    it('falls back to year for calendars without eras', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 9,
+            month: 12,
+            year: 1445,
+        })
+        expect(getCurrentYearInCalendar('islamic')).toBe(1445)
+    })
 })
 
 describe('getDefaultDatesInCalendar', () => {
@@ -183,6 +192,18 @@ describe('getDefaultDatesInCalendar', () => {
         const result = getDefaultDatesInCalendar()
         expect(result.startDate).toBe('2023-07-15') // One year before
         expect(result.endDate).toBe('2024-07-15') // Current year
+    })
+
+    it('falls back to year for calendars without eras', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 9,
+            month: 12,
+            year: 1445,
+        })
+
+        const result = getDefaultDatesInCalendar('islamic')
+        expect(result.startDate).toBe('1444-12-09')
+        expect(result.endDate).toBe('1445-12-09')
     })
 })
 
