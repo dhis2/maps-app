@@ -252,7 +252,7 @@ const trackedEntityLoader = async ({
         secondaryData,
         legend,
         // Always set, as the config can have the previous load's alerts and error
-        alerts: alerts.length ? alerts : undefined,
+        alerts,
         loadError,
         isLoaded: true,
         isLoading: false,

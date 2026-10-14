@@ -369,7 +369,7 @@ describe('trackedEntityLoader result', () => {
                 explanation: ['Program status: Completed'],
             },
         })
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 
     it('names the layer after the type without a program', async () => {
@@ -445,7 +445,7 @@ describe('trackedEntityLoader result', () => {
         })
 
         expect((await result).loadError).toBeUndefined()
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 })
 
@@ -531,7 +531,7 @@ describe('trackedEntityLoader relationships', () => {
     it('returns the relationships and the related instances', async () => {
         const { result } = await loadWithRelationships()
 
-        expect(result.alerts).toBeUndefined()
+        expect(result.alerts).toEqual([])
         expect(result.relationships).toEqual([
             expect.objectContaining({ id: 'rel1', bidirectional: false }),
         ])
@@ -799,7 +799,7 @@ describe('trackedEntityLoader tracker limit', () => {
             instances: [point('te1'), point('te2', [3, 4])],
         })
 
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 
     // 2.40 only knows KeyTrackedEntityInstanceMaxLimit
@@ -811,7 +811,7 @@ describe('trackedEntityLoader tracker limit', () => {
             instances: [point('te1'), point('te2', [3, 4])],
         })
 
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 
     it('formats the limit with the digit group separator', async () => {
