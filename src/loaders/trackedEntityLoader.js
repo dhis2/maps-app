@@ -165,6 +165,16 @@ const trackedEntityLoader = async ({
                 return null
             })
 
+            if (relationshipResult && !relationshipResult.isSupported) {
+                alerts.push({
+                    warning: true,
+                    code: CUSTOM_ALERT,
+                    message: `${name}: ${i18n.t(
+                        'Only relationships between tracked entities are supported'
+                    )}`,
+                })
+            }
+
             // Only relationships between tracked entities are drawn
             if (relationshipResult?.relatedEntityType) {
                 legend.items.push(

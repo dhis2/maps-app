@@ -462,6 +462,12 @@ describe('trackedEntityLoader relationships', () => {
         from: { trackedEntity: { trackedEntity: 'te1' } },
         to: { trackedEntity: { trackedEntity: 'te2' } },
     }
+    const unsupportedWarning = {
+        warning: true,
+        code: 'CUSTOM_ALERT',
+        message:
+            'Malaria case: Only relationships between tracked entities are supported',
+    }
     const withRelationships = (instance) => ({
         ...instance,
         relationships: [relationship],
@@ -519,6 +525,7 @@ describe('trackedEntityLoader relationships', () => {
     it('returns the relationships and the related instances', async () => {
         const { result } = await loadWithRelationships()
 
+        expect(result.alerts).toBeUndefined()
         expect(result.relationships).toEqual([
             expect.objectContaining({ id: 'rel1', bidirectional: false }),
         ])
@@ -621,7 +628,7 @@ describe('trackedEntityLoader relationships', () => {
         }
     )
 
-    it('shows the tracked entities for a relationship to events', async () => {
+    it('shows the tracked entities with a warning for a relationship to events', async () => {
         const engine = {
             query: jest
                 .fn()
@@ -656,6 +663,47 @@ describe('trackedEntityLoader relationships', () => {
         expect(result.relationships).toEqual([])
         expect(result.secondaryData).toEqual([])
         expect(result.legend.items).toHaveLength(1)
+        expect(result.alerts).toEqual([unsupportedWarning])
+    })
+
+    it('warns for a relationship from events to tracked entities', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        fromConstraint: {
+                            relationshipEntity: 'PROGRAM_STAGE_INSTANCE',
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.relationships).toEqual([])
+        expect(result.alerts).toEqual([unsupportedWarning])
     })
 
     it('requests the relationships of each tracked entity', async () => {
