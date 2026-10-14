@@ -1,0 +1,393 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ethiopian calendar formatDateInput clamps a full date 1`] = `
+Object {
+  "error": "Era am (ISO year 2015) was not matched by any era",
+}
+`;
+
+exports[`ethiopian calendar formatDateInput fills in the current year for 0000 1`] = `
+Object {
+  "error": "Era am (ISO year 2016) was not matched by any era",
+}
+`;
+
+exports[`ethiopian calendar getCurrentYearInCalendar 1`] = `
+Object {
+  "error": "Era am (ISO year 2016) was not matched by any era",
+}
+`;
+
+exports[`ethiopian calendar getDefaultDatesInCalendar 1`] = `
+Object {
+  "error": "Era am (ISO year 2016) was not matched by any era",
+}
+`;
+
+exports[`ethiopian calendar getMaxDaysInMonth for every month 1`] = `
+Object {
+  "value": Array [
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2015) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2016) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2016) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2016) was not matched by any era",
+    },
+    Object {
+      "error": "Era am (ISO year 2016) was not matched by any era",
+    },
+  ],
+}
+`;
+
+exports[`ethiopian calendar getMaxMonthsInYear 1`] = `
+Object {
+  "error": "Era am (ISO year 2015) was not matched by any era",
+}
+`;
+
+exports[`gregorian calendar formatDateInput clamps a full date 1`] = `
+Object {
+  "value": "2024-12-31",
+}
+`;
+
+exports[`gregorian calendar formatDateInput fills in the current year for 0000 1`] = `
+Object {
+  "value": "2024",
+}
+`;
+
+exports[`gregorian calendar getCurrentYearInCalendar 1`] = `
+Object {
+  "value": 2024,
+}
+`;
+
+exports[`gregorian calendar getDefaultDatesInCalendar 1`] = `
+Object {
+  "value": Object {
+    "endDate": "2024-06-15",
+    "startDate": "2023-06-15",
+  },
+}
+`;
+
+exports[`gregorian calendar getMaxDaysInMonth for every month 1`] = `
+Object {
+  "value": Array [
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 31,
+    },
+  ],
+}
+`;
+
+exports[`gregorian calendar getMaxMonthsInYear 1`] = `
+Object {
+  "value": 12,
+}
+`;
+
+exports[`islamic calendar formatDateInput clamps a full date 1`] = `
+Object {
+  "value": "1445-12-29",
+}
+`;
+
+exports[`islamic calendar formatDateInput fills in the current year for 0000 1`] = `
+Object {
+  "value": "1445",
+}
+`;
+
+exports[`islamic calendar getCurrentYearInCalendar 1`] = `
+Object {
+  "value": 1445,
+}
+`;
+
+exports[`islamic calendar getDefaultDatesInCalendar 1`] = `
+Object {
+  "value": Object {
+    "endDate": "1445-12-09",
+    "startDate": "1444-12-09",
+  },
+}
+`;
+
+exports[`islamic calendar getMaxDaysInMonth for every month 1`] = `
+Object {
+  "value": Array [
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 29,
+    },
+  ],
+}
+`;
+
+exports[`islamic calendar getMaxMonthsInYear 1`] = `
+Object {
+  "value": 12,
+}
+`;
+
+exports[`iso8601 calendar formatDateInput clamps a full date 1`] = `
+Object {
+  "value": "2024-12-31",
+}
+`;
+
+exports[`iso8601 calendar formatDateInput fills in the current year for 0000 1`] = `
+Object {
+  "value": "2024",
+}
+`;
+
+exports[`iso8601 calendar getCurrentYearInCalendar 1`] = `
+Object {
+  "value": 2024,
+}
+`;
+
+exports[`iso8601 calendar getDefaultDatesInCalendar 1`] = `
+Object {
+  "value": Object {
+    "endDate": "2024-06-15",
+    "startDate": "2023-06-15",
+  },
+}
+`;
+
+exports[`iso8601 calendar getMaxDaysInMonth for every month 1`] = `
+Object {
+  "value": Array [
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 31,
+    },
+  ],
+}
+`;
+
+exports[`iso8601 calendar getMaxMonthsInYear 1`] = `
+Object {
+  "value": 12,
+}
+`;
+
+exports[`nepali calendar formatDateInput clamps a full date 1`] = `
+Object {
+  "value": "2081-12-31",
+}
+`;
+
+exports[`nepali calendar formatDateInput fills in the current year for 0000 1`] = `
+Object {
+  "value": "2081",
+}
+`;
+
+exports[`nepali calendar getCurrentYearInCalendar 1`] = `
+Object {
+  "value": 2081,
+}
+`;
+
+exports[`nepali calendar getDefaultDatesInCalendar 1`] = `
+Object {
+  "value": Object {
+    "endDate": "2081-03-01",
+    "startDate": "2080-03-01",
+  },
+}
+`;
+
+exports[`nepali calendar getMaxDaysInMonth for every month 1`] = `
+Object {
+  "value": Array [
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 32,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 32,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 30,
+    },
+    Object {
+      "value": 29,
+    },
+    Object {
+      "value": 31,
+    },
+    Object {
+      "value": undefined,
+    },
+  ],
+}
+`;
+
+exports[`nepali calendar getMaxMonthsInYear 1`] = `
+Object {
+  "value": 12,
+}
+`;
