@@ -141,6 +141,14 @@ describe('getMaxDaysInMonth', () => {
     })
 })
 
+describe('Nepali years out of range', () => {
+    it.each([1969, 2101])('throws for Nepali year %s', (year) => {
+        const error = `Nepali year ${year} is out of range (1970-2100)`
+        expect(() => getMaxDaysInMonth(year, 1, 'nepali')).toThrow(error)
+        expect(() => getMaxMonthsInYear(year, 'nepali')).toThrow(error)
+    })
+})
+
 describe('getMaxMonthsInYear', () => {
     const testCases = [
         { calendar: 'iso8601', year: 2024, expectedMonths: 12 },

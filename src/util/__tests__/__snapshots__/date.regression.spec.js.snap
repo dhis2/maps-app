@@ -383,7 +383,7 @@ Object {
       "value": 31,
     },
     Object {
-      "value": undefined,
+      "value": 31,
     },
   ],
 }
