@@ -2,25 +2,28 @@
 
 exports[`ethiopian calendar formatDateInput clamps a full date 1`] = `
 Object {
-  "error": "Era am (ISO year 2015) was not matched by any era",
+  "value": "2016-12-30",
 }
 `;
 
 exports[`ethiopian calendar formatDateInput fills in the current year for 0000 1`] = `
 Object {
-  "error": "Era am (ISO year 2016) was not matched by any era",
+  "value": "2016",
 }
 `;
 
 exports[`ethiopian calendar getCurrentYearInCalendar 1`] = `
 Object {
-  "error": "Era am (ISO year 2016) was not matched by any era",
+  "value": 2016,
 }
 `;
 
 exports[`ethiopian calendar getDefaultDatesInCalendar 1`] = `
 Object {
-  "error": "Era am (ISO year 2016) was not matched by any era",
+  "value": Object {
+    "endDate": "2016-10-08",
+    "startDate": "2015-10-08",
+  },
 }
 `;
 
@@ -28,43 +31,43 @@ exports[`ethiopian calendar getMaxDaysInMonth for every month 1`] = `
 Object {
   "value": Array [
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2015) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2016) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2016) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2016) was not matched by any era",
+      "value": 30,
     },
     Object {
-      "error": "Era am (ISO year 2016) was not matched by any era",
+      "value": 5,
     },
   ],
 }
@@ -72,7 +75,7 @@ Object {
 
 exports[`ethiopian calendar getMaxMonthsInYear 1`] = `
 Object {
-  "error": "Era am (ISO year 2015) was not matched by any era",
+  "value": 13,
 }
 `;
 
@@ -222,7 +225,7 @@ Object {
       "value": 29,
     },
     Object {
-      "value": 29,
+      "value": 31,
     },
   ],
 }

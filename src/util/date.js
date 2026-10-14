@@ -1,5 +1,7 @@
-import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
-import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
+import {
+    getNowInCalendar,
+    validateDateString,
+} from '@dhis2/multi-calendar-dates'
 
 export const DEFAULT_CALENDAR = 'iso8601'
 export const DEFAULT_PLACEHOLDER = 'yyyy-mm-dd'
@@ -10,7 +12,7 @@ const GREGORIAN_CALENDAR_NAME = 'gregory'
 const ETHIOPIAN_CALENDAR_NAME = 'ethiopic'
 const THAI_CALENDAR_NAME = 'buddhist'
 
-const ERA_CALENDARS = { coptic: 'era1', ethiopian: 'era1', ethiopic: 'era1' }
+const THIRTEEN_MONTH_CALENDARS = ['coptic', ETHIOPIAN_CALENDAR_NAME]
 
 // dhis2CalendarsMap and NEPALI_CALENDAR_DATA cannot be imported from @dhis2/multi-calendar-dates
 
@@ -18,7 +20,7 @@ const dhis2CalendarsMap = {
     iso8601: GREGORIAN_CALENDAR_NAME, // this is not supported by getNowInCalendar
     ethiopian: ETHIOPIAN_CALENDAR_NAME,
     gregorian: GREGORIAN_CALENDAR_NAME,
-    julian: GREGORIAN_CALENDAR_NAME, // this is not supported by Temporal
+    julian: GREGORIAN_CALENDAR_NAME, // this is not supported by multi-calendar-dates
     thai: THAI_CALENDAR_NAME,
 }
 const NEPALI_CALENDAR_DATA = {
@@ -168,13 +170,27 @@ export const getMaxDaysInMonth = (year, month, calendar) => {
         return NEPALI_CALENDAR_DATA[year][month]
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const era = ERA_CALENDARS[calendar]
-    const dateFields = era
-        ? { era, eraYear: year, month, day: 1, calendar: calendarName }
-        : { year, month, day: 1, calendar: calendarName }
-    const date = Temporal.PlainDate.from(dateFields)
-
-    return date.daysInMonth
+    if (calendarName === GREGORIAN_CALENDAR_NAME) {
+        // day 0 of the next month is the last day of this month
+        const date = new Date(0)
+        date.setUTCFullYear(Number(year), Number(month), 0)
+        return date.getUTCDate()
+    }
+    const yearString = String(year).padStart(4, '0')
+    const monthString = String(month).padStart(2, '0')
+    // the last day of the month is the highest day that is a valid date
+    for (let day = 31; day > 1; day--) {
+        const dayString = String(day).padStart(2, '0')
+        const { valid } = validateDateString(
+            `${yearString}-${monthString}-${dayString}`,
+            { calendar: calendarName }
+        )
+        if (valid) {
+            return day
+        }
+    }
+    // the date could not be validated in this calendar, so don't clamp the day
+    return 31
 }
 
 export const getMaxMonthsInYear = (year, calendar) => {
@@ -182,13 +198,7 @@ export const getMaxMonthsInYear = (year, calendar) => {
         return NEPALI_CALENDAR_DATA[year].length - 1
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const era = ERA_CALENDARS[calendar]
-    const dateFields = era
-        ? { era, eraYear: year, month: 1, day: 1, calendar: calendarName }
-        : { year, month: 1, day: 1, calendar: calendarName }
-    const date = Temporal.PlainDate.from(dateFields)
-
-    return date.monthsInYear
+    return THIRTEEN_MONTH_CALENDARS.includes(calendarName) ? 13 : 12
 }
 
 export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
