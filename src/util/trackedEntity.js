@@ -1,10 +1,5 @@
 import { getOrgUnitsFromRows } from './analytics.js'
-import {
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-    GEO_TYPE_FEATURE,
-} from './geojson.js'
+import { GEO_TYPE_FEATURE, trackedEntityGeometryTypes } from './geojson.js'
 import { trimTime } from './time.js'
 import {
     serverSupportsTracker41Api,
@@ -37,13 +32,6 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
 // -----
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
-
-// Valid geometry types for TEIs
-const teiGeometryTypes = new Set([
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-])
 
 // Also used for the related tracked entities of relationship layers
 export const TEI_40_QUERY = {
@@ -210,7 +198,7 @@ export const loadTrackedEntitiesFromTracker = async ({
         isVersion40 ? 'instances' : 'trackedEntities'
     ].filter(
         (instance) =>
-            teiGeometryTypes.has(instance.geometry?.type) &&
+            trackedEntityGeometryTypes.has(instance.geometry?.type) &&
             instance.geometry?.coordinates
     )
 

@@ -73,6 +73,46 @@ const getRelationshipLegendItems = ({
     ]
 }
 
+const getLegend = ({
+    name,
+    trackedEntityType,
+    program,
+    programStatus,
+    startDate,
+    endDate,
+    eventPointColor,
+    eventPointRadius,
+    areaRadius,
+}) => {
+    const legend = {
+        title: name,
+        period: formatStartEndDate(
+            getDateArray(startDate),
+            getDateArray(endDate)
+        ),
+        items: [
+            {
+                name:
+                    trackedEntityType.name +
+                    (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
+                color: eventPointColor || TEI_COLOR,
+                radius: eventPointRadius || TEI_RADIUS,
+            },
+        ],
+    }
+
+    if (program && programStatus) {
+        legend.explanation = [
+            `${i18n.t('Program status')}: ${
+                getProgramStatuses().find((s) => s.id === programStatus)
+                    ?.name ?? programStatus
+            }`,
+        ]
+    }
+
+    return legend
+}
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -103,33 +143,17 @@ const trackedEntityLoader = async ({
     let data = []
 
     try {
-        legend = {
-            title: name,
-            period: formatStartEndDate(
-                getDateArray(startDate),
-                getDateArray(endDate)
-            ),
-            items: [
-                {
-                    name:
-                        trackedEntityType.name +
-                        (areaRadius
-                            ? ` + ${areaRadius} ${'m'} ${'buffer'}`
-                            : ''),
-                    color: eventPointColor || TEI_COLOR,
-                    radius: eventPointRadius || TEI_RADIUS,
-                },
-            ],
-        }
-
-        if (program && programStatus) {
-            legend.explanation = [
-                `${i18n.t('Program status')}: ${
-                    getProgramStatuses().find((s) => s.id === programStatus)
-                        ?.name ?? programStatus
-                }`,
-            ]
-        }
+        legend = getLegend({
+            name,
+            trackedEntityType,
+            program,
+            programStatus,
+            startDate,
+            endDate,
+            eventPointColor,
+            eventPointRadius,
+            areaRadius,
+        })
 
         const { instances, orgUnits } = await loadTrackedEntitiesFromTracker({
             config,
