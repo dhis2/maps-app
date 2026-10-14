@@ -264,5 +264,11 @@ export const loadTrackedEntityRelationships = async ({
         relationshipType,
         relatedEntityType,
         isTruncated: dataWithRels.isTruncated,
+        // Only relationships between tracked entities can be shown
+        isSupported:
+            relationshipType.fromConstraint.relationshipEntity ===
+                TRACKED_ENTITY_INSTANCE &&
+            relationshipType.toConstraint.relationshipEntity ===
+                TRACKED_ENTITY_INSTANCE,
     }
 }
