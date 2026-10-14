@@ -1,43 +1,11 @@
-import { createTrackedEntityInstanceFeatures } from './trackedEntity.js'
+import {
+    createTrackedEntityInstanceFeatures,
+    TEI_40_QUERY,
+    TEI_41_QUERY,
+} from './trackedEntity.js'
 import { serverSupportsTracker41Api } from './versionToggle.js'
 
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
-
-const TEI_40_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-    }) => ({
-        fields,
-        orgUnit: orgUnits,
-        ouMode: orgUnitMode,
-        program: program,
-        trackedEntityType,
-        skipPaging: true,
-    }),
-}
-
-const TEI_41_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-    }) => ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-        paging: false,
-    }),
-}
 
 const normalizeInstances = (instances) => {
     return instances
