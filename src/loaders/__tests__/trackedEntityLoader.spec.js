@@ -363,7 +363,7 @@ describe('trackedEntityLoader result', () => {
                 explanation: ['Program status: Completed'],
             },
         })
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 
     it('names the layer after the type without a program', async () => {
@@ -439,7 +439,7 @@ describe('trackedEntityLoader result', () => {
         })
 
         expect((await result).loadError).toBeUndefined()
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 })
 
@@ -525,7 +525,7 @@ describe('trackedEntityLoader relationships', () => {
     it('returns the relationships and the related instances', async () => {
         const { result } = await loadWithRelationships()
 
-        expect(result.alerts).toBeUndefined()
+        expect(result.alerts).toEqual([])
         expect(result.relationships).toEqual([
             expect.objectContaining({ id: 'rel1', bidirectional: false }),
         ])
