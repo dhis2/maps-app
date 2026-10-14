@@ -42,7 +42,8 @@ const teiGeometryTypes = new Set([
     GEO_TYPE_MULTIPOLYGON,
 ])
 
-const TEI_40_QUERY = {
+// Also used for the related tracked entities of relationship layers
+export const TEI_40_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
         fields,
@@ -72,7 +73,7 @@ const TEI_40_QUERY = {
     }),
 }
 
-const TEI_41_QUERY = {
+export const TEI_41_QUERY = {
     resource: 'tracker/trackedEntities',
     params: ({
         fields,
