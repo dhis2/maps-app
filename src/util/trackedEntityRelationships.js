@@ -122,12 +122,12 @@ export const getDataWithRelationships = async ({
 
     // Use target as source if from/to TE Types and Programs match, otherwise
     // fetch/re-fetch using program if available TE type otherwise
-    let relatedFilter = null
+    let relatedRequestParams = null
     if (!isSameProgram) {
-        relatedFilter =
+        relatedRequestParams =
             isSameTrackedEntityType && isToProgramDefined
                 ? { program: to.program.id } // Same TE type, defined 'to' program
-                : { type: to.trackedEntityType } // Different TE type, or no 'to' program
+                : { trackedEntityType: to.trackedEntityType.id } // Different TE type, or no 'to' program
     }
 
     // Keep TEI with coords and convert array to object (id = key)
@@ -146,8 +146,7 @@ export const getDataWithRelationships = async ({
                     fields,
                     orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
-                    program: relatedFilter?.program,
-                    trackedEntityType: relatedFilter?.type?.id,
+                    ...relatedRequestParams,
                 },
             }
         )
