@@ -1,6 +1,12 @@
+import { saveExistingMap, saveNewMap } from '../../elements/file_menu.js'
 import { getMaps } from '../../elements/map_canvas.js'
 import { TeLayer } from '../../elements/trackedentity_layer.js'
-import { EXTENDED_TIMEOUT, getDhis2Version } from '../../support/util.js'
+import {
+    EXTENDED_TIMEOUT,
+    getApiBaseUrl,
+    getDhis2Version,
+    uniqueId,
+} from '../../support/util.js'
 
 const selectTeTypeAndProgram = (Layer, teType, program) => {
     cy.intercept('GET', /\/trackedEntityTypes\?/).as('getTrackedEntityTypes')
@@ -40,7 +46,79 @@ const selectMalariaCase = (Layer) => {
 // Counts the requests, to check that an API is not used
 const spyOn = (url, alias) => cy.intercept('GET', url, cy.spy().as(alias))
 
+// Saves a new map and returns its id and saved layer
+const saveMap = (savedMapIds) => {
+    cy.intercept('POST', /\/maps$/).as('saveMap')
+    saveNewMap(`TE layer ${uniqueId()}`)
+    return cy
+        .wait('@saveMap', EXTENDED_TIMEOUT)
+        .then(({ request, response }) => {
+            const id = response.body.response.uid
+            savedMapIds.push(id)
+            return { id, mapView: request.body.mapViews[0] }
+        })
+}
+
+// A full app load can be slow, before the layer requests start
+const visitSavedMap = (id) => {
+    cy.visit(`/?id=${id}`)
+    cy.getByDataTest('add-layer-button', { timeout: 60000 }).should(
+        'be.visible'
+    )
+}
+
+// The program status param was renamed in 2.42
+const getStatusParam = () =>
+    Number(getDhis2Version().minor) >= 42 ? 'enrollmentStatus' : 'programStatus'
+
+// A saved map only has the names it was loaded with
+const openSavedRelationshipLayer = (id) => {
+    cy.intercept('GET', TRACKER_URL).as('getTracker')
+    visitSavedMap(id)
+
+    cy.wait('@getTracker', EXTENDED_TIMEOUT).then(({ request }) => {
+        const params = getParams(request.url)
+        expect(params.get('orgUnitMode')).to.equal('SELECTED')
+        expect(params.get('followUp')).to.equal('TRUE')
+        expect(params.get(getStatusParam())).to.equal('ACTIVE')
+        expect(params.get('fields')).to.include('relationships')
+    })
+
+    TeLayerForSaved.validateCardTitle(MALARIA_CASE.name)
+        .validateCardItems([
+            MALARIA_ENTITY,
+            'Index case to cases',
+            `${MALARIA_ENTITY} (related)`,
+        ])
+        .validateCardContents(['Program status: Active'])
+}
+
+const validateSavedRelationshipLayer = (mapView) => {
+    expect(mapView).to.include({
+        followUp: true,
+        programStatus: 'ACTIVE',
+        organisationUnitSelectionMode: 'CHILDREN',
+    })
+    expect(JSON.parse(mapView.config).relationships.type).to.equal(
+        'm6XJSapEvOa'
+    )
+}
+
+const TeLayerForSaved = new TeLayer()
+
 describe('Tracked Entity Layers', () => {
+    const savedMapIds = []
+
+    after(() => {
+        savedMapIds.forEach((id) =>
+            cy.request({
+                method: 'DELETE',
+                url: `${getApiBaseUrl()}/api/maps/${id}`,
+                failOnStatusCode: false,
+            })
+        )
+    })
+
     beforeEach(() => {
         cy.visit('/')
     })
@@ -355,5 +433,98 @@ describe('Tracked Entity Layers', () => {
             .should('be.visible')
         Layer.validateCardItems([MALARIA_ENTITY])
         cy.getByDataTest('load-error-noticebox').should('not.exist')
+    })
+
+    it('keeps the options and names of a saved layer with relationships', () => {
+        selectMalariaCase(Layer)
+        Layer.selectProgramStatus('Active')
+            .checkFollowUp()
+            .selectTab('Relationships')
+            .showRelationships()
+            .selectRelationshipType('Index case to cases')
+            .selectTab('Org Units')
+            .selectOuMode('Immediate children')
+            .addToMap()
+        Layer.validateDialogClosed(true)
+
+        saveMap(savedMapIds).then(({ id, mapView }) => {
+            validateSavedRelationshipLayer(mapView)
+            openSavedRelationshipLayer(id)
+
+            // The dialog shows the saved options
+            cy.getByDataTest('layer-edit-button').click()
+            Layer.validateSelectValue('Program', MALARIA_CASE.name)
+                .validateSelectValue('Program status', 'Active')
+                .validateChecked('Follow up')
+                .selectTab('Relationships')
+                .validateChecked('Display Tracked Entity relationships')
+                .validateSelectValue('Relationship type', 'Index case to cases')
+                .selectTab('Org Units')
+                .validateSelectValue('Selection mode', 'Immediate children')
+
+            // Updating the layer and saving the map keeps everything
+            Layer.updateMap()
+            Layer.validateDialogClosed(true)
+            cy.intercept('PUT', /\/maps\/\w{11}/).as('saveExistingMap')
+            saveExistingMap()
+            cy.wait('@saveExistingMap', EXTENDED_TIMEOUT).then(({ request }) =>
+                validateSavedRelationshipLayer(request.body.mapViews[0])
+            )
+
+            openSavedRelationshipLayer(id)
+        })
+    })
+
+    it('keeps the default org unit mode and popup names of a saved layer', () => {
+        selectTeTypeAndProgram(
+            Layer,
+            'Focus area',
+            'Malaria focus investigation'
+        )
+        Layer.selectTab('Period')
+            .typeStartDate('2018-01-01')
+            .selectTab('Org Units')
+            .unselectOu('Sierra Leone')
+            .openOu('Bo')
+            .openOu('Badjia')
+            .selectOu('Njandama MCHP')
+            .addToMap()
+        Layer.validateDialogClosed(true)
+
+        saveMap(savedMapIds).then(({ id, mapView }) => {
+            // The default mode is applied when loading, not saved
+            expect(mapView.organisationUnitSelectionMode).to.equal(undefined)
+
+            cy.intercept('GET', ANALYTICS_URL).as('getAnalytics')
+            visitSavedMap(id)
+            cy.wait('@getAnalytics', EXTENDED_TIMEOUT).then(({ request }) => {
+                expect(getParams(request.url).get('ouMode')).to.equal(
+                    'DESCENDANTS'
+                )
+            })
+
+            Layer.validateCardTitle(
+                'Malaria focus investigation'
+            ).validateCardItems(['Focus area'])
+
+            cy.waitForMap()
+            cy.intercept('GET', '**/tracker/trackedEntities/*').as(
+                'getTrackedEntityPopupData'
+            )
+            getMaps().click('center')
+            cy.wait('@getTrackedEntityPopupData', EXTENDED_TIMEOUT)
+            Layer.validatePopupContents([
+                'Organisation unit',
+                'Njandama MCHP',
+                'System Focus ID',
+                'WQQ003161',
+            ])
+
+            cy.getByDataTest('layer-edit-button').click()
+            Layer.selectTab('Org Units').validateSelectValue(
+                'Selection mode',
+                'Selected and all below'
+            )
+        })
     })
 })

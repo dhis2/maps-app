@@ -23,6 +23,31 @@ export class TeLayer extends Layer {
         return this
     }
 
+    selectProgramStatus(status) {
+        cy.contains('[data-test="select-field-container"]', 'Program status')
+            .find('[data-test="dhis2-uicore-select-input"]')
+            .click()
+        cy.getByDataTest('dhis2-uicore-singleselectoption')
+            .contains(status)
+            .click()
+
+        return this
+    }
+
+    validateSelectValue(label, value) {
+        cy.contains('[data-test="select-field-container"]', label)
+            .find('[data-test="dhis2-uicore-select-input"]')
+            .should('contain', value)
+
+        return this
+    }
+
+    validateChecked(label) {
+        cy.contains('label', label).find('input').should('be.checked')
+
+        return this
+    }
+
     checkFollowUp() {
         cy.contains('label', 'Follow up').click()
 
