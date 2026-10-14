@@ -124,17 +124,6 @@ export const getDataWithRelationships = async ({
             'program' in to &&
             from?.program?.id === to?.program?.id) ||
         !('program' in from || 'program' in to)
-    const isToProgramDefined = 'program' in to
-
-    // Use target as source if from/to TE Types and Programs match, otherwise
-    // fetch/re-fetch using program if available TE type otherwise
-    let relatedRequestParams = null
-    if (!(isSameTrackedEntityType && isSameProgram)) {
-        relatedRequestParams =
-            isSameTrackedEntityType && isToProgramDefined
-                ? { program: to.program.id } // Same TE type, defined 'to' program
-                : { trackedEntityType: to.trackedEntityType.id } // Different TE type, or no 'to' program
-    }
 
     // Keep TEI with coords and convert array to object (id = key)
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
@@ -142,8 +131,14 @@ export const getDataWithRelationships = async ({
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
     if (isSameTrackedEntityType && isSameProgram) {
+        // The related tracked entities are among the loaded ones
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
+        // By the target program for the same type, by the target type otherwise
+        const relatedRequestParams =
+            isSameTrackedEntityType && 'program' in to
+                ? { program: to.program.id }
+                : { trackedEntityType: to.trackedEntityType.id }
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
