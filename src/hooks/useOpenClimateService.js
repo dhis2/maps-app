@@ -3,7 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
     OPEN_CLIMATE_SERVICE_RESOURCE,
     fetchOpenClimateServiceSettings,
-    fetchRasterCollections,
+    fetchCollections,
     getLayerSource,
     normalizeUrl,
 } from '../util/openClimateService.js'
@@ -12,7 +12,7 @@ import {
 let storedSettings
 
 // The Open Climate Service linked to this DHIS2 instance, and its published
-// raster datasets as layer sources. An administrator chooses which datasets
+// raster and vector datasets as layer sources. An administrator chooses which datasets
 // are available to add to maps.
 const useOpenClimateService = () => {
     const engine = useDataEngine()
@@ -39,7 +39,7 @@ const useOpenClimateService = () => {
             return
         }
         let cancelled = false
-        fetchRasterCollections(url)
+        fetchCollections(url)
             .then((collections) => {
                 if (!cancelled) {
                     setLayerSources(collections.map(getLayerSource))
@@ -69,7 +69,7 @@ const useOpenClimateService = () => {
     const link = useCallback(
         async (newUrl) => {
             const url = normalizeUrl(newUrl)
-            await fetchRasterCollections(url)
+            await fetchCollections(url)
             await save({ url, enabled: [] })
         },
         [save]

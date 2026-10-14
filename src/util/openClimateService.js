@@ -52,14 +52,18 @@ const fetchJson = async (url) => {
 export const fetchCollection = (url, datasetId) =>
     fetchJson(`${url}/stac/collections/${encodeURIComponent(datasetId)}`)
 
-// Raster collections have a Zarr asset, feature collections do not
-const isRasterCollection = (collection) =>
+// Raster collections have a Zarr asset
+export const isRasterCollection = (collection) =>
     Boolean(collection?.assets?.zarr?.href)
+
+// Vector collections can be shown when they have vector tiles and a style
+export const isVectorCollection = (collection) =>
+    Boolean(collection?.assets?.tiles?.href && collection?.assets?.style?.href)
 
 const collectionsCache = {}
 
-// Published raster collections of an instance, fetched once per url
-export const fetchRasterCollections = (url) => {
+// Published collections of an instance that can be shown on a map, fetched once per url
+export const fetchCollections = (url) => {
     if (!collectionsCache[url]) {
         collectionsCache[url] = fetchJson(`${url}/stac`)
             .then((catalog) =>
@@ -69,7 +73,11 @@ export const fetchRasterCollections = (url) => {
                         .map((link) => fetchJson(link.href).catch(() => null))
                 )
             )
-            .then((collections) => collections.filter(isRasterCollection))
+            .then((collections) =>
+                collections.filter(
+                    (c) => isRasterCollection(c) || isVectorCollection(c)
+                )
+            )
             .catch((error) => {
                 delete collectionsCache[url]
                 throw error
@@ -88,6 +96,38 @@ export const getLayerSource = (collection) => ({
     source: 'Open Climate Service',
     config: { datasetId: collection.id },
 })
+
+export const fetchStyle = (collection) =>
+    fetchJson(collection.assets.style.href)
+
+const getBounds = (collection) => {
+    const [x1, y1, x2, y2] = collection.extent?.spatial?.bbox?.[0] || []
+    return x1 === undefined
+        ? null
+        : [
+              [x1, y1],
+              [x2, y2],
+          ] // WGS84
+}
+
+// What the layer needs to draw a vector collection: the MapLibre style OCS
+// publishes for it, over its PMTiles archive
+export const getVectorOptions = (collection, style) => ({
+    kind: 'vector',
+    style,
+    bounds: getBounds(collection),
+    featureCount: collection['table:row_count'],
+})
+
+// The colour features are drawn with, for the legend
+export const getVectorColor = (style) => {
+    const layers = style?.layers || []
+    const fill = layers.find((l) => l.type === 'fill')?.paint?.['fill-color']
+    const circle = layers.find((l) => l.type === 'circle')?.paint?.[
+        'circle-color'
+    ]
+    return typeof (fill || circle) === 'string' ? fill || circle : '#0066cc'
+}
 
 const DATE_UNITS = { Y: 'years', M: 'months', W: 'weeks', D: 'days' }
 const TIME_UNITS = { H: 'hours', M: 'minutes', S: 'seconds' }
@@ -266,7 +306,6 @@ export const getRenderOptions = (collection) => {
         render['open_climate_service:variable'] ||
         Object.keys(collection['cube:variables'] || {})[0]
     const [min, max] = render.rescale?.[0] || [0, 100]
-    const [x1, y1, x2, y2] = collection.extent?.spatial?.bbox?.[0] || []
     let crs = collection['proj:code'] || 'EPSG:4326'
 
     // CRS84 aliases are geographic WGS84, which ZarrLayer knows as EPSG:4326
@@ -280,6 +319,7 @@ export const getRenderOptions = (collection) => {
     }
 
     return {
+        kind: 'raster',
         source: zarr.href,
         variable,
         min,
@@ -290,13 +330,7 @@ export const getRenderOptions = (collection) => {
         crs,
         proj4: collection['open_climate_service:proj4'] ?? null,
         unit: collection['cube:variables']?.[variable]?.unit,
-        bounds:
-            x1 === undefined
-                ? null
-                : [
-                      [x1, y1],
-                      [x2, y2],
-                  ], // WGS84
+        bounds: getBounds(collection),
     }
 }
 

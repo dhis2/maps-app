@@ -5,7 +5,7 @@ import useOpenClimateService from '../../hooks/useOpenClimateService.js'
 import LayerSource from './LayerSource.jsx'
 import styles from './styles/OpenClimateServiceSource.module.css'
 
-// Link an Open Climate Service instance. Its published raster datasets are
+// Link an Open Climate Service instance. Its published raster and vector datasets are
 // listed, and the administrator chooses which are available to add to maps.
 const OpenClimateServiceSource = () => {
     const { url, layerSources, enabled, error, link, unlink, setVisibility } =

@@ -5,6 +5,10 @@ import {
     getDimensions,
     getRenderOptions,
     getSelectionIndexes,
+    getVectorColor,
+    getVectorOptions,
+    isRasterCollection,
+    isVectorCollection,
     normalizeUrl,
 } from '../openClimateService.js'
 
@@ -131,6 +135,7 @@ describe('openClimateService', () => {
 
     it('builds render options from the render hints', () => {
         expect(getRenderOptions(collection)).toEqual({
+            kind: 'raster',
             source: 'http://ocs/zarr/era5land_temperature_monthly',
             variable: 't2m',
             min: -30,
@@ -152,5 +157,45 @@ describe('openClimateService', () => {
         expect(getColormap('rdbu_r', 5)).toEqual(
             [...getColormap('rdbu', 5)].reverse()
         )
+    })
+
+    it('tells raster and vector collections apart by their assets', () => {
+        const vector = {
+            assets: {
+                tiles: { href: 'http://ocs/features/d/data.pmtiles' },
+                style: { href: 'http://ocs/features/d/styles/default.json' },
+            },
+        }
+        expect(isRasterCollection(collection)).toBe(true)
+        expect(isVectorCollection(collection)).toBe(false)
+        expect(isVectorCollection(vector)).toBe(true)
+        expect(isRasterCollection(vector)).toBe(false)
+        // Without tiles a vector collection cannot be drawn
+        expect(isVectorCollection({ assets: { data: { href: 'x' } } })).toBe(
+            false
+        )
+    })
+
+    it('draws a vector collection with its published style', () => {
+        const style = {
+            sources: { features: { type: 'vector' } },
+            layers: [
+                { type: 'line', paint: { 'line-color': '#1e3a5f' } },
+                { type: 'fill', paint: { 'fill-color': '#0066cc' } },
+            ],
+        }
+        const vector = { ...collection, 'table:row_count': 15 }
+
+        expect(getVectorOptions(vector, style)).toEqual({
+            kind: 'vector',
+            style,
+            bounds: [
+                [80.1, 26.4],
+                [88.2, 30.4],
+            ],
+            featureCount: 15,
+        })
+        expect(getVectorColor(style)).toBe('#0066cc')
+        expect(getVectorColor({ layers: [] })).toBe('#0066cc')
     })
 })

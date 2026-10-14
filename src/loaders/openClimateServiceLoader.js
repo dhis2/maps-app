@@ -4,12 +4,16 @@ import { parseJsonConfig } from '../util/config.js'
 import {
     fetchCollection,
     fetchOpenClimateServiceUrl,
+    fetchStyle,
     getDefaultSelection,
     getDimensions,
     getLegendColors,
     getRenderOptions,
     getSelectionIndexes,
     getSelectionName,
+    getVectorColor,
+    getVectorOptions,
+    isVectorCollection,
 } from '../util/openClimateService.js'
 import { createLegend } from './earthEngineLoader.js'
 
@@ -55,21 +59,58 @@ const openClimateServiceLoader = async ({
         )
     }
 
+    const name = collection.title || datasetId
+    const legendSource = {
+        title: name,
+        description: collection.description,
+        source: 'Open Climate Service',
+        sourceUrl: `${url}/datasets/${encodeURIComponent(datasetId)}`,
+    }
+
+    // A vector collection is drawn from its vector tiles, with the style OCS publishes
+    if (isVectorCollection(collection)) {
+        let style
+        try {
+            style = await fetchStyle(collection)
+        } catch {
+            return onError(
+                i18n.t('The map style of the dataset is not available')
+            )
+        }
+        const render = getVectorOptions(collection, style)
+        return {
+            ...layer,
+            name,
+            config,
+            render,
+            legend: {
+                ...legendSource,
+                items: [
+                    {
+                        color: getVectorColor(style),
+                        name: i18n.t('{{count}} features', {
+                            count: render.featureCount ?? 0,
+                        }),
+                    },
+                ],
+            },
+            isLoaded: true,
+            isLoading: false,
+            isExpanded: true,
+        }
+    }
+
     const dimensions = getDimensions(collection)
     const selection = {
         ...getDefaultSelection(dimensions),
         ...config.selection,
     }
     const render = getRenderOptions(collection)
-    const name = collection.title || datasetId
 
     const legend = {
-        title: name,
+        ...legendSource,
         period: getSelectionName(dimensions, selection),
         unit: render.unit,
-        description: collection.description,
-        source: 'Open Climate Service',
-        sourceUrl: `${url}/datasets/${encodeURIComponent(datasetId)}`,
         items: createLegend(
             {
                 min: render.min,

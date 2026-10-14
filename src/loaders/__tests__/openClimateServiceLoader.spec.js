@@ -79,4 +79,54 @@ describe('openClimateServiceLoader', () => {
         expect(result.alerts[0].critical).toBe(true)
         expect(result.isLoaded).toBe(true)
     })
+
+    it('loads a vector collection with its published style', async () => {
+        const districts = {
+            id: 'overture_divisions',
+            title: 'Administrative divisions',
+            'table:row_count': 15,
+            extent: { spatial: { bbox: [[-13.3, 6.9, -10.3, 10.0]] } },
+            assets: {
+                data: {
+                    href: 'http://ocs/features/overture_divisions/data.parquet',
+                },
+                tiles: {
+                    href: 'http://ocs/features/overture_divisions/data.pmtiles',
+                },
+                style: {
+                    href: 'http://ocs/features/overture_divisions/styles/default.json',
+                },
+            },
+        }
+        const style = {
+            sources: { features: { type: 'vector', url: 'pmtiles://x' } },
+            layers: [{ type: 'fill', paint: { 'fill-color': '#0066cc' } }],
+        }
+        global.fetch = jest.fn((url) =>
+            Promise.resolve({
+                ok: true,
+                json: () =>
+                    Promise.resolve(
+                        url.endsWith('default.json') ? style : districts
+                    ),
+            })
+        )
+
+        const result = await openClimateServiceLoader({
+            config: { id: 'layer1', config: { datasetId: districts.id } },
+            engine: engine({ url: 'http://ocs' }),
+        })
+
+        expect(global.fetch).toHaveBeenCalledWith(districts.assets.style.href)
+        expect(result.render.kind).toBe('vector')
+        expect(result.render.style).toEqual(style)
+        expect(result.render.bounds).toEqual([
+            [-13.3, 6.9],
+            [-10.3, 10.0],
+        ])
+        expect(result.legend.items).toEqual([
+            { color: '#0066cc', name: '15 features' },
+        ])
+        expect(result.alerts).toBeUndefined()
+    })
 })
