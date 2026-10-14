@@ -1,0 +1,20 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item {
+    display: flex;
+    box-sizing: content-box;
+    overflow: hidden;
+    outline: 1px solid #d5dde5;
+    background: white;
+}
+
+/* The padding keeps the resize handle outside the iframe, which would
+   swallow the drag */
+.resizable {
+    padding: 0 12px 12px 0;
+    resize: both;
+}
