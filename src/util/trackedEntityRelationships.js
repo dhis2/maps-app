@@ -139,9 +139,10 @@ export const getDataWithRelationships = async ({
         return []
     }
 
-    const isRecursiveTrackedEntityType =
+    const isSameTrackedEntityType =
         from.trackedEntityType.id === to.trackedEntityType.id
-    const isRecursiveProgram = // program specified and same in both or not specified in both
+    // Same program on both sides, or no program on either side
+    const isSameProgram =
         ('program' in from &&
             'program' in to &&
             from?.program?.id === to?.program?.id) ||
@@ -150,10 +151,10 @@ export const getDataWithRelationships = async ({
 
     // Use target as source if from/to TE Types and Programs match, otherwise
     // fetch/re-fetch using program if available TE type otherwise
-    let recursiveProp = null
-    if (!isRecursiveProgram) {
-        recursiveProp =
-            isRecursiveTrackedEntityType && isToProgramDefined
+    let relatedFilter = null
+    if (!isSameProgram) {
+        relatedFilter =
+            isSameTrackedEntityType && isToProgramDefined
                 ? { program: to.program.id } // Same TE type, defined 'to' program
                 : { type: to.trackedEntityType } // Different TE type, or no 'to' program
     }
@@ -163,7 +164,7 @@ export const getDataWithRelationships = async ({
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
-    if (isRecursiveTrackedEntityType && isRecursiveProgram) {
+    if (isSameTrackedEntityType && isSameProgram) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
@@ -174,8 +175,8 @@ export const getDataWithRelationships = async ({
                     fields,
                     orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
-                    program: recursiveProp?.program,
-                    trackedEntityType: recursiveProp?.type?.id,
+                    program: relatedFilter?.program,
+                    trackedEntityType: relatedFilter?.type?.id,
                 },
             }
         )
