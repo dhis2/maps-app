@@ -116,7 +116,7 @@ export const TEI_41_QUERY = {
     }),
 }
 
-export const createTrackedEntityInstanceFeatures = (instances) =>
+export const createTrackedEntityFeaturesFromTracker = (instances) =>
     instances.map(({ id, geometry }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
@@ -125,19 +125,18 @@ export const createTrackedEntityInstanceFeatures = (instances) =>
         },
     }))
 
-const buildQueryVariables = ({
-    fields,
-    orgUnits,
-    orgUnitMode,
-    program,
-    programStatus,
-    followUp,
-    trackedEntityType,
-    periodType,
-    startDate,
-    endDate,
-    serverVersion,
-}) => {
+const getTrackerRequestVariables = (
+    {
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        periodType,
+        startDate,
+        endDate,
+    },
+    { fields, orgUnits, orgUnitMode, serverVersion }
+) => {
     // Program status, follow-up and enrollment dates only apply to a program
     const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
     // VERSION-TOGGLE: see util/versionToggle.js
@@ -171,18 +170,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     serverVersion,
     maxLimit,
 }) => {
-    const {
-        trackedEntityType,
-        program,
-        programStatus,
-        followUp,
-        periodType,
-        startDate,
-        endDate,
-        rows,
-        organisationUnitSelectionMode,
-        relationshipType,
-    } = config
+    const { rows, organisationUnitSelectionMode, relationshipType } = config
 
     // VERSION-TOGGLE: see util/versionToggle.js
     const isVersion40 = !serverSupportsTracker41Api(serverVersion)
@@ -199,17 +187,10 @@ export const loadTrackedEntitiesFromTracker = async ({
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: buildQueryVariables({
+            variables: getTrackerRequestVariables(config, {
                 fields: requestFields,
                 orgUnits,
                 orgUnitMode: organisationUnitSelectionMode,
-                program,
-                programStatus,
-                followUp,
-                trackedEntityType,
-                periodType,
-                startDate,
-                endDate,
                 serverVersion,
             }),
         }
@@ -224,7 +205,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     )
 
     return {
-        data: createTrackedEntityInstanceFeatures(instances),
+        data: createTrackedEntityFeaturesFromTracker(instances),
         instances,
         // orgUnits is formatted for the relationships request
         orgUnits,
