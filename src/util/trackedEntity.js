@@ -90,7 +90,7 @@ export const TEI_41_QUERY = {
     }),
 }
 
-export const createTrackedEntityInstanceFeatures = (instances) =>
+export const createTrackedEntityFeaturesFromTracker = (instances) =>
     instances.map(({ id, geometry }) => ({
         type: GEO_TYPE_FEATURE,
         geometry,
@@ -99,18 +99,18 @@ export const createTrackedEntityInstanceFeatures = (instances) =>
         },
     }))
 
-const buildQueryVariables = ({
-    fields,
-    orgUnits,
-    orgUnitMode,
-    program,
-    programStatus,
-    followUp,
-    trackedEntityType,
-    periodType,
-    startDate,
-    endDate,
-}) => {
+const getTrackerRequestVariables = (
+    {
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        periodType,
+        startDate,
+        endDate,
+    },
+    { fields, orgUnits, orgUnitMode }
+) => {
     const followUpBool = followUp ? 'TRUE' : 'FALSE'
     const boolFollowUp =
         program && followUp !== undefined ? followUpBool : undefined
@@ -138,17 +138,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     engine,
     serverVersion,
 }) => {
-    const {
-        trackedEntityType,
-        program,
-        programStatus,
-        followUp,
-        periodType,
-        startDate,
-        endDate,
-        rows,
-        organisationUnitSelectionMode,
-    } = config
+    const { rows, organisationUnitSelectionMode } = config
 
     // VERSION-TOGGLE: see util/versionToggle.js
     const isVersion40 = !serverSupportsTracker41Api(serverVersion)
@@ -162,17 +152,10 @@ export const loadTrackedEntitiesFromTracker = async ({
     const { trackedEntities } = await engine.query(
         { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
         {
-            variables: buildQueryVariables({
+            variables: getTrackerRequestVariables(config, {
                 fields: fieldsWithRelationships,
                 orgUnits,
                 orgUnitMode: organisationUnitSelectionMode,
-                program,
-                programStatus,
-                followUp,
-                trackedEntityType,
-                periodType,
-                startDate,
-                endDate,
             }),
         }
     )
