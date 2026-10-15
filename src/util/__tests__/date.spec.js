@@ -11,13 +11,20 @@ import {
     nextCharIsManualHyphen,
 } from '../date.js'
 
-jest.mock('@dhis2/multi-calendar-dates', () => ({
-    getNowInCalendar: jest.fn(),
-    validateDateString: (...args) =>
-        jest
-            .requireActual('@dhis2/multi-calendar-dates')
-            .validateDateString(...args),
-}))
+// only getNowInCalendar is mocked. The other functions are forwarded lazily,
+// because spreading jest.requireActual in the factory fails
+jest.mock('@dhis2/multi-calendar-dates', () => {
+    const forward =
+        (name) =>
+        (...args) =>
+            jest.requireActual('@dhis2/multi-calendar-dates')[name](...args)
+    return {
+        getNowInCalendar: jest.fn(),
+        getDaysInMonth: forward('getDaysInMonth'),
+        addToCalendarDate: forward('addToCalendarDate'),
+        formatCalendarDate: forward('formatCalendarDate'),
+    }
+})
 
 describe('getMaxDaysInMonth', () => {
     const testCases = [
@@ -143,9 +150,12 @@ describe('getMaxDaysInMonth', () => {
 
 describe('Nepali years out of range', () => {
     it.each([1969, 2101])('throws for Nepali year %s', (year) => {
-        const error = `Nepali year ${year} is out of range (1970-2100)`
-        expect(() => getMaxDaysInMonth(year, 1, 'nepali')).toThrow(error)
-        expect(() => getMaxMonthsInYear(year, 'nepali')).toThrow(error)
+        expect(() => getMaxDaysInMonth(year, 1, 'nepali')).toThrow(
+            'Conversions are only possible between 1970 and 2100 in Nepali calendar'
+        )
+        expect(() => getMaxMonthsInYear(year, 'nepali')).toThrow(
+            `Nepali year ${year} is out of range (1970-2100)`
+        )
     })
 })
 

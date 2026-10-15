@@ -146,7 +146,7 @@ Object {
       "value": 31,
     },
     Object {
-      "value": 31,
+      "error": "value out of range: 1 <= 13 <= 12",
     },
   ],
 }
@@ -225,7 +225,7 @@ Object {
       "value": 29,
     },
     Object {
-      "value": 31,
+      "error": "value out of range: 1 <= 13 <= 12",
     },
   ],
 }
@@ -304,7 +304,7 @@ Object {
       "value": 31,
     },
     Object {
-      "value": 31,
+      "error": "value out of range: 1 <= 13 <= 12",
     },
   ],
 }
@@ -383,7 +383,7 @@ Object {
       "value": 31,
     },
     Object {
-      "value": 31,
+      "error": "Invalid date in Nepali calendar",
     },
   ],
 }

@@ -1,6 +1,8 @@
 import {
+    addToCalendarDate,
+    formatCalendarDate,
+    getDaysInMonth,
     getNowInCalendar,
-    validateDateString,
 } from '@dhis2/multi-calendar-dates'
 
 export const DEFAULT_CALENDAR = 'iso8601'
@@ -37,35 +39,13 @@ const assertNepaliYearInRange = (year) => {
 }
 
 export const getMaxDaysInMonth = (year, month, calendar) => {
+    // multi-calendar-dates has no julian calendar, so the app treats it as
+    // gregory, which has no 29 February in century years like 1900
     if (calendar === JULIAN_CALENDAR_NAME && year % 4 === 0 && month === 2) {
         return 29
     }
-    if (calendar === NEPALI_CALENDAR_NAME) {
-        assertNepaliYearInRange(year)
-    }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    if (calendarName === GREGORIAN_CALENDAR_NAME) {
-        // day 0 of the next month is the last day of this month
-        const date = new Date(0)
-        date.setUTCFullYear(Number(year), Number(month), 0)
-        return date.getUTCDate()
-    }
-    const yearString = String(year).padStart(4, '0')
-    const monthString = String(month).padStart(2, '0')
-    // the last day of the month is the highest day that is a valid date
-    // (up to 32, for Nepali)
-    for (let day = 32; day > 1; day--) {
-        const dayString = String(day).padStart(2, '0')
-        const { valid } = validateDateString(
-            `${yearString}-${monthString}-${dayString}`,
-            { calendar: calendarName }
-        )
-        if (valid) {
-            return day
-        }
-    }
-    // the date could not be validated in this calendar, so don't clamp the day
-    return 31
+    return getDaysInMonth({ year, month }, calendarName)
 }
 
 export const getMaxMonthsInYear = (year, calendar) => {
@@ -78,19 +58,11 @@ export const getMaxMonthsInYear = (year, calendar) => {
 
 export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const {
-        day,
-        month,
-        eraYear,
-        year: calendarYear,
-    } = getNowInCalendar(calendarName)
-    // eraYear is undefined for calendars without eras (e.g. islamic)
-    const year = eraYear ?? calendarYear
-    const formatDateString = (y, m, d) =>
-        `${y}-${m.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
+    const now = getNowInCalendar(calendarName)
+    const oneYearAgo = addToCalendarDate(now, { years: -1 }, calendarName)
     return {
-        startDate: formatDateString(year - 1, month, day),
-        endDate: formatDateString(year, month, day),
+        startDate: formatCalendarDate(oneYearAgo),
+        endDate: formatCalendarDate(now),
     }
 }
 
