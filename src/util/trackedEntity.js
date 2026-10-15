@@ -243,7 +243,7 @@ const getAnalyticsIdColumn = (serverVersion) =>
         ? 'trackedentity'
         : 'trackedentityinstanceuid'
 
-export const getTrackedEntityAnalyticsRequest = (
+const getAnalyticsRequest = (
     {
         trackedEntityType,
         program,
@@ -283,27 +283,21 @@ export const getTrackedEntityAnalyticsRequest = (
     })
 }
 
-export const createTrackedEntityFeaturesFromAnalytics = (
-    { headers, rows },
-    serverVersion
-) => {
+// Tracked entities with a geometry that can be drawn
+const getAnalyticsInstances = ({ headers, rows }, serverVersion) => {
     const idCol = headers.findIndex(
         (header) => header.name === getAnalyticsIdColumn(serverVersion)
     )
     const geomCol = headers.findIndex((header) => header.name === 'geometry')
 
-    return rows.reduce((features, row) => {
+    return rows.reduce((instances, row) => {
         const geometry = parseWkt(row[geomCol])
 
         if (geometry) {
-            features.push({
-                type: GEO_TYPE_FEATURE,
-                geometry,
-                properties: { id: row[idCol] },
-            })
+            instances.push({ id: row[idCol], geometry })
         }
 
-        return features
+        return instances
     }, [])
 }
 
@@ -313,21 +307,23 @@ export const loadTrackedEntitiesFromAnalytics = async ({
     serverVersion,
     pageSize = TEI_CLIENT_PAGE_SIZE,
 }) => {
-    const request = getTrackedEntityAnalyticsRequest(config, {
+    const request = getAnalyticsRequest(config, {
         analyticsEngine,
         serverVersion,
     })
     const response = await analyticsEngine.trackedEntities.getQuery(
         request.withPageSize(pageSize).withParameters({ totalPages: true })
     )
+    const rowCount = response.rows.length
+    const instances = getAnalyticsInstances(response, serverVersion)
     const total = response.metaData?.pager?.total
-    const count = response.rows.length
 
     return {
-        data: createTrackedEntityFeaturesFromAnalytics(response, serverVersion),
+        data: createTrackedEntityFeatures(instances),
+        instances,
         // The server can return fewer rows than pageSize (analytics max limit)
-        isTruncated: total > count,
-        limit: count,
+        isTruncated: total > rowCount,
+        limit: rowCount,
         total,
     }
 }
