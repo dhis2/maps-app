@@ -104,11 +104,11 @@ export const getDataWithRelationships = async ({
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
 
-    // Only relationships between tracked entities can be shown. Without
-    // tracked entities, there is nothing to relate (and no org units to
-    // request when the selected org units have no children)
     if (
+        // No tracked entities: nothing to relate, and their org units may be
+        // empty, which the tracker API reads as all accessible ones
         !sourceInstances.length ||
+        // Only relationships between tracked entities can be shown
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
