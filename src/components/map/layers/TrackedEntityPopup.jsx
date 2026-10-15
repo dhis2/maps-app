@@ -16,7 +16,7 @@ const TRACKED_ENTITIES_QUERY = {
         resource: `tracker/trackedEntities`,
         id: ({ id }) => id,
         params: ({ program }) => ({
-            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute],relationships',
+            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute]',
             program: program?.id,
         }),
     },
