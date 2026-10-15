@@ -48,6 +48,16 @@ export const getTrackedEntityDefaultOrgUnitMode = (serverVersion) =>
         ? ORG_UNIT_MODE_DESCENDANTS
         : ORG_UNIT_MODE_SELECTED
 
+// Features from tracked entities with an id and a geometry
+export const createTrackedEntityFeatures = (instances) =>
+    instances.map(({ id, geometry }) => ({
+        type: GEO_TYPE_FEATURE,
+        geometry,
+        properties: {
+            id,
+        },
+    }))
+
 // Tracker API
 // -----
 
@@ -128,15 +138,6 @@ export const TEI_41_QUERY = {
     }),
 }
 
-export const createTrackedEntityFeaturesFromTracker = (instances) =>
-    instances.map(({ id, geometry }) => ({
-        type: GEO_TYPE_FEATURE,
-        geometry,
-        properties: {
-            id,
-        },
-    }))
-
 const ORG_UNIT_CHILDREN_QUERY = {
     resource: 'organisationUnits',
     params: ({ parents }) => ({
@@ -164,7 +165,7 @@ const getTrackerOrgUnits = async ({ engine, orgUnitIds, orgUnitMode }) => {
     }
 }
 
-const getTrackerRequestVariables = (
+const getTrackerRequest = (
     {
         program,
         programStatus,
@@ -174,8 +175,10 @@ const getTrackerRequestVariables = (
         startDate,
         endDate,
     },
-    { fields, orgUnits, orgUnitMode, serverVersion }
+    { fields, orgUnitIds, orgUnitMode, serverVersion }
 ) => {
+    // VERSION-TOGGLE: see util/versionToggle.js
+    const isVersion40 = !serverSupportsTracker41Api(serverVersion)
     // Program status, follow-up and enrollment dates only apply to a program
     const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
     // VERSION-TOGGLE: see util/versionToggle.js
@@ -184,24 +187,44 @@ const getTrackerRequestVariables = (
         : 'programStatus'
 
     return {
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program: program?.id,
-        [statusParam]: program ? programStatus : undefined,
-        // Unchecked means no filter, not "not marked for follow-up"
-        followUp: program && followUp ? 'TRUE' : undefined,
-        trackedEntityType: program ? undefined : trackedEntityType?.id,
-        enrollmentEnrolledAfter: isEnrollmentPeriod
-            ? trimTime(startDate)
-            : undefined,
-        enrollmentEnrolledBefore: isEnrollmentPeriod
-            ? trimTime(endDate)
-            : undefined,
-        updatedAfter: isEnrollmentPeriod ? undefined : trimTime(startDate),
-        updatedBefore: isEnrollmentPeriod ? undefined : trimTime(endDate),
+        query: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY,
+        variables: {
+            fields,
+            orgUnits: orgUnitIds.join(isVersion40 ? ';' : ','),
+            orgUnitMode,
+            program: program?.id,
+            [statusParam]: program ? programStatus : undefined,
+            // Unchecked means no filter, not "not marked for follow-up"
+            followUp: program && followUp ? 'TRUE' : undefined,
+            trackedEntityType: program ? undefined : trackedEntityType?.id,
+            enrollmentEnrolledAfter: isEnrollmentPeriod
+                ? trimTime(startDate)
+                : undefined,
+            enrollmentEnrolledBefore: isEnrollmentPeriod
+                ? trimTime(endDate)
+                : undefined,
+            updatedAfter: isEnrollmentPeriod ? undefined : trimTime(startDate),
+            updatedBefore: isEnrollmentPeriod ? undefined : trimTime(endDate),
+        },
     }
 }
+
+// All tracked entities of the response, with or without geometry
+// VERSION-TOGGLE: see util/versionToggle.js
+const getTrackerRows = (response, serverVersion) =>
+    response[
+        serverSupportsTracker41Api(serverVersion)
+            ? 'trackedEntities'
+            : 'instances'
+    ]
+
+// Tracked entities with a geometry that can be drawn
+const getTrackerInstances = (response, serverVersion) =>
+    getTrackerRows(response, serverVersion).filter(
+        (instance) =>
+            trackedEntityGeometryTypes.has(instance.geometry?.type) &&
+            instance.geometry?.coordinates
+    )
 
 export const loadTrackedEntitiesFromTracker = async ({
     config,
@@ -209,24 +232,18 @@ export const loadTrackedEntitiesFromTracker = async ({
     serverVersion,
     maxLimit,
 }) => {
-    const { rows, organisationUnitSelectionMode, relationshipType } = config
-
-    // VERSION-TOGGLE: see util/versionToggle.js
-    const isVersion40 = !serverSupportsTracker41Api(serverVersion)
-
     const { orgUnitIds, orgUnitMode } = await getTrackerOrgUnits({
         engine,
-        orgUnitIds: getOrgUnitsFromRows(rows).map((ou) => ou.id),
-        orgUnitMode: organisationUnitSelectionMode,
+        orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
+        orgUnitMode: config.organisationUnitSelectionMode,
     })
-    const orgUnits = orgUnitIds.join(isVersion40 ? ';' : ',')
 
     // Without org units, the tracker API would use all accessible ones
     if (!orgUnitIds.length) {
         return {
             data: [],
             instances: [],
-            orgUnits,
+            orgUnits: '',
             orgUnitMode,
             isTruncated: false,
             limit: maxLimit,
@@ -234,40 +251,33 @@ export const loadTrackedEntitiesFromTracker = async ({
     }
 
     // Slow to fetch, so only for layers showing relationships
-    const requestFields = relationshipType
+    const requestFields = config.relationshipType
         ? [...fields, 'relationships']
         : fields
 
-    const { trackedEntities } = await engine.query(
-        { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-        {
-            variables: getTrackerRequestVariables(config, {
-                fields: requestFields,
-                orgUnits,
-                orgUnitMode,
-                serverVersion,
-            }),
-        }
+    const { query, variables } = getTrackerRequest(config, {
+        fields: requestFields,
+        orgUnitIds,
+        orgUnitMode,
+        serverVersion,
+    })
+    const { trackedEntities: response } = await engine.query(
+        { trackedEntities: query },
+        { variables }
     )
-
-    const allInstances =
-        trackedEntities[isVersion40 ? 'instances' : 'trackedEntities']
-    const instances = allInstances.filter(
-        (instance) =>
-            trackedEntityGeometryTypes.has(instance.geometry?.type) &&
-            instance.geometry?.coordinates
-    )
+    const rowCount = getTrackerRows(response, serverVersion).length
+    const instances = getTrackerInstances(response, serverVersion)
 
     return {
-        data: createTrackedEntityFeaturesFromTracker(instances),
+        data: createTrackedEntityFeatures(instances),
         instances,
         // Org units and mode for the relationships request
-        orgUnits,
+        orgUnits: variables.orgUnits,
         orgUnitMode,
         // The API returns at most maxLimit rows and no total, so reaching the
         // limit is the only sign of a cut (a total of exactly maxLimit also
         // warns). All rows count, geometry or not
-        isTruncated: Boolean(maxLimit) && allInstances.length >= maxLimit,
+        isTruncated: Boolean(maxLimit) && rowCount >= maxLimit,
         limit: maxLimit,
     }
 }
@@ -291,7 +301,7 @@ const getAnalyticsIdColumn = (serverVersion) =>
         ? 'trackedentity'
         : 'trackedentityinstanceuid'
 
-export const getTrackedEntityAnalyticsRequest = (
+const getAnalyticsRequest = (
     {
         trackedEntityType,
         program,
@@ -330,27 +340,21 @@ export const getTrackedEntityAnalyticsRequest = (
     })
 }
 
-export const createTrackedEntityFeaturesFromAnalytics = (
-    { headers, rows },
-    serverVersion
-) => {
+// Tracked entities with a geometry that can be drawn
+const getAnalyticsInstances = ({ headers, rows }, serverVersion) => {
     const idCol = headers.findIndex(
         (header) => header.name === getAnalyticsIdColumn(serverVersion)
     )
     const geomCol = headers.findIndex((header) => header.name === 'geometry')
 
-    return rows.reduce((features, row) => {
+    return rows.reduce((instances, row) => {
         const geometry = parseWkt(row[geomCol])
 
         if (geometry) {
-            features.push({
-                type: GEO_TYPE_FEATURE,
-                geometry,
-                properties: { id: row[idCol] },
-            })
+            instances.push({ id: row[idCol], geometry })
         }
 
-        return features
+        return instances
     }, [])
 }
 
@@ -360,21 +364,23 @@ export const loadTrackedEntitiesFromAnalytics = async ({
     serverVersion,
     pageSize = TEI_CLIENT_PAGE_SIZE,
 }) => {
-    const request = getTrackedEntityAnalyticsRequest(config, {
+    const request = getAnalyticsRequest(config, {
         analyticsEngine,
         serverVersion,
     })
     const response = await analyticsEngine.trackedEntities.getQuery(
         request.withPageSize(pageSize).withParameters({ totalPages: true })
     )
+    const rowCount = response.rows.length
+    const instances = getAnalyticsInstances(response, serverVersion)
     const total = response.metaData?.pager?.total
-    const count = response.rows.length
 
     return {
-        data: createTrackedEntityFeaturesFromAnalytics(response, serverVersion),
+        data: createTrackedEntityFeatures(instances),
+        instances,
         // The server can return fewer rows than pageSize (analytics max limit)
-        isTruncated: total > count,
-        limit: count,
+        isTruncated: total > rowCount,
+        limit: rowCount,
         total,
     }
 }
