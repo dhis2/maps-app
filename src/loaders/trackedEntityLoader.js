@@ -11,7 +11,7 @@ import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    createTrackedEntityInstanceFeatures,
+    createTrackedEntityFeaturesFromTracker,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { getDataWithRelationships } from '../util/trackedEntityRelationships.js'
@@ -113,9 +113,9 @@ const fetchRelationshipData = async ({
     })
 
     return {
-        data: createTrackedEntityInstanceFeatures(dataWithRels.primary),
+        data: createTrackedEntityFeaturesFromTracker(dataWithRels.primary),
         relationships: dataWithRels.relationships,
-        secondaryData: createTrackedEntityInstanceFeatures(
+        secondaryData: createTrackedEntityFeaturesFromTracker(
             dataWithRels.secondary
         ),
     }
@@ -204,7 +204,7 @@ const trackedEntityLoader = async ({
             legend,
         }))
     } else {
-        data = createTrackedEntityInstanceFeatures(instances)
+        data = createTrackedEntityFeaturesFromTracker(instances)
     }
 
     if (explanation) {
