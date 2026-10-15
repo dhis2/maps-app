@@ -1,5 +1,5 @@
 import {
-    createTrackedEntityFeaturesFromTracker,
+    createTrackedEntityFeatures,
     TEI_40_QUERY,
     TEI_41_QUERY,
 } from './trackedEntity.js'
@@ -241,11 +241,9 @@ export const loadTrackedEntityRelationships = async ({
     })
 
     return {
-        data: createTrackedEntityFeaturesFromTracker(dataWithRels.primary),
+        data: createTrackedEntityFeatures(dataWithRels.primary),
         relationships: dataWithRels.relationships,
-        secondaryData: createTrackedEntityFeaturesFromTracker(
-            dataWithRels.secondary
-        ),
+        secondaryData: createTrackedEntityFeatures(dataWithRels.secondary),
         relationshipType,
         relatedEntityType,
         // Only relationships between tracked entities can be shown
