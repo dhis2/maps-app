@@ -276,7 +276,7 @@ export const getTrackedEntityAnalyticsRequest = (
     })
 }
 
-export const createTrackedEntityFeatures = (
+export const createTrackedEntityFeaturesFromAnalytics = (
     { headers, rows },
     serverVersion
 ) => {
@@ -317,7 +317,7 @@ export const loadTrackedEntitiesFromAnalytics = async ({
     const count = response.rows.length
 
     return {
-        data: createTrackedEntityFeatures(response, serverVersion),
+        data: createTrackedEntityFeaturesFromAnalytics(response, serverVersion),
         // The server can return fewer rows than pageSize (analytics max limit)
         isTruncated: total > count,
         limit: count,
