@@ -15,7 +15,7 @@ import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    createTrackedEntityInstanceFeatures,
+    createTrackedEntityFeaturesFromTracker,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
@@ -168,7 +168,7 @@ const trackedEntityLoader = async ({
             })
         }
 
-        data = createTrackedEntityInstanceFeatures(instances)
+        data = createTrackedEntityFeaturesFromTracker(instances)
 
         if (relationshipTypeID) {
             // The tracked entities are still shown when this fails
