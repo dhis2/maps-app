@@ -6,34 +6,47 @@ import TrackedEntityPopup from '../TrackedEntityPopup.jsx'
 jest.mock('@dhis2/app-runtime', () => ({ useDataQuery: jest.fn() }))
 jest.mock('../../Popup.jsx', () => () => null)
 
+const getRequestParams = (activeDataSource) => {
+    useDataQuery.mockClear()
+    useDataQuery.mockReturnValue({
+        refetch: jest.fn().mockResolvedValue({}),
+        fetching: false,
+    })
+
+    render(
+        <TrackedEntityPopup
+            coordinates={[0, 0]}
+            feature={{
+                properties: { id: 'te1' },
+                geometry: { type: 'Point', coordinates: [0, 0] },
+            }}
+            activeDataSource={activeDataSource}
+            program={{ id: 'program1' }}
+            nameProperty="displayName"
+            displayAttributes={[]}
+            onClose={jest.fn()}
+        />
+    )
+
+    const [query, { variables }] = useDataQuery.mock.calls.find(
+        ([query]) => query.trackedEntities
+    )
+    expect(query.trackedEntities.resource).toBe('tracker/trackedEntities')
+    return query.trackedEntities.params(variables)
+}
+
 describe('TrackedEntityPopup', () => {
     it('requests only the fields it shows', () => {
-        useDataQuery.mockReturnValue({
-            refetch: jest.fn().mockResolvedValue({}),
-            fetching: false,
-        })
-
-        render(
-            <TrackedEntityPopup
-                coordinates={[0, 0]}
-                feature={{
-                    properties: { id: 'te1' },
-                    geometry: { type: 'Point', coordinates: [0, 0] },
-                }}
-                program={{ id: 'program1' }}
-                nameProperty="displayName"
-                displayAttributes={[]}
-                onClose={jest.fn()}
-            />
-        )
-
-        const [query, { variables }] = useDataQuery.mock.calls.find(
-            ([query]) => query.trackedEntities
-        )
-        expect(query.trackedEntities.resource).toBe('tracker/trackedEntities')
-        expect(query.trackedEntities.params(variables)).toEqual({
+        expect(getRequestParams('primary')).toEqual({
             fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute]',
             program: 'program1',
+        })
+    })
+
+    it('requests a related tracked entity without the layer program', () => {
+        expect(getRequestParams('secondary')).toEqual({
+            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute]',
+            program: undefined,
         })
     })
 })
