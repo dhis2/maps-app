@@ -1,4 +1,4 @@
-import { getDataWithRelationships } from '../teiRelationshipsParser.js'
+import { getDataWithRelationships } from '../trackedEntityRelationships.js'
 
 const expectResultToMatchExpected = (result, expected) => {
     expect(result).toHaveProperty('primary')

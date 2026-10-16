@@ -16,8 +16,8 @@ import {
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
-import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
+import { getDataWithRelationships } from '../util/trackedEntityRelationships.js'
 
 const fields = ['trackedEntity~rename(id)', 'geometry']
 
