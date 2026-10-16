@@ -40,8 +40,8 @@
         "duration": 11
     },
     "cypress/integration/plugin.cy.js": {
-        "include": false,
-        "duration": 15
+        "include": true,
+        "duration": 256
     },
     "cypress/integration/pushAnalytics.cy.js": {
         "include": true,
