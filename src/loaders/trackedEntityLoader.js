@@ -146,11 +146,12 @@ const trackedEntityLoader = async ({
         areaRadius,
     })
 
-    const { instances, orgUnits } = await loadTrackedEntitiesFromTracker({
-        config,
-        engine,
-        serverVersion,
-    })
+    const { instances, trackerVariables } =
+        await loadTrackedEntitiesFromTracker({
+            config,
+            engine,
+            serverVersion,
+        })
 
     let alert
 
@@ -169,19 +170,23 @@ const trackedEntityLoader = async ({
             engine,
             serverVersion,
             instances,
-            orgUnits,
+            trackerVariables,
         })
 
         ;({ data, relationships, secondaryData } = relationshipResult)
-        legend.items.push(
-            ...getRelationshipLegendItems({
-                relationshipType: relationshipResult.relationshipType,
-                relatedEntityType: relationshipResult.relatedEntityType,
-                relatedPointColor,
-                relatedPointRadius,
-                relationshipLineColor,
-            })
-        )
+
+        // Only relationships between tracked entities are drawn
+        if (relationshipResult.relatedEntityType) {
+            legend.items.push(
+                ...getRelationshipLegendItems({
+                    relationshipType: relationshipResult.relationshipType,
+                    relatedEntityType: relationshipResult.relatedEntityType,
+                    relatedPointColor,
+                    relatedPointRadius,
+                    relationshipLineColor,
+                })
+            )
+        }
     } else {
         data = createTrackedEntityFeatures(instances)
     }

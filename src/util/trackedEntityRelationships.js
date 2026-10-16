@@ -90,15 +90,40 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
+// Only the source instances' relationships are read
+const fields = ['trackedEntity~rename(id)', 'geometry']
+
+// The layer request with the related program, or the related type without
+// one, so the related tracked entities pass the same filters as when they
+// are among the loaded ones
+const getRelatedVariables = (trackerVariables, to) =>
+    'program' in to
+        ? {
+              ...trackerVariables,
+              fields,
+              program: to.program.id,
+              trackedEntityType: undefined,
+          }
+        : {
+              ...trackerVariables,
+              fields,
+              program: undefined,
+              trackedEntityType: to.trackedEntityType.id,
+              // Program filters can't apply without a program
+              programStatus: undefined,
+              enrollmentStatus: undefined,
+              followUp: undefined,
+              enrollmentEnrolledAfter: undefined,
+              enrollmentEnrolledBefore: undefined,
+          }
+
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
     queryOptions,
     engine,
 }) => {
-    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
-        queryOptions
+    const { relationshipType, trackerVariables } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -107,7 +132,12 @@ export const getDataWithRelationships = async ({
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        return []
+        // Only relationships between tracked entities can be shown
+        return {
+            primary: Object.values(normalizeInstances(sourceInstances)),
+            relationships: [],
+            secondary: [],
+        }
     }
 
     const isSameTrackedEntityType =
@@ -118,17 +148,6 @@ export const getDataWithRelationships = async ({
             'program' in to &&
             from?.program?.id === to?.program?.id) ||
         !('program' in from || 'program' in to)
-    const isToProgramDefined = 'program' in to
-
-    // Use target as source if from/to TE Types and Programs match, otherwise
-    // fetch/re-fetch using program if available TE type otherwise
-    let relatedRequestParams = null
-    if (!isSameProgram) {
-        relatedRequestParams =
-            isSameTrackedEntityType && isToProgramDefined
-                ? { program: to.program.id } // Same TE type, defined 'to' program
-                : { trackedEntityType: to.trackedEntityType.id } // Different TE type, or no 'to' program
-    }
 
     // Keep TEI with coords and convert array to object (id = key)
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
@@ -136,19 +155,13 @@ export const getDataWithRelationships = async ({
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
     if (isSameTrackedEntityType && isSameProgram) {
+        // The related tracked entities are among the loaded ones
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-            {
-                variables: {
-                    fields,
-                    orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
-                    ...relatedRequestParams,
-                },
-            }
+            { variables: getRelatedVariables(trackerVariables, to) }
         )
 
         normalizedPotentialTargetInstances = normalizeInstances(
@@ -205,36 +218,30 @@ export const loadTrackedEntityRelationships = async ({
     engine,
     serverVersion,
     instances,
-    orgUnits,
+    trackerVariables,
 }) => {
-    const {
-        relationshipType: relationshipTypeID,
-        organisationUnitSelectionMode,
-    } = config
+    const { relationshipType: relationshipTypeID } = config
 
     const { relationshipType } = await engine.query(
         { relationshipType: RELATIONSHIP_TYPES_QUERY },
         { variables: { id: relationshipTypeID } }
     )
 
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
+    // Relationships to events or enrollments have no related type
+    const relatedEntityTypeId =
+        relationshipType.toConstraint.trackedEntityType?.id
+    const { relatedEntityType } = relatedEntityTypeId
+        ? await engine.query(
+              { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+              { variables: { id: relatedEntityTypeId } }
+          )
+        : {}
 
     const dataWithRels = await getDataWithRelationships({
         // VERSION-TOGGLE: see util/versionToggle.js
         isVersion40: !serverSupportsTracker41Api(serverVersion),
         instances,
-        queryOptions: {
-            relationshipType,
-            orgUnits,
-            organisationUnitSelectionMode,
-        },
+        queryOptions: { relationshipType, trackerVariables },
         engine,
     })
 

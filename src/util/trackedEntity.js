@@ -172,8 +172,13 @@ export const loadTrackedEntitiesFromTracker = async ({
     engine,
     serverVersion,
 }) => {
+    // Slow to fetch, so only for layers showing relationships
+    const requestFields = config.relationshipType
+        ? [...fields, 'relationships']
+        : fields
+
     const { query, variables } = getTrackerRequest(config, {
-        fields: [...fields, 'relationships'],
+        fields: requestFields,
         orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
         orgUnitMode: config.organisationUnitSelectionMode,
         serverVersion,
@@ -184,6 +189,6 @@ export const loadTrackedEntitiesFromTracker = async ({
     )
     const instances = getTrackerInstances(response, serverVersion)
 
-    // orgUnits is formatted for the relationships request
-    return { instances, orgUnits: variables.orgUnits }
+    // The relationships request applies the same filters
+    return { instances, trackerVariables: variables }
 }

@@ -664,8 +664,9 @@ opens the Tracked entity layer configuration dialog.
 
 -   Select the **Display tracked entity relationships** checkbox to show relationships on the map.
 
--   Select the **Relationship type** to display from the dropdown list. Only relationships defined
-    for the selected tracked entity type are available.
+-   Select the **Relationship type** to display from the dropdown list. Only relationships from the
+    selected tracked entity type to tracked entities are available. Relationships to events or
+    enrollments are not shown.
 
 #### 3. Period
 
