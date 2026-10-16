@@ -39,7 +39,7 @@ See the section about [deploying](https://platform.dhis2.nu/#/scripts/deploy) fo
 
 ## Simulating the dashboard plugin
 
-With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://localhost:3000/plugin-host.html) and log in to see a dev-only page that runs the dashboard plugin in an iframe, the way a dashboard does (with the `Plugin` component from `@dhis2/app-runtime`). Pick a map, then try what a dashboard does with it: filters, resizing, fullscreen.
+With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://localhost:3000/plugin-host.html) and log in to see a page (not in releases) that runs the dashboard plugin in an iframe, the way a dashboard does (with the `Plugin` component from `@dhis2/app-runtime`). Pick a map, then try what a dashboard does with it: filters, resizing, fullscreen. To include it in a PR's Netlify preview (at `/plugin-host.html`), add the `preview plugin` label to the PR.
 
 The plugin e2e tests (`cypress/integration/plugin.cy.js`) use the same page, sending the plugin dashboard-like props through `window.setPluginProps`.
 
@@ -51,6 +51,8 @@ To record tests in Cypress Cloud, you can use one of the following methods based
 -   **GitHub Labels**: Apply the `e2e record` label to your pull request to trigger recording.
 
 This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
+
+To also run the e2e tests against the DHIS2 development version, apply the `e2e dev` label to your pull request.
 
 ## Learn More
 
