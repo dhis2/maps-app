@@ -16,6 +16,10 @@
     margin-top: 1px;
 }
 
+.dataTableButton {
+    margin-left: var(--spacers-dp8);
+}
+
 .menuButton {
     margin-left: auto;
 }

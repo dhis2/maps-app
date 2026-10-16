@@ -11,6 +11,7 @@ const IconButton = ({
     children,
     dataTest,
     disabled,
+    active,
     ariaLabel,
 }) => {
     return (
@@ -18,10 +19,12 @@ const IconButton = ({
             onClick={onClick}
             className={cx(styles.iconButton, className, {
                 [styles.disabled]: !!disabled,
+                [styles.active]: !!active,
             })}
             data-test={dataTest}
             disabled={disabled}
             aria-label={ariaLabel}
+            aria-pressed={active}
         >
             {tooltip ? (
                 <Tooltip content={tooltip}>{children}</Tooltip>
@@ -33,6 +36,7 @@ const IconButton = ({
 }
 
 IconButton.propTypes = {
+    active: PropTypes.bool,
     ariaLabel: PropTypes.string,
     children: PropTypes.node,
     className: PropTypes.string,

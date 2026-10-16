@@ -2,11 +2,21 @@ import PropTypes from 'prop-types'
 import React, { useEffect, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 import useKeyDown from '../../hooks/useKeyDown.js'
+import ShowInDataTableButton from '../datatable/ShowInDataTableButton.jsx'
 import OrgUnitButton from '../orgunits/OrgUnitButton.jsx'
+import styles from './styles/Popup.module.css'
 import './styles/MaplibrePopup.css'
 
 const Popup = (props, context) => {
-    const { className = '', coordinates, orgUnitId, onClose, children } = props
+    const {
+        className = '',
+        coordinates,
+        orgUnitId,
+        dataTableLayerId,
+        featureId,
+        onClose,
+        children,
+    } = props
     const { map, isPlugin } = context
     const container = useMemo(() => document.createElement('div'), [])
 
@@ -26,8 +36,16 @@ const Popup = (props, context) => {
     return createPortal(
         <>
             {children}
-            {isPlugin === false && orgUnitId && (
-                <OrgUnitButton id={orgUnitId} />
+            {isPlugin === false && (orgUnitId || dataTableLayerId) && (
+                <div className={styles.actions}>
+                    {dataTableLayerId && featureId && (
+                        <ShowInDataTableButton
+                            layerId={dataTableLayerId}
+                            featureId={featureId}
+                        />
+                    )}
+                    {orgUnitId && <OrgUnitButton id={orgUnitId} />}
+                </div>
             )}
         </>,
         container
@@ -44,6 +62,9 @@ Popup.propTypes = {
     onClose: PropTypes.func.isRequired,
     children: PropTypes.node,
     className: PropTypes.string,
+    dataTableLayerId: PropTypes.string,
+    featureId: PropTypes.string,
+    orgUnitId: PropTypes.string,
 }
 
 export default Popup

@@ -62,6 +62,7 @@ const EventPopup = ({
     keyAnalysisDigitGroupSeparator,
     displayItems,
     eventCoordinateFieldName,
+    layerId,
     onClose,
 }) => {
     const [orgUnit, setOrgUnit] = useState()
@@ -141,6 +142,8 @@ const EventPopup = ({
             coordinates={coordinates}
             onClose={onClose}
             className={styles.eventPopup}
+            dataTableLayerId={layerId}
+            featureId={feature?.properties?.id}
         >
             {errorEvent && (
                 <table>
@@ -196,6 +199,7 @@ EventPopup.propTypes = {
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
+    layerId: PropTypes.string,
     styleDataItem: PropTypes.object,
 }
 

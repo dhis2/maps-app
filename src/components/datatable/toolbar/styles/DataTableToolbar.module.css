@@ -1,0 +1,66 @@
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp8);
+    height: 40px;
+    padding: 0 var(--spacers-dp4) 0 var(--spacers-dp8);
+    background: var(--colors-white);
+    border-bottom: 1px solid var(--colors-grey300);
+    flex-shrink: 0;
+}
+
+.start,
+.end {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp4);
+    min-width: 0;
+}
+
+.end {
+    flex-shrink: 0;
+}
+
+.layerSwitcher {
+    width: 280px;
+    min-width: 0;
+}
+
+.layerName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.divider {
+    width: 1px;
+    height: 20px;
+    margin: 0 var(--spacers-dp4);
+    background: var(--colors-grey300);
+}
+
+.iconButton {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    color: var(--colors-grey700);
+    cursor: pointer;
+}
+
+.iconButton:hover {
+    background: var(--colors-grey200);
+    color: var(--colors-grey900);
+}
+
+.iconButton:focus-visible {
+    outline: 3px solid var(--theme-focus);
+    outline-offset: -3px;
+}

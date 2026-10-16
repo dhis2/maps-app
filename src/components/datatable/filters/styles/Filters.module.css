@@ -1,0 +1,278 @@
+/* Header filter button, matching the @dhis2/ui sort icon (TableHeaderCellAction) */
+
+.filterButton {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    position: relative;
+    border-radius: 4px;
+    color: var(--colors-grey500);
+    cursor: pointer;
+    /* Matches whatever is behind the button so the dot looks cut out */
+    --dot-ring: var(--colors-grey200);
+}
+
+/* :where keeps this below the button's own hover and open states */
+:global(:where(thead tr:hover)) .filterButton {
+    --dot-ring: var(--colors-grey300);
+}
+
+.filterButton:hover:enabled,
+.filterButton:focus-visible,
+.filterButtonOpen {
+    color: var(--colors-grey900);
+    background: var(--colors-grey400);
+    --dot-ring: var(--colors-grey400);
+}
+
+.filterButton:disabled {
+    color: var(--colors-grey300);
+    cursor: not-allowed;
+}
+
+/* Stays blue on hover so the active state is never lost */
+.filterButtonActive,
+.filterButtonActive:hover:enabled,
+.filterButtonActive:focus-visible {
+    color: var(--colors-blue700);
+}
+
+.filterButtonActive::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--colors-blue700);
+    box-shadow: 0 0 0 2px var(--dot-ring);
+}
+
+/* Popover */
+
+.popover {
+    width: 300px;
+    font-size: 14px;
+}
+
+.popoverHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp8);
+    padding: var(--spacers-dp8) var(--spacers-dp8) 0 var(--spacers-dp16);
+}
+
+.popoverTitle {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--colors-grey900);
+}
+
+.popoverTitleLabel {
+    font-weight: 400;
+    color: var(--colors-grey700);
+}
+
+.closeButton {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    color: var(--colors-grey600);
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    color: var(--colors-grey900);
+    background: var(--colors-grey200);
+}
+
+.closeButton:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: -2px;
+}
+
+.popoverBody {
+    padding: var(--spacers-dp12) var(--spacers-dp16);
+}
+
+.popoverFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--spacers-dp8);
+    padding: var(--spacers-dp8) var(--spacers-dp16);
+    border-top: 1px solid var(--colors-grey200);
+}
+
+.stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacers-dp12);
+}
+
+/* Number */
+
+.numberInputs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+}
+
+.numberInputs > * {
+    flex: 1;
+    min-width: 0;
+}
+
+.numberInputs > .and {
+    flex: 0 0 auto;
+    font-size: 13px;
+    color: var(--colors-grey700);
+}
+
+/* Sits right under the inputs rather than a full stack gap away */
+.stack > .rangeError {
+    margin-top: calc(-1 * var(--spacers-dp8));
+}
+
+/* Options */
+
+.optionsMeta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--colors-grey700);
+}
+
+.linkButton {
+    all: unset;
+    font-size: 12px;
+    color: var(--colors-blue700);
+    cursor: pointer;
+}
+
+.linkButton:hover {
+    text-decoration: underline;
+}
+
+.linkButton:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.optionList {
+    list-style: none;
+    margin: 0 calc(-1 * var(--spacers-dp8));
+    padding: 0;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.option {
+    border-radius: 3px;
+}
+
+.optionCheckbox {
+    padding: 2px var(--spacers-dp8);
+}
+
+.optionLabel {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp8);
+    min-width: 0;
+}
+
+.option:hover {
+    background: var(--colors-grey100);
+}
+
+.count {
+    font-size: 12px;
+    color: var(--colors-grey600);
+    font-variant-numeric: tabular-nums;
+}
+
+.swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 2px;
+    vertical-align: -1px;
+    box-shadow: inset 0 0 0 1px rgba(33, 41, 52, 0.15);
+}
+
+.emptyOption {
+    font-style: italic;
+    color: var(--colors-grey700);
+}
+
+.noMatch {
+    padding: var(--spacers-dp8);
+    font-size: 13px;
+    color: var(--colors-grey600);
+}
+
+/* Date */
+
+.dateInputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacers-dp8);
+}
+
+/* Active filters bar */
+
+.filtersBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp12);
+    min-height: 36px;
+    /* Chips add 4px of margin, so the first chip lines up with the cell text */
+    padding: 2px var(--spacers-dp12) 2px var(--spacers-dp8);
+    background: var(--colors-grey050);
+    border-bottom: 1px solid var(--colors-grey300);
+    flex-shrink: 0;
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 var(--spacers-dp4);
+    min-width: 0;
+}
+
+.chipAnchor {
+    display: inline-flex;
+}
+
+.chipColumn {
+    font-weight: 500;
+}
+
+.rowCount {
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--colors-grey700);
+    font-variant-numeric: tabular-nums;
+}

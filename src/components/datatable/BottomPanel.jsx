@@ -1,4 +1,3 @@
-import { IconCross16 } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
@@ -14,6 +13,7 @@ import { useWindowDimensions } from '../WindowDimensionsProvider.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
+import DataTableToolbar from './toolbar/DataTableToolbar.jsx'
 import styles from './styles/BottomPanel.module.css'
 
 // Container for DataTable
@@ -24,6 +24,10 @@ const BottomPanel = () => {
     const { height } = useWindowDimensions()
     const panelRef = useRef(null)
     const [panelWidth, setPanelWidth] = useState(0)
+    const [showColumnsModal, setShowColumnsModal] = useState(false)
+    // PROTOTYPE: column config is kept per layer for this session only
+    const [columnsByLayer, setColumnsByLayer] = useState({})
+    const activeLayerId = useSelector((state) => state.dataTable)
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
@@ -71,22 +75,31 @@ const BottomPanel = () => {
             className={styles.bottomPanel}
             data-test="bottom-panel"
         >
-            <div className={styles.dataTableControls}>
+            <div className={styles.resizeArea}>
                 <ResizeHandle
                     maxHeight={maxHeight}
                     onResize={onResize}
                     onResizeEnd={(height) => dispatch(resizeDataTable(height))}
                 />
-                <button
-                    className={styles.closeIcon}
-                    onClick={() => dispatch(closeDataTable())}
-                >
-                    <IconCross16 />
-                </button>
             </div>
+            <DataTableToolbar
+                onColumnsClick={() => setShowColumnsModal(true)}
+            />
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
-                    <DataTable availableWidth={panelWidth} />
+                    <DataTable
+                        availableWidth={panelWidth}
+                        visibleColumns={columnsByLayer[activeLayerId]}
+                        showColumnsModal={showColumnsModal}
+                        onColumnsModalClose={() => setShowColumnsModal(false)}
+                        onColumnsChange={(columns) => {
+                            setColumnsByLayer({
+                                ...columnsByLayer,
+                                [activeLayerId]: columns,
+                            })
+                            setShowColumnsModal(false)
+                        }}
+                    />
                 </ErrorBoundary>
             </div>
         </div>
