@@ -1,8 +1,16 @@
+import { TEI_CLIENT_PAGE_SIZE } from '../constants/layers.js'
+import { ORG_UNIT_MODE_SELECTED } from '../constants/orgUnits.js'
 import { getOrgUnitsFromRows } from './analytics.js'
-import { GEO_TYPE_FEATURE, trackedEntityGeometryTypes } from './geojson.js'
+import {
+    GEO_TYPE_FEATURE,
+    parseWkt,
+    trackedEntityGeometryTypes,
+} from './geojson.js'
 import { trimTime } from './time.js'
 import {
     serverSupportsTracker41Api,
+    serverSupportsTrackedEntityAnalytics,
+    serverSupportsTrackedEntityAnalyticsIdColumn,
     serverSupportsTrackerEnrollmentStatus,
 } from './versionToggle.js'
 
@@ -204,6 +212,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     const instances = getTrackerInstances(response, serverVersion)
 
     return {
+        data: createTrackedEntityFeatures(instances),
         instances,
         // The relationships request applies the same filters
         trackerVariables: variables,
@@ -212,5 +221,109 @@ export const loadTrackedEntitiesFromTracker = async ({
         // warns). All rows count, geometry or not
         isTruncated: Boolean(maxLimit) && rowCount >= maxLimit,
         limit: maxLimit,
+    }
+}
+
+// Tracker analytics (2.41+)
+// -----
+
+// Tracker analytics can't return relationships or filter by follow-up
+export const canLoadTrackedEntitiesFromAnalytics = (
+    { program, followUp, relationshipType },
+    serverVersion
+) =>
+    // VERSION-TOGGLE: see util/versionToggle.js
+    serverSupportsTrackedEntityAnalytics(serverVersion) &&
+    !relationshipType &&
+    !(program && followUp)
+
+// VERSION-TOGGLE: see util/versionToggle.js
+const getAnalyticsIdColumn = (serverVersion) =>
+    serverSupportsTrackedEntityAnalyticsIdColumn(serverVersion)
+        ? 'trackedentity'
+        : 'trackedentityinstanceuid'
+
+const getAnalyticsRequest = (
+    {
+        trackedEntityType,
+        program,
+        programStatus,
+        periodType,
+        startDate,
+        endDate,
+        rows,
+        organisationUnitSelectionMode,
+    },
+    { analyticsEngine, serverVersion }
+) => {
+    // Same rules as the tracker request: program filters need a program
+    const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
+    const range = `${trimTime(startDate)}_${trimTime(endDate)}`
+
+    const request = new analyticsEngine.request()
+        .withTrackedEntityType(trackedEntityType.id)
+        .addOrgUnitDimension(getOrgUnitsFromRows(rows).map((ou) => ou.id))
+        // Analytics defaults to all levels below, the tracker API to selected
+        .withOuMode(organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED)
+
+    // withProgram() would put the program in the path
+    return request.withParameters({
+        // Every attribute and org unit column comes back otherwise
+        headers: `${getAnalyticsIdColumn(serverVersion)},geometry`,
+        // coordinatesOnly would exclude polygons
+        geometryOnly: true,
+        ...(program && { program: program.id }),
+        ...(program &&
+            programStatus && {
+                enrollmentStatus: `${program.id}.${programStatus}`,
+            }),
+        ...(isEnrollmentPeriod
+            ? { enrollmentDate: `${program.id}.${range}` }
+            : { lastUpdated: range }),
+    })
+}
+
+// Tracked entities with a geometry that can be drawn
+const getAnalyticsInstances = ({ headers, rows }, serverVersion) => {
+    const idCol = headers.findIndex(
+        (header) => header.name === getAnalyticsIdColumn(serverVersion)
+    )
+    const geomCol = headers.findIndex((header) => header.name === 'geometry')
+
+    return rows.reduce((instances, row) => {
+        const geometry = parseWkt(row[geomCol])
+
+        if (geometry) {
+            instances.push({ id: row[idCol], geometry })
+        }
+
+        return instances
+    }, [])
+}
+
+export const loadTrackedEntitiesFromAnalytics = async ({
+    config,
+    analyticsEngine,
+    serverVersion,
+    pageSize = TEI_CLIENT_PAGE_SIZE,
+}) => {
+    const request = getAnalyticsRequest(config, {
+        analyticsEngine,
+        serverVersion,
+    })
+    const response = await analyticsEngine.trackedEntities.getQuery(
+        request.withPageSize(pageSize).withParameters({ totalPages: true })
+    )
+    const rowCount = response.rows.length
+    const instances = getAnalyticsInstances(response, serverVersion)
+    const total = response.metaData?.pager?.total
+
+    return {
+        data: createTrackedEntityFeatures(instances),
+        instances,
+        // The server can return fewer rows than pageSize (analytics max limit)
+        isTruncated: total > rowCount,
+        limit: rowCount,
+        total,
     }
 }

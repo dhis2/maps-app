@@ -1,5 +1,6 @@
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
+import { wktToGeoJSON } from 'betterknown'
 import findIndex from 'lodash/findIndex'
 
 export const EVENT_ID_FIELD = 'psi'
@@ -90,6 +91,20 @@ export const trackedEntityGeometryTypes = new Set([
     GEO_TYPE_POLYGON,
     GEO_TYPE_MULTIPOLYGON,
 ])
+
+// Tracker analytics geometries are (E)WKT, with or without an SRID prefix
+export const parseWkt = (wkt) => {
+    if (typeof wkt !== 'string' || !wkt) {
+        return null
+    }
+
+    try {
+        const geometry = wktToGeoJSON(wkt)
+        return trackedEntityGeometryTypes.has(geometry?.type) ? geometry : null
+    } catch {
+        return null
+    }
+}
 
 export const createEventFeatures = (response, config = {}) => {
     const names = {
