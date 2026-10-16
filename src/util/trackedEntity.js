@@ -189,6 +189,6 @@ export const loadTrackedEntitiesFromTracker = async ({
     )
     const instances = getTrackerInstances(response, serverVersion)
 
-    // orgUnits is formatted for the relationships request
-    return { instances, orgUnits: variables.orgUnits }
+    // The relationships request applies the same filters
+    return { instances, trackerVariables: variables }
 }

@@ -576,7 +576,7 @@ describe('trackedEntityLoader relationships', () => {
             },
         },
     ])(
-        'requests the related tracked entities with the layer org units on $version',
+        'requests the related tracked entities with the layer filters on $version',
         async ({ serverVersion, root, params }) => {
             const engine = {
                 query: jest
@@ -622,6 +622,8 @@ describe('trackedEntityLoader relationships', () => {
                 params: {
                     fields: ['trackedEntity~rename(id)', 'geometry'],
                     program: 'program2',
+                    updatedAfter: '2024-01-01',
+                    updatedBefore: '2024-12-31',
                     ...params,
                 },
             })
