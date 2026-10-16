@@ -10,10 +10,10 @@ _text_
 
 Add _N/A_ to items that are not applicable.
 
-- [ ] Dashboard tested
+- [ ] Dashboard tested - _N/A_
 - [ ] Cypress and/or Jest tests added/updated
-- [ ] Docs added
-- [ ] d2-ci dependencies replaced (analytics or maps-gl link https://github.com/dhis2/[lib]/pull/XXX)
+- [ ] Docs added - _N/A_
+- [ ] d2-ci dependencies replaced (analytics or maps-gl link https://github.com/dhis2/[lib]/pull/XXX) - _N/A_
 - [ ] Tester approved (name)
 
 ---
