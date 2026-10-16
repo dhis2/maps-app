@@ -84,7 +84,8 @@ const TrackedEntityPopup = ({
     } = useDataQuery(TRACKED_ENTITIES_QUERY, {
         variables: {
             id: feature.properties.id,
-            program,
+            // Related tracked entities may not be enrolled in the layer program
+            program: activeDataSource === 'primary' ? program : undefined,
         },
         lazy: true,
     })
