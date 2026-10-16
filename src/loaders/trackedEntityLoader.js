@@ -205,6 +205,7 @@ const trackedEntityLoader = async ({
                 instances,
                 trackerVariables,
                 maxLimit,
+                isSourceTruncated: isTruncated,
             }).catch(() => {
                 alerts.push({
                     warning: true,
@@ -231,7 +232,7 @@ const trackedEntityLoader = async ({
                     warning: true,
                     code: CUSTOM_ALERT,
                     message: `${name}: ${i18n.t(
-                        'Displaying first {{limit}} related tracked entities',
+                        'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
                         {
                             limit: formatWithSeparator(
                                 maxLimit,

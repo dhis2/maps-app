@@ -123,6 +123,7 @@ export const getDataWithRelationships = async ({
     queryOptions,
     engine,
     maxLimit,
+    isSourceTruncated,
 }) => {
     const { relationshipType, trackerVariables } = queryOptions
 
@@ -157,8 +158,10 @@ export const getDataWithRelationships = async ({
     let normalizedPotentialTargetInstances
     let isTruncated = false
     if (isSameTrackedEntityType && isSameProgram) {
-        // The related tracked entities are among the loaded ones
+        // The related tracked entities are among the loaded ones, so cut
+        // with them
         normalizedPotentialTargetInstances = normalizedSourceInstances
+        isTruncated = Boolean(isSourceTruncated)
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
@@ -228,6 +231,7 @@ export const loadTrackedEntityRelationships = async ({
     instances,
     trackerVariables,
     maxLimit,
+    isSourceTruncated,
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
@@ -253,6 +257,7 @@ export const loadTrackedEntityRelationships = async ({
         queryOptions: { relationshipType, trackerVariables },
         engine,
         maxLimit,
+        isSourceTruncated,
     })
 
     return {
