@@ -232,8 +232,9 @@ const trackedEntityLoader = async ({
                 serverVersion,
                 // Relationship layers always load from the tracker API
                 instances: result.instances,
-                orgUnits: result.orgUnits,
+                trackerVariables: result.trackerVariables,
                 maxLimit,
+                isSourceTruncated: result.isTruncated,
             }).catch(() => {
                 alerts.push({
                     warning: true,
@@ -260,7 +261,7 @@ const trackedEntityLoader = async ({
                     warning: true,
                     code: CUSTOM_ALERT,
                     message: `${name}: ${i18n.t(
-                        'Displaying first {{limit}} related tracked entities',
+                        'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
                         {
                             limit: formatWithSeparator(
                                 maxLimit,

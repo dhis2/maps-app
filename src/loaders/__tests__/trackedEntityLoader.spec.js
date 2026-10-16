@@ -590,7 +590,7 @@ describe('trackedEntityLoader relationships', () => {
             },
         },
     ])(
-        'requests the related tracked entities with the layer org units on $version',
+        'requests the related tracked entities with the layer filters on $version',
         async ({ serverVersion, root, params }) => {
             const engine = {
                 query: jest
@@ -636,6 +636,8 @@ describe('trackedEntityLoader relationships', () => {
                 params: {
                     fields: ['trackedEntity~rename(id)', 'geometry'],
                     program: 'program2',
+                    updatedAfter: '2024-01-01',
+                    updatedBefore: '2024-12-31',
                     ...params,
                 },
             })
@@ -899,8 +901,66 @@ describe('trackedEntityLoader tracker limit', () => {
                 warning: true,
                 code: 'CUSTOM_ALERT',
                 message:
-                    'Malaria case: Displaying first 2 related tracked entities',
+                    'Malaria case: Only the first 2 candidate tracked entities were retrieved, so some relationships may not be displayed',
             },
+        ])
+    })
+
+    it('warns for both when the related tracked entities are among the cut ones', async () => {
+        const constraint = {
+            relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+            trackedEntityType: { id: 'teType1' },
+            program: { id: 'program1' },
+        }
+        const relationship = {
+            relationship: 'rel1',
+            relationshipType: 'relType1',
+            from: { trackedEntity: { trackedEntity: 'te1' } },
+            to: { trackedEntity: { trackedEntity: 'te2' } },
+        }
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [
+                        { ...point('te1'), relationships: [relationship] },
+                        { ...point('te2', [3, 4]), relationships: [] },
+                    ])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        id: 'relType1',
+                        displayName: 'Contact',
+                        fromConstraint: constraint,
+                        toConstraint: constraint,
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+            KeyTrackedEntityMaxLimit: 2,
+        })
+
+        // No request for the related tracked entities
+        expect(engine.query).toHaveBeenCalledTimes(3)
+        expect(result.alerts.map(({ message }) => message)).toEqual([
+            'Malaria case: Displaying first 2 tracked entities',
+            'Malaria case: Only the first 2 candidate tracked entities were retrieved, so some relationships may not be displayed',
         ])
     })
 })
