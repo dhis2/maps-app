@@ -906,7 +906,7 @@ describe('trackedEntityLoader tracker limit', () => {
         ])
     })
 
-    it('warns for both when the related tracked entities are among the cut ones', async () => {
+    it('warns for both in one alert when the related tracked entities are among the cut ones', async () => {
         const constraint = {
             relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
             trackedEntityType: { id: 'teType1' },
@@ -958,9 +958,14 @@ describe('trackedEntityLoader tracker limit', () => {
 
         // No request for the related tracked entities
         expect(engine.query).toHaveBeenCalledTimes(3)
-        expect(result.alerts.map(({ message }) => message)).toEqual([
-            'Malaria case: Displaying first 2 tracked entities',
-            'Malaria case: Only the first 2 candidate tracked entities were retrieved, so some relationships may not be displayed',
+        // One alert, as a layer only shows its last custom warning
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message:
+                    'Malaria case: Displaying first 2 tracked entities. Only the first 2 candidate tracked entities were retrieved, so some relationships may not be displayed',
+            },
         ])
     })
 })
