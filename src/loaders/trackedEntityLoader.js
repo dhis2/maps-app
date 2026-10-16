@@ -143,6 +143,7 @@ const trackedEntityLoader = async ({
     const name = program ? program.name : i18n.t('Tracked entity')
 
     const alerts = []
+    const warnings = []
     let legend, loadError, relationships, secondaryData
     let data = []
 
@@ -172,19 +173,14 @@ const trackedEntityLoader = async ({
             })
 
         if (isTruncated) {
-            alerts.push({
-                warning: true,
-                code: CUSTOM_ALERT,
-                message: `${name}: ${i18n.t(
-                    'Displaying first {{limit}} tracked entities',
-                    {
-                        limit: formatWithSeparator(
-                            limit,
-                            keyAnalysisDigitGroupSeparator
-                        ),
-                    }
-                )}`,
-            })
+            warnings.push(
+                i18n.t('Displaying first {{limit}} tracked entities', {
+                    limit: formatWithSeparator(
+                        limit,
+                        keyAnalysisDigitGroupSeparator
+                    ),
+                })
+            )
         }
 
         if (!instances.length) {
@@ -207,31 +203,21 @@ const trackedEntityLoader = async ({
                 maxLimit,
                 isSourceTruncated: isTruncated,
             }).catch(() => {
-                alerts.push({
-                    warning: true,
-                    code: CUSTOM_ALERT,
-                    message: `${name}: ${i18n.t(
-                        'Relationships could not be loaded'
-                    )}`,
-                })
+                warnings.push(i18n.t('Relationships could not be loaded'))
                 return null
             })
 
             if (relationshipResult && !relationshipResult.isSupported) {
-                alerts.push({
-                    warning: true,
-                    code: CUSTOM_ALERT,
-                    message: `${name}: ${i18n.t(
+                warnings.push(
+                    i18n.t(
                         'Only relationships between tracked entities are supported'
-                    )}`,
-                })
+                    )
+                )
             }
 
             if (relationshipResult?.isTruncated) {
-                alerts.push({
-                    warning: true,
-                    code: CUSTOM_ALERT,
-                    message: `${name}: ${i18n.t(
+                warnings.push(
+                    i18n.t(
                         'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
                         {
                             limit: formatWithSeparator(
@@ -239,8 +225,8 @@ const trackedEntityLoader = async ({
                                 keyAnalysisDigitGroupSeparator
                             ),
                         }
-                    )}`,
-                })
+                    )
+                )
             }
 
             // Only relationships between tracked entities are drawn
@@ -265,6 +251,15 @@ const trackedEntityLoader = async ({
         alerts.push({
             code: ERROR_CRITICAL,
             message: loadError,
+        })
+    }
+
+    // One alert for all warnings: a layer only shows its last custom warning
+    if (warnings.length) {
+        alerts.push({
+            warning: true,
+            code: CUSTOM_ALERT,
+            message: `${name}: ${warnings.join('. ')}`,
         })
     }
 
