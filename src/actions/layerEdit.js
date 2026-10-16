@@ -379,6 +379,12 @@ export const setEarthEnginePeriod = (payload) => ({
     payload,
 })
 
+// Set dimension values (time, month, etc.) for an Open Climate Service layer
+export const setOpenClimateServiceSelection = (payload) => ({
+    type: types.LAYER_EDIT_OPEN_CLIMATE_SERVICE_SELECTION_SET,
+    payload,
+})
+
 // Set feature style
 export const setFeatureStyle = (payload) => ({
     type: types.LAYER_EDIT_FEATURE_STYLE_SET,

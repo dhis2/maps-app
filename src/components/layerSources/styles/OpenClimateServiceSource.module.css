@@ -1,0 +1,44 @@
+.source {
+    color: var(--colors-grey800);
+    font-size: 0.9rem;
+    border: 1px solid var(--colors-grey300);
+    border-radius: 4px;
+    padding: var(--spacers-dp16);
+    margin-bottom: var(--spacers-dp16);
+    margin-right: var(--spacers-dp8);
+}
+
+.source h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.source p {
+    color: var(--colors-grey700);
+    margin: var(--spacers-dp8) 0;
+}
+
+.link {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacers-dp8);
+}
+
+.link > button {
+    margin-top: 22px;
+}
+
+.input {
+    flex: 1;
+}
+
+.linked {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp12);
+}
+
+.notice {
+    margin-top: var(--spacers-dp12);
+}

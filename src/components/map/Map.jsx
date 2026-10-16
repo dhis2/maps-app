@@ -15,6 +15,7 @@ import ExternalLayer from './layers/ExternalLayer.js'
 import FacilityLayer from './layers/FacilityLayer.jsx'
 import GeoJsonLayer from './layers/GeoJsonLayer.js'
 import Layer from './layers/Layer.js'
+import OpenClimateServiceLayer from './layers/openClimateService/OpenClimateServiceLayer.js'
 import OrgUnitLayer from './layers/OrgUnitLayer.jsx'
 import ThematicLayer from './layers/ThematicLayer.jsx'
 import TrackedEntityLayer from './layers/TrackedEntityLayer.jsx'
@@ -32,6 +33,7 @@ const layerType = {
     earthEngine: EarthEngineLayer,
     external: ExternalLayer,
     geoJsonUrl: GeoJsonLayer,
+    openClimateService: OpenClimateServiceLayer,
 }
 
 class Map extends Component {
