@@ -92,14 +92,40 @@ const getInstanceRelationships = (
 
 // Only the source instances' relationships are read
 const fields = ['trackedEntity~rename(id)', 'geometry']
+
+// The layer request with the related program, or the related type without
+// one, so the related tracked entities pass the same filters as when they
+// are among the loaded ones
+const getRelatedVariables = (trackerVariables, to) =>
+    'program' in to
+        ? {
+              ...trackerVariables,
+              fields,
+              program: to.program.id,
+              trackedEntityType: undefined,
+          }
+        : {
+              ...trackerVariables,
+              fields,
+              program: undefined,
+              trackedEntityType: to.trackedEntityType.id,
+              // Program filters can't apply without a program
+              programStatus: undefined,
+              enrollmentStatus: undefined,
+              followUp: undefined,
+              enrollmentEnrolledAfter: undefined,
+              enrollmentEnrolledBefore: undefined,
+          }
+
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
     queryOptions,
     engine,
     maxLimit,
+    isSourceTruncated,
 }) => {
-    const { relationshipType, orgUnits, orgUnitMode } = queryOptions
+    const { relationshipType, trackerVariables } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -135,25 +161,15 @@ export const getDataWithRelationships = async ({
     let normalizedPotentialTargetInstances
     let isTruncated = false
     if (isSameTrackedEntityType && isSameProgram) {
-        // The related tracked entities are among the loaded ones
+        // The related tracked entities are among the loaded ones, so cut
+        // with them
         normalizedPotentialTargetInstances = normalizedSourceInstances
+        isTruncated = Boolean(isSourceTruncated)
     } else {
-        // By the target program for the same type, by the target type otherwise
-        const relatedRequestParams =
-            isSameTrackedEntityType && 'program' in to
-                ? { program: to.program.id }
-                : { trackedEntityType: to.trackedEntityType.id }
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-            {
-                variables: {
-                    fields,
-                    orgUnits,
-                    orgUnitMode,
-                    ...relatedRequestParams,
-                },
-            }
+            { variables: getRelatedVariables(trackerVariables, to) }
         )
 
         const potentialTargetInstances =
@@ -216,9 +232,9 @@ export const loadTrackedEntityRelationships = async ({
     engine,
     serverVersion,
     instances,
-    orgUnits,
-    orgUnitMode,
+    trackerVariables,
     maxLimit,
+    isSourceTruncated,
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
@@ -241,13 +257,10 @@ export const loadTrackedEntityRelationships = async ({
         // VERSION-TOGGLE: see util/versionToggle.js
         isVersion40: !serverSupportsTracker41Api(serverVersion),
         instances,
-        queryOptions: {
-            relationshipType,
-            orgUnits,
-            orgUnitMode,
-        },
+        queryOptions: { relationshipType, trackerVariables },
         engine,
         maxLimit,
+        isSourceTruncated,
     })
 
     return {

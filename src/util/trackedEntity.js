@@ -243,8 +243,6 @@ export const loadTrackedEntitiesFromTracker = async ({
         return {
             data: [],
             instances: [],
-            orgUnits: '',
-            orgUnitMode,
             isTruncated: false,
             limit: maxLimit,
         }
@@ -271,9 +269,8 @@ export const loadTrackedEntitiesFromTracker = async ({
     return {
         data: createTrackedEntityFeatures(instances),
         instances,
-        // Org units and mode for the relationships request
-        orgUnits: variables.orgUnits,
-        orgUnitMode,
+        // The relationships request applies the same filters
+        trackerVariables: variables,
         // The API returns at most maxLimit rows and no total, so reaching the
         // limit is the only sign of a cut (a total of exactly maxLimit also
         // warns). All rows count, geometry or not

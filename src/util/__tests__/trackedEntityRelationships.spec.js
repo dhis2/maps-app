@@ -394,8 +394,7 @@ describe('getDataWithRelationships', () => {
         },
     ]
     const OUProps = {
-        orgUnits: 'someOU',
-        orgUnitsMode: 'someOUMode',
+        trackerVariables: { orgUnits: 'someOU', orgUnitMode: 'someOUMode' },
     }
     let mockEngine
 
@@ -559,7 +558,7 @@ describe('getDataWithRelationships', () => {
                 variables: {
                     fields: ['trackedEntity~rename(id)', 'geometry'],
                     orgUnits: 'someOU',
-                    orgUnitMode: undefined,
+                    orgUnitMode: 'someOUMode',
                     program: 'program2',
                     trackedEntityType: undefined,
                 },
@@ -664,7 +663,7 @@ describe('getDataWithRelationships', () => {
                     variables: {
                         fields: ['trackedEntity~rename(id)', 'geometry'],
                         orgUnits: 'someOU',
-                        orgUnitMode: undefined,
+                        orgUnitMode: 'someOUMode',
                         program: 'program2',
                         trackedEntityType: undefined,
                     },
@@ -712,7 +711,7 @@ describe('getDataWithRelationships target query', () => {
             name: 'different types, different programs, to program set',
             from: { program: 'program1' },
             to: { type: 'type2', program: 'program2' },
-            query: { program: undefined, trackedEntityType: 'type2' },
+            query: { program: 'program2', trackedEntityType: undefined },
         },
         {
             name: 'different types, different programs, no to program',
@@ -724,7 +723,7 @@ describe('getDataWithRelationships target query', () => {
             name: 'different types, same program',
             from: { program: 'program1' },
             to: { type: 'type2', program: 'program1' },
-            query: { program: undefined, trackedEntityType: 'type2' },
+            query: { program: 'program1', trackedEntityType: undefined },
         },
         {
             name: 'different types, no programs',
@@ -760,7 +759,7 @@ describe('getDataWithRelationships target query', () => {
                     fromConstraint: constraint(from),
                     toConstraint: constraint(to),
                 },
-                orgUnits: 'ou1',
+                trackerVariables: { orgUnits: 'ou1' },
             },
             engine,
         })
@@ -813,8 +812,7 @@ describe('getDataWithRelationships target query', () => {
                         fromConstraint: constraint({ program: 'program1' }),
                         toConstraint: constraint({ program: 'program2' }),
                     },
-                    orgUnits,
-                    orgUnitMode: 'DESCENDANTS',
+                    trackerVariables: { orgUnits, orgUnitMode: 'DESCENDANTS' },
                 },
                 engine,
             })
@@ -855,7 +853,7 @@ describe('getDataWithRelationships target query', () => {
                         fromConstraint: constraint({ program: 'program1' }),
                         toConstraint: constraint({ program: 'program2' }),
                     },
-                    orgUnits: 'ou1',
+                    trackerVariables: { orgUnits: 'ou1' },
                 },
                 engine,
                 maxLimit,
@@ -877,8 +875,7 @@ describe('getDataWithRelationships target query', () => {
                     fromConstraint: constraint({ program: 'program1' }),
                     toConstraint: constraint({ program: 'program2' }),
                 },
-                orgUnits: '',
-                orgUnitMode: 'SELECTED',
+                trackerVariables: { orgUnits: '', orgUnitMode: 'SELECTED' },
             },
             engine,
         })
@@ -888,6 +885,68 @@ describe('getDataWithRelationships target query', () => {
             primary: [],
             relationships: [],
             secondary: [],
+        })
+    })
+
+    describe('applies the layer filters', () => {
+        const trackerVariables = {
+            orgUnits: 'ou1',
+            orgUnitMode: 'DESCENDANTS',
+            program: 'program1',
+            enrollmentStatus: 'ACTIVE',
+            followUp: 'TRUE',
+            enrollmentEnrolledAfter: '2024-01-01',
+            enrollmentEnrolledBefore: '2024-12-31',
+            updatedAfter: '2023-01-01',
+            updatedBefore: '2023-12-31',
+        }
+
+        const getRelatedParams = async (to) => {
+            const engine = {
+                query: jest
+                    .fn()
+                    .mockResolvedValue({ tei: { trackedEntities: [] } }),
+            }
+
+            await getDataWithRelationships({
+                isVersion40: false,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint(to),
+                    },
+                    trackerVariables,
+                },
+                engine,
+            })
+
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            return tei.params(variables)
+        }
+
+        it('in the related program', async () => {
+            expect(
+                await getRelatedParams({ type: 'type2', program: 'program2' })
+            ).toEqual({
+                ...trackerVariables,
+                fields: ['trackedEntity~rename(id)', 'geometry'],
+                program: 'program2',
+                paging: false,
+            })
+        })
+
+        it('without program filters for a related type without program', async () => {
+            expect(await getRelatedParams({ type: 'type2' })).toEqual({
+                fields: ['trackedEntity~rename(id)', 'geometry'],
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                trackedEntityType: 'type2',
+                updatedAfter: '2023-01-01',
+                updatedBefore: '2023-12-31',
+                paging: false,
+            })
         })
     })
 })
