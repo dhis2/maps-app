@@ -108,7 +108,7 @@ export const PluginHost = ({ pluginProps, size, onSizeChange }) => {
                 style={{ width: itemSize.width, height: itemSize.height }}
             >
                 <Plugin
-                    pluginSource="/plugin.html"
+                    pluginSource="plugin.html"
                     width={itemSize.width}
                     height={itemSize.height}
                     onError={onError}
