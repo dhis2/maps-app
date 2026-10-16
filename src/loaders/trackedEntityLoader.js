@@ -115,6 +115,18 @@ const getLegend = ({
     return legend
 }
 
+// One alert for all warnings: a layer only shows its last custom warning
+const getWarningAlerts = (name, warnings) =>
+    warnings.length
+        ? [
+              {
+                  warning: true,
+                  code: CUSTOM_ALERT,
+                  message: `${name}: ${warnings.join('. ')}`,
+              },
+          ]
+        : []
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -254,14 +266,7 @@ const trackedEntityLoader = async ({
         })
     }
 
-    // One alert for all warnings: a layer only shows its last custom warning
-    if (warnings.length) {
-        alerts.push({
-            warning: true,
-            code: CUSTOM_ALERT,
-            message: `${name}: ${warnings.join('. ')}`,
-        })
-    }
+    alerts.push(...getWarningAlerts(name, warnings))
 
     return {
         ...config,
