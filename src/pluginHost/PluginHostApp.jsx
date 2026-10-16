@@ -58,7 +58,7 @@ export const PluginHostApp = () => {
 
     return (
         <div className={styles.page}>
-            <h1 className={styles.title}>Plugin host (dev only)</h1>
+            <h1 className={styles.title}>Plugin host (not in releases)</h1>
 
             <MapSelect
                 maps={suggestions?.maps.maps ?? []}
