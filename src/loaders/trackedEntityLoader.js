@@ -163,7 +163,7 @@ const trackedEntityLoader = async ({
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
             serverVersion
         )
-        const { instances, orgUnits, isTruncated, limit } =
+        const { instances, trackerVariables, isTruncated, limit } =
             await loadTrackedEntitiesFromTracker({
                 config,
                 engine,
@@ -203,7 +203,7 @@ const trackedEntityLoader = async ({
                 engine,
                 serverVersion,
                 instances,
-                orgUnits,
+                trackerVariables,
                 maxLimit,
             }).catch(() => {
                 alerts.push({
