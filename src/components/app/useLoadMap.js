@@ -52,10 +52,11 @@ export const useLoadMap = () => {
                         defaultBasemap,
                     })
 
-                    engine.mutate(dataStatisticsMutation, {
-                        variables: { id: params.mapId },
-                        onError: (error) => log.error('Error: ', error),
-                    })
+                    engine
+                        .mutate(dataStatisticsMutation, {
+                            variables: { id: params.mapId },
+                        })
+                        .catch((error) => log.error('Error: ', error))
 
                     const basemapConfig = getBasemapOrFallback({
                         basemaps,

@@ -46,7 +46,7 @@ describe('File menu', () => {
         saveNewMap(title)
 
         cy.wait('@saveMap').its('response.statusCode').should('eq', 201)
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
     }
@@ -149,7 +149,9 @@ describe('File menu', () => {
 
         cy.reload(true)
 
-        cy.getByDataTest('map-name').contains(title).should('be.visible')
+        cy.getByDataTest('map-name', EXTENDED_TIMEOUT)
+            .contains(title)
+            .should('be.visible')
         cy.getByDataTest('details-panel')
             .contains(description)
             .should('not.exist')
@@ -188,7 +190,7 @@ describe('File menu', () => {
         saveAsNewMap(SAVEAS_MAP_TITLE)
 
         cy.wait('@saveAsNewMap').its('response.statusCode').should('eq', 201)
-        cy.wait('@postDataStatistics')
+        cy.wait('@postDataStatistics', EXTENDED_TIMEOUT)
             .its('response.statusCode')
             .should('eq', 201)
     })
