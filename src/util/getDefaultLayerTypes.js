@@ -19,6 +19,8 @@ export const getDefaultLayerTypes = () => [
         type: i18n.t('Events'),
         img: 'images/events.png',
         opacity: 0.8,
+        heatIntensity: 0.5,
+        heatRadius: 0.5,
         eventClustering: true,
     },
     {
