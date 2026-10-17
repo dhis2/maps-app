@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import {
     setClassification,
     setDataItem,
+    setChartDataItems,
+    setChartType,
     setLegendSet,
     setNoDataLegend,
     setUnclassifiedLegend,
@@ -25,6 +27,10 @@ import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
+    THEMATIC_CHART,
+    THEMATIC_CHART_MAX_SERIES,
+    CHART_TYPE_DONUT,
+    CHART_TYPE_BAR,
 } from '../../../constants/layers.js'
 import {
     PREDEFINED_PERIODS,
@@ -35,9 +41,11 @@ import useLayersPeriodSync from '../../../hooks/useLayersPeriodSync.js'
 import usePrevious from '../../../hooks/usePrevious.js'
 import {
     getDataItemFromColumns,
+    getDataItemsFromColumns,
     getPeriodsFromFilters,
     getDimensionsFromFilters,
 } from '../../../util/analytics.js'
+import { getChartSeriesColors } from '../../../util/colors.js'
 import NumericLegendStyle from '../../classification/NumericLegendStyle.jsx'
 import { Tab, Tabs, Checkbox } from '../../core/index.js'
 import DimensionFilter from '../../dimensions/DimensionFilter.jsx'
@@ -79,6 +87,7 @@ const ThematicDialog = ({
     radiusHigh,
     method,
     thematicMapType,
+    chartType,
     legendIsolated,
 }) => {
     const dispatch = useDispatch()
@@ -107,7 +116,12 @@ const ThematicDialog = ({
     const prevEndDate = usePrevious(endDate)
     const prevValidateLayer = usePrevious(validateLayer)
 
+    const isChartMap = thematicMapType === THEMATIC_CHART
     const dataItem = useMemo(() => getDataItemFromColumns(columns), [columns])
+    const chartDataItems = useMemo(
+        () => getDataItemsFromColumns(columns),
+        [columns]
+    )
     const periods = useMemo(() => getPeriodsFromFilters(filters), [filters])
     const dimensions = useMemo(
         () => getDimensionsFromFilters(filters),
@@ -346,39 +360,61 @@ const ThematicDialog = ({
                 {tab === 'data' && (
                     <div data-test="thematicdialog-datatab">
                         <div className={styles.flexRowFlow}>
-                            <DataDimension
-                                displayNameProp={
-                                    currentUser.keyAnalysisDisplayProperty
-                                }
-                                selectedDimensions={
-                                    dataItem
-                                        ? [
-                                              {
-                                                  ...dataItem,
-                                                  type: dataItem.dimensionItemType,
-                                              },
-                                          ]
-                                        : []
-                                }
-                                onSelect={async ({ items }) => {
-                                    const selected = items.at(-1) ?? {}
-                                    const legendSet = await fetchLegendSet(
-                                        selected
-                                    )
-                                    dispatch(
-                                        setDataItem(
-                                            { ...selected, legendSet },
-                                            selected.type
+                            {isChartMap ? (
+                                <DataDimension
+                                    displayNameProp={
+                                        currentUser.keyAnalysisDisplayProperty
+                                    }
+                                    selectedDimensions={chartDataItems.map(
+                                        (item) => ({
+                                            ...item,
+                                            type: item.dimensionItemType,
+                                        })
+                                    )}
+                                    onSelect={({ items }) =>
+                                        dispatch(setChartDataItems(items))
+                                    }
+                                    height="408px"
+                                    heightCalculation="375px"
+                                    maxSelections={THEMATIC_CHART_MAX_SERIES}
+                                />
+                            ) : (
+                                <DataDimension
+                                    displayNameProp={
+                                        currentUser.keyAnalysisDisplayProperty
+                                    }
+                                    selectedDimensions={
+                                        dataItem
+                                            ? [
+                                                  {
+                                                      ...dataItem,
+                                                      type: dataItem.dimensionItemType,
+                                                  },
+                                              ]
+                                            : []
+                                    }
+                                    onSelect={async ({ items }) => {
+                                        const selected = items.at(-1) ?? {}
+                                        const legendSet = await fetchLegendSet(
+                                            selected
                                         )
-                                    )
-                                }}
-                                onCalculationSave={(items) =>
-                                    dispatch(setDataItem(items, items.type))
-                                }
-                                height="408px"
-                                heightCalculation="375px"
-                                maxSelections={1}
-                            />
+                                        dispatch(
+                                            setDataItem(
+                                                { ...selected, legendSet },
+                                                selected.type
+                                            )
+                                        )
+                                    }}
+                                    onCalculationSave={(items) =>
+                                        dispatch(
+                                            setDataItem(items, items.type)
+                                        )
+                                    }
+                                    height="408px"
+                                    heightCalculation="375px"
+                                    maxSelections={1}
+                                />
+                            )}
                         </div>
 
                         <div className={styles.flexColumnFlow}>
@@ -538,14 +574,42 @@ const ThematicDialog = ({
                     >
                         <div className={styles.flexColumn}>
                             <ThematicMapTypeSelect type={thematicMapType} />
-                            <div
-                                className={cx(
-                                    styles.flexInnerColumnFlow,
-                                    styles.radiusSelect
-                                )}
-                            >
-                                <RadiusSelect className={styles.numberField} />
-                            </div>
+                            {isChartMap ? (
+                                <div
+                                    className={styles.flexInnerColumnFlow}
+                                    data-test="thematicdialog-charttype"
+                                >
+                                    <SegmentedControl
+                                        options={[
+                                            {
+                                                label: i18n.t('Donut'),
+                                                value: CHART_TYPE_DONUT,
+                                            },
+                                            {
+                                                label: i18n.t('Bar'),
+                                                value: CHART_TYPE_BAR,
+                                            },
+                                        ]}
+                                        selected={
+                                            chartType || CHART_TYPE_DONUT
+                                        }
+                                        onChange={({ value }) =>
+                                            dispatch(setChartType(value))
+                                        }
+                                    />
+                                </div>
+                            ) : (
+                                <div
+                                    className={cx(
+                                        styles.flexInnerColumnFlow,
+                                        styles.radiusSelect
+                                    )}
+                                >
+                                    <RadiusSelect
+                                        className={styles.numberField}
+                                    />
+                                </div>
+                            )}
                             <Labels includeDisplayOption />
                             <Checkbox
                                 label={i18n.t(
@@ -562,22 +626,59 @@ const ThematicDialog = ({
                             />
                         </div>
                         <div className={styles.flexColumn}>
-                            <NumericLegendStyle
-                                mapType={thematicMapType}
-                                dataItem={dataItem}
-                                legendSetError={errors.legendSetError}
-                                className={styles.select}
-                            />
-                            <UnclassifiedLegend
-                                value={unclassifiedLegend}
-                                onChange={(v) =>
-                                    dispatch(setUnclassifiedLegend(v))
-                                }
-                            />
-                            <NoDataLegend
-                                value={noDataLegend}
-                                onChange={(v) => dispatch(setNoDataLegend(v))}
-                            />
+                            {isChartMap ? (
+                                <div data-test="thematicdialog-chartseries">
+                                    {chartDataItems.length === 0 && (
+                                        <div className={styles.error}>
+                                            <IconErrorFilled24 />
+                                            {errors.dataError ||
+                                                i18n.t(
+                                                    'Select at least one data item on the Data tab'
+                                                )}
+                                        </div>
+                                    )}
+                                    {getChartSeriesColors(
+                                        chartDataItems.length
+                                    ).map((color, index) => (
+                                        <div
+                                            key={chartDataItems[index].id}
+                                            className={styles.flexInnerColumnFlow}
+                                        >
+                                            <span
+                                                style={{
+                                                    display: 'inline-block',
+                                                    width: 12,
+                                                    height: 12,
+                                                    borderRadius: '50%',
+                                                    backgroundColor: color,
+                                                }}
+                                            />
+                                            {chartDataItems[index].name}
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <>
+                                    <NumericLegendStyle
+                                        mapType={thematicMapType}
+                                        dataItem={dataItem}
+                                        legendSetError={errors.legendSetError}
+                                        className={styles.select}
+                                    />
+                                    <UnclassifiedLegend
+                                        value={unclassifiedLegend}
+                                        onChange={(v) =>
+                                            dispatch(setUnclassifiedLegend(v))
+                                        }
+                                    />
+                                    <NoDataLegend
+                                        value={noDataLegend}
+                                        onChange={(v) =>
+                                            dispatch(setNoDataLegend(v))
+                                        }
+                                    />
+                                </>
+                            )}
                         </div>
                     </div>
                 )}
@@ -588,6 +689,7 @@ const ThematicDialog = ({
 
 ThematicDialog.propTypes = {
     backupPeriodsDates: PropTypes.object,
+    chartType: PropTypes.string,
     columns: PropTypes.array,
     currentUser: PropTypes.object,
     endDate: PropTypes.string,

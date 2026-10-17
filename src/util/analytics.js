@@ -30,6 +30,24 @@ const getDimensionItems = (dimension, arr) => {
 export const getDataItemFromColumns = (columns = []) =>
     getDimensionItems('dx', columns)[0]
 
+// Mockup for DHIS2-21461: chart map, one dx item per chart series
+export const getDataItemsFromColumns = (columns = []) =>
+    getDimensionItems('dx', columns)
+
+export const setDataItemsInColumns = (dataItems = []) => [
+    createDimension(
+        'dx',
+        dataItems.map((dataItem) => ({
+            id: dataItem.id,
+            name: dataItem.name,
+            expression: dataItem.expression,
+            dimensionItemType: dataItem.dimensionItemType || dataItem.type,
+            legendSet: dataItem.legendSet,
+        })),
+        { objectName: 'dx' }
+    ),
+]
+
 export const setDataItemInColumns = (dataItem, dimension) => {
     const dim = dimConf[dimension]
     return dim

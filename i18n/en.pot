@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-09-10T12:26:25.386Z\n"
+"PO-Revision-Date: 2026-09-10T12:26:25.386Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -545,6 +545,15 @@ msgstr "Selection is initialized from shared periods"
 
 msgid "Choose periods for all split layers"
 msgstr "Choose periods for all split layers"
+
+msgid "Donut"
+msgstr "Donut"
+
+msgid "Bar"
+msgstr "Bar"
+
+msgid "Select at least one data item on the Data tab"
+msgstr "Select at least one data item on the Data tab"
 
 msgid "Data is required"
 msgstr "Data is required"
@@ -1738,6 +1747,9 @@ msgstr "Choropleth"
 msgid "Bubble map"
 msgstr "Bubble map"
 
+msgid "Chart map"
+msgstr "Chart map"
+
 msgid "Automatic color legend"
 msgstr "Automatic color legend"
 
@@ -1878,6 +1890,19 @@ msgstr "Data item was not found"
 
 msgid "Thematic layer"
 msgstr "Thematic layer"
+
+msgid ""
+"Chart maps are hard to read with more than {{max}} series ({{count}} "
+"selected)"
+msgid_plural ""
+"Chart maps are hard to read with more than {{max}} series ({{count}} "
+"selected)"
+msgstr[0] ""
+"Chart maps are hard to read with more than {{max}} series ({{count}} "
+"selected)"
+msgstr[1] ""
+"Chart maps are hard to read with more than {{max}} series ({{count}} "
+"selected)"
 
 msgid "related"
 msgstr "related"
