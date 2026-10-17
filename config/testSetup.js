@@ -16,4 +16,19 @@ if (window.URL.createObjectURL === undefined) {
     window.URL.createObjectURL = () => {}
 }
 
+// jsdom has no ResizeObserver implementation
+global.ResizeObserver =
+    global.ResizeObserver ||
+    class ResizeObserver {
+        observe() {
+            // no-op
+        }
+        unobserve() {
+            // no-op
+        }
+        disconnect() {
+            // no-op
+        }
+    }
+
 configure({ testIdAttribute: 'data-test' })
