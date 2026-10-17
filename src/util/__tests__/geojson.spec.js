@@ -1,3 +1,4 @@
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../constants/layers.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_FEATURE,
@@ -302,6 +303,15 @@ describe('geojson utils', () => {
                 dimension: newItem.id,
                 name: newItem.name,
             })
+        })
+        it('Should not add geometrySource as a dimension - the backend returns it automatically', () => {
+            const geometrySourceItem = {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                name: 'Geometry source',
+            }
+            const result = addStyleDataItem(dummyDataItems, geometrySourceItem)
+            expect(result).not.toBe(dummyDataItems) // New array, not ===
+            expect(result).toEqual(dummyDataItems)
         })
     })
 

@@ -2,6 +2,8 @@ import { useDataQuery } from '@dhis2/app-runtime'
 import i18n from '@dhis2/d2-i18n'
 import PropTypes from 'prop-types'
 import React, { useEffect, useState } from 'react'
+import { EVENT_COORDINATE_GEOMETRY_SOURCE } from '../../../constants/layers.js'
+import { resolveGeometrySourceName } from '../../../util/coordinatesName.js'
 import { EVENT_ID_FIELD } from '../../../util/geojson.js'
 import {
     formatDatetime,
@@ -62,6 +64,7 @@ const EventPopup = ({
     keyAnalysisDigitGroupSeparator,
     displayItems,
     eventCoordinateFieldName,
+    geometrySourceNames,
     onClose,
 }) => {
     const [orgUnit, setOrgUnit] = useState()
@@ -121,20 +124,30 @@ const EventPopup = ({
 
     const { type, coordinates: coord } = feature.geometry
     const { dataValues = [], occurredAt } = dataEvent?.events || {}
-    const dataValueIndex = dataValues.findIndex(
-        (d) => d.dataElement === styleDataItem?.id
-    )
-    if (dataValueIndex !== -1) {
-        dataValues[dataValueIndex] = {
-            dataElement: styleDataItem?.id,
-            value: feature.properties.value,
+    if (
+        styleDataItem &&
+        styleDataItem.id !== EVENT_COORDINATE_GEOMETRY_SOURCE
+    ) {
+        const dataValueIndex = dataValues.findIndex(
+            (d) => d.dataElement === styleDataItem.id
+        )
+        if (dataValueIndex !== -1) {
+            dataValues[dataValueIndex] = {
+                dataElement: styleDataItem.id,
+                value: feature.properties.value,
+            }
+        } else {
+            dataValues.push({
+                dataElement: styleDataItem.id,
+                value: feature.properties.value,
+            })
         }
-    } else {
-        dataValues.push({
-            dataElement: styleDataItem?.id,
-            value: feature.properties.value,
-        })
     }
+
+    const geometrySource = feature.properties[EVENT_COORDINATE_GEOMETRY_SOURCE]
+    const coordinateFieldLabel = geometrySource
+        ? resolveGeometrySourceName(geometrySource, geometrySourceNames)
+        : eventCoordinateFieldName || i18n.t('Event location')
 
     return (
         <Popup
@@ -162,10 +175,7 @@ const EventPopup = ({
                             })}
                         {type === 'Point' && (
                             <tr>
-                                <th>
-                                    {eventCoordinateFieldName ||
-                                        i18n.t('Event location')}
-                                </th>
+                                <th>{coordinateFieldLabel}</th>
                                 <td>{formatCoordinate(coord)}</td>
                             </tr>
                         )}
@@ -195,6 +205,7 @@ EventPopup.propTypes = {
     nameProperty: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     eventCoordinateFieldName: PropTypes.string,
+    geometrySourceNames: PropTypes.object,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     styleDataItem: PropTypes.object,
 }

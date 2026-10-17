@@ -8,6 +8,8 @@ import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
+    COORDINATE_FIELD_NAMES,
 } from '../../constants/layers.js'
 import { numberValueTypes } from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
@@ -125,7 +127,10 @@ const getEventHeaders = ({
     }
 
     const customFields = layerHeaders
-        .filter(({ name }) => isValidUid(name))
+        .filter(
+            ({ name }) =>
+                isValidUid(name) || name === EVENT_COORDINATE_GEOMETRY_SOURCE
+        )
         .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
             name,
             dataKey,
@@ -214,6 +219,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         dataFilters,
         headers: layerHeaders,
         serverCluster,
+        geometrySourceNames,
     } = layer || EMPTY_LAYER
 
     const dataWithAggregations = useMemo(() => {
@@ -238,14 +244,31 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             }))
         }
 
+        const names = geometrySourceNames || COORDINATE_FIELD_NAMES
+
         return allData
             .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, index) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index,
-            }))
-    }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
+            .map((d, index) => {
+                const rawSource =
+                    d.properties?.[EVENT_COORDINATE_GEOMETRY_SOURCE]
+                return {
+                    ...(d.properties || d),
+                    ...(rawSource != null && {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]:
+                            names[rawSource] ?? rawSource,
+                    }),
+                    ...aggregations[d.id],
+                    index,
+                }
+            })
+    }, [
+        data,
+        dataWithoutCoords,
+        aggregations,
+        serverCluster,
+        layerType,
+        geometrySourceNames,
+    ])
 
     const headers = useMemo(() => {
         if (errorCode.current) {
