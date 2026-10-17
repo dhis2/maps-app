@@ -5290,6 +5290,13 @@ belter@^1.0.41:
     cross-domain-utils "^2"
     zalgo-promise "^1"
 
+betterknown@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/betterknown/-/betterknown-1.2.0.tgz#2b58d377c5f701d433144f174ade2c44f31a91c7"
+  integrity sha512-9kuLOeVkgAXnKsMn9WAHLLJ45Wn51jPuZlS1XPkia7NoBpqM9EbVvr+A2Wr0g1WAEL5rX7/oM428Akd3wCL3vA==
+  dependencies:
+    "@types/geojson" "^7946.0.16"
+
 big.js@^5.2.2:
   version "5.2.2"
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"

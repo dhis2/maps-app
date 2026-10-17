@@ -49,6 +49,7 @@ describe('Tracked Entity Layers', () => {
         Layer.selectTab('Period')
             .typeStartDate('2018-00-00')
             .selectTab('Org Units')
+            .unselectOu('Sierra Leone')
             .openOu('Bo')
             .openOu('Badjia')
             .selectOu('Njandama MCHP')
