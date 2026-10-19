@@ -2,6 +2,7 @@ import {
     createTrackedEntityFeatures,
     TEI_40_QUERY,
     TEI_41_QUERY,
+    TEI_FIELDS,
 } from './trackedEntity.js'
 import { serverSupportsTracker41Api } from './versionToggle.js'
 
@@ -90,23 +91,20 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-// Only the source instances' relationships are read
-const fields = ['trackedEntity~rename(id)', 'geometry']
-
 // The layer request with the related program, or the related type without
 // one, so the related tracked entities pass the same filters as when they
-// are among the loaded ones
+// are among the loaded ones. Only the loaded ones' relationships are read
 const getRelatedVariables = (trackerVariables, to) =>
     'program' in to
         ? {
               ...trackerVariables,
-              fields,
+              fields: TEI_FIELDS,
               program: to.program.id,
               trackedEntityType: undefined,
           }
         : {
               ...trackerVariables,
-              fields,
+              fields: TEI_FIELDS,
               program: undefined,
               trackedEntityType: to.trackedEntityType.id,
               // Program filters can't apply without a program

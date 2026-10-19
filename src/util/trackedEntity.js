@@ -41,7 +41,7 @@ export const createTrackedEntityFeatures = (instances) =>
 // Tracker API
 // -----
 
-const fields = ['trackedEntity~rename(id)', 'geometry']
+export const TEI_FIELDS = ['trackedEntity~rename(id)', 'geometry']
 
 // Also used for the related tracked entities of relationship layers
 export const TEI_40_QUERY = {
@@ -174,8 +174,8 @@ export const loadTrackedEntitiesFromTracker = async ({
 }) => {
     // Slow to fetch, so only for layers showing relationships
     const requestFields = config.relationshipType
-        ? [...fields, 'relationships']
-        : fields
+        ? [...TEI_FIELDS, 'relationships']
+        : TEI_FIELDS
 
     const { query, variables } = getTrackerRequest(config, {
         fields: requestFields,
