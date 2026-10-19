@@ -149,9 +149,9 @@ export const getDataWithRelationships = async ({
         }
     }
 
-    // The related tracked entities are on the map when they are of the layer's
-    // type, in the layer program if it has one, and not filtered out by program
-    // status or follow-up, which don't apply to them
+    // The related tracked entities are among those the layer loaded when they
+    // are of its type, in its program if it has one, and not filtered out by
+    // program status or follow-up, which don't apply to them
     const isRelatedLoaded =
         to.trackedEntityType.id === from.trackedEntityType.id &&
         (!trackerParams.program || to.program?.id === trackerParams.program) &&

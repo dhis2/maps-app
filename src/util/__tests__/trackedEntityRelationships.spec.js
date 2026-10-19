@@ -744,7 +744,7 @@ describe('getDataWithRelationships target query', () => {
             query: null,
         },
         {
-            // All tracked entities of the type are on the map
+            // The layer loaded all tracked entities of the type
             name: 'same type, different programs, no layer program',
             from: { program: 'program1' },
             to: { program: 'program2' },
@@ -974,7 +974,7 @@ describe('getDataWithRelationships target query', () => {
         ])(
             'requests the related tracked entities in the layer program with $name',
             async ({ filter }) => {
-                // On the map otherwise, but filtered by the layer
+                // Loaded by the layer otherwise, but filtered by it
                 expect(
                     await getRelatedParams(
                         {
