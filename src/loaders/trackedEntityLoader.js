@@ -155,7 +155,7 @@ const trackedEntityLoader = async ({
             areaRadius,
         })
 
-        const { instances, trackerVariables } =
+        const { instances, trackerParams } =
             await loadTrackedEntitiesFromTracker({
                 config,
                 engine,
@@ -178,7 +178,7 @@ const trackedEntityLoader = async ({
                 engine,
                 serverVersion,
                 instances,
-                trackerVariables,
+                trackerParams,
             }).catch(() => {
                 alerts.push({
                     warning: true,

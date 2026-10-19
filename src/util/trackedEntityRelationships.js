@@ -2,6 +2,7 @@ import {
     createTrackedEntityFeatures,
     TEI_40_QUERY,
     TEI_41_QUERY,
+    TEI_FIELDS,
 } from './trackedEntity.js'
 import { serverSupportsTracker41Api } from './versionToggle.js'
 
@@ -90,23 +91,20 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-// Only the source instances' relationships are read
-const fields = ['trackedEntity~rename(id)', 'geometry']
-
 // The layer request with the related program, or the related type without
 // one, so the related tracked entities pass the same filters as when they
-// are among the loaded ones
-const getRelatedVariables = (trackerVariables, to) =>
+// are among the loaded ones. Only the loaded ones' relationships are read
+const getRelatedParams = (trackerParams, to) =>
     'program' in to
         ? {
-              ...trackerVariables,
-              fields,
+              ...trackerParams,
+              fields: TEI_FIELDS,
               program: to.program.id,
               trackedEntityType: undefined,
           }
         : {
-              ...trackerVariables,
-              fields,
+              ...trackerParams,
+              fields: TEI_FIELDS,
               program: undefined,
               trackedEntityType: to.trackedEntityType.id,
               // Program filters can't apply without a program
@@ -123,7 +121,7 @@ export const getDataWithRelationships = async ({
     queryOptions,
     engine,
 }) => {
-    const { relationshipType, trackerVariables } = queryOptions
+    const { relationshipType, trackerParams } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -161,7 +159,7 @@ export const getDataWithRelationships = async ({
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-            { variables: getRelatedVariables(trackerVariables, to) }
+            { variables: getRelatedParams(trackerParams, to) }
         )
 
         normalizedPotentialTargetInstances = normalizeInstances(
@@ -218,7 +216,7 @@ export const loadTrackedEntityRelationships = async ({
     engine,
     serverVersion,
     instances,
-    trackerVariables,
+    trackerParams,
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
@@ -241,7 +239,7 @@ export const loadTrackedEntityRelationships = async ({
         // VERSION-TOGGLE: see util/versionToggle.js
         isVersion40: !serverSupportsTracker41Api(serverVersion),
         instances,
-        queryOptions: { relationshipType, trackerVariables },
+        queryOptions: { relationshipType, trackerParams },
         engine,
     })
 

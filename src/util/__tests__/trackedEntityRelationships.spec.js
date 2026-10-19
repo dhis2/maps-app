@@ -394,7 +394,7 @@ describe('getDataWithRelationships', () => {
         },
     ]
     const OUProps = {
-        trackerVariables: { orgUnits: 'someOU', orgUnitMode: 'someOUMode' },
+        trackerParams: { orgUnits: 'someOU', orgUnitMode: 'someOUMode' },
     }
     let mockEngine
 
@@ -759,7 +759,7 @@ describe('getDataWithRelationships target query', () => {
                     fromConstraint: constraint(from),
                     toConstraint: constraint(to),
                 },
-                trackerVariables: { orgUnits: 'ou1' },
+                trackerParams: { orgUnits: 'ou1' },
             },
             engine,
         })
@@ -812,7 +812,7 @@ describe('getDataWithRelationships target query', () => {
                         fromConstraint: constraint({ program: 'program1' }),
                         toConstraint: constraint({ program: 'program2' }),
                     },
-                    trackerVariables: { orgUnits, orgUnitMode: 'DESCENDANTS' },
+                    trackerParams: { orgUnits, orgUnitMode: 'DESCENDANTS' },
                 },
                 engine,
             })
@@ -828,7 +828,7 @@ describe('getDataWithRelationships target query', () => {
     )
 
     describe('applies the layer filters', () => {
-        const trackerVariables = {
+        const trackerParams = {
             orgUnits: 'ou1',
             orgUnitMode: 'DESCENDANTS',
             program: 'program1',
@@ -856,7 +856,7 @@ describe('getDataWithRelationships target query', () => {
                         fromConstraint: constraint({ program: 'program1' }),
                         toConstraint: constraint(to),
                     },
-                    trackerVariables,
+                    trackerParams,
                 },
                 engine,
             })
@@ -869,7 +869,7 @@ describe('getDataWithRelationships target query', () => {
             expect(
                 await getRelatedParams({ type: 'type2', program: 'program2' })
             ).toEqual({
-                ...trackerVariables,
+                ...trackerParams,
                 fields: ['trackedEntity~rename(id)', 'geometry'],
                 program: 'program2',
                 paging: false,
