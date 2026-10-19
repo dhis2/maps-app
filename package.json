@@ -59,6 +59,7 @@
         "@turf/centroid": "^7.4.0",
         "abortcontroller-polyfill": "^1.7.8",
         "array-move": "^4.0.0",
+        "betterknown": "^1.2.0",
         "classnames": "^2.5.1",
         "d3-array": "^3.2.4",
         "d3-axis": "^3.0.0",
