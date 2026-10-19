@@ -57,6 +57,7 @@ describe('parseJsonConfig', () => {
 
 const v40 = { major: 2, minor: 40, patch: 0 }
 const v41 = { major: 2, minor: 41, patch: 0 }
+const v42 = { major: 2, minor: 42, patch: 0 }
 
 const trackedEntityType = { id: 'teType1', name: 'Person' }
 const program = { id: 'program1', name: 'Malaria case' }
@@ -138,11 +139,24 @@ describe('trackedEntityLoader tracker request', () => {
                 orgUnitMode: 'DESCENDANTS',
                 program: 'program1',
                 programStatus: 'ACTIVE',
+                followUp: 'TRUE',
                 enrollmentEnrolledAfter: '2024-01-01',
                 enrollmentEnrolledBefore: '2024-12-31',
                 paging: false,
             },
         })
+    })
+
+    it('sends the program status as enrollment status on 2.42+', async () => {
+        const { engine, result } = load({
+            serverVersion: v42,
+            config: { program, programStatus: 'ACTIVE' },
+        })
+        await result
+
+        const { params } = getRequest(engine)
+        expect(params.enrollmentStatus).toBe('ACTIVE')
+        expect(params.programStatus).toBeUndefined()
     })
 
     it('requests a program with its filters on 2.40', async () => {
@@ -182,7 +196,7 @@ describe('trackedEntityLoader tracker request', () => {
             version: '2.40',
             serverVersion: v40,
             followUp: false,
-            expected: 'FALSE',
+            expected: undefined,
         },
         {
             version: '2.40',
@@ -195,6 +209,18 @@ describe('trackedEntityLoader tracker request', () => {
             serverVersion: v41,
             followUp: false,
             expected: undefined,
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            followUp: undefined,
+            expected: undefined,
+        },
+        {
+            version: '2.41',
+            serverVersion: v41,
+            followUp: true,
+            expected: 'TRUE',
         },
     ])(
         'on $version sends followUp $followUp as $expected',
@@ -213,22 +239,30 @@ describe('trackedEntityLoader tracker request', () => {
         { version: '2.40', serverVersion: v40 },
         { version: '2.41', serverVersion: v41 },
     ])(
-        'on $version requests a type by last updated date without a program',
+        'on $version ignores the program filters without a program',
         async ({ serverVersion }) => {
+            // Not possible from the app, only in a map created or edited elsewhere
             const { engine, result } = load({
                 serverVersion,
-                config: { programStatus: 'ACTIVE', followUp: true },
+                config: {
+                    programStatus: 'ACTIVE',
+                    followUp: true,
+                    periodType: 'program',
+                },
             })
             await result
 
-            expect(getRequest(engine).params).toMatchObject({
+            const { params } = getRequest(engine)
+            expect(params).toMatchObject({
                 trackedEntityType: 'teType1',
-                programStatus: 'ACTIVE',
                 updatedAfter: '2024-01-01',
                 updatedBefore: '2024-12-31',
             })
-            expect(getRequest(engine).params.program).toBeUndefined()
-            expect(getRequest(engine).params.followUp).toBeUndefined()
+            expect(params.program).toBeUndefined()
+            expect(params.programStatus).toBeUndefined()
+            expect(params.followUp).toBeUndefined()
+            expect(params.enrollmentEnrolledAfter).toBeUndefined()
+            expect(params.enrollmentEnrolledBefore).toBeUndefined()
         }
     )
 
@@ -348,6 +382,18 @@ describe('trackedEntityLoader result', () => {
             legend: { title: 'Tracked entity' },
         })
         expect((await result).legend.explanation).toBeUndefined()
+    })
+
+    // Not possible from the app, only in a map created or edited elsewhere
+    it('shows an unknown program status as is', async () => {
+        const { result } = load({
+            config: { program, programStatus: 'UNKNOWN' },
+            instances: [point('te1')],
+        })
+
+        expect((await result).legend.explanation).toEqual([
+            'Program status: UNKNOWN',
+        ])
     })
 
     it('warns when no tracked entity has a geometry', async () => {

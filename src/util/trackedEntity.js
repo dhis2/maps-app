@@ -1,7 +1,10 @@
 import { getOrgUnitsFromRows } from './analytics.js'
 import { GEO_TYPE_FEATURE, trackedEntityGeometryTypes } from './geojson.js'
 import { trimTime } from './time.js'
-import { serverSupportsTracker41Api } from './versionToggle.js'
+import {
+    serverSupportsTracker41Api,
+    serverSupportsTrackerEnrollmentStatus,
+} from './versionToggle.js'
 
 export const TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     trackedEntityType: {
@@ -79,18 +82,21 @@ export const TEI_41_QUERY = {
         orgUnitMode,
         program,
         programStatus,
+        enrollmentStatus,
+        followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
         enrollmentEnrolledBefore,
         updatedAfter,
         updatedBefore,
-        // TODO no followUp?
     }) => ({
         fields,
         orgUnits,
         orgUnitMode,
         program,
         programStatus,
+        enrollmentStatus,
+        followUp,
         trackedEntityType,
         enrollmentEnrolledAfter,
         enrollmentEnrolledBefore,
@@ -114,9 +120,12 @@ const getTrackerRequest = (
 ) => {
     // VERSION-TOGGLE: see util/versionToggle.js
     const isVersion40 = !serverSupportsTracker41Api(serverVersion)
-    const followUpBool = followUp ? 'TRUE' : 'FALSE'
-    const boolFollowUp =
-        program && followUp !== undefined ? followUpBool : undefined
+    // Program status, follow-up and enrollment dates only apply to a program
+    const isEnrollmentPeriod = Boolean(program) && periodType === 'program'
+    // VERSION-TOGGLE: see util/versionToggle.js
+    const statusParam = serverSupportsTrackerEnrollmentStatus(serverVersion)
+        ? 'enrollmentStatus'
+        : 'programStatus'
 
     return {
         query: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY,
@@ -125,17 +134,18 @@ const getTrackerRequest = (
             orgUnits: orgUnitIds.join(isVersion40 ? ';' : ','),
             orgUnitMode,
             program: program?.id,
-            programStatus,
-            followUp: boolFollowUp,
+            [statusParam]: program ? programStatus : undefined,
+            // Unchecked means no filter, not "not marked for follow-up"
+            followUp: program && followUp ? 'TRUE' : undefined,
             trackedEntityType: program ? undefined : trackedEntityType?.id,
-            enrollmentEnrolledAfter:
-                periodType === 'program' ? trimTime(startDate) : undefined,
-            enrollmentEnrolledBefore:
-                periodType === 'program' ? trimTime(endDate) : undefined,
-            updatedAfter:
-                periodType === 'program' ? undefined : trimTime(startDate),
-            updatedBefore:
-                periodType === 'program' ? undefined : trimTime(endDate),
+            enrollmentEnrolledAfter: isEnrollmentPeriod
+                ? trimTime(startDate)
+                : undefined,
+            enrollmentEnrolledBefore: isEnrollmentPeriod
+                ? trimTime(endDate)
+                : undefined,
+            updatedAfter: isEnrollmentPeriod ? undefined : trimTime(startDate),
+            updatedBefore: isEnrollmentPeriod ? undefined : trimTime(endDate),
         },
     }
 }
