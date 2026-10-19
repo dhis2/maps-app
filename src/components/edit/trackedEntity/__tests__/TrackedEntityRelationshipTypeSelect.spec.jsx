@@ -6,14 +6,20 @@ import TrackedEntityRelationshipTypeSelect from '../TrackedEntityRelationshipTyp
 jest.mock('@dhis2/app-runtime', () => ({ useDataQuery: jest.fn() }))
 jest.mock('../../../core/index.js', () => {
     const PropTypes = require('prop-types')
-    const SelectField = ({ items }) => (
-        <ul>
-            {items.map(({ id, name }) => (
-                <li key={id}>{name}</li>
-            ))}
-        </ul>
+    const SelectField = ({ items, helpText }) => (
+        <>
+            <ul>
+                {items.map(({ id, name }) => (
+                    <li key={id}>{name}</li>
+                ))}
+            </ul>
+            <p>{helpText}</p>
+        </>
     )
-    SelectField.propTypes = { items: PropTypes.array }
+    SelectField.propTypes = {
+        helpText: PropTypes.string,
+        items: PropTypes.array,
+    }
     return { SelectField }
 })
 
@@ -54,6 +60,19 @@ describe('TrackedEntityRelationshipTypeSelect', () => {
         expect(
             screen.getAllByRole('listitem').map((item) => item.textContent)
         ).toEqual(['Case to contact'])
+    })
+
+    it('says which layer filters apply to related tracked entities', () => {
+        useDataQuery.mockReturnValue({
+            data: { relationshipTypes: { relationshipTypes } },
+        })
+        renderSelect()
+
+        expect(
+            screen.getByText(
+                "Org units and the period also apply to related tracked entities, program status and follow-up don't."
+            )
+        ).toBeInTheDocument()
     })
 
     it('says when the type has none', () => {
