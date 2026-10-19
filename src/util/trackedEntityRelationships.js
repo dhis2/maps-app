@@ -91,29 +91,40 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-// The layer request with the related program, or the related type without
-// one, so the related tracked entities pass the same filters as when they
-// are among the loaded ones. Only the loaded ones' relationships are read
-const getRelatedParams = (trackerParams, to) =>
-    'program' in to
-        ? {
-              ...trackerParams,
-              fields: TEI_FIELDS,
-              program: to.program.id,
-              trackedEntityType: undefined,
-          }
-        : {
-              ...trackerParams,
-              fields: TEI_FIELDS,
-              program: undefined,
-              trackedEntityType: to.trackedEntityType.id,
-              // Program filters can't apply without a program
-              programStatus: undefined,
-              enrollmentStatus: undefined,
-              followUp: undefined,
-              enrollmentEnrolledAfter: undefined,
-              enrollmentEnrolledBefore: undefined,
-          }
+// Related tracked entities are requested with the relationship type's "to"
+// program, or its "to" type without one. Same org units and period as the
+// layer, no program status or follow-up
+const getRelatedParams = (trackerParams, to) => {
+    const params = {
+        ...trackerParams,
+        fields: TEI_FIELDS,
+        programStatus: undefined,
+        enrollmentStatus: undefined,
+        followUp: undefined,
+    }
+
+    if ('program' in to) {
+        return {
+            ...params,
+            program: to.program.id,
+            trackedEntityType: undefined,
+        }
+    }
+
+    // Enrollment dates need a program, so they become last updated dates
+    return {
+        ...params,
+        program: undefined,
+        trackedEntityType: to.trackedEntityType.id,
+        enrollmentEnrolledAfter: undefined,
+        enrollmentEnrolledBefore: undefined,
+        updatedAfter:
+            trackerParams.updatedAfter ?? trackerParams.enrollmentEnrolledAfter,
+        updatedBefore:
+            trackerParams.updatedBefore ??
+            trackerParams.enrollmentEnrolledBefore,
+    }
+}
 
 export const getDataWithRelationships = async ({
     isVersion40,
@@ -138,22 +149,22 @@ export const getDataWithRelationships = async ({
         }
     }
 
-    const isSameTrackedEntityType =
-        from.trackedEntityType.id === to.trackedEntityType.id
-    // Same program on both sides, or no program on either side
-    const isSameProgram =
-        ('program' in from &&
-            'program' in to &&
-            from?.program?.id === to?.program?.id) ||
-        !('program' in from || 'program' in to)
+    // The related tracked entities are on the map when they are of the layer's
+    // type, in the layer program if it has one, and not filtered out by program
+    // status or follow-up, which don't apply to them
+    const isRelatedLoaded =
+        to.trackedEntityType.id === from.trackedEntityType.id &&
+        (!trackerParams.program || to.program?.id === trackerParams.program) &&
+        !trackerParams.programStatus &&
+        !trackerParams.enrollmentStatus &&
+        !trackerParams.followUp
 
     // Keep TEI with coords and convert array to object (id = key)
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
-    if (isSameTrackedEntityType && isSameProgram) {
-        // The related tracked entities are among the loaded ones
+    if (isRelatedLoaded) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
