@@ -53,7 +53,7 @@ export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
     return limit > 0 ? limit : null
 }
 
-const fields = ['trackedEntity~rename(id)', 'geometry']
+export const TEI_FIELDS = ['trackedEntity~rename(id)', 'geometry']
 
 // Also used for the related tracked entities of relationship layers
 export const TEI_40_QUERY = {
@@ -124,11 +124,12 @@ const getTrackerRequest = (
         programStatus,
         followUp,
         trackedEntityType,
+        relationshipType,
         periodType,
         startDate,
         endDate,
     },
-    { fields, orgUnitIds, orgUnitMode, serverVersion }
+    { orgUnitIds, orgUnitMode, serverVersion }
 ) => {
     // VERSION-TOGGLE: see util/versionToggle.js
     const isVersion40 = !serverSupportsTracker41Api(serverVersion)
@@ -142,7 +143,10 @@ const getTrackerRequest = (
     return {
         query: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY,
         variables: {
-            fields,
+            // Slow to fetch, so only for layers showing relationships
+            fields: relationshipType
+                ? [...TEI_FIELDS, 'relationships']
+                : TEI_FIELDS,
             orgUnits: orgUnitIds.join(isVersion40 ? ';' : ','),
             orgUnitMode,
             program: program?.id,
@@ -185,13 +189,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     serverVersion,
     maxLimit,
 }) => {
-    // Slow to fetch, so only for layers showing relationships
-    const requestFields = config.relationshipType
-        ? [...fields, 'relationships']
-        : fields
-
     const { query, variables } = getTrackerRequest(config, {
-        fields: requestFields,
         orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
         orgUnitMode: config.organisationUnitSelectionMode,
         serverVersion,
@@ -206,7 +204,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     return {
         instances,
         // The relationships request applies the same filters
-        trackerVariables: variables,
+        trackerParams: variables,
         // The API returns at most maxLimit rows and no total, so reaching the
         // limit is the only sign of a cut (a total of exactly maxLimit also
         // warns). All rows count, geometry or not
