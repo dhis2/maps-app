@@ -146,12 +146,11 @@ const trackedEntityLoader = async ({
         areaRadius,
     })
 
-    const { instances, trackerVariables } =
-        await loadTrackedEntitiesFromTracker({
-            config,
-            engine,
-            serverVersion,
-        })
+    const { instances, trackerParams } = await loadTrackedEntitiesFromTracker({
+        config,
+        engine,
+        serverVersion,
+    })
 
     let alert
 
@@ -170,7 +169,7 @@ const trackedEntityLoader = async ({
             engine,
             serverVersion,
             instances,
-            trackerVariables,
+            trackerParams,
         })
 
         ;({ data, relationships, secondaryData } = relationshipResult)

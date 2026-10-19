@@ -94,16 +94,16 @@ const getInstanceRelationships = (
 // The layer request with the related program, or the related type without
 // one, so the related tracked entities pass the same filters as when they
 // are among the loaded ones. Only the loaded ones' relationships are read
-const getRelatedVariables = (trackerVariables, to) =>
+const getRelatedParams = (trackerParams, to) =>
     'program' in to
         ? {
-              ...trackerVariables,
+              ...trackerParams,
               fields: TEI_FIELDS,
               program: to.program.id,
               trackedEntityType: undefined,
           }
         : {
-              ...trackerVariables,
+              ...trackerParams,
               fields: TEI_FIELDS,
               program: undefined,
               trackedEntityType: to.trackedEntityType.id,
@@ -121,7 +121,7 @@ export const getDataWithRelationships = async ({
     queryOptions,
     engine,
 }) => {
-    const { relationshipType, trackerVariables } = queryOptions
+    const { relationshipType, trackerParams } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -159,7 +159,7 @@ export const getDataWithRelationships = async ({
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-            { variables: getRelatedVariables(trackerVariables, to) }
+            { variables: getRelatedParams(trackerParams, to) }
         )
 
         normalizedPotentialTargetInstances = normalizeInstances(
@@ -216,7 +216,7 @@ export const loadTrackedEntityRelationships = async ({
     engine,
     serverVersion,
     instances,
-    trackerVariables,
+    trackerParams,
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
@@ -239,7 +239,7 @@ export const loadTrackedEntityRelationships = async ({
         // VERSION-TOGGLE: see util/versionToggle.js
         isVersion40: !serverSupportsTracker41Api(serverVersion),
         instances,
-        queryOptions: { relationshipType, trackerVariables },
+        queryOptions: { relationshipType, trackerParams },
         engine,
     })
 
