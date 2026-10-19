@@ -2,6 +2,7 @@ import {
     createTrackedEntityFeatures,
     TEI_40_QUERY,
     TEI_41_QUERY,
+    TEI_FIELDS,
 } from './trackedEntity.js'
 import { serverSupportsTracker41Api } from './versionToggle.js'
 
@@ -90,7 +91,6 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
@@ -143,7 +143,7 @@ export const getDataWithRelationships = async ({
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
             {
                 variables: {
-                    fields,
+                    fields: [...TEI_FIELDS, 'relationships'],
                     orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
                     ...relatedRequestParams,
