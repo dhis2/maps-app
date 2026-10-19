@@ -1,5 +1,9 @@
 import { TEI_CLIENT_PAGE_SIZE } from '../constants/layers.js'
-import { ORG_UNIT_MODE_SELECTED } from '../constants/orgUnits.js'
+import {
+    ORG_UNIT_MODE_CHILDREN,
+    ORG_UNIT_MODE_DESCENDANTS,
+    ORG_UNIT_MODE_SELECTED,
+} from '../constants/orgUnits.js'
 import { getOrgUnitsFromRows } from './analytics.js'
 import {
     GEO_TYPE_FEATURE,
@@ -35,6 +39,14 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
         }),
     },
 }
+
+// Org unit mode used when the layer has none: all levels below on 2.41+,
+// the selected org units only on 2.40
+// VERSION-TOGGLE: see util/versionToggle.js
+export const getTrackedEntityDefaultOrgUnitMode = (serverVersion) =>
+    serverSupportsTrackedEntityAnalytics(serverVersion)
+        ? ORG_UNIT_MODE_DESCENDANTS
+        : ORG_UNIT_MODE_SELECTED
 
 // Features from tracked entities with an id and a geometry
 export const createTrackedEntityFeatures = (instances) =>
@@ -126,6 +138,33 @@ export const TEI_41_QUERY = {
     }),
 }
 
+const ORG_UNIT_CHILDREN_QUERY = {
+    resource: 'organisationUnits',
+    params: ({ parents }) => ({
+        fields: 'id',
+        filter: `parent.id:in:[${parents.join(',')}]`,
+        paging: false,
+    }),
+}
+
+// The tracker API's CHILDREN mode includes the selected org units, unlike
+// analytics, so the children are requested in SELECTED mode instead
+const getTrackerOrgUnits = async ({ engine, orgUnitIds, orgUnitMode }) => {
+    if (orgUnitMode !== ORG_UNIT_MODE_CHILDREN) {
+        return { orgUnitIds, orgUnitMode }
+    }
+
+    const { children } = await engine.query(
+        { children: ORG_UNIT_CHILDREN_QUERY },
+        { variables: { parents: orgUnitIds } }
+    )
+
+    return {
+        orgUnitIds: children.organisationUnits.map(({ id }) => id),
+        orgUnitMode: ORG_UNIT_MODE_SELECTED,
+    }
+}
+
 const getTrackerRequest = (
     {
         program,
@@ -197,9 +236,25 @@ export const loadTrackedEntitiesFromTracker = async ({
     serverVersion,
     maxLimit,
 }) => {
-    const { query, variables } = getTrackerRequest(config, {
+    const { orgUnitIds, orgUnitMode } = await getTrackerOrgUnits({
+        engine,
         orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
         orgUnitMode: config.organisationUnitSelectionMode,
+    })
+
+    // Without org units, the tracker API would use all accessible ones
+    if (!orgUnitIds.length) {
+        return {
+            data: [],
+            instances: [],
+            isTruncated: false,
+            limit: maxLimit,
+        }
+    }
+
+    const { query, variables } = getTrackerRequest(config, {
+        orgUnitIds,
+        orgUnitMode,
         serverVersion,
     })
     const { trackedEntities: response } = await engine.query(
@@ -261,8 +316,7 @@ const getAnalyticsRequest = (
     const request = new analyticsEngine.request()
         .withTrackedEntityType(trackedEntityType.id)
         .addOrgUnitDimension(getOrgUnitsFromRows(rows).map((ou) => ou.id))
-        // Analytics defaults to all levels below, the tracker API to selected
-        .withOuMode(organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED)
+        .withOuMode(organisationUnitSelectionMode)
 
     // withProgram() would put the program in the path
     return request.withParameters({
