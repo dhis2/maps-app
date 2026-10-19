@@ -64,6 +64,9 @@ const TrackedEntityRelationshipTypeSelect = ({
             items={types}
             value={value}
             onChange={(type) => onChange(type.id)}
+            helpText={i18n.t(
+                "Org units and the period also apply to related tracked entities, program status and follow-up don't."
+            )}
             className={className}
         />
     )
