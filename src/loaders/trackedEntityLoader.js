@@ -249,7 +249,7 @@ const trackedEntityLoader = async ({
                 serverVersion,
                 // Relationship layers always load from the tracker API
                 instances: result.instances,
-                trackerVariables: result.trackerVariables,
+                trackerParams: result.trackerParams,
                 maxLimit,
                 isSourceTruncated: result.isTruncated,
             }).catch(() => {
