@@ -668,6 +668,15 @@ opens the Tracked entity layer configuration dialog.
     selected tracked entity type to tracked entities are available. Relationships to events or
     enrollments are not shown.
 
+-   Relationships are drawn from the tracked entities shown by the layer. The related tracked
+    entities at the other end are filtered as follows:
+    -   **Org units:** the same org units and selection mode as the layer.
+    -   **Period:** the same dates as the layer. If the layer uses the enrollment date, the dates
+        apply to the enrollment date of the related tracked entities when the relationship type sets
+        a program for them, and to their last updated date otherwise.
+    -   **Program, program status and follow-up:** not applied. The related tracked entities are
+        shown whatever program they are in, unless the relationship type sets one.
+
 #### 3. Period
 
 ![](resources/images/maps_tracked_entity_layer_dialog_PERIOD.png)

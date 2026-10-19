@@ -394,7 +394,11 @@ describe('getDataWithRelationships', () => {
         },
     ]
     const OUProps = {
-        trackerParams: { orgUnits: 'someOU', orgUnitMode: 'someOUMode' },
+        trackerParams: {
+            orgUnits: 'someOU',
+            orgUnitMode: 'someOUMode',
+            program: 'program1',
+        },
     }
     let mockEngine
 
@@ -697,12 +701,14 @@ describe('getDataWithRelationships target query', () => {
     it.each([
         {
             name: 'same type, different programs, to program set',
+            layerProgram: 'program1',
             from: { program: 'program1' },
             to: { program: 'program2' },
             query: { program: 'program2', trackedEntityType: undefined },
         },
         {
             name: 'same type, different programs, no to program',
+            layerProgram: 'program1',
             from: { program: 'program1' },
             to: {},
             query: { program: undefined, trackedEntityType: 'type1' },
@@ -718,12 +724,6 @@ describe('getDataWithRelationships target query', () => {
             from: { program: 'program1' },
             to: { type: 'type2' },
             query: { program: undefined, trackedEntityType: 'type2' },
-        },
-        {
-            name: 'different types, same program',
-            from: { program: 'program1' },
-            to: { type: 'type2', program: 'program1' },
-            query: { program: 'program1', trackedEntityType: undefined },
         },
         {
             name: 'different types, no programs',
@@ -743,7 +743,36 @@ describe('getDataWithRelationships target query', () => {
             to: {},
             query: null,
         },
-    ])('$name', async ({ from, to, query }) => {
+        {
+            // All tracked entities of the type are on the map
+            name: 'same type, different programs, no layer program',
+            from: { program: 'program1' },
+            to: { program: 'program2' },
+            query: null,
+        },
+        {
+            name: 'same type, same program as the layer',
+            layerProgram: 'program1',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: null,
+        },
+        {
+            // Related tracked entities outside the layer program
+            name: 'same type, no programs, layer program',
+            layerProgram: 'program1',
+            from: {},
+            to: {},
+            query: { program: undefined, trackedEntityType: 'type1' },
+        },
+        {
+            name: 'same type, same program, other layer program',
+            layerProgram: 'program3',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: { program: 'program1', trackedEntityType: undefined },
+        },
+    ])('$name', async ({ layerProgram, from, to, query }) => {
         const engine = {
             query: jest
                 .fn()
@@ -759,7 +788,7 @@ describe('getDataWithRelationships target query', () => {
                     fromConstraint: constraint(from),
                     toConstraint: constraint(to),
                 },
-                trackerParams: { orgUnits: 'ou1' },
+                trackerParams: { orgUnits: 'ou1', program: layerProgram },
             },
             engine,
         })
@@ -812,7 +841,11 @@ describe('getDataWithRelationships target query', () => {
                         fromConstraint: constraint({ program: 'program1' }),
                         toConstraint: constraint({ program: 'program2' }),
                     },
-                    trackerParams: { orgUnits, orgUnitMode: 'DESCENDANTS' },
+                    trackerParams: {
+                        orgUnits,
+                        orgUnitMode: 'DESCENDANTS',
+                        program: 'program1',
+                    },
                 },
                 engine,
             })
@@ -827,20 +860,25 @@ describe('getDataWithRelationships target query', () => {
         }
     )
 
-    describe('applies the layer filters', () => {
-        const trackerParams = {
+    describe('applies the layer org units and period', () => {
+        const fields = ['trackedEntity~rename(id)', 'geometry']
+        const layer = {
             orgUnits: 'ou1',
             orgUnitMode: 'DESCENDANTS',
             program: 'program1',
             enrollmentStatus: 'ACTIVE',
             followUp: 'TRUE',
+        }
+        const lastUpdated = {
+            updatedAfter: '2024-01-01',
+            updatedBefore: '2024-12-31',
+        }
+        const enrollmentDates = {
             enrollmentEnrolledAfter: '2024-01-01',
             enrollmentEnrolledBefore: '2024-12-31',
-            updatedAfter: '2023-01-01',
-            updatedBefore: '2023-12-31',
         }
 
-        const getRelatedParams = async (to) => {
+        const getRelatedParams = async (trackerParams, to) => {
             const engine = {
                 query: jest
                     .fn()
@@ -865,27 +903,96 @@ describe('getDataWithRelationships target query', () => {
             return tei.params(variables)
         }
 
-        it('in the related program', async () => {
+        it('in the related program, without status or follow-up', async () => {
             expect(
-                await getRelatedParams({ type: 'type2', program: 'program2' })
+                await getRelatedParams(
+                    { ...layer, ...lastUpdated },
+                    { type: 'type2', program: 'program2' }
+                )
             ).toEqual({
-                ...trackerParams,
-                fields: ['trackedEntity~rename(id)', 'geometry'],
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
                 program: 'program2',
+                ...lastUpdated,
                 paging: false,
             })
         })
 
-        it('without program filters for a related type without program', async () => {
-            expect(await getRelatedParams({ type: 'type2' })).toEqual({
-                fields: ['trackedEntity~rename(id)', 'geometry'],
+        it('keeps enrollment dates in the related program', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...enrollmentDates },
+                    { type: 'type2', program: 'program2' }
+                )
+            ).toEqual({
+                fields,
                 orgUnits: 'ou1',
                 orgUnitMode: 'DESCENDANTS',
-                trackedEntityType: 'type2',
-                updatedAfter: '2023-01-01',
-                updatedBefore: '2023-12-31',
+                program: 'program2',
+                ...enrollmentDates,
                 paging: false,
             })
         })
+
+        it('by the related type, with last updated dates', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...lastUpdated },
+                    { type: 'type2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                trackedEntityType: 'type2',
+                ...lastUpdated,
+                paging: false,
+            })
+        })
+
+        it('by the related type, with enrollment dates as last updated dates', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...enrollmentDates },
+                    { type: 'type2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                trackedEntityType: 'type2',
+                ...lastUpdated,
+                paging: false,
+            })
+        })
+
+        it.each([
+            { name: 'status', filter: { enrollmentStatus: 'ACTIVE' } },
+            { name: 'status on 2.41', filter: { programStatus: 'ACTIVE' } },
+            { name: 'follow-up', filter: { followUp: 'TRUE' } },
+        ])(
+            'requests the related tracked entities in the layer program with $name',
+            async ({ filter }) => {
+                // On the map otherwise, but filtered by the layer
+                expect(
+                    await getRelatedParams(
+                        {
+                            orgUnits: 'ou1',
+                            program: 'program1',
+                            ...filter,
+                            ...lastUpdated,
+                        },
+                        { program: 'program1' }
+                    )
+                ).toEqual({
+                    fields,
+                    orgUnits: 'ou1',
+                    program: 'program1',
+                    ...lastUpdated,
+                    paging: false,
+                })
+            }
+        )
     })
 })
