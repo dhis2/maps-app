@@ -20,6 +20,15 @@ Cypress.on('uncaught:exception', (err) => {
     }
 })
 
+// Without a linked Open Climate Service, the app lists the datasets of its default
+// instance, a live demo. Answer it with an empty catalog, so tests neither depend on an
+// external service nor find its datasets among the layer sources they count.
+beforeEach(() => {
+    cy.intercept('GET', 'https://ocs-demo-nepal.dhis2.org/**', {
+        body: { type: 'Catalog', id: 'empty', links: [] },
+    })
+})
+
 const SESSION_COOKIE_NAME = 'JSESSIONID'
 const LOCAL_STORAGE_KEY = 'DHIS2_BASE_URL'
 
