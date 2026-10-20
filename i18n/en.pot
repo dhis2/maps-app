@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-14T14:10:21.577Z\n"
-"PO-Revision-Date: 2026-10-14T14:10:21.577Z\n"
+"POT-Creation-Date: 2026-10-20T14:37:53.235Z\n"
+"PO-Revision-Date: 2026-10-20T14:37:53.235Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -653,8 +653,14 @@ msgstr ""
 msgid "Linked to"
 msgstr "Linked to"
 
-msgid "Unlink"
-msgstr "Unlink"
+msgid "default"
+msgstr "default"
+
+msgid "Change"
+msgstr "Change"
+
+msgid "Use default"
+msgstr "Use default"
 
 msgid "Address"
 msgstr "Address"
@@ -1897,9 +1903,6 @@ msgstr "Line"
 
 msgid "Point"
 msgstr "Point"
-
-msgid "No Open Climate Service is linked"
-msgstr "No Open Climate Service is linked"
 
 msgid "The dataset is not available from {{url}}"
 msgstr "The dataset is not available from {{url}}"

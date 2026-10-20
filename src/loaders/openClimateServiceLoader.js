@@ -45,10 +45,6 @@ const openClimateServiceLoader = async ({
 
     const url = await fetchOpenClimateServiceUrl(engine)
 
-    if (!url) {
-        return onError(i18n.t('No Open Climate Service is linked'))
-    }
-
     let collection
 
     try {

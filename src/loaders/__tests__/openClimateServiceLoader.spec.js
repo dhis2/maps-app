@@ -70,14 +70,16 @@ describe('openClimateServiceLoader', () => {
         expect(result.render.selector).toEqual({ month: 0 })
     })
 
-    it('alerts when no Open Climate Service is linked', async () => {
+    it('uses the default instance when none is linked', async () => {
         const result = await openClimateServiceLoader({
             config: { id: 'layer1', config: { datasetId: collection.id } },
             engine: { query: jest.fn().mockRejectedValue(new Error()) },
         })
-        expect(result.render).toBeUndefined()
-        expect(result.alerts[0].critical).toBe(true)
+        expect(global.fetch).toHaveBeenCalledWith(
+            'https://ocs-demo-nepal.dhis2.org/stac/collections/chirps3_precipitation_monthly_normal_1991_2020'
+        )
         expect(result.isLoaded).toBe(true)
+        expect(result.alerts).toBeUndefined()
     })
 
     it('loads a vector collection with its published style', async () => {

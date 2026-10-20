@@ -12,6 +12,10 @@ import {
 
 export const OPEN_CLIMATE_SERVICE_RESOURCE = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_OPEN_CLIMATE_SERVICE}`
 
+// Used until an administrator links another instance. Its datasets are still off by default.
+export const DEFAULT_OPEN_CLIMATE_SERVICE_URL =
+    'https://ocs-demo-nepal.dhis2.org'
+
 const MAX_STEPS = 50000
 const LEGEND_CLASSES = 7
 
@@ -39,7 +43,8 @@ export const fetchOpenClimateServiceSettings = async (engine) => {
 }
 
 export const fetchOpenClimateServiceUrl = async (engine) =>
-    (await fetchOpenClimateServiceSettings(engine))?.url || null
+    (await fetchOpenClimateServiceSettings(engine))?.url ||
+    DEFAULT_OPEN_CLIMATE_SERVICE_URL
 
 const fetchJson = async (url) => {
     const response = await fetch(url)

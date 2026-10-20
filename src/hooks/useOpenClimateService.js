@@ -1,6 +1,7 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
+    DEFAULT_OPEN_CLIMATE_SERVICE_URL,
     OPEN_CLIMATE_SERVICE_RESOURCE,
     fetchOpenClimateServiceSettings,
     fetchCollections,
@@ -13,13 +14,18 @@ let storedSettings
 
 // The Open Climate Service linked to this DHIS2 instance, and its published
 // raster and vector datasets as layer sources. An administrator chooses which datasets
-// are available to add to maps.
+// are available to add to maps. Until another instance is linked, the default instance
+// is used; `settings` stays null until an administrator saves a choice.
 const useOpenClimateService = () => {
     const engine = useDataEngine()
     const [settings, setSettings] = useState(storedSettings)
     const [layerSources, setLayerSources] = useState([])
     const [error, setError] = useState()
-    const url = settings?.url
+    const isLoaded = settings !== undefined
+    const url = isLoaded
+        ? settings?.url || DEFAULT_OPEN_CLIMATE_SERVICE_URL
+        : undefined
+    const isDefault = url === DEFAULT_OPEN_CLIMATE_SERVICE_URL
     const enabled = useMemo(() => settings?.enabled || [], [settings])
 
     useEffect(() => {
@@ -75,6 +81,7 @@ const useOpenClimateService = () => {
         [save]
     )
 
+    // Goes back to the default instance
     const unlink = useCallback(async () => {
         await engine.mutate({
             resource: OPEN_CLIMATE_SERVICE_RESOURCE,
@@ -97,6 +104,7 @@ const useOpenClimateService = () => {
 
     return {
         url,
+        isDefault,
         layerSources,
         enabled,
         error,

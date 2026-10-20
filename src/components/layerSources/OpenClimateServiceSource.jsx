@@ -5,19 +5,36 @@ import useOpenClimateService from '../../hooks/useOpenClimateService.js'
 import LayerSource from './LayerSource.jsx'
 import styles from './styles/OpenClimateServiceSource.module.css'
 
-// Link an Open Climate Service instance. Its published raster and vector datasets are
-// listed, and the administrator chooses which are available to add to maps.
+// The linked Open Climate Service instance, the default one until an administrator
+// links another. Its published raster and vector datasets are listed, and the
+// administrator chooses which are available to add to maps.
 const OpenClimateServiceSource = () => {
-    const { url, layerSources, enabled, error, link, unlink, setVisibility } =
-        useOpenClimateService()
+    const {
+        url,
+        isDefault,
+        layerSources,
+        enabled,
+        error,
+        link,
+        unlink,
+        setVisibility,
+    } = useOpenClimateService()
+    const [isChanging, setIsChanging] = useState(false)
     const [value, setValue] = useState('')
     const [linkError, setLinkError] = useState()
     const [isLinking, setIsLinking] = useState(false)
+
+    const onCancel = () => {
+        setIsChanging(false)
+        setValue('')
+        setLinkError(null)
+    }
 
     const onLink = () => {
         setIsLinking(true)
         setLinkError(null)
         link(value)
+            .then(onCancel)
             .catch(() =>
                 setLinkError(
                     i18n.t(
@@ -40,16 +57,27 @@ const OpenClimateServiceSource = () => {
                         'Climate and earth observation data published by an Open Climate Service instance.'
                     )}
                 </p>
-                {url ? (
+                {url && !isChanging && (
                     <div className={styles.linked}>
                         <span>
                             {i18n.t('Linked to')} <strong>{url}</strong>
+                            {isDefault && ` (${i18n.t('default')})`}
                         </span>
-                        <Button small secondary onClick={unlink}>
-                            {i18n.t('Unlink')}
+                        <Button
+                            small
+                            secondary
+                            onClick={() => setIsChanging(true)}
+                        >
+                            {i18n.t('Change')}
                         </Button>
+                        {!isDefault && (
+                            <Button small secondary onClick={unlink}>
+                                {i18n.t('Use default')}
+                            </Button>
+                        )}
                     </div>
-                ) : (
+                )}
+                {isChanging && (
                     <div className={styles.link}>
                         <InputField
                             dense
@@ -69,6 +97,9 @@ const OpenClimateServiceSource = () => {
                             onClick={onLink}
                         >
                             {i18n.t('Link')}
+                        </Button>
+                        <Button small secondary onClick={onCancel}>
+                            {i18n.t('Cancel')}
                         </Button>
                     </div>
                 )}
