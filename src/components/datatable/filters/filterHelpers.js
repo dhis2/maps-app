@@ -8,7 +8,27 @@ export const getNumberOperators = () => [
     { value: 'lt', label: i18n.t('Less than'), symbol: '<' },
     { value: 'lte', label: i18n.t('Less than or equal to'), symbol: '≤' },
     { value: 'between', label: i18n.t('Between'), symbol: '–' },
+    ...getEmptyOperators(),
 ]
+
+export const getTextOperators = () => [
+    { value: 'contains', label: i18n.t('Contains') },
+    ...getEmptyOperators(),
+]
+
+export const getDateOperators = () => [
+    { value: 'between', label: i18n.t('Date range') },
+    ...getEmptyOperators(),
+]
+
+// Shared by text, number and date filters. They take no value.
+export const getEmptyOperators = () => [
+    { value: 'empty', label: i18n.t('Is empty') },
+    { value: 'notEmpty', label: i18n.t('Is not empty') },
+]
+
+export const isValuelessFilter = (filter) =>
+    filter?.operator === 'empty' || filter?.operator === 'notEmpty'
 
 const isBlank = (v) => v === undefined || v === null || String(v).trim() === ''
 
@@ -16,6 +36,9 @@ const isBlank = (v) => v === undefined || v === null || String(v).trim() === ''
 export const isEmptyFilter = (filter) => {
     if (!filter) {
         return true
+    }
+    if (isValuelessFilter(filter)) {
+        return false
     }
     switch (filter.type) {
         case 'text':
@@ -73,6 +96,9 @@ const normalizeFilter = (filter) => {
     if (isEmptyFilter(filter)) {
         return null
     }
+    if (isValuelessFilter(filter)) {
+        return { type: filter.type, operator: filter.operator }
+    }
     switch (filter.type) {
         case 'number':
             return {
@@ -113,6 +139,12 @@ const formatDate = (date) =>
 export const getFilterSummary = (filter) => {
     if (typeof filter === 'string') {
         return filter
+    }
+    if (filter.operator === 'empty') {
+        return i18n.t('is empty')
+    }
+    if (filter.operator === 'notEmpty') {
+        return i18n.t('is not empty')
     }
     switch (filter.type) {
         case 'text':

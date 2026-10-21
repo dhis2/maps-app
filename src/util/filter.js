@@ -33,7 +33,13 @@ export const filterData = (data, filters) => {
 // { type: 'number', operator, value, value2 }
 // { type: 'options', values: [] }
 // { type: 'date', from, to } (YYYY-MM-DD, both optional)
+// text, number and date also take { operator: 'empty' | 'notEmpty' }
 export const structuredFilter = (value, filter) => {
+    if (filter.operator === 'empty' || filter.operator === 'notEmpty') {
+        const isEmpty =
+            value === null || value === undefined || String(value).trim() === ''
+        return filter.operator === 'empty' ? isEmpty : !isEmpty
+    }
     switch (filter.type) {
         case 'text':
             return stringFilter(value ?? '', filter.value)

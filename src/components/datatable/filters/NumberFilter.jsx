@@ -2,7 +2,11 @@ import i18n from '@dhis2/d2-i18n'
 import { Help, Input, SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { getFilterError, getNumberOperators } from './filterHelpers.js'
+import {
+    getFilterError,
+    getNumberOperators,
+    isValuelessFilter,
+} from './filterHelpers.js'
 import styles from './styles/Filters.module.css'
 
 const NumberFilter = ({ draft, onChange }) => {
@@ -24,35 +28,41 @@ const NumberFilter = ({ draft, onChange }) => {
                     <SingleSelectOption
                         key={value}
                         value={value}
-                        label={`${label} (${symbol})`}
+                        label={symbol ? `${label} (${symbol})` : label}
                     />
                 ))}
             </SingleSelectField>
-            <div className={styles.numberInputs}>
-                <Input
-                    dense
-                    autoFocus
-                    type="number"
-                    placeholder={isBetween ? i18n.t('Min') : i18n.t('Value')}
-                    value={filter.value ?? ''}
-                    onChange={({ value }) => update({ value })}
-                    dataTest="filter-number-value"
-                />
-                {isBetween && (
-                    <>
-                        <span className={styles.and}>{i18n.t('and')}</span>
-                        <Input
-                            dense
-                            type="number"
-                            placeholder={i18n.t('Max')}
-                            value={filter.value2 ?? ''}
-                            error={!!error}
-                            onChange={({ value }) => update({ value2: value })}
-                            dataTest="filter-number-value2"
-                        />
-                    </>
-                )}
-            </div>
+            {!isValuelessFilter(filter) && (
+                <div className={styles.numberInputs}>
+                    <Input
+                        dense
+                        autoFocus
+                        type="number"
+                        placeholder={
+                            isBetween ? i18n.t('Min') : i18n.t('Value')
+                        }
+                        value={filter.value ?? ''}
+                        onChange={({ value }) => update({ value })}
+                        dataTest="filter-number-value"
+                    />
+                    {isBetween && (
+                        <>
+                            <span className={styles.and}>{i18n.t('and')}</span>
+                            <Input
+                                dense
+                                type="number"
+                                placeholder={i18n.t('Max')}
+                                value={filter.value2 ?? ''}
+                                error={!!error}
+                                onChange={({ value }) =>
+                                    update({ value2: value })
+                                }
+                                dataTest="filter-number-value2"
+                            />
+                        </>
+                    )}
+                </div>
+            )}
             {error && (
                 <Help error className={styles.rangeError}>
                     {error}
