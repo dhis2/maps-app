@@ -118,6 +118,7 @@ const TableComponents = {
 
 const Table = ({
     availableWidth,
+    collapsed,
     visibleColumns,
     showColumnsModal,
     onColumnsModalClose,
@@ -317,7 +318,7 @@ const Table = ({
                 setColumnWidths(measuredColumnWidths)
             })
         }
-    }, [columnWidths])
+    }, [columnWidths, collapsed])
 
     useEffect(() => {
         // Reset to auto layout for re-measurement when headers change
@@ -363,92 +364,98 @@ const Table = ({
                 rowCount={rows?.length ?? 0}
                 totalCount={totalCount}
             />
-            <TableVirtuoso
-                ref={virtuosoRef}
-                initialTopMostItemIndex={{
-                    index: initialIndexRef.current ?? 0,
-                    align: 'center',
-                }}
-                context={tableContext}
-                components={TableComponents}
-                style={{
-                    flex: 1,
-                    width: '100%',
-                }}
-                data={rows}
-                fixedHeaderContent={() => (
-                    <DataTableRow ref={headerRowRef}>
-                        {headers.map((header, index) => {
-                            const { name, dataKey } = header
-                            return (
-                                <DataTableColumnHeader
-                                    className={styles.columnHeader}
-                                    key={`${dataKey}-${index}`}
-                                    onSortIconClick={sortData}
-                                    sortDirection={
-                                        dataKey === sortField
-                                            ? sortDirection
-                                            : DEFAULT
-                                    }
-                                    sortIconTitle={i18n.t(
-                                        'Sort by {{column}}',
-                                        {
-                                            column: name,
+            {/* PROTOTYPE: collapsing unmounts the table, so scroll position is lost */}
+            {!collapsed && (
+                <TableVirtuoso
+                    ref={virtuosoRef}
+                    initialTopMostItemIndex={{
+                        index: initialIndexRef.current ?? 0,
+                        align: 'center',
+                    }}
+                    context={tableContext}
+                    components={TableComponents}
+                    style={{
+                        flex: 1,
+                        width: '100%',
+                    }}
+                    data={rows}
+                    fixedHeaderContent={() => (
+                        <DataTableRow ref={headerRowRef}>
+                            {headers.map((header, index) => {
+                                const { name, dataKey } = header
+                                return (
+                                    <DataTableColumnHeader
+                                        className={styles.columnHeader}
+                                        key={`${dataKey}-${index}`}
+                                        onSortIconClick={sortData}
+                                        sortDirection={
+                                            dataKey === sortField
+                                                ? sortDirection
+                                                : DEFAULT
                                         }
-                                    )}
-                                    name={dataKey}
-                                    width={
-                                        columnWidths.length > 0
-                                            ? `${columnWidths[index]}px`
-                                            : 'auto'
-                                    }
-                                >
-                                    <span className={styles.headerContent}>
-                                        <span>{name}</span>
-                                        <HeaderFilter
-                                            layerId={layer.id}
-                                            header={header}
-                                            filter={
-                                                layer.dataFilters?.[dataKey]
+                                        sortIconTitle={i18n.t(
+                                            'Sort by {{column}}',
+                                            {
+                                                column: name,
                                             }
-                                            data={data}
-                                        />
-                                    </span>
-                                </DataTableColumnHeader>
-                            )
-                        })}
-                    </DataTableRow>
-                )}
-                itemContent={(_, row) =>
-                    row.map(({ dataKey, value, align, mono, swatch }) => (
-                        <DataTableCell
-                            key={`dtcell-${dataKey}`}
-                            className={cx(styles.dataCell, {
-                                [styles.mono]: mono,
-                                [styles.lightText]:
-                                    dataKey === 'color' && isDarkColor(value),
+                                        )}
+                                        name={dataKey}
+                                        width={
+                                            columnWidths.length > 0
+                                                ? `${columnWidths[index]}px`
+                                                : 'auto'
+                                        }
+                                    >
+                                        <span className={styles.headerContent}>
+                                            <span>{name}</span>
+                                            <HeaderFilter
+                                                layerId={layer.id}
+                                                header={header}
+                                                filter={
+                                                    layer.dataFilters?.[dataKey]
+                                                }
+                                                data={data}
+                                            />
+                                        </span>
+                                    </DataTableColumnHeader>
+                                )
                             })}
-                            backgroundColor={dataKey === 'color' ? value : null}
-                            align={align}
-                        >
-                            {swatch && value && (
-                                <span
-                                    className={styles.swatch}
-                                    style={{ backgroundColor: swatch }}
-                                />
-                            )}
-                            {dataKey === 'color'
-                                ? value?.toLowerCase()
-                                : mono
-                                ? value
-                                : formatWithSeparator(
-                                      value,
-                                      keyAnalysisDigitGroupSeparator
-                                  )}
-                        </DataTableCell>
-                    ))
-                }
-            />
+                        </DataTableRow>
+                    )}
+                    itemContent={(_, row) =>
+                        row.map(({ dataKey, value, align, mono, swatch }) => (
+                            <DataTableCell
+                                key={`dtcell-${dataKey}`}
+                                className={cx(styles.dataCell, {
+                                    [styles.mono]: mono,
+                                    [styles.lightText]:
+                                        dataKey === 'color' &&
+                                        isDarkColor(value),
+                                })}
+                                backgroundColor={
+                                    dataKey === 'color' ? value : null
+                                }
+                                align={align}
+                            >
+                                {swatch && value && (
+                                    <span
+                                        className={styles.swatch}
+                                        style={{ backgroundColor: swatch }}
+                                    />
+                                )}
+                                {dataKey === 'color'
+                                    ? value?.toLowerCase()
+                                    : mono
+                                    ? value
+                                    : formatWithSeparator(
+                                          value,
+                                          keyAnalysisDigitGroupSeparator
+                                      )}
+                            </DataTableCell>
+                        ))
+                    }
+                />
+            )}
             {showColumnsModal && allHeaders && (
                 <ColumnsModal
                     allHeaders={allHeaders}
@@ -470,6 +477,7 @@ const Table = ({
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    collapsed: PropTypes.bool,
     showColumnsModal: PropTypes.bool,
     visibleColumns: PropTypes.arrayOf(PropTypes.string),
     onColumnsChange: PropTypes.func,

@@ -5,6 +5,7 @@ import React, {
     useEffect,
     useLayoutEffect,
 } from 'react'
+import cx from 'classnames'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
@@ -25,6 +26,8 @@ const BottomPanel = () => {
     const panelRef = useRef(null)
     const [panelWidth, setPanelWidth] = useState(0)
     const [showColumnsModal, setShowColumnsModal] = useState(false)
+    // PROTOTYPE: collapsed state only lasts while the table is open
+    const [collapsed, setCollapsed] = useState(false)
     // PROTOTYPE: column config is kept per layer for this session only
     const [columnsByLayer, setColumnsByLayer] = useState({})
     const activeLayerId = useSelector((state) => state.dataTable)
@@ -41,11 +44,14 @@ const BottomPanel = () => {
     }, [])
 
     useLayoutEffect(() => {
+        if (collapsed) {
+            return
+        }
         document.documentElement.style.setProperty(
             '--data-table-height',
             `${tableHeight}px`
         )
-    }, [tableHeight])
+    }, [tableHeight, collapsed])
 
     useLayoutEffect(
         () => () =>
@@ -58,7 +64,15 @@ const BottomPanel = () => {
     useEffect(() => {
         const observer = new ResizeObserver(() => {
             if (panelRef.current) {
-                setPanelWidth(panelRef.current.getBoundingClientRect().width)
+                const rect = panelRef.current.getBoundingClientRect()
+                setPanelWidth(rect.width)
+                // Collapsed panel sizes to its content, so the map follows it
+                if (panelRef.current.dataset.collapsed === 'true') {
+                    document.documentElement.style.setProperty(
+                        '--data-table-height',
+                        `${rect.height}px`
+                    )
+                }
             }
         })
         if (panelRef.current) {
@@ -72,23 +86,33 @@ const BottomPanel = () => {
     return (
         <div
             ref={panelRef}
-            className={styles.bottomPanel}
+            className={cx(styles.bottomPanel, {
+                [styles.collapsed]: collapsed,
+            })}
+            data-collapsed={collapsed}
             data-test="bottom-panel"
         >
-            <div className={styles.resizeArea}>
-                <ResizeHandle
-                    maxHeight={maxHeight}
-                    onResize={onResize}
-                    onResizeEnd={(height) => dispatch(resizeDataTable(height))}
-                />
-            </div>
+            {!collapsed && (
+                <div className={styles.resizeArea}>
+                    <ResizeHandle
+                        maxHeight={maxHeight}
+                        onResize={onResize}
+                        onResizeEnd={(height) =>
+                            dispatch(resizeDataTable(height))
+                        }
+                    />
+                </div>
+            )}
             <DataTableToolbar
+                collapsed={collapsed}
+                onCollapseToggle={() => setCollapsed(!collapsed)}
                 onColumnsClick={() => setShowColumnsModal(true)}
             />
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
                     <DataTable
                         availableWidth={panelWidth}
+                        collapsed={collapsed}
                         visibleColumns={columnsByLayer[activeLayerId]}
                         showColumnsModal={showColumnsModal}
                         onColumnsModalClose={() => setShowColumnsModal(false)}

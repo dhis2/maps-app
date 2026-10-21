@@ -1,5 +1,11 @@
 import i18n from '@dhis2/d2-i18n'
-import { Button, IconCross16, Tooltip } from '@dhis2/ui'
+import {
+    Button,
+    IconChevronDown16,
+    IconChevronUp16,
+    IconCross16,
+    Tooltip,
+} from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { useDispatch } from 'react-redux'
@@ -7,7 +13,7 @@ import { closeDataTable } from '../../../actions/dataTable.js'
 import LayerSwitcher from './LayerSwitcher.jsx'
 import styles from './styles/DataTableToolbar.module.css'
 
-const DataTableToolbar = ({ onColumnsClick }) => {
+const DataTableToolbar = ({ collapsed, onColumnsClick, onCollapseToggle }) => {
     const dispatch = useDispatch()
 
     return (
@@ -29,6 +35,34 @@ const DataTableToolbar = ({ onColumnsClick }) => {
                         <span className={styles.divider} />
                     </>
                 )}
+                {onCollapseToggle && (
+                    <Tooltip
+                        content={
+                            collapsed
+                                ? i18n.t('Expand data table')
+                                : i18n.t('Collapse data table')
+                        }
+                        placement="top"
+                    >
+                        <button
+                            className={styles.iconButton}
+                            onClick={onCollapseToggle}
+                            aria-label={
+                                collapsed
+                                    ? i18n.t('Expand data table')
+                                    : i18n.t('Collapse data table')
+                            }
+                            aria-expanded={!collapsed}
+                            data-test="data-table-collapse"
+                        >
+                            {collapsed ? (
+                                <IconChevronUp16 />
+                            ) : (
+                                <IconChevronDown16 />
+                            )}
+                        </button>
+                    </Tooltip>
+                )}
                 <Tooltip content={i18n.t('Close data table')} placement="top">
                     <button
                         className={styles.iconButton}
@@ -45,6 +79,8 @@ const DataTableToolbar = ({ onColumnsClick }) => {
 }
 
 DataTableToolbar.propTypes = {
+    collapsed: PropTypes.bool,
+    onCollapseToggle: PropTypes.func,
     onColumnsClick: PropTypes.func,
 }
 
