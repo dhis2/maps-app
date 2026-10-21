@@ -203,6 +203,8 @@ class ThematicLayer extends Layer {
         const renderingChanged =
             prevProps.renderingStrategy !== this.props.renderingStrategy
 
+        this.updateFeature(prevProps)
+
         if (
             !dataChanged &&
             !valuesChanged &&

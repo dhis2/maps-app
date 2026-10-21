@@ -99,3 +99,28 @@ td.lightText {
     color: var(--colors-grey600);
     font-style: italic;
 }
+
+/* Row actions stay pinned to the right edge when the table scrolls sideways */
+th.actionsHeader,
+td.actionsCell {
+    position: sticky;
+    right: 0;
+    box-shadow: inset 1px 0 0 var(--colors-grey300);
+}
+
+th.actionsHeader {
+    z-index: 2;
+}
+
+td.actionsCell {
+    padding: 0 var(--spacers-dp4);
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+}

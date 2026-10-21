@@ -31,6 +31,7 @@ import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnsModal from './ColumnsModal.jsx'
 import EmptyState from './EmptyState.jsx'
+import RowActions from './RowActions.jsx'
 import ActiveFiltersBar from './filters/ActiveFiltersBar.jsx'
 import HeaderFilter from './filters/HeaderFilter.jsx'
 import styles from './styles/DataTable.module.css'
@@ -49,6 +50,12 @@ export const shouldClearFeatureHighlight = (event) =>
 
 // Map hovers carry the maps-gl source id rather than the app layer id, so
 // they are matched on feature id only (org unit / event ids are unique enough)
+// Fixed width of the row actions column, kept out of the measured widths
+const ACTIONS_WIDTH = 64
+
+const getRowId = (row) =>
+    row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
+
 const isFeatureInLayer = (feature, layerId) =>
     !!feature && (feature.origin === 'map' || feature.layerId === layerId)
 
@@ -75,7 +82,6 @@ const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
             [styles.revealedRow]:
                 context.revealedId && item?.[0]?.itemId === context.revealedId,
         })}
-        onClick={() => context.onClick(item)}
         onMouseEnter={() => context.onMouseEnter(item)}
         onMouseLeave={context.onMouseLeave}
         {...props}
@@ -86,7 +92,6 @@ DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
         highlightedId: PropTypes.string,
         revealedId: PropTypes.string,
-        onClick: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
     }),
@@ -157,12 +162,9 @@ const Table = ({
         )
     }, [])
 
-    const showDetailView = useCallback(
+    // Events have no profile, so the action is disabled for them
+    const openProfile = useCallback(
         (row) => {
-            if (layer.layer === EVENT_LAYER) {
-                return
-            }
-
             if (layer.layer === GEOJSON_URL_LAYER) {
                 const { name } = layer
 
@@ -178,17 +180,33 @@ const Table = ({
                     })
                 )
             } else {
-                const id = row.find((r) => r.dataKey === 'id')?.value
+                const id = getRowId(row)
                 id && dispatch(setOrgUnitProfile(id))
             }
         },
         [dispatch, layer]
     )
 
+    // Layer.js picks up the zoom flag and fits the map to the feature
+    const zoomToFeature = useCallback(
+        (row) => {
+            const id = getRowId(row)
+            id &&
+                dispatch(
+                    highlightFeature({
+                        id,
+                        layerId: layer.id,
+                        origin: 'table',
+                        zoom: true,
+                    })
+                )
+        },
+        [dispatch, layer.id]
+    )
+
     const setFeatureHighlight = useCallback(
         (row) => {
-            const id =
-                row.find((r) => r.dataKey === 'id')?.value || row[0].itemId
+            const id = getRowId(row)
 
             if (!id || !feature || id !== feature.id) {
                 dispatch(
@@ -229,7 +247,6 @@ const Table = ({
         () => ({
             hasFilters,
             onClearFilters: clearFilters,
-            onClick: showDetailView,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
@@ -241,7 +258,6 @@ const Table = ({
         [
             hasFilters,
             clearFilters,
-            showDetailView,
             setFeatureHighlight,
             clearFeatureHighlight,
             columnWidths,
@@ -309,7 +325,9 @@ const Table = ({
             requestAnimationFrame(() => {
                 const measuredColumnWidths = []
 
-                for (const cell of headerRowRef.current.cells) {
+                // Skip the trailing actions column, it has a fixed width
+                const cells = [...headerRowRef.current.cells].slice(0, -1)
+                for (const cell of cells) {
                     const rect = cell.getBoundingClientRect()
                     measuredColumnWidths.push(Math.floor(rect.width))
                 }
@@ -343,7 +361,9 @@ const Table = ({
                 return prev.map((w, i) =>
                     Math.max(
                         minWidths[i] ?? 0,
-                        Math.round((w / prevTotal) * availableWidth)
+                        Math.round(
+                            (w / prevTotal) * (availableWidth - ACTIONS_WIDTH)
+                        )
                     )
                 )
             })
@@ -420,40 +440,63 @@ const Table = ({
                                     </DataTableColumnHeader>
                                 )
                             })}
+                            <DataTableColumnHeader
+                                className={styles.actionsHeader}
+                                width={`${ACTIONS_WIDTH}px`}
+                            >
+                                <span className={styles.srOnly}>
+                                    {i18n.t('Actions')}
+                                </span>
+                            </DataTableColumnHeader>
                         </DataTableRow>
                     )}
-                    itemContent={(_, row) =>
-                        row.map(({ dataKey, value, align, mono, swatch }) => (
-                            <DataTableCell
-                                key={`dtcell-${dataKey}`}
-                                className={cx(styles.dataCell, {
-                                    [styles.mono]: mono,
-                                    [styles.lightText]:
-                                        dataKey === 'color' &&
-                                        isDarkColor(value),
-                                })}
-                                backgroundColor={
-                                    dataKey === 'color' ? value : null
+                    itemContent={(_, row) => [
+                        ...row.map(
+                            ({ dataKey, value, align, mono, swatch }) => (
+                                <DataTableCell
+                                    key={`dtcell-${dataKey}`}
+                                    className={cx(styles.dataCell, {
+                                        [styles.mono]: mono,
+                                        [styles.lightText]:
+                                            dataKey === 'color' &&
+                                            isDarkColor(value),
+                                    })}
+                                    backgroundColor={
+                                        dataKey === 'color' ? value : null
+                                    }
+                                    align={align}
+                                >
+                                    {swatch && value && (
+                                        <span
+                                            className={styles.swatch}
+                                            style={{ backgroundColor: swatch }}
+                                        />
+                                    )}
+                                    {dataKey === 'color'
+                                        ? value?.toLowerCase()
+                                        : mono
+                                        ? value
+                                        : formatWithSeparator(
+                                              value,
+                                              keyAnalysisDigitGroupSeparator
+                                          )}
+                                </DataTableCell>
+                            )
+                        ),
+                        <DataTableCell
+                            key="dtcell-actions"
+                            className={styles.actionsCell}
+                        >
+                            <RowActions
+                                onOpenProfile={
+                                    layer.layer === EVENT_LAYER
+                                        ? undefined
+                                        : () => openProfile(row)
                                 }
-                                align={align}
-                            >
-                                {swatch && value && (
-                                    <span
-                                        className={styles.swatch}
-                                        style={{ backgroundColor: swatch }}
-                                    />
-                                )}
-                                {dataKey === 'color'
-                                    ? value?.toLowerCase()
-                                    : mono
-                                    ? value
-                                    : formatWithSeparator(
-                                          value,
-                                          keyAnalysisDigitGroupSeparator
-                                      )}
-                            </DataTableCell>
-                        ))
-                    }
+                                onZoomTo={() => zoomToFeature(row)}
+                            />
+                        </DataTableCell>,
+                    ]}
                 />
             )}
             {showColumnsModal && allHeaders && (
