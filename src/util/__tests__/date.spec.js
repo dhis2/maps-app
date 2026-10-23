@@ -41,6 +41,18 @@ describe('getMaxDaysInMonth', () => {
             expectedDays: 28, // Non-leap year in ISO8601
         },
         {
+            calendar: 'iso8601',
+            year: 1900,
+            month: 2,
+            expectedDays: 28, // Century year, not a leap year in ISO8601
+        },
+        {
+            calendar: 'iso8601',
+            year: 2000,
+            month: 2,
+            expectedDays: 29, // Divisible by 400, leap year in ISO8601
+        },
+        {
             calendar: 'gregory',
             year: 2024,
             month: 2,
@@ -76,7 +88,8 @@ describe('getMaxDaysInMonth', () => {
             month: 2,
             expectedDays: 28, // Non-leap year in Thai
         },
-        /* coptic (not validated by @dhis2/multi-calendar-dates)
+        /* coptic throws in @dhis2/multi-calendar-dates with ICU 78+ (Node 20.20+),
+           a known issue left unfixed because coptic is a legacy calendar
         { 
             calendar: 'coptic',
             year: 2024,
@@ -224,6 +237,18 @@ describe('getDefaultDatesInCalendar', () => {
         const result = getDefaultDatesInCalendar('islamic')
         expect(result.startDate).toBe('1444-12-09')
         expect(result.endDate).toBe('1445-12-09')
+    })
+
+    it('uses 28 February as startDate on 29 February', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 29,
+            month: 2,
+            eraYear: 2024,
+        })
+
+        const result = getDefaultDatesInCalendar()
+        expect(result.startDate).toBe('2023-02-28')
+        expect(result.endDate).toBe('2024-02-29')
     })
 })
 
