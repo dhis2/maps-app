@@ -8,3 +8,10 @@
     border-collapse: collapse;
     width: 100%;
 }
+
+.sectionHeader {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--colors-grey800);
+    margin: var(--spacers-dp16) 0 var(--spacers-dp8);
+}

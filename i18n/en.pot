@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-10-20T14:37:53.235Z\n"
+"PO-Revision-Date: 2026-10-20T14:37:53.235Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -452,6 +452,12 @@ msgstr "You can style events by data element after selecting a program."
 msgid "Event status"
 msgstr "Event status"
 
+msgid "Data is available from {{first}} to {{last}}"
+msgstr "Data is available from {{first}} to {{last}}"
+
+msgid "The dataset is not available"
+msgstr "The dataset is not available"
+
 msgid "Boundary color"
 msgstr "Boundary color"
 
@@ -627,6 +633,43 @@ msgid ""
 msgstr ""
 "Choose which layer sources are available to add to maps. This selection "
 "applies to all users."
+
+msgid "Google Earth Engine"
+msgstr "Google Earth Engine"
+
+msgid "Could not connect to an Open Climate Service at this address"
+msgstr "Could not connect to an Open Climate Service at this address"
+
+msgid "Open Climate Service"
+msgstr "Open Climate Service"
+
+msgid ""
+"Climate and earth observation data published by an Open Climate Service "
+"instance."
+msgstr ""
+"Climate and earth observation data published by an Open Climate Service "
+"instance."
+
+msgid "Linked to"
+msgstr "Linked to"
+
+msgid "default"
+msgstr "default"
+
+msgid "Change"
+msgstr "Change"
+
+msgid "Use default"
+msgstr "Use default"
+
+msgid "Address"
+msgstr "Address"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "The Open Climate Service is not responding"
+msgstr "The Open Climate Service is not responding"
 
 msgid "Collapse"
 msgstr "Collapse"
@@ -966,17 +1009,11 @@ msgstr "Closed date"
 msgid "URL"
 msgstr "URL"
 
-msgid "Link"
-msgstr "Link"
-
 msgid "Contact"
 msgstr "Contact"
 
 msgid "Email"
 msgstr "Email"
-
-msgid "Address"
-msgstr "Address"
 
 msgid "Phone"
 msgstr "Phone"
@@ -1866,6 +1903,17 @@ msgstr "Line"
 
 msgid "Point"
 msgstr "Point"
+
+msgid "The dataset is not available from {{url}}"
+msgstr "The dataset is not available from {{url}}"
+
+msgid "The map style of the dataset is not available"
+msgstr "The map style of the dataset is not available"
+
+msgid "{{count}} features"
+msgid_plural "{{count}} features"
+msgstr[0] "{{count}} features"
+msgstr[1] "{{count}} features"
 
 msgid "Organisation units"
 msgstr "Organisation units"

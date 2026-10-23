@@ -7,13 +7,18 @@ import getEarthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
+import useOpenClimateService from '../../../hooks/useOpenClimateService.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import { groupLayerSources } from '../../../util/layerSources.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.jsx'
 import LayerList from './LayerList.jsx'
 
-const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
+const includeManagedLayers = (
+    defaultLayerSources,
+    managedLayerSources,
+    openClimateServiceLayers
+) => {
     // Earth Engine layers that are added to this DHIS2 instance
     const managedEarthEngineLayers = getEarthEngineLayers().filter(
         (l) => !l.legacy && managedLayerSources.includes(l.layerId)
@@ -22,8 +27,13 @@ const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Make copy before slicing below
     const layerSources = [...defaultLayerSources]
 
-    // Insert Earth Engine layers before external layers
-    layerSources.splice(5, 0, ...managedEarthEngineLayers)
+    // Insert Earth Engine and Open Climate Service layers before external layers
+    layerSources.splice(
+        5,
+        0,
+        ...managedEarthEngineLayers,
+        ...openClimateServiceLayers
+    )
 
     return layerSources
 }
@@ -35,9 +45,14 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const dispatch = useDispatch()
     const { defaultLayerSources } = useCachedData()
     const { managedLayerSources } = useManagedLayerSourcesStore()
-    const layerSources = includeEarthEngineLayers(
+    const { layerSources: openClimateServiceLayers, enabled } =
+        useOpenClimateService()
+    const layerSources = includeManagedLayers(
         defaultLayerSources,
-        managedLayerSources
+        managedLayerSources,
+        openClimateServiceLayers.filter(({ config }) =>
+            enabled.includes(config.datasetId)
+        )
     )
     const groupedLayerSources = groupLayerSources(layerSources)
 

@@ -8,6 +8,7 @@ import eventLoader from '../../loaders/eventLoader.js'
 import externalLoader from '../../loaders/externalLoader.js'
 import facilityLoader from '../../loaders/facilityLoader.js'
 import geoJsonUrlLoader from '../../loaders/geoJsonUrlLoader.js'
+import openClimateServiceLoader from '../../loaders/openClimateServiceLoader.js'
 import orgUnitLoader from '../../loaders/orgUnitLoader.js'
 import thematicLoader from '../../loaders/thematicLoader.js'
 import trackedEntityLoader from '../../loaders/trackedEntityLoader.js'
@@ -21,6 +22,7 @@ const loaders = {
     orgUnit: orgUnitLoader,
     thematic: thematicLoader,
     geoJsonUrl: geoJsonUrlLoader,
+    openClimateService: openClimateServiceLoader,
     trackedEntity: trackedEntityLoader,
 }
 
