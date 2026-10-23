@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-10-23T10:56:51.725Z\n"
+"PO-Revision-Date: 2026-10-23T10:56:51.725Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1002,6 +1002,85 @@ msgstr "Selected and all below"
 msgid "Selection mode"
 msgstr "Selection mode"
 
+msgid "Import OSM"
+msgstr "Import OSM"
+
+msgid "The selected org unit has no boundary."
+msgstr "The selected org unit has no boundary."
+
+msgid "No {{- category}} imported for {{- orgUnit}} yet."
+msgstr "No {{- category}} imported for {{- orgUnit}} yet."
+
+msgid "Import from OpenStreetMap"
+msgstr "Import from OpenStreetMap"
+
+msgid "Data © OpenStreetMap contributors, ODbL."
+msgstr "Data © OpenStreetMap contributors, ODbL."
+
+msgid "Set up OSM import"
+msgstr "Set up OSM import"
+
+msgid "Show imported data on map"
+msgstr "Show imported data on map"
+
+msgid "Fetch from OSM"
+msgstr "Fetch from OSM"
+
+msgid "Back"
+msgstr "Back"
+
+msgid "Import"
+msgstr "Import"
+
+msgid "Show on map"
+msgstr "Show on map"
+
+msgid "New"
+msgstr "New"
+
+msgid "Changed"
+msgstr "Changed"
+
+msgid "Unchanged"
+msgstr "Unchanged"
+
+msgid ""
+"You need the authorities to add programs and data elements. Ask a system "
+"administrator to open this dialog and run the setup."
+msgstr ""
+"You need the authorities to add programs and data elements. Ask a system "
+"administrator to open this dialog and run the setup."
+
+msgid "Mocked"
+msgstr "Mocked"
+
+msgid ""
+"{{count}} features found in OpenStreetMap for {{- category}} in {{- "
+"orgUnit}}."
+msgid_plural ""
+"{{count}} features found in OpenStreetMap for {{- category}} in {{- "
+"orgUnit}}."
+msgstr[0] ""
+"{{count}} features found in OpenStreetMap for {{- category}} in {{- "
+"orgUnit}}."
+msgstr[1] ""
+"{{count}} features found in OpenStreetMap for {{- category}} in {{- "
+"orgUnit}}."
+
+msgid "OSM id"
+msgstr "OSM id"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Showing the first {{count}} features."
+msgid_plural "Showing the first {{count}} features."
+msgstr[0] "Showing the first {{count}} features."
+msgstr[1] "Showing the first {{count}} features."
+
+msgid "Import done. {{created}} created, {{updated}} updated, {{ignored}} ignored."
+msgstr "Import done. {{created}} created, {{updated}} updated, {{ignored}} ignored."
+
 msgid "Clear"
 msgstr "Clear"
 
@@ -1936,6 +2015,36 @@ msgstr "Facility"
 
 msgid "GroupSet used for styling was not found"
 msgstr "GroupSet used for styling was not found"
+
+msgid "Health facilities"
+msgstr "Health facilities"
+
+msgid "Roads"
+msgstr "Roads"
+
+msgid "Major roads only (motorway, trunk, primary, secondary)."
+msgstr "Major roads only (motorway, trunk, primary, secondary)."
+
+msgid "Schools"
+msgstr "Schools"
+
+msgid "Graveyards"
+msgstr "Graveyards"
+
+msgid "Detention centres"
+msgstr "Detention centres"
+
+msgid "Border crossings"
+msgstr "Border crossings"
+
+msgid "Refugee camps"
+msgstr "Refugee camps"
+
+msgid "Rivers"
+msgstr "Rivers"
+
+msgid "Would follow the roads model, one event per way."
+msgstr "Would follow the roads model, one event per way."
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"
