@@ -1,0 +1,28 @@
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacers-dp24) var(--spacers-dp16);
+    text-align: center;
+}
+
+.title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--colors-grey900);
+}
+
+.description {
+    max-width: 320px;
+    margin: var(--spacers-dp4) 0 var(--spacers-dp12);
+    font-size: 13px;
+    line-height: 18px;
+    color: var(--colors-grey700);
+}
+
+/* No action to make room for */
+.description:last-child {
+    margin-bottom: 0;
+}

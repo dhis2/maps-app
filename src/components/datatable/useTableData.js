@@ -9,7 +9,12 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
 } from '../../constants/layers.js'
-import { numberValueTypes } from '../../constants/valueTypes.js'
+import {
+    numberValueTypes,
+    booleanValueTypes,
+    dateValueTypes,
+    datetimeValueTypes,
+} from '../../constants/valueTypes.js'
 import { hasClasses } from '../../util/earthEngine.js'
 import { filterData } from '../../util/filter.js'
 import { getGeojsonDisplayData } from '../../util/geojson.js'
@@ -23,9 +28,17 @@ const TYPE_NUMBER = 'number'
 const TYPE_STRING = 'string'
 const TYPE_DATE = 'date'
 
+// Filter editors used in the column header popovers
+export const FILTER_TEXT = 'text'
+export const FILTER_NUMBER = 'number'
+export const FILTER_OPTIONS = 'options'
+export const FILTER_DATE = 'date'
+export const FILTER_ORG_UNIT = 'orgUnit' // deferred until org unit search exists
+
 const INDEX = 'index'
 const NAME = 'name'
 const ID = 'id'
+const CODE = 'code'
 const VALUE = 'rawValue'
 const LEGEND = 'legend'
 const RANGE = 'range'
@@ -66,22 +79,55 @@ const getErrorCodeText = (code) => {
 const defaultFieldsMap = () => ({
     [INDEX]: { name: i18n.t('Index'), dataKey: INDEX, type: TYPE_NUMBER },
     [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
-    [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
+    [ID]: { name: i18n.t('ID'), dataKey: ID, type: TYPE_STRING, mono: true },
+    [CODE]: {
+        name: i18n.t('Code'),
+        dataKey: CODE,
+        type: TYPE_STRING,
+        mono: true,
+    },
+    [LEVEL]: {
+        name: i18n.t('Level'),
+        dataKey: LEVEL,
+        type: TYPE_NUMBER,
+        filterType: FILTER_OPTIONS,
+    },
     [PARENT_NAME]: {
         name: i18n.t('Parent'),
         dataKey: PARENT_NAME,
         type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
     },
-    [TYPE]: { name: i18n.t('Type'), dataKey: TYPE, type: TYPE_STRING },
+    [TYPE]: {
+        name: i18n.t('Type'),
+        dataKey: TYPE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
-    [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
-    [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
-    [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
+    [LEGEND]: {
+        name: i18n.t('Legend'),
+        dataKey: LEGEND,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
+    [RANGE]: {
+        name: i18n.t('Range'),
+        dataKey: RANGE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
+    [OUNAME]: {
+        name: i18n.t('Org unit'),
+        dataKey: OUNAME,
+        type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
+    },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
+        filterType: FILTER_ORG_UNIT,
     },
     [EVENTDATE]: {
         name: i18n.t('Event time'),
@@ -93,35 +139,56 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Color'),
         dataKey: COLOR,
         type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
         renderer: 'rendercolor',
     },
 })
 
+// Standard default columns. Every layer type follows the same order:
+// identity (name) -> the layer's data -> org unit context -> technical IDs.
+// Index, geometry type and raw color are available but hidden by default
+// (color is shown as a swatch in the Legend column instead).
+const withHidden = (visible, hidden) =>
+    visible
+        .map((field) => ({ ...defaultFieldsMap()[field], hidden: false }))
+        .concat(
+            hidden.map((field) => ({
+                ...defaultFieldsMap()[field],
+                hidden: true,
+            }))
+        )
+
 const getThematicHeaders = () =>
-    [
-        INDEX,
-        NAME,
-        ID,
-        VALUE,
-        LEGEND,
-        RANGE,
-        LEVEL,
-        PARENT_NAME,
-        TYPE,
-        COLOR,
-    ].map((field) => defaultFieldsMap()[field])
+    withHidden(
+        [NAME, VALUE, LEGEND, RANGE, PARENT_NAME, LEVEL, ID],
+        [CODE, TYPE, COLOR, INDEX]
+    )
+
+const getEventFilterType = (valueType, optionSet) => {
+    if (optionSet || booleanValueTypes.includes(valueType)) {
+        return FILTER_OPTIONS
+    }
+    if (
+        dateValueTypes.includes(valueType) ||
+        datetimeValueTypes.includes(valueType)
+    ) {
+        return FILTER_DATE
+    }
+    if (numberValueTypes.includes(valueType)) {
+        return FILTER_NUMBER
+    }
+    return FILTER_TEXT
+}
 
 const getEventHeaders = ({
     layerHeaders = [],
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
-        (field) => defaultFieldsMap()[field]
-    )
+    const fields = withHidden([OUNAME, EVENTDATE], [])
 
     if (countEventsOutsideOrgUnits) {
-        fields.push(defaultFieldsMap()[OUBOUNDARY])
+        fields.push({ ...defaultFieldsMap()[OUBOUNDARY], hidden: false })
     }
 
     const customFields = layerHeaders
@@ -133,24 +200,24 @@ const getEventHeaders = ({
                 !optionSet && numberValueTypes.includes(valueType)
                     ? TYPE_NUMBER
                     : TYPE_STRING,
+            filterType: getEventFilterType(valueType, optionSet),
         }))
 
-    customFields.push(defaultFieldsMap()[TYPE])
-
-    if (styleDataItem) {
-        customFields.push(defaultFieldsMap()[COLOR])
-    }
-
-    return fields.concat(customFields)
+    return fields
+        .concat(customFields.map((field) => ({ ...field, hidden: false })))
+        .concat(
+            withHidden(
+                [ID],
+                styleDataItem ? [TYPE, COLOR, INDEX] : [TYPE, INDEX]
+            )
+        )
 }
 
 const getOrgUnitHeaders = () =>
-    [INDEX, NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
-        (field) => defaultFieldsMap()[field]
-    )
+    withHidden([NAME, PARENT_NAME, LEVEL, ID], [CODE, TYPE, INDEX])
 
 const getFacilityHeaders = () =>
-    [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
+    withHidden([NAME, PARENT_NAME, ID], [CODE, TYPE, INDEX])
 
 const toTitleCase = (str) =>
     str.replace(
@@ -186,18 +253,36 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return [INDEX, NAME, ID, TYPE]
-        .map((field) => defaultFieldsMap()[field])
-        .concat(customFields)
+    return withHidden([NAME], [])
+        .concat(customFields.map((field) => ({ ...field, hidden: false })))
+        .concat(withHidden([ID], [TYPE, INDEX]))
 }
 
 const getGeoJsonUrlHeaders = (firstDataItem) =>
     getGeojsonDisplayData(firstDataItem)
 
+// PROTOTYPE ONLY: org unit codes are not loaded with the layer data, so a
+// stable placeholder is derived from the id to demo the Code column.
+const getPrototypeCode = (id) => {
+    if (!id) {
+        return undefined
+    }
+    const hash = [...id].reduce(
+        (acc, c) => (acc * 31 + c.charCodeAt(0)) % 99991,
+        7
+    )
+    return `OU_${hash}`
+}
+
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 
-export const useTableData = ({ layer, sortField, sortDirection }) => {
+export const useTableData = ({
+    layer,
+    sortField,
+    sortDirection,
+    visibleColumns,
+}) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
 
@@ -243,6 +328,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             .map((d, index) => ({
                 ...(d.properties || d),
                 ...aggregations[d.id],
+                code: d.properties?.code ?? getPrototypeCode(d.properties?.id),
                 index,
             }))
     }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
@@ -299,7 +385,16 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             errorCode.current = ERROR_NO_HEADERS
             return null
         }
-        return headers
+        return headers.map((h) => ({
+            ...h,
+            filterType:
+                h.filterType ||
+                (h.type === TYPE_NUMBER
+                    ? FILTER_NUMBER
+                    : h.type === TYPE_DATE
+                    ? FILTER_DATE
+                    : FILTER_TEXT),
+        }))
     }, [
         layerType,
         aggregationType,
@@ -311,72 +406,99 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         layerHeaders,
     ])
 
+    // visibleColumns (ordered dataKeys) overrides the layer type defaults
+    const visibleHeaders = useMemo(() => {
+        if (!headers) {
+            return headers
+        }
+        if (!visibleColumns) {
+            return headers.filter((h) => !h.hidden)
+        }
+        return visibleColumns
+            .map((key) => headers.find((h) => h.dataKey === key))
+            .filter(Boolean)
+    }, [headers, visibleColumns])
+
     const rows = useMemo(() => {
         if (errorCode.current) {
             return null
         }
 
-        if (!headers.length) {
+        if (!visibleHeaders.length) {
             errorCode.current = ERROR_NO_HEADERS
             return null
         }
 
-        const filteredData = filterData(dataWithAggregations, dataFilters)
+        // Copy so the default (unsorted) order is never mutated
+        const filteredData = [...filterData(dataWithAggregations, dataFilters)]
 
-        //sort
-        filteredData.sort((a, b) => {
-            const aVal = a[sortField]
-            const bVal = b[sortField]
+        // No sort field means the default order
+        sortField &&
+            filteredData.sort((a, b) => {
+                const aVal = a[sortField]
+                const bVal = b[sortField]
 
-            // All undefined values should be sorted to the end
-            if (aVal === undefined && bVal === undefined) {
-                return 0
-            }
-
-            if (aVal === undefined) {
-                return 1 // aVal goes to end
-            }
-
-            if (bVal === undefined) {
-                return -1 // bVal goes to end
-            }
-
-            if (typeof aVal === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
-            }
-
-            if (sortField === RANGE) {
-                const [aStart, aEnd] = parseRange(aVal)
-                const [bStart, bEnd] = parseRange(bVal)
-                const startDiff =
-                    sortDirection === ASCENDING
-                        ? aStart - bStart
-                        : bStart - aStart
-                if (startDiff !== 0) {
-                    return startDiff
+                // All undefined values should be sorted to the end
+                if (aVal === undefined && bVal === undefined) {
+                    return 0
                 }
-                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
-            }
 
-            // TODO: Make sure sorting works across different locales
-            return sortDirection === ASCENDING
-                ? aVal.localeCompare(bVal)
-                : bVal.localeCompare(aVal)
-        })
+                if (aVal === undefined) {
+                    return 1 // aVal goes to end
+                }
+
+                if (bVal === undefined) {
+                    return -1 // bVal goes to end
+                }
+
+                if (typeof aVal === TYPE_NUMBER) {
+                    return sortDirection === ASCENDING
+                        ? aVal - bVal
+                        : bVal - aVal
+                }
+
+                if (sortField === RANGE) {
+                    const [aStart, aEnd] = parseRange(aVal)
+                    const [bStart, bEnd] = parseRange(bVal)
+                    const startDiff =
+                        sortDirection === ASCENDING
+                            ? aStart - bStart
+                            : bStart - aStart
+                    if (startDiff !== 0) {
+                        return startDiff
+                    }
+                    return sortDirection === ASCENDING
+                        ? aEnd - bEnd
+                        : bEnd - aEnd
+                }
+
+                // TODO: Make sure sorting works across different locales
+                return sortDirection === ASCENDING
+                    ? aVal.localeCompare(bVal)
+                    : bVal.localeCompare(aVal)
+            })
 
         return filteredData.map((item) =>
-            headers.map(({ dataKey, roundFn, type }) => {
+            visibleHeaders.map(({ dataKey, roundFn, type, mono }) => {
                 const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
 
                 return {
                     dataKey,
                     value: type === TYPE_NUMBER && isNaN(value) ? null : value,
                     align: type === TYPE_NUMBER ? 'right' : 'left',
+                    mono,
+                    swatch: dataKey === LEGEND ? item.color : undefined,
                     itemId: item.id,
                 }
             })
         )
-    }, [headers, dataWithAggregations, dataFilters, sortField, sortDirection])
+    }, [
+        visibleHeaders,
+        dataWithAggregations,
+        dataFilters,
+        sortField,
+        sortDirection,
+    ])
 
     // EE layers and event layers may be loading additional data
     const isLoading =
@@ -386,7 +508,10 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
 
     return {
-        headers,
+        headers: visibleHeaders,
+        allHeaders: headers,
+        data: dataWithAggregations,
+        totalCount: dataWithAggregations?.length ?? 0,
         rows,
         isLoading,
         error: getErrorCodeText(errorCode.current),

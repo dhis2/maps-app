@@ -49,7 +49,6 @@ class Layer extends PureComponent {
             isVisible,
             editCounter,
             dataFilters,
-            feature,
         } = this.props
         const { period } = this.state
         const { period: prevPeriod } = prevState || {}
@@ -83,8 +82,18 @@ class Layer extends PureComponent {
             this.setLayerVisibility()
         }
 
+        this.updateFeature(prevProps)
+    }
+
+    // Also called by subclasses that override componentDidUpdate
+    updateFeature(prevProps) {
+        const { id, feature } = this.props
+
         if (feature !== prevProps.feature) {
             this.highlightFeature(feature)
+            if (feature?.zoom && feature.layerId === id) {
+                this.zoomToFeature(feature.id)
+            }
         }
     }
 
@@ -183,9 +192,46 @@ class Layer extends PureComponent {
     }
 
     highlightFeature(feature) {
-        if (this.layer.highlight) {
+        if (this.layer?.highlight) {
             this.layer.highlight(feature ? feature.id : null)
         }
+    }
+
+    // PROTOTYPE: zoom to a single feature, from the data table row action
+    zoomToFeature(featureId) {
+        const features = this.layer?.getFeaturesById?.(featureId)
+        if (!features?.length) {
+            return
+        }
+
+        const bounds = [
+            [Infinity, Infinity],
+            [-Infinity, -Infinity],
+        ]
+        const extend = (coords) => {
+            if (typeof coords?.[0] === 'number') {
+                bounds[0][0] = Math.min(bounds[0][0], coords[0])
+                bounds[0][1] = Math.min(bounds[0][1], coords[1])
+                bounds[1][0] = Math.max(bounds[1][0], coords[0])
+                bounds[1][1] = Math.max(bounds[1][1], coords[1])
+            } else {
+                coords?.forEach(extend)
+            }
+        }
+        features.forEach((f) => extend(f.geometry?.coordinates))
+
+        if (!isFinite(bounds[0][0])) {
+            return
+        }
+
+        const { map } = this.context
+        map.fitBounds(bounds, {
+            padding: PADDING_DEFAULT,
+            duration: DURATION_DEFAULT,
+            essential: true,
+            maxZoom: 15,
+            bearing: map.getMapGL().getBearing(),
+        })
     }
 
     render() {

@@ -22,18 +22,22 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
+import { clearDataFilter } from '../../actions/dataFilters.js'
 import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import { EVENT_LAYER, GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { isDarkColor } from '../../util/colors.js'
 import { formatWithSeparator } from '../../util/numbers.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
-import FilterInput from './FilterInput.jsx'
+import ColumnsModal from './ColumnsModal.jsx'
+import EmptyState from './EmptyState.jsx'
+import RowActions from './RowActions.jsx'
+import ActiveFiltersBar from './filters/ActiveFiltersBar.jsx'
+import HeaderFilter from './filters/HeaderFilter.jsx'
 import styles from './styles/DataTable.module.css'
 import { useTableData } from './useTableData.js'
 
-const ASCENDING = 'asc'
-const DESCENDING = 'desc'
+const DEFAULT = 'default'
 
 // Decides whether a row's highlight should be cleared on mouse leave.
 // When hovering to the next row the next element is a `TD`, in which case
@@ -43,6 +47,17 @@ const DESCENDING = 'desc'
 // Exported for testing.
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'
+
+// Map hovers carry the maps-gl source id rather than the app layer id, so
+// they are matched on feature id only (org unit / event ids are unique enough)
+// Fixed width of the row actions column, kept out of the measured widths
+const ACTIONS_WIDTH = 64
+
+const getRowId = (row) =>
+    row.find((r) => r.dataKey === 'id')?.value || row[0]?.itemId
+
+const isFeatureInLayer = (feature, layerId) =>
+    !!feature && (feature.origin === 'map' || feature.layerId === layerId)
 
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
@@ -60,7 +75,13 @@ DataTableWithVirtuosoContext.propTypes = {
 
 const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
     <DataTableRow
-        onClick={() => context.onClick(item)}
+        className={cx({
+            [styles.highlightedRow]:
+                context.highlightedId &&
+                item?.[0]?.itemId === context.highlightedId,
+            [styles.revealedRow]:
+                context.revealedId && item?.[0]?.itemId === context.revealedId,
+        })}
         onMouseEnter={() => context.onMouseEnter(item)}
         onMouseLeave={context.onMouseLeave}
         {...props}
@@ -69,7 +90,8 @@ const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
-        onClick: PropTypes.func,
+        highlightedId: PropTypes.string,
+        revealedId: PropTypes.string,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
     }),
@@ -87,23 +109,33 @@ const TableComponents = {
     TableBody: DataTableBody,
     TableHead: DataTableHead,
     TableRow: DataTableRowWithVirtuosoContext,
-    EmptyPlaceholder: () => (
+    EmptyPlaceholder: ({ context }) => (
         <tr>
-            <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {i18n.t('No results found')}
-                </div>
+            <td colSpan={99999} className={styles.emptyCell}>
+                <EmptyState
+                    hasFilters={context.hasFilters}
+                    onClearFilters={context.onClearFilters}
+                />
             </td>
         </tr>
     ),
 }
 
-const Table = ({ availableWidth }) => {
+const Table = ({
+    availableWidth,
+    collapsed,
+    visibleColumns,
+    showColumnsModal,
+    onColumnsModalClose,
+    onColumnsChange,
+}) => {
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
     const headerRowRef = useRef(null)
+    const virtuosoRef = useRef(null)
+    const [revealedId, setRevealedId] = useState()
     const [columnWidths, setColumnWidths] = useState([])
     const minColumnWidthsRef = useRef([])
     const { mapViews } = useSelector((state) => state.map)
@@ -114,30 +146,25 @@ const Table = ({ availableWidth }) => {
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
-            sortField: 'name',
-            sortDirection: ASCENDING,
+            sortField: null,
+            sortDirection: DEFAULT,
         }
     )
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
 
-    const sortData = useCallback(
-        ({ name }) => {
-            setSorting({
-                sortField: name,
-                sortDirection:
-                    sortDirection === ASCENDING ? DESCENDING : ASCENDING,
-            })
-        },
-        [sortDirection]
-    )
+    // 3-state sort: default (layer order) -> ascending -> descending
+    const sortData = useCallback(({ name, direction }) => {
+        setSorting(
+            direction === DEFAULT
+                ? { sortField: null, sortDirection: DEFAULT }
+                : { sortField: name, sortDirection: direction }
+        )
+    }, [])
 
-    const showDetailView = useCallback(
+    // Events have no profile, so the action is disabled for them
+    const openProfile = useCallback(
         (row) => {
-            if (layer.layer === EVENT_LAYER) {
-                return
-            }
-
             if (layer.layer === GEOJSON_URL_LAYER) {
                 const { name } = layer
 
@@ -153,17 +180,33 @@ const Table = ({ availableWidth }) => {
                     })
                 )
             } else {
-                const id = row.find((r) => r.dataKey === 'id')?.value
+                const id = getRowId(row)
                 id && dispatch(setOrgUnitProfile(id))
             }
         },
         [dispatch, layer]
     )
 
+    // Layer.js picks up the zoom flag and fits the map to the feature
+    const zoomToFeature = useCallback(
+        (row) => {
+            const id = getRowId(row)
+            id &&
+                dispatch(
+                    highlightFeature({
+                        id,
+                        layerId: layer.id,
+                        origin: 'table',
+                        zoom: true,
+                    })
+                )
+        },
+        [dispatch, layer.id]
+    )
+
     const setFeatureHighlight = useCallback(
         (row) => {
-            const id =
-                row.find((r) => r.dataKey === 'id')?.value || row[0].itemId
+            const id = getRowId(row)
 
             if (!id || !feature || id !== feature.id) {
                 dispatch(
@@ -190,26 +233,91 @@ const Table = ({ availableWidth }) => {
         [dispatch]
     )
 
+    const hasFilters = Object.keys(layer.dataFilters || {}).length > 0
+
+    const clearFilters = useCallback(
+        () =>
+            Object.keys(layer.dataFilters || {}).forEach((key) =>
+                dispatch(clearDataFilter(layer.id, key))
+            ),
+        [dispatch, layer.id, layer.dataFilters]
+    )
+
     const tableContext = useMemo(
         () => ({
-            onClick: showDetailView,
+            hasFilters,
+            onClearFilters: clearFilters,
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
+            highlightedId: isFeatureInLayer(feature, layer.id)
+                ? feature.id
+                : undefined,
+            revealedId,
         }),
         [
-            showDetailView,
+            hasFilters,
+            clearFilters,
             setFeatureHighlight,
             clearFeatureHighlight,
             columnWidths,
+            feature,
+            layer.id,
+            revealedId,
         ]
     )
 
-    const { headers, rows, isLoading, error } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-    })
+    const { headers, allHeaders, data, totalCount, rows, isLoading, error } =
+        useTableData({
+            layer,
+            sortField,
+            sortDirection,
+            visibleColumns,
+        })
+
+    // When the table opens from a popup, start scrolled to that row
+    const initialIndexRef = useRef()
+    if (initialIndexRef.current === undefined && rows) {
+        const index =
+            feature?.origin === 'popup' && isFeatureInLayer(feature, layer.id)
+                ? rows.findIndex((row) => row[0]?.itemId === feature.id)
+                : -1
+        initialIndexRef.current = Math.max(index, 0)
+    }
+
+    // Map hover / popup -> scroll the feature's row into view. A popup request
+    // also flashes the row so it is easy to spot.
+
+    useEffect(() => {
+        if (
+            !feature ||
+            feature.origin === 'table' ||
+            !isFeatureInLayer(feature, layer.id) ||
+            !rows
+        ) {
+            return
+        }
+        const index = rows.findIndex((row) => row[0]?.itemId === feature.id)
+        if (index === -1) {
+            return
+        }
+        const scroll = () =>
+            virtuosoRef.current?.scrollToIndex({ index, align: 'center' })
+
+        if (feature.origin !== 'popup') {
+            scroll()
+            return
+        }
+
+        // The table may have just opened: wait for Virtuoso to measure rows
+        const scrollTimeout = setTimeout(scroll, 300)
+        setRevealedId(feature.id)
+        const revealTimeout = setTimeout(() => setRevealedId(undefined), 1800)
+        return () => {
+            clearTimeout(scrollTimeout)
+            clearTimeout(revealTimeout)
+        }
+    }, [feature, layer.id, rows])
 
     useEffect(() => {
         // Measure column widths in auto layout, then switch to fixed to prevent content shift during virtual scrolling
@@ -217,7 +325,9 @@ const Table = ({ availableWidth }) => {
             requestAnimationFrame(() => {
                 const measuredColumnWidths = []
 
-                for (const cell of headerRowRef.current.cells) {
+                // Skip the trailing actions column, it has a fixed width
+                const cells = [...headerRowRef.current.cells].slice(0, -1)
+                for (const cell of cells) {
                     const rect = cell.getBoundingClientRect()
                     measuredColumnWidths.push(Math.floor(rect.width))
                 }
@@ -226,7 +336,7 @@ const Table = ({ availableWidth }) => {
                 setColumnWidths(measuredColumnWidths)
             })
         }
-    }, [columnWidths])
+    }, [columnWidths, collapsed])
 
     useEffect(() => {
         // Reset to auto layout for re-measurement when headers change
@@ -251,7 +361,9 @@ const Table = ({ availableWidth }) => {
                 return prev.map((w, i) =>
                     Math.max(
                         minWidths[i] ?? 0,
-                        Math.round((w / prevTotal) * availableWidth)
+                        Math.round(
+                            (w / prevTotal) * (availableWidth - ACTIONS_WIDTH)
+                        )
                     )
                 )
             })
@@ -263,74 +375,138 @@ const Table = ({ availableWidth }) => {
     }
 
     return (
-        <>
-            <TableVirtuoso
-                context={tableContext}
-                components={TableComponents}
-                style={{
-                    height: '100%',
-                    width: '100%',
-                }}
-                data={rows}
-                fixedHeaderContent={() => (
-                    <DataTableRow ref={headerRowRef}>
-                        {headers.map(({ name, dataKey, type }, index) => (
-                            <DataTableColumnHeader
-                                className={styles.columnHeader}
-                                key={`${dataKey}-${index}`}
-                                onSortIconClick={sortData}
-                                sortDirection={
-                                    dataKey === sortField
-                                        ? sortDirection
-                                        : 'default'
-                                }
-                                sortIconTitle={i18n.t('Sort by {{column}}', {
-                                    column: name,
-                                })}
-                                onFilterIconClick={type && Function.prototype}
-                                showFilter={!!type && dataKey !== 'index'}
-                                name={dataKey}
-                                filter={
-                                    type && (
-                                        <FilterInput
-                                            type={type}
-                                            dataKey={dataKey}
-                                            name={name}
-                                        />
-                                    )
-                                }
-                                width={
-                                    columnWidths.length > 0
-                                        ? `${columnWidths[index]}px`
-                                        : 'auto'
-                                }
-                            >
-                                {name}
-                            </DataTableColumnHeader>
-                        ))}
-                    </DataTableRow>
-                )}
-                itemContent={(_, row) =>
-                    row.map(({ dataKey, value, align }) => (
-                        <DataTableCell
-                            key={`dtcell-${dataKey}`}
-                            className={cx(styles.dataCell, {
-                                [styles.lightText]:
-                                    dataKey === 'color' && isDarkColor(value),
-                            })}
-                            backgroundColor={dataKey === 'color' ? value : null}
-                            align={align}
-                        >
-                            {dataKey === 'color'
-                                ? value?.toLowerCase()
-                                : formatWithSeparator(
-                                      value,
-                                      keyAnalysisDigitGroupSeparator
-                                  )}
-                        </DataTableCell>
-                    ))
-                }
+        <div className={styles.tableWrapper}>
+            <ActiveFiltersBar
+                layerId={layer.id}
+                filters={layer.dataFilters}
+                headers={allHeaders}
+                data={data}
+                rowCount={rows?.length ?? 0}
+                totalCount={totalCount}
             />
+            {/* PROTOTYPE: collapsing unmounts the table, so scroll position is lost */}
+            {!collapsed && (
+                <TableVirtuoso
+                    ref={virtuosoRef}
+                    initialTopMostItemIndex={{
+                        index: initialIndexRef.current ?? 0,
+                        align: 'center',
+                    }}
+                    context={tableContext}
+                    components={TableComponents}
+                    style={{
+                        flex: 1,
+                        width: '100%',
+                    }}
+                    data={rows}
+                    fixedHeaderContent={() => (
+                        <DataTableRow ref={headerRowRef}>
+                            {headers.map((header, index) => {
+                                const { name, dataKey } = header
+                                return (
+                                    <DataTableColumnHeader
+                                        className={styles.columnHeader}
+                                        key={`${dataKey}-${index}`}
+                                        onSortIconClick={sortData}
+                                        sortDirection={
+                                            dataKey === sortField
+                                                ? sortDirection
+                                                : DEFAULT
+                                        }
+                                        sortIconTitle={i18n.t(
+                                            'Sort by {{column}}',
+                                            {
+                                                column: name,
+                                            }
+                                        )}
+                                        name={dataKey}
+                                        width={
+                                            columnWidths.length > 0
+                                                ? `${columnWidths[index]}px`
+                                                : 'auto'
+                                        }
+                                    >
+                                        <span className={styles.headerContent}>
+                                            <span>{name}</span>
+                                            <HeaderFilter
+                                                layerId={layer.id}
+                                                header={header}
+                                                filter={
+                                                    layer.dataFilters?.[dataKey]
+                                                }
+                                                data={data}
+                                            />
+                                        </span>
+                                    </DataTableColumnHeader>
+                                )
+                            })}
+                            <DataTableColumnHeader
+                                className={styles.actionsHeader}
+                                width={`${ACTIONS_WIDTH}px`}
+                            >
+                                <span className={styles.srOnly}>
+                                    {i18n.t('Actions')}
+                                </span>
+                            </DataTableColumnHeader>
+                        </DataTableRow>
+                    )}
+                    itemContent={(_, row) => [
+                        ...row.map(
+                            ({ dataKey, value, align, mono, swatch }) => (
+                                <DataTableCell
+                                    key={`dtcell-${dataKey}`}
+                                    className={cx(styles.dataCell, {
+                                        [styles.mono]: mono,
+                                        [styles.lightText]:
+                                            dataKey === 'color' &&
+                                            isDarkColor(value),
+                                    })}
+                                    backgroundColor={
+                                        dataKey === 'color' ? value : null
+                                    }
+                                    align={align}
+                                >
+                                    {swatch && value && (
+                                        <span
+                                            className={styles.swatch}
+                                            style={{ backgroundColor: swatch }}
+                                        />
+                                    )}
+                                    {dataKey === 'color'
+                                        ? value?.toLowerCase()
+                                        : mono
+                                        ? value
+                                        : formatWithSeparator(
+                                              value,
+                                              keyAnalysisDigitGroupSeparator
+                                          )}
+                                </DataTableCell>
+                            )
+                        ),
+                        <DataTableCell
+                            key="dtcell-actions"
+                            className={styles.actionsCell}
+                        >
+                            <RowActions
+                                onOpenProfile={
+                                    layer.layer === EVENT_LAYER
+                                        ? undefined
+                                        : () => openProfile(row)
+                                }
+                                onZoomTo={() => zoomToFeature(row)}
+                            />
+                        </DataTableCell>,
+                    ]}
+                />
+            )}
+            {showColumnsModal && allHeaders && (
+                <ColumnsModal
+                    allHeaders={allHeaders}
+                    selected={headers.map((h) => h.dataKey)}
+                    onApply={onColumnsChange}
+                    onClose={onColumnsModalClose}
+                />
+            )}
             {isLoading && (
                 <ComponentCover>
                     <CenteredContent>
@@ -338,12 +514,17 @@ const Table = ({ availableWidth }) => {
                     </CenteredContent>
                 </ComponentCover>
             )}
-        </>
+        </div>
     )
 }
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
+    collapsed: PropTypes.bool,
+    showColumnsModal: PropTypes.bool,
+    visibleColumns: PropTypes.arrayOf(PropTypes.string),
+    onColumnsChange: PropTypes.func,
+    onColumnsModalClose: PropTypes.func,
 }
 
 export default Table
