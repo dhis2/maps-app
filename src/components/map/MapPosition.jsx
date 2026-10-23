@@ -5,6 +5,7 @@ import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.jsx'
 import NorthArrow from '../download/NorthArrow.jsx'
 import MapContainer from '../map/MapContainer.jsx'
+import OsmDrawing from '../osmImport/OsmDrawing.jsx'
 import styles from './styles/MapPosition.module.css'
 
 const incrementCount = (c) => c + 1
@@ -125,6 +126,7 @@ const MapPosition = () => {
                 })}
             >
                 <MapContainer resizeCount={resizeCount} setMap={setMap} />
+                <OsmDrawing map={map} />
                 {downloadMode && mapGL && (
                     <>
                         {downloadMapInfoOpen && (

@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-23T10:56:51.725Z\n"
-"PO-Revision-Date: 2026-10-23T10:56:51.725Z\n"
+"POT-Creation-Date: 2026-10-23T15:28:35.542Z\n"
+"PO-Revision-Date: 2026-10-23T15:28:35.542Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -662,6 +662,9 @@ msgstr "Use human-readable keys"
 msgid "Data download failed."
 msgstr "Data download failed."
 
+msgid "OpenStreetMap"
+msgstr "OpenStreetMap"
+
 msgid "External layer"
 msgstr "External layer"
 
@@ -792,6 +795,12 @@ msgstr "View profile"
 msgid "Show longitude/latitude"
 msgstr "Show longitude/latitude"
 
+msgid "Add OSM feature here"
+msgstr "Add OSM feature here"
+
+msgid "Draw OSM line from here"
+msgstr "Draw OSM line from here"
+
 msgid "Show {{name}}"
 msgstr "Show {{name}}"
 
@@ -866,8 +875,30 @@ msgstr "Click the next position"
 msgid "Click where you want to start the measurement"
 msgstr "Click where you want to start the measurement"
 
+msgid "Click to add points, double-click or press Enter to finish"
+msgstr "Click to add points, double-click or press Enter to finish"
+
+msgid "Click where you want to place the point"
+msgstr "Click where you want to place the point"
+
 msgid "Delete"
 msgstr "Delete"
+
+msgid ""
+"Drag points to move them, drag the small points to add one, click a point "
+"to remove it"
+msgstr ""
+"Drag points to move them, drag the small points to add one, click a point "
+"to remove it"
+
+msgid "Drag the point, or click where it should be"
+msgstr "Drag the point, or click where it should be"
+
+msgid "Draw line"
+msgstr "Draw line"
+
+msgid "Edit line"
+msgstr "Edit line"
 
 msgid "Distance"
 msgstr "Distance"
@@ -877,6 +908,9 @@ msgstr "Enter fullscreen"
 
 msgid "Exit fullscreen"
 msgstr "Exit fullscreen"
+
+msgid "Finish"
+msgstr "Finish"
 
 msgid "Finish measurement"
 msgstr "Finish measurement"
@@ -893,8 +927,14 @@ msgstr "Measure distances and areas"
 msgid "mi"
 msgstr "mi"
 
+msgid "Move point"
+msgstr "Move point"
+
 msgid "Perimeter"
 msgstr "Perimeter"
+
+msgid "Place point"
+msgstr "Place point"
 
 msgid "Reset bearing to north"
 msgstr "Reset bearing to north"
@@ -1002,11 +1042,93 @@ msgstr "Selected and all below"
 msgid "Selection mode"
 msgstr "Selection mode"
 
-msgid "Import OSM"
-msgstr "Import OSM"
+msgid "Shape saved"
+msgstr "Shape saved"
 
-msgid "The selected org unit has no boundary."
-msgstr "The selected org unit has no boundary."
+msgid "Edit shape"
+msgstr "Edit shape"
+
+msgid "Move"
+msgstr "Move"
+
+msgid "Delete feature"
+msgstr "Delete feature"
+
+msgid ""
+"Delete {{- name}} from DHIS2? OpenStreetMap is not changed, so an imported "
+"feature comes back with the next import."
+msgstr ""
+"Delete {{- name}} from DHIS2? OpenStreetMap is not changed, so an imported "
+"feature comes back with the next import."
+
+msgid ""
+"This road is saved in {{count}} org units, it will be deleted in all of "
+"them."
+msgid_plural ""
+"This road is saved in {{count}} org units, it will be deleted in all of "
+"them."
+msgstr[0] ""
+"This road is saved in {{count}} org units, it will be deleted in all of "
+"them."
+msgstr[1] ""
+"This road is saved in {{count}} org units, it will be deleted in all of "
+"them."
+
+msgid "Edit {{- name}}"
+msgstr "Edit {{- name}}"
+
+msgid "Add a line"
+msgstr "Add a line"
+
+msgid "Add a feature"
+msgstr "Add a feature"
+
+msgid "Category"
+msgstr "Category"
+
+msgid "The program for {{- category}} will be created when saving."
+msgstr "The program for {{- category}} will be created when saving."
+
+msgid ""
+"The program for {{- category}} is not set up. Ask a system administrator to "
+"set it up."
+msgstr ""
+"The program for {{- category}} is not set up. Ask a system administrator to "
+"set it up."
+
+msgid ""
+"Saved in DHIS2 only, with you as the editor. Later imports keep your edit "
+"and show OSM changes as conflicts."
+msgstr ""
+"Saved in DHIS2 only, with you as the editor. Later imports keep your edit "
+"and show OSM changes as conflicts."
+
+msgid ""
+"Saved in DHIS2 only, with you as the editor. Nothing is sent to "
+"OpenStreetMap."
+msgstr ""
+"Saved in DHIS2 only, with you as the editor. Nothing is sent to "
+"OpenStreetMap."
+
+msgid "Surface"
+msgstr "Surface"
+
+msgid "This road is saved in {{count}} org units, the changes apply to all of them."
+msgid_plural "This road is saved in {{count}} org units, the changes apply to all of them."
+msgstr[0] "This road is saved in {{count}} org units, the changes apply to all of them."
+msgstr[1] "This road is saved in {{count}} org units, the changes apply to all of them."
+
+msgid "Org unit: {{- names}}"
+msgstr "Org unit: {{- names}}"
+
+msgid "Org unit for the parts outside known boundaries"
+msgstr "Org unit for the parts outside known boundaries"
+
+msgid "Save"
+msgstr "Save"
+
+msgid "These org units have no boundary: {{- names}}"
+msgstr "These org units have no boundary: {{- names}}"
 
 msgid "No {{- category}} imported for {{- orgUnit}} yet."
 msgstr "No {{- category}} imported for {{- orgUnit}} yet."
@@ -1017,17 +1139,17 @@ msgstr "Import from OpenStreetMap"
 msgid "Data © OpenStreetMap contributors, ODbL."
 msgstr "Data © OpenStreetMap contributors, ODbL."
 
-msgid "Set up OSM import"
-msgstr "Set up OSM import"
+msgid "Back"
+msgstr "Back"
+
+msgid "Set up and fetch"
+msgstr "Set up and fetch"
 
 msgid "Show imported data on map"
 msgstr "Show imported data on map"
 
 msgid "Fetch from OSM"
 msgstr "Fetch from OSM"
-
-msgid "Back"
-msgstr "Back"
 
 msgid "Import"
 msgstr "Import"
@@ -1041,8 +1163,26 @@ msgstr "New"
 msgid "Changed"
 msgstr "Changed"
 
+msgid "Moved to another org unit"
+msgstr "Moved to another org unit"
+
+msgid "No longer in OSM"
+msgstr "No longer in OSM"
+
 msgid "Unchanged"
 msgstr "Unchanged"
+
+msgid "Conflict"
+msgstr "Conflict"
+
+msgid ""
+"OSM data is stored as events, one program per category. The program for {{- "
+"category}} is missing on this server or needs new data elements. It will be "
+"created or updated, with its program stage and the shared OSM data elements."
+msgstr ""
+"OSM data is stored as events, one program per category. The program for {{- "
+"category}} is missing on this server or needs new data elements. It will be "
+"created or updated, with its program stage and the shared OSM data elements."
 
 msgid ""
 "You need the authorities to add programs and data elements. Ask a system "
@@ -1051,8 +1191,20 @@ msgstr ""
 "You need the authorities to add programs and data elements. Ask a system "
 "administrator to open this dialog and run the setup."
 
-msgid "Mocked"
-msgstr "Mocked"
+msgid "Points"
+msgstr "Points"
+
+msgid "Lines"
+msgstr "Lines"
+
+msgid "Count in area"
+msgstr "Count in area"
+
+msgid "In the bounding box of the area, so slightly more than imported."
+msgstr "In the bounding box of the area, so slightly more than imported."
+
+msgid "Areas"
+msgstr "Areas"
 
 msgid ""
 "{{count}} features found in OpenStreetMap for {{- category}} in {{- "
@@ -1067,8 +1219,44 @@ msgstr[1] ""
 "{{count}} features found in OpenStreetMap for {{- category}} in {{- "
 "orgUnit}}."
 
-msgid "OSM id"
-msgstr "OSM id"
+msgid ""
+"{{count}} features are outside the boundaries of the org units below "
+"theirs, so they stay at a higher level."
+msgid_plural ""
+"{{count}} features are outside the boundaries of the org units below "
+"theirs, so they stay at a higher level."
+msgstr[0] ""
+"{{count}} features are outside the boundaries of the org units below "
+"theirs, so they stay at a higher level."
+msgstr[1] ""
+"{{count}} features are outside the boundaries of the org units below "
+"theirs, so they stay at a higher level."
+
+msgid ""
+"{{count}} features are just outside a boundary and go to the nearest org "
+"unit."
+msgid_plural ""
+"{{count}} features are just outside a boundary and go to the nearest org "
+"unit."
+msgstr[0] ""
+"{{count}} features are just outside a boundary and go to the nearest org "
+"unit."
+msgstr[1] ""
+"{{count}} features are just outside a boundary and go to the nearest org "
+"unit."
+
+msgid "{{count}} duplicate events will be deleted."
+msgid_plural "{{count}} duplicate events will be deleted."
+msgstr[0] "{{count}} duplicate events will be deleted."
+msgstr[1] "{{count}} duplicate events will be deleted."
+
+msgid "Delete the features no longer in OpenStreetMap ({{count}} events)"
+msgid_plural "Delete the features no longer in OpenStreetMap ({{count}} events)"
+msgstr[0] "Delete the features no longer in OpenStreetMap ({{count}} events)"
+msgstr[1] "Delete the features no longer in OpenStreetMap ({{count}} events)"
+
+msgid "Edited by"
+msgstr "Edited by"
 
 msgid "Status"
 msgstr "Status"
@@ -1078,8 +1266,17 @@ msgid_plural "Showing the first {{count}} features."
 msgstr[0] "Showing the first {{count}} features."
 msgstr[1] "Showing the first {{count}} features."
 
-msgid "Import done. {{created}} created, {{updated}} updated, {{ignored}} ignored."
-msgstr "Import done. {{created}} created, {{updated}} updated, {{ignored}} ignored."
+msgid ""
+"Import done. {{created}} created, {{updated}} updated, {{deleted}} deleted, "
+"{{ignored}} ignored."
+msgstr ""
+"Import done. {{created}} created, {{updated}} updated, {{deleted}} deleted, "
+"{{ignored}} ignored."
+
+msgid "{{- names}} and {{count}} more"
+msgid_plural "{{- names}} and {{count}} more"
+msgstr[0] "{{- names}} and {{count}} more"
+msgstr[1] "{{- names}} and {{count}} more"
 
 msgid "Clear"
 msgstr "Clear"
@@ -2019,32 +2216,155 @@ msgstr "GroupSet used for styling was not found"
 msgid "Health facilities"
 msgstr "Health facilities"
 
+msgid "Education"
+msgstr "Education"
+
+msgid "Water and sanitation"
+msgstr "Water and sanitation"
+
+msgid "Humanitarian"
+msgstr "Humanitarian"
+
+msgid "Public services"
+msgstr "Public services"
+
+msgid "Cemeteries"
+msgstr "Cemeteries"
+
+msgid "Settlements"
+msgstr "Settlements"
+
+msgid "Transport hubs"
+msgstr "Transport hubs"
+
 msgid "Roads"
 msgstr "Roads"
 
-msgid "Major roads only (motorway, trunk, primary, secondary)."
-msgstr "Major roads only (motorway, trunk, primary, secondary)."
+msgid "Waterways"
+msgstr "Waterways"
+
+msgid "Hospitals"
+msgstr "Hospitals"
+
+msgid "Clinics and health centres"
+msgstr "Clinics and health centres"
+
+msgid "Doctors and dentists"
+msgstr "Doctors and dentists"
+
+msgid "Pharmacies"
+msgstr "Pharmacies"
+
+msgid "Maternal care"
+msgstr "Maternal care"
+
+msgid "Other care"
+msgstr "Other care"
+
+msgid "Ambulance stations"
+msgstr "Ambulance stations"
+
+msgid "Kindergartens"
+msgstr "Kindergartens"
 
 msgid "Schools"
 msgstr "Schools"
 
-msgid "Graveyards"
-msgstr "Graveyards"
+msgid "Colleges and universities"
+msgstr "Colleges and universities"
+
+msgid "Drinking water"
+msgstr "Drinking water"
+
+msgid "Water infrastructure"
+msgstr "Water infrastructure"
+
+msgid "Sanitation"
+msgstr "Sanitation"
+
+msgid "Refugee sites"
+msgstr "Refugee sites"
 
 msgid "Detention centres"
 msgstr "Detention centres"
 
+msgid "Shelters"
+msgstr "Shelters"
+
 msgid "Border crossings"
 msgstr "Border crossings"
 
-msgid "Refugee camps"
-msgstr "Refugee camps"
+msgid "Military"
+msgstr "Military"
+
+msgid "Government and NGO offices"
+msgstr "Government and NGO offices"
+
+msgid "Security and justice"
+msgstr "Security and justice"
+
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Markets"
+msgstr "Markets"
+
+msgid "Banks and money"
+msgstr "Banks and money"
+
+msgid "Cities and towns"
+msgstr "Cities and towns"
+
+msgid "Villages"
+msgstr "Villages"
+
+msgid "Hamlets"
+msgstr "Hamlets"
+
+msgid "Neighbourhoods"
+msgstr "Neighbourhoods"
+
+msgid "Bus stations and ferry terminals"
+msgstr "Bus stations and ferry terminals"
+
+msgid "Fuel stations"
+msgstr "Fuel stations"
+
+msgid "Airports and helipads"
+msgstr "Airports and helipads"
+
+msgid "Motorways"
+msgstr "Motorways"
+
+msgid "Trunk roads"
+msgstr "Trunk roads"
+
+msgid "Primary roads"
+msgstr "Primary roads"
+
+msgid "Secondary roads"
+msgstr "Secondary roads"
+
+msgid "Tertiary roads"
+msgstr "Tertiary roads"
+
+msgid "Minor and residential roads"
+msgstr "Minor and residential roads"
+
+msgid "Tracks and service roads"
+msgstr "Tracks and service roads"
+
+msgid "Paths"
+msgstr "Paths"
 
 msgid "Rivers"
 msgstr "Rivers"
 
-msgid "Would follow the roads model, one event per way."
-msgstr "Would follow the roads model, one event per way."
+msgid "Streams"
+msgstr "Streams"
+
+msgid "Canals and drains"
+msgstr "Canals and drains"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"

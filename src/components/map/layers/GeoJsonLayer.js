@@ -72,9 +72,19 @@ class GeoJsonLayer extends Layer {
             {}
         )
 
+        // OSM layers can edit the event behind the feature
+        const { osmProgram } = this.props.config ?? {}
+
         this.props.setFeatureProfile({
             name: this.props.name,
             data,
+            ...(osmProgram && {
+                osm: {
+                    programId: osmProgram,
+                    eventId: feature.properties.id,
+                    geometry: feature.geometry,
+                },
+            }),
         })
     }
 }

@@ -1,3 +1,4 @@
+import i18n from '@dhis2/d2-i18n'
 import { Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -9,9 +10,16 @@ import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import { groupLayerSources } from '../../../util/layerSources.js'
+import { OSM_IMPORT_SOURCE } from '../../../util/osmCategories.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
 import ManageLayerSourcesButton from '../../layerSources/ManageLayerSourcesButton.jsx'
 import LayerList from './LayerList.jsx'
+
+const getOsmImportSource = () => ({
+    layer: OSM_IMPORT_SOURCE,
+    type: i18n.t('OpenStreetMap'),
+    img: 'images/osm.png',
+})
 
 const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Earth Engine layers that are added to this DHIS2 instance
@@ -22,13 +30,13 @@ const includeEarthEngineLayers = (defaultLayerSources, managedLayerSources) => {
     // Make copy before slicing below
     const layerSources = [...defaultLayerSources]
 
-    // Insert Earth Engine layers before external layers
-    layerSources.splice(5, 0, ...managedEarthEngineLayers)
+    // Insert OSM import and Earth Engine layers before external layers
+    layerSources.splice(5, 0, getOsmImportSource(), ...managedEarthEngineLayers)
 
     return layerSources
 }
 
-const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
+const AddLayerPopover = ({ anchorEl, onClose, onManaging, onOsmImport }) => {
     const isSplitView = useSelector((state) =>
         isSplitViewMap(state.map.mapViews)
     )
@@ -52,6 +60,12 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
 
         const config = { ...selectedLayer }
         const layerType = selectedLayer.layer
+
+        if (layerType === OSM_IMPORT_SOURCE) {
+            onOsmImport()
+            onClose()
+            return
+        }
 
         dispatch(
             layerType === EXTERNAL_LAYER ? addLayer(config) : editLayer(config)
@@ -82,6 +96,7 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
 AddLayerPopover.propTypes = {
     onClose: PropTypes.func.isRequired,
     onManaging: PropTypes.func.isRequired,
+    onOsmImport: PropTypes.func.isRequired,
     anchorEl: PropTypes.object,
 }
 

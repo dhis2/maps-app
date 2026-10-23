@@ -12,23 +12,28 @@ import {
     NoticeBox,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { addLayer } from '../../actions/layers.js'
-import { GEOJSON_URL_LAYER } from '../../constants/layers.js'
-import { GEO_TYPE_POLYGON, GEO_TYPE_MULTIPOLYGON } from '../../util/geojson.js'
 import {
+    isPolygon,
+    removeNestedOrgUnits,
+} from '../../util/orgUnitAssignment.js'
+import {
+    buildImportPlan,
+    buildOverpassCountQuery,
     buildOverpassQuery,
-    compareWithEvents,
-    eventsToFeatureCollection,
+    clipToAreas,
     fetchOsmElements,
     getBbox,
-    OSM_STATUS_UNCHANGED,
+    getDataValue,
+    getSubcategoryCounts,
+    isEventInSubcategories,
     parseOsmElements,
-    toTrackerEvent,
 } from '../../util/osm.js'
 import {
     getOsmCategories,
+    getSubcategoryIds,
     OSM_GEOMETRY_LINE,
 } from '../../util/osmCategories.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
@@ -38,13 +43,23 @@ import {
     SelectStep,
     SetupStep,
 } from './OsmImportSteps.jsx'
+import { getOrgUnitsLabel, getOsmLayer } from './osmLayer.js'
+import { OSM_DATA_ELEMENTS as DE } from './osmMetadata.js'
 import {
-    assignOrgUnitToProgram,
+    assignImportLines,
+    assignImportPoints,
+    getLoadedOrgUnitName,
+    loadOrgUnits,
+} from './osmOrgUnits.js'
+import {
     createOsmMetadata,
-    fetchOrgUnitGeometry,
+    deleteOsmEvents,
+    ensureProgramOrgUnits,
     fetchOsmEvents,
-    fetchOsmPrograms,
+    fetchOsmEventsByValue,
+    getOsmErrorMessage,
     importOsmEvents,
+    isOsmSetupMissing,
 } from './osmRequests.js'
 import styles from './styles/OsmImport.module.css'
 
@@ -55,35 +70,33 @@ const STEP_PREVIEW = 'preview'
 const STEP_DONE = 'done'
 
 const SETUP_AUTHORITIES = ['F_PROGRAM_PUBLIC_ADD', 'F_DATAELEMENT_PUBLIC_ADD']
-const IMPORT_CHUNK_SIZE = 500
 
-const LINE_STYLE = { strokeColor: '#d95f02', weight: 3 }
-const POINT_STYLE = {
-    color: '#1b9e77',
-    strokeColor: '#ffffff',
-    pointSize: 6,
-    weight: 1,
-}
+const getDeletes = (plan, deleteRemoved) => [
+    ...plan.deletes,
+    ...(deleteRemoved ? plan.removedDeletes : []),
+]
 
-const getErrorMessage = (error) =>
-    error.details?.validationReport?.errorReports?.[0]?.message ?? error.message
+const byOsmId = (events) =>
+    new Map(events.map((event) => [getDataValue(event, DE.id), event]))
 
 const OsmImportModal = ({ onClose }) => {
     const engine = useDataEngine()
     const dispatch = useDispatch()
     const { currentUser } = useCachedData()
     const categories = useMemo(() => getOsmCategories(), [])
-    const programCodes = categories
-        .filter(({ mocked }) => !mocked)
-        .map(({ program }) => program.code)
 
-    const [step, setStep] = useState(STEP_LOADING)
+    const [step, setStep] = useState(STEP_SELECT)
     const [error, setError] = useState()
-    const [missingPrograms, setMissingPrograms] = useState([])
     const [category, setCategory] = useState()
-    const [orgUnit, setOrgUnit] = useState()
-    const [features, setFeatures] = useState([])
+    const [subcategoryIds, setSubcategoryIds] = useState([])
+    // Import areas: [{ id, path, name }]
+    const [orgUnits, setOrgUnits] = useState([])
+    const [counts, setCounts] = useState()
+    const [isCounting, setIsCounting] = useState(false)
+    const [plan, setPlan] = useState()
+    const [deleteRemoved, setDeleteRemoved] = useState(true)
     const [stats, setStats] = useState()
+    const rootIds = currentUser.userOrgUnitIdsByKeyword[USER_ORG_UNIT]
 
     const canSetup =
         currentUser.authorities.has('ALL') ||
@@ -96,77 +109,195 @@ const OsmImportModal = ({ onClose }) => {
         try {
             await fn()
         } catch (e) {
-            setError(getErrorMessage(e))
+            setError(getOsmErrorMessage(e))
             fallbackStep && setStep(fallbackStep)
         }
     }, [])
 
-    const checkPrograms = useCallback(async () => {
-        const programs = await fetchOsmPrograms(engine, programCodes)
-        const found = programs.map(({ code }) => code)
-        const missing = programCodes.filter((code) => !found.includes(code))
-        setMissingPrograms(missing)
-        setStep(missing.length ? STEP_SETUP : STEP_SELECT)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [engine])
+    // All subcategories selected by default
+    const onCategoryChange = (id) => {
+        const selected = categories.find((c) => c.id === id)
+        setCategory(selected)
+        setSubcategoryIds(getSubcategoryIds(selected))
+        setCounts(null)
+    }
 
-    useEffect(() => {
-        run(checkPrograms)
-    }, [run, checkPrograms])
+    const onOrgUnitChange = ({ id, path, displayName, checked }) => {
+        setOrgUnits((selected) =>
+            checked
+                ? [...selected, { id, path, name: displayName }]
+                : selected.filter((orgUnit) => orgUnit.id !== id)
+        )
+        setCounts(null)
+    }
 
-    const onSetup = () =>
-        run(async () => {
-            await createOsmMetadata(engine)
-            await checkPrograms()
-        }, STEP_SETUP)
+    // An org unit inside another selected one comes with it
+    const loadAreas = async () => {
+        const selected = removeNestedOrgUnits(orgUnits)
+        const loaded = await loadOrgUnits(
+            engine,
+            selected.map(({ id }) => id)
+        )
+        const areas = selected.map(({ id }) => loaded.get(id))
+        const withoutBoundary = selected.filter(
+            (orgUnit, i) => !isPolygon(areas[i]?.geometry)
+        )
+        if (withoutBoundary.length) {
+            throw new Error(
+                i18n.t('These org units have no boundary: {{- names}}', {
+                    names: withoutBoundary.map(({ name }) => name).join(', '),
+                    nsSeparator: ';',
+                })
+            )
+        }
+        return areas
+    }
 
-    const onPreview = () =>
-        run(async () => {
-            const { geometry } = await fetchOrgUnitGeometry(engine, orgUnit.id)
-            if (
-                geometry?.type !== GEO_TYPE_POLYGON &&
-                geometry?.type !== GEO_TYPE_MULTIPOLYGON
-            ) {
-                throw new Error(
-                    i18n.t('The selected org unit has no boundary.')
-                )
-            }
-            const query = buildOverpassQuery(category, getBbox(geometry))
-            const [elements, events] = await Promise.all([
-                fetchOsmElements(query),
+    const getBboxes = (areas) => areas.map(({ geometry }) => getBbox(geometry))
+
+    // Counts in the bboxes of the areas, so a bit more than will be imported
+    const onCount = async () => {
+        setIsCounting(true)
+        setError(null)
+        try {
+            const areas = await loadAreas()
+            const ids = getSubcategoryIds(category)
+            const elements = await fetchOsmElements(
+                buildOverpassCountQuery(category, getBboxes(areas), ids)
+            )
+            setCounts(getSubcategoryCounts(elements, ids))
+        } catch (e) {
+            setError(getOsmErrorMessage(e))
+        } finally {
+            setIsCounting(false)
+        }
+    }
+
+    // Points are matched to stored events in the areas, or anywhere by OSM id
+    // when moved elsewhere. Ways only to their pieces in the areas: pieces in
+    // other areas are updated by those areas' imports.
+    const assignPointFeatures = async (features, areas, stored) => {
+        const inArea = byOsmId(stored)
+        const missingIds = features
+            .map(({ osmId }) => osmId)
+            .filter((osmId) => !inArea.has(osmId))
+        const elsewhere = missingIds.length
+            ? await fetchOsmEventsByValue(engine, {
+                  programId: category.program.id,
+                  dataElement: DE.id,
+                  values: missingIds,
+              })
+            : []
+        const others = byOsmId(elsewhere)
+
+        const assigned = await assignImportPoints(
+            engine,
+            features.map(({ osmId, point, areaId }) => ({
+                key: osmId,
+                point,
+                areaId,
+                storedOrgUnitId: (inArea.get(osmId) ?? others.get(osmId))
+                    ?.orgUnit,
+            })),
+            { areas, rootIds }
+        )
+        return {
+            points: features.map((f) => ({ ...f, ...assigned.get(f.osmId) })),
+            elsewhere,
+        }
+    }
+
+    const assignWayFeatures = async (features, areas) => {
+        const pieces = await assignImportLines(
+            engine,
+            features.flatMap(({ osmId, clips }) =>
+                clips.map(({ areaId, line }) => ({
+                    key: osmId,
+                    geometry: line,
+                    areaId,
+                }))
+            ),
+            { areas }
+        )
+        return {
+            ways: features.map((f) => ({
+                ...f,
+                pieces: pieces.get(f.osmId) ?? [],
+            })),
+        }
+    }
+
+    const preview = async () => {
+        if (await isOsmSetupMissing(engine, category)) {
+            setStep(STEP_SETUP)
+            return
+        }
+        const areas = await loadAreas()
+        const query = buildOverpassQuery(
+            category,
+            getBboxes(areas),
+            subcategoryIds
+        )
+        const [elements, ...storedPerArea] = await Promise.all([
+            fetchOsmElements(query),
+            ...areas.map((area) =>
                 fetchOsmEvents(engine, {
                     programId: category.program.id,
-                    orgUnitId: orgUnit.id,
-                }),
-            ])
-            const osmFeatures = parseOsmElements(elements, category, geometry)
-            setFeatures(compareWithEvents(osmFeatures, events))
-            setStep(STEP_PREVIEW)
-        }, STEP_SELECT)
+                    orgUnitId: area.id,
+                })
+            ),
+        ])
+        const stored = storedPerArea.flat()
+        const features = clipToAreas(
+            parseOsmElements(elements, category, subcategoryIds),
+            areas
+        )
+        const assigned =
+            category.geometry === OSM_GEOMETRY_LINE
+                ? await assignWayFeatures(features, areas)
+                : await assignPointFeatures(features, areas, stored)
+
+        // Names for the preview, mostly loaded by the assignment already
+        await loadOrgUnits(engine, [
+            ...new Set(stored.map((event) => event.orgUnit)),
+        ])
+
+        setPlan(
+            buildImportPlan({
+                category,
+                stored,
+                isSelected: (event) =>
+                    isEventInSubcategories(event, category, subcategoryIds),
+                getOrgUnitName: getLoadedOrgUnitName,
+                ...assigned,
+            })
+        )
+        setDeleteRemoved(true)
+        setStep(STEP_PREVIEW)
+    }
+
+    const onPreview = () => run(preview, STEP_SELECT)
+
+    // Creates or updates the category's program, then goes on to the preview
+    const onSetup = () =>
+        run(async () => {
+            await createOsmMetadata(engine, category)
+            await preview()
+        }, STEP_SETUP)
 
     const onImport = () =>
         run(async () => {
-            await assignOrgUnitToProgram(
+            await ensureProgramOrgUnits(
                 engine,
                 category.program.id,
-                orgUnit.id
+                plan.writes.map((event) => event.orgUnit)
             )
-            const events = features
-                .filter(({ status }) => status !== OSM_STATUS_UNCHANGED)
-                .map((feature) => toTrackerEvent(feature, category, orgUnit.id))
-            const total = { created: 0, updated: 0, ignored: 0 }
-
-            for (let i = 0; i < events.length; i += IMPORT_CHUNK_SIZE) {
-                const response = await importOsmEvents(
-                    engine,
-                    events.slice(i, i + IMPORT_CHUNK_SIZE)
-                )
-                Object.keys(total).forEach((key) => {
-                    total[key] += response.stats?.[key] ?? 0
-                })
-            }
-
-            setStats(total)
+            const written = await importOsmEvents(engine, plan.writes)
+            const { deleted } = await deleteOsmEvents(
+                engine,
+                getDeletes(plan, deleteRemoved)
+            )
+            setStats({ ...written, deleted })
             setStep(STEP_DONE)
         }, STEP_PREVIEW)
 
@@ -174,46 +305,25 @@ const OsmImportModal = ({ onClose }) => {
     // it also works for data imported earlier
     const onShowOnMap = (fallbackStep) =>
         run(async () => {
-            const events = await fetchOsmEvents(engine, {
-                programId: category.program.id,
-                orgUnitId: orgUnit.id,
-                orgUnitMode: 'DESCENDANTS',
-            })
-            if (!events.length) {
+            const layer = await getOsmLayer(
+                engine,
+                category,
+                removeNestedOrgUnits(orgUnits)
+            )
+            if (!layer) {
                 throw new Error(
                     i18n.t(
                         'No {{- category}} imported for {{- orgUnit}} yet.',
                         {
                             category: category.name,
-                            orgUnit: orgUnit.name,
+                            orgUnit: getOrgUnitsLabel(orgUnits),
                         }
                     )
                 )
             }
-            const geojson = eventsToFeatureCollection(events)
-            const name = `OSM ${category.name}, ${orgUnit.name}`
-
-            dispatch(
-                addLayer({
-                    layer: GEOJSON_URL_LAYER,
-                    name,
-                    config: {
-                        name,
-                        url: `data:application/geo+json,${encodeURIComponent(
-                            JSON.stringify(geojson)
-                        )}`,
-                    },
-                    featureStyle:
-                        category.geometry === OSM_GEOMETRY_LINE
-                            ? LINE_STYLE
-                            : POINT_STYLE,
-                })
-            )
+            dispatch(addLayer(layer))
             onClose()
         }, fallbackStep)
-
-    const onCategoryChange = (id) =>
-        setCategory(categories.find((c) => c.id === id))
 
     return (
         <Modal large position="middle" onClose={onClose}>
@@ -230,28 +340,30 @@ const OsmImportModal = ({ onClose }) => {
                     </div>
                 )}
                 {step === STEP_SETUP && (
-                    <SetupStep
-                        missingPrograms={missingPrograms}
-                        canSetup={canSetup}
-                    />
+                    <SetupStep category={category} canSetup={canSetup} />
                 )}
                 {step === STEP_SELECT && (
                     <SelectStep
                         categories={categories}
                         category={category}
-                        orgUnit={orgUnit}
-                        roots={
-                            currentUser.userOrgUnitIdsByKeyword[USER_ORG_UNIT]
-                        }
+                        subcategoryIds={subcategoryIds}
+                        counts={counts}
+                        isCounting={isCounting}
+                        orgUnits={orgUnits}
+                        roots={rootIds}
                         onCategoryChange={onCategoryChange}
-                        onOrgUnitChange={setOrgUnit}
+                        onSubcategoriesChange={setSubcategoryIds}
+                        onCount={onCount}
+                        onOrgUnitChange={onOrgUnitChange}
                     />
                 )}
                 {step === STEP_PREVIEW && (
                     <PreviewStep
                         category={category}
-                        orgUnit={orgUnit}
-                        features={features}
+                        orgUnits={orgUnits}
+                        plan={plan}
+                        deleteRemoved={deleteRemoved}
+                        onDeleteRemovedChange={setDeleteRemoved}
                     />
                 )}
                 {step === STEP_DONE && <DoneStep stats={stats} />}
@@ -267,21 +379,34 @@ const OsmImportModal = ({ onClose }) => {
                             : i18n.t('Cancel')}
                     </Button>
                     {step === STEP_SETUP && (
-                        <Button primary disabled={!canSetup} onClick={onSetup}>
-                            {i18n.t('Set up OSM import')}
-                        </Button>
+                        <>
+                            <Button onClick={() => setStep(STEP_SELECT)}>
+                                {i18n.t('Back')}
+                            </Button>
+                            <Button
+                                primary
+                                disabled={!canSetup}
+                                onClick={onSetup}
+                            >
+                                {i18n.t('Set up and fetch')}
+                            </Button>
+                        </>
                     )}
                     {step === STEP_SELECT && (
                         <>
                             <Button
-                                disabled={!category || !orgUnit}
+                                disabled={!category || !orgUnits.length}
                                 onClick={() => onShowOnMap(STEP_SELECT)}
                             >
                                 {i18n.t('Show imported data on map')}
                             </Button>
                             <Button
                                 primary
-                                disabled={!category || !orgUnit}
+                                disabled={
+                                    !category ||
+                                    !orgUnits.length ||
+                                    !subcategoryIds.length
+                                }
                                 onClick={onPreview}
                             >
                                 {i18n.t('Fetch from OSM')}
@@ -295,10 +420,10 @@ const OsmImportModal = ({ onClose }) => {
                             </Button>
                             <Button
                                 primary
-                                disabled={features.every(
-                                    ({ status }) =>
-                                        status === OSM_STATUS_UNCHANGED
-                                )}
+                                disabled={
+                                    !plan.writes.length &&
+                                    !getDeletes(plan, deleteRemoved).length
+                                }
                                 onClick={onImport}
                             >
                                 {i18n.t('Import')}

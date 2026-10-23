@@ -1,0 +1,131 @@
+{
+    "use:health_facilities": {
+        "type:any": {
+            "key:amenity": {
+                "cat:hospitals": [ "hospital" ],
+                "cat:clinics": [ "clinic" ],
+                "cat:doctors_and_dentists": [ "doctors", "dentist" ],
+                "cat:pharmacies": [ "pharmacy" ],
+                "cat:other_care": [ "nursing_home", "social_facility" ]
+            },
+            "key:healthcare": {
+                "cat:hospitals": [ "hospital" ],
+                "cat:clinics": [ "clinic", "centre" ],
+                "cat:doctors_and_dentists": [ "doctor", "dentist" ],
+                "cat:pharmacies": [ "pharmacy" ],
+                "cat:maternal_care": [ "birthing_centre", "midwife" ],
+                "cat:other_care": [ "laboratory", "blood_donation", "nurse", "rehabilitation", "vaccination_centre", "counselling", "alternative" ]
+            },
+            "key:emergency": {
+                "cat:ambulance_stations": [ "ambulance_station" ]
+            }
+        }
+    },
+    "use:education": {
+        "type:any": {
+            "key:amenity": {
+                "cat:kindergartens": [ "kindergarten" ],
+                "cat:schools": [ "school" ],
+                "cat:higher_education": [ "college", "university" ]
+            }
+        }
+    },
+    "use:water_sanitation": {
+        "type:any": {
+            "key:amenity": {
+                "cat:drinking_water": [ "drinking_water", "water_point" ],
+                "cat:sanitation": [ "toilets", "shower" ]
+            },
+            "key:man_made": {
+                "cat:drinking_water": [ "water_well", "water_tap" ],
+                "cat:water_infrastructure": [ "water_tower", "water_works", "storage_tank" ],
+                "cat:sanitation": [ "wastewater_plant" ]
+            },
+            "key:natural": {
+                "cat:drinking_water": [ "spring" ]
+            }
+        }
+    },
+    "use:humanitarian": {
+        "type:any": {
+            "key:amenity": {
+                "cat:refugee_sites": [ "refugee_site" ],
+                "cat:detention_centres": [ "prison" ],
+                "cat:shelters": [ "shelter" ]
+            },
+            "key:barrier": {
+                "cat:border_crossings": [ "border_control" ]
+            },
+            "key:military": {
+                "cat:military": [ "checkpoint", "barracks" ]
+            },
+            "key:office": {
+                "cat:offices": [ "ngo", "government", "diplomatic" ]
+            }
+        }
+    },
+    "use:public_services": {
+        "type:any": {
+            "key:amenity": {
+                "cat:security_and_justice": [ "police", "fire_station", "courthouse" ],
+                "cat:administration": [ "townhall", "post_office", "community_centre" ],
+                "cat:markets": [ "marketplace" ],
+                "cat:financial": [ "bank", "atm", "bureau_de_change" ]
+            }
+        }
+    },
+    "use:cemeteries": {
+        "type:any": {
+            "key:amenity": {
+                "cat:cemeteries": [ "grave_yard" ]
+            },
+            "key:landuse": {
+                "cat:cemeteries": [ "cemetery" ]
+            }
+        }
+    },
+    "use:settlements": {
+        "type:node": {
+            "key:place": {
+                "cat:cities_and_towns": [ "city", "town" ],
+                "cat:villages": [ "village" ],
+                "cat:hamlets": [ "hamlet", "isolated_dwelling" ],
+                "cat:neighbourhoods": [ "suburb", "neighbourhood" ]
+            }
+        }
+    },
+    "use:transport_hubs": {
+        "type:any": {
+            "key:amenity": {
+                "cat:stations": [ "bus_station", "ferry_terminal" ],
+                "cat:fuel": [ "fuel" ]
+            },
+            "key:aeroway": {
+                "cat:airports": [ "aerodrome", "helipad" ]
+            }
+        }
+    },
+    "use:roads": {
+        "type:way": {
+            "key:highway": {
+                "cat:motorways": [ "motorway", "motorway_link" ],
+                "cat:trunk": [ "trunk", "trunk_link" ],
+                "cat:primary": [ "primary", "primary_link" ],
+                "cat:secondary": [ "secondary", "secondary_link" ],
+                "cat:tertiary": [ "tertiary", "tertiary_link" ],
+                "cat:minor_roads": [ "unclassified", "residential" ],
+                "cat:tracks_and_service": [ "track", "service" ],
+                "cat:paths": [ "path", "footway" ]
+            }
+        }
+    },
+    "use:waterways": {
+        "type:way": {
+            "key:waterway": {
+                "cat:rivers": [ "river" ],
+                "cat:streams": [ "stream" ],
+                "cat:canals_and_drains": [ "canal", "drain", "ditch" ]
+            }
+        }
+    }
+}
