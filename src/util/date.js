@@ -14,7 +14,7 @@ const GREGORIAN_CALENDAR_NAME = 'gregory'
 const ETHIOPIAN_CALENDAR_NAME = 'ethiopic'
 const THAI_CALENDAR_NAME = 'buddhist'
 
-const THIRTEEN_MONTH_CALENDARS = ['coptic', ETHIOPIAN_CALENDAR_NAME]
+const THIRTEEN_MONTH_CALENDARS = new Set(['coptic', ETHIOPIAN_CALENDAR_NAME])
 
 // dhis2CalendarsMap cannot be imported from @dhis2/multi-calendar-dates
 
@@ -53,7 +53,7 @@ export const getMaxMonthsInYear = (year, calendar) => {
         assertNepaliYearInRange(year)
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    return THIRTEEN_MONTH_CALENDARS.includes(calendarName) ? 13 : 12
+    return THIRTEEN_MONTH_CALENDARS.has(calendarName) ? 13 : 12
 }
 
 export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
