@@ -30,7 +30,7 @@
         "@semantic-release/exec": "^6",
         "@semantic-release/git": "^10",
         "@testing-library/dom": "^10.4.2",
-        "@testing-library/jest-dom": "^6.9.1",
+        "@testing-library/jest-dom": "^7.0.1",
         "@testing-library/react": "^16.3.3",
         "cypress": "^15",
         "cypress-real-events": "^1.15.1",
