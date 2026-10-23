@@ -112,31 +112,27 @@ const OsmDrawing = ({ map }) => {
         }
 
         const saveShape = async (newGeometry) => {
-            try {
-                const event = await fetchOsmEvent(engine, eventId)
-                const { writes, deletes } =
-                    category.geometry === OSM_GEOMETRY_LINE
-                        ? await getLineChanges(event, newGeometry)
-                        : await getPointChanges(event, newGeometry)
+            const event = await fetchOsmEvent(engine, eventId)
+            const { writes, deletes } =
+                category.geometry === OSM_GEOMETRY_LINE
+                    ? await getLineChanges(event, newGeometry)
+                    : await getPointChanges(event, newGeometry)
 
-                await ensureProgramOrgUnits(
-                    engine,
-                    category.program.id,
-                    writes.map((e) => e.orgUnit)
-                )
-                await importOsmEvents(engine, writes)
-                await deleteOsmEvents(engine, deletes)
+            await ensureProgramOrgUnits(
+                engine,
+                category.program.id,
+                writes.map((e) => e.orgUnit)
+            )
+            await importOsmEvents(engine, writes)
+            await deleteOsmEvents(engine, deletes)
 
-                const layers = await getRefreshedOsmLayers(
-                    engine,
-                    mapViews,
-                    category.program.id
-                )
-                layers.forEach((layer) => dispatch(updateLayer(layer)))
-                alert.show({ msg: i18n.t('Shape saved') })
-            } catch (e) {
-                alert.show({ msg: getOsmErrorMessage(e), isError: true })
-            }
+            const layers = await getRefreshedOsmLayers(
+                engine,
+                mapViews,
+                category.program.id
+            )
+            layers.forEach((layer) => dispatch(updateLayer(layer)))
+            alert.show({ msg: i18n.t('Shape saved') })
         }
 
         // New lines come without a category, it's picked in the form
@@ -150,7 +146,12 @@ const OsmDrawing = ({ map }) => {
             onFinish: (newGeometry) => {
                 if (eventId) {
                     dispatch(closeOsmEdit())
-                    saveShape(newGeometry)
+                    saveShape(newGeometry).catch((e) =>
+                        alert.show({
+                            msg: getOsmErrorMessage(e),
+                            isError: true,
+                        })
+                    )
                 } else {
                     dispatch(openOsmFeatureForm(categoryId, newGeometry))
                 }

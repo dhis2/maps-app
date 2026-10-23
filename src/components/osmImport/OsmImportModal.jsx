@@ -52,6 +52,7 @@ import {
     loadOrgUnits,
 } from './osmOrgUnits.js'
 import {
+    canCreateOsmSetup,
     createOsmMetadata,
     deleteOsmEvents,
     ensureProgramOrgUnits,
@@ -68,8 +69,6 @@ const STEP_SETUP = 'setup'
 const STEP_SELECT = 'select'
 const STEP_PREVIEW = 'preview'
 const STEP_DONE = 'done'
-
-const SETUP_AUTHORITIES = ['F_PROGRAM_PUBLIC_ADD', 'F_DATAELEMENT_PUBLIC_ADD']
 
 const getDeletes = (plan, deleteRemoved) => [
     ...plan.deletes,
@@ -98,9 +97,7 @@ const OsmImportModal = ({ onClose }) => {
     const [stats, setStats] = useState()
     const rootIds = currentUser.userOrgUnitIdsByKeyword[USER_ORG_UNIT]
 
-    const canSetup =
-        currentUser.authorities.has('ALL') ||
-        SETUP_AUTHORITIES.every((auth) => currentUser.authorities.has(auth))
+    const canSetup = canCreateOsmSetup(currentUser.authorities)
 
     // Runs an async step, going back to fallbackStep on error
     const run = useCallback(async (fn, fallbackStep) => {

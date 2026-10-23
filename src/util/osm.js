@@ -224,6 +224,9 @@ const isLocallyEdited = (event) =>
 
 const getVersion = (event) => Number(getDataValue(event, DE.version)) || 0
 
+// Hand-added features have no version, so they're never newer
+const isNewerThan = (feature, event) => feature.version > getVersion(event)
+
 // Health facilities and roads have their own type data element
 const getType = (event) =>
     getDataValue(event, DE.facilityType) ??
@@ -387,7 +390,7 @@ const comparePoint = ({ feature, matches, category, getOrgUnitName }) => {
 
     const { primary, rest } = splitPrimary(matches)
     const result = { deletes: ids(rest), duplicates: rest.length }
-    const isNewer = feature.version > getVersion(primary)
+    const isNewer = isNewerThan(feature, primary)
 
     if (isLocallyEdited(primary)) {
         return {
@@ -465,7 +468,7 @@ const compareWay = ({ way, stored, category, getOrgUnitName }) => {
         }
     }
 
-    const isNewer = stored.some((event) => way.version > getVersion(event))
+    const isNewer = stored.some((event) => isNewerThan(way, event))
 
     // A local edit flags all pieces, and nothing is written for the way
     if (stored.some(isLocallyEdited)) {
@@ -494,7 +497,7 @@ const compareWay = ({ way, stored, category, getOrgUnitName }) => {
         const event = toPieceEvent(piece, primary?.event ?? generateUid())
         const isSame =
             primary &&
-            !(way.version > getVersion(primary)) &&
+            !isNewerThan(way, primary) &&
             getDataValue(primary, DE.lineGeometry) ===
                 getDataValue(event, DE.lineGeometry)
         return isSame ? [] : [event]

@@ -174,10 +174,10 @@ export const getSubcategoryName = (category, id) =>
     id
 
 // The first tag of the category the element has, among the subcategories
-export const findTag = (category, tags = {}, subcategoryIds) =>
+export const findTag = (category, tags, subcategoryIds) =>
     category.tags.find(
         ({ key, value, subcategory }) =>
-            tags[key] === value &&
+            tags?.[key] === value &&
             (!subcategoryIds || subcategoryIds.includes(subcategory))
     )
 

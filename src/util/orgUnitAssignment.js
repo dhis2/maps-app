@@ -16,11 +16,11 @@ export const FLAG_OVERLAP = 'overlap'
 export const FLAG_SNAPPED = 'snapped'
 export const FLAG_GAP = 'gap'
 
-const POLYGON_TYPES = ['Polygon', 'MultiPolygon']
+const POLYGON_TYPES = new Set(['Polygon', 'MultiPolygon'])
 const LINE_STRING = 'LineString'
 const MULTI_LINE_STRING = 'MultiLineString'
 
-export const isPolygon = (geometry) => POLYGON_TYPES.includes(geometry?.type)
+export const isPolygon = (geometry) => POLYGON_TYPES.has(geometry?.type)
 
 const toFeature = (geometry) => ({ type: 'Feature', geometry, properties: {} })
 
@@ -164,8 +164,12 @@ const applyStep = (item, { orgUnit, through, flag }) => {
     return { ...item, frontier: through ?? [], flags }
 }
 
-const getStepKey = ({ orgUnit, through }) =>
-    orgUnit ? orgUnit.id : through ? `through:${through.join()}` : 'stay'
+const getStepKey = ({ orgUnit, through }) => {
+    if (orgUnit) {
+        return orgUnit.id
+    }
+    return through ? `through:${through.join()}` : 'stay'
+}
 
 const isSameCoordinate = (a, b) => a[0] === b[0] && a[1] === b[1]
 
@@ -217,8 +221,8 @@ const absorbFragments = (segments) =>
         if (!neighbours.length) {
             return segment
         }
-        const [longest] = neighbours.sort((a, b) => b.length - a.length)
-        return { ...segment, step: longest.step }
+        neighbours.sort((a, b) => b.length - a.length)
+        return { ...segment, step: neighbours[0].step }
     })
 
 // Joins consecutive touching segments going the same way into runs
@@ -271,11 +275,15 @@ export const splitLine = (coordinates, children, canSnap) => {
  * loaded at once per round: loadChildren(ids) resolves to a Map of parent id
  * to child org units. step(item, children, canSnap) returns the next items.
  */
-const walk = async (items, loadChildren, step) => {
-    const done = items.filter((item) => !item.frontier.length)
-    let active = items.filter((item) => item.frontier.length)
+const walk = (items, loadChildren, step) => {
+    const walkRound = async (roundItems, round) => {
+        const done = roundItems.filter((item) => !item.frontier.length)
+        const active = roundItems.filter((item) => item.frontier.length)
 
-    for (let round = 0; active.length && round < MAX_ROUNDS; round++) {
+        if (!active.length || round >= MAX_ROUNDS) {
+            return roundItems
+        }
+
         const parentIds = [...new Set(active.flatMap((item) => item.frontier))]
         const childrenByParent = await loadChildren(parentIds)
 
@@ -289,11 +297,10 @@ const walk = async (items, loadChildren, step) => {
             return step(item, children, canSnap)
         })
 
-        done.push(...next.filter((item) => !item.frontier.length))
-        active = next.filter((item) => item.frontier.length)
+        return [...done, ...(await walkRound(next, round + 1))]
     }
 
-    return [...done, ...active]
+    return walkRound(items, 0)
 }
 
 const uniqueFlags = (flags) => [...new Set(flags)]
@@ -325,20 +332,28 @@ export const assignPoints = async (points, loadChildren) => {
     }))
 }
 
-// Joins runs where one ends where another starts, in any order
-const joinRuns = (runs) => {
-    const parts = runs.map((run) => [...run])
-
-    for (let i = 0; i < parts.length; i++) {
+// Joins the first two parts where one ends where the other starts, or null
+const joinFirstPair = (parts) => {
+    for (const [i, part] of parts.entries()) {
         const j = parts.findIndex(
-            (part, index) =>
-                index !== i && isSameCoordinate(parts[i].at(-1), part[0])
+            (other, index) =>
+                index !== i && isSameCoordinate(part.at(-1), other[0])
         )
         if (j > -1) {
-            parts[i] = [...parts[i], ...parts[j].slice(1)]
-            parts.splice(j, 1)
-            i = -1 // start over, the joined part may join others
+            const rest = parts.filter((_, index) => index !== i && index !== j)
+            return [[...part, ...parts[j].slice(1)], ...rest]
         }
+    }
+    return null
+}
+
+// Joins runs where one ends where another starts, in any order
+const joinRuns = (runs) => {
+    let parts = runs.map((run) => [...run])
+    let joined = joinFirstPair(parts)
+    while (joined) {
+        parts = joined
+        joined = joinFirstPair(parts)
     }
     return parts
 }

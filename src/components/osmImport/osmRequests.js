@@ -4,6 +4,13 @@ import {
     OSM_DATA_ELEMENTS,
 } from './osmMetadata.js'
 
+const SETUP_AUTHORITIES = ['F_PROGRAM_PUBLIC_ADD', 'F_DATAELEMENT_PUBLIC_ADD']
+
+// Whether the user can create the programs and data elements of the setup
+export const canCreateOsmSetup = (authorities) =>
+    authorities.has('ALL') ||
+    SETUP_AUTHORITIES.every((authority) => authorities.has(authority))
+
 /**
  * Whether the category needs the setup: its program is missing, or its
  * stage misses data elements added since.
@@ -23,10 +30,10 @@ export const isOsmSetupMissing = async (engine, category) => {
     if (!stage) {
         return true
     }
-    const ids = stage.programStageDataElements.map(
-        ({ dataElement }) => dataElement.id
+    const ids = new Set(
+        stage.programStageDataElements.map(({ dataElement }) => dataElement.id)
     )
-    return getStageDataElements(category).some((id) => !ids.includes(id))
+    return getStageDataElements(category).some((id) => !ids.has(id))
 }
 
 // A metadata update replaces the whole program, so the org units assigned
@@ -72,13 +79,22 @@ const chunk = (list, size) =>
         list.slice(i * size, (i + 1) * size)
     )
 
+// Runs async tasks one after the other, in order
+const runInSequence = (tasks) =>
+    tasks.reduce(
+        (previous, task) =>
+            previous.then(async (results) => [...results, await task()]),
+        Promise.resolve([])
+    )
+
 // Runs the requests a few at a time
 const runLimited = async (tasks, limit = PARALLEL_REQUESTS) => {
-    const results = []
-    for (const batch of chunk(tasks, limit)) {
-        results.push(...(await Promise.all(batch.map((task) => task()))))
-    }
-    return results
+    const batches = await runInSequence(
+        chunk(tasks, limit).map(
+            (batch) => () => Promise.all(batch.map((task) => task()))
+        )
+    )
+    return batches.flat()
 }
 
 /**
@@ -137,31 +153,35 @@ export const ensureProgramOrgUnits = async (engine, programId, orgUnitIds) => {
     }
 }
 
-// Events of the org unit and its descendants (or another orgUnitMode), all pages
+// Events of the org unit and its descendants (or another orgUnitMode), all
+// pages from the given one
 export const fetchOsmEvents = async (
     engine,
-    { programId, orgUnitId, orgUnitMode = 'DESCENDANTS' }
+    { programId, orgUnitId, orgUnitMode = 'DESCENDANTS' },
+    page = 1
 ) => {
-    const events = []
-    for (let page = 1; ; page++) {
-        const { result } = await engine.query({
-            result: {
-                resource: 'tracker/events',
-                params: {
-                    program: programId,
-                    orgUnit: orgUnitId,
-                    orgUnitMode,
-                    page,
-                    pageSize: PAGE_SIZE,
-                    fields: EVENT_FIELDS,
-                },
+    const { result } = await engine.query({
+        result: {
+            resource: 'tracker/events',
+            params: {
+                program: programId,
+                orgUnit: orgUnitId,
+                orgUnitMode,
+                page,
+                pageSize: PAGE_SIZE,
+                fields: EVENT_FIELDS,
             },
-        })
-        events.push(...result.events)
-        if (result.events.length < PAGE_SIZE) {
-            return events
-        }
+        },
+    })
+    if (result.events.length < PAGE_SIZE) {
+        return result.events
     }
+    const next = await fetchOsmEvents(
+        engine,
+        { programId, orgUnitId, orgUnitMode },
+        page + 1
+    )
+    return [...result.events, ...next]
 }
 
 /**
@@ -213,30 +233,30 @@ const sumStats = (responses) =>
         { created: 0, updated: 0, deleted: 0, ignored: 0 }
     )
 
-// Creates and updates in chunks, returns summed stats
-export const importOsmEvents = async (engine, events) => {
-    const responses = []
-    for (const eventsChunk of chunk(events, WRITE_CHUNK_SIZE)) {
-        responses.push(
-            await importChunk(engine, eventsChunk, 'CREATE_AND_UPDATE')
-        )
-    }
-    return sumStats(responses)
-}
-
-export const deleteOsmEvents = async (engine, eventIds) => {
-    const responses = []
-    for (const idsChunk of chunk([...new Set(eventIds)], WRITE_CHUNK_SIZE)) {
-        responses.push(
-            await importChunk(
-                engine,
-                idsChunk.map((event) => ({ event })),
-                'DELETE'
+// Creates and updates in chunks, one after the other, returns summed stats
+export const importOsmEvents = async (engine, events) =>
+    sumStats(
+        await runInSequence(
+            chunk(events, WRITE_CHUNK_SIZE).map(
+                (eventsChunk) => () =>
+                    importChunk(engine, eventsChunk, 'CREATE_AND_UPDATE')
             )
         )
-    }
-    return sumStats(responses)
-}
+    )
+
+export const deleteOsmEvents = async (engine, eventIds) =>
+    sumStats(
+        await runInSequence(
+            chunk([...new Set(eventIds)], WRITE_CHUNK_SIZE).map(
+                (idsChunk) => () =>
+                    importChunk(
+                        engine,
+                        idsChunk.map((event) => ({ event })),
+                        'DELETE'
+                    )
+            )
+        )
+    )
 
 // Names only, for the feature profile
 export const fetchOrgUnitNames = async (engine, ids) => {
