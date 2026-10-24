@@ -107,5 +107,9 @@
     "cypress/integration/layers/trackedentitylayer.cy.js": {
         "include": true,
         "duration": 38
+    },
+    "cypress/integration/layers/eventCoordinateFallbackScenarios.cy.js": {
+        "include": false,
+        "note": "yarn cypress run --spec cypress/integration/layers/eventCoordinateFallbackScenarios.cy.js"
     }
 }

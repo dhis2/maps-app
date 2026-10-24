@@ -4,12 +4,20 @@ import {
     USER_ORG_UNIT_GRANDCHILDREN,
 } from '@dhis2/analytics'
 import { WARNING_OU_BOUNDARIES_FETCH_FAILED } from '../../constants/alerts.js'
+import {
+    EVENT_COORDINATE_CASCADING,
+    COORDINATE_FIELD_NAMES,
+} from '../../constants/layers.js'
 import { getUserOrgUnitIdsByKeyword } from '../../util/orgUnits.js'
 import {
     GEOFEATURES_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
-import { excludeEventsOutsideOrgUnits } from '../eventLoader.js'
+import {
+    excludeEventsOutsideOrgUnits,
+    isUnsupportedFallbackField,
+    getGeometrySourceNames,
+} from '../eventLoader.js'
 
 // [0,0]-[10,10]
 const SQUARE_A = [
@@ -727,5 +735,107 @@ describe('excludeEventsOutsideOrgUnits', () => {
         })
 
         expect(config.legend.orgUnitsWithoutBoundaryCount).toBeUndefined()
+    })
+})
+
+describe('isUnsupportedFallbackField', () => {
+    test('an ORGANISATION_UNIT-type field is unsupported pre-2.44', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'ORGANISATION_UNIT' },
+                {
+                    minor: 43,
+                }
+            )
+        ).toBe(true)
+    })
+
+    test('an ORGANISATION_UNIT-type field is supported on 2.44+', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'ORGANISATION_UNIT' },
+                {
+                    minor: 44,
+                }
+            )
+        ).toBe(false)
+    })
+
+    test('a COORDINATE-type field is always supported', () => {
+        expect(
+            isUnsupportedFallbackField(
+                { valueType: 'COORDINATE' },
+                {
+                    minor: 43,
+                }
+            )
+        ).toBe(false)
+    })
+
+    test('an unresolved field (undefined) is treated as supported', () => {
+        expect(isUnsupportedFallbackField(undefined, { minor: 43 })).toBe(false)
+    })
+})
+
+describe('getGeometrySourceNames', () => {
+    test('includes the built-in source names by default', () => {
+        expect(getGeometrySourceNames({})).toEqual(COORDINATE_FIELD_NAMES)
+    })
+
+    test('adds the main coordinate field name when it is a custom field', () => {
+        const names = getGeometrySourceNames({
+            eventCoordinateField: 'customDataElement1',
+            coordinateField: { name: 'My custom field' },
+        })
+
+        expect(names).toEqual({
+            ...COORDINATE_FIELD_NAMES,
+            customDataElement1: 'My custom field',
+        })
+    })
+
+    test('adds the fallback field name when it is a custom field', () => {
+        const names = getGeometrySourceNames({
+            eventCoordinateFieldFallback: 'customDataElement2',
+            fallbackField: { name: 'My fallback field' },
+        })
+
+        expect(names).toEqual({
+            ...COORDINATE_FIELD_NAMES,
+            customDataElement2: 'My fallback field',
+        })
+    })
+
+    test('adds both custom main and fallback field names', () => {
+        const names = getGeometrySourceNames({
+            eventCoordinateField: 'customDataElement1',
+            coordinateField: { name: 'My custom field' },
+            eventCoordinateFieldFallback: 'customDataElement2',
+            fallbackField: { name: 'My fallback field' },
+        })
+
+        expect(names).toEqual({
+            ...COORDINATE_FIELD_NAMES,
+            customDataElement1: 'My custom field',
+            customDataElement2: 'My fallback field',
+        })
+    })
+
+    test('excludes the fallback field id when it is cascading', () => {
+        const names = getGeometrySourceNames({
+            eventCoordinateFieldFallback: EVENT_COORDINATE_CASCADING,
+            fallbackField: null,
+        })
+
+        expect(names).toEqual(COORDINATE_FIELD_NAMES)
+    })
+
+    test('does not add an entry when the custom field could not be resolved', () => {
+        const names = getGeometrySourceNames({
+            eventCoordinateField: 'deletedDataElement',
+            coordinateField: undefined,
+        })
+
+        expect(names).toEqual(COORDINATE_FIELD_NAMES)
     })
 })

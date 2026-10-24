@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { qualitativeColors } from './colors.js'
 
 export const VECTOR_STYLE = 'vectorStyle'
 export const TILE_LAYER = 'tileLayer'
@@ -108,11 +109,18 @@ export const EVENT_COORDINATE_ORG_UNIT = 'ougeometry'
 export const EVENT_COORDINATE_ENROLLMENT = 'pigeometry'
 export const EVENT_COORDINATE_TRACKED_ENTITY = 'teigeometry'
 export const EVENT_COORDINATE_CASCADING = 'cascading'
+export const EVENT_COORDINATE_GEOMETRY_SOURCE = 'geometrySource'
 export const COORDINATE_FIELD_NAMES = {
     [EVENT_COORDINATE_DEFAULT]: i18n.t('Event location'),
     [EVENT_COORDINATE_ORG_UNIT]: i18n.t('Organisation unit location'),
     [EVENT_COORDINATE_ENROLLMENT]: i18n.t('Enrollment location'),
     [EVENT_COORDINATE_TRACKED_ENTITY]: i18n.t('Tracked entity location'),
+}
+export const GEOMETRY_SOURCE_COLORS = {
+    [EVENT_COORDINATE_DEFAULT]: qualitativeColors[0],
+    [EVENT_COORDINATE_ENROLLMENT]: qualitativeColors[1],
+    [EVENT_COORDINATE_TRACKED_ENTITY]: qualitativeColors[2],
+    [EVENT_COORDINATE_ORG_UNIT]: qualitativeColors[10],
 }
 export const EVENT_CENTROID_DEFAULT = [
     EVENT_COORDINATE_DEFAULT,

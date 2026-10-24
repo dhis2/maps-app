@@ -7,6 +7,7 @@ import {
     THEMATIC_CHOROPLETH,
     EE_BUFFER,
     NONE,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
 } from '../../constants/layers.js'
 import { START_END_DATES } from '../../constants/periods.js'
 import {
@@ -75,12 +76,13 @@ describe('layerEdit reducer', () => {
             expect(result.countFeaturesWithoutCoordinates).toBe(true)
         })
 
-        it('resets columns/programStage/styleDataItem/labelDataItem when the program changes', () => {
+        it('resets columns/programStage/styleDataItem/labelDataItem/hasTrackedEntityType when the program changes', () => {
             const state = {
                 columns: [{ dimension: 'dx' }],
                 programStage: { id: 'stage1' },
                 styleDataItem: { id: 'sd1' },
                 labelDataItem: { id: 'ld1' },
+                hasTrackedEntityType: true,
             }
 
             const result = layerEdit(state, {
@@ -95,7 +97,34 @@ describe('layerEdit reducer', () => {
                 programStage: null,
                 styleDataItem: null,
                 labelDataItem: null,
+                hasTrackedEntityType: null,
             })
+        })
+
+        it("resets hasTrackedEntityType to null pending the new program's TEI query, closing the stale-cascade window", () => {
+            const afterProgramChange = layerEdit(
+                {
+                    hasTrackedEntityType: true,
+                    eventCoordinateField: 'psigeometry',
+                    eventCoordinateFieldFallback: 'cascading',
+                },
+                {
+                    type: types.LAYER_EDIT_PROGRAM_SET,
+                    program: { id: 'prog2' },
+                }
+            )
+
+            expect(afterProgramChange.hasTrackedEntityType).toBe(null)
+
+            const afterStyleSet = layerEdit(afterProgramChange, {
+                type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
+                dataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+            })
+
+            expect(Object.keys(afterStyleSet.styleDataItem.values)).toEqual([
+                'psigeometry',
+                'ougeometry',
+            ])
         })
 
         it('sets program to null when the program is cleared', () => {
@@ -462,6 +491,27 @@ describe('layerEdit reducer', () => {
             expect(result.styleDataItem).toBe(dataItem)
         })
 
+        it('populates styleDataItem.values immediately when geometry source is selected', () => {
+            const result = layerEdit(
+                {
+                    eventCoordinateField: 'customDataElement1',
+                    eventCoordinateFieldFallback: 'customDataElement2',
+                },
+                {
+                    type: types.LAYER_EDIT_STYLE_DATA_ITEM_SET,
+                    dataItem: {
+                        id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                        name: 'Geometry source',
+                    },
+                }
+            )
+
+            expect(result.styleDataItem.values).toEqual({
+                customDataElement1: expect.any(String),
+                customDataElement2: expect.any(String),
+            })
+        })
+
         it('sets option-set options and clears method/classes/colorScale', () => {
             const state = {
                 method: CLASSIFICATION_EQUAL_INTERVALS,
@@ -812,29 +862,189 @@ describe('layerEdit reducer', () => {
             expect(result.eventCoordinateFieldType).toBe('COORDINATE')
         })
 
-        describe('LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET', () => {
-            it('deletes fallbackCoordinateField when set to NONE', () => {
+        describe('LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET', () => {
+            it('deletes eventCoordinateFieldFallback when set to NONE', () => {
                 const result = layerEdit(
-                    { fallbackCoordinateField: 'field1' },
+                    { eventCoordinateFieldFallback: 'field1' },
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: NONE,
                     }
                 )
 
-                expect(result.fallbackCoordinateField).toBeUndefined()
+                expect(result.eventCoordinateFieldFallback).toBeUndefined()
             })
 
-            it('sets fallbackCoordinateField for any other value', () => {
+            it('sets eventCoordinateFieldFallback for any other value', () => {
                 const result = layerEdit(
                     {},
                     {
-                        type: types.LAYER_EDIT_FALLBACK_COORDINATE_FIELD_SET,
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
                         fieldId: 'field1',
                     }
                 )
 
-                expect(result.fallbackCoordinateField).toBe('field1')
+                expect(result.eventCoordinateFieldFallback).toBe('field1')
+            })
+
+            it('leaves styleDataItem and labelDataItem set to geometry source when fallback is cleared', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateFieldFallback: 'field1',
+                        styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                        labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+                        fieldId: NONE,
+                    }
+                )
+
+                expect(result.styleDataItem.id).toBe(
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                )
+                expect(result.labelDataItem).toEqual({
+                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                })
+            })
+
+            it('leaves unrelated styleDataItem and labelDataItem untouched when fallback is cleared', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateFieldFallback: 'field1',
+                        styleDataItem: { id: 'someOtherField' },
+                        labelDataItem: { id: 'someOtherField' },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+                        fieldId: NONE,
+                    }
+                )
+
+                expect(result.styleDataItem).toEqual({ id: 'someOtherField' })
+                expect(result.labelDataItem).toEqual({ id: 'someOtherField' })
+            })
+
+            it('leaves styleDataItem and labelDataItem set to geometry source untouched when fallback is changed (not cleared)', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateFieldFallback: 'field1',
+                        styleDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                        labelDataItem: { id: EVENT_COORDINATE_GEOMETRY_SOURCE },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+                        fieldId: 'cascading',
+                    }
+                )
+
+                expect(result.styleDataItem.id).toBe(
+                    EVENT_COORDINATE_GEOMETRY_SOURCE
+                )
+                expect(result.labelDataItem).toEqual({
+                    id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                })
+            })
+
+            it('syncs styleDataItem.values to the new fallback when styling by geometry source', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateField: 'ougeometry',
+                        eventCoordinateFieldFallback: 'field1',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: { ougeometry: '#111', field1: '#222' },
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+                        fieldId: 'field2',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem.values).toEqual(
+                    expect.objectContaining({
+                        ougeometry: '#111',
+                        field2: expect.any(String),
+                    })
+                )
+                expect(result.styleDataItem.values.field1).toBeUndefined()
+            })
+        })
+
+        describe('LAYER_EDIT_EVENT_COORDINATE_FIELD_SET', () => {
+            it('leaves styleDataItem untouched when not styling by geometry source', () => {
+                const result = layerEdit(
+                    { styleDataItem: { id: 'someOtherField' } },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
+                        fieldId: 'field1',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem).toEqual({ id: 'someOtherField' })
+            })
+
+            it('syncs styleDataItem.values to the new main field when styling by geometry source', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateField: 'ougeometry',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: { ougeometry: '#111' },
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_SET,
+                        fieldId: 'field1',
+                        fieldType: 'COORDINATE',
+                    }
+                )
+
+                expect(result.styleDataItem.values).toEqual({
+                    field1: expect.any(String),
+                })
+            })
+        })
+
+        describe('LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET', () => {
+            it('sets hasTrackedEntityType', () => {
+                const result = layerEdit(
+                    {},
+                    {
+                        type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+                        value: true,
+                    }
+                )
+
+                expect(result.hasTrackedEntityType).toBe(true)
+            })
+
+            it('syncs styleDataItem.values when styling by geometry source (cascading, TEI type resolved)', () => {
+                const result = layerEdit(
+                    {
+                        eventCoordinateFieldFallback: 'cascading',
+                        styleDataItem: {
+                            id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                            values: {},
+                        },
+                    },
+                    {
+                        type: types.LAYER_EDIT_HAS_TRACKED_ENTITY_TYPE_SET,
+                        value: true,
+                    }
+                )
+
+                expect(Object.keys(result.styleDataItem.values)).toEqual(
+                    expect.arrayContaining([
+                        'pigeometry',
+                        'psigeometry',
+                        'teigeometry',
+                        'ougeometry',
+                    ])
+                )
             })
         })
 
@@ -1322,5 +1532,36 @@ describe('layerEdit reducer', () => {
         const state = { id: 'layer1' }
 
         expect(layerEdit(state, { type: 'UNKNOWN' })).toBe(state)
+    })
+
+    it('sets eventCoordinateFieldFallback and eventCoordinateFieldFallbackType together', () => {
+        const result = layerEdit(
+            {},
+            {
+                type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+                fieldId: 'deId123456',
+                fieldType: 'ORGANISATION_UNIT',
+            }
+        )
+
+        expect(result.eventCoordinateFieldFallback).toBe('deId123456')
+        expect(result.eventCoordinateFieldFallbackType).toBe(
+            'ORGANISATION_UNIT'
+        )
+    })
+
+    it('clears eventCoordinateFieldFallback and eventCoordinateFieldFallbackType when set to none', () => {
+        const state = {
+            eventCoordinateFieldFallback: 'deId123456',
+            eventCoordinateFieldFallbackType: 'ORGANISATION_UNIT',
+        }
+
+        const result = layerEdit(state, {
+            type: types.LAYER_EDIT_EVENT_COORDINATE_FIELD_FALLBACK_SET,
+            fieldId: 'none',
+        })
+
+        expect(result.eventCoordinateFieldFallback).toBeUndefined()
+        expect(result.eventCoordinateFieldFallbackType).toBeUndefined()
     })
 })

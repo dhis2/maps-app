@@ -1,4 +1,12 @@
-import { EVENT_COLOR, EVENT_RADIUS } from '../../constants/layers.js'
+import { qualitativeColors } from '../../constants/colors.js'
+import {
+    EVENT_COLOR,
+    EVENT_RADIUS,
+    EVENT_COORDINATE_GEOMETRY_SOURCE,
+    EVENT_COORDINATE_ORG_UNIT,
+    EVENT_COORDINATE_CASCADING,
+    GEOMETRY_SOURCE_COLORS,
+} from '../../constants/layers.js'
 import {
     numberValueTypes,
     booleanValueTypes,
@@ -603,6 +611,242 @@ describe('styleByDataItem', () => {
             value: NOTSET_VALUE,
             color: '#aaaaaa',
         })
+    })
+
+    it('should resolve geometrySource names from config.geometrySourceNames', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red', abcDataElementUid1: 'blue' },
+            },
+            eventCoordinateField: 'abcDataElementUid1',
+            eventCoordinateFieldFallback: 'ougeometry',
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+                abcDataElementUid1: 'My custom field',
+            },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]:
+                            'abcDataElementUid1',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
+        })
+        expect(result.data[1].properties).toMatchObject({
+            value: 'My custom field',
+            color: 'blue',
+        })
+        expect(result.legend.items).toEqual(
+            expect.arrayContaining([
+                expect.objectContaining({
+                    name: 'Organisation unit location',
+                    sourceId: 'ougeometry',
+                }),
+                expect.objectContaining({
+                    name: 'My custom field',
+                    sourceId: 'abcDataElementUid1',
+                }),
+            ])
+        )
+    })
+
+    it('should fall back to COORDINATE_FIELD_NAMES for built-in sources when config.geometrySourceNames is absent', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red' },
+            },
+            eventCoordinateField: 'ougeometry',
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
+        })
+    })
+
+    it('should default geometrySource to the main coordinate field when no fallback is configured', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: { ougeometry: 'red' },
+            },
+            eventCoordinateField: 'ougeometry',
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+            },
+            data: [
+                { properties: {} }, // no fallback configured - backend never sends geometrySource
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.data[0].properties).toMatchObject({
+            value: 'Organisation unit location',
+            color: 'red',
+        })
+    })
+
+    it('should exclude stale styleDataItem.values entries no longer present in the data', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: {
+                    ougeometry: 'red',
+                    abcDataElementUid1: 'blue',
+                },
+            },
+            eventCoordinateField: 'ougeometry',
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+            },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.legend.items).toHaveLength(1)
+        expect(result.legend.items[0]).toMatchObject({
+            sourceId: 'ougeometry',
+            name: 'Organisation unit location',
+        })
+    })
+
+    it('should order the legend with the main field first, then fallback in cascading order', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: {
+                    ougeometry: 'c1',
+                    teigeometry: 'c2',
+                    psigeometry: 'c3',
+                    pigeometry: 'c4',
+                    customDataElement1: 'c5',
+                },
+            },
+            eventCoordinateField: 'customDataElement1',
+            eventCoordinateFieldFallback: EVENT_COORDINATE_CASCADING,
+            hasTrackedEntityType: true,
+            geometrySourceNames: {
+                customDataElement1: 'My custom field',
+            },
+            data: [],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.legend.items.map((i) => i.sourceId)).toEqual([
+            'customDataElement1',
+            'psigeometry',
+            'pigeometry',
+            'teigeometry',
+            'ougeometry',
+        ])
+    })
+
+    it('should give a source missing from styleDataItem.values a default color without adding a legend entry', async () => {
+        const config = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: {},
+            },
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+            },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+            ],
+            legend: { items: [] },
+        }
+
+        const result = await styleByDataItem(config)
+
+        expect(result.legend.items).toHaveLength(0)
+        expect(result.data[0].properties.color).toBe(
+            GEOMETRY_SOURCE_COLORS[EVENT_COORDINATE_ORG_UNIT]
+        )
+    })
+
+    it('should assign a source the same color regardless of which other sources are present', async () => {
+        const baseConfig = {
+            styleDataItem: {
+                id: EVENT_COORDINATE_GEOMETRY_SOURCE,
+                values: {},
+            },
+            eventCoordinateField: 'customDataElement1',
+            geometrySourceNames: {
+                customDataElement1: 'My custom field',
+            },
+        }
+
+        const resultAlone = await styleByDataItem({
+            ...baseConfig,
+            legend: { items: [] },
+            data: [{ properties: {} }], // resolves to customDataElement1 (no fallback)
+        })
+        const resultAlongsideOthers = await styleByDataItem({
+            ...baseConfig,
+            legend: { items: [] },
+            data: [
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'ougeometry',
+                    },
+                },
+                {
+                    properties: {
+                        [EVENT_COORDINATE_GEOMETRY_SOURCE]: 'pigeometry',
+                    },
+                },
+                { properties: {} }, // resolves to customDataElement1
+            ],
+        })
+
+        const colorAlone = resultAlone.data[0].properties.color
+        const colorAlongsideOthers =
+            resultAlongsideOthers.data[2].properties.color
+
+        expect(colorAlone).toBe(colorAlongsideOthers)
+        expect(qualitativeColors).toContain(colorAlone)
     })
 
     it('should include unclassified and no-data events when configured (option set)', async () => {
