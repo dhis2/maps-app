@@ -140,14 +140,7 @@ const Map = forwardRef((props, ref) => {
     }
 
     if (!mapIsLoaded) {
-        const layersToLoad = layers.current.filter(
-            (config) => !config.isLoaded && !config.isLoading
-        )
-        layers.current = layers.current.map((layer) =>
-            layersToLoad.find((l) => l.id === layer.id)
-                ? { ...layer, isLoading: true }
-                : layer
-        )
+        const layersToLoad = layers.current.filter((config) => !config.isLoaded)
         return (
             <CenteredContent>
                 <CircularLoader />

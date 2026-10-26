@@ -1,7 +1,7 @@
 import { Analytics, useDataOutputPeriodTypes } from '@dhis2/analytics'
 import { useDataEngine, useConfig } from '@dhis2/app-runtime'
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { THEMATIC_LAYER, EVENT_LAYER } from '../../constants/layers.js'
 import earthEngineLoader from '../../loaders/earthEngineLoader.js'
 import eventLoader from '../../loaders/eventLoader.js'
@@ -38,6 +38,7 @@ const LayerLoader = ({ config, onLoad }) => {
         userOrgUnitIdsByKeyword,
     } = currentUser
     const periodTypeData = useDataOutputPeriodTypes()
+    const loadedConfig = useRef(null)
 
     useEffect(() => {
         if (
@@ -47,6 +48,11 @@ const LayerLoader = ({ config, onLoad }) => {
         ) {
             return
         }
+        // Loaders mutate config, so never load the same object twice
+        if (loadedConfig.current === config) {
+            return
+        }
+        loadedConfig.current = config
         const loader = loaders[config.layer]
         loader({
             config,
