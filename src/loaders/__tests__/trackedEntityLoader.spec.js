@@ -363,7 +363,7 @@ describe('trackedEntityLoader result', () => {
                 explanation: ['Program status: Completed'],
             },
         })
-        expect((await result).alerts).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 
     it('names the layer after the type without a program', async () => {
@@ -397,16 +397,49 @@ describe('trackedEntityLoader result', () => {
         expect((await result).data).toEqual([])
     })
 
-    it('rejects when the request fails', async () => {
+    it('finishes loading with an error when the request fails', async () => {
         const engine = { query: jest.fn().mockRejectedValue(new Error('Boom')) }
 
-        await expect(
-            trackedEntityLoader({
-                config: { ...baseConfig },
-                engine,
-                serverVersion: v41,
-            })
-        ).rejects.toThrow('Boom')
+        const result = await trackedEntityLoader({
+            config: { ...baseConfig },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result).toMatchObject({
+            data: [],
+            loadError: 'Boom',
+            alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            isLoaded: true,
+            isLoading: false,
+        })
+    })
+
+    it('finishes loading with an error for a layer without dates', async () => {
+        const { engine, result } = load({
+            config: { startDate: undefined, endDate: undefined },
+        })
+
+        expect(await result).toMatchObject({
+            data: [],
+            alerts: [{ code: 'ERROR_CRITICAL' }],
+            isLoaded: true,
+        })
+        expect((await result).loadError).toBeDefined()
+        expect(engine.query).not.toHaveBeenCalled()
+    })
+
+    it('clears the alerts and error of a previous load', async () => {
+        const { result } = load({
+            config: {
+                loadError: 'Boom',
+                alerts: [{ code: 'ERROR_CRITICAL', message: 'Boom' }],
+            },
+            instances: [point('te1')],
+        })
+
+        expect((await result).loadError).toBeUndefined()
+        expect((await result).alerts).toEqual([])
     })
 })
 
@@ -428,6 +461,12 @@ describe('trackedEntityLoader relationships', () => {
         bidirectional: false,
         from: { trackedEntity: { trackedEntity: 'te1' } },
         to: { trackedEntity: { trackedEntity: 'te2' } },
+    }
+    const unsupportedWarning = {
+        warning: true,
+        code: 'CUSTOM_ALERT',
+        message:
+            'Malaria case: Only relationships between tracked entities are supported',
     }
     const withRelationships = (instance) => ({
         ...instance,
@@ -486,6 +525,7 @@ describe('trackedEntityLoader relationships', () => {
     it('returns the relationships and the related instances', async () => {
         const { result } = await loadWithRelationships()
 
+        expect(result.alerts).toEqual([])
         expect(result.relationships).toEqual([
             expect.objectContaining({ id: 'rel1', bidirectional: false }),
         ])
@@ -590,7 +630,7 @@ describe('trackedEntityLoader relationships', () => {
         }
     )
 
-    it('shows the tracked entities for a relationship to events', async () => {
+    it('shows the tracked entities with a warning for a relationship to events', async () => {
         const engine = {
             query: jest
                 .fn()
@@ -625,6 +665,47 @@ describe('trackedEntityLoader relationships', () => {
         expect(result.relationships).toEqual([])
         expect(result.secondaryData).toEqual([])
         expect(result.legend.items).toHaveLength(1)
+        expect(result.alerts).toEqual([unsupportedWarning])
+    })
+
+    it('warns for a relationship from events to tracked entities', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        ...relationshipType,
+                        fromConstraint: {
+                            relationshipEntity: 'PROGRAM_STAGE_INSTANCE',
+                        },
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Contact person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.relationships).toEqual([])
+        expect(result.alerts).toEqual([unsupportedWarning])
     })
 
     it('requests the relationships of each tracked entity', async () => {
@@ -635,5 +716,41 @@ describe('trackedEntityLoader relationships', () => {
             'geometry',
             'relationships',
         ])
+    })
+
+    it('shows the tracked entities with a warning when a relationship request fails', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce(
+                    trackerResponse(v41, [withRelationships(point('te1'))])
+                )
+                .mockRejectedValueOnce(new Error('Not found')),
+        }
+
+        const result = await trackedEntityLoader({
+            config: {
+                ...baseConfig,
+                program,
+                config: JSON.stringify({
+                    relationships: { type: 'relType1' },
+                }),
+            },
+            engine,
+            serverVersion: v41,
+        })
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.alerts).toEqual([
+            {
+                warning: true,
+                code: 'CUSTOM_ALERT',
+                message: 'Malaria case: Relationships could not be loaded',
+            },
+        ])
+        expect(result.loadError).toBeUndefined()
+        expect(result.relationships).toBeUndefined()
+        expect(result.secondaryData).toBeUndefined()
+        expect(result.legend.items).toHaveLength(1)
     })
 })
