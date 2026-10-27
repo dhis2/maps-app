@@ -5,7 +5,11 @@ import React from 'react'
 import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const CloseControl = ({ onClick }) => (
-    <ToolbarIconButton tooltip={i18n.t('Close')} onClick={onClick}>
+    <ToolbarIconButton
+        tooltip={i18n.t('Close')}
+        ariaLabel={i18n.t('Close')}
+        onClick={onClick}
+    >
         <IconCross16 />
     </ToolbarIconButton>
 )
