@@ -1,50 +1,55 @@
-/* !important beats core/IconButton's own 28px/grey700/grey200-hover defaults. */
-.toolbarIconButton {
-    width: 24px !important;
-    height: 24px !important;
-    padding: 0 !important;
-    border-radius: 3px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+/* The button prefix outranks core/IconButton's own .iconButton rules. */
+button.toolbarIconButton {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     flex-shrink: 0;
 }
 
-.toolbarIconButton svg {
-    color: var(--colors-grey800) !important;
+button.toolbarIconButton svg {
+    color: var(--colors-grey800);
 }
 
-.toolbarIconButton > span {
-    display: flex !important;
+/* The button prefix also outranks @dhis2/ui's own Tooltip span display. */
+button.toolbarIconButton > span {
+    display: flex;
     align-items: center;
     justify-content: center;
     line-height: 0;
 }
 
-.toolbarIconButton:not(:disabled):hover {
-    background-color: var(--colors-grey300) !important;
+button.toolbarIconButton:not(:disabled):hover {
+    background-color: var(--colors-grey300);
 }
 
-.toolbarIconButton:not(:disabled):hover svg {
-    color: var(--colors-grey900) !important;
+button.toolbarIconButton:not(:disabled):hover svg {
+    color: var(--colors-grey900);
 }
 
-.toolbarIconButton:disabled {
+button.toolbarIconButton:disabled {
     cursor: not-allowed;
 }
 
-.toolbarIconButton:disabled svg {
-    color: var(--colors-grey400) !important;
+button.toolbarIconButton:disabled svg {
+    color: var(--colors-grey400);
 }
 
-.active {
-    background-color: var(--colors-blue100) !important;
+button.toolbarIconButton.active {
+    background-color: var(--colors-blue100);
 }
 
-.active svg {
-    color: var(--colors-blue700) !important;
+button.toolbarIconButton.active:not(:disabled) svg {
+    color: var(--colors-blue700);
 }
 
-.active:hover {
-    background-color: var(--colors-blue200) !important;
+button.toolbarIconButton.active:not(:disabled):hover {
+    background-color: var(--colors-blue200);
+}
+
+button.toolbarIconButton.active:not(:disabled):hover svg {
+    color: var(--colors-blue700);
 }
