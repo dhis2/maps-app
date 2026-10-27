@@ -314,6 +314,10 @@ const Table = ({ availableWidth, onCountChange }) => {
                                         <button
                                             type="button"
                                             className={styles.sortButton}
+                                            aria-label={i18n.t(
+                                                'Sort by {{column}}',
+                                                { column: name }
+                                            )}
                                             data-test={`data-table-column-sort-button-${name}`}
                                             onClick={() =>
                                                 sortData({ name: dataKey })
