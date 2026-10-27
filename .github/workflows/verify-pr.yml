@@ -38,8 +38,8 @@ jobs:
             - name: Build
               run: yarn d2-app-scripts build
 
-            - name: Check the RTL text plugin is in the build
-              run: ls build/app/assets/mapbox-gl-rtl-text-*.js
+            - name: Check the build includes the files maps-gl loads by URL
+              run: ls build/app/assets/ee_worker-*.js build/app/assets/mapbox-gl-rtl-text-*.js
 
             - uses: actions/upload-artifact@v7
               with:
