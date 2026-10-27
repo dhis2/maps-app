@@ -7,6 +7,7 @@ import ToolbarIconButton from './ToolbarIconButton.jsx'
 const CollapseControl = ({ isCollapsed, onClick }) => (
     <ToolbarIconButton
         tooltip={isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')}
+        ariaLabel={isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')}
         onClick={onClick}
     >
         {isCollapsed ? <IconChevronUp16 /> : <IconChevronDown16 />}
