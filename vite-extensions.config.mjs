@@ -5,7 +5,7 @@ import path from 'node:path'
 const HOST_PAGE_ROUTE = '/plugin-host.html'
 const HOST_PAGE_DIR = 'src/pluginHost'
 
-// Resolved through symlinks, so it's outside this folder when maps-gl is linked
+// Where maps-gl is installed: outside this repo when linked with `yarn link`
 const MAPS_GL_DIR = path.dirname(
     createRequire(import.meta.url).resolve('@dhis2/maps-gl/package.json')
 )
@@ -110,8 +110,8 @@ export default {
     },
     server: {
         fs: {
-            // Outside this folder, Vite only serves the maps-gl files that are
-            // imported, but MapLibre's workers load the RTL text plugin by URL
+            // Lets the dev server serve maps-gl files loaded by URL rather
+            // than imported, like the RTL text plugin
             allow: [MAPS_GL_DIR],
         },
     },
