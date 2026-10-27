@@ -22,9 +22,9 @@
     box-shadow: var(--elevations-popover);
 }
 
-/* !important beats @dhis2/ui's own Checkbox label font-size. */
-.selectionFilterPopover :global(label) {
-    font-size: 11px !important;
+/* The div prefix outranks @dhis2/ui's own Checkbox label font-size. */
+div.selectionFilterPopover :global(label) {
+    font-size: 11px;
 }
 
 .denseCheckbox {
