@@ -3,6 +3,7 @@ import React from 'react'
 
 export const SortIcon = ({ direction }) => (
     <svg
+        aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         width="16"
         height="16"
@@ -37,6 +38,7 @@ SortIcon.propTypes = {
 // Magnifying glass with a + sign inside the lens — "zoom to feature"
 export const IconZoomIn16 = () => (
     <svg
+        aria-hidden="true"
         height="16"
         viewBox="0 0 16 16"
         width="16"
@@ -51,6 +53,7 @@ export const IconZoomIn16 = () => (
 
 export const IconDrag = () => (
     <svg
+        aria-hidden="true"
         height="8"
         viewBox="0 0 15 8"
         width="15"
