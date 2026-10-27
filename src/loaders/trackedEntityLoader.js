@@ -16,8 +16,9 @@ import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
 import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    createTrackedEntityFeatures,
     getTrackerMaxLimit,
+    canLoadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromAnalytics,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
@@ -115,6 +116,29 @@ const getLegend = ({
     return legend
 }
 
+const getTruncatedMessage = (result, keyAnalysisDigitGroupSeparator) => {
+    const limit = formatWithSeparator(
+        result.limit,
+        keyAnalysisDigitGroupSeparator
+    )
+
+    // Only analytics returns the total
+    if (!result.total) {
+        return i18n.t('Displaying first {{limit}} tracked entities', { limit })
+    }
+
+    return i18n.t(
+        'Displaying first {{limit}} tracked entities out of {{total}}',
+        {
+            limit,
+            total: formatWithSeparator(
+                result.total,
+                keyAnalysisDigitGroupSeparator
+            ),
+        }
+    )
+}
+
 // One alert for all warnings: a layer only shows its last custom warning
 const getWarningAlerts = (name, warnings) =>
     warnings.length
@@ -130,6 +154,7 @@ const getWarningAlerts = (name, warnings) =>
 const trackedEntityLoader = async ({
     config,
     engine,
+    analyticsEngine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
     KeyTrackedEntityInstanceMaxLimit,
@@ -176,33 +201,36 @@ const trackedEntityLoader = async ({
             { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
             serverVersion
         )
-        const { instances, trackerParams, isTruncated, limit } =
-            await loadTrackedEntitiesFromTracker({
-                config,
-                engine,
-                serverVersion,
-                maxLimit,
-            })
+        const result = canLoadTrackedEntitiesFromAnalytics(
+            config,
+            serverVersion
+        )
+            ? await loadTrackedEntitiesFromAnalytics({
+                  config,
+                  analyticsEngine,
+                  serverVersion,
+              })
+            : await loadTrackedEntitiesFromTracker({
+                  config,
+                  engine,
+                  serverVersion,
+                  maxLimit,
+              })
+        data = result.data
 
-        if (isTruncated) {
+        // At the tracker API limit or the analytics page size
+        if (result.isTruncated) {
             warnings.push(
-                i18n.t('Displaying first {{limit}} tracked entities', {
-                    limit: formatWithSeparator(
-                        limit,
-                        keyAnalysisDigitGroupSeparator
-                    ),
-                })
+                getTruncatedMessage(result, keyAnalysisDigitGroupSeparator)
             )
         }
 
-        if (!instances.length) {
+        if (!data.length) {
             alerts.push({
                 code: WARNING_NO_DATA,
                 message: trackedEntityType.name,
             })
         }
-
-        data = createTrackedEntityFeatures(instances)
 
         if (relationshipTypeID) {
             // The tracked entities are still shown when this fails
@@ -210,10 +238,11 @@ const trackedEntityLoader = async ({
                 config,
                 engine,
                 serverVersion,
-                instances,
-                trackerParams,
+                // Relationship layers always load from the tracker API
+                instances: result.instances,
+                trackerParams: result.trackerParams,
                 maxLimit,
-                isSourceTruncated: isTruncated,
+                isSourceTruncated: result.isTruncated,
             }).catch(() => {
                 warnings.push(i18n.t('Relationships could not be loaded'))
                 return null
