@@ -1,4 +1,5 @@
 import { useDataEngine } from '@dhis2/app-runtime'
+import log from 'loglevel'
 import { useEffect, useMemo, useState } from 'react'
 import { useCachedData } from '../components/cachedDataProvider/CachedDataProvider.jsx'
 import { fetchOrgUnitPathDetails } from '../util/orgUnits.js'
@@ -58,18 +59,20 @@ const useOrgUnitAncestorNames = (
 
         let cancelled = false
         setLoading(true)
-        fetchOrgUnitPathDetails(engine, idsToFetch, nameProperty).then(
-            (details) => {
-                if (cancelled) {
-                    return
-                }
+        fetchOrgUnitPathDetails(engine, idsToFetch, nameProperty)
+            .then((details) => {
                 Object.entries(details).forEach(([id, d]) => {
                     orgUnitNameSessionCache.set(id, d.name)
                 })
+            })
+            .finally(() => {
+                if (cancelled) {
+                    return
+                }
                 setIdToName(buildMerged())
                 setLoading(false)
-            }
-        )
+            })
+            .catch(log.error)
         return () => {
             cancelled = true
         }

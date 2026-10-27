@@ -1,4 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react'
+import log from 'loglevel'
 import { fetchOrgUnitPathDetails } from '../../util/orgUnits.js'
 import useOrgUnitAncestorNames, {
     __resetOrgUnitNameSessionCacheForTests,
@@ -93,6 +94,24 @@ describe('useOrgUnitAncestorNames', () => {
         })
         expect(result.current.idToName.get('country1')).toBe('Sierra Leone')
         expect(result.current.idToName.get('region1')).toBe('Region 1')
+    })
+
+    it('stops loading and keeps the known names when the name request fails', async () => {
+        const error = new Error('Request failed')
+        const logError = jest.spyOn(log, 'error').mockImplementation(() => {})
+        fetchOrgUnitPathDetails.mockRejectedValue(error)
+        const knownIdToName = new Map([['country1', 'Sierra Leone']])
+        const { result } = renderHook(() =>
+            useOrgUnitAncestorNames(['/country1/region1'], knownIdToName)
+        )
+
+        await waitFor(() => {
+            expect(result.current.loading).toBe(false)
+        })
+        expect(result.current.idToName.get('country1')).toBe('Sierra Leone')
+        expect(result.current.idToName.has('region1')).toBe(false)
+        expect(logError).toHaveBeenCalledWith(error)
+        logError.mockRestore()
     })
 
     it('skips the fetch entirely when every id is already known', () => {
