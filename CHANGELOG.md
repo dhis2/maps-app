@@ -1,3 +1,10 @@
+## [101.17.6](https://github.com/dhis2/maps-app/compare/v101.17.5...v101.17.6) (2026-10-23)
+
+
+### Bug Fixes
+
+* upgrade calendar date handling ([6d9dc4a](https://github.com/dhis2/maps-app/commit/6d9dc4a89341ed0bcd753116d19692964358f917))
+
 ## [101.17.5](https://github.com/dhis2/maps-app/compare/v101.17.4...v101.17.5) (2026-09-30)
 
 
