@@ -111,7 +111,7 @@ export default {
     server: {
         fs: {
             // Lets the dev server serve maps-gl files loaded by URL rather
-            // than imported, like the RTL text plugin
+            // than imported: the Earth Engine worker and the RTL text plugin
             allow: [MAPS_GL_DIR],
         },
     },
