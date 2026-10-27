@@ -144,8 +144,9 @@
     background-color: var(--colors-blue200);
 }
 
-.highlightColorPicker {
-    margin-bottom: 0 !important;
+/* The div prefix outranks core/ColorPicker's own .colorPicker rules. */
+div.highlightColorPicker {
+    margin-bottom: 0;
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -153,9 +154,9 @@
     top: -1px;
 }
 
-.highlightColorPicker label {
+div.highlightColorPicker label {
     box-sizing: border-box;
     overflow: hidden;
-    min-width: 18px !important;
-    min-height: 18px !important;
+    min-width: 18px;
+    min-height: 18px;
 }
