@@ -11,9 +11,20 @@ import {
     nextCharIsManualHyphen,
 } from '../date.js'
 
-jest.mock('@dhis2/multi-calendar-dates', () => ({
-    getNowInCalendar: jest.fn(),
-}))
+// only getNowInCalendar is mocked. The other functions are forwarded lazily,
+// because spreading jest.requireActual in the factory fails
+jest.mock('@dhis2/multi-calendar-dates', () => {
+    const forward =
+        (name) =>
+        (...args) =>
+            jest.requireActual('@dhis2/multi-calendar-dates')[name](...args)
+    return {
+        getNowInCalendar: jest.fn(),
+        getDaysInMonth: forward('getDaysInMonth'),
+        addToCalendarDate: forward('addToCalendarDate'),
+        formatCalendarDate: forward('formatCalendarDate'),
+    }
+})
 
 describe('getMaxDaysInMonth', () => {
     const testCases = [
@@ -28,6 +39,18 @@ describe('getMaxDaysInMonth', () => {
             year: 2023,
             month: 2,
             expectedDays: 28, // Non-leap year in ISO8601
+        },
+        {
+            calendar: 'iso8601',
+            year: 1900,
+            month: 2,
+            expectedDays: 28, // Century year, not a leap year in ISO8601
+        },
+        {
+            calendar: 'iso8601',
+            year: 2000,
+            month: 2,
+            expectedDays: 29, // Divisible by 400, leap year in ISO8601
         },
         {
             calendar: 'gregory',
@@ -65,7 +88,8 @@ describe('getMaxDaysInMonth', () => {
             month: 2,
             expectedDays: 28, // Non-leap year in Thai
         },
-        /* era calendars (broken with Node 20.20+)
+        /* coptic throws in @dhis2/multi-calendar-dates with ICU 78+ (Node 20.20+),
+           a known issue left unfixed because coptic is a legacy calendar
         { 
             calendar: 'coptic',
             year: 2024,
@@ -78,6 +102,7 @@ describe('getMaxDaysInMonth', () => {
             month: 13,
             expectedDays: 6, // Leap year in Coptic
         },
+        */
         {
             calendar: 'ethiopian',
             year: 2024,
@@ -90,7 +115,6 @@ describe('getMaxDaysInMonth', () => {
             month: 13,
             expectedDays: 6, // Leap year in Ethiopian
         },
-        */
         {
             calendar: 'persian',
             year: 1403,
@@ -137,14 +161,23 @@ describe('getMaxDaysInMonth', () => {
     })
 })
 
+describe('Nepali years out of range', () => {
+    it.each([1969, 2101])('throws for Nepali year %s', (year) => {
+        expect(() => getMaxDaysInMonth(year, 1, 'nepali')).toThrow(
+            'Conversions are only possible between 1970 and 2100 in Nepali calendar'
+        )
+        expect(() => getMaxMonthsInYear(year, 'nepali')).toThrow(
+            `Nepali year ${year} is out of range (1970-2100)`
+        )
+    })
+})
+
 describe('getMaxMonthsInYear', () => {
     const testCases = [
         { calendar: 'iso8601', year: 2024, expectedMonths: 12 },
         { calendar: 'gregory', year: 2024, expectedMonths: 12 },
-        /* era calendars (broken with Node 20.20+)
         { calendar: 'coptic', year: 2024, expectedMonths: 13 },
         { calendar: 'ethiopian', year: 2024, expectedMonths: 13 },
-        */
         { calendar: 'islamic', year: 1445, expectedMonths: 12 },
         { calendar: 'julian', year: 2024, expectedMonths: 12 },
         { calendar: 'nepali', year: 2081, expectedMonths: 12 },
@@ -170,6 +203,15 @@ describe('getCurrentYearInCalendar', () => {
     it('returns the current year', () => {
         expect(getCurrentYearInCalendar('gregory')).toBe(2024)
     })
+
+    it('falls back to year for calendars without eras', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 9,
+            month: 12,
+            year: 1445,
+        })
+        expect(getCurrentYearInCalendar('islamic')).toBe(1445)
+    })
 })
 
 describe('getDefaultDatesInCalendar', () => {
@@ -183,6 +225,30 @@ describe('getDefaultDatesInCalendar', () => {
         const result = getDefaultDatesInCalendar()
         expect(result.startDate).toBe('2023-07-15') // One year before
         expect(result.endDate).toBe('2024-07-15') // Current year
+    })
+
+    it('falls back to year for calendars without eras', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 9,
+            month: 12,
+            year: 1445,
+        })
+
+        const result = getDefaultDatesInCalendar('islamic')
+        expect(result.startDate).toBe('1444-12-09')
+        expect(result.endDate).toBe('1445-12-09')
+    })
+
+    it('uses 28 February as startDate on 29 February', () => {
+        getNowInCalendar.mockReturnValueOnce({
+            day: 29,
+            month: 2,
+            eraYear: 2024,
+        })
+
+        const result = getDefaultDatesInCalendar()
+        expect(result.startDate).toBe('2023-02-28')
+        expect(result.endDate).toBe('2024-02-29')
     })
 })
 
