@@ -1,5 +1,9 @@
-import { getNowInCalendar } from '@dhis2/multi-calendar-dates'
-import { Temporal } from '@js-temporal/polyfill' // 13th months in etiopic calendar cannot be returned by getFixedPeriodByDate (@dhis2/multi-calendar-dates)
+import {
+    addToCalendarDate,
+    formatCalendarDate,
+    getDaysInMonth,
+    getNowInCalendar,
+} from '@dhis2/multi-calendar-dates'
 
 export const DEFAULT_CALENDAR = 'iso8601'
 export const DEFAULT_PLACEHOLDER = 'yyyy-mm-dd'
@@ -10,202 +14,63 @@ const GREGORIAN_CALENDAR_NAME = 'gregory'
 const ETHIOPIAN_CALENDAR_NAME = 'ethiopic'
 const THAI_CALENDAR_NAME = 'buddhist'
 
-const ERA_CALENDARS = { coptic: 'era1', ethiopian: 'era1', ethiopic: 'era1' }
+const THIRTEEN_MONTH_CALENDARS = new Set(['coptic', ETHIOPIAN_CALENDAR_NAME])
 
-// dhis2CalendarsMap and NEPALI_CALENDAR_DATA cannot be imported from @dhis2/multi-calendar-dates
+// dhis2CalendarsMap cannot be imported from @dhis2/multi-calendar-dates
 
 const dhis2CalendarsMap = {
     iso8601: GREGORIAN_CALENDAR_NAME, // this is not supported by getNowInCalendar
     ethiopian: ETHIOPIAN_CALENDAR_NAME,
     gregorian: GREGORIAN_CALENDAR_NAME,
-    julian: GREGORIAN_CALENDAR_NAME, // this is not supported by Temporal
+    julian: GREGORIAN_CALENDAR_NAME, // this is not supported by multi-calendar-dates
     thai: THAI_CALENDAR_NAME,
 }
-const NEPALI_CALENDAR_DATA = {
-    // Used in @dhis2/multi-calendar-dates and @kbwood/world-calendars
-    // First value is used for 1st January calculation (not used here)
-    // This data are from http://www.ashesh.com.np
-    1970: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1971: [18, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-    1972: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    1973: [19, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    1974: [19, 31, 31, 32, 30, 31, 31, 30, 29, 30, 29, 30, 30],
-    1975: [18, 31, 31, 32, 32, 30, 31, 30, 29, 30, 29, 30, 30],
-    1976: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    1977: [18, 31, 32, 31, 32, 31, 31, 29, 30, 29, 30, 29, 31],
-    1978: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1979: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    1980: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    1981: [18, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    1982: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1983: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    1984: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    1985: [18, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    1986: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1987: [18, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    1988: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    1989: [18, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    1990: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1991: [18, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    // These data are from http://nepalicalendar.rat32.com/index.php
-    1992: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    1993: [18, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    1994: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1995: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    1996: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    1997: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1998: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    1999: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2000: [17, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2001: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2002: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2003: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2004: [17, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2005: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2006: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2007: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2008: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-    2009: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2010: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2011: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2012: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    2013: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2014: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2015: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2016: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    2017: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2018: [18, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2019: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2020: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2021: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2022: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    2023: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2024: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2025: [18, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2026: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2027: [17, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2028: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2029: [18, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-    2030: [17, 31, 32, 31, 32, 31, 30, 30, 30, 30, 30, 30, 31],
-    2031: [17, 31, 32, 31, 32, 31, 31, 31, 31, 31, 31, 31, 31],
-    2032: [17, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32],
-    2033: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2034: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2035: [17, 30, 32, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-    2036: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2037: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2038: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2039: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    2040: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2041: [18, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2042: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2043: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    2044: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2045: [18, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2046: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2047: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2048: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2049: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    2050: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2051: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2052: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2053: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    2054: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2055: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 30, 29, 30],
-    2056: [17, 31, 31, 32, 31, 32, 30, 30, 29, 30, 29, 30, 30],
-    2057: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2058: [17, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2059: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2060: [17, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2061: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2062: [17, 30, 32, 31, 32, 31, 31, 29, 30, 29, 30, 29, 31],
-    2063: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2064: [17, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2065: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2066: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 29, 31],
-    2067: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2068: [17, 31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2069: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2070: [17, 31, 31, 31, 32, 31, 31, 29, 30, 30, 29, 30, 30],
-    2071: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2072: [17, 31, 32, 31, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2073: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
-    2074: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2075: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2076: [16, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    2077: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2078: [17, 31, 31, 31, 32, 31, 31, 30, 29, 30, 29, 30, 30],
-    2079: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2080: [16, 31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 30],
-    // These data are from http://www.ashesh.com.np/nepali-calendar/
-    2081: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31],
-    2082: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
-    2083: [17, 31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
-    2084: [17, 31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
-    2085: [17, 31, 32, 31, 32, 31, 31, 30, 30, 29, 30, 30, 30],
-    2086: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2087: [16, 31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30],
-    2088: [16, 30, 31, 32, 32, 30, 31, 30, 30, 29, 30, 30, 30],
-    2089: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2090: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2091: [16, 31, 31, 32, 31, 31, 31, 30, 30, 29, 30, 30, 30],
-    2092: [16, 31, 31, 32, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2093: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2094: [17, 31, 31, 32, 31, 31, 30, 30, 30, 29, 30, 30, 30],
-    2095: [17, 31, 31, 32, 31, 31, 31, 30, 29, 30, 30, 30, 30],
-    2096: [17, 30, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
-    2097: [17, 31, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30],
-    2098: [17, 31, 31, 32, 31, 31, 31, 29, 30, 29, 30, 30, 31],
-    2099: [17, 31, 31, 32, 31, 31, 31, 30, 29, 29, 30, 30, 30],
-    2100: [17, 31, 32, 31, 32, 30, 31, 30, 29, 30, 29, 30, 30],
+
+// @dhis2/multi-calendar-dates only supports these Nepali years
+const NEPALI_MIN_YEAR = 1970
+const NEPALI_MAX_YEAR = 2100
+
+const assertNepaliYearInRange = (year) => {
+    if (year < NEPALI_MIN_YEAR || year > NEPALI_MAX_YEAR) {
+        throw new Error(
+            `Nepali year ${year} is out of range (${NEPALI_MIN_YEAR}-${NEPALI_MAX_YEAR})`
+        )
+    }
 }
 
 export const getMaxDaysInMonth = (year, month, calendar) => {
+    // multi-calendar-dates has no julian calendar, so the app treats it as
+    // gregory, which has no 29 February in century years like 1900
     if (calendar === JULIAN_CALENDAR_NAME && year % 4 === 0 && month === 2) {
         return 29
     }
-    if (calendar === NEPALI_CALENDAR_NAME) {
-        return NEPALI_CALENDAR_DATA[year][month]
-    }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const era = ERA_CALENDARS[calendar]
-    const dateFields = era
-        ? { era, eraYear: year, month, day: 1, calendar: calendarName }
-        : { year, month, day: 1, calendar: calendarName }
-    const date = Temporal.PlainDate.from(dateFields)
-
-    return date.daysInMonth
+    return getDaysInMonth({ year, month }, calendarName)
 }
 
 export const getMaxMonthsInYear = (year, calendar) => {
     if (calendar === NEPALI_CALENDAR_NAME) {
-        return NEPALI_CALENDAR_DATA[year].length - 1
+        assertNepaliYearInRange(year)
     }
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const era = ERA_CALENDARS[calendar]
-    const dateFields = era
-        ? { era, eraYear: year, month: 1, day: 1, calendar: calendarName }
-        : { year, month: 1, day: 1, calendar: calendarName }
-    const date = Temporal.PlainDate.from(dateFields)
-
-    return date.monthsInYear
+    return THIRTEEN_MONTH_CALENDARS.has(calendarName) ? 13 : 12
 }
 
 export const getDefaultDatesInCalendar = (calendar = DEFAULT_CALENDAR) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
-    const { day, month, eraYear: year } = getNowInCalendar(calendarName)
-    const formatDateString = (y, m, d) =>
-        `${y}-${m.toString().padStart(2, '0')}-${d.toString().padStart(2, '0')}`
+    const now = getNowInCalendar(calendarName)
+    const oneYearAgo = addToCalendarDate(now, { years: -1 }, calendarName)
     return {
-        startDate: formatDateString(year - 1, month, day),
-        endDate: formatDateString(year, month, day),
+        startDate: formatCalendarDate(oneYearAgo),
+        endDate: formatCalendarDate(now),
     }
 }
 
 export const getCurrentYearInCalendar = (calendar) => {
     const calendarName = dhis2CalendarsMap[calendar] || calendar
     const today = getNowInCalendar(calendarName)
-    return today.eraYear
+    // eraYear is undefined for calendars without eras (e.g. islamic)
+    return today.eraYear ?? today.year
 }
 
 export function replaceAt(str, index, replacement) {
