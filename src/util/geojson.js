@@ -85,6 +85,12 @@ export const buildEventGeometryGetter = (headers) => {
     }
 }
 
+export const trackedEntityGeometryTypes = new Set([
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+])
+
 export const createEventFeatures = (response, config = {}) => {
     const names = {
         ...response.headers.reduce(
