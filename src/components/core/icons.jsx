@@ -54,6 +54,7 @@ export const IconZoomIn16 = () => (
 // Two stacked chevrons — "collapse"/"restore to full height" toggle.
 export const IconChevronDoubleDown16 = () => (
     <svg
+        aria-hidden="true"
         height="16"
         viewBox="0 0 16 16"
         width="16"
@@ -80,6 +81,7 @@ export const IconChevronDoubleDown16 = () => (
 
 export const IconChevronDoubleUp16 = () => (
     <svg
+        aria-hidden="true"
         height="16"
         viewBox="0 0 16 16"
         width="16"
