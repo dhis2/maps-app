@@ -195,6 +195,9 @@ const BottomPanel = () => {
                 <button
                     type="button"
                     className={styles.toggleButton}
+                    aria-label={
+                        isCollapsed ? i18n.t('Restore') : i18n.t('Collapse')
+                    }
                     onClick={toggleCollapsed}
                 >
                     <Tooltip
@@ -241,6 +244,7 @@ const BottomPanel = () => {
                     <button
                         type="button"
                         className={styles.clearFiltersButton}
+                        aria-label={i18n.t('Clear filters')}
                         onClick={() =>
                             dispatch(clearDataFilters(activeLayerId))
                         }
@@ -258,6 +262,9 @@ const BottomPanel = () => {
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlyFeaturesInView,
                     })}
+                    aria-label={i18n.t(
+                        'Show only features in current map view'
+                    )}
                     onClick={() => dispatch(toggleShowOnlyFeaturesInView())}
                 >
                     <Tooltip
@@ -273,6 +280,7 @@ const BottomPanel = () => {
                     className={cx(styles.toggleButton, {
                         [styles.active]: showOnlySelected,
                     })}
+                    aria-label={i18n.t('Show only selected features')}
                     onClick={() => dispatch(toggleShowOnlySelected())}
                 >
                     <Tooltip content={i18n.t('Show only selected features')}>
@@ -291,6 +299,7 @@ const BottomPanel = () => {
                 </Tooltip>
                 <button
                     className={styles.closeIcon}
+                    aria-label={i18n.t('Close')}
                     onClick={() => dispatch(closeDataTable())}
                 >
                     <Tooltip content={i18n.t('Close')}>
