@@ -216,6 +216,7 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
                             </Tooltip>
                             <ToolbarIconButton
                                 tooltip={i18n.t('Reverse selection')}
+                                ariaLabel={i18n.t('Reverse selection')}
                                 dataTest="data-table-column-picker-reverse"
                                 onClick={onReverseSelection}
                             >
@@ -224,6 +225,7 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
                             <span className={styles.bulkActionsDivider} />
                             <ToolbarIconButton
                                 tooltip={i18n.t('Reset to defaults')}
+                                ariaLabel={i18n.t('Reset to defaults')}
                                 dataTest="data-table-column-picker-reset"
                                 disabled={!columnConfig}
                                 onClick={onResetToDefaults}
