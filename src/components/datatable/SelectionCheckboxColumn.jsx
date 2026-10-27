@@ -44,6 +44,7 @@ export const SelectionCheckboxHeaderCell = ({
                 <button
                     type="button"
                     className={styles.reverseButton}
+                    aria-label={i18n.t('Reverse selection of visible rows')}
                     data-test="data-table-reverse-selection"
                     disabled={disabled}
                     onClick={onReverseSelection}
@@ -56,6 +57,7 @@ export const SelectionCheckboxHeaderCell = ({
                     <button
                         type="button"
                         className={styles.sortButton}
+                        aria-label={i18n.t('Sort by Selected')}
                         data-test="data-table-column-sort-button-selected"
                         onClick={onSortBySelected}
                     >

@@ -24,6 +24,7 @@ const SortableColumnHeader = ({
                 <button
                     type="button"
                     className={styles.sortButton}
+                    aria-label={i18n.t('Sort by {{column}}', { column: name })}
                     data-test={`${dataTestPrefix}-${name}`}
                     onClick={() => onSort({ name: dataKey })}
                 >
