@@ -13,9 +13,11 @@ import {
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
 import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
+import { formatWithSeparator } from '../util/numbers.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
     createTrackedEntityFeatures,
+    getTrackerMaxLimit,
     loadTrackedEntitiesFromTracker,
 } from '../util/trackedEntity.js'
 import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
@@ -113,11 +115,25 @@ const getLegend = ({
     return legend
 }
 
+// One alert for all warnings: a layer only shows its last custom warning
+const getWarningAlerts = (name, warnings) =>
+    warnings.length
+        ? [
+              {
+                  warning: true,
+                  code: CUSTOM_ALERT,
+                  message: `${name}: ${warnings.join('. ')}`,
+              },
+          ]
+        : []
+
 const trackedEntityLoader = async ({
     config,
     engine,
     keyAnalysisDigitGroupSeparator,
     serverVersion,
+    KeyTrackedEntityInstanceMaxLimit,
+    KeyTrackedEntityMaxLimit,
 }) => {
     parseJsonConfig(config)
 
@@ -139,6 +155,7 @@ const trackedEntityLoader = async ({
     const name = program ? program.name : i18n.t('Tracked entity')
 
     const alerts = []
+    const warnings = []
     let legend, loadError, relationships, secondaryData
     let data = []
 
@@ -155,12 +172,28 @@ const trackedEntityLoader = async ({
             areaRadius,
         })
 
-        const { instances, trackerParams } =
+        const maxLimit = getTrackerMaxLimit(
+            { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
+            serverVersion
+        )
+        const { instances, trackerParams, isTruncated, limit } =
             await loadTrackedEntitiesFromTracker({
                 config,
                 engine,
                 serverVersion,
+                maxLimit,
             })
+
+        if (isTruncated) {
+            warnings.push(
+                i18n.t('Displaying first {{limit}} tracked entities', {
+                    limit: formatWithSeparator(
+                        limit,
+                        keyAnalysisDigitGroupSeparator
+                    ),
+                })
+            )
+        }
 
         if (!instances.length) {
             alerts.push({
@@ -179,25 +212,33 @@ const trackedEntityLoader = async ({
                 serverVersion,
                 instances,
                 trackerParams,
+                maxLimit,
+                isSourceTruncated: isTruncated,
             }).catch(() => {
-                alerts.push({
-                    warning: true,
-                    code: CUSTOM_ALERT,
-                    message: `${name}: ${i18n.t(
-                        'Relationships could not be loaded'
-                    )}`,
-                })
+                warnings.push(i18n.t('Relationships could not be loaded'))
                 return null
             })
 
             if (relationshipResult && !relationshipResult.isSupported) {
-                alerts.push({
-                    warning: true,
-                    code: CUSTOM_ALERT,
-                    message: `${name}: ${i18n.t(
+                warnings.push(
+                    i18n.t(
                         'Only relationships between tracked entities are supported'
-                    )}`,
-                })
+                    )
+                )
+            }
+
+            if (relationshipResult?.isTruncated) {
+                warnings.push(
+                    i18n.t(
+                        'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
+                        {
+                            limit: formatWithSeparator(
+                                maxLimit,
+                                keyAnalysisDigitGroupSeparator
+                            ),
+                        }
+                    )
+                )
             }
 
             // Only relationships between tracked entities are drawn
@@ -224,6 +265,8 @@ const trackedEntityLoader = async ({
             message: loadError,
         })
     }
+
+    alerts.push(...getWarningAlerts(name, warnings))
 
     return {
         ...config,

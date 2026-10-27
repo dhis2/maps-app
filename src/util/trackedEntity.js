@@ -41,6 +41,18 @@ export const createTrackedEntityFeatures = (instances) =>
 // Tracker API
 // -----
 
+// Row limit of the tracker API, applied even with paging off
+// VERSION-TOGGLE: KeyTrackedEntityInstanceMaxLimit deprecated in 2.41 for
+// KeyTrackedEntityMaxLimit, which 2.41+ servers apply
+export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
+    const limit = Number(
+        serverSupportsTracker41Api(serverVersion)
+            ? systemSettings.KeyTrackedEntityMaxLimit
+            : systemSettings.KeyTrackedEntityInstanceMaxLimit
+    )
+    return limit > 0 ? limit : null
+}
+
 export const TEI_FIELDS = ['trackedEntity~rename(id)', 'geometry']
 
 // Also used for the related tracked entities of relationship layers
@@ -175,6 +187,7 @@ export const loadTrackedEntitiesFromTracker = async ({
     config,
     engine,
     serverVersion,
+    maxLimit,
 }) => {
     const { query, variables } = getTrackerRequest(config, {
         orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
@@ -185,8 +198,17 @@ export const loadTrackedEntitiesFromTracker = async ({
         { trackedEntities: query },
         { variables }
     )
+    const rowCount = getTrackerRows(response, serverVersion).length
     const instances = getTrackerInstances(response, serverVersion)
 
-    // The relationships request applies the same filters
-    return { instances, trackerParams: variables }
+    return {
+        instances,
+        // The relationships request applies the same filters
+        trackerParams: variables,
+        // The API returns at most maxLimit rows and no total, so reaching the
+        // limit is the only sign of a cut (a total of exactly maxLimit also
+        // warns). All rows count, geometry or not
+        isTruncated: Boolean(maxLimit) && rowCount >= maxLimit,
+        limit: maxLimit,
+    }
 }
