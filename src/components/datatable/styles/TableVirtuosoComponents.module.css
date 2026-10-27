@@ -1,6 +1,7 @@
-.dataTable {
+/* The div ancestor outranks @dhis2/ui's own table border. */
+div table.dataTable {
     height: 1px;
-    border: none !important;
+    border: none;
 }
 
 .dataTable > :global(thead) {

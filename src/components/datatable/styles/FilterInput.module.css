@@ -59,9 +59,9 @@
     border-bottom: 1px solid var(--colors-grey300);
 }
 
-/* !important beats @dhis2/ui's own Checkbox label font-size. */
-.pinnedOptions :global(label) {
-    font-size: 11px !important;
+/* The div prefix outranks @dhis2/ui's own dense Checkbox label font-size. */
+div.pinnedOptions :global(label.dense) {
+    font-size: 11px;
 }
 
 .reverseSelectionButton {
@@ -95,9 +95,9 @@
     overflow-y: auto;
 }
 
-/* Same override as .pinnedOptions above. */
-.multiSelectPopover :global(label) {
-    font-size: 11px !important;
+/* The div prefix outranks @dhis2/ui's own dense Checkbox label font-size. */
+div.multiSelectPopover :global(label.dense) {
+    font-size: 11px;
 }
 
 .monoOption :global(label) {
@@ -126,9 +126,9 @@
     padding: 4px 0;
 }
 
-/* !important beats @dhis2/ui's own Checkbox label color. */
-.specialOption :global(label) {
-    color: var(--colors-grey700) !important;
+/* The div prefix outranks @dhis2/ui's own Checkbox label color. */
+div.specialOption :global(label) {
+    color: var(--colors-grey700);
     font-style: italic;
 }
 
