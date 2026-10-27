@@ -60,24 +60,6 @@
     background-color: var(--colors-blue200);
 }
 
-/* !important beats @dhis2/ui's own ColorPicker field margin. */
-.highlightColorPicker {
-    margin-bottom: 0 !important;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    position: relative;
-    top: -1px;
-}
-
-/* !important beats @dhis2/ui's own ColorPicker label size. */
-.highlightColorPicker label {
-    box-sizing: border-box;
-    overflow: hidden;
-    min-width: 18px !important;
-    min-height: 18px !important;
-}
-
 .globalSearch {
     flex: 0 1 160px;
     min-width: 90px;
