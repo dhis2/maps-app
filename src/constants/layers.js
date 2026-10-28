@@ -128,6 +128,7 @@ export const TEI_BUFFER = 100
 export const TEI_RELATED_COLOR = '#000000'
 export const TEI_RELATED_RADIUS = 3
 export const TEI_RELATIONSHIP_LINE_COLOR = '#0000BB'
+export const TEI_CLIENT_PAGE_SIZE = 50000
 
 /* FACILITY LAYER */
 export const FACILITY_BUFFER = 5000
