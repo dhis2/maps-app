@@ -13,6 +13,7 @@ import {
 import eventLoader, {
     attachOrgUnitPaths,
     excludeEventsOutsideOrgUnits,
+    parseNumericHeaders,
     shouldUseServerCluster,
 } from '../eventLoader.js'
 
@@ -980,5 +981,235 @@ describe('eventLoader - isExtended vs serverCluster', () => {
         // Once rendering client-side, the legend must reflect what was
         // actually loaded (capped), not the raw analytics total.
         expect(result.legend.items[0].count).toBe(0)
+    })
+
+    test('attaches optionSetOptionsByCode from the analytics response metadata, matched by code (not by the metaData.items key)', async () => {
+        const args = makeArgs({ ...baseConfig(), eventClustering: false })
+        args.analyticsEngine.events.getQuery = jest.fn().mockResolvedValue({
+            headers: [
+                { name: 'psi', valueType: 'TEXT' },
+                { name: 'de1', valueType: 'TEXT', optionSet: { id: 'os1' } },
+            ],
+            metaData: {
+                items: {
+                    optUid1: { name: 'Male', code: 'M' },
+                    optUid2: { name: 'Female', code: 'F' },
+                    prog1: { name: 'Program 1' }, // no `code` - must be ignored
+                },
+                pager: { total: 0 },
+            },
+            rows: [],
+        })
+
+        const result = await eventLoader(args)
+
+        expect(result.optionSetOptionsByCode).toEqual({
+            os1: { M: 'Male', F: 'Female' },
+        })
+    })
+
+    test('does not set optionSetOptionsByCode when no header has an optionSet', async () => {
+        const result = await eventLoader(
+            makeArgs({ ...baseConfig(), eventClustering: false })
+        )
+
+        expect(result.optionSetOptionsByCode).toBeUndefined()
+    })
+})
+
+describe('eventLoader - extended column top-up', () => {
+    const NEW_DE_UID = 'dataElemUID' // 11-char valid UID
+
+    const loadedConfig = (overrides = {}) => ({
+        program: { id: 'prog1' },
+        programStage: { id: 'stage1', name: 'Stage 1' },
+        columns: [{ dimension: 'de1' }],
+        filters: [],
+        rows: [],
+        eventClustering: false,
+        startDate: '2024-01-01',
+        endDate: '2024-01-31',
+        isLoaded: true,
+        isExtended: false,
+        serverCluster: false,
+        headers: [
+            { name: 'psi', valueType: 'TEXT' },
+            { name: 'de1', valueType: 'NUMBER' },
+        ],
+        data: [
+            {
+                type: 'Feature',
+                id: 'event1',
+                geometry: { type: 'Point', coordinates: [0, 0] },
+                properties: { id: 'event1', de1: 5 },
+            },
+        ],
+        ...overrides,
+    })
+
+    const makeArgs = (config, { engineQueryImpl, getQueryImpl } = {}) => ({
+        config,
+        engine: {
+            query: jest.fn().mockImplementation(
+                engineQueryImpl ??
+                    (() =>
+                        Promise.resolve({
+                            programStage: {
+                                programStageDataElements: [
+                                    {
+                                        displayInReports: true,
+                                        dataElement: {
+                                            id: NEW_DE_UID,
+                                            name: 'New DE',
+                                            valueType: 'NUMBER',
+                                        },
+                                    },
+                                ],
+                            },
+                        }))
+            ),
+        },
+        keyAnalysisDisplayProperty: 'name',
+        keyAnalysisDigitGroupSeparator: 'NONE',
+        analyticsEngine: {
+            request: FakeAnalyticsRequest,
+            events: {
+                getCount: jest
+                    .fn()
+                    .mockResolvedValue({ count: 0, extent: null }),
+                getQuery:
+                    getQueryImpl ??
+                    jest.fn().mockResolvedValue({
+                        headers: [
+                            { name: 'psi', valueType: 'TEXT' },
+                            { name: NEW_DE_UID, valueType: 'NUMBER' },
+                        ],
+                        metaData: { items: {}, pager: { total: 1 } },
+                        rows: [['event1', '10']],
+                    }),
+            },
+        },
+        periodTypeData: undefined,
+        loadExtended: true,
+        spatialSupport: true,
+    })
+
+    test('fetches only the metadata + delta query, merges the new column by id, and never re-runs clustering count', async () => {
+        const args = makeArgs(loadedConfig())
+
+        const result = await eventLoader(args)
+
+        expect(args.engine.query).toHaveBeenCalledTimes(1)
+        expect(args.analyticsEngine.events.getQuery).toHaveBeenCalledTimes(1)
+        expect(args.analyticsEngine.events.getCount).not.toHaveBeenCalled()
+
+        expect(result.isExtended).toBe(true)
+        expect(result.headers.map((h) => h.name)).toEqual([
+            'psi',
+            'de1',
+            NEW_DE_UID,
+        ])
+        expect(result.data[0].properties.de1).toBe(5) // pre-existing, untouched
+        expect(result.data[0].properties[NEW_DE_UID]).toBe(10) // new, parsed to a number
+    })
+
+    test('does nothing further when every "display in reports" column is already present', async () => {
+        const args = makeArgs(loadedConfig(), {
+            engineQueryImpl: () =>
+                Promise.resolve({
+                    programStage: {
+                        programStageDataElements: [
+                            {
+                                displayInReports: true,
+                                dataElement: {
+                                    id: 'de1',
+                                    name: 'DE 1',
+                                    valueType: 'NUMBER',
+                                },
+                            },
+                        ],
+                    },
+                }),
+        })
+
+        const result = await eventLoader(args)
+
+        expect(args.analyticsEngine.events.getQuery).not.toHaveBeenCalled()
+        expect(result.isExtended).toBe(true)
+        expect(result.headers).toEqual(loadedConfig().headers)
+    })
+
+    test('falls back to a full reload when there is no prior client dataset (e.g. was previously server-clustered)', async () => {
+        const args = makeArgs(
+            loadedConfig({ headers: undefined, data: undefined })
+        )
+
+        await eventLoader(args)
+
+        expect(args.analyticsEngine.events.getCount).not.toHaveBeenCalled() // eventClustering is false here
+        expect(args.analyticsEngine.events.getQuery).toHaveBeenCalledTimes(1)
+    })
+
+    test('runs a full load, not the top-up path, on a genuine first load even if the table is already open', async () => {
+        const args = makeArgs(
+            loadedConfig({
+                isLoaded: undefined,
+                headers: undefined,
+                data: undefined,
+            })
+        )
+
+        await eventLoader(args)
+
+        expect(args.analyticsEngine.events.getQuery).toHaveBeenCalledTimes(1)
+    })
+})
+
+describe('parseNumericHeaders', () => {
+    const numericHeader = {
+        name: 'a3kGcGDCuk6',
+        valueType: 'NUMBER',
+    }
+
+    it('parses a numeric header value on every feature', () => {
+        const data = [
+            { properties: { a3kGcGDCuk6: '1.0' } },
+            { properties: { a3kGcGDCuk6: '2.0' } },
+        ]
+
+        const result = parseNumericHeaders(data, [numericHeader])
+
+        expect(result.map((d) => d.properties.a3kGcGDCuk6)).toEqual([1, 2])
+    })
+
+    it('returns the data unchanged when there are no numeric headers', () => {
+        const data = [{ properties: { a3kGcGDCuk6: '1.0' } }]
+
+        expect(parseNumericHeaders(data, [])).toBe(data)
+    })
+
+    it('skips a header with an option set', () => {
+        const data = [{ properties: { a3kGcGDCuk6: '1.0' } }]
+
+        const result = parseNumericHeaders(data, [
+            { ...numericHeader, optionSet: { id: 'os1' } },
+        ])
+
+        expect(result[0].properties.a3kGcGDCuk6).toBe('1.0')
+    })
+
+    it('parses both the data and dataWithoutCoords arrays consistently, so a value is never a Number in one and a String in the other once the table merges them', () => {
+        const data = parseNumericHeaders(
+            [{ properties: { a3kGcGDCuk6: '2.0' } }],
+            [numericHeader]
+        )
+        const dataWithoutCoords = parseNumericHeaders(
+            [{ properties: { a3kGcGDCuk6: '2.0' } }],
+            [numericHeader]
+        )
+
+        expect(data[0].properties.a3kGcGDCuk6).toBe(
+            dataWithoutCoords[0].properties.a3kGcGDCuk6
+        )
     })
 })

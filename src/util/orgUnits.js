@@ -347,9 +347,9 @@ export const fetchOrgUnitPaths = async (engine, ids) => {
     return results.flatMap((r) => r.organisationUnits.organisationUnits ?? [])
 }
 
-export const buildKnownOrgUnitNames = (rows = []) => {
+export const buildKnownOrgUnitNames = (rows) => {
     const map = new Map()
-    rows.forEach((row) => {
+    ;(rows ?? []).forEach((row) => {
         if (row?.id != null && row?.name != null) {
             map.set(row.id, row.name)
         }

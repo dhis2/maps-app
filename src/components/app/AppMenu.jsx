@@ -1,6 +1,7 @@
 import { Toolbar, HoverMenuBar } from '@dhis2/analytics'
 import PropTypes from 'prop-types'
 import React from 'react'
+import DataTableButton from '../datatable/DataTableButton.jsx'
 import DownloadButton from '../download/DownloadButton.jsx'
 import InterpretationsToggle from '../interpretations/InterpretationsToggle.jsx'
 import AddLayerButton from '../layers/overlays/AddLayerButton.jsx'
@@ -12,6 +13,7 @@ const AppMenu = ({ onFileMenuAction }) => (
         <HoverMenuBar>
             <FileMenu onFileMenuAction={onFileMenuAction} />
             <DownloadButton />
+            <DataTableButton />
         </HoverMenuBar>
         <InterpretationsToggle />
     </Toolbar>

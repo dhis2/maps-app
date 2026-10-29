@@ -53,7 +53,9 @@ export const ColumnRowFields = ({
             </button>
             <Checkbox
                 label={
-                    <span className={styles.columnRowLabel}>{header.name}</span>
+                    <span className={styles.columnRowLabel}>
+                        {header.configName ?? header.name}
+                    </span>
                 }
                 checked={isVisible}
                 onChange={(checked) => onToggleVisible(header.dataKey, checked)}
@@ -85,6 +87,7 @@ ColumnRowFields.propTypes = {
     header: PropTypes.shape({
         dataKey: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
+        configName: PropTypes.string,
     }).isRequired,
     isPinned: PropTypes.bool.isRequired,
     isVisible: PropTypes.bool.isRequired,
@@ -145,6 +148,7 @@ ColumnRow.propTypes = {
     header: PropTypes.shape({
         dataKey: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
+        configName: PropTypes.string,
     }).isRequired,
     isDragActive: PropTypes.bool.isRequired,
     isPinned: PropTypes.bool.isRequired,

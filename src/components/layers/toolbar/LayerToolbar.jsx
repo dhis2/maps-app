@@ -3,7 +3,7 @@ import { Tooltip, IconEdit24, IconView24, IconViewOff24 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { IconButton } from '../../core/index.js'
+import { FilterActiveIcon, IconButton } from '../../core/index.js'
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu.jsx'
 import OpacitySlider from './OpacitySlider.jsx'
 import styles from './styles/LayerToolbar.module.css'
@@ -14,6 +14,7 @@ const LayerToolbar = ({
     isVisible,
     onOpacityChange,
     toggleLayerVisibility,
+    onClearDataFilters,
     hasError,
     ...expansionMenuProps
 }) => {
@@ -60,11 +61,25 @@ const LayerToolbar = ({
                     />
                 </Tooltip>
             </div>
-            <div className={styles.menuButton}>
-                <LayerToolbarMoreMenu
-                    hasError={hasError}
-                    {...expansionMenuProps}
-                />
+            <div className={styles.trailingActions}>
+                {onClearDataFilters && (
+                    <IconButton
+                        tooltip={i18n.t(
+                            'Clear filters applied in this layer’s table'
+                        )}
+                        onClick={onClearDataFilters}
+                        className={styles.clearDataFiltersButton}
+                        dataTest="layer-clear-data-filters-button"
+                    >
+                        <FilterActiveIcon />
+                    </IconButton>
+                )}
+                <div className={styles.menuButton}>
+                    <LayerToolbarMoreMenu
+                        hasError={hasError}
+                        {...expansionMenuProps}
+                    />
+                </div>
             </div>
         </div>
     )
@@ -77,6 +92,7 @@ LayerToolbar.propTypes = {
     hasOpacity: PropTypes.bool,
     isVisible: PropTypes.bool,
     opacity: PropTypes.number,
+    onClearDataFilters: PropTypes.func,
     onEdit: PropTypes.func,
 }
 
