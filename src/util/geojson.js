@@ -1,6 +1,8 @@
+import turfBbox from '@turf/bbox'
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
 import findIndex from 'lodash/findIndex'
+import { formatWithSeparator } from './numbers.js'
 
 export const EVENT_ID_FIELD = 'psi'
 
@@ -202,6 +204,26 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
     return coords
 }
 
+export const isPointInBounds = ([lng, lat], [west, south, east, north]) => {
+    const lngInBounds =
+        west <= east ? lng >= west && lng <= east : lng >= west || lng <= east
+    return lngInBounds && lat >= south && lat <= north
+}
+
+export const isFeatureInBounds = (feature, bounds) => {
+    if (!bounds || !feature.geometry) {
+        return false
+    }
+    const [west, south, east, north] = bounds
+    const [minLng, minLat, maxLng, maxLat] = turfBbox(feature.geometry)
+    const latOverlaps = minLat <= north && maxLat >= south
+    const lngOverlaps =
+        west <= east
+            ? minLng <= east && maxLng >= west
+            : minLng <= east || maxLng >= west
+    return lngOverlaps && latOverlaps
+}
+
 export const getGeojsonDisplayData = (feature) => {
     const { properties } = feature
     if (!properties) {
@@ -232,6 +254,14 @@ export const getGeojsonDisplayData = (feature) => {
             }
         })
 }
+
+export const getGeojsonFeatureProfile = (feature, name, separator) => ({
+    name,
+    data: getGeojsonDisplayData(feature).reduce((acc, { dataKey, value }) => {
+        acc[dataKey] = formatWithSeparator(value, separator)
+        return acc
+    }, {}),
+})
 
 // Ensure that we are always working with a FeatureCollection
 export const buildGeoJsonFeatures = (geoJson) => {

@@ -1,53 +1,43 @@
 import i18n from '@dhis2/d2-i18n'
-import { useMemo, useRef } from 'react'
+import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
+import {
+    SENTINEL_SELECTED_ROW,
+    SORT_ASCENDING,
+    TYPE_ORG_UNIT,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
+} from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
     THEMATIC_LAYER,
-    ORG_UNIT_LAYER,
     EARTH_ENGINE_LAYER,
-    FACILITY_LAYER,
-    GEOJSON_URL_LAYER,
+    RENDERING_STRATEGY_SINGLE,
+    RENDERING_STRATEGY_TIMELINE,
 } from '../../constants/layers.js'
-import { numberValueTypes } from '../../constants/valueTypes.js'
-import { hasClasses } from '../../util/earthEngine.js'
-import { filterData } from '../../util/filter.js'
-import { getGeojsonDisplayData } from '../../util/geojson.js'
-import { parseRange } from '../../util/legend.js'
-import { getRoundToPrecisionFn, getPrecision } from '../../util/numbers.js'
-import { isValidUid } from '../../util/uid.js'
+import {
+    SELECTION_FILTER_SELECTED,
+    SELECTION_FILTER_NOT_SELECTED,
+} from '../../constants/selection.js'
+import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
+import { filterByGlobalSearch, filterData } from '../../util/filter.js'
+import { buildKnownOrgUnitNames } from '../../util/orgUnits.js'
+import {
+    buildRowCells,
+    getColumnDistinctValues,
+} from '../../util/tableColumns.js'
+import {
+    TYPE_STRING,
+    ERROR_NON_HOMOGENOUS_FEATURES,
+    getHeadersForLayer,
+} from '../../util/tableHeaders.js'
+import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
+import { compareColumnOptionValues, compareRows } from '../../util/tableSort.js'
 
-const ASCENDING = 'asc'
-
-const TYPE_NUMBER = 'number'
-const TYPE_STRING = 'string'
-const TYPE_DATE = 'date'
-
-const INDEX = 'index'
-const NAME = 'name'
-const ID = 'id'
-const VALUE = 'rawValue'
-const LEGEND = 'legend'
-const RANGE = 'range'
-const LEVEL = 'level'
-const PARENT_NAME = 'parentName'
-const TYPE = 'type'
-const COLOR = 'color'
-const OUNAME = 'ouname'
-const OUBOUNDARY = 'ouBoundary'
-const EVENTDATE = 'eventdate'
-
-const ERROR_SERVER_CLUSTER = 'SERVER_CLUSTER'
-const ERROR_NO_VALID_DATA = 'NO_VALID_DATA'
 const ERROR_NO_HEADERS = 'NO_HEADERS'
-const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const getErrorCodeText = (code) => {
     switch (code) {
-        case ERROR_SERVER_CLUSTER:
-            return i18n.t(
-                'Data table is not supported when events are grouped on the server.'
-            )
         case ERROR_NO_VALID_DATA:
             return i18n.t(
                 'No valid data was found for the current layer configuration.'
@@ -63,143 +53,26 @@ const getErrorCodeText = (code) => {
     }
 }
 
-const defaultFieldsMap = () => ({
-    [INDEX]: { name: i18n.t('Index'), dataKey: INDEX, type: TYPE_NUMBER },
-    [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
-    [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
-    [PARENT_NAME]: {
-        name: i18n.t('Parent'),
-        dataKey: PARENT_NAME,
-        type: TYPE_STRING,
-    },
-    [TYPE]: { name: i18n.t('Type'), dataKey: TYPE, type: TYPE_STRING },
-    [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
-    [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
-    [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
-    [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
-    [OUBOUNDARY]: {
-        name: i18n.t('Org unit boundary'),
-        dataKey: OUBOUNDARY,
-        type: TYPE_STRING,
-    },
-    [EVENTDATE]: {
-        name: i18n.t('Event time'),
-        dataKey: EVENTDATE,
-        type: TYPE_DATE,
-        renderer: 'formatTime...',
-    },
-    [COLOR]: {
-        name: i18n.t('Color'),
-        dataKey: COLOR,
-        type: TYPE_STRING,
-        renderer: 'rendercolor',
-    },
-})
-
-const getThematicHeaders = () =>
-    [
-        INDEX,
-        NAME,
-        ID,
-        VALUE,
-        LEGEND,
-        RANGE,
-        LEVEL,
-        PARENT_NAME,
-        TYPE,
-        COLOR,
-    ].map((field) => defaultFieldsMap()[field])
-
-const getEventHeaders = ({
-    layerHeaders = [],
-    styleDataItem,
-    countEventsOutsideOrgUnits,
-}) => {
-    const fields = [INDEX, OUNAME, ID, EVENTDATE].map(
-        (field) => defaultFieldsMap()[field]
-    )
-
-    if (countEventsOutsideOrgUnits) {
-        fields.push(defaultFieldsMap()[OUBOUNDARY])
-    }
-
-    const customFields = layerHeaders
-        .filter(({ name }) => isValidUid(name))
-        .map(({ name: dataKey, column: name, valueType, optionSet }) => ({
-            name,
-            dataKey,
-            type:
-                !optionSet && numberValueTypes.includes(valueType)
-                    ? TYPE_NUMBER
-                    : TYPE_STRING,
-        }))
-
-    customFields.push(defaultFieldsMap()[TYPE])
-
-    if (styleDataItem) {
-        customFields.push(defaultFieldsMap()[COLOR])
-    }
-
-    return fields.concat(customFields)
-}
-
-const getOrgUnitHeaders = () =>
-    [INDEX, NAME, ID, LEVEL, PARENT_NAME, TYPE].map(
-        (field) => defaultFieldsMap()[field]
-    )
-
-const getFacilityHeaders = () =>
-    [INDEX, NAME, ID, TYPE].map((field) => defaultFieldsMap()[field])
-
-const toTitleCase = (str) =>
-    str.replace(
-        /\w\S*/g,
-        (txt) => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
-    )
-
-const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
-    const { title, items } = legend
-
-    let customFields = []
-
-    if (hasClasses(aggregationType) && items) {
-        customFields = items.map(({ value, name }) => ({
-            name,
-            dataKey: String(value),
-            roundFn: getRoundToPrecisionFn(2),
-            type: TYPE_NUMBER,
-        }))
-    } else if (Array.isArray(aggregationType) && aggregationType.length) {
-        customFields = aggregationType.map((type) => {
-            let roundFn = null
-            if (data?.length) {
-                const precision = getPrecision(data.map((d) => d[type]))
-                roundFn = getRoundToPrecisionFn(precision)
-            }
-            return {
-                name: toTitleCase(`${type} ${title}`),
-                dataKey: type,
-                roundFn,
-                type: TYPE_NUMBER,
-            }
-        })
-    }
-
-    return [INDEX, NAME, ID, TYPE]
-        .map((field) => defaultFieldsMap()[field])
-        .concat(customFields)
-}
-
-const getGeoJsonUrlHeaders = (firstDataItem) =>
-    getGeojsonDisplayData(firstDataItem)
-
 const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
+const EMPTY_COLUMN_OPTIONS = {}
 
-export const useTableData = ({ layer, sortField, sortDirection }) => {
+export const useTableData = ({
+    layer,
+    sortField,
+    sortDirection,
+    showOnlyFeaturesInView,
+    mapBounds,
+    selectionFilter,
+    selectedIdSet,
+    globalSearch,
+    keyAnalysisDigitGroupSeparator,
+}) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
+    const externalPeriod = useSelector(
+        (state) => state.ui?.activeTimelinePeriod
+    )
 
     const errorCode = useRef(null)
 
@@ -214,85 +87,104 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         dataFilters,
         headers: layerHeaders,
         serverCluster,
+        renderingStrategy,
+        valuesByPeriod,
+        periods,
+        legendDecimalPlaces,
     } = layer || EMPTY_LAYER
 
+    const isMultiPeriodThematic =
+        layerType === THEMATIC_LAYER &&
+        renderingStrategy &&
+        renderingStrategy !== RENDERING_STRATEGY_SINGLE
+    const isTimelineThematic =
+        isMultiPeriodThematic &&
+        renderingStrategy === RENDERING_STRATEGY_TIMELINE
+    const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
+
+    // Only depend on mapBounds while the toggle is on, so panning/zooming
+    // doesn't recompute dataWithAggregations below when it's off
+    const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
+    const selectedIdSetDependency =
+        sortField === SENTINEL_SELECTED_ROW || selectionFilter?.length
+            ? selectedIdSet
+            : null
+    const periodsDependency = isMultiPeriodThematic ? periods : null
+    const valuesByPeriodDependency = isMultiPeriodThematic
+        ? valuesByPeriod
+        : null
+    const externalPeriodDependency = isTimelineThematic ? externalPeriod : null
+
     const dataWithAggregations = useMemo(() => {
-        errorCode.current = null
-        if (serverCluster) {
-            errorCode.current = ERROR_SERVER_CLUSTER
-            return null
-        }
+        const { data: rows, errorCode: rowsErrorCode } = buildTableData(
+            layerType,
+            {
+                data,
+                dataWithoutCoords,
+                serverCluster,
+                showOnlyFeaturesInView,
+                mapBounds,
+                aggregations,
+                isStyledEvent,
+                isMultiPeriodThematic,
+                isTimelineThematic,
+                legend,
+                valuesByPeriod,
+                externalPeriod,
+                periods,
+                keyAnalysisDigitGroupSeparator,
+                legendDecimalPlaces,
+            }
+        )
 
-        const allData = dataWithoutCoords?.length
-            ? [...(data || []), ...dataWithoutCoords]
-            : data
-
-        if (!allData?.length) {
-            errorCode.current = ERROR_NO_VALID_DATA
-            return null
-        }
-
-        if (layerType === GEOJSON_URL_LAYER) {
-            return allData.map((d) => ({
-                ...d.properties,
-            }))
-        }
-
-        return allData
-            .filter((d) => !d.properties.hasAdditionalGeometry)
-            .map((d, index) => ({
-                ...(d.properties || d),
-                ...aggregations[d.id],
-                index,
-            }))
-    }, [data, dataWithoutCoords, aggregations, serverCluster, layerType])
+        errorCode.current = rowsErrorCode ?? null
+        return rowsErrorCode ? null : rows
+        // *Dependency vars proxy their raw counterparts (see above)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        data,
+        dataWithoutCoords,
+        aggregations,
+        serverCluster,
+        layerType,
+        showOnlyFeaturesInView,
+        boundsDependency,
+        isMultiPeriodThematic,
+        isTimelineThematic,
+        valuesByPeriodDependency,
+        externalPeriodDependency,
+        periodsDependency,
+        isStyledEvent,
+        legend,
+        keyAnalysisDigitGroupSeparator,
+        legendDecimalPlaces,
+    ])
 
     const headers = useMemo(() => {
         if (errorCode.current) {
             return null
         }
 
-        let headers = null
-        switch (layerType) {
-            case THEMATIC_LAYER:
-                headers = getThematicHeaders()
-                break
-            case EVENT_LAYER:
-                headers = getEventHeaders({
-                    layerHeaders,
-                    styleDataItem,
-                    countEventsOutsideOrgUnits,
-                })
-                break
-            case ORG_UNIT_LAYER:
-                headers = getOrgUnitHeaders()
-                break
-            case EARTH_ENGINE_LAYER:
-                headers = getEarthEngineHeaders({
-                    aggregationType,
-                    legend,
-                    data: dataWithAggregations,
-                })
-                break
-            case FACILITY_LAYER:
-                headers = getFacilityHeaders()
-                break
-            case GEOJSON_URL_LAYER: {
-                if (
-                    data.some(
-                        (feature) =>
-                            feature.geometry.type !== data[0].geometry.type
-                    )
-                ) {
-                    errorCode.current = ERROR_NON_HOMOGENOUS_FEATURES
-                    return null
-                }
-
-                headers = getGeoJsonUrlHeaders(data[0])
-                break
+        const { headers, errorCode: headersErrorCode } = getHeadersForLayer(
+            layerType,
+            {
+                isMultiPeriodThematic,
+                isTimelineThematic,
+                externalPeriod,
+                periods,
+                layerHeaders,
+                styleDataItem,
+                countEventsOutsideOrgUnits,
+                aggregationType,
+                legend,
+                data: dataWithAggregations,
+                rawData: data,
             }
-            default:
-                break
+        )
+
+        if (headersErrorCode) {
+            errorCode.current = headersErrorCode
+            return null
         }
 
         if (!headers?.length) {
@@ -300,6 +192,8 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
         return headers
+        // *Dependency vars proxy their raw counterparts (see above)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         layerType,
         aggregationType,
@@ -309,7 +203,66 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         dataWithAggregations,
         data,
         layerHeaders,
+        isMultiPeriodThematic,
+        isTimelineThematic,
+        externalPeriodDependency,
+        periodsDependency,
     ])
+
+    // Expensive: scans every row once per column
+    const deferredDataForOptions = useDeferredValue(dataWithAggregations)
+    const columnDistinctValues = useMemo(
+        () => getColumnDistinctValues(headers, deferredDataForOptions),
+        [headers, deferredDataForOptions]
+    )
+
+    // Cheap: just re-orders each column's already-known distinct-value list
+    const columnOptions = useMemo(() => {
+        if (!columnDistinctValues) {
+            return EMPTY_COLUMN_OPTIONS
+        }
+
+        const result = {}
+        Object.entries(columnDistinctValues).forEach(
+            ([dataKey, { values, type }]) => {
+                const direction =
+                    dataKey === sortField ? sortDirection : SORT_ASCENDING
+                result[dataKey] = [...values]
+                    .sort((a, b) =>
+                        compareColumnOptionValues(a, b, {
+                            dataKey,
+                            type,
+                            direction,
+                        })
+                    )
+                    .map((value) => ({ value }))
+            }
+        )
+
+        return Object.keys(result).length ? result : EMPTY_COLUMN_OPTIONS
+    }, [columnDistinctValues, sortField, sortDirection])
+
+    const orgUnitPathValues = useMemo(
+        () =>
+            (headers ?? [])
+                .filter((h) =>
+                    [RENDERER_ORG_UNIT, RENDERER_ORG_UNIT_NAME].includes(
+                        h.renderer
+                    )
+                )
+                .flatMap((h) =>
+                    (columnOptions[h.dataKey] ?? []).map((o) => o.value)
+                ),
+        [headers, columnOptions]
+    )
+    const knownOrgUnitNames = useMemo(
+        () => buildKnownOrgUnitNames(dataWithAggregations),
+        [dataWithAggregations]
+    )
+    const { idToName: orgUnitIdToName } = useOrgUnitAncestorNames(
+        orgUnitPathValues,
+        knownOrgUnitNames
+    )
 
     const rows = useMemo(() => {
         if (errorCode.current) {
@@ -321,74 +274,95 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
             return null
         }
 
-        const filteredData = filterData(dataWithAggregations, dataFilters)
+        let filteredData = filterData(dataWithAggregations, dataFilters)
 
-        //sort
-        filteredData.sort((a, b) => {
-            const aVal = a[sortField]
-            const bVal = b[sortField]
+        if (globalSearch?.trim()) {
+            const stringDataKeys = headers
+                .filter((h) => h.type === TYPE_STRING)
+                .map((h) => h.dataKey)
+            const orgUnitDataKeys = headers
+                .filter((h) => h.type === TYPE_ORG_UNIT)
+                .map((h) => h.dataKey)
+            filteredData = filterByGlobalSearch(filteredData, globalSearch, {
+                stringDataKeys,
+                orgUnitDataKeys,
+                idToName: orgUnitIdToName,
+            })
+        }
 
-            // All undefined values should be sorted to the end
-            if (aVal === undefined && bVal === undefined) {
-                return 0
+        if (selectionFilter?.length) {
+            const wantSelected = selectionFilter.includes(
+                SELECTION_FILTER_SELECTED
+            )
+            const wantNotSelected = selectionFilter.includes(
+                SELECTION_FILTER_NOT_SELECTED
+            )
+            // Both (or neither) checked means "show everything"
+            if (wantSelected !== wantNotSelected) {
+                filteredData = filteredData.filter(
+                    (item) => !!selectedIdSet?.has(item.id) === wantSelected
+                )
             }
+        }
 
-            if (aVal === undefined) {
-                return 1 // aVal goes to end
-            }
-
-            if (bVal === undefined) {
-                return -1 // bVal goes to end
-            }
-
-            if (typeof aVal === TYPE_NUMBER) {
-                return sortDirection === ASCENDING ? aVal - bVal : bVal - aVal
-            }
-
-            if (sortField === RANGE) {
-                const [aStart, aEnd] = parseRange(aVal)
-                const [bStart, bEnd] = parseRange(bVal)
-                const startDiff =
-                    sortDirection === ASCENDING
-                        ? aStart - bStart
-                        : bStart - aStart
-                if (startDiff !== 0) {
-                    return startDiff
-                }
-                return sortDirection === ASCENDING ? aEnd - bEnd : bEnd - aEnd
-            }
-
-            // TODO: Make sure sorting works across different locales
-            return sortDirection === ASCENDING
-                ? aVal.localeCompare(bVal)
-                : bVal.localeCompare(aVal)
-        })
-
-        return filteredData.map((item) =>
-            headers.map(({ dataKey, roundFn, type }) => {
-                const value = roundFn ? roundFn(item[dataKey]) : item[dataKey]
-
-                return {
-                    dataKey,
-                    value: type === TYPE_NUMBER && isNaN(value) ? null : value,
-                    align: type === TYPE_NUMBER ? 'right' : 'left',
-                    itemId: item.id,
-                }
+        // Sort
+        const sortFieldRenderer = headers.find(
+            (h) => h.dataKey === sortField
+        )?.renderer
+        filteredData.sort((a, b) =>
+            compareRows(a, b, {
+                sortField,
+                sortDirection,
+                selectedIdSet,
+                orgUnitRenderer: sortFieldRenderer,
+                idToName: orgUnitIdToName,
             })
         )
-    }, [headers, dataWithAggregations, dataFilters, sortField, sortDirection])
+
+        return filteredData.map((item) => buildRowCells(item, headers))
+        // *Dependency vars proxy their raw counterparts (see above)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        headers,
+        dataWithAggregations,
+        dataFilters,
+        globalSearch,
+        sortField,
+        sortDirection,
+        selectionFilter,
+        selectedIdSetDependency,
+        orgUnitIdToName,
+    ])
 
     // EE layers and event layers may be loading additional data
-    const isLoading =
-        (layerType === EARTH_ENGINE_LAYER &&
-            aggregationType?.length &&
-            (!aggregations || aggregations === EMPTY_AGGREGATIONS)) ||
-        (layerType === EVENT_LAYER && !layer.isExtended && !serverCluster)
+    const isLoadingAggregations =
+        layerType === EARTH_ENGINE_LAYER &&
+        aggregationType?.length &&
+        (!aggregations || aggregations === EMPTY_AGGREGATIONS)
+    const isExtendingEvents =
+        layerType === EVENT_LAYER &&
+        !layer.isExtended &&
+        !!(!serverCluster || layer.forceClientCluster)
+    const isLoading = isLoadingAggregations || isExtendingEvents
+    let loadingReason = null
+    if (isLoadingAggregations) {
+        loadingReason = i18n.t('Loading Earth Engine data…')
+    } else if (isExtendingEvents) {
+        loadingReason = i18n.t('Loading additional events…')
+    }
+
+    const totalCount = dataWithAggregations?.length ?? 0
+    const filteredCount = rows?.length ?? 0
 
     return {
         headers,
         rows,
         isLoading,
+        loadingReason,
         error: getErrorCodeText(errorCode.current),
+        totalCount,
+        filteredCount,
+        orgUnitIdToName,
+        columnOptions,
     }
 }

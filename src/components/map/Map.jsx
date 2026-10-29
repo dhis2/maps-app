@@ -40,11 +40,14 @@ class Map extends Component {
         openContextMenu: PropTypes.func.isRequired,
         basemap: PropTypes.object,
         bounds: PropTypes.array,
+        clickFeature: PropTypes.func,
         closeCoordinatePopup: PropTypes.func,
         controls: PropTypes.array,
         coordinatePopup: PropTypes.array,
         engine: PropTypes.object,
         feature: PropTypes.object,
+        highlightColor: PropTypes.string,
+        highlightFeature: PropTypes.func,
         isFullscreen: PropTypes.bool,
         isPlugin: PropTypes.bool,
         latitude: PropTypes.number,
@@ -53,9 +56,13 @@ class Map extends Component {
         longitude: PropTypes.number,
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
+        selection: PropTypes.object,
+        selectionFilter: PropTypes.array,
+        setActiveTimelinePeriod: PropTypes.func,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
         setMapObject: PropTypes.func,
+        toggleFeatureSelection: PropTypes.func,
         zoom: PropTypes.number,
     }
 
@@ -176,9 +183,16 @@ class Map extends Component {
             nameProperty,
             layers,
             feature,
+            selection,
+            highlightFeature,
+            highlightColor,
+            selectionFilter,
+            clickFeature,
+            toggleFeatureSelection,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
+            setActiveTimelinePeriod,
             setAggregations,
             setFeatureProfile,
             resizeCount,
@@ -203,9 +217,10 @@ class Map extends Component {
                                     periodId={period.id}
                                     period={period}
                                     periods={timelineOverlay?.periods}
-                                    onChange={(period) =>
+                                    onChange={(period) => {
                                         this.setState({ period })
-                                    }
+                                        setActiveTimelinePeriod?.(period)
+                                    }}
                                     resizeCount={resizeCount}
                                 />
                             </Fragment>
@@ -222,6 +237,14 @@ class Map extends Component {
                                     key={config.id}
                                     index={layers.length - index}
                                     feature={highlight}
+                                    selection={selection}
+                                    highlightFeature={highlightFeature}
+                                    highlightColor={highlightColor}
+                                    selectionFilter={selectionFilter}
+                                    clickFeature={clickFeature}
+                                    toggleFeatureSelection={
+                                        toggleFeatureSelection
+                                    }
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}
@@ -302,6 +325,7 @@ class Map extends Component {
 
             if (initialPeriod) {
                 this.setState({ period: initialPeriod })
+                this.props.setActiveTimelinePeriod?.(initialPeriod)
             }
         }
     }

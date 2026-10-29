@@ -114,6 +114,7 @@ describe('utils/app - providerDataTransformation', () => {
         }
         const systemInfo = {
             calendar: 'gregory',
+            databaseInfo: { spatialSupport: true },
         }
 
         const cfg = await providerDataTransformation({
@@ -124,6 +125,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
+        expect(cfg.spatialSupport).toBe(true)
         expect(cfg.basemaps).toHaveLength(12)
         expect(cfg.nameProperty).toEqual('displayName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
@@ -180,6 +182,7 @@ describe('utils/app - providerDataTransformation', () => {
             systemInfo,
         })
 
+        expect(cfg.spatialSupport).toBeUndefined()
         expect(cfg.basemaps).toHaveLength(8)
         expect(cfg.nameProperty).toEqual('displayShortName')
         expect(cfg.defaultLayerSources).toHaveLength(6)
