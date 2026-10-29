@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
+import { setActiveTimelinePeriod } from '../../actions/dataTable.js'
 import {
     highlightFeature,
     setFeatureProfile,
@@ -64,6 +65,9 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 closeCoordinatePopup={() => dispatch(closeCoordinatePopup())}
                 setAggregations={(data) => dispatch(setAggregations(data))}
                 setFeatureProfile={(val) => dispatch(setFeatureProfile(val))}
+                setActiveTimelinePeriod={(period) =>
+                    dispatch(setActiveTimelinePeriod(period))
+                }
                 resizeCount={resizeCount}
                 setMapObject={setMap}
                 layersSorting={layersSorting}

@@ -4,3 +4,15 @@ export const SENTINEL_SELECTED_ROW = '__selected__'
 
 export const SORT_ASCENDING = 'asc'
 export const SORT_DESCENDING = 'desc'
+
+export const RENDERER_COLOR = 'rendercolor'
+export const RENDERER_ICON = 'rendericon'
+export const RENDERER_DATE = 'renderdate'
+
+export const TYPE_NUMBER = 'number'
+export const TYPE_STRING = 'string'
+export const TYPE_DATE = 'date'
+export const TYPE_DATETIME = 'datetime'
+export const TYPE_TIME = 'time'
+
+export const DATE_GROUPS_GRANULARITY = 'date-groups'

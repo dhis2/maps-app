@@ -2,6 +2,7 @@ import {
     SENTINEL_NO_VALUE,
     SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
+    TYPE_NUMBER,
 } from '../constants/dataTable.js'
 import { parseRange } from './legend.js'
 
@@ -32,7 +33,7 @@ export const compareColumnOptionValues = (
         return compareRangeValues(a, b, direction)
     }
     const comparison =
-        type === 'number' ? Number(a) - Number(b) : compareStrings(a, b)
+        type === TYPE_NUMBER ? Number(a) - Number(b) : compareStrings(a, b)
     return direction === SORT_ASCENDING ? comparison : -comparison
 }
 
@@ -56,19 +57,21 @@ export const compareRangeValues = (aVal, bVal, sortDirection) => {
     return sortDirection === SORT_ASCENDING ? aEnd - bEnd : bEnd - aEnd
 }
 
+const isNoValue = (val) => val === undefined || val === null
+
 export const compareFieldValues = (
     aVal,
     bVal,
     { sortField, sortDirection }
 ) => {
-    // All undefined values should be sorted to the end
-    if (aVal === undefined && bVal === undefined) {
+    // All missing values should be sorted to the end
+    if (isNoValue(aVal) && isNoValue(bVal)) {
         return 0
     }
-    if (aVal === undefined) {
+    if (isNoValue(aVal)) {
         return 1
     }
-    if (bVal === undefined) {
+    if (isNoValue(bVal)) {
         return -1
     }
     if (typeof aVal === 'number') {

@@ -5,7 +5,7 @@
 }
 
 /* This styles the tooltip span containing the svg */
-.checkbox span {
+.checkbox > span {
     margin-left: var(--spacers-dp4);
     display: flex;
     flex-direction: column;

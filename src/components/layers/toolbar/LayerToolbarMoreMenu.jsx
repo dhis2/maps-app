@@ -15,7 +15,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { useState, useRef } from 'react'
 import { connect } from 'react-redux'
-import { EARTH_ENGINE_LAYER } from '../../../constants/layers.js'
+import { EARTH_ENGINE_LAYER, EVENT_LAYER } from '../../../constants/layers.js'
 import { IconButton } from '../../core/index.js'
 import styles from './styles/LayerToolbarMore.module.css'
 
@@ -170,8 +170,12 @@ export default connect(
         { layer = DEFAULT_EMPTY_LAYER }
     ) => {
         const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
+        const isServerClusteredEvent =
+            layer.layer === EVENT_LAYER && layer.serverCluster
         const hasOrgUnitData =
-            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)
+            isServerClusteredEvent ||
+            (layer.data &&
+                (!isEarthEngine || layer.aggregationType?.length > 0))
         const isLoading =
             isEarthEngine && hasOrgUnitData && !aggregations[layer.id]
 

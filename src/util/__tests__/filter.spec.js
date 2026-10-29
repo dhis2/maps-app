@@ -1,4 +1,8 @@
-import { SENTINEL_ANY_VALUE } from '../../constants/dataTable.js'
+import {
+    SENTINEL_ANY_VALUE,
+    SENTINEL_NO_VALUE,
+    DATE_GROUPS_GRANULARITY,
+} from '../../constants/dataTable.js'
 import { filterByGlobalSearch, filterData } from '../filter.js'
 
 describe('filterData', () => {
@@ -108,6 +112,96 @@ describe('filterData', () => {
         const data = [{ a: 'High' }, { a: '' }, { a: null }]
         const filters = { a: [SENTINEL_ANY_VALUE, ''] }
         expect(filterData(data, filters)).toEqual(data)
+    })
+
+    describe('date-group filter ({ granularity, prefixes })', () => {
+        const data = [
+            { a: '2023-05-15 00:00:00.0' },
+            { a: '2023-05-16 03:00:00.0' },
+            { a: '2024-01-01 00:00:00.0' },
+            { a: null },
+        ]
+
+        it('matches every row under a single year prefix', () => {
+            const filters = {
+                a: { granularity: DATE_GROUPS_GRANULARITY, prefixes: ['2023'] },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '2023-05-15 00:00:00.0' },
+                { a: '2023-05-16 03:00:00.0' },
+            ])
+        })
+
+        it('matches only the selected day prefix', () => {
+            const filters = {
+                a: {
+                    granularity: DATE_GROUPS_GRANULARITY,
+                    prefixes: ['2023-05-16'],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '2023-05-16 03:00:00.0' },
+            ])
+        })
+
+        it('ORs across prefixes of different granularities', () => {
+            const filters = {
+                a: {
+                    granularity: DATE_GROUPS_GRANULARITY,
+                    prefixes: ['2023-05-15', '2024'],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '2023-05-15 00:00:00.0' },
+                { a: '2024-01-01 00:00:00.0' },
+            ])
+        })
+
+        it('does not treat an empty prefix list as "match nothing" (mirrors the empty-array convention: match everything)', () => {
+            const filters = {
+                a: { granularity: DATE_GROUPS_GRANULARITY, prefixes: [] },
+            }
+            expect(filterData(data, filters)).toEqual(data)
+        })
+
+        it('SENTINEL_NO_VALUE only matches null/missing values, never startsWith("")-matching everything', () => {
+            const filters = {
+                a: {
+                    granularity: DATE_GROUPS_GRANULARITY,
+                    prefixes: [SENTINEL_NO_VALUE],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([{ a: null }])
+        })
+
+        it('SENTINEL_ANY_VALUE matches every non-blank value', () => {
+            const filters = {
+                a: {
+                    granularity: DATE_GROUPS_GRANULARITY,
+                    prefixes: [SENTINEL_ANY_VALUE],
+                },
+            }
+            expect(filterData(data, filters)).toEqual([
+                { a: '2023-05-15 00:00:00.0' },
+                { a: '2023-05-16 03:00:00.0' },
+                { a: '2024-01-01 00:00:00.0' },
+            ])
+        })
+
+        it('does not throw and combines (AND) correctly with an unrelated string filter on another field', () => {
+            const mixedData = [
+                { a: '2023-05-15 00:00:00.0', b: 'apple' },
+                { a: '2023-05-16 00:00:00.0', b: 'banana' },
+                { a: '2024-01-01 00:00:00.0', b: 'apple' },
+            ]
+            const filters = {
+                a: { granularity: DATE_GROUPS_GRANULARITY, prefixes: ['2023'] },
+                b: 'apple',
+            }
+            expect(filterData(mixedData, filters)).toEqual([
+                { a: '2023-05-15 00:00:00.0', b: 'apple' },
+            ])
+        })
     })
 })
 

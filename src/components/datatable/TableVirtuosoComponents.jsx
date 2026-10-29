@@ -23,15 +23,19 @@ DataTableWithVirtuosoContext.propTypes = {
     }),
 }
 
-const DataTableRowWithVirtuosoContext = ({ context, item, ...props }) => (
-    <DataTableRow
-        onMouseEnter={() => context.onMouseEnter(item)}
-        onMouseLeave={context.onMouseLeave}
-        onContextMenu={(e) => context.onContextMenu(e, item)}
-        onClick={(e) => context.onRowClick(item, e)}
-        onDoubleClick={() => context.onRowDoubleClick(item)}
-        {...props}
-    />
+const DataTableRowWithVirtuosoContext = React.memo(
+    function DataTableRowWithVirtuosoContext({ context, item, ...props }) {
+        return (
+            <DataTableRow
+                onMouseEnter={() => context.onMouseEnter(item)}
+                onMouseLeave={context.onMouseLeave}
+                onContextMenu={(e) => context.onContextMenu(e, item)}
+                onClick={(e) => context.onRowClick(item, e)}
+                onDoubleClick={() => context.onRowDoubleClick(item)}
+                {...props}
+            />
+        )
+    }
 )
 
 DataTableRowWithVirtuosoContext.propTypes = {
@@ -51,27 +55,50 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
-const EmptyPlaceholder = ({ context }) => (
+const getEmptyPlaceholderContent = (context) => {
+    if (context.showServerClusterAction) {
+        return (
+            <>
+                {i18n.t(
+                    "Event details aren't available while this layer is clustered on the server"
+                )}
+                <button
+                    type="button"
+                    className={styles.clearFiltersLink}
+                    onClick={context.onForceClientCluster}
+                >
+                    {i18n.t('Show event details')}
+                </button>
+            </>
+        )
+    }
+
+    if (context.totalCount > 0) {
+        return (
+            <>
+                {i18n.t('No features match your filters')}
+                {context.hasActiveFilters && (
+                    <button
+                        type="button"
+                        className={styles.clearFiltersLink}
+                        onClick={context.onClearFilters}
+                    >
+                        {i18n.t('Clear filters')}
+                    </button>
+                )}
+            </>
+        )
+    }
+
+    return i18n.t('No results found')
+}
+
+export const EmptyPlaceholder = ({ context }) => (
     <tbody>
         <tr>
             <td colSpan={99999}>
                 <div className={styles.noResults}>
-                    {context.totalCount > 0 ? (
-                        <>
-                            {i18n.t('No features match your filters')}
-                            {context.hasActiveFilters && (
-                                <button
-                                    type="button"
-                                    className={styles.clearFiltersLink}
-                                    onClick={context.onClearFilters}
-                                >
-                                    {i18n.t('Clear filters')}
-                                </button>
-                            )}
-                        </>
-                    ) : (
-                        i18n.t('No results found')
-                    )}
+                    {getEmptyPlaceholderContent(context)}
                 </div>
             </td>
         </tr>
@@ -81,8 +108,10 @@ const EmptyPlaceholder = ({ context }) => (
 EmptyPlaceholder.propTypes = {
     context: PropTypes.shape({
         hasActiveFilters: PropTypes.bool,
+        showServerClusterAction: PropTypes.bool,
         totalCount: PropTypes.number,
         onClearFilters: PropTypes.func,
+        onForceClientCluster: PropTypes.func,
     }),
 }
 

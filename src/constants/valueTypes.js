@@ -32,6 +32,9 @@ export const dateValueTypes = ['DATE', 'AGE']
 // Date-time value types
 export const datetimeValueTypes = ['DATETIME']
 
+// Time-only value types
+export const timeValueTypes = ['TIME']
+
 // Coordinate value types
 export const coordinateValueTypes = ['COORDINATE']
 
