@@ -1,3 +1,7 @@
+:root {
+    --data-table-controls-height: 36px;
+}
+
 .bottomPanel {
     position: absolute;
     left: 0;
@@ -5,7 +9,7 @@
     width: 100%;
     height: var(--data-table-height);
     z-index: 1040;
-    background: #fff;
+    background: var(--colors-white);
     display: flex;
     flex-direction: column;
 }
@@ -13,37 +17,26 @@
 .tableContainer {
     flex: 1;
     min-height: 0;
+    overflow: hidden;
     position: relative;
 }
 
 .dataTableControls {
     width: 100%;
-    height: 20px;
+    height: var(--data-table-controls-height);
     background-color: var(--colors-grey100);
     position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0 var(--spacers-dp4);
+    gap: var(--spacers-dp8);
+    flex-shrink: 0;
+    border-bottom: 1px solid var(--colors-grey300);
 }
 
-.closeIcon {
-    position: absolute;
-    top: 0;
-    right: 2px;
-    z-index: 100;
-    cursor: pointer;
-    color: var(--colors-grey800);
-    background-color: var(--colors-grey100);
-    width: 20px;
+.divider {
+    width: 1px;
     height: 20px;
-    border: none;
-}
-
-.closeIcon:hover {
-    color: var(--colors-grey900);
     background-color: var(--colors-grey300);
-}
-
-.closeIcon svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin: -8px 0 0 -8px;
+    flex-shrink: 0;
 }
