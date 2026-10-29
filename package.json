@@ -49,7 +49,7 @@
         "@dhis2/analytics": "^29.5.5",
         "@dhis2/app-runtime": "^3.17.4",
         "@dhis2/app-service-datastore": "^1.0.0-beta.3",
-        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#7c0b414689f82daaeb8bcb55b4c6fcedabb7257e",
+        "@dhis2/maps-gl": "git+https://github.com/d2-ci/maps-gl.git#c5798ae2f0463f4b6559f27f4db437d87149fe17",
         "@dhis2/multi-calendar-dates": "^3.2.1",
         "@dhis2/ui": "^10.19.3",
         "@dnd-kit/core": "^6.0.8",
