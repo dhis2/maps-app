@@ -1,3 +1,4 @@
+import { bbox } from '@turf/bbox'
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
@@ -84,7 +85,7 @@ class Layer extends PureComponent {
         }
 
         if (feature !== prevProps.feature) {
-            this.highlightFeature(feature)
+            this.handleFeatureUpdate(feature)
         }
     }
 
@@ -114,6 +115,7 @@ class Layer extends PureComponent {
         await this.createLayer(true)
         this.setLayerOrder()
         this.setLayerVisibility()
+        this.highlightFeature(this.props.feature)
     }
 
     // Override in subclass if needed
@@ -182,10 +184,52 @@ class Layer extends PureComponent {
         }
     }
 
+    handleFeatureUpdate(feature) {
+        this.highlightFeature(feature)
+        if (feature?.zoom && feature?.layerId === this.props.id) {
+            this.panToFeature(feature.id)
+        }
+    }
+
     highlightFeature(feature) {
-        if (this.layer.highlight) {
+        if (this.layer?.highlight) {
             this.layer.highlight(feature ? feature.id : null)
         }
+    }
+
+    panToFeature(featureId) {
+        if (!this.layer?.getFeaturesById) {
+            return
+        }
+        const features = this.layer
+            .getFeaturesById(featureId)
+            ?.filter((f) => f.geometry)
+        if (!features?.length) {
+            return
+        }
+
+        const [minLng, minLat, maxLng, maxLat] = bbox({
+            type: 'FeatureCollection',
+            features,
+        })
+
+        if (!Number.isFinite(minLng)) {
+            return
+        }
+
+        const { map } = this.context
+        map.fitBounds(
+            [
+                [minLng, minLat],
+                [maxLng, maxLat],
+            ],
+            {
+                padding: PADDING_DEFAULT,
+                duration: DURATION_DEFAULT,
+                essential: true,
+                maxZoom: 17,
+            }
+        )
     }
 
     render() {

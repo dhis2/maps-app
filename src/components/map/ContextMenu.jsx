@@ -11,6 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -20,14 +21,21 @@ import {
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
 import {
     FACILITY_LAYER,
+    GEOJSON_URL_LAYER,
     EARTH_ENGINE_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
+import { getGeojsonFeatureProfile } from '../../util/geojson.js'
 import { drillUpDown } from '../../util/map.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import { IconZoomIn16 } from '../core/icons.jsx'
 import styles from './styles/ContextMenu.module.css'
 
 const ContextMenu = (props) => {
     const anchorRef = useRef()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
 
     const {
         feature,
@@ -38,9 +46,11 @@ const ContextMenu = (props) => {
         position,
         offset,
         closeContextMenu,
+        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
+        setFeatureProfile,
         updateLayer,
     } = props
 
@@ -81,13 +91,31 @@ const ContextMenu = (props) => {
                 )
                 break
             case 'show_info':
-                setOrgUnitProfile(attr.id)
+                if (layerType === GEOJSON_URL_LAYER) {
+                    setFeatureProfile(
+                        getGeojsonFeatureProfile(
+                            { properties: attr },
+                            layerConfig.name,
+                            keyAnalysisDigitGroupSeparator
+                        )
+                    )
+                } else {
+                    setOrgUnitProfile(attr.id)
+                }
                 break
             case 'show_coordinate':
                 openCoordinatePopup(coordinates)
                 break
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates)
+                break
+            case 'zoom_to_feature':
+                highlightFeature({
+                    id: attr.id,
+                    layerId: layerConfig.id,
+                    origin: 'map',
+                    zoom: true,
+                })
                 break
 
             default:
@@ -109,25 +137,29 @@ const ContextMenu = (props) => {
             >
                 <div className={styles.menu}>
                     <Menu dense dataTest="context-menu">
-                        {layerType !== FACILITY_LAYER && feature && (
-                            <MenuItem
-                                dataTest="context-menu-drill-up"
-                                label={i18n.t('Drill up one level')}
-                                icon={<IconArrowUp16 />}
-                                disabled={!attr.hasCoordinatesUp}
-                                onClick={() => onClick('drill_up')}
-                            />
-                        )}
+                        {layerType !== FACILITY_LAYER &&
+                            layerType !== GEOJSON_URL_LAYER &&
+                            feature && (
+                                <MenuItem
+                                    dataTest="context-menu-drill-up"
+                                    label={i18n.t('Drill up one level')}
+                                    icon={<IconArrowUp16 />}
+                                    disabled={!attr.hasCoordinatesUp}
+                                    onClick={() => onClick('drill_up')}
+                                />
+                            )}
 
-                        {layerType !== FACILITY_LAYER && feature && (
-                            <MenuItem
-                                dataTest="context-menu-drill-down"
-                                label={i18n.t('Drill down one level')}
-                                icon={<IconArrowDown16 />}
-                                disabled={!attr.hasCoordinatesDown}
-                                onClick={() => onClick('drill_down')}
-                            />
-                        )}
+                        {layerType !== FACILITY_LAYER &&
+                            layerType !== GEOJSON_URL_LAYER &&
+                            feature && (
+                                <MenuItem
+                                    dataTest="context-menu-drill-down"
+                                    label={i18n.t('Drill down one level')}
+                                    icon={<IconArrowDown16 />}
+                                    disabled={!attr.hasCoordinatesDown}
+                                    onClick={() => onClick('drill_down')}
+                                />
+                            )}
 
                         {feature && (
                             <MenuItem
@@ -135,6 +167,15 @@ const ContextMenu = (props) => {
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
+                            />
+                        )}
+
+                        {feature && (
+                            <MenuItem
+                                dataTest="context-menu-zoom-to-feature"
+                                label={i18n.t('Zoom to feature')}
+                                icon={<IconZoomIn16 />}
+                                onClick={() => onClick('zoom_to_feature')}
                             />
                         )}
 
@@ -169,7 +210,9 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
+    highlightFeature: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
+    setFeatureProfile: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
     updateLayer: PropTypes.func.isRequired,
@@ -192,8 +235,10 @@ export default connect(
     }),
     {
         closeContextMenu,
+        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
+        setFeatureProfile,
         setOrgUnitProfile,
         updateLayer,
     }

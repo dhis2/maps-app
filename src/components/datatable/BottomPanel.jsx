@@ -1,12 +1,16 @@
-import { IconCross16 } from '@dhis2/ui'
+import i18n from '@dhis2/d2-i18n'
+import { IconCross16, IconFilter16, Tooltip } from '@dhis2/ui'
 import React, {
     useRef,
     useCallback,
+    useMemo,
     useState,
     useEffect,
     useLayoutEffect,
 } from 'react'
+import { createPortal } from 'react-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import { clearDataFilters } from '../../actions/dataFilters.js'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { getCssVar } from '../../util/helpers.js'
@@ -16,25 +20,60 @@ import ErrorBoundary from './ErrorBoundary.jsx'
 import ResizeHandle from './ResizeHandle.jsx'
 import styles from './styles/BottomPanel.module.css'
 
-// Container for DataTable
 const BottomPanel = () => {
     const dataTableHeight = useSelector((state) => state.ui.dataTableHeight)
+    const activeLayerId = useSelector((state) => state.dataTable)
+    const activeLayer = useSelector((state) =>
+        state.map.mapViews.find((l) => l.id === activeLayerId)
+    )
+    const dataFilters = activeLayer?.dataFilters ?? {}
+    const hasActiveFilters = Object.keys(dataFilters).length > 0
 
     const dispatch = useDispatch()
     const { height } = useWindowDimensions()
     const panelRef = useRef(null)
+    const nameRef = useRef(null)
     const [panelWidth, setPanelWidth] = useState(0)
+    const [totalCount, setTotalCount] = useState(null)
+    const [filteredCount, setFilteredCount] = useState(null)
+    const [nameTooltipPos, setNameTooltipPos] = useState(null)
 
     const maxHeight =
         height - getCssVar('--header-height') - getCssVar('--toolbar-height')
     const tableHeight =
         dataTableHeight < maxHeight ? dataTableHeight : maxHeight
+
     const onResize = useCallback((h) => {
         document.documentElement.style.setProperty(
             '--data-table-height',
             `${h}px`
         )
     }, [])
+
+    const onCountChange = useCallback((total, filtered) => {
+        setTotalCount(total)
+        setFilteredCount(filtered)
+    }, [])
+
+    const onNameMouseEnter = useCallback(() => {
+        const el = nameRef.current
+        if (!el || el.scrollWidth <= el.offsetWidth) {
+            return
+        }
+        const rect = el.getBoundingClientRect()
+        const computed = getComputedStyle(el)
+        const lineHeight = Number.parseFloat(computed.lineHeight)
+        setNameTooltipPos({
+            top: rect.top + (rect.height - lineHeight) / 2,
+            left: rect.left,
+            color: computed.color,
+            fontSize: computed.fontSize,
+            lineHeight: `${lineHeight}px`,
+            paddingLeft: computed.paddingLeft,
+        })
+    }, [])
+
+    const onNameMouseLeave = useCallback(() => setNameTooltipPos(null), [])
 
     useLayoutEffect(() => {
         document.documentElement.style.setProperty(
@@ -65,6 +104,18 @@ const BottomPanel = () => {
 
     useKeyDown('Escape', () => dispatch(closeDataTable()), true)
 
+    const rowCountLabel = useMemo(() => {
+        if (totalCount === null || filteredCount === null) {
+            return null
+        }
+        return filteredCount < totalCount
+            ? i18n.t('{{filtered}} of {{total}} rows', {
+                  filtered: filteredCount,
+                  total: totalCount,
+              })
+            : i18n.t('{{total}} rows', { total: totalCount })
+    }, [totalCount, filteredCount])
+
     return (
         <div
             ref={panelRef}
@@ -77,16 +128,59 @@ const BottomPanel = () => {
                     onResize={onResize}
                     onResizeEnd={(height) => dispatch(resizeDataTable(height))}
                 />
+                <span
+                    ref={nameRef}
+                    className={styles.layerName}
+                    onMouseEnter={onNameMouseEnter}
+                    onMouseLeave={onNameMouseLeave}
+                >
+                    {activeLayer?.name}
+                </span>
+                {nameTooltipPos &&
+                    createPortal(
+                        <div
+                            className={styles.nameTooltip}
+                            style={nameTooltipPos}
+                        >
+                            {activeLayer?.name}
+                        </div>,
+                        document.body
+                    )}
+                {rowCountLabel && (
+                    <span className={styles.rowCount}>{rowCountLabel}</span>
+                )}
+                {hasActiveFilters && (
+                    <button
+                        type="button"
+                        className={styles.clearFiltersButton}
+                        onClick={() =>
+                            dispatch(clearDataFilters(activeLayerId))
+                        }
+                    >
+                        <Tooltip content={i18n.t('Clear filters')}>
+                            <span className={styles.filteredIcon}>
+                                <IconFilter16 />
+                                <span className={styles.clearBadge} />
+                            </span>
+                        </Tooltip>
+                    </button>
+                )}
                 <button
+                    type="button"
                     className={styles.closeIcon}
                     onClick={() => dispatch(closeDataTable())}
                 >
-                    <IconCross16 />
+                    <Tooltip content={i18n.t('Close')}>
+                        <IconCross16 />
+                    </Tooltip>
                 </button>
             </div>
             <div className={styles.tableContainer}>
                 <ErrorBoundary>
-                    <DataTable availableWidth={panelWidth} />
+                    <DataTable
+                        availableWidth={panelWidth}
+                        onCountChange={onCountChange}
+                    />
                 </ErrorBoundary>
             </div>
         </div>
