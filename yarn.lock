@@ -2363,9 +2363,9 @@
   resolved "https://registry.yarnpkg.com/@dhis2/data-engine/-/data-engine-3.17.4.tgz#2db65f48f2fae66b4b4ae398f6cf223284916508"
   integrity sha512-4mlLwnxhVdiUncd77d2ZW7FEyLlehDNjPCrpXPHiaxoMSsScDD0cX7FAtBb08Xsq3TWr5vK36kQHGBdYAZ2CjQ==
 
-"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#e89c7e9bf5634da8b13684c314eb22838f629ed6":
-  version "4.4.3"
-  resolved "git+https://github.com/d2-ci/maps-gl.git#e89c7e9bf5634da8b13684c314eb22838f629ed6"
+"@dhis2/maps-gl@git+https://github.com/d2-ci/maps-gl.git#208674b51d1d2524d37cfc0d2619010bd84b8a6a":
+  version "4.4.5"
+  resolved "git+https://github.com/d2-ci/maps-gl.git#208674b51d1d2524d37cfc0d2619010bd84b8a6a"
   dependencies:
     "@mapbox/sphericalmercator" "^1.2.0"
     "@turf/area" "^7.3.5"
