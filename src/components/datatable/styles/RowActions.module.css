@@ -1,0 +1,47 @@
+.actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 2px;
+}
+
+/* Tooltip wraps each button in a span; keep it from adding line height */
+.actions > span {
+    display: inline-flex;
+}
+
+.action {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    color: var(--colors-grey500);
+    cursor: pointer;
+}
+
+/* Quiet until the row is hovered */
+:global(tr:hover) .action {
+    color: var(--colors-grey700);
+}
+
+/* Translucent so it darkens whatever the row is (white, hover, highlighted) */
+.action:hover {
+    background: rgba(33, 41, 52, 0.1);
+    color: var(--colors-grey900);
+}
+
+.action:focus-visible {
+    outline: 2px solid var(--theme-focus);
+    outline-offset: -2px;
+    color: var(--colors-grey900);
+}
+
+.action:disabled {
+    color: var(--colors-grey400);
+    background: none;
+    /* Let the tooltip wrapper still receive hover */
+    pointer-events: none;
+}

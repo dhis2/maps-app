@@ -112,6 +112,8 @@ class FacilityLayer extends Layer {
             <Popup
                 coordinates={coordinates}
                 orgUnitId={id}
+                dataTableLayerId={this.props.id}
+                featureId={id}
                 onClose={this.onPopupClose}
                 className={styles.facilityPopup}
             >

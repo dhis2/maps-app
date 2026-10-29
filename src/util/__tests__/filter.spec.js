@@ -1,4 +1,4 @@
-import { filterData } from '../filter.js'
+import { filterData, structuredFilter } from '../filter.js'
 
 describe('filterData', () => {
     it('should return the original data if no filters are provided', () => {
@@ -67,5 +67,23 @@ describe('filterData', () => {
         ]
         const filters = { a: 'a', b: 'r' }
         expect(filterData(data, filters)).toEqual([{ a: 'banana', b: 'horse' }])
+    })
+})
+
+describe('structuredFilter empty operators', () => {
+    const blanks = [undefined, null, '', '  ']
+    const values = ['a', 0, 12, '2024-01-01']
+
+    it.each(['text', 'number', 'date'])('matches blank %s values', (type) => {
+        const isEmpty = { type, operator: 'empty' }
+        const isNotEmpty = { type, operator: 'notEmpty' }
+        blanks.forEach((v) => {
+            expect(structuredFilter(v, isEmpty)).toBe(true)
+            expect(structuredFilter(v, isNotEmpty)).toBe(false)
+        })
+        values.forEach((v) => {
+            expect(structuredFilter(v, isEmpty)).toBe(false)
+            expect(structuredFilter(v, isNotEmpty)).toBe(true)
+        })
     })
 })

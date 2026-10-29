@@ -25,3 +25,16 @@
 .iconButton:not(.disabled):hover svg {
     color: var(--colors-grey900);
 }
+
+.iconButton.active:not(.disabled) {
+    background-color: var(--colors-blue050);
+}
+
+.iconButton.active:not(.disabled):hover {
+    background-color: var(--colors-blue100);
+}
+
+.iconButton.active:not(.disabled) svg,
+.iconButton.active:not(.disabled):hover svg {
+    color: var(--colors-blue700);
+}

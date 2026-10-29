@@ -9,6 +9,9 @@ const dataTable = (state = null, action) => {
         case types.DOWNLOAD_MODE_OPEN:
             return null
 
+        case types.DATA_TABLE_OPEN:
+            return action.id
+
         case types.DATA_TABLE_TOGGLE:
             return state === action.id ? null : action.id
 

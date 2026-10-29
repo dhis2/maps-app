@@ -5,7 +5,6 @@ import {
     MenuItem,
     MenuDivider,
     IconMore24,
-    IconTable16,
     IconLaunch16,
     IconDownload16,
     IconEdit16,
@@ -24,10 +23,8 @@ const LayerToolbarMoreMenu = ({
     onEdit,
     onDuplicate,
     onRemove,
-    toggleDataTable,
     openAs,
     downloadData,
-    dataTableOpen,
     hasOrgUnitData,
     isLoading,
     hasError,
@@ -35,16 +32,13 @@ const LayerToolbarMoreMenu = ({
     const [isOpen, setIsOpen] = useState(false)
     const anchorRef = useRef()
 
-    const somethingAboveDivider = toggleDataTable || downloadData,
+    const somethingAboveDivider = openAs || downloadData,
         somethingBelowDivider = onRemove || onEdit || onDuplicate,
         showDivider = somethingAboveDivider && somethingBelowDivider
 
     if (!somethingAboveDivider && !somethingBelowDivider) {
         return null
     }
-
-    const showDataTableDisabled =
-        !hasOrgUnitData && (!dataTableOpen || dataTableOpen !== layer.id)
 
     return (
         <>
@@ -68,21 +62,6 @@ const LayerToolbarMoreMenu = ({
                 >
                     <div className={styles.menu}>
                         <Menu dense dataTest="more-menu">
-                            {toggleDataTable && (
-                                <MenuItem
-                                    label={
-                                        dataTableOpen === layer.id
-                                            ? i18n.t('Hide data table')
-                                            : i18n.t('Show data table')
-                                    }
-                                    icon={<IconTable16 />}
-                                    onClick={() => {
-                                        setIsOpen(false)
-                                        toggleDataTable()
-                                    }}
-                                    disabled={hasError || showDataTableDisabled}
-                                />
-                            )}
                             {openAs && (
                                 <MenuItem
                                     label={i18n.t(
@@ -149,14 +128,12 @@ const LayerToolbarMoreMenu = ({
 }
 
 LayerToolbarMoreMenu.propTypes = {
-    dataTableOpen: PropTypes.string,
     downloadData: PropTypes.func,
     hasError: PropTypes.bool,
     hasOrgUnitData: PropTypes.bool,
     isLoading: PropTypes.bool,
     layer: PropTypes.object,
     openAs: PropTypes.func,
-    toggleDataTable: PropTypes.func,
     onDuplicate: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
@@ -164,17 +141,11 @@ LayerToolbarMoreMenu.propTypes = {
 
 const DEFAULT_EMPTY_LAYER = {}
 
-export default connect(
-    (
-        { dataTable: dataTableOpen, aggregations },
-        { layer = DEFAULT_EMPTY_LAYER }
-    ) => {
-        const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
-        const hasOrgUnitData =
-            layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)
-        const isLoading =
-            isEarthEngine && hasOrgUnitData && !aggregations[layer.id]
+export default connect(({ aggregations }, { layer = DEFAULT_EMPTY_LAYER }) => {
+    const isEarthEngine = layer.layer === EARTH_ENGINE_LAYER
+    const hasOrgUnitData =
+        layer.data && (!isEarthEngine || layer.aggregationType?.length > 0)
+    const isLoading = isEarthEngine && hasOrgUnitData && !aggregations[layer.id]
 
-        return { dataTableOpen, hasOrgUnitData, isLoading }
-    }
-)(LayerToolbarMoreMenu)
+    return { hasOrgUnitData, isLoading }
+})(LayerToolbarMoreMenu)

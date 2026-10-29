@@ -16,6 +16,45 @@ td.dataCell:hover {
     cursor: default;
 }
 
+td.mono {
+    font-family: Menlo, Consolas, 'Roboto Mono', monospace;
+    font-size: 11px;
+    color: var(--colors-grey800);
+    letter-spacing: 0;
+}
+
+.swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 6px;
+    border-radius: 2px;
+    vertical-align: -1px;
+    box-shadow: inset 0 0 0 1px rgba(33, 41, 52, 0.15);
+}
+
+.highlightedRow > td {
+    background-color: var(--colors-blue100) !important;
+}
+
+.highlightedRow > td:first-child {
+    box-shadow: inset 3px 0 0 var(--colors-blue600);
+}
+
+.revealedRow > td {
+    animation: reveal 1.6s ease-out;
+}
+
+@keyframes reveal {
+    0%,
+    30% {
+        background-color: var(--colors-blue200);
+    }
+    100% {
+        background-color: var(--colors-blue100);
+    }
+}
+
 td.lightText {
     color: var(--colors-white);
 }
@@ -24,29 +63,32 @@ td.lightText {
     justify-content: space-between;
 }
 
-.columnHeader :global(input.dense) {
-    padding: 4px 6px;
-}
-
-.columnHeader :global(input::placeholder) {
-    color: var(--colors-grey400);
-}
-
-/* Hide the filter icon */
-.columnHeader
-    > :global(span.container)
-    > :global(span.top)
-    > button:last-of-type {
-    visibility: hidden;
-}
-
-.noResults {
+.tableWrapper {
     display: flex;
-    color: var(--colors-grey600);
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Name + filter button fill the space before the sort icon */
+.columnHeader :global(span.top) {
     align-items: center;
-    justify-content: center;
-    font-style: italic;
-    min-height: 40px;
+}
+
+.columnHeader :global(span.content) {
+    flex: 1;
+    min-width: 0;
+}
+
+.headerContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--spacers-dp4);
+    width: 100%;
+}
+
+.emptyCell {
+    padding: 0;
 }
 
 .noSupport {
@@ -56,4 +98,29 @@ td.lightText {
     transform: translateX(-50%) translateY(-50%);
     color: var(--colors-grey600);
     font-style: italic;
+}
+
+/* Row actions stay pinned to the right edge when the table scrolls sideways */
+th.actionsHeader,
+td.actionsCell {
+    position: sticky;
+    right: 0;
+    box-shadow: inset 1px 0 0 var(--colors-grey300);
+}
+
+th.actionsHeader {
+    z-index: 2;
+}
+
+td.actionsCell {
+    padding: 0 var(--spacers-dp4);
+}
+
+.srOnly {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
 }

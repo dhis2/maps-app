@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
-"PO-Revision-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-10-21T07:42:23.386Z\n"
+"PO-Revision-Date: 2026-10-21T07:42:23.386Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -25,6 +25,15 @@ msgstr "Rename failed"
 
 msgid "Rename successful"
 msgstr "Rename successful"
+
+msgid "View"
+msgstr "View"
+
+msgid "Hide data table"
+msgstr "Hide data table"
+
+msgid "Show data table"
+msgstr "Show data table"
 
 msgid "This app could not retrieve required data."
 msgstr "This app could not retrieve required data."
@@ -155,17 +164,183 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
-msgid "No results found"
-msgstr "No results found"
+msgid "Manage data table columns"
+msgstr "Manage data table columns"
+
+msgid "Search available columns"
+msgstr "Search available columns"
+
+msgid "Selected columns"
+msgstr "Selected columns"
+
+msgid "Add at least one column"
+msgstr "Add at least one column"
+
+msgid "Reset to default"
+msgstr "Reset to default"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Update columns"
+msgstr "Update columns"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
 
+msgid "No matching rows"
+msgstr "No matching rows"
+
+msgid "No data to show"
+msgstr "No data to show"
+
+msgid "Try changing or clearing your filters."
+msgstr "Try changing or clearing your filters."
+
+msgid "This layer has no features with data."
+msgstr "This layer has no features with data."
+
+msgid "Clear filters"
+msgstr "Clear filters"
+
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-msgid "Search"
-msgstr "Search"
+msgid "Show in data table"
+msgstr "Show in data table"
+
+msgid "Edit filter"
+msgstr "Edit filter"
+
+msgid "Clear all"
+msgstr "Clear all"
+
+msgid "{{rowCount}} of {{totalCount}} rows"
+msgstr "{{rowCount}} of {{totalCount}} rows"
+
+msgid "From"
+msgstr "From"
+
+msgid "To"
+msgstr "To"
+
+msgid "Filter by {{column}}"
+msgstr "Filter by {{column}}"
+
+msgid "Close"
+msgstr "Close"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Filtering by org unit will be available with org unit search"
+msgstr "Filtering by org unit will be available with org unit search"
+
+msgid "Filter {{column}}"
+msgstr "Filter {{column}}"
+
+msgid "Condition"
+msgstr "Condition"
+
+msgid "and"
+msgstr "and"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Deselect {{count}} matching"
+msgid_plural "Deselect {{count}} matching"
+msgstr[0] "Deselect {{count}} matching"
+msgstr[1] "Deselect {{count}} matching"
+
+msgid "Select {{count}} matching"
+msgid_plural "Select {{count}} matching"
+msgstr[0] "Select {{count}} matching"
+msgstr[1] "Select {{count}} matching"
+
+msgid "Search options"
+msgstr "Search options"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
+msgid "{{count}} options"
+msgid_plural "{{count}} options"
+msgstr[0] "{{count}} options"
+msgstr[1] "{{count}} options"
+
+msgid "No options match \"{{- search}}\""
+msgstr "No options match \"{{- search}}\""
+
+msgid "Contains"
+msgstr "Contains"
+
+msgid "Type to filter"
+msgstr "Type to filter"
+
+msgid "Equal to"
+msgstr "Equal to"
+
+msgid "Not equal to"
+msgstr "Not equal to"
+
+msgid "Greater than"
+msgstr "Greater than"
+
+msgid "Greater than or equal to"
+msgstr "Greater than or equal to"
+
+msgid "Less than"
+msgstr "Less than"
+
+msgid "Less than or equal to"
+msgstr "Less than or equal to"
+
+msgid "Between"
+msgstr "Between"
+
+msgid "Max must be greater than Min"
+msgstr "Max must be greater than Min"
+
+msgid "To must be after From"
+msgstr "To must be after From"
+
+msgid "(No value)"
+msgstr "(No value)"
+
+msgid "contains \"{{- value}}\""
+msgstr "contains \"{{- value}}\""
+
+msgid "{{first}}, {{second}} +{{count}}"
+msgid_plural "{{first}}, {{second}} +{{count}}"
+msgstr[0] "{{first}}, {{second}} +{{count}}"
+msgstr[1] "{{first}}, {{second}} +{{count}}"
+
+msgid "from {{date}}"
+msgstr "from {{date}}"
+
+msgid "until {{date}}"
+msgstr "until {{date}}"
+
+msgid "Columns"
+msgstr "Columns"
+
+msgid "Expand data table"
+msgstr "Expand data table"
+
+msgid "Collapse data table"
+msgstr "Collapse data table"
+
+msgid "Close data table"
+msgstr "Close data table"
 
 msgid "Data table is not supported when events are grouped on the server."
 msgstr "Data table is not supported when events are grouped on the server."
@@ -186,8 +361,11 @@ msgstr "No valid data fields were found for this layer."
 msgid "Index"
 msgstr "Index"
 
-msgid "Id"
-msgstr "Id"
+msgid "ID"
+msgstr "ID"
+
+msgid "Code"
+msgstr "Code"
 
 msgid "Level"
 msgstr "Level"
@@ -263,12 +441,6 @@ msgstr "Resize your browser window to change the map dimensions."
 
 msgid "Map download is not supported by your browser. Try Google Chrome or Firefox."
 msgstr "Map download is not supported by your browser. Try Google Chrome or Firefox."
-
-msgid "Cancel"
-msgstr "Cancel"
-
-msgid "Close"
-msgstr "Close"
 
 msgid "No organisation units are selected"
 msgstr "No organisation units are selected"
@@ -689,12 +861,6 @@ msgstr "More actions"
 msgid "Toggle layer menu"
 msgstr "Toggle layer menu"
 
-msgid "Hide data table"
-msgstr "Hide data table"
-
-msgid "Show data table"
-msgstr "Show data table"
-
 msgid "Open in Data Visualizer app"
 msgstr "Open in Data Visualizer app"
 
@@ -951,9 +1117,6 @@ msgstr "No data found for this period."
 msgid "Image of the organisation unit"
 msgstr "Image of the organisation unit"
 
-msgid "Code"
-msgstr "Code"
-
 msgid "Short name"
 msgstr "Short name"
 
@@ -981,9 +1144,6 @@ msgstr "Address"
 msgid "Phone"
 msgstr "Phone"
 
-msgid "ID"
-msgstr "ID"
-
 msgid "Comment"
 msgstr "Comment"
 
@@ -1001,9 +1161,6 @@ msgstr "Selected and all below"
 
 msgid "Selection mode"
 msgstr "Selection mode"
-
-msgid "Clear"
-msgstr "Clear"
 
 msgid "Previous year"
 msgstr "Previous year"

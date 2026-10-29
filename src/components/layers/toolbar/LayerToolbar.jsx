@@ -4,6 +4,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { IconButton } from '../../core/index.js'
+import DataTableToggleButton from './DataTableToggleButton.jsx'
 import LayerToolbarMoreMenu from './LayerToolbarMoreMenu.jsx'
 import OpacitySlider from './OpacitySlider.jsx'
 import styles from './styles/LayerToolbar.module.css'
@@ -15,6 +16,7 @@ const LayerToolbar = ({
     onOpacityChange,
     toggleLayerVisibility,
     hasError,
+    toggleDataTable,
     ...expansionMenuProps
 }) => {
     const onEdit = expansionMenuProps.onEdit
@@ -60,6 +62,15 @@ const LayerToolbar = ({
                     />
                 </Tooltip>
             </div>
+            {toggleDataTable && expansionMenuProps.layer && (
+                <div className={styles.dataTableButton}>
+                    <DataTableToggleButton
+                        layer={expansionMenuProps.layer}
+                        toggleDataTable={toggleDataTable}
+                        hasError={hasError}
+                    />
+                </div>
+            )}
             <div className={styles.menuButton}>
                 <LayerToolbarMoreMenu
                     hasError={hasError}
@@ -77,6 +88,7 @@ LayerToolbar.propTypes = {
     hasOpacity: PropTypes.bool,
     isVisible: PropTypes.bool,
     opacity: PropTypes.number,
+    toggleDataTable: PropTypes.func,
     onEdit: PropTypes.func,
 }
 

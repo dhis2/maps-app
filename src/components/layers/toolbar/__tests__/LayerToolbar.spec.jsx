@@ -1,5 +1,7 @@
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
+import { Provider } from 'react-redux'
+import configureMockStore from 'redux-mock-store'
 import LayerToolbar from '../LayerToolbar.jsx'
 
 /* eslint-disable react/prop-types */
@@ -27,6 +29,8 @@ jest.mock('../LayerToolbarMoreMenu.jsx', () => {
     }
 })
 /* eslint-enable react/prop-types */
+
+const mockStore = configureMockStore()
 
 const props = {
     opacity: 0,
@@ -92,5 +96,63 @@ describe('LayerToolbar', () => {
         )
         expect(toggleVisibleFn).toHaveBeenCalledTimes(1)
         expect(editFn).toHaveBeenCalledTimes(1)
+    })
+
+    describe('data table button', () => {
+        const layer = { id: 'layer1', layer: 'thematic', data: [{}] }
+
+        const renderWithStore = (dataTable, extraProps = {}) =>
+            render(
+                <Provider store={mockStore({ dataTable })}>
+                    <LayerToolbar
+                        {...props}
+                        layer={layer}
+                        toggleDataTable={jest.fn()}
+                        {...extraProps}
+                    />
+                </Provider>
+            )
+
+        const getButton = (container) =>
+            container.querySelector('[data-test="layer-data-table-button"]')
+
+        it('is not rendered without toggleDataTable', () => {
+            const { container } = render(
+                <LayerToolbar {...props} layer={layer} />
+            )
+            expect(getButton(container)).toBeNull()
+        })
+
+        it('is not pressed when the layer is not in the data table', () => {
+            const { container } = renderWithStore(null)
+            expect(getButton(container).getAttribute('aria-pressed')).toBe(
+                'false'
+            )
+            expect(getButton(container).getAttribute('aria-label')).toBe(
+                'Show data table'
+            )
+        })
+
+        it('is pressed when the layer is in the data table', () => {
+            const { container } = renderWithStore('layer1')
+            expect(getButton(container).getAttribute('aria-pressed')).toBe(
+                'true'
+            )
+            expect(getButton(container).getAttribute('aria-label')).toBe(
+                'Hide data table'
+            )
+        })
+
+        it('calls toggleDataTable on click', () => {
+            const toggleDataTable = jest.fn()
+            const { container } = renderWithStore(null, { toggleDataTable })
+            fireEvent.click(getButton(container))
+            expect(toggleDataTable).toHaveBeenCalledTimes(1)
+        })
+
+        it('is disabled when the layer has an error', () => {
+            const { container } = renderWithStore(null, { hasError: true })
+            expect(getButton(container).disabled).toBe(true)
+        })
     })
 })

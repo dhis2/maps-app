@@ -169,6 +169,8 @@ class ThematicLayer extends Layer {
             <Popup
                 coordinates={coordinates}
                 orgUnitId={id}
+                dataTableLayerId={this.props.id}
+                featureId={id}
                 onClose={this.onPopupClose}
                 className={styles.thematicPopup}
             >
@@ -200,6 +202,8 @@ class ThematicLayer extends Layer {
         const filtersChanged = prevProps.dataFilters !== this.props.dataFilters
         const renderingChanged =
             prevProps.renderingStrategy !== this.props.renderingStrategy
+
+        this.updateFeature(prevProps)
 
         if (
             !dataChanged &&

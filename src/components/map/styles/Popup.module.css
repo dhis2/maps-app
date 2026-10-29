@@ -1,0 +1,12 @@
+.actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--spacers-dp8);
+    margin-top: var(--spacers-dp12);
+}
+
+/* OrgUnitButton brings its own top margin */
+.actions > div {
+    margin-top: 0;
+}
