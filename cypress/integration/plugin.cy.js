@@ -210,6 +210,27 @@ describe('Dashboard plugin', () => {
                 getPluginLegendAlerts().should('not.exist')
             })
         })
+
+        // The test maps have no RTL labels, so MapLibre doesn't load the
+        // plugin: this checks the file maps-gl looks for before setting it
+        it('serves the RTL text plugin', () => {
+            // Always the full response, not a 304 for a cached file
+            cy.intercept('GET', /mapbox-gl-rtl-text[^/]*\.js/, (req) => {
+                delete req.headers['if-none-match']
+                delete req.headers['if-modified-since']
+            }).as('rtlTextPlugin')
+            visitPlugin(thematicMap)
+
+            cy.wait('@rtlTextPlugin', EXTENDED_TIMEOUT)
+                .its('response')
+                .should((response) => {
+                    expect(response.statusCode).to.eq(200)
+                    expect(response.headers['content-type']).to.match(
+                        /javascript/
+                    )
+                })
+            waitForPluginMap()
+        })
     })
 
     describe('layer errors', () => {
