@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-09-07T10:22:12.476Z\n"
-"PO-Revision-Date: 2026-09-07T10:22:12.476Z\n"
+"POT-Creation-Date: 2026-10-29T16:08:44.354Z\n"
+"PO-Revision-Date: 2026-10-29T16:08:44.354Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -241,15 +241,6 @@ msgstr "to match the rows under it, or type to search"
 
 msgid "Select matches"
 msgstr "Select matches"
-
-msgid "Selected"
-msgstr "Selected"
-
-msgid "Not selected"
-msgstr "Not selected"
-
-msgid "All"
-msgstr "All"
 
 msgid "Drill up one level"
 msgstr "Drill up one level"
@@ -970,6 +961,9 @@ msgstr ""
 
 msgid "no value"
 msgstr "no value"
+
+msgid "All"
+msgstr "All"
 
 msgid "Loading data"
 msgstr "Loading data"

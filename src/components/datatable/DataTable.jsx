@@ -19,7 +19,6 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
-import { setSelectionFilter } from '../../actions/dataTable.js'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
@@ -49,7 +48,6 @@ import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
 import RowCells from './RowCells.jsx'
-import SelectionFilterButton from './SelectionFilterButton.jsx'
 import styles from './styles/DataTable.module.css'
 import TableContextMenu from './TableContextMenu.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
@@ -83,7 +81,6 @@ const Table = ({
         (state) => state.ui.showOnlyFeaturesInView
     )
     const mapBounds = useSelector((state) => state.ui.mapBounds)
-    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
@@ -179,7 +176,6 @@ const Table = ({
         sortDirection,
         showOnlyFeaturesInView,
         mapBounds,
-        selectionFilter,
         selectedIdSet,
         globalSearch,
         keyAnalysisDigitGroupSeparator,
@@ -288,7 +284,6 @@ const Table = ({
     const hasActiveFilters = hasActiveDataTableFilters({
         dataFilters: layer.dataFilters,
         globalSearch,
-        selectionFilter,
         showOnlyFeaturesInView,
     })
 
@@ -380,16 +375,6 @@ const Table = ({
                     width="76px"
                     fixed={isCheckboxColumnPinned}
                     left={isCheckboxColumnPinned ? '0px' : undefined}
-                    onFilterIconClick={Function.prototype}
-                    showFilter={true}
-                    filter={
-                        <SelectionFilterButton
-                            value={selectionFilter ?? []}
-                            onChange={(next) =>
-                                dispatch(setSelectionFilter(next))
-                            }
-                        />
-                    }
                 >
                     <div className={styles.checkboxHeaderContent}>
                         <TopTooltip content={i18n.t('Select all visible rows')}>
@@ -523,8 +508,6 @@ const Table = ({
         ),
         [
             isCheckboxColumnPinned,
-            selectionFilter,
-            dispatch,
             allRowIds,
             onReverseSelection,
             sortData,
