@@ -2,7 +2,6 @@ import i18n from '@dhis2/d2-i18n'
 import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
-    SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
     TYPE_ORG_UNIT,
     RENDERER_ORG_UNIT,
@@ -59,7 +58,6 @@ export const useTableData = ({
     sortDirection,
     showOnlyFeaturesInView,
     mapBounds,
-    selectedIdSet,
     globalSearch,
     keyAnalysisDigitGroupSeparator,
 }) => {
@@ -100,8 +98,6 @@ export const useTableData = ({
     // Only depend on mapBounds while the toggle is on, so panning/zooming
     // doesn't recompute dataWithAggregations below when it's off
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
-    const selectedIdSetDependency =
-        sortField === SENTINEL_SELECTED_ROW ? selectedIdSet : null
     const periodsDependency = isMultiPeriodThematic ? periods : null
     const valuesByPeriodDependency = isMultiPeriodThematic
         ? valuesByPeriod
@@ -291,15 +287,12 @@ export const useTableData = ({
             compareRows(a, b, {
                 sortField,
                 sortDirection,
-                selectedIdSet,
                 orgUnitRenderer: sortFieldRenderer,
                 idToName: orgUnitIdToName,
             })
         )
 
         return filteredData.map((item) => buildRowCells(item, headers))
-        // *Dependency vars proxy their raw counterparts (see above)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         headers,
         dataWithAggregations,
@@ -307,7 +300,6 @@ export const useTableData = ({
         globalSearch,
         sortField,
         sortDirection,
-        selectedIdSetDependency,
         orgUnitIdToName,
     ])
 

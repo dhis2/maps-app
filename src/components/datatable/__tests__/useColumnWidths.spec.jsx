@@ -46,7 +46,6 @@ const Harness = ({ availableWidth, error, widths, onColumnWidths }) => {
         <table>
             <tbody>
                 <tr ref={headerRowRef}>
-                    <td data-width="76" /> {/* checkbox column, skipped */}
                     {widths.map((w, i) => (
                         <td key={i} data-width={w} />
                     ))}

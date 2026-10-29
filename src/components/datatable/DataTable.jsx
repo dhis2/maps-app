@@ -5,7 +5,6 @@ import {
     ComponentCover,
     CenteredContent,
     CircularLoader,
-    IconSync16,
 } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
@@ -21,18 +20,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import {
-    toggleFeatureSelection,
-    selectFeatureRange,
-} from '../../actions/selection.js'
-import {
-    SENTINEL_SELECTED_ROW,
-    SORT_ASCENDING,
-} from '../../constants/dataTable.js'
+import { SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
     buildFeatureIndex,
     getNextSorting,
-    getRowClickAction,
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
@@ -53,7 +44,6 @@ import TableContextMenu from './TableContextMenu.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import TopTooltip from './TopTooltip.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
-import { useRowSelection } from './useRowSelection.js'
 import { useTableData } from './useTableData.js'
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
@@ -158,7 +148,6 @@ const Table = ({
         () => (selection.layerId === layer.id ? selection.ids : []),
         [selection, layer.id]
     )
-    const selectedIdSet = useMemo(() => new Set(selectedIds), [selectedIds])
 
     const {
         headers,
@@ -176,7 +165,6 @@ const Table = ({
         sortDirection,
         showOnlyFeaturesInView,
         mapBounds,
-        selectedIdSet,
         globalSearch,
         keyAnalysisDigitGroupSeparator,
     })
@@ -221,45 +209,10 @@ const Table = ({
         () => getPinnedLeftOffsets(visibleHeaders, pinnedKeys, columnWidths),
         [visibleHeaders, pinnedKeys, columnWidths]
     )
-    const pinnedOffsetsReady = Object.keys(pinnedLeftOffsets).length > 0
-
-    const isCheckboxColumnPinned = pinnedColumnCount > 0 && pinnedOffsetsReady
 
     useEffect(() => {
         onCountChange?.(totalCount, filteredCount)
     }, [onCountChange, totalCount, filteredCount])
-
-    const lastClickedRowIndexRef = useRef(null)
-
-    const onRowClick = useCallback(
-        (row, event) => {
-            const id = getRowId(row)
-
-            if (!id || !rows) {
-                return
-            }
-
-            const rowIndex = rows.findIndex((r) => getRowId(r) === id)
-            const action = getRowClickAction(event, {
-                id,
-                rowIndex,
-                rows,
-                lastClickedRowIndex: lastClickedRowIndexRef.current,
-            })
-
-            if (!action) {
-                return
-            }
-
-            if (action.type === 'range') {
-                dispatch(selectFeatureRange(action.ids, layer.id))
-            } else {
-                dispatch(toggleFeatureSelection(action.id, layer.id))
-            }
-            lastClickedRowIndexRef.current = rowIndex
-        },
-        [dispatch, layer.id, rows]
-    )
 
     const onRowDoubleClick = useCallback(
         (row) => {
@@ -300,7 +253,6 @@ const Table = ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
             onContextMenu: onRowContextMenu,
-            onRowClick,
             onRowDoubleClick,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
@@ -313,7 +265,6 @@ const Table = ({
             setFeatureHighlight,
             clearFeatureHighlight,
             onRowContextMenu,
-            onRowClick,
             onRowDoubleClick,
             columnWidths,
             totalCount,
@@ -354,14 +305,6 @@ const Table = ({
         [rows]
     )
 
-    const { isAllSelected, onToggleSelectAll, onReverseSelection } =
-        useRowSelection({
-            selectedIds,
-            selectedIdSet,
-            allRowIds,
-            layerId: layer.id,
-        })
-
     const computeItemKey = useCallback(
         (index, row) => getRowId(row) ?? index,
         []
@@ -370,62 +313,6 @@ const Table = ({
     const fixedHeaderContent = useCallback(
         () => (
             <DataTableRow ref={headerRowRef}>
-                <DataTableColumnHeader
-                    className={styles.checkboxCell}
-                    width="76px"
-                    fixed={isCheckboxColumnPinned}
-                    left={isCheckboxColumnPinned ? '0px' : undefined}
-                >
-                    <div className={styles.checkboxHeaderContent}>
-                        <TopTooltip content={i18n.t('Select all visible rows')}>
-                            <input
-                                type="checkbox"
-                                aria-label={i18n.t('Select all visible rows')}
-                                checked={isAllSelected}
-                                onChange={onToggleSelectAll}
-                            />
-                        </TopTooltip>
-                        <TopTooltip
-                            content={i18n.t(
-                                'Reverse selection of visible rows'
-                            )}
-                        >
-                            <button
-                                type="button"
-                                className={styles.reverseButton}
-                                aria-label={i18n.t(
-                                    'Reverse selection of visible rows'
-                                )}
-                                data-test="data-table-reverse-selection"
-                                disabled={allRowIds.length === 0}
-                                onClick={onReverseSelection}
-                            >
-                                <IconSync16 />
-                            </button>
-                        </TopTooltip>
-                        <TopTooltip content={i18n.t('Sort by Selected')}>
-                            <button
-                                type="button"
-                                className={styles.sortButton}
-                                aria-label={i18n.t('Sort by Selected')}
-                                data-test="data-table-column-sort-button-selected"
-                                onClick={() =>
-                                    sortData({
-                                        name: SENTINEL_SELECTED_ROW,
-                                    })
-                                }
-                            >
-                                <SortIcon
-                                    direction={
-                                        sortField === SENTINEL_SELECTED_ROW
-                                            ? sortDirection
-                                            : null
-                                    }
-                                />
-                            </button>
-                        </TopTooltip>
-                    </div>
-                </DataTableColumnHeader>
                 {visibleHeaders.map(
                     ({ name, dataKey, type, optionSet, renderer }, index) => {
                         const { fixed, left, isLastPinned } =
@@ -507,9 +394,6 @@ const Table = ({
             </DataTableRow>
         ),
         [
-            isCheckboxColumnPinned,
-            allRowIds,
-            onReverseSelection,
             sortData,
             sortField,
             sortDirection,
@@ -518,16 +402,9 @@ const Table = ({
             pinnedColumnCount,
             columnWidths,
             columnOptions,
-            isAllSelected,
-            onToggleSelectAll,
             headerRowRef,
             orgUnitIdToName,
         ]
-    )
-
-    const onToggleSelection = useCallback(
-        (rowId) => dispatch(toggleFeatureSelection(rowId, layer.id)),
-        [dispatch, layer.id]
     )
 
     const itemContent = useCallback(
@@ -535,10 +412,8 @@ const Table = ({
             <RowCells
                 row={row}
                 visibleHeaders={visibleHeaders}
-                selectedIdSet={selectedIdSet}
                 hoveredFeature={feature}
                 layerId={layer.id}
-                isCheckboxColumnPinned={isCheckboxColumnPinned}
                 pinnedLeftOffsets={pinnedLeftOffsets}
                 pinnedColumnCount={pinnedColumnCount}
                 columnWidths={columnWidths}
@@ -546,15 +421,12 @@ const Table = ({
                 typeByDataKey={typeByDataKey}
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
                 orgUnitIdToName={orgUnitIdToName}
-                onToggleSelection={onToggleSelection}
             />
         ),
         [
             visibleHeaders,
-            selectedIdSet,
             feature,
             layer.id,
-            isCheckboxColumnPinned,
             pinnedLeftOffsets,
             pinnedColumnCount,
             columnWidths,
@@ -562,7 +434,6 @@ const Table = ({
             typeByDataKey,
             keyAnalysisDigitGroupSeparator,
             orgUnitIdToName,
-            onToggleSelection,
         ]
     )
 
