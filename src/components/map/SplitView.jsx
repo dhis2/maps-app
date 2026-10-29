@@ -13,6 +13,12 @@ const SplitView = ({
     basemap,
     layers,
     feature,
+    selection,
+    highlightFeature,
+    highlightColor,
+    showOnlySelected,
+    clickFeature,
+    toggleFeatureSelection,
     controls,
     openContextMenu = Function.prototype,
     isFullscreen,
@@ -92,6 +98,12 @@ const SplitView = ({
                                 index={layers.length - index}
                                 externalPeriod={period}
                                 feature={feature}
+                                selection={selection}
+                                highlightFeature={highlightFeature}
+                                highlightColor={highlightColor}
+                                showOnlySelected={showOnlySelected}
+                                clickFeature={clickFeature}
+                                toggleFeatureSelection={toggleFeatureSelection}
                                 openContextMenu={openContextMenu}
                             />
                         )
@@ -113,14 +125,20 @@ SplitView.propTypes = {
     ).isRequired,
     openContextMenu: PropTypes.func.isRequired,
     basemap: PropTypes.object,
+    clickFeature: PropTypes.func,
     controls: PropTypes.array,
     feature: PropTypes.object,
+    highlightColor: PropTypes.string,
+    highlightFeature: PropTypes.func,
     interpretationModalOpen: PropTypes.bool,
     isFullscreen: PropTypes.bool,
     isPlugin: PropTypes.bool,
     layersSorting: PropTypes.bool,
     resizeCount: PropTypes.number,
+    selection: PropTypes.object,
     setMapObject: PropTypes.func,
+    showOnlySelected: PropTypes.bool,
+    toggleFeatureSelection: PropTypes.func,
 }
 
 export default SplitView
