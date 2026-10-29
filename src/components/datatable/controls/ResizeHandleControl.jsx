@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types'
 import React, { useEffect, useRef } from 'react'
-import { IconDrag } from '../core/icons.jsx'
-import styles from './styles/ResizeHandle.module.css'
+import { IconDrag } from '../../core/icons.jsx'
+import styles from './styles/ResizeHandleControl.module.css'
 
-const ResizeHandle = ({
+// A plain click still fires pointerdown/pointerup with (near-)identical
+// clientY - only treat it as a resize once the pointer clearly moved
+const DRAG_THRESHOLD_PX = 3
+
+const ResizeHandleControl = ({
     onResize,
     onResizeStart,
     onResizeEnd,
@@ -11,30 +15,36 @@ const ResizeHandle = ({
     maxHeight = 500,
 }) => {
     const isDraggingRef = useRef(false)
+    const hasMovedRef = useRef(false)
+    const startYRef = useRef(0)
 
     const getHeight = (clientY) => {
         const height = window.innerHeight - clientY
-        return height < minHeight
-            ? minHeight
-            : height > maxHeight
-            ? maxHeight
-            : height
+        return Math.min(Math.max(height, minHeight), maxHeight)
     }
 
     const onPointerDown = (evt) => {
         evt.preventDefault() // avoid text selection while dragging
         evt.currentTarget.setPointerCapture(evt.pointerId)
         isDraggingRef.current = true
-
-        onResizeStart?.()
-        evt.currentTarget.style.cursor = 'grabbing'
-        document.body.style.cursor = 'grabbing'
+        hasMovedRef.current = false
+        startYRef.current = evt.clientY
     }
 
     const onPointerMove = (evt) => {
-        if (isDraggingRef.current) {
-            onResize?.(getHeight(evt.clientY))
+        if (!isDraggingRef.current) {
+            return
         }
+        if (!hasMovedRef.current) {
+            if (Math.abs(evt.clientY - startYRef.current) < DRAG_THRESHOLD_PX) {
+                return
+            }
+            hasMovedRef.current = true
+            onResizeStart?.()
+            evt.currentTarget.style.cursor = 'grabbing'
+            document.body.style.cursor = 'grabbing'
+        }
+        onResize?.(getHeight(evt.clientY))
     }
 
     const onPointerUp = (evt) => {
@@ -43,6 +53,9 @@ const ResizeHandle = ({
         }
         isDraggingRef.current = false
         evt.currentTarget.releasePointerCapture(evt.pointerId)
+        if (!hasMovedRef.current) {
+            return
+        }
         evt.currentTarget.style.removeProperty('cursor')
         document.body.style.removeProperty('cursor')
         onResizeEnd?.(getHeight(evt.clientY))
@@ -73,7 +86,7 @@ const ResizeHandle = ({
     )
 }
 
-ResizeHandle.propTypes = {
+ResizeHandleControl.propTypes = {
     maxHeight: PropTypes.number.isRequired,
     minHeight: PropTypes.number,
     onResize: PropTypes.func,
@@ -81,4 +94,4 @@ ResizeHandle.propTypes = {
     onResizeStart: PropTypes.func,
 }
 
-export default ResizeHandle
+export default ResizeHandleControl

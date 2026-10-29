@@ -43,7 +43,7 @@ Checkbox.propTypes = {
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
-    label: PropTypes.string,
+    label: PropTypes.node,
     style: PropTypes.object,
     tooltip: PropTypes.string,
 }

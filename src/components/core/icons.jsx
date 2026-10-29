@@ -14,7 +14,7 @@ export const SortIcon = ({ direction }) => (
             <polygon
                 fill={
                     direction === 'desc'
-                        ? 'var(--colors-blue700)'
+                        ? 'var(--colors-teal600)'
                         : 'var(--colors-grey500)'
                 }
                 points="4 9 12 9 8 14"
@@ -22,7 +22,7 @@ export const SortIcon = ({ direction }) => (
             <polygon
                 fill={
                     direction === 'asc'
-                        ? 'var(--colors-blue700)'
+                        ? 'var(--colors-teal600)'
                         : 'var(--colors-grey500)'
                 }
                 points="4 7 12 7 8 2"
