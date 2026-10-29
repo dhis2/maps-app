@@ -12,6 +12,8 @@ import {
     getPolygonItems,
     getStyledOrgUnits,
     getCoordinateField,
+    attachOrgUnitPaths,
+    getMissingOrgUnitId,
     getOrgUnitsWithoutCoordsCount,
     addGroupCountsToLegend,
     loadGroupSetData,
@@ -19,7 +21,7 @@ import {
 } from '../util/orgUnits.js'
 import { GEOFEATURES_QUERY } from '../util/requests.js'
 
-const applyMissingCoordsCount = async (
+export const applyMissingCoordsCount = async (
     config,
     { engine, orgUnitIds, userId, features, legend, alerts }
 ) => {
@@ -42,7 +44,11 @@ const applyMissingCoordsCount = async (
     legend.orgUnitsWithoutCoordinatesCount = result.count
     legend.orgUnitsPointOnly = true
     if (result.count > 0) {
-        config.dataWithoutCoords = result.missingOrgUnits
+        config.dataWithoutCoords = await attachOrgUnitPaths(
+            result.missingOrgUnits,
+            engine,
+            getMissingOrgUnitId
+        )
     }
 }
 

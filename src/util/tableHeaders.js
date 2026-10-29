@@ -3,11 +3,19 @@ import {
     RENDERER_COLOR,
     RENDERER_ICON,
     RENDERER_DATE,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
     TYPE_DATETIME,
     TYPE_TIME,
+    TYPE_ORG_UNIT,
+    ORG_UNIT_PATH_DATA_KEY,
+    ORG_UNIT_DATA_KEY,
+    ORG_UNIT_ID_DATA_KEY,
+    ORG_UNIT_LEVEL_DATA_KEY,
 } from '../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -23,6 +31,8 @@ import {
     dateValueTypes,
     datetimeValueTypes,
     timeValueTypes,
+    ouValueTypes,
+    booleanValueTypes,
 } from '../constants/valueTypes.js'
 import { hasClasses } from './earthEngine.js'
 import { getGeojsonDisplayData } from './geojson.js'
@@ -52,49 +62,94 @@ const getCustomFieldType = (valueType, hasOptionSet) => {
 
 const DATE_LIKE_TYPES = new Set([TYPE_DATE, TYPE_DATETIME, TYPE_TIME])
 
-const getCustomFieldRenderer = (type) =>
-    DATE_LIKE_TYPES.has(type) ? RENDERER_DATE : undefined
+const getCustomFieldRenderer = (type, valueType) => {
+    if (DATE_LIKE_TYPES.has(type)) {
+        return RENDERER_DATE
+    }
+    if (ouValueTypes.includes(valueType)) {
+        return RENDERER_ORG_UNIT
+    }
+    if (booleanValueTypes.includes(valueType)) {
+        return RENDERER_BOOLEAN
+    }
+    return undefined
+}
 
-const NAME = 'name'
 const ID = 'id'
 const VALUE = 'rawValue'
 const LEGEND = 'legend'
 const RANGE = 'range'
-const LEVEL = 'level'
-const PARENT_NAME = 'parentName'
+const LEVEL = ORG_UNIT_LEVEL_DATA_KEY
 const TYPE = 'type'
 const COLOR = 'color'
 const GROUP = 'group'
 const ICON = 'iconUrl'
-const OUNAME = 'ouname'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
+const LASTUPDATED = 'lastupdated'
+const CREATEDAT = 'createdAt'
+const UPDATEDAT = 'updatedAt'
+const ORG_UNIT_PATH = ORG_UNIT_PATH_DATA_KEY
+const ORG_UNIT = ORG_UNIT_DATA_KEY
+const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
 
 export const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const defaultFieldsMap = () => ({
-    [NAME]: { name: i18n.t('Name'), dataKey: NAME, type: TYPE_STRING },
     [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
-    [LEVEL]: { name: i18n.t('Level'), dataKey: LEVEL, type: TYPE_NUMBER },
-    [PARENT_NAME]: {
-        name: i18n.t('Parent'),
-        dataKey: PARENT_NAME,
+    [ORG_UNIT_ID]: {
+        name: i18n.t('Org unit Id'),
+        dataKey: ORG_UNIT_ID,
         type: TYPE_STRING,
     },
-    [TYPE]: { name: i18n.t('Type'), dataKey: TYPE, type: TYPE_STRING },
+    [ORG_UNIT]: {
+        name: i18n.t('Org unit'),
+        dataKey: ORG_UNIT,
+        type: TYPE_STRING,
+        renderer: RENDERER_ORG_UNIT_NAME,
+    },
+    [LEVEL]: {
+        name: i18n.t('Org unit level'),
+        dataKey: LEVEL,
+        type: TYPE_NUMBER,
+    },
+    [TYPE]: { name: i18n.t('Geometry type'), dataKey: TYPE, type: TYPE_STRING },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
     [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
     [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
-    [OUNAME]: { name: i18n.t('Org unit'), dataKey: OUNAME, type: TYPE_STRING },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
     },
+    [ORG_UNIT_PATH]: {
+        name: i18n.t('Org unit hierarchy'),
+        dataKey: ORG_UNIT_PATH,
+        type: TYPE_ORG_UNIT,
+        renderer: RENDERER_ORG_UNIT,
+    },
     [EVENTDATE]: {
         name: i18n.t('Event date'),
         dataKey: EVENTDATE,
         type: TYPE_DATE,
+        renderer: RENDERER_DATE,
+    },
+    [LASTUPDATED]: {
+        name: i18n.t('Last updated'),
+        dataKey: LASTUPDATED,
+        type: TYPE_DATETIME,
+        renderer: RENDERER_DATE,
+    },
+    [CREATEDAT]: {
+        name: i18n.t('Created'),
+        dataKey: CREATEDAT,
+        type: TYPE_DATETIME,
+        renderer: RENDERER_DATE,
+    },
+    [UPDATEDAT]: {
+        name: i18n.t('Last updated'),
+        dataKey: UPDATEDAT,
+        type: TYPE_DATETIME,
         renderer: RENDERER_DATE,
     },
     [COLOR]: {
@@ -111,6 +166,16 @@ const defaultFieldsMap = () => ({
         renderer: RENDERER_ICON,
     },
 })
+
+const idFieldAs = (name) => ({ ...defaultFieldsMap()[ID], name })
+
+const getOrgUnitCoreFields = (idLabel, { includeOrgUnitId = false } = {}) => [
+    idFieldAs(idLabel),
+    ...(includeOrgUnitId ? [defaultFieldsMap()[ORG_UNIT_ID]] : []),
+    defaultFieldsMap()[ORG_UNIT],
+    defaultFieldsMap()[LEVEL],
+    defaultFieldsMap()[ORG_UNIT_PATH],
+]
 
 const getStyleHeaders = ({
     hasLegend,
@@ -139,11 +204,12 @@ const getStyleHeaders = ({
 }
 
 const getThematicHeaders = () =>
-    [NAME, ID, VALUE, LEVEL, PARENT_NAME, TYPE]
-        .map((field) => defaultFieldsMap()[field])
+    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+        .concat(defaultFieldsMap()[VALUE])
         .concat(
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
         )
+        .concat(defaultFieldsMap()[TYPE])
 
 const getMultiPeriodThematicHeaders = ({
     isTimelineThematic,
@@ -184,29 +250,34 @@ const getEventHeaders = ({
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = [OUNAME, ID, EVENTDATE].map(
-        (field) => defaultFieldsMap()[field]
-    )
+    const fields = getOrgUnitCoreFields(i18n.t('Event Id'), {
+        includeOrgUnitId: true,
+    })
+        .concat(defaultFieldsMap()[EVENTDATE])
+        .concat(defaultFieldsMap()[LASTUPDATED])
 
     if (countEventsOutsideOrgUnits) {
         fields.push(defaultFieldsMap()[OUBOUNDARY])
     }
 
+    // A handful of the analytics response's own fixed column names
+    // (e.g. "lastupdated", "eventstatus") happen to be 11 letters
+    const fixedDataKeys = new Set(fields.map((f) => f.dataKey))
+
     const customFields = layerHeaders
-        .filter(({ name }) => isValidUid(name))
+        .filter(({ name }) => isValidUid(name) && !fixedDataKeys.has(name))
         .map(({ name: dataKey, column: name, valueType, optionSet }) => {
             const type = getCustomFieldType(valueType, !!optionSet)
             return {
                 name,
                 dataKey,
                 type,
-                renderer: getCustomFieldRenderer(type),
+                renderer: getCustomFieldRenderer(type, valueType),
                 optionSet: optionSet || null,
             }
         })
 
     customFields.push(
-        defaultFieldsMap()[TYPE],
         ...getStyleHeaders({
             hasLegend: !!styleDataItem,
             hasRange: !!styleDataItem,
@@ -214,7 +285,7 @@ const getEventHeaders = ({
         })
     )
 
-    return fields.concat(customFields)
+    return fields.concat(customFields).concat(defaultFieldsMap()[TYPE])
 }
 
 const getOrgUnitStyleHeaders = (data) => {
@@ -235,37 +306,39 @@ const getOrgUnitStyleHeaders = (data) => {
     return getStyleHeaders({ hasGroup, hasColor, hasIcon })
 }
 
-// Org unit and facility headers share the same shape
-const getFixedFieldsWithOrgUnitStyle = (fields, data) =>
-    fields
-        .map((field) => defaultFieldsMap()[field])
+const getFixedFieldsWithOrgUnitStyle = (data) =>
+    getOrgUnitCoreFields(i18n.t('Org unit Id'))
         .concat(getOrgUnitStyleHeaders(data))
+        .concat(defaultFieldsMap()[TYPE])
 
-const getOrgUnitHeaders = (data) =>
-    getFixedFieldsWithOrgUnitStyle([NAME, ID, LEVEL, PARENT_NAME, TYPE], data)
+const getOrgUnitHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
 const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
-    const fields = [ID].map((field) => defaultFieldsMap()[field])
+    const fields = getOrgUnitCoreFields(i18n.t('Tracked entity Id'), {
+        includeOrgUnitId: true,
+    })
+        .concat(defaultFieldsMap()[CREATEDAT])
+        .concat(defaultFieldsMap()[UPDATEDAT])
 
     const customFields = layerHeaders
         .filter(({ dataKey }) => isValidUid(dataKey))
-        .map(({ name, dataKey, valueType }) => {
-            const type = getCustomFieldType(valueType, false)
+        .map(({ name, dataKey, valueType, optionSet }) => {
+            const type = getCustomFieldType(valueType, !!optionSet)
             return {
                 name,
                 dataKey,
                 type,
-                renderer: getCustomFieldRenderer(type),
+                renderer: getCustomFieldRenderer(type, valueType),
+                optionSet: optionSet || null,
             }
         })
 
     customFields.push(...getStyleHeaders({ hasColor: true }))
 
-    return fields.concat(customFields)
+    return fields.concat(customFields).concat(defaultFieldsMap()[TYPE])
 }
 
-const getFacilityHeaders = (data) =>
-    getFixedFieldsWithOrgUnitStyle([NAME, ID, TYPE], data)
+const getFacilityHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
 const toTitleCase = (str) =>
     str.replace(
@@ -301,9 +374,9 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return [NAME, ID, TYPE]
-        .map((field) => defaultFieldsMap()[field])
+    return getOrgUnitCoreFields(i18n.t('Org unit Id'))
         .concat(customFields)
+        .concat(defaultFieldsMap()[TYPE])
 }
 
 const getGeoJsonUrlHeaders = (firstDataItem) =>

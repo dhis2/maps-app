@@ -172,6 +172,7 @@ const Table = ({
         totalCount,
         filteredCount,
         columnOptions,
+        orgUnitIdToName,
     } = useTableData({
         layer,
         sortField,
@@ -471,6 +472,7 @@ const Table = ({
                                             options={columnOptions[dataKey]}
                                             optionSetId={optionSet?.id}
                                             renderer={renderer}
+                                            orgUnitIdToName={orgUnitIdToName}
                                         />
                                     )
                                 }
@@ -536,6 +538,7 @@ const Table = ({
             isAllSelected,
             onToggleSelectAll,
             headerRowRef,
+            orgUnitIdToName,
         ]
     )
 
@@ -559,6 +562,7 @@ const Table = ({
                 rendererByDataKey={rendererByDataKey}
                 typeByDataKey={typeByDataKey}
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
+                orgUnitIdToName={orgUnitIdToName}
                 onToggleSelection={onToggleSelection}
             />
         ),
@@ -574,6 +578,7 @@ const Table = ({
             rendererByDataKey,
             typeByDataKey,
             keyAnalysisDigitGroupSeparator,
+            orgUnitIdToName,
             onToggleSelection,
         ]
     )
