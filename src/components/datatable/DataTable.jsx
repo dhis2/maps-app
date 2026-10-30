@@ -204,8 +204,9 @@ const Table = ({
                                 key={`${dataKey}-${index}`}
                                 name={name}
                                 dataKey={dataKey}
-                                sortField={sortField}
-                                sortDirection={sortDirection}
+                                sortDirection={
+                                    dataKey === sortField ? sortDirection : null
+                                }
                                 onSort={sortData}
                                 onFilterIconClick={
                                     isFilterable(dataKey, type) &&

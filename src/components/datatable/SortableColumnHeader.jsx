@@ -9,7 +9,6 @@ import TopTooltip from './TopTooltip.jsx'
 const SortableColumnHeader = ({
     name,
     dataKey,
-    sortField,
     sortDirection,
     onSort,
     ...columnHeaderProps
@@ -28,11 +27,7 @@ const SortableColumnHeader = ({
                         data-test={`data-table-column-sort-button-${name}`}
                         onClick={() => onSort({ name: dataKey })}
                     >
-                        <SortIcon
-                            direction={
-                                dataKey === sortField ? sortDirection : null
-                            }
-                        />
+                        <SortIcon direction={sortDirection} />
                     </button>
                 </TopTooltip>
             </span>
@@ -45,7 +40,6 @@ SortableColumnHeader.propTypes = {
     name: PropTypes.string.isRequired,
     onSort: PropTypes.func.isRequired,
     sortDirection: PropTypes.string,
-    sortField: PropTypes.string,
 }
 
 export default SortableColumnHeader
