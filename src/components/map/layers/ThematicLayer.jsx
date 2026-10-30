@@ -198,7 +198,6 @@ class ThematicLayer extends Layer {
             this.syncOpacity(prevProps)
             this.syncVisibility(prevProps)
             this.syncFocusedFeature(prevProps)
-            this.syncSelectedFeatures(prevProps)
             this.syncHighlightColor(prevProps)
             return
         }
@@ -236,7 +235,6 @@ class ThematicLayer extends Layer {
             try {
                 this.layer.setData(filteredData)
                 this.highlightFeature()
-                this.selectFeatures()
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error
@@ -275,10 +273,7 @@ class ThematicLayer extends Layer {
 
     onFeatureClick(evt) {
         this.onFeatureLeftClick(evt)
-
-        if (!this.isMultiSelectClick(evt)) {
-            this.setState({ popup: evt })
-        }
+        this.setState({ popup: evt })
     }
 
     buildPeriodData(props = this.props) {

@@ -56,12 +56,10 @@ class Map extends Component {
         longitude: PropTypes.number,
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
-        selection: PropTypes.object,
         setActiveTimelinePeriod: PropTypes.func,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
         setMapObject: PropTypes.func,
-        toggleFeatureSelection: PropTypes.func,
         zoom: PropTypes.number,
     }
 
@@ -182,11 +180,9 @@ class Map extends Component {
             nameProperty,
             layers,
             feature,
-            selection,
             highlightFeature,
             highlightColor,
             clickFeature,
-            toggleFeatureSelection,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
@@ -235,13 +231,9 @@ class Map extends Component {
                                     key={config.id}
                                     index={layers.length - index}
                                     feature={highlight}
-                                    selection={selection}
                                     highlightFeature={highlightFeature}
                                     highlightColor={highlightColor}
                                     clickFeature={clickFeature}
-                                    toggleFeatureSelection={
-                                        toggleFeatureSelection
-                                    }
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}

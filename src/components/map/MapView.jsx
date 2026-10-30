@@ -17,11 +17,9 @@ const MapView = (props) => {
         layers,
         controls,
         feature,
-        selection,
         highlightFeature,
         highlightColor,
         clickFeature,
-        toggleFeatureSelection,
         bounds,
         coordinatePopup,
         interpretationModalOpen,
@@ -62,11 +60,9 @@ const MapView = (props) => {
                             layers={splitViewLayers.reverse()}
                             controls={mapControls}
                             feature={feature}
-                            selection={selection}
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
                             clickFeature={clickFeature}
-                            toggleFeatureSelection={toggleFeatureSelection}
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -82,11 +78,9 @@ const MapView = (props) => {
                             bounds={bounds}
                             controls={mapControls}
                             feature={feature}
-                            selection={selection}
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
                             clickFeature={clickFeature}
-                            toggleFeatureSelection={toggleFeatureSelection}
                             coordinatePopup={coordinatePopup}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -120,9 +114,7 @@ MapView.propTypes = {
     layersSorting: PropTypes.bool,
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
-    selection: PropTypes.object,
     setMapObject: PropTypes.func,
-    toggleFeatureSelection: PropTypes.func,
 }
 
 export default MapView
