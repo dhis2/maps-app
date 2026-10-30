@@ -1,0 +1,45 @@
+import i18n from '@dhis2/d2-i18n'
+import { DataTableColumnHeader } from '@dhis2/ui'
+import PropTypes from 'prop-types'
+import React from 'react'
+import { SortIcon } from '../core/icons.jsx'
+import styles from './styles/DataTable.module.css'
+import TopTooltip from './TopTooltip.jsx'
+
+const SortableColumnHeader = ({
+    name,
+    dataKey,
+    sortDirection,
+    onSort,
+    ...columnHeaderProps
+}) => {
+    const sortLabel = i18n.t('Sort by {{column}}', { column: name })
+
+    return (
+        <DataTableColumnHeader name={dataKey} {...columnHeaderProps}>
+            <span className={styles.headerContent}>
+                <span className={styles.headerTitle}>{name}</span>
+                <TopTooltip content={sortLabel}>
+                    <button
+                        type="button"
+                        className={styles.sortButton}
+                        aria-label={sortLabel}
+                        data-test={`data-table-column-sort-button-${name}`}
+                        onClick={() => onSort({ name: dataKey })}
+                    >
+                        <SortIcon direction={sortDirection} />
+                    </button>
+                </TopTooltip>
+            </span>
+        </DataTableColumnHeader>
+    )
+}
+
+SortableColumnHeader.propTypes = {
+    dataKey: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    onSort: PropTypes.func.isRequired,
+    sortDirection: PropTypes.string,
+}
+
+export default SortableColumnHeader

@@ -1,7 +1,6 @@
 import i18n from '@dhis2/d2-i18n'
 import {
     DataTableRow,
-    DataTableColumnHeader,
     ComponentCover,
     CenteredContent,
     CircularLoader,
@@ -28,12 +27,11 @@ import {
 } from '../../util/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
-import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
 import RowCells from './RowCells.jsx'
+import SortableColumnHeader from './SortableColumnHeader.jsx'
 import styles from './styles/DataTable.module.css'
 import TableComponents from './TableVirtuosoComponents.jsx'
-import TopTooltip from './TopTooltip.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
@@ -201,15 +199,20 @@ const Table = ({
                 {visibleHeaders.map(
                     ({ name, dataKey, type, optionSet, renderer }, index) => {
                         return (
-                            <DataTableColumnHeader
+                            <SortableColumnHeader
                                 className={styles.columnHeader}
                                 key={`${dataKey}-${index}`}
+                                name={name}
+                                dataKey={dataKey}
+                                sortDirection={
+                                    dataKey === sortField ? sortDirection : null
+                                }
+                                onSort={sortData}
                                 onFilterIconClick={
                                     isFilterable(dataKey, type) &&
                                     Function.prototype
                                 }
                                 showFilter={isFilterable(dataKey, type)}
-                                name={dataKey}
                                 filter={
                                     isFilterable(dataKey, type) && (
                                         <FilterInput
@@ -228,41 +231,7 @@ const Table = ({
                                         ? `${columnWidths[index]}px`
                                         : 'auto'
                                 }
-                            >
-                                <span className={styles.headerContent}>
-                                    <span className={styles.headerTitle}>
-                                        {name}
-                                    </span>
-                                    <TopTooltip
-                                        content={i18n.t('Sort by {{column}}', {
-                                            column: name,
-                                        })}
-                                    >
-                                        <button
-                                            type="button"
-                                            className={styles.sortButton}
-                                            aria-label={i18n.t(
-                                                'Sort by {{column}}',
-                                                { column: name }
-                                            )}
-                                            data-test={`data-table-column-sort-button-${name}`}
-                                            onClick={() =>
-                                                sortData({
-                                                    name: dataKey,
-                                                })
-                                            }
-                                        >
-                                            <SortIcon
-                                                direction={
-                                                    dataKey === sortField
-                                                        ? sortDirection
-                                                        : null
-                                                }
-                                            />
-                                        </button>
-                                    </TopTooltip>
-                                </span>
-                            </DataTableColumnHeader>
+                            />
                         )
                     }
                 )}
