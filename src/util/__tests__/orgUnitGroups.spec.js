@@ -1,23 +1,29 @@
 import {
-    formatOrgUnitNodeLabel,
+    formatOrgUnitOwnName,
     formatOrgUnitPathBreadcrumb,
 } from '../orgUnitGroups.js'
 
-describe('formatOrgUnitNodeLabel', () => {
+describe('formatOrgUnitOwnName', () => {
     it('falls back to the raw id when the name has not resolved yet', () => {
-        expect(formatOrgUnitNodeLabel({ key: 'country1' }, new Map())).toBe(
-            'country1'
+        expect(formatOrgUnitOwnName('/country1/region1', new Map())).toBe(
+            'region1'
         )
-        expect(formatOrgUnitNodeLabel({ key: 'country1' }, undefined)).toBe(
-            'country1'
+        expect(formatOrgUnitOwnName('/country1/region1', undefined)).toBe(
+            'region1'
         )
     })
 
-    it('uses the resolved name once present in the idToName map', () => {
-        const idToName = new Map([['country1', 'Sierra Leone']])
-        expect(formatOrgUnitNodeLabel({ key: 'country1' }, idToName)).toBe(
-            'Sierra Leone'
-        )
+    it('uses the resolved name of the last path segment', () => {
+        const idToName = new Map([
+            ['country1', 'Sierra Leone'],
+            ['region1', 'Bo'],
+        ])
+        expect(formatOrgUnitOwnName('/country1/region1', idToName)).toBe('Bo')
+    })
+
+    it('accepts a bare id as well as a path', () => {
+        const idToName = new Map([['region1', 'Bo']])
+        expect(formatOrgUnitOwnName('region1', idToName)).toBe('Bo')
     })
 })
 
