@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
-import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
+import { setFeatureProfile } from '../../actions/feature.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -30,7 +30,6 @@ import {
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
 import { drillUpDown } from '../../util/map.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
-import { IconZoomIn16 } from '../core/icons.jsx'
 import styles from './styles/ContextMenu.module.css'
 
 const ContextMenu = (props) => {
@@ -48,7 +47,6 @@ const ContextMenu = (props) => {
         position,
         offset,
         closeContextMenu,
-        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
@@ -114,21 +112,6 @@ const ContextMenu = (props) => {
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates)
                 break
-            case 'zoom_to_feature':
-                highlightFeature({
-                    id: attr.id,
-                    layerId: layerConfig.id,
-                    origin: 'map',
-                    zoom: true,
-                })
-                break
-            case 'zoom_to_layer':
-                highlightFeature({
-                    layerId: layerConfig.id,
-                    origin: 'map',
-                    zoom: true,
-                })
-                break
 
             default:
         }
@@ -184,24 +167,6 @@ const ContextMenu = (props) => {
                             />
                         )}
 
-                        {feature && (
-                            <MenuItem
-                                dataTest="context-menu-zoom-to-feature"
-                                label={i18n.t('Zoom to feature')}
-                                icon={<IconZoomIn16 />}
-                                onClick={() => onClick('zoom_to_feature')}
-                            />
-                        )}
-
-                        {feature && (
-                            <MenuItem
-                                dataTest="context-menu-zoom-to-layer"
-                                label={i18n.t('Zoom to layer')}
-                                icon={<IconZoomIn16 />}
-                                onClick={() => onClick('zoom_to_layer')}
-                            />
-                        )}
-
                         {coordinates && !isSplitView && (
                             <MenuItem
                                 dataTest="context-menu-show-long-lat"
@@ -233,7 +198,6 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
-    highlightFeature: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setFeatureProfile: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
@@ -258,7 +222,6 @@ export default connect(
     }),
     {
         closeContextMenu,
-        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
         setFeatureProfile,

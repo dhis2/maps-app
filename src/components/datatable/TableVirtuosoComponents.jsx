@@ -29,7 +29,6 @@ const DataTableRowWithVirtuosoContext = React.memo(
             <DataTableRow
                 onMouseEnter={() => context.onMouseEnter(item)}
                 onMouseLeave={context.onMouseLeave}
-                onContextMenu={(e) => context.onContextMenu(e, item)}
                 onDoubleClick={() => context.onRowDoubleClick(item)}
                 {...props}
             />
@@ -39,7 +38,6 @@ const DataTableRowWithVirtuosoContext = React.memo(
 
 DataTableRowWithVirtuosoContext.propTypes = {
     context: PropTypes.shape({
-        onContextMenu: PropTypes.func,
         onMouseEnter: PropTypes.func,
         onMouseLeave: PropTypes.func,
         onRowDoubleClick: PropTypes.func,
