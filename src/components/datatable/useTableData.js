@@ -3,7 +3,6 @@ import { useDeferredValue, useMemo, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import {
     SORT_ASCENDING,
-    TYPE_ORG_UNIT,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
@@ -15,14 +14,13 @@ import {
     RENDERING_STRATEGY_TIMELINE,
 } from '../../constants/layers.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
-import { filterByGlobalSearch, filterData } from '../../util/filter.js'
+import { filterData } from '../../util/filter.js'
 import { buildKnownOrgUnitNames } from '../../util/orgUnits.js'
 import {
     buildRowCells,
     getColumnDistinctValues,
 } from '../../util/tableColumns.js'
 import {
-    TYPE_STRING,
     ERROR_NON_HOMOGENOUS_FEATURES,
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
@@ -56,9 +54,6 @@ export const useTableData = ({
     layer,
     sortField,
     sortDirection,
-    showOnlyFeaturesInView,
-    mapBounds,
-    globalSearch,
     keyAnalysisDigitGroupSeparator,
 }) => {
     const allAggregations = useSelector((state) => state.aggregations)
@@ -95,9 +90,8 @@ export const useTableData = ({
         renderingStrategy === RENDERING_STRATEGY_TIMELINE
     const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
 
-    // Only depend on mapBounds while the toggle is on, so panning/zooming
-    // doesn't recompute dataWithAggregations below when it's off
-    const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
+    // Period inputs only count for the layers that show them, so other
+    // layers don't recompute the memos below when they change
     const periodsDependency = isMultiPeriodThematic ? periods : null
     const valuesByPeriodDependency = isMultiPeriodThematic
         ? valuesByPeriod
@@ -111,8 +105,6 @@ export const useTableData = ({
                 data,
                 dataWithoutCoords,
                 serverCluster,
-                showOnlyFeaturesInView,
-                mapBounds,
                 aggregations,
                 isStyledEvent,
                 isMultiPeriodThematic,
@@ -136,8 +128,6 @@ export const useTableData = ({
         aggregations,
         serverCluster,
         layerType,
-        showOnlyFeaturesInView,
-        boundsDependency,
         isMultiPeriodThematic,
         isTimelineThematic,
         valuesByPeriodDependency,
@@ -263,21 +253,7 @@ export const useTableData = ({
             return null
         }
 
-        let filteredData = filterData(dataWithAggregations, dataFilters)
-
-        if (globalSearch?.trim()) {
-            const stringDataKeys = headers
-                .filter((h) => h.type === TYPE_STRING)
-                .map((h) => h.dataKey)
-            const orgUnitDataKeys = headers
-                .filter((h) => h.type === TYPE_ORG_UNIT)
-                .map((h) => h.dataKey)
-            filteredData = filterByGlobalSearch(filteredData, globalSearch, {
-                stringDataKeys,
-                orgUnitDataKeys,
-                idToName: orgUnitIdToName,
-            })
-        }
+        const filteredData = filterData(dataWithAggregations, dataFilters)
 
         // Sort
         const sortFieldRenderer = headers.find(
@@ -297,7 +273,6 @@ export const useTableData = ({
         headers,
         dataWithAggregations,
         dataFilters,
-        globalSearch,
         sortField,
         sortDirection,
         orgUnitIdToName,

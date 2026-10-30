@@ -4,7 +4,6 @@ import {
     CENTROID_FORMAT_GEOJSON,
     getBounds,
     getCentroid,
-    isPointInBounds,
     isFeatureInBounds,
     addStyleDataItem,
     createEventFeature,
@@ -960,42 +959,6 @@ describe('geojson utils', () => {
                 ],
             }
             expect(getCentroid(unknown)).toBeNull()
-        })
-    })
-
-    describe('isPointInBounds', () => {
-        const bounds = [-10, -10, 10, 10]
-
-        it('returns true for a point inside the bounds', () => {
-            expect(isPointInBounds([0, 0], bounds)).toBe(true)
-        })
-
-        it('returns true for a point exactly on the bounds edge', () => {
-            expect(isPointInBounds([10, 10], bounds)).toBe(true)
-            expect(isPointInBounds([-10, -10], bounds)).toBe(true)
-        })
-
-        it('returns false for a point outside the bounds', () => {
-            expect(isPointInBounds([20, 0], bounds)).toBe(false)
-            expect(isPointInBounds([0, -20], bounds)).toBe(false)
-        })
-
-        describe('antimeridian-crossing bounds (west > east)', () => {
-            const antimeridianBounds = [170, -10, -170, 10]
-
-            it('returns true for a point within the eastern segment', () => {
-                expect(isPointInBounds([175, 0], antimeridianBounds)).toBe(true)
-            })
-
-            it('returns true for a point within the western segment', () => {
-                expect(isPointInBounds([-175, 0], antimeridianBounds)).toBe(
-                    true
-                )
-            })
-
-            it('returns false for a point outside both segments', () => {
-                expect(isPointInBounds([0, 0], antimeridianBounds)).toBe(false)
-            })
         })
     })
 

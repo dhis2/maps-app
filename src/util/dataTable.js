@@ -43,14 +43,8 @@ export const getRowClickAction = (
     return null
 }
 
-export const hasActiveDataTableFilters = ({
-    dataFilters,
-    globalSearch,
-    showOnlyFeaturesInView,
-}) =>
-    Object.keys(dataFilters ?? {}).length > 0 ||
-    !!globalSearch?.trim() ||
-    !!showOnlyFeaturesInView
+export const hasActiveDataTableFilters = ({ dataFilters }) =>
+    Object.keys(dataFilters ?? {}).length > 0
 
 export const buildFeatureIndex = (data) => {
     const index = new Map()
