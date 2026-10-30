@@ -33,13 +33,7 @@ const UNDRILLABLE_LAYERS = new Set([
     TRACKED_ENTITY_LAYER,
 ])
 
-const TableContextMenu = ({
-    contextMenu,
-    layer,
-    selectedIds,
-    filteredIds,
-    onClose,
-}) => {
+const TableContextMenu = ({ contextMenu, layer, filteredIds, onClose }) => {
     const anchorRef = useRef()
     const dispatch = useDispatch()
     const {
@@ -187,23 +181,6 @@ const TableContextMenu = ({
                         }}
                     />
                     <MenuItem
-                        dataTest="data-table-context-menu-zoom-to-selected"
-                        label={i18n.t('Zoom to selected features')}
-                        icon={<IconZoomIn16 />}
-                        disabled={!selectedIds?.length}
-                        onClick={() => {
-                            dispatch(
-                                highlightFeature({
-                                    ids: selectedIds,
-                                    layerId: layer.id,
-                                    origin: 'table',
-                                    zoom: true,
-                                })
-                            )
-                            onClose()
-                        }}
-                    />
-                    <MenuItem
                         dataTest="data-table-context-menu-zoom-to-filtered"
                         label={i18n.t('Zoom to filtered features')}
                         icon={<IconZoomIn16 />}
@@ -235,7 +212,6 @@ TableContextMenu.propTypes = {
         y: PropTypes.number,
     }),
     filteredIds: PropTypes.array,
-    selectedIds: PropTypes.array,
 }
 
 export default TableContextMenu
