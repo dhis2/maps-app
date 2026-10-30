@@ -24,7 +24,6 @@ import {
     formatOrgUnitOwnName,
     formatOrgUnitPathBreadcrumb,
 } from '../../util/orgUnitGroups.js'
-import { getPinnedCellProps } from '../../util/tableColumns.js'
 import styles from './styles/DataTable.module.css'
 
 const RowCells = ({
@@ -32,9 +31,6 @@ const RowCells = ({
     visibleHeaders,
     hoveredFeature,
     layerId,
-    pinnedLeftOffsets,
-    pinnedColumnCount,
-    columnWidths,
     rendererByDataKey,
     typeByDataKey,
     keyAnalysisDigitGroupSeparator,
@@ -50,21 +46,12 @@ const RowCells = ({
 
     return (
         <>
-            {visibleHeaders.map(({ dataKey }, index) => {
+            {visibleHeaders.map(({ dataKey }) => {
                 const cell = cellsByDataKey.get(dataKey)
                 if (!cell) {
                     return null
                 }
                 const { value, align } = cell
-                const { fixed, left, width, isLastPinned } = getPinnedCellProps(
-                    dataKey,
-                    index,
-                    {
-                        pinnedLeftOffsets,
-                        pinnedColumnCount,
-                        columnWidths,
-                    }
-                )
                 const renderer = rendererByDataKey.get(dataKey)
                 const isColorCell = renderer === RENDERER_COLOR
                 const isIconCell = renderer === RENDERER_ICON
@@ -77,9 +64,6 @@ const RowCells = ({
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
                         staticStyle
-                        fixed={fixed}
-                        left={left}
-                        width={width}
                         className={cx(styles.dataCell, {
                             [styles.lightText]:
                                 isColorCell && isDarkColor(value),
@@ -88,7 +72,6 @@ const RowCells = ({
                                 dataKey === ORG_UNIT_ID_DATA_KEY ||
                                 isColorCell,
                             [styles.hovered]: isHovered && !isColorCell,
-                            [styles.pinnedColumnShadow]: isLastPinned,
                         })}
                         backgroundColor={isColorCell ? value : null}
                         align={align}
@@ -134,9 +117,6 @@ const RowCells = ({
 }
 
 RowCells.propTypes = {
-    columnWidths: PropTypes.array.isRequired,
-    pinnedColumnCount: PropTypes.number.isRequired,
-    pinnedLeftOffsets: PropTypes.object.isRequired,
     rendererByDataKey: PropTypes.instanceOf(Map).isRequired,
     row: PropTypes.array.isRequired,
     typeByDataKey: PropTypes.instanceOf(Map).isRequired,
