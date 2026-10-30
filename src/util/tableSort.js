@@ -1,6 +1,5 @@
 import {
     SENTINEL_NO_VALUE,
-    SENTINEL_SELECTED_ROW,
     SORT_ASCENDING,
     TYPE_NUMBER,
     RENDERER_ORG_UNIT,
@@ -41,15 +40,6 @@ export const compareColumnOptionValues = (
     const comparison =
         type === TYPE_NUMBER ? Number(a) - Number(b) : compareStrings(a, b)
     return direction === SORT_ASCENDING ? comparison : -comparison
-}
-
-// Ascending (the default on first click) puts selected rows first
-export const compareBySelected = (a, b, { selectedIdSet, sortDirection }) => {
-    const aSelected = selectedIdSet?.has(a.id) ? 1 : 0
-    const bSelected = selectedIdSet?.has(b.id) ? 1 : 0
-    return sortDirection === SORT_ASCENDING
-        ? bSelected - aSelected
-        : aSelected - bSelected
 }
 
 export const compareRangeValues = (aVal, bVal, sortDirection) => {
@@ -109,9 +99,6 @@ export const compareRows = (a, b, options) => {
     // "None" (third click of the cycle) - fall back to natural order
     if (!sortField) {
         return a.index - b.index
-    }
-    if (sortField === SENTINEL_SELECTED_ROW) {
-        return compareBySelected(a, b, options)
     }
     return compareFieldValues(a[sortField], b[sortField], options)
 }

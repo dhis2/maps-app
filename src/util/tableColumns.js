@@ -1,8 +1,6 @@
 import { arrayMoveImmutable } from 'array-move'
 import { SENTINEL_NO_VALUE, TYPE_NUMBER } from '../constants/dataTable.js'
 
-const CHECKBOX_COLUMN_WIDTH = 76
-
 export const getDefaultVisibleKeys = (headers) =>
     headers.filter((h) => !h.defaultHidden).map((h) => h.dataKey)
 
@@ -105,7 +103,7 @@ export const getPinnedLeftOffsets = (
         return offsets
     }
 
-    let offset = CHECKBOX_COLUMN_WIDTH
+    let offset = 0
     visibleHeaders.forEach((header, index) => {
         if (pinnedKeys.includes(header.dataKey)) {
             offsets[header.dataKey] = offset

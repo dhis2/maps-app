@@ -2,10 +2,7 @@ import { renderHook } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
-import {
-    SENTINEL_SELECTED_ROW,
-    SENTINEL_NO_VALUE,
-} from '../../../constants/dataTable.js'
+import { SENTINEL_NO_VALUE } from '../../../constants/dataTable.js'
 import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
 import { useTableData } from '../useTableData.js'
 
@@ -1595,56 +1592,6 @@ describe('useTableData sorting', () => {
             (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
         )
         expect(names).toEqual(['Item C', 'Item A', 'Item B'])
-    })
-
-    describe('sorting by selection state', () => {
-        const layerWithIds = {
-            id: 'test-layer',
-            layer: 'thematic',
-            dataFilters: null,
-            data: [
-                { properties: { id: '1', name: 'Item A' } },
-                { properties: { id: '2', name: 'Item B' } },
-                { properties: { id: '3', name: 'Item C' } },
-                { properties: { id: '4', name: 'Item D' } },
-                { properties: { id: '5', name: 'Item E' } },
-            ],
-        }
-        const store = { aggregations: {} }
-
-        const renderSorted = (sortDirection) =>
-            renderHook(
-                () =>
-                    useTableData({
-                        layer: layerWithIds,
-                        sortField: SENTINEL_SELECTED_ROW,
-                        sortDirection,
-                        selectedIdSet: new Set(['2', '4']),
-                    }),
-                {
-                    wrapper: ({ children }) => (
-                        <Provider store={mockStore(store)}>{children}</Provider>
-                    ),
-                }
-            ).result
-
-        test('ascending (the default on first click) puts selected rows first', () => {
-            const { current } = renderSorted('asc')
-            const ids = current.rows.map(
-                (row) => row.find((c) => c.dataKey === 'id')?.value
-            )
-            expect(ids.slice(0, 2).sort()).toEqual(['2', '4'])
-            expect(ids.slice(2).sort()).toEqual(['1', '3', '5'])
-        })
-
-        test('descending puts selected rows last', () => {
-            const { current } = renderSorted('desc')
-            const ids = current.rows.map(
-                (row) => row.find((c) => c.dataKey === 'id')?.value
-            )
-            expect(ids.slice(0, 3).sort()).toEqual(['1', '3', '5'])
-            expect(ids.slice(3).sort()).toEqual(['2', '4'])
-        })
     })
 })
 
