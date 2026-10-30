@@ -11,7 +11,7 @@ import {
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
 import { connect } from 'react-redux'
-import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
+import { setFeatureProfile } from '../../actions/feature.js'
 import { updateLayer } from '../../actions/layers.js'
 import {
     closeContextMenu,
@@ -23,14 +23,11 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
     EARTH_ENGINE_LAYER,
-    EVENT_LAYER,
-    TRACKED_ENTITY_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
 import { drillUpDown } from '../../util/map.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
-import { IconZoomIn16 } from '../core/icons.jsx'
 import styles from './styles/ContextMenu.module.css'
 
 const ContextMenu = (props) => {
@@ -48,7 +45,6 @@ const ContextMenu = (props) => {
         position,
         offset,
         closeContextMenu,
-        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
         setOrgUnitProfile,
@@ -62,9 +58,6 @@ const ContextMenu = (props) => {
 
     const isSplitView =
         layerConfig?.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-
-    const supportsProfileAndDrill =
-        layerType !== EVENT_LAYER && layerType !== TRACKED_ENTITY_LAYER
 
     const left = offset[0] + position[0]
     const top = offset[1] + position[1]
@@ -114,21 +107,6 @@ const ContextMenu = (props) => {
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates)
                 break
-            case 'zoom_to_feature':
-                highlightFeature({
-                    id: attr.id,
-                    layerId: layerConfig.id,
-                    origin: 'map',
-                    zoom: true,
-                })
-                break
-            case 'zoom_to_layer':
-                highlightFeature({
-                    layerId: layerConfig.id,
-                    origin: 'map',
-                    zoom: true,
-                })
-                break
 
             default:
         }
@@ -149,8 +127,7 @@ const ContextMenu = (props) => {
             >
                 <div className={styles.menu}>
                     <Menu dense dataTest="context-menu">
-                        {supportsProfileAndDrill &&
-                            layerType !== FACILITY_LAYER &&
+                        {layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -162,8 +139,7 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {supportsProfileAndDrill &&
-                            layerType !== FACILITY_LAYER &&
+                        {layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -175,30 +151,12 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {supportsProfileAndDrill && feature && (
+                        {feature && (
                             <MenuItem
                                 dataTest="context-menu-view-profile"
                                 label={i18n.t('View profile')}
                                 icon={<IconInfo16 />}
                                 onClick={() => onClick('show_info')}
-                            />
-                        )}
-
-                        {feature && (
-                            <MenuItem
-                                dataTest="context-menu-zoom-to-feature"
-                                label={i18n.t('Zoom to feature')}
-                                icon={<IconZoomIn16 />}
-                                onClick={() => onClick('zoom_to_feature')}
-                            />
-                        )}
-
-                        {feature && (
-                            <MenuItem
-                                dataTest="context-menu-zoom-to-layer"
-                                label={i18n.t('Zoom to layer')}
-                                icon={<IconZoomIn16 />}
-                                onClick={() => onClick('zoom_to_layer')}
                             />
                         )}
 
@@ -233,7 +191,6 @@ const ContextMenu = (props) => {
 
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
-    highlightFeature: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
     setFeatureProfile: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
@@ -258,7 +215,6 @@ export default connect(
     }),
     {
         closeContextMenu,
-        highlightFeature,
         openCoordinatePopup,
         showEarthEngineValue,
         setFeatureProfile,
