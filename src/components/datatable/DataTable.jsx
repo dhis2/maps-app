@@ -50,7 +50,6 @@ const Table = ({
     availableWidth,
     onCountChange,
     onHeadersChange,
-    globalSearch,
     onClearFilters,
 }) => {
     const {
@@ -63,10 +62,6 @@ const Table = ({
 
     const dispatch = useDispatch()
     const feature = useSelector((state) => state.feature)
-    const showOnlyFeaturesInView = useSelector(
-        (state) => state.ui.showOnlyFeaturesInView
-    )
-    const mapBounds = useSelector((state) => state.ui.mapBounds)
     const [{ sortField, sortDirection }, setSorting] = useReducer(
         (sorting, newSorting) => ({ ...sorting, ...newSorting }),
         {
@@ -133,9 +128,6 @@ const Table = ({
         layer,
         sortField,
         sortDirection,
-        showOnlyFeaturesInView,
-        mapBounds,
-        globalSearch,
         keyAnalysisDigitGroupSeparator,
     })
 
@@ -206,8 +198,6 @@ const Table = ({
 
     const hasActiveFilters = hasActiveDataTableFilters({
         dataFilters: layer.dataFilters,
-        globalSearch,
-        showOnlyFeaturesInView,
     })
 
     const showServerClusterAction =
@@ -448,7 +438,6 @@ const Table = ({
 
 Table.propTypes = {
     availableWidth: PropTypes.number,
-    globalSearch: PropTypes.string,
     onClearFilters: PropTypes.func,
     onCountChange: PropTypes.func,
     onHeadersChange: PropTypes.func,

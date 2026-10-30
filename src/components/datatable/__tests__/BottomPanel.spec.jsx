@@ -30,7 +30,6 @@ const renderBottomPanel = () => {
     const store = mockStore({
         ui: {
             dataTableHeight: DATA_TABLE_HEIGHT,
-            showOnlyFeaturesInView: false,
             highlightColor: null,
         },
         dataTable: 'layer1',

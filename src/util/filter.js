@@ -2,7 +2,6 @@ import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
 } from '../constants/dataTable.js'
-import { formatOrgUnitPathBreadcrumb } from './orgUnitGroups.js'
 
 export const isOrgUnitValueFilter = (filter) =>
     filter != null &&
@@ -67,39 +66,6 @@ export const numericFilter = (value, filter) => {
         return orFilter
             .split('&')
             .every((filter) => isTrueFilter(value, filter)) // AND filter
-    })
-}
-
-export const filterByGlobalSearch = (
-    data,
-    searchString,
-    { stringDataKeys = [], orgUnitDataKeys = [], idToName } = {}
-) => {
-    if (
-        !searchString?.trim() ||
-        (!stringDataKeys.length && !orgUnitDataKeys.length)
-    ) {
-        return data
-    }
-    const lower = searchString.toLowerCase()
-    return data.filter((item) => {
-        const props = item.properties || item
-        const stringMatch = stringDataKeys.some((key) => {
-            const val = props[key]
-            return val != null && String(val).toLowerCase().includes(lower)
-        })
-        if (stringMatch) {
-            return true
-        }
-        return orgUnitDataKeys.some((key) => {
-            const val = props[key]
-            return (
-                val != null &&
-                formatOrgUnitPathBreadcrumb(val, idToName)
-                    .toLowerCase()
-                    .includes(lower)
-            )
-        })
     })
 }
 
