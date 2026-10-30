@@ -26,7 +26,6 @@ const createLayer = ({ featuresById = {}, getFeaturesById = true } = {}) => {
     }
     instance.layer = {
         getBounds: () => LAYER_BOUNDS,
-        highlight: jest.fn(),
         ...(getFeaturesById && {
             getFeaturesById: (id) => featuresById[id],
         }),
@@ -77,9 +76,37 @@ describe('Layer zoom to the highlighted feature', () => {
         )
     })
 
+    test('zooms to the single id when the ids list is empty', () => {
+        const layer = createLayer({
+            featuresById: { a: [point([-11, 8])], b: [point([-12, 9])] },
+        })
+        focus(layer, { ids: [], id: 'a', layerId: 'layer1', zoom: true })
+        expect(layer.context.map.fitBounds).toHaveBeenCalledWith(
+            [
+                [-11, 8],
+                [-11, 8],
+            ],
+            expect.anything()
+        )
+    })
+
+    test('prefers the ids list over the single id', () => {
+        const layer = createLayer({
+            featuresById: { a: [point([-11, 8])], b: [point([-12, 9])] },
+        })
+        focus(layer, { ids: ['b'], id: 'a', layerId: 'layer1', zoom: true })
+        expect(layer.context.map.fitBounds).toHaveBeenCalledWith(
+            [
+                [-12, 9],
+                [-12, 9],
+            ],
+            expect.anything()
+        )
+    })
+
     test('zooms to the whole layer when the feature has no id', () => {
         const layer = createLayer()
-        focus(layer, { layerId: 'layer1', zoom: true })
+        focus(layer, { ids: [], layerId: 'layer1', zoom: true })
         expect(layer.context.map.fitBounds).toHaveBeenCalledWith(LAYER_BOUNDS, {
             padding: PADDING_DEFAULT,
             duration: DURATION_DEFAULT,
@@ -115,6 +142,20 @@ describe('Layer zoom to the highlighted feature', () => {
             'no feature with that id has a geometry',
             { id: 'a', layerId: 'layer1', zoom: true },
             { featuresById: { a: [{ type: 'Feature', geometry: null }] } },
+        ],
+        [
+            'the features have no coordinates',
+            { id: 'a', layerId: 'layer1', zoom: true },
+            {
+                featuresById: {
+                    a: [
+                        {
+                            type: 'Feature',
+                            geometry: { type: 'MultiPolygon', coordinates: [] },
+                        },
+                    ],
+                },
+            },
         ],
         [
             'the id matches no feature',

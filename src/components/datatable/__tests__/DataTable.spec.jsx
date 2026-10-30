@@ -16,16 +16,23 @@ jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
     useCachedData: () => ({ systemSettings: {} }),
 }))
 jest.mock('../FilterInput.jsx', () => {
-    const FilterInputMock = () => null
+    const PropTypes = require('prop-types')
+    const FilterInputMock = ({ dataKey }) => (
+        <span data-test={`filter-${dataKey}`} />
+    )
     FilterInputMock.displayName = 'FilterInputMock'
+    FilterInputMock.propTypes = { dataKey: PropTypes.string }
     return FilterInputMock
 })
 
 const mockStore = configureMockStore()
 
+const ACTIVE_FILL = 'var(--colors-teal600)'
+
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
     { name: 'Value', dataKey: 'rawValue', type: 'number' },
+    { name: 'Untyped', dataKey: 'untyped' },
 ]
 
 const renderTable = () =>
@@ -46,6 +53,17 @@ const lastSorting = () => {
     return { sortField, sortDirection }
 }
 
+const sortButton = (name) =>
+    screen.getByRole('button', { name: `Sort by ${name}` })
+
+const activeArrows = (name) =>
+    [...sortButton(name).querySelectorAll('polygon')]
+        .filter((p) => p.getAttribute('fill') === ACTIVE_FILL)
+        .map((p) => p.getAttribute('points'))
+
+const UP_ARROW = '4 7 12 7 8 2'
+const DOWN_ARROW = '4 9 12 9 8 14'
+
 beforeEach(() => {
     useTableData.mockReturnValue({
         headers: HEADERS,
@@ -62,13 +80,38 @@ beforeEach(() => {
 describe('DataTable column headers', () => {
     test('show each column name with a sort button', () => {
         renderTable()
-        expect(screen.getByText('Org unit')).toBeInTheDocument()
-        expect(
-            screen.getByRole('button', { name: 'Sort by Value' })
-        ).toHaveAttribute('data-test', 'data-table-column-sort-button-Value')
+        HEADERS.forEach(({ name }) => {
+            expect(screen.getByText(name)).toBeInTheDocument()
+            expect(sortButton(name)).toHaveAttribute(
+                'data-test',
+                `data-table-column-sort-button-${name}`
+            )
+        })
     })
 
-    test('sorting starts by name, ascending', () => {
+    test('show a filter input for the columns that have a type', () => {
+        renderTable()
+        expect(screen.getByTestId('filter-orgUnitOwn')).toBeInTheDocument()
+        expect(screen.getByTestId('filter-rawValue')).toBeInTheDocument()
+        expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
+    })
+
+    test('highlight the arrow of the sort direction on the sorted column only', () => {
+        renderTable()
+        expect(activeArrows('Value')).toEqual([])
+
+        fireEvent.click(sortButton('Value'))
+        expect(activeArrows('Value')).toEqual([UP_ARROW])
+        expect(activeArrows('Org unit')).toEqual([])
+
+        fireEvent.click(sortButton('Value'))
+        expect(activeArrows('Value')).toEqual([DOWN_ARROW])
+
+        fireEvent.click(sortButton('Value'))
+        expect(activeArrows('Value')).toEqual([])
+    })
+
+    test('sorting starts by the name field, ascending', () => {
         renderTable()
         expect(lastSorting()).toEqual({
             sortField: 'name',
@@ -78,7 +121,7 @@ describe('DataTable column headers', () => {
 
     test('the sort button sorts by its column, ascending then descending, then back to layer order', () => {
         renderTable()
-        const button = screen.getByRole('button', { name: 'Sort by Value' })
+        const button = sortButton('Value')
 
         fireEvent.click(button)
         expect(lastSorting()).toEqual({
