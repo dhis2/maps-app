@@ -9,7 +9,6 @@ const defaultState = {
     mapContextMenu: true,
     downloadMode: false,
     layersSorting: false,
-    highlightColor: null,
     lastClickedFeature: null,
     activeTimelinePeriod: null,
 }
@@ -79,12 +78,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 layersSorting: false,
-            }
-
-        case types.HIGHLIGHT_COLOR_SET:
-            return {
-                ...state,
-                highlightColor: action.color,
             }
 
         case types.MAP_FEATURE_CLICKED:

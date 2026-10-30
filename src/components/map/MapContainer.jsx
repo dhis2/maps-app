@@ -23,7 +23,7 @@ const MapContainer = ({ resizeCount, setMap }) => {
         (state) => !!state.interpretation.id
     )
     const feature = useSelector((state) => state.feature)
-    const { layersSorting, highlightColor } = useSelector((state) => state.ui)
+    const { layersSorting } = useSelector((state) => state.ui)
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
 
@@ -47,7 +47,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 layers={loadedMapViews}
                 bounds={bounds}
                 feature={feature}
-                highlightColor={highlightColor}
                 highlightFeature={debouncedHighlightFeature}
                 clickFeature={(payload) => dispatch(clickFeature(payload))}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
