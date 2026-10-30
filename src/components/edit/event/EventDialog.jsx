@@ -13,7 +13,7 @@ import {
     setEventClustering,
     setEventPointColor,
     setEventPointRadius,
-    // setFallbackCoordinateField,
+    setEventCoordinateFieldFallback,
     setPeriods,
     setPeriodType,
     setStartDate,
@@ -80,6 +80,8 @@ const EventDialog = ({
     eventPointColor,
     eventPointRadius,
     eventStatus,
+    eventCoordinateFieldFallback = 'none',
+    eventCoordinateFieldFallbackType = 'none',
     filters,
     legendIsolated,
     legendSet,
@@ -318,16 +320,25 @@ const EventDialog = ({
                                 data-test="eventdialog-coordinatefield"
                             />
                             <GeometryCentroid tab={'data'} />
-                            {/* eventCoordinateField && (
                             <CoordinateField
                                 program={program}
                                 programStage={programStage}
-                                value={fallbackCoordinateField}
-                                eventCoordinateField={eventCoordinateField}
-                                onChange={setFallbackCoordinateField}
+                                value={eventCoordinateFieldFallback}
+                                type={eventCoordinateFieldFallbackType}
+                                eventCoordinateField={
+                                    eventCoordinateField || true
+                                }
+                                onChange={(fieldId, fieldType) =>
+                                    dispatch(
+                                        setEventCoordinateFieldFallback(
+                                            fieldId,
+                                            fieldType
+                                        )
+                                    )
+                                }
                                 className={styles.select}
+                                dataTest="eventcoordinatefieldfallback"
                             />
-                        ) */}
                             <EventStatusSelect
                                 value={eventStatus}
                                 onChange={(val) =>
@@ -558,11 +569,12 @@ EventDialog.propTypes = {
     endDate: PropTypes.string,
     eventClustering: PropTypes.bool,
     eventCoordinateField: PropTypes.string,
+    eventCoordinateFieldFallback: PropTypes.string,
+    eventCoordinateFieldFallbackType: PropTypes.string,
     eventCoordinateFieldType: PropTypes.string,
     eventPointColor: PropTypes.string,
     eventPointRadius: PropTypes.number,
     eventStatus: PropTypes.string,
-    // fallbackCoordinateField: PropTypes.string,
     filters: PropTypes.array,
     legendIsolated: PropTypes.object,
     legendSet: PropTypes.object,

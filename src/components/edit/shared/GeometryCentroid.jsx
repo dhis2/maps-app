@@ -9,20 +9,39 @@ import { EVENT_CENTROID_DEFAULT } from '../../../constants/layers.js'
 import Checkbox from '../../core/Checkbox.jsx'
 import styles from './styles/GeometryCentroid.module.css'
 
+// Checks both fields since either one's geometry can end up being plotted
+export const needsGeometryCentroid = (
+    eventCoordinateFieldType,
+    eventCoordinateFieldFallbackType
+) =>
+    (!!eventCoordinateFieldType &&
+        !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldType)) ||
+    (!!eventCoordinateFieldFallbackType &&
+        !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldFallbackType))
+
 const GeometryCentroid = ({
     tab,
     geometryCentroid,
     eventCoordinateFieldType,
+    eventCoordinateFieldFallbackType,
     className,
     setGeometryCentroid,
 }) => {
     useEffect(() => {
-        if (eventCoordinateFieldType) {
-            setGeometryCentroid(
-                !EVENT_CENTROID_DEFAULT.includes(eventCoordinateFieldType)
-            )
+        if (!eventCoordinateFieldType && !eventCoordinateFieldFallbackType) {
+            return
         }
-    }, [setGeometryCentroid, eventCoordinateFieldType])
+        setGeometryCentroid(
+            needsGeometryCentroid(
+                eventCoordinateFieldType,
+                eventCoordinateFieldFallbackType
+            )
+        )
+    }, [
+        setGeometryCentroid,
+        eventCoordinateFieldType,
+        eventCoordinateFieldFallbackType,
+    ])
 
     return (
         <div>
@@ -66,6 +85,7 @@ const GeometryCentroid = ({
 GeometryCentroid.propTypes = {
     setGeometryCentroid: PropTypes.func.isRequired,
     className: PropTypes.string,
+    eventCoordinateFieldFallbackType: PropTypes.string,
     eventCoordinateFieldType: PropTypes.string,
     geometryCentroid: PropTypes.bool,
     tab: PropTypes.string,
@@ -75,6 +95,8 @@ export default connect(
     ({ layerEdit }) => ({
         geometryCentroid: layerEdit?.geometryCentroid,
         eventCoordinateFieldType: layerEdit?.eventCoordinateFieldType,
+        eventCoordinateFieldFallbackType:
+            layerEdit?.eventCoordinateFieldFallbackType,
     }),
     { setGeometryCentroid }
 )(GeometryCentroid)

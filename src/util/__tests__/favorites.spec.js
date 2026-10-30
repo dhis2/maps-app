@@ -375,6 +375,56 @@ describe('cleanMapConfig', () => {
         expect(view).not.toHaveProperty('noDataLegend')
     })
 
+    test('keeps eventCoordinateFieldFallback as a native property on 2.43+', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'event',
+                        name: 'Test',
+                        opacity: 1,
+                        eventCoordinateFieldFallback: 'cascading',
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 43 },
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(view.eventCoordinateFieldFallback).toBe('cascading')
+        expect(view.config).toBeUndefined()
+    })
+
+    test('stores eventCoordinateFieldFallback in the config blob pre-2.43', () => {
+        const cleanedConfig = cleanMapConfig({
+            config: {
+                mapViews: [
+                    {
+                        layer: 'event',
+                        name: 'Test',
+                        opacity: 1,
+                        eventCoordinateFieldFallback: 'cascading',
+                        isLoaded: true,
+                        isLoading: false,
+                        isExpanded: true,
+                        isVisible: true,
+                    },
+                ],
+            },
+            defaultBasemapId: 'thedefaultBasemap',
+            serverVersion: { minor: 42 },
+        })
+        const view = cleanedConfig.mapViews[0]
+        expect(JSON.parse(view.config).eventCoordinateFieldFallback).toBe(
+            'cascading'
+        )
+        expect(view).not.toHaveProperty('eventCoordinateFieldFallback')
+    })
+
     test('serializes unclassifiedLegend into config JSON and removes it from the layer', () => {
         const cleanedConfig = cleanMapConfig({
             config: {

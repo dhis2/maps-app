@@ -289,6 +289,80 @@ describe('useTableData headers', () => {
         expect(isLoading).toBe(false)
     })
 
+    it.each([
+        {
+            desc: 'built-in source, falls back to COORDINATE_FIELD_NAMES',
+            geometrySourceNames: undefined,
+            geometrySource: 'ougeometry',
+            expectedValue: 'Organisation unit location',
+        },
+        {
+            desc: 'custom source, resolved via layer.geometrySourceNames',
+            geometrySourceNames: {
+                ougeometry: 'Organisation unit location',
+                abcDataElementUid1: 'My custom field',
+            },
+            geometrySource: 'abcDataElementUid1',
+            expectedValue: 'My custom field',
+        },
+    ])(
+        'includes a geometrySource column with a resolved name: $desc',
+        ({ geometrySourceNames, geometrySource, expectedValue }) => {
+            const store = {
+                aggregations: {},
+            }
+            const layer = {
+                layer: 'event',
+                dataFilters: null,
+                isExtended: true,
+                ...(geometrySourceNames && { geometrySourceNames }),
+                headers: [
+                    {
+                        name: 'geometrySource',
+                        column: 'Geometry source',
+                        valueType: 'TEXT',
+                    },
+                ],
+                data: [
+                    {
+                        properties: {
+                            id: 'a9712323629',
+                            type: 'Point',
+                            ouname: 'Lumley Hospital',
+                            eventdate: '2023-05-15 00:00:00.0',
+                            geometrySource,
+                        },
+                    },
+                ],
+            }
+            const { result } = renderHook(
+                () =>
+                    useTableData({
+                        layer,
+                        sortField: 'name',
+                        sortDirection: 'asc',
+                    }),
+                {
+                    wrapper: ({ children }) => (
+                        <Provider store={mockStore(store)}>{children}</Provider>
+                    ),
+                }
+            )
+            const { headers, rows } = result.current
+            expect(headers).toContainEqual({
+                name: 'Geometry source',
+                dataKey: 'geometrySource',
+                type: 'string',
+            })
+            expect(rows[0]).toContainEqual(
+                expect.objectContaining({
+                    value: expectedValue,
+                    dataKey: 'geometrySource',
+                })
+            )
+        }
+    )
+
     test('treats NUMBER header with optionSet as string type', () => {
         const store = { aggregations: {} }
         const layer = {
