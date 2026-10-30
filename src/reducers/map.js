@@ -90,9 +90,7 @@ const layer = (state, action) => {
 
             return {
                 ...action.payload,
-                dataTableColumnConfig:
-                    state.dataTableColumnConfig ??
-                    action.payload.dataTableColumnConfig,
+                dataTableColumnConfig: state.dataTableColumnConfig,
                 dataFilters: state.dataFilters ?? action.payload.dataFilters,
             }
 

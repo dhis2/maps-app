@@ -365,7 +365,7 @@ describe('map reducer - per-layer delegation', () => {
             expect(result.mapViews[0].dataFilters).toEqual({ name: 'foo' })
         })
 
-        it("uses the payload's dataTableColumnConfig/dataFilters when the layer has none live yet (first load)", () => {
+        it("keeps a dataTableColumnConfig reset to defaults instead of the payload's stale snapshot", () => {
             const state = {
                 ...defaultState,
                 mapViews: [{ id: 'layer1', name: 'Old' }],
@@ -380,9 +380,7 @@ describe('map reducer - per-layer delegation', () => {
                 },
             })
 
-            expect(result.mapViews[0].dataTableColumnConfig).toEqual({
-                visibleKeys: ['id'],
-            })
+            expect(result.mapViews[0].dataTableColumnConfig).toBeUndefined()
         })
     })
 
