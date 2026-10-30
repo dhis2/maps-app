@@ -20,11 +20,14 @@ const LAYER_SOURCES_DEFAULT_ALL =
     LAYER_SOURCES_DEFAULT_STANDARD -
     LAYER_SOURCES_DEFAULT_GROUPED
 
-Cypress.Commands.add('waitForLayerContainers', (n) => {
-    cy.getByDataTest('addlayerpopover', EXTENDED_TIMEOUT)
-        .find('[data-test^="addlayeritem-"]')
+Cypress.Commands.add('waitForLayerContainers', (n) =>
+    cy
+        .get(
+            '[data-test="addlayerpopover"] [data-test^="addlayeritem-"]',
+            EXTENDED_TIMEOUT
+        )
         .should('have.length', n)
-})
+)
 
 describe('Manage Layer Sources', () => {
     it('admin authority is already available for current user', () => {
@@ -200,6 +203,7 @@ describe('Manage Layer Sources', () => {
         // Visit page
         cy.visit('/')
 
+        cy.wait('@getManagedListTrimmed', EXTENDED_TIMEOUT)
         cy.wait('@getAuthorization', EXTENDED_TIMEOUT).then((interception) => {
             cy.log(interception.response.body.authorities)
             expect(interception.response.body.authorities).to.deep.equal([
