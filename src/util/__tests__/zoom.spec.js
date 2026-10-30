@@ -7,7 +7,7 @@ const point = (coordinates) => ({
 })
 
 describe('getZoomTarget', () => {
-    test('returns the feature ids when several are given', () => {
+    test('prefers the ids list over the single id', () => {
         expect(
             getZoomTarget(
                 { ids: ['a', 'b'], id: 'c', layerId: 'layer1', zoom: true },
@@ -19,6 +19,15 @@ describe('getZoomTarget', () => {
     test('returns the single feature id otherwise', () => {
         expect(
             getZoomTarget({ id: 'a', layerId: 'layer1', zoom: true }, 'layer1')
+        ).toEqual({ ids: ['a'] })
+    })
+
+    test('falls back to the single id when the ids list is empty', () => {
+        expect(
+            getZoomTarget(
+                { ids: [], id: 'a', layerId: 'layer1', zoom: true },
+                'layer1'
+            )
         ).toEqual({ ids: ['a'] })
     })
 
@@ -75,6 +84,15 @@ describe('getFeaturesBounds', () => {
     test.each([
         ['no features', []],
         ['no feature has a geometry', [{ type: 'Feature', geometry: null }]],
+        [
+            'geometries without coordinates',
+            [
+                {
+                    type: 'Feature',
+                    geometry: { type: 'MultiPolygon', coordinates: [] },
+                },
+            ],
+        ],
     ])('returns null for %s', (_, features) => {
         expect(getFeaturesBounds(features)).toBe(null)
     })

@@ -1,6 +1,5 @@
-import { bbox } from '@turf/bbox'
+import turfBbox from '@turf/bbox'
 
-// Returns the ids of the features to zoom to, the whole layer, or null
 export const getZoomTarget = (feature, layerId) => {
     if (!feature?.zoom || feature.layerId !== layerId) {
         return null
@@ -14,14 +13,14 @@ export const getZoomTarget = (feature, layerId) => {
     return { layer: true }
 }
 
-// Returns [[west, south], [east, north]] of the features that have a geometry, or null
+// In the [[west, south], [east, north]] form that map.fitBounds takes
 export const getFeaturesBounds = (features) => {
     const withGeometry = features.filter((f) => f.geometry)
     if (!withGeometry.length) {
         return null
     }
 
-    const [minLng, minLat, maxLng, maxLat] = bbox({
+    const [minLng, minLat, maxLng, maxLat] = turfBbox({
         type: 'FeatureCollection',
         features: withGeometry,
     })
