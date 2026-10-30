@@ -37,19 +37,3 @@ button.toolbarIconButton:disabled {
 button.toolbarIconButton:disabled svg {
     color: var(--colors-grey400);
 }
-
-button.toolbarIconButton.active {
-    background-color: var(--colors-blue100);
-}
-
-button.toolbarIconButton.active:not(:disabled) svg {
-    color: var(--colors-blue700);
-}
-
-button.toolbarIconButton.active:not(:disabled):hover {
-    background-color: var(--colors-blue200);
-}
-
-button.toolbarIconButton.active:not(:disabled):hover svg {
-    color: var(--colors-blue700);
-}
