@@ -37,7 +37,6 @@ const validLayerProperties = [
     'columns',
     'config',
     'created',
-    'dataTableColumnConfig',
     'datasetId',
     'displayName',
     'endDate',
@@ -181,9 +180,6 @@ const buildCommonLayerConfigData = (layer) => {
     if (layer.labelDataItem) {
         configData.labelDataItem = layer.labelDataItem
     }
-    if (layer.dataTableColumnConfig) {
-        configData.dataTableColumnConfig = layer.dataTableColumnConfig
-    }
     return configData
 }
 
@@ -198,26 +194,11 @@ const deleteCommonLayerConfigProps = (layer) => {
     delete layer.countFeaturesWithoutCoordinates
     delete layer.countEventsOutsideOrgUnits
     delete layer.labelDataItem
-    delete layer.dataTableColumnConfig
 }
 
 const buildEarthEngineLayerConfigData = (layer) => {
-    const {
-        layerId: id,
-        band,
-        style,
-        aggregationType,
-        period,
-        dataTableColumnConfig,
-    } = layer
-    return omitBy(isNil, {
-        id,
-        style,
-        band,
-        aggregationType,
-        period,
-        dataTableColumnConfig,
-    })
+    const { layerId: id, band, style, aggregationType, period } = layer
+    return omitBy(isNil, { id, style, band, aggregationType, period })
 }
 
 const deleteEarthEngineLayerProps = (layer) => {
@@ -230,7 +211,6 @@ const deleteEarthEngineLayerProps = (layer) => {
     delete layer.periodType
     delete layer.aggregationType
     delete layer.band
-    delete layer.dataTableColumnConfig
 }
 
 const buildTrackedEntityLayerConfigData = (layer) => ({
@@ -244,7 +224,6 @@ const buildTrackedEntityLayerConfigData = (layer) => ({
           }
         : null,
     periodType: layer.periodType,
-    dataTableColumnConfig: layer.dataTableColumnConfig,
 })
 
 const deleteTrackedEntityLayerProps = (layer) => {
@@ -254,7 +233,6 @@ const deleteTrackedEntityLayerProps = (layer) => {
     delete layer.relationshipLineColor
     delete layer.relationshipOutsideProgram
     delete layer.periodType
-    delete layer.dataTableColumnConfig
 }
 
 // TODO: This feels hacky, find better way to clean map configs before saving
@@ -290,13 +268,9 @@ const models2objects = (layer, cleanMapviewConfig) => {
             layer.config = {
                 ...layer.config,
                 featureStyle: { ...layer.featureStyle },
-                ...(layer.dataTableColumnConfig !== undefined && {
-                    dataTableColumnConfig: layer.dataTableColumnConfig,
-                }),
             }
         }
         delete layer.featureStyle
-        delete layer.dataTableColumnConfig
     } else if (
         layerType === EVENT_LAYER ||
         layerType === THEMATIC_LAYER ||
