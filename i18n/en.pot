@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-30T10:09:21.933Z\n"
-"PO-Revision-Date: 2026-10-30T10:09:21.933Z\n"
+"POT-Creation-Date: 2026-10-30T10:39:05.107Z\n"
+"PO-Revision-Date: 2026-10-30T10:39:05.107Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -161,15 +161,6 @@ msgstr "Sort by {{column}}"
 msgid "Edit layer"
 msgstr "Edit layer"
 
-msgid "Select a year, month, day or hour"
-msgstr "Select a year, month, day or hour"
-
-msgid "to match the events under it, or type to search"
-msgstr "to match the events under it, or type to search"
-
-msgid "Contains"
-msgstr "Contains"
-
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
@@ -197,6 +188,9 @@ msgstr "to match rows that contain it"
 msgid "Use filter"
 msgstr "Use filter"
 
+msgid "Contains"
+msgstr "Contains"
+
 msgid "Search or type > 5, < 8…"
 msgstr "Search or type > 5, < 8…"
 
@@ -217,21 +211,6 @@ msgstr "No matches"
 
 msgid "No value"
 msgstr "No value"
-
-msgid "Collapse {{label}}"
-msgstr "Collapse {{label}}"
-
-msgid "Expand {{label}}"
-msgstr "Expand {{label}}"
-
-msgid "Select a country, region, district or facility"
-msgstr "Select a country, region, district or facility"
-
-msgid "to match the rows under it, or type to search"
-msgstr "to match the rows under it, or type to search"
-
-msgid "Select matches"
-msgstr "Select matches"
 
 msgid "Event details aren't available while this layer is clustered on the server"
 msgstr "Event details aren't available while this layer is clustered on the server"

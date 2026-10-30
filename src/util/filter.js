@@ -1,38 +1,8 @@
 import {
     SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
-    DATE_GROUPS_GRANULARITY,
-    ORG_UNIT_GROUPS_GRANULARITY,
 } from '../constants/dataTable.js'
 import { formatOrgUnitPathBreadcrumb } from './orgUnitGroups.js'
-
-// Distinguishes a prefix-group filter (date-groups, org-unit-groups, ...)
-export const isPrefixGroupFilter = (filter, granularity) =>
-    filter != null &&
-    typeof filter === 'object' &&
-    !Array.isArray(filter) &&
-    filter.granularity === granularity
-
-export const prefixGroupFilter = (value, { prefixes }) => {
-    if (!prefixes?.length) {
-        return true
-    }
-    const stringValue = value == null ? SENTINEL_NO_VALUE : String(value)
-    return prefixes.some((prefix) => {
-        if (prefix === SENTINEL_NO_VALUE) {
-            return stringValue === SENTINEL_NO_VALUE
-        }
-        if (prefix === SENTINEL_ANY_VALUE) {
-            return stringValue !== SENTINEL_NO_VALUE
-        }
-        return stringValue.startsWith(prefix)
-    })
-}
-
-export const isDateGroupFilter = (filter) =>
-    isPrefixGroupFilter(filter, DATE_GROUPS_GRANULARITY)
-export const isOrgUnitGroupFilter = (filter) =>
-    isPrefixGroupFilter(filter, ORG_UNIT_GROUPS_GRANULARITY)
 
 export const isOrgUnitValueFilter = (filter) =>
     filter != null &&
@@ -57,10 +27,6 @@ export const filterData = (data, filters) => {
             // Loop through all data items
             const props = d.properties || d // GeoJSON or plain object
             const value = props[field]
-
-            if (isDateGroupFilter(filter) || isOrgUnitGroupFilter(filter)) {
-                return prefixGroupFilter(value, filter)
-            }
 
             const stringValue =
                 value == null ? SENTINEL_NO_VALUE : String(value)
