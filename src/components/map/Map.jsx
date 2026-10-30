@@ -57,7 +57,6 @@ class Map extends Component {
         nameProperty: PropTypes.string,
         resizeCount: PropTypes.number,
         selection: PropTypes.object,
-        selectionFilter: PropTypes.array,
         setActiveTimelinePeriod: PropTypes.func,
         setAggregations: PropTypes.func,
         setFeatureProfile: PropTypes.func,
@@ -186,7 +185,6 @@ class Map extends Component {
             selection,
             highlightFeature,
             highlightColor,
-            selectionFilter,
             clickFeature,
             toggleFeatureSelection,
             coordinatePopup: coordinates,
@@ -240,7 +238,6 @@ class Map extends Component {
                                     selection={selection}
                                     highlightFeature={highlightFeature}
                                     highlightColor={highlightColor}
-                                    selectionFilter={selectionFilter}
                                     clickFeature={clickFeature}
                                     toggleFeatureSelection={
                                         toggleFeatureSelection
