@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import { RENDERER_ICON } from '../../constants/dataTable.js'
-import { formatCellText } from '../../util/cellValue.js'
+import { formatCellText } from '../../util/tableCells.js'
 import styles from './styles/DataTable.module.css'
 
 const CellValue = ({

@@ -8,7 +8,7 @@ import {
     TYPE_DATETIME,
 } from '../../constants/dataTable.js'
 import { DIGIT_GROUP_SEPARATOR_SPACE } from '../../constants/settings.js'
-import { formatCellText } from '../cellValue.js'
+import { formatCellText } from '../tableCells.js'
 
 const orgUnitIdToName = new Map([
     ['ImspTQPwCqd', 'Sierra Leone'],
@@ -78,19 +78,22 @@ describe('formatCellText', () => {
         ).toBe(expected)
     })
 
-    test.each([null, undefined, ''])(
-        'returns an empty text for the missing value %p, whatever the renderer',
-        (value) => {
-            for (const renderer of [
-                undefined,
-                RENDERER_COLOR,
-                RENDERER_DATE,
-                RENDERER_ORG_UNIT,
-                RENDERER_ORG_UNIT_NAME,
-                RENDERER_BOOLEAN,
-            ]) {
-                expect(formatCellText(value, { renderer })).toBe('')
-            }
+    const renderers = [
+        undefined,
+        RENDERER_COLOR,
+        RENDERER_DATE,
+        RENDERER_ORG_UNIT,
+        RENDERER_ORG_UNIT_NAME,
+        RENDERER_BOOLEAN,
+    ]
+    const missingValueCases = renderers.flatMap((renderer) =>
+        [null, undefined, ''].map((value) => ({ renderer, value }))
+    )
+
+    test.each(missingValueCases)(
+        'returns an empty text for the missing value $value with the renderer $renderer',
+        ({ value, renderer }) => {
+            expect(formatCellText(value, { renderer })).toBe('')
         }
     )
 })
