@@ -9,7 +9,6 @@ const defaultState = {
     mapContextMenu: true,
     downloadMode: false,
     layersSorting: false,
-    lastClickedFeature: null,
     activeTimelinePeriod: null,
 }
 
@@ -48,7 +47,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 rightPanelOpen: false,
-                lastClickedFeature: null,
             }
 
         case types.DOWNLOAD_MODE_OPEN:
@@ -78,12 +76,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 layersSorting: false,
-            }
-
-        case types.MAP_FEATURE_CLICKED:
-            return {
-                ...state,
-                lastClickedFeature: action.payload,
             }
 
         case types.ACTIVE_TIMELINE_PERIOD_SET:

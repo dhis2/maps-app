@@ -14,7 +14,6 @@ const SplitView = ({
     layers,
     feature,
     highlightFeature,
-    clickFeature,
     controls,
     openContextMenu = Function.prototype,
     isFullscreen,
@@ -95,7 +94,6 @@ const SplitView = ({
                                 externalPeriod={period}
                                 feature={feature}
                                 highlightFeature={highlightFeature}
-                                clickFeature={clickFeature}
                                 openContextMenu={openContextMenu}
                             />
                         )
@@ -117,7 +115,6 @@ SplitView.propTypes = {
     ).isRequired,
     openContextMenu: PropTypes.func.isRequired,
     basemap: PropTypes.object,
-    clickFeature: PropTypes.func,
     controls: PropTypes.array,
     feature: PropTypes.object,
     highlightFeature: PropTypes.func,
