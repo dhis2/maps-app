@@ -23,8 +23,6 @@ import {
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
     EARTH_ENGINE_LAYER,
-    EVENT_LAYER,
-    TRACKED_ENTITY_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
 import { getGeojsonFeatureProfile } from '../../util/geojson.js'
@@ -60,9 +58,6 @@ const ContextMenu = (props) => {
 
     const isSplitView =
         layerConfig?.renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-
-    const supportsProfileAndDrill =
-        layerType !== EVENT_LAYER && layerType !== TRACKED_ENTITY_LAYER
 
     const left = offset[0] + position[0]
     const top = offset[1] + position[1]
@@ -132,8 +127,7 @@ const ContextMenu = (props) => {
             >
                 <div className={styles.menu}>
                     <Menu dense dataTest="context-menu">
-                        {supportsProfileAndDrill &&
-                            layerType !== FACILITY_LAYER &&
+                        {layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -145,8 +139,7 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {supportsProfileAndDrill &&
-                            layerType !== FACILITY_LAYER &&
+                        {layerType !== FACILITY_LAYER &&
                             layerType !== GEOJSON_URL_LAYER &&
                             feature && (
                                 <MenuItem
@@ -158,7 +151,7 @@ const ContextMenu = (props) => {
                                 />
                             )}
 
-                        {supportsProfileAndDrill && feature && (
+                        {feature && (
                             <MenuItem
                                 dataTest="context-menu-view-profile"
                                 label={i18n.t('View profile')}

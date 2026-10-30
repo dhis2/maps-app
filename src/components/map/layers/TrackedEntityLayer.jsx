@@ -86,7 +86,6 @@ class TrackedEntityLayer extends Layer {
                 radius,
             },
             onClick: this.onEventClick.bind(this),
-            onRightClick: this.onFeatureRightClick.bind(this),
             onMouseEnter: this.onFeatureMouseEnter.bind(this),
             onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
@@ -122,7 +121,6 @@ class TrackedEntityLayer extends Layer {
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
                 onClick: this.onEventClickSecondary.bind(this),
-                onRightClick: this.onFeatureRightClick.bind(this),
                 onMouseEnter: this.onFeatureMouseEnter.bind(this),
                 onMouseLeave: this.onFeatureMouseLeave.bind(this),
             }
