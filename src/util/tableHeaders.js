@@ -24,7 +24,6 @@ import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
-    TRACKED_ENTITY_LAYER,
 } from '../constants/layers.js'
 import {
     numberValueTypes,
@@ -87,8 +86,6 @@ const ICON = 'iconUrl'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
 const LASTUPDATED = 'lastupdated'
-const CREATEDAT = 'createdAt'
-const UPDATEDAT = 'updatedAt'
 const ORG_UNIT_PATH = ORG_UNIT_PATH_DATA_KEY
 const ORG_UNIT = ORG_UNIT_DATA_KEY
 const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
@@ -137,18 +134,6 @@ const defaultFieldsMap = () => ({
     [LASTUPDATED]: {
         name: i18n.t('Last updated'),
         dataKey: LASTUPDATED,
-        type: TYPE_DATETIME,
-        renderer: RENDERER_DATE,
-    },
-    [CREATEDAT]: {
-        name: i18n.t('Created'),
-        dataKey: CREATEDAT,
-        type: TYPE_DATETIME,
-        renderer: RENDERER_DATE,
-    },
-    [UPDATEDAT]: {
-        name: i18n.t('Last updated'),
-        dataKey: UPDATEDAT,
         type: TYPE_DATETIME,
         renderer: RENDERER_DATE,
     },
@@ -313,31 +298,6 @@ const getFixedFieldsWithOrgUnitStyle = (data) =>
 
 const getOrgUnitHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
-const getTrackedEntityHeaders = ({ layerHeaders = [] }) => {
-    const fields = getOrgUnitCoreFields(i18n.t('Tracked entity Id'), {
-        includeOrgUnitId: true,
-    })
-        .concat(defaultFieldsMap()[CREATEDAT])
-        .concat(defaultFieldsMap()[UPDATEDAT])
-
-    const customFields = layerHeaders
-        .filter(({ dataKey }) => isValidUid(dataKey))
-        .map(({ name, dataKey, valueType, optionSet }) => {
-            const type = getCustomFieldType(valueType, !!optionSet)
-            return {
-                name,
-                dataKey,
-                type,
-                renderer: getCustomFieldRenderer(type, valueType),
-                optionSet: optionSet || null,
-            }
-        })
-
-    customFields.push(...getStyleHeaders({ hasColor: true }))
-
-    return fields.concat(customFields).concat(defaultFieldsMap()[TYPE])
-}
-
 const getFacilityHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
 const toTitleCase = (str) =>
@@ -406,12 +366,6 @@ export const getHeadersForLayer = (layerType, ctx) => {
             }
         case ORG_UNIT_LAYER:
             return { headers: getOrgUnitHeaders(ctx.data) }
-        case TRACKED_ENTITY_LAYER:
-            return {
-                headers: getTrackedEntityHeaders({
-                    layerHeaders: ctx.layerHeaders,
-                }),
-            }
         case EARTH_ENGINE_LAYER:
             return {
                 headers: getEarthEngineHeaders({
