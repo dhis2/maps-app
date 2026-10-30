@@ -273,6 +273,7 @@ const Table = ({
             sortField,
             sortDirection,
             visibleHeaders,
+            columnWidths,
             columnOptions,
             headerRowRef,
             orgUnitIdToName,
