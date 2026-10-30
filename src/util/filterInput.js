@@ -6,8 +6,6 @@ const POPOVER_ROW_NON_LABEL_WIDTH = 56
 const MIN_POPOVER_WIDTH = 140
 const MAX_POPOVER_WIDTH = 280
 
-// Shared between FilterInput.jsx's SearchableFilterPopover and
-// DateGroupFilterInput.jsx's tree - both virtualize a list of fixed-height rows
 export const OPTION_ROW_HEIGHT = 28
 export const MAX_LIST_HEIGHT = 260
 
