@@ -1,4 +1,3 @@
-import { bbox } from '@turf/bbox'
 import log from 'loglevel'
 import PropTypes from 'prop-types'
 import { PureComponent } from 'react'
@@ -7,6 +6,7 @@ import {
     PADDING_DEFAULT,
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
+import { getFeaturesBounds, getZoomTarget } from '../../../util/zoom.js'
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -202,14 +202,11 @@ class Layer extends PureComponent {
     }
 
     zoomToFocusedFeature(feature) {
-        if (feature?.zoom && feature?.layerId === this.props.id) {
-            if (feature.ids?.length) {
-                this.panToFeature(feature.ids)
-            } else if (feature.id != null) {
-                this.panToFeature(feature.id)
-            } else {
-                this.fitBounds()
-            }
+        const target = getZoomTarget(feature, this.props.id)
+        if (target?.layer) {
+            this.fitBounds()
+        } else if (target) {
+            this.panToFeature(target.ids)
         }
     }
 
@@ -237,40 +234,23 @@ class Layer extends PureComponent {
         this.props.highlightFeature?.(null)
     }
 
-    panToFeature(featureIds) {
+    panToFeature(ids) {
         if (!this.layer?.getFeaturesById) {
             return
         }
-        const ids = Array.isArray(featureIds) ? featureIds : [featureIds]
-        const features = ids
-            .flatMap((id) => this.layer.getFeaturesById(id) ?? [])
-            .filter((f) => f.geometry)
-        if (!features.length) {
-            return
-        }
-
-        const [minLng, minLat, maxLng, maxLat] = bbox({
-            type: 'FeatureCollection',
-            features,
-        })
-
-        if (!Number.isFinite(minLng)) {
-            return
-        }
-
-        const { map } = this.context
-        map.fitBounds(
-            [
-                [minLng, minLat],
-                [maxLng, maxLat],
-            ],
-            {
-                padding: PADDING_DEFAULT,
-                duration: DURATION_DEFAULT,
-                essential: true,
-                maxZoom: 17,
-            }
+        const bounds = getFeaturesBounds(
+            ids.flatMap((id) => this.layer.getFeaturesById(id) ?? [])
         )
+        if (!bounds) {
+            return
+        }
+
+        this.context.map.fitBounds(bounds, {
+            padding: PADDING_DEFAULT,
+            duration: DURATION_DEFAULT,
+            essential: true,
+            maxZoom: 17,
+        })
     }
 
     render() {
