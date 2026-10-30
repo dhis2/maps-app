@@ -1,0 +1,36 @@
+import turfBbox from '@turf/bbox'
+
+export const getZoomTarget = (feature, layerId) => {
+    if (!feature?.zoom || feature.layerId !== layerId) {
+        return null
+    }
+    if (feature.ids?.length) {
+        return { ids: feature.ids }
+    }
+    if (feature.id != null) {
+        return { ids: [feature.id] }
+    }
+    return { layer: true }
+}
+
+// In the [[west, south], [east, north]] form that map.fitBounds takes
+export const getFeaturesBounds = (features) => {
+    const withGeometry = features.filter((f) => f.geometry)
+    if (!withGeometry.length) {
+        return null
+    }
+
+    const [minLng, minLat, maxLng, maxLat] = turfBbox({
+        type: 'FeatureCollection',
+        features: withGeometry,
+    })
+
+    if (!Number.isFinite(minLng)) {
+        return null
+    }
+
+    return [
+        [minLng, minLat],
+        [maxLng, maxLat],
+    ]
+}
