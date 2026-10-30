@@ -8,9 +8,7 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
-import { numberValueTypes } from '../constants/valueTypes.js'
 import { getOrgUnitsFromRows } from '../util/analytics.js'
-import { parseJsonConfig } from '../util/config.js'
 import {
     GEO_TYPE_POINT,
     GEO_TYPE_POLYGON,
@@ -18,24 +16,10 @@ import {
     GEO_TYPE_LINE,
     GEO_TYPE_FEATURE,
 } from '../util/geojson.js'
-import { parseWithSeparator } from '../util/numbers.js'
-import { attachOrgUnitPaths } from '../util/orgUnits.js'
-import { OPTION_SET_QUERY } from '../util/requests.js'
 import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
 import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
-import {
-    TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
-    TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
-} from '../util/trackedEntity.js'
 
-const fields = [
-    'trackedEntity~rename(id)',
-    'geometry',
-    'attributes',
-    'orgUnit',
-    'createdAt',
-    'updatedAt',
-]
+const fields = ['trackedEntity~rename(id)', 'geometry']
 
 // Valid geometry types for TEIs
 const teiGeometryTypes = new Set([
@@ -116,134 +100,36 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-export const getAttributeProperties = (
-    attributes,
-    optionSetIdByAttribute,
-    optionNamesByOptionSet
-) =>
-    Object.fromEntries(
-        (attributes ?? []).map(({ attribute, value, valueType }) => {
-            if (numberValueTypes.includes(valueType)) {
-                return [attribute, parseWithSeparator(value)]
-            }
-            const optionSetId = optionSetIdByAttribute?.get(attribute)
-            const optionName = optionSetId
-                ? optionNamesByOptionSet?.get(optionSetId)?.get(value)
-                : undefined
-            return [attribute, optionName ?? value]
-        })
-    )
+const toGeoJson = (instances) =>
+    instances.map(({ id, geometry }) => ({
+        type: GEO_TYPE_FEATURE,
+        geometry,
+        properties: {
+            id,
+        },
+    }))
 
-export const getAttributeHeaders = (instances, optionSetIdByAttribute) => {
-    const headersByAttribute = new Map()
-    instances.forEach(({ attributes }) => {
-        ;(attributes ?? []).forEach(({ attribute, displayName, valueType }) => {
-            if (!headersByAttribute.has(attribute)) {
-                const optionSetId = optionSetIdByAttribute?.get(attribute)
-                headersByAttribute.set(attribute, {
-                    name: displayName,
-                    dataKey: attribute,
-                    valueType,
-                    optionSet: optionSetId ? { id: optionSetId } : null,
-                })
-            }
-        })
-    })
-    return [...headersByAttribute.values()]
-}
-
-// The main tracked entity marker's own color is currently fixed still
-// stamped here for when data table's Color column has real data
-export const toGeoJson = (
-    instances,
-    color,
-    { optionSetIdByAttribute, optionNamesByOptionSet } = {}
-) =>
-    instances.map(
-        ({ id, geometry, attributes, orgUnit, createdAt, updatedAt }) => ({
-            type: GEO_TYPE_FEATURE,
-            geometry,
-            properties: {
-                id,
-                color,
-                orgUnit,
-                createdAt,
-                updatedAt,
-                type: geometry?.type,
-                ...getAttributeProperties(
-                    attributes,
-                    optionSetIdByAttribute,
-                    optionNamesByOptionSet
-                ),
-            },
-        })
-    )
-
-const fetchOptionSetIdByAttribute = async (
-    engine,
-    { trackedEntityType, program }
-) => {
-    const { trackedEntityType: typeData } = await engine.query(
-        TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY,
-        { variables: { id: trackedEntityType.id, nameProperty: 'displayName' } }
-    )
-    let attributes = (typeData.trackedEntityTypeAttributes ?? []).map(
-        (a) => a.trackedEntityAttribute
-    )
-
-    if (program) {
-        const { program: programData } = await engine.query(
-            TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY,
-            { variables: { id: program.id, nameProperty: 'displayName' } }
-        )
-        const programAttributes = (
-            programData.programTrackedEntityAttributes ?? []
-        ).map((a) => a.trackedEntityAttribute)
-        attributes = [
-            ...attributes,
-            ...programAttributes.filter(
-                (a1) => !attributes.some((a2) => a2.id === a1.id)
-            ),
-        ]
+export const parseJsonConfig = (config) => {
+    if (!config.config || typeof config.config !== 'string') {
+        return
     }
 
-    return new Map(
-        attributes
-            .filter((a) => a.optionSet?.id)
-            .map((a) => [a.id, a.optionSet.id])
-    )
-}
+    try {
+        const { relationships, periodType } = JSON.parse(config.config)
 
-const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
-    const entries = await Promise.all(
-        optionSetIds.map(async (id) => {
-            const { optionSet } = await engine.query(OPTION_SET_QUERY, {
-                variables: { id },
-            })
-            return [
-                id,
-                new Map(
-                    (optionSet?.options ?? []).map((o) => [o.code, o.name])
-                ),
-            ]
-        })
-    )
-    return new Map(entries)
-}
+        if (relationships) {
+            config.relationshipType = relationships.type
+            config.relatedPointColor = relationships.pointColor
+            config.relatedPointRadius = relationships.pointRadius
+            config.relationshipLineColor = relationships.lineColor
+            config.relationshipOutsideProgram =
+                relationships.relationshipOutsideProgram
+        }
 
-export const applyParsedConfig = (config) => {
-    const { relationships, periodType } = parseJsonConfig(config.config)
-
-    if (relationships) {
-        config.relationshipType = relationships.type
-        config.relatedPointColor = relationships.pointColor
-        config.relatedPointRadius = relationships.pointRadius
-        config.relationshipLineColor = relationships.lineColor
-        config.relationshipOutsideProgram =
-            relationships.relationshipOutsideProgram
+        config.periodType = periodType
+    } catch (e) {
+        // Malformed config JSON
     }
-
-    config.periodType = periodType
 
     delete config.config
 }
@@ -258,7 +144,6 @@ const fetchRelationshipData = async ({
     relatedPointColor,
     relatedPointRadius,
     relationshipLineColor,
-    pointColor,
     legend,
 }) => {
     const { relationshipType } = await engine.query(
@@ -307,7 +192,7 @@ const fetchRelationshipData = async ({
     })
 
     return {
-        data: toGeoJson(dataWithRels.primary, pointColor),
+        data: toGeoJson(dataWithRels.primary),
         relationships: dataWithRels.relationships,
         secondaryData: toGeoJson(dataWithRels.secondary),
     }
@@ -353,7 +238,7 @@ const trackedEntityLoader = async ({
     keyAnalysisDigitGroupSeparator,
     serverVersion,
 }) => {
-    applyParsedConfig(config)
+    parseJsonConfig(config)
 
     const {
         trackedEntityType,
@@ -375,7 +260,6 @@ const trackedEntityLoader = async ({
     } = config
 
     const name = program ? program.name : i18n.t('Tracked entity')
-    const pointColor = eventPointColor || TEI_COLOR
 
     const legend = {
         title: name,
@@ -388,7 +272,7 @@ const trackedEntityLoader = async ({
                 name:
                     trackedEntityType.name +
                     (areaRadius ? ` + ${areaRadius} ${'m'} ${'buffer'}` : ''),
-                color: pointColor,
+                color: eventPointColor || TEI_COLOR,
                 radius: eventPointRadius || TEI_RADIUS,
             },
         ],
@@ -436,19 +320,6 @@ const trackedEntityLoader = async ({
             instance.geometry?.coordinates
     )
 
-    const optionSetIdByAttribute = instances.length
-        ? await fetchOptionSetIdByAttribute(engine, {
-              trackedEntityType,
-              program,
-          })
-        : new Map()
-
-    const headers = getAttributeHeaders(instances, optionSetIdByAttribute)
-
-    const optionNamesByOptionSet = await fetchOptionNamesByOptionSet(engine, [
-        ...new Set(headers.map((h) => h.optionSet?.id).filter(Boolean)),
-    ])
-
     let alert
 
     if (!instances.length) {
@@ -471,21 +342,11 @@ const trackedEntityLoader = async ({
             relatedPointColor,
             relatedPointRadius,
             relationshipLineColor,
-            pointColor,
             legend,
         }))
     } else {
-        data = toGeoJson(instances, pointColor, {
-            optionSetIdByAttribute,
-            optionNamesByOptionSet,
-        })
+        data = toGeoJson(instances)
     }
-
-    data = await attachOrgUnitPaths(
-        data,
-        engine,
-        (feature) => feature.properties.orgUnit
-    )
 
     if (explanation) {
         legend.explanation = [explanation]
@@ -495,7 +356,6 @@ const trackedEntityLoader = async ({
         ...config,
         name,
         data,
-        headers,
         keyAnalysisDigitGroupSeparator,
         relationships,
         secondaryData,

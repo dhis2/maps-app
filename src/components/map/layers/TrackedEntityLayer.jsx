@@ -86,8 +86,6 @@ class TrackedEntityLayer extends Layer {
                 radius,
             },
             onClick: this.onEventClick.bind(this),
-            onMouseEnter: this.onFeatureMouseEnter.bind(this),
-            onMouseLeave: this.onFeatureMouseLeave.bind(this),
         }
 
         if (areaRadius) {
@@ -121,8 +119,6 @@ class TrackedEntityLayer extends Layer {
                     radius: relatedPointRadius || TEI_RELATED_RADIUS,
                 },
                 onClick: this.onEventClickSecondary.bind(this),
-                onMouseEnter: this.onFeatureMouseEnter.bind(this),
-                onMouseLeave: this.onFeatureMouseLeave.bind(this),
             }
 
             const relationshipConfig = makeRelationshipLayer(
