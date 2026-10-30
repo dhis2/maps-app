@@ -91,7 +91,7 @@ const layer = (state, action) => {
             return {
                 ...action.payload,
                 dataTableColumnConfig: state.dataTableColumnConfig,
-                dataFilters: state.dataFilters ?? action.payload.dataFilters,
+                dataFilters: state.dataFilters,
             }
 
         case types.LAYER_CHANGE_OPACITY:
