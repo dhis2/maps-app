@@ -140,16 +140,11 @@ const getTruncatedMessage = (result, keyAnalysisDigitGroupSeparator) => {
 }
 
 // One alert for all warnings: a layer only shows its last custom warning
-const getWarningAlerts = (name, warnings) =>
-    warnings.length
-        ? [
-              {
-                  warning: true,
-                  code: CUSTOM_ALERT,
-                  message: `${name}: ${warnings.join('. ')}`,
-              },
-          ]
-        : []
+const getWarningsAlert = (name, warnings) => ({
+    warning: true,
+    code: CUSTOM_ALERT,
+    message: `${name}: ${warnings.join('. ')}`,
+})
 
 const trackedEntityLoader = async ({
     config,
@@ -243,10 +238,11 @@ const trackedEntityLoader = async ({
                 trackerParams: result.trackerParams,
                 maxLimit,
                 isSourceTruncated: result.isTruncated,
-            }).catch(() => {
-                warnings.push(i18n.t('Relationships could not be loaded'))
-                return null
             })
+
+            if (!relationshipResult) {
+                warnings.push(i18n.t('Relationships could not be loaded'))
+            }
 
             if (relationshipResult && !relationshipResult.isSupported) {
                 warnings.push(
@@ -295,7 +291,9 @@ const trackedEntityLoader = async ({
         })
     }
 
-    alerts.push(...getWarningAlerts(name, warnings))
+    if (warnings.length > 0) {
+        alerts.push(getWarningsAlert(name, warnings))
+    }
 
     return {
         ...config,

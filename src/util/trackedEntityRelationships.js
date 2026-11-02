@@ -1,5 +1,6 @@
 import {
     createTrackedEntityFeatures,
+    isAtTrackerLimit,
     TEI_40_QUERY,
     TEI_41_QUERY,
     TEI_FIELDS,
@@ -185,8 +186,10 @@ export const getDataWithRelationships = async ({
             potentialTargetInstances
         )
         // Capped by the tracker API limit like the source instances
-        isTruncated =
-            Boolean(maxLimit) && potentialTargetInstances.length >= maxLimit
+        isTruncated = isAtTrackerLimit(
+            potentialTargetInstances.length,
+            maxLimit
+        )
     }
 
     const targetInstanceIds = []
@@ -233,7 +236,8 @@ const TRACKED_ENTITY_TYPES_QUERY = {
     },
 }
 
-// The instances must include their relationships
+// The instances must include their relationships. Resolves to null when a
+// request fails
 export const loadTrackedEntityRelationships = async ({
     config,
     engine,
@@ -245,43 +249,47 @@ export const loadTrackedEntityRelationships = async ({
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
-    const { relationshipType } = await engine.query(
-        { relationshipType: RELATIONSHIP_TYPES_QUERY },
-        { variables: { id: relationshipTypeID } }
-    )
+    try {
+        const { relationshipType } = await engine.query(
+            { relationshipType: RELATIONSHIP_TYPES_QUERY },
+            { variables: { id: relationshipTypeID } }
+        )
 
-    // Relationships to events or enrollments have no related type
-    const relatedEntityTypeId =
-        relationshipType.toConstraint.trackedEntityType?.id
-    const { relatedEntityType } = relatedEntityTypeId
-        ? await engine.query(
-              { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-              { variables: { id: relatedEntityTypeId } }
-          )
-        : {}
+        // Relationships to events or enrollments have no related type
+        const relatedEntityTypeId =
+            relationshipType.toConstraint.trackedEntityType?.id
+        const { relatedEntityType } = relatedEntityTypeId
+            ? await engine.query(
+                  { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+                  { variables: { id: relatedEntityTypeId } }
+              )
+            : {}
 
-    const dataWithRels = await getDataWithRelationships({
-        // VERSION-TOGGLE: see util/versionToggle.js
-        isVersion40: !serverSupportsTracker41Api(serverVersion),
-        instances,
-        queryOptions: { relationshipType, trackerParams },
-        engine,
-        maxLimit,
-        isSourceTruncated,
-    })
+        const dataWithRels = await getDataWithRelationships({
+            // VERSION-TOGGLE: see util/versionToggle.js
+            isVersion40: !serverSupportsTracker41Api(serverVersion),
+            instances,
+            queryOptions: { relationshipType, trackerParams },
+            engine,
+            maxLimit,
+            isSourceTruncated,
+        })
 
-    return {
-        data: createTrackedEntityFeatures(dataWithRels.primary),
-        relationships: dataWithRels.relationships,
-        secondaryData: createTrackedEntityFeatures(dataWithRels.secondary),
-        relationshipType,
-        relatedEntityType,
-        isTruncated: dataWithRels.isTruncated,
-        // Only relationships between tracked entities can be shown
-        isSupported:
-            relationshipType.fromConstraint.relationshipEntity ===
-                TRACKED_ENTITY_INSTANCE &&
-            relationshipType.toConstraint.relationshipEntity ===
-                TRACKED_ENTITY_INSTANCE,
+        return {
+            data: createTrackedEntityFeatures(dataWithRels.primary),
+            relationships: dataWithRels.relationships,
+            secondaryData: createTrackedEntityFeatures(dataWithRels.secondary),
+            relationshipType,
+            relatedEntityType,
+            isTruncated: dataWithRels.isTruncated,
+            // Only relationships between tracked entities can be shown
+            isSupported:
+                relationshipType.fromConstraint.relationshipEntity ===
+                    TRACKED_ENTITY_INSTANCE &&
+                relationshipType.toConstraint.relationshipEntity ===
+                    TRACKED_ENTITY_INSTANCE,
+        }
+    } catch {
+        return null
     }
 }
