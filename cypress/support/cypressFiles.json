@@ -1,7 +1,7 @@
 {
     "cypress/integration/basemaps.cy.js": {
         "include": true,
-        "duration": 80
+        "duration": 92
     },
     "cypress/integration/dataDownload.cy.js": {
         "include": true,
