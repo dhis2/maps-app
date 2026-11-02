@@ -1,8 +1,14 @@
 import fs from 'node:fs/promises'
+import { createRequire } from 'node:module'
 import path from 'node:path'
 
 const HOST_PAGE_ROUTE = '/plugin-host.html'
 const HOST_PAGE_DIR = 'src/pluginHost'
+
+// Where maps-gl is installed: outside this repo when linked with `yarn link`
+const MAPS_GL_DIR = path.dirname(
+    createRequire(import.meta.url).resolve('@dhis2/maps-gl/package.json')
+)
 
 // The /plugin-host.html page (src/pluginHost) is outside Vite's root
 // (.d2/shell): the dev server serves it by hand, and builds only include it
@@ -100,6 +106,13 @@ export default {
         ],
         esbuildOptions: {
             target: 'es2022',
+        },
+    },
+    server: {
+        fs: {
+            // Lets the dev server serve maps-gl files loaded by URL rather
+            // than imported: the Earth Engine worker and the RTL text plugin
+            allow: [MAPS_GL_DIR],
         },
     },
     build: {

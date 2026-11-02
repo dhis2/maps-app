@@ -209,10 +209,11 @@ const trackedEntityLoader = async ({
                 trackerParams,
                 maxLimit,
                 isSourceTruncated: isTruncated,
-            }).catch(() => {
-                warnings.push(i18n.t('Relationships could not be loaded'))
-                return null
             })
+
+            if (!relationshipResult) {
+                warnings.push(i18n.t('Relationships could not be loaded'))
+            }
 
             if (relationshipResult && !relationshipResult.isSupported) {
                 warnings.push(

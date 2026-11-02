@@ -1,4 +1,7 @@
-import { getDataWithRelationships } from '../trackedEntityRelationships.js'
+import {
+    getDataWithRelationships,
+    loadTrackedEntityRelationships,
+} from '../trackedEntityRelationships.js'
 
 const expectResultToMatchExpected = (result, expected) => {
     expect(result).toHaveProperty('primary')
@@ -1030,5 +1033,61 @@ describe('getDataWithRelationships target query', () => {
                 })
             }
         )
+    })
+})
+
+describe('loadTrackedEntityRelationships', () => {
+    const constraint = {
+        relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+        trackedEntityType: { id: 'type1' },
+    }
+    const load = (engine) =>
+        loadTrackedEntityRelationships({
+            config: { relationshipType: 'relationshipTypeId1' },
+            engine,
+            serverVersion: { major: 2, minor: 41, patch: 0 },
+            instances: [
+                {
+                    id: 'te1',
+                    geometry: { type: 'Point', coordinates: [1, 2] },
+                    relationships: [],
+                },
+            ],
+            trackerParams: { orgUnits: 'ou1' },
+        })
+
+    it('resolves to null when a request fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Not found')),
+        }
+
+        expect(await load(engine)).toBeNull()
+    })
+
+    it('returns empty relationships, not null, when no tracked entity has one', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint,
+                        toConstraint: constraint,
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await load(engine)
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.relationships).toEqual([])
+        expect(result.secondaryData).toEqual([])
+        expect(result.isSupported).toBe(true)
     })
 })
