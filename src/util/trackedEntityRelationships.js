@@ -1,40 +1,12 @@
+import {
+    createTrackedEntityFeatures,
+    TEI_40_QUERY,
+    TEI_41_QUERY,
+    TEI_FIELDS,
+} from './trackedEntity.js'
+import { serverSupportsTracker41Api } from './versionToggle.js'
+
 const TRACKED_ENTITY_INSTANCE = 'TRACKED_ENTITY_INSTANCE'
-
-const TEI_40_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-    }) => ({
-        fields,
-        orgUnit: orgUnits,
-        ouMode: orgUnitMode,
-        program: program,
-        trackedEntityType,
-        skipPaging: true,
-    }),
-}
-
-const TEI_41_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-    }) => ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        trackedEntityType,
-        paging: false,
-    }),
-}
 
 const normalizeInstances = (instances) => {
     return instances
@@ -119,7 +91,6 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
-const fields = ['trackedEntity~rename(id)', 'geometry', 'relationships']
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
@@ -172,7 +143,7 @@ export const getDataWithRelationships = async ({
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
             {
                 variables: {
-                    fields,
+                    fields: [...TEI_FIELDS, 'relationships'],
                     orgUnits,
                     orgUnitMode: organisationUnitSelectionMode,
                     ...relatedRequestParams,
@@ -212,5 +183,66 @@ export const getDataWithRelationships = async ({
         primary: Object.values(normalizedSourceInstances),
         relationships: Object.values(relationshipsById),
         secondary: targetInstances,
+    }
+}
+
+const RELATIONSHIP_TYPES_QUERY = {
+    resource: 'relationshipTypes',
+    id: ({ id }) => id,
+}
+
+const TRACKED_ENTITY_TYPES_QUERY = {
+    resource: 'trackedEntityTypes',
+    id: ({ id }) => id,
+    params: {
+        fields: 'displayName,featureType',
+    },
+}
+
+// The instances must include their relationships
+export const loadTrackedEntityRelationships = async ({
+    config,
+    engine,
+    serverVersion,
+    instances,
+    orgUnits,
+}) => {
+    const {
+        relationshipType: relationshipTypeID,
+        organisationUnitSelectionMode,
+    } = config
+
+    const { relationshipType } = await engine.query(
+        { relationshipType: RELATIONSHIP_TYPES_QUERY },
+        { variables: { id: relationshipTypeID } }
+    )
+
+    const { relatedEntityType } = await engine.query(
+        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+        {
+            variables: {
+                id: relationshipType.toConstraint.trackedEntityType.id,
+            },
+        }
+    )
+
+    const dataWithRels = await getDataWithRelationships({
+        // VERSION-TOGGLE: see util/versionToggle.js
+        isVersion40: !serverSupportsTracker41Api(serverVersion),
+        instances,
+        queryOptions: {
+            relationshipType,
+            orgUnits,
+            organisationUnitSelectionMode,
+        },
+        engine,
+    })
+
+    return {
+        data: createTrackedEntityFeatures(dataWithRels.primary),
+        relationships: dataWithRels.relationships,
+        secondaryData: createTrackedEntityFeatures(dataWithRels.secondary),
+        relationshipType,
+        relatedEntityType,
     }
 }
