@@ -53,6 +53,11 @@ export const getTrackerMaxLimit = (systemSettings, serverVersion) => {
     return limit > 0 ? limit : null
 }
 
+// The tracker API returns at most maxLimit rows and no total, so reaching the
+// limit is the only sign of a cut (a total of exactly maxLimit also warns)
+export const isAtTrackerLimit = (rowCount, maxLimit) =>
+    typeof maxLimit === 'number' && rowCount === maxLimit
+
 export const TEI_FIELDS = ['trackedEntity~rename(id)', 'geometry']
 
 // Also used for the related tracked entities of relationship layers
@@ -205,10 +210,8 @@ export const loadTrackedEntitiesFromTracker = async ({
         instances,
         // The relationships request applies the same filters
         trackerParams: variables,
-        // The API returns at most maxLimit rows and no total, so reaching the
-        // limit is the only sign of a cut (a total of exactly maxLimit also
-        // warns). All rows count, geometry or not
-        isTruncated: Boolean(maxLimit) && rowCount >= maxLimit,
+        // All rows count, geometry or not
+        isTruncated: isAtTrackerLimit(rowCount, maxLimit),
         limit: maxLimit,
     }
 }

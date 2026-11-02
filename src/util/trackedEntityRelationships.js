@@ -1,5 +1,6 @@
 import {
     createTrackedEntityFeatures,
+    isAtTrackerLimit,
     TEI_40_QUERY,
     TEI_41_QUERY,
     TEI_FIELDS,
@@ -185,8 +186,10 @@ export const getDataWithRelationships = async ({
             potentialTargetInstances
         )
         // Capped by the tracker API limit like the source instances
-        isTruncated =
-            Boolean(maxLimit) && potentialTargetInstances.length >= maxLimit
+        isTruncated = isAtTrackerLimit(
+            potentialTargetInstances.length,
+            maxLimit
+        )
     }
 
     const targetInstanceIds = []
