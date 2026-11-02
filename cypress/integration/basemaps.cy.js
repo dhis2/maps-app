@@ -198,4 +198,53 @@ describe('Basemap checks', () => {
         checkBasemap.isVisible()
         checkBasemap.activeBasemap('OSM Light')
     })
+
+    // The default view includes North Africa, where OSM Light labels are in Arabic
+    it('shapes the Arabic labels of the OSM Light basemap with the RTL text plugin', () => {
+        // No system default, so the map uses the fallback basemap (OSM Light)
+        cy.intercept(SYSTEM_SETTINGS_ENDPOINT, (req) => {
+            delete req.headers['if-none-match']
+            req.continue((res) => {
+                delete res.body.keyDefaultBaseMap
+                res.send({ body: res.body })
+            })
+        })
+
+        // Always the full response, not a 304 for a cached file
+        cy.intercept('GET', /mapbox-gl-rtl-text[^/]*\.js/, (req) => {
+            delete req.headers['if-none-match']
+            delete req.headers['if-modified-since']
+        }).as('rtlTextPlugin')
+
+        // Dev mode loads more files than the default buffer keeps. Set on every
+        // page load, since the app can reload itself once after the visit
+        cy.on('window:before:load', (win) => {
+            win.performance.setResourceTimingBufferSize(10000)
+            cy.spy(win.console, 'error').as('consoleError')
+        })
+
+        cy.visit('/')
+
+        cy.wait('@rtlTextPlugin', EXTENDED_TIMEOUT)
+            .its('response')
+            .should((response) => {
+                expect(response.statusCode).to.eq(200)
+                expect(response.headers['content-type']).to.match(/javascript/)
+            })
+
+        // Only shaped Arabic uses these glyphs (presentation forms). Resource
+        // timings also list glyphs from the browser cache, unlike cy.intercept
+        cy.window(EXTENDED_TIMEOUT).should((win) => {
+            const urls = win.performance
+                .getEntriesByType('resource')
+                .map((entry) => entry.name)
+            expect(urls.some((url) => /\/65024-65279\.pbf/.test(url))).to.be
+                .true
+        })
+
+        cy.get('@consoleError').should(
+            'not.have.been.calledWith',
+            'Failed to set RTL text plugin'
+        )
+    })
 })

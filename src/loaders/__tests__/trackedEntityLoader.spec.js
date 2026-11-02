@@ -115,33 +115,54 @@ const load = ({ config = {}, serverVersion = v41, instances = [] } = {}) => {
 }
 
 describe('trackedEntityLoader tracker request', () => {
-    it('requests a program with its filters on 2.41+', async () => {
-        const { engine, result } = load({
-            config: {
-                program,
-                programStatus: 'ACTIVE',
-                followUp: true,
-                periodType: 'program',
-            },
-        })
-        await result
-
-        expect(engine.query).toHaveBeenCalledTimes(1)
-        expect(getRequest(engine)).toEqual({
-            resource: 'tracker/trackedEntities',
+    it.each([
+        {
+            version: '2.40',
+            serverVersion: v40,
             params: {
-                fields: ['trackedEntity~rename(id)', 'geometry'],
+                orgUnit: 'ou1;ou2',
+                ouMode: 'DESCENDANTS',
+                skipPaging: true,
+            },
+        },
+        {
+            version: '2.41+',
+            serverVersion: v41,
+            params: {
                 orgUnits: 'ou1,ou2',
                 orgUnitMode: 'DESCENDANTS',
-                program: 'program1',
-                programStatus: 'ACTIVE',
-                followUp: 'TRUE',
-                enrollmentEnrolledAfter: '2024-01-01',
-                enrollmentEnrolledBefore: '2024-12-31',
                 paging: false,
             },
-        })
-    })
+        },
+    ])(
+        'requests a program with its filters on $version',
+        async ({ serverVersion, params }) => {
+            const { engine, result } = load({
+                serverVersion,
+                config: {
+                    program,
+                    programStatus: 'ACTIVE',
+                    followUp: true,
+                    periodType: 'program',
+                },
+            })
+            await result
+
+            expect(engine.query).toHaveBeenCalledTimes(1)
+            expect(getRequest(engine)).toEqual({
+                resource: 'tracker/trackedEntities',
+                params: {
+                    fields: ['trackedEntity~rename(id)', 'geometry'],
+                    program: 'program1',
+                    programStatus: 'ACTIVE',
+                    followUp: 'TRUE',
+                    enrollmentEnrolledAfter: '2024-01-01',
+                    enrollmentEnrolledBefore: '2024-12-31',
+                    ...params,
+                },
+            })
+        }
+    )
 
     it('sends the program status as enrollment status on 2.42+', async () => {
         const { engine, result } = load({
@@ -153,34 +174,6 @@ describe('trackedEntityLoader tracker request', () => {
         const { params } = getRequest(engine)
         expect(params.enrollmentStatus).toBe('ACTIVE')
         expect(params.programStatus).toBeUndefined()
-    })
-
-    it('requests a program with its filters on 2.40', async () => {
-        const { engine, result } = load({
-            serverVersion: v40,
-            config: {
-                program,
-                programStatus: 'ACTIVE',
-                followUp: true,
-                periodType: 'program',
-            },
-        })
-        await result
-
-        expect(getRequest(engine)).toEqual({
-            resource: 'tracker/trackedEntities',
-            params: {
-                fields: ['trackedEntity~rename(id)', 'geometry'],
-                orgUnit: 'ou1;ou2',
-                ouMode: 'DESCENDANTS',
-                program: 'program1',
-                programStatus: 'ACTIVE',
-                followUp: 'TRUE',
-                enrollmentEnrolledAfter: '2024-01-01',
-                enrollmentEnrolledBefore: '2024-12-31',
-                skipPaging: true,
-            },
-        })
     })
 
     it.each([
