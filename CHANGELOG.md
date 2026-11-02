@@ -1,3 +1,10 @@
+## [101.17.7](https://github.com/dhis2/maps-app/compare/v101.17.6...v101.17.7) (2026-10-27)
+
+
+### Bug Fixes
+
+* support more scripts in map labels [DHIS2-21946] ([#3766](https://github.com/dhis2/maps-app/issues/3766)) ([0c32509](https://github.com/dhis2/maps-app/commit/0c325097e2d1767b1f380214c020015b07203ccd))
+
 ## [101.17.6](https://github.com/dhis2/maps-app/compare/v101.17.5...v101.17.6) (2026-10-23)
 
 
