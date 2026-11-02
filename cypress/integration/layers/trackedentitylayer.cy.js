@@ -401,7 +401,12 @@ describe('Tracked Entity Layers', () => {
             })
         })
         cy.visit('/')
-        cy.intercept('GET', TRACKER_URL).as('getTracker')
+        // The server returns at most as many rows as its limit
+        cy.intercept('GET', TRACKER_URL, (req) => {
+            req.continue((res) => {
+                res.body.trackedEntities = res.body.trackedEntities.slice(0, 1)
+            })
+        }).as('getTracker')
 
         selectMalariaCase(Layer)
         Layer.selectTab('Relationships')
