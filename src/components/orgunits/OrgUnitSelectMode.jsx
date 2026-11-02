@@ -2,6 +2,11 @@ import i18n from '@dhis2/d2-i18n'
 import React, { useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setOrgUnitMode } from '../../actions/layerEdit.js'
+import {
+    ORG_UNIT_MODE_CHILDREN,
+    ORG_UNIT_MODE_DESCENDANTS,
+    ORG_UNIT_MODE_SELECTED,
+} from '../../constants/orgUnits.js'
 import { SelectField } from '../core/index.js'
 import styles from './styles/OrgUnitSelectMode.module.css'
 
@@ -14,15 +19,15 @@ const OrgUnitSelectMode = () => {
     const items = useMemo(
         () => [
             {
-                id: 'SELECTED',
+                id: ORG_UNIT_MODE_SELECTED,
                 name: i18n.t('Selected only'),
             },
             {
-                id: 'CHILDREN',
+                id: ORG_UNIT_MODE_CHILDREN,
                 name: i18n.t('Selected and below'),
             },
             {
-                id: 'DESCENDANTS',
+                id: ORG_UNIT_MODE_DESCENDANTS,
                 name: i18n.t('Selected and all below'),
             },
         ],
@@ -34,7 +39,7 @@ const OrgUnitSelectMode = () => {
             <SelectField
                 prefix={i18n.t('Selection mode')}
                 items={items}
-                value={organisationUnitSelectionMode || 'SELECTED'}
+                value={organisationUnitSelectionMode || ORG_UNIT_MODE_SELECTED}
                 onChange={(mode) => dispatch(setOrgUnitMode(mode.id))}
                 className={styles.selectField}
             />

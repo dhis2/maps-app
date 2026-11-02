@@ -1,3 +1,8 @@
+import { getOrgUnitsFromRows } from './analytics.js'
+import { GEO_TYPE_FEATURE, trackedEntityGeometryTypes } from './geojson.js'
+import { trimTime } from './time.js'
+import { serverSupportsTracker41Api } from './versionToggle.js'
+
 export const TRACKED_ENTITY_TRACKED_ENTITY_TYPE_ATTRIBUTES_QUERY = {
     trackedEntityType: {
         resource: 'trackedEntityTypes',
@@ -18,4 +23,156 @@ export const TRACKED_ENTITY_PROGRAM_TRACKED_ENTITY_ATTRIBUTES_QUERY = {
             paging: false,
         }),
     },
+}
+
+// Features from tracked entities with an id and a geometry
+export const createTrackedEntityFeatures = (instances) =>
+    instances.map(({ id, geometry }) => ({
+        type: GEO_TYPE_FEATURE,
+        geometry,
+        properties: {
+            id,
+        },
+    }))
+
+// Tracker API
+// -----
+
+const fields = ['trackedEntity~rename(id)', 'geometry']
+
+const TEI_40_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+    }) => ({
+        fields,
+        orgUnit: orgUnits,
+        ouMode: orgUnitMode,
+        program: program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        skipPaging: true,
+    }),
+}
+
+const TEI_41_QUERY = {
+    resource: 'tracker/trackedEntities',
+    params: ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        // TODO no followUp?
+    }) => ({
+        fields,
+        orgUnits,
+        orgUnitMode,
+        program,
+        programStatus,
+        trackedEntityType,
+        enrollmentEnrolledAfter,
+        enrollmentEnrolledBefore,
+        updatedAfter,
+        updatedBefore,
+        paging: false,
+    }),
+}
+
+const getTrackerRequest = (
+    {
+        program,
+        programStatus,
+        followUp,
+        trackedEntityType,
+        periodType,
+        startDate,
+        endDate,
+    },
+    { fields, orgUnitIds, orgUnitMode, serverVersion }
+) => {
+    // VERSION-TOGGLE: see util/versionToggle.js
+    const isVersion40 = !serverSupportsTracker41Api(serverVersion)
+    const followUpBool = followUp ? 'TRUE' : 'FALSE'
+    const boolFollowUp =
+        program && followUp !== undefined ? followUpBool : undefined
+
+    return {
+        query: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY,
+        variables: {
+            fields,
+            orgUnits: orgUnitIds.join(isVersion40 ? ';' : ','),
+            orgUnitMode,
+            program: program?.id,
+            programStatus,
+            followUp: boolFollowUp,
+            trackedEntityType: program ? undefined : trackedEntityType?.id,
+            enrollmentEnrolledAfter:
+                periodType === 'program' ? trimTime(startDate) : undefined,
+            enrollmentEnrolledBefore:
+                periodType === 'program' ? trimTime(endDate) : undefined,
+            updatedAfter:
+                periodType === 'program' ? undefined : trimTime(startDate),
+            updatedBefore:
+                periodType === 'program' ? undefined : trimTime(endDate),
+        },
+    }
+}
+
+// All tracked entities of the response, with or without geometry
+// VERSION-TOGGLE: see util/versionToggle.js
+const getTrackerRows = (response, serverVersion) =>
+    response[
+        serverSupportsTracker41Api(serverVersion)
+            ? 'trackedEntities'
+            : 'instances'
+    ]
+
+// Tracked entities with a geometry that can be drawn
+const getTrackerInstances = (response, serverVersion) =>
+    getTrackerRows(response, serverVersion).filter(
+        (instance) =>
+            trackedEntityGeometryTypes.has(instance.geometry?.type) &&
+            instance.geometry?.coordinates
+    )
+
+export const loadTrackedEntitiesFromTracker = async ({
+    config,
+    engine,
+    serverVersion,
+}) => {
+    const { query, variables } = getTrackerRequest(config, {
+        fields: [...fields, 'relationships'],
+        orgUnitIds: getOrgUnitsFromRows(config.rows).map((ou) => ou.id),
+        orgUnitMode: config.organisationUnitSelectionMode,
+        serverVersion,
+    })
+    const { trackedEntities: response } = await engine.query(
+        { trackedEntities: query },
+        { variables }
+    )
+    const instances = getTrackerInstances(response, serverVersion)
+
+    // orgUnits is formatted for the relationships request
+    return { instances, orgUnits: variables.orgUnits }
 }
