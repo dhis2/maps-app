@@ -100,7 +100,8 @@ const getLegend = ({
     if (program && programStatus) {
         legend.explanation = [
             `${i18n.t('Program status')}: ${
-                getProgramStatuses().find((s) => s.id === programStatus).name
+                getProgramStatuses().find((s) => s.id === programStatus)
+                    ?.name ?? programStatus
             }`,
         ]
     }
