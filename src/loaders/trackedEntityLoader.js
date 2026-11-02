@@ -179,7 +179,9 @@ const trackedEntityLoader = async ({
                 serverVersion,
                 instances,
                 trackerParams,
-            }).catch(() => {
+            })
+
+            if (!relationshipResult) {
                 alerts.push({
                     warning: true,
                     code: CUSTOM_ALERT,
@@ -187,8 +189,7 @@ const trackedEntityLoader = async ({
                         'Relationships could not be loaded'
                     )}`,
                 })
-                return null
-            })
+            }
 
             if (relationshipResult && !relationshipResult.isSupported) {
                 alerts.push({
