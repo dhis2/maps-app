@@ -1,4 +1,4 @@
-import { getTrackerMaxLimit } from '../trackedEntity.js'
+import { getTrackerMaxLimit, isAtTrackerLimit } from '../trackedEntity.js'
 
 describe('getTrackerMaxLimit', () => {
     const settings = {
@@ -46,4 +46,14 @@ describe('getTrackerMaxLimit', () => {
             ).toBeNull()
         }
     )
+})
+
+describe('isAtTrackerLimit', () => {
+    it.each([
+        { name: 'at the limit', maxLimit: 2, expected: true },
+        { name: 'below the limit', maxLimit: 3, expected: false },
+        { name: 'without a limit', maxLimit: null, expected: false },
+    ])('is $expected $name', ({ maxLimit, expected }) => {
+        expect(isAtTrackerLimit(2, maxLimit)).toBe(expected)
+    })
 })
