@@ -29,7 +29,11 @@ const LayerLoader = ({ config, onLoad }) => {
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const {
-        systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: {
+            keyAnalysisDigitGroupSeparator,
+            KeyTrackedEntityInstanceMaxLimit,
+            KeyTrackedEntityMaxLimit,
+        },
         currentUser,
     } = useCachedData()
     const {
@@ -65,6 +69,8 @@ const LayerLoader = ({ config, onLoad }) => {
             analyticsEngine, // Thematic and Event loader
             periodTypeData, // Thematic and Event loader
             serverVersion, // Tracked entity loader
+            KeyTrackedEntityInstanceMaxLimit, // Tracked entity loader (2.40)
+            KeyTrackedEntityMaxLimit, // Tracked entity loader
         }).then((result) => {
             onLoad(result)
         })
@@ -80,6 +86,8 @@ const LayerLoader = ({ config, onLoad }) => {
         keyAnalysisDisplayProperty,
         keyAnalysisDigitGroupSeparator,
         serverVersion,
+        KeyTrackedEntityInstanceMaxLimit,
+        KeyTrackedEntityMaxLimit,
     ])
 
     return null
