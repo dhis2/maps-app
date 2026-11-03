@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-19T16:36:44.460Z\n"
-"PO-Revision-Date: 2026-10-19T16:36:44.461Z\n"
+"POT-Creation-Date: 2026-11-03T09:38:45.840Z\n"
+"PO-Revision-Date: 2026-11-03T09:38:45.841Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1904,9 +1904,6 @@ msgstr "Displaying first {{limit}} tracked entities"
 msgid "Displaying first {{limit}} tracked entities out of {{total}}"
 msgstr "Displaying first {{limit}} tracked entities out of {{total}}"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
 msgid "Relationships could not be loaded"
 msgstr "Relationships could not be loaded"
 
@@ -1919,6 +1916,9 @@ msgid ""
 msgstr ""
 "Only the first {{limit}} candidate tracked entities were retrieved, so some "
 "relationships may not be displayed"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
 
 msgid "not one of"
 msgstr "not one of"
