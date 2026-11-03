@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-19T16:35:47.612Z\n"
-"PO-Revision-Date: 2026-10-19T16:35:47.613Z\n"
+"POT-Creation-Date: 2026-11-03T09:35:08.929Z\n"
+"PO-Revision-Date: 2026-11-03T09:35:08.931Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1889,12 +1889,6 @@ msgstr "Thematic layer"
 msgid "related"
 msgstr "related"
 
-msgid "Tracked entity"
-msgstr "Tracked entity"
-
-msgid "Displaying first {{limit}} tracked entities"
-msgstr "Displaying first {{limit}} tracked entities"
-
 msgid "Relationships could not be loaded"
 msgstr "Relationships could not be loaded"
 
@@ -1907,6 +1901,12 @@ msgid ""
 msgstr ""
 "Only the first {{limit}} candidate tracked entities were retrieved, so some "
 "relationships may not be displayed"
+
+msgid "Tracked entity"
+msgstr "Tracked entity"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr "Displaying first {{limit}} tracked entities"
 
 msgid "not one of"
 msgstr "not one of"

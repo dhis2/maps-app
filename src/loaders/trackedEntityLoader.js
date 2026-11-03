@@ -122,6 +122,40 @@ const getWarningsAlert = (name, warnings) => ({
     message: `${name}: ${warnings.join('. ')}`,
 })
 
+const getRelationshipWarnings = (
+    relationshipResult,
+    maxLimit,
+    keyAnalysisDigitGroupSeparator
+) => {
+    if (!relationshipResult) {
+        return [i18n.t('Relationships could not be loaded')]
+    }
+
+    const warnings = []
+
+    if (!relationshipResult.isSupported) {
+        warnings.push(
+            i18n.t('Only relationships between tracked entities are supported')
+        )
+    }
+
+    if (relationshipResult.isTruncated) {
+        warnings.push(
+            i18n.t(
+                'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
+                {
+                    limit: formatWithSeparator(
+                        maxLimit,
+                        keyAnalysisDigitGroupSeparator
+                    ),
+                }
+            )
+        )
+    }
+
+    return warnings
+}
+
 const trackedEntityLoader = async ({
     config,
     engine,
@@ -211,31 +245,13 @@ const trackedEntityLoader = async ({
                 isSourceTruncated: isTruncated,
             })
 
-            if (!relationshipResult) {
-                warnings.push(i18n.t('Relationships could not be loaded'))
-            }
-
-            if (relationshipResult && !relationshipResult.isSupported) {
-                warnings.push(
-                    i18n.t(
-                        'Only relationships between tracked entities are supported'
-                    )
+            warnings.push(
+                ...getRelationshipWarnings(
+                    relationshipResult,
+                    maxLimit,
+                    keyAnalysisDigitGroupSeparator
                 )
-            }
-
-            if (relationshipResult?.isTruncated) {
-                warnings.push(
-                    i18n.t(
-                        'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
-                        {
-                            limit: formatWithSeparator(
-                                maxLimit,
-                                keyAnalysisDigitGroupSeparator
-                            ),
-                        }
-                    )
-                )
-            }
+            )
 
             // Only relationships between tracked entities are drawn
             if (relationshipResult?.relatedEntityType) {
