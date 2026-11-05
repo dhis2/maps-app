@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import {
     getOsmMetadata,
     getStageDataElements,
@@ -5,6 +7,7 @@ import {
 } from '../../components/osmImport/osmMetadata.js'
 import {
     findTag,
+    getFeatureSubcategory,
     getOsmCategories,
     getOsmCategory,
     getOverpassFilters,
@@ -85,6 +88,40 @@ describe('osmCategories', () => {
             key: 'healthcare',
             subcategory: 'clinics',
         })
+    })
+
+    it('gives every point subcategory an icon file, and lines none', () => {
+        const categories = getOsmCategories()
+        const iconsOf = (geometry) =>
+            categories
+                .filter((c) => c.geometry === geometry)
+                .flatMap((c) => c.subcategories.map(({ icon }) => icon))
+
+        const pointIcons = iconsOf(OSM_GEOMETRY_POINT)
+        expect(pointIcons).not.toContain(undefined)
+        pointIcons.forEach((icon) =>
+            expect(
+                fs.existsSync(path.join(__dirname, '../../../public', icon))
+            ).toBe(true)
+        )
+        expect(iconsOf(OSM_GEOMETRY_LINE).every((icon) => !icon)).toBe(true)
+    })
+
+    it('finds the subcategory of a feature by its tag, else its type', () => {
+        const health = getOsmCategory('health_facilities')
+        const subcategoryOf = (properties) =>
+            getFeatureSubcategory(health, properties)?.id
+
+        expect(subcategoryOf({ tag: 'healthcare=centre' })).toBe('clinics')
+        expect(subcategoryOf({ type: 'pharmacy' })).toBe('pharmacies')
+        expect(
+            subcategoryOf({
+                tag: 'healthcare=birthing_centre',
+                type: 'hospital',
+            })
+        ).toBe('maternal_care')
+        expect(subcategoryOf({ tag: 'amenity=school' })).toBeUndefined()
+        expect(subcategoryOf({})).toBeUndefined()
     })
 
     it('builds the program stage of a category', () => {

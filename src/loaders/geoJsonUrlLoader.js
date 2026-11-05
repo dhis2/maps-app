@@ -1,4 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
+import { getOsmLegendItems } from '../components/osmImport/osmLayer.js'
 import { parseLayerConfig } from '../util/external.js'
 import {
     buildGeoJsonFeatures,
@@ -119,6 +120,14 @@ const geoJsonUrlLoader = async ({
             }
             legend.items.push(legendItem)
         })
+
+        if (newConfig.osmProgram) {
+            legend.items = getOsmLegendItems(
+                data,
+                newConfig.osmProgram,
+                legend.items
+            )
+        }
     }
 
     return {

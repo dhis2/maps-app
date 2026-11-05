@@ -86,6 +86,45 @@ const getSubcategoryNames = () => ({
     canals_and_drains: i18n.t('Canals and drains'),
 })
 
+// Point subcategories with an icon in public/images/osm: a white Maki glyph
+// (CC0) on a circle in the category colour
+const ICON_SUBCATEGORIES = new Set([
+    'hospitals',
+    'clinics',
+    'doctors_and_dentists',
+    'pharmacies',
+    'maternal_care',
+    'other_care',
+    'ambulance_stations',
+    'kindergartens',
+    'schools',
+    'higher_education',
+    'drinking_water',
+    'water_infrastructure',
+    'sanitation',
+    'refugee_sites',
+    'detention_centres',
+    'shelters',
+    'border_crossings',
+    'military',
+    'offices',
+    'security_and_justice',
+    'administration',
+    'markets',
+    'financial',
+    'cemeteries',
+    'cities_and_towns',
+    'villages',
+    'hamlets',
+    'neighbourhoods',
+    'stations',
+    'fuel',
+    'airports',
+])
+
+const getSubcategoryIcon = (id) =>
+    ICON_SUBCATEGORIES.has(id) ? `images/osm/${id}.png` : undefined
+
 const stripPrefix = (key) => key.slice(key.indexOf(':') + 1)
 
 // For ids added to the JSON without a translated name
@@ -147,6 +186,7 @@ export const getOsmCategories = () => {
                         name:
                             subcategoryNames[subcategory] ??
                             humanize(subcategory),
+                        icon: getSubcategoryIcon(subcategory),
                         values: unique(
                             tags
                                 .filter((t) => t.subcategory === subcategory)
@@ -186,6 +226,17 @@ export const getTagForValue = (category, value) =>
     category.tags.find((tag) => tag.value === value)
 
 export const formatTag = ({ key, value }) => `${key}=${value}`
+
+// The subcategory of a map feature by its key=value tag, or by its type for
+// events from before the tag data element
+export const getFeatureSubcategory = (category, { tag, type }) => {
+    const [key, value] = tag?.split('=') ?? []
+    const { subcategory } =
+        findTag(category, { [key]: value }) ??
+        getTagForValue(category, type) ??
+        {}
+    return category.subcategories.find(({ id }) => id === subcategory)
+}
 
 /**
  * Overpass filters for the selected subcategories, one per element type

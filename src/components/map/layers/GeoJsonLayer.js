@@ -2,6 +2,7 @@ import { GEOJSON_LAYER } from '../../../constants/layers.js'
 import { filterData } from '../../../util/filter.js'
 import { getGeojsonDisplayData } from '../../../util/geojson.js'
 import { formatWithSeparator } from '../../../util/numbers.js'
+import { addOsmIcons } from '../../osmImport/osmLayer.js'
 import Layer from './Layer.js'
 
 class GeoJsonLayer extends Layer {
@@ -24,7 +25,10 @@ class GeoJsonLayer extends Layer {
             return
         }
 
-        const filteredData = filterData(data, dataFilters)
+        // Icons only go to the map, not to the popup and data table
+        const filteredData = config?.osmProgram
+            ? addOsmIcons(filterData(data, dataFilters), config.osmProgram)
+            : filterData(data, dataFilters)
 
         const style =
             Object.keys(featureStyle).length > 0

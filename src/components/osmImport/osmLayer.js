@@ -1,13 +1,55 @@
 import i18n from '@dhis2/d2-i18n'
 import { GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import { eventsToFeatureCollection } from '../../util/osm.js'
-import { OSM_GEOMETRY_LINE } from '../../util/osmCategories.js'
+import {
+    getFeatureSubcategory,
+    getOsmCategoryByProgram,
+    OSM_GEOMETRY_LINE,
+} from '../../util/osmCategories.js'
 import { fetchOrgUnitNames, fetchOsmEvents } from './osmRequests.js'
 
 const getFeatureStyle = ({ geometry, color }) =>
     geometry === OSM_GEOMETRY_LINE
         ? { strokeColor: color, weight: 3 }
         : { color, strokeColor: '#ffffff', pointSize: 6, weight: 1 }
+
+const getFeatureIcons = (features, programId) => {
+    const category = getOsmCategoryByProgram(programId)
+    return features.map(
+        ({ properties }) => getFeatureSubcategory(category, properties)?.icon
+    )
+}
+
+// Features with the icon of their subcategory, drawn by maps-gl instead of a
+// circle. Features without one keep the circle.
+export const addOsmIcons = (features, programId) => {
+    const icons = getFeatureIcons(features, programId)
+    return features.map((feature, index) =>
+        icons[index]
+            ? {
+                  ...feature,
+                  properties: { ...feature.properties, iconUrl: icons[index] },
+              }
+            : feature
+    )
+}
+
+// One item per subcategory icon on the layer, then the circle as "Other" when
+// some features have no icon. Layers without icons keep their legend.
+export const getOsmLegendItems = (features, programId, legendItems) => {
+    const icons = getFeatureIcons(features, programId)
+    if (!icons.some(Boolean)) {
+        return legendItems
+    }
+    const category = getOsmCategoryByProgram(programId)
+    const iconItems = category.subcategories
+        .filter(({ icon }) => icon && icons.includes(icon))
+        .map(({ name, icon }) => ({ name, image: icon }))
+    const otherItems = icons.includes(undefined)
+        ? legendItems.map((item) => ({ ...item, name: i18n.t('Other') }))
+        : []
+    return [...iconItems, ...otherItems]
+}
 
 const MAX_NAMES = 3
 
