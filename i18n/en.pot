@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-29T16:08:44.354Z\n"
-"PO-Revision-Date: 2026-10-29T16:08:44.354Z\n"
+"POT-Creation-Date: 2026-10-29T15:59:29.134Z\n"
+"PO-Revision-Date: 2026-10-29T15:59:29.134Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -154,15 +154,6 @@ msgstr "Operator"
 
 msgid "Date"
 msgstr "Date"
-
-msgid "Select all visible rows"
-msgstr "Select all visible rows"
-
-msgid "Reverse selection of visible rows"
-msgstr "Reverse selection of visible rows"
-
-msgid "Sort by Selected"
-msgstr "Sort by Selected"
 
 msgid "Sort by {{column}}"
 msgstr "Sort by {{column}}"
