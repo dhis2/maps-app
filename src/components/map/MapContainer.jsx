@@ -3,11 +3,7 @@ import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setAggregations } from '../../actions/aggregations.js'
 import { setActiveTimelinePeriod } from '../../actions/dataTable.js'
-import {
-    highlightFeature,
-    setFeatureProfile,
-    clickFeature,
-} from '../../actions/feature.js'
+import { highlightFeature, setFeatureProfile } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
@@ -48,7 +44,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 bounds={bounds}
                 feature={feature}
                 highlightFeature={debouncedHighlightFeature}
-                clickFeature={(payload) => dispatch(clickFeature(payload))}
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
                 coordinatePopup={coordinatePopup}
                 interpretationModalOpen={interpretationModalOpen}

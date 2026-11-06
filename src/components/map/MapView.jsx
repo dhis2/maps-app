@@ -18,7 +18,6 @@ const MapView = (props) => {
         controls,
         feature,
         highlightFeature,
-        clickFeature,
         bounds,
         coordinatePopup,
         interpretationModalOpen,
@@ -60,7 +59,6 @@ const MapView = (props) => {
                             controls={mapControls}
                             feature={feature}
                             highlightFeature={highlightFeature}
-                            clickFeature={clickFeature}
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -77,7 +75,6 @@ const MapView = (props) => {
                             controls={mapControls}
                             feature={feature}
                             highlightFeature={highlightFeature}
-                            clickFeature={clickFeature}
                             coordinatePopup={coordinatePopup}
                             openContextMenu={openContextMenu}
                             resizeCount={resizeCount}
@@ -98,7 +95,6 @@ const MapView = (props) => {
 MapView.propTypes = {
     basemap: PropTypes.object,
     bounds: PropTypes.array,
-    clickFeature: PropTypes.func,
     controls: PropTypes.array,
     coordinatePopup: PropTypes.array,
     feature: PropTypes.object,

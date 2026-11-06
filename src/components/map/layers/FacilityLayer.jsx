@@ -158,7 +158,6 @@ class FacilityLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.onFeatureLeftClick(evt)
         this.setState({ popup: evt })
     }
 

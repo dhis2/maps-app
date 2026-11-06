@@ -65,8 +65,6 @@ class GeoJsonLayer extends Layer {
     onFeatureClick(evt) {
         const { name, keyAnalysisDigitGroupSeparator } = this.props
 
-        this.onFeatureLeftClick(evt)
-
         const feature = this.props.data.find(
             (d) => d.properties.id === evt.feature.properties.id
         )

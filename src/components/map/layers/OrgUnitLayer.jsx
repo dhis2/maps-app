@@ -99,7 +99,6 @@ export default class OrgUnitLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.onFeatureLeftClick(evt)
         this.setState({ popup: evt })
     }
 }
