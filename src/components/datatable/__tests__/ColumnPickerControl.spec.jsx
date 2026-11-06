@@ -68,7 +68,7 @@ describe('ColumnPicker trigger', () => {
 })
 
 describe('ColumnPicker visibility toggling', () => {
-    test('unchecking a column dispatches visibleKeys without that column, leaving order/pinning untouched', () => {
+    test('unchecking a column dispatches visibleKeys without that column, leaving order untouched', () => {
         const { store } = renderColumnPicker()
         openPicker()
         fireEvent.click(screen.getByLabelText('Value'))
@@ -77,13 +77,12 @@ describe('ColumnPicker visibility toggling', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: ['name', 'legend'],
-                pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
     })
 
-    test('rechecking a hidden column dispatches visibleKeys with it added back, leaving order/pinning untouched', () => {
+    test('rechecking a hidden column dispatches visibleKeys with it added back, leaving order untouched', () => {
         const { store } = renderColumnPicker({
             columnConfig: { visibleKeys: ['name', 'legend'] },
         })
@@ -95,65 +94,9 @@ describe('ColumnPicker visibility toggling', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: ['name', 'legend', 'rawValue'],
-                pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
-    })
-})
-
-describe('ColumnPicker pinning', () => {
-    test('pinning a column dispatches pinnedKeys including it, leaving visibility/order untouched', () => {
-        const { store } = renderColumnPicker()
-        openPicker()
-        fireEvent.click(
-            screen.getByTestId('data-table-column-picker-pin-rawValue')
-        )
-        expect(store.getActions()).toContainEqual({
-            type: DATA_TABLE_COLUMN_CONFIG_SET,
-            layerId: 'layer1',
-            config: {
-                visibleKeys: ['name', 'rawValue', 'legend'],
-                pinnedKeys: ['rawValue'],
-                orderedKeys: ['name', 'rawValue', 'legend'],
-            },
-        })
-    })
-
-    test('unpinning an already-pinned column dispatches pinnedKeys without it, leaving visibility/order untouched', () => {
-        const { store } = renderColumnPicker({
-            columnConfig: { pinnedKeys: ['rawValue'] },
-        })
-        openPicker()
-        fireEvent.click(
-            screen.getByTestId('data-table-column-picker-pin-rawValue')
-        )
-        expect(store.getActions()).toContainEqual({
-            type: DATA_TABLE_COLUMN_CONFIG_SET,
-            layerId: 'layer1',
-            config: {
-                visibleKeys: ['name', 'rawValue', 'legend'],
-                pinnedKeys: [],
-                orderedKeys: ['name', 'rawValue', 'legend'],
-            },
-        })
-    })
-
-    test('renders pinned columns first, ahead of orderedKeys', () => {
-        renderColumnPicker({
-            columnConfig: {
-                orderedKeys: ['name', 'rawValue', 'legend'],
-                pinnedKeys: ['legend'],
-            },
-        })
-        openPicker()
-        const labels = screen
-            .getAllByRole('checkbox')
-            .map((el) => el.closest('label')?.textContent)
-            // Excludes the bulk "select all" checkbox, which isn't
-            // wrapped in a <label> and isn't part of the column order.
-            .filter(Boolean)
-        expect(labels).toEqual(['Legend', 'Name', 'Value'])
     })
 })
 
@@ -174,9 +117,9 @@ describe('ColumnPicker bulk actions', () => {
         ).not.toBeChecked()
     })
 
-    test('checking it when some columns are hidden shows every column, leaving pinning/order untouched', () => {
+    test('checking it when some columns are hidden shows every column, leaving order untouched', () => {
         const { store } = renderColumnPicker({
-            columnConfig: { visibleKeys: ['name'], pinnedKeys: ['legend'] },
+            columnConfig: { visibleKeys: ['name'] },
         })
         openPicker()
         fireEvent.click(
@@ -187,16 +130,13 @@ describe('ColumnPicker bulk actions', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: ['name', 'rawValue', 'legend'],
-                pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
     })
 
-    test('unchecking it when every column is visible hides them all, leaving pinnedKeys untouched', () => {
-        const { store } = renderColumnPicker({
-            columnConfig: { pinnedKeys: ['legend'] },
-        })
+    test('unchecking it when every column is visible hides them all, leaving order untouched', () => {
+        const { store } = renderColumnPicker()
         openPicker()
         fireEvent.click(
             screen.getByTestId('data-table-column-picker-select-all')
@@ -206,15 +146,14 @@ describe('ColumnPicker bulk actions', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: [],
-                pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
     })
 
-    test("reverse selection swaps every column's visibility, leaving pinning/order untouched", () => {
+    test("reverse selection swaps every column's visibility, leaving order untouched", () => {
         const { store } = renderColumnPicker({
-            columnConfig: { visibleKeys: ['name'], pinnedKeys: ['legend'] },
+            columnConfig: { visibleKeys: ['name'] },
         })
         openPicker()
         fireEvent.click(screen.getByTestId('data-table-column-picker-reverse'))
@@ -223,7 +162,6 @@ describe('ColumnPicker bulk actions', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: ['rawValue', 'legend'],
-                pinnedKeys: ['legend'],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
@@ -349,7 +287,6 @@ describe('ColumnPicker search', () => {
             layerId: 'layer1',
             config: {
                 visibleKeys: ['name', 'rawValue', 'legend'],
-                pinnedKeys: [],
                 orderedKeys: ['name', 'rawValue', 'legend'],
             },
         })
@@ -388,7 +325,6 @@ describe('ColumnPicker defaultHidden headers (e.g. period columns)', () => {
                     'legend',
                     'period_202301_rawValue',
                 ],
-                pinnedKeys: [],
                 orderedKeys: [
                     'name',
                     'rawValue',

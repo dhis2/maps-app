@@ -945,7 +945,6 @@ describe('cleanMapConfig', () => {
     test('serializes dataTableColumnConfig into config JSON for thematic layer', () => {
         const dataTableColumnConfig = {
             visibleKeys: ['name', 'rawValue'],
-            pinnedKeys: ['name'],
             orderedKeys: ['rawValue', 'name'],
         }
         const config = {
@@ -995,7 +994,7 @@ describe('cleanMapConfig', () => {
     })
 
     test('serializes dataTableColumnConfig into config JSON for TEI layer', () => {
-        const dataTableColumnConfig = { pinnedKeys: ['id'] }
+        const dataTableColumnConfig = { visibleKeys: ['id'] }
         const config = {
             mapViews: [
                 {
