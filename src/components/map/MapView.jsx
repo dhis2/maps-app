@@ -18,7 +18,6 @@ const MapView = (props) => {
         controls,
         feature,
         highlightFeature,
-        highlightColor,
         clickFeature,
         bounds,
         coordinatePopup,
@@ -61,7 +60,6 @@ const MapView = (props) => {
                             controls={mapControls}
                             feature={feature}
                             highlightFeature={highlightFeature}
-                            highlightColor={highlightColor}
                             clickFeature={clickFeature}
                             interpretationModalOpen={interpretationModalOpen}
                             openContextMenu={openContextMenu}
@@ -79,7 +77,6 @@ const MapView = (props) => {
                             controls={mapControls}
                             feature={feature}
                             highlightFeature={highlightFeature}
-                            highlightColor={highlightColor}
                             clickFeature={clickFeature}
                             coordinatePopup={coordinatePopup}
                             openContextMenu={openContextMenu}
@@ -105,7 +102,6 @@ MapView.propTypes = {
     controls: PropTypes.array,
     coordinatePopup: PropTypes.array,
     feature: PropTypes.object,
-    highlightColor: PropTypes.string,
     highlightFeature: PropTypes.func,
     interpretationModalOpen: PropTypes.bool,
     isFullscreen: PropTypes.bool,

@@ -23,7 +23,6 @@ class Layer extends PureComponent {
         editCounter: PropTypes.number,
         externalPeriod: PropTypes.object, // eslint-disable-line react/no-unused-prop-types
         feature: PropTypes.object,
-        highlightColor: PropTypes.string,
         highlightFeature: PropTypes.func,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
@@ -50,7 +49,6 @@ class Layer extends PureComponent {
         this.syncOpacity(prevProps)
         this.syncVisibility(prevProps)
         this.syncFocusedFeature(prevProps)
-        this.syncHighlightColor(prevProps)
     }
 
     syncDefinition(prevProps, prevState = {}) {
@@ -105,16 +103,6 @@ class Layer extends PureComponent {
         this.zoomToFocusedFeature(feature)
 
         if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
-            this.highlightFeature()
-        }
-    }
-
-    syncHighlightColor(prevProps) {
-        if (this.props.highlightColor === prevProps.highlightColor) {
-            return
-        }
-
-        if (this.getHoverId()) {
             this.highlightFeature()
         }
     }
@@ -231,7 +219,7 @@ class Layer extends PureComponent {
     }
 
     highlightFeature() {
-        this.layer?.highlight?.(this.getHoverId(), this.props.highlightColor)
+        this.layer?.highlight?.(this.getHoverId())
     }
 
     onFeatureLeftClick(evt) {
