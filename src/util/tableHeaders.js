@@ -38,8 +38,6 @@ import { getGeojsonDisplayData } from './geojson.js'
 import { getRoundToPrecisionFn, getPrecision } from './numbers.js'
 import { isValidUid } from './uid.js'
 
-export { TYPE_NUMBER, TYPE_STRING, TYPE_DATE, TYPE_DATETIME, TYPE_TIME }
-
 const getCustomFieldType = (valueType, hasOptionSet) => {
     if (hasOptionSet) {
         return TYPE_STRING

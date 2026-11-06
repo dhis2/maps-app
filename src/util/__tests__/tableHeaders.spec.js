@@ -2,6 +2,11 @@ import {
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
+    TYPE_NUMBER,
+    TYPE_STRING,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_TIME,
 } from '../../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -14,11 +19,6 @@ import {
 import {
     ERROR_NON_HOMOGENOUS_FEATURES,
     getHeadersForLayer,
-    TYPE_NUMBER,
-    TYPE_STRING,
-    TYPE_DATE,
-    TYPE_DATETIME,
-    TYPE_TIME,
 } from '../tableHeaders.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
