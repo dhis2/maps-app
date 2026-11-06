@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import React from 'react'
 import {
     RENDERER_COLOR,
@@ -71,6 +71,19 @@ describe('RowCells', () => {
             'src',
             'https://example.com/icon.png'
         )
+    })
+
+    it('hides an icon that fails to load', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'name', value: 'https://example.com/missing.png' },
+            ],
+            { rendererByDataKey: new Map([['name', RENDERER_ICON]]) }
+        )
+        const icon = container.querySelector('img')
+        fireEvent.error(icon)
+        expect(icon).toHaveStyle({ visibility: 'hidden' })
     })
 
     it('renders a date-only cell formatted as just the date', () => {
