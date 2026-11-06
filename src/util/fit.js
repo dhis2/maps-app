@@ -1,17 +1,5 @@
 import turfBbox from '@turf/bbox'
-
-export const getZoomTarget = (feature, layerId) => {
-    if (!feature?.zoom || feature.layerId !== layerId) {
-        return null
-    }
-    if (feature.ids?.length) {
-        return { ids: feature.ids }
-    }
-    if (feature.id != null) {
-        return { ids: [feature.id] }
-    }
-    return { layer: true }
-}
+import { DURATION_DEFAULT, PADDING_DEFAULT } from '../constants/layers.js'
 
 // In the [[west, south], [east, north]] form that map.fitBounds takes
 export const getFeaturesBounds = (features) => {
@@ -33,4 +21,19 @@ export const getFeaturesBounds = (features) => {
         [minLng, minLat],
         [maxLng, maxLat],
     ]
+}
+
+// Takes any number of features, so later actions can fit several at once
+export const fitFeatures = (map, features) => {
+    const bounds = getFeaturesBounds(features)
+    if (!bounds) {
+        return
+    }
+
+    map.fitBounds(bounds, {
+        padding: PADDING_DEFAULT,
+        duration: DURATION_DEFAULT,
+        essential: true,
+        maxZoom: 17,
+    })
 }
