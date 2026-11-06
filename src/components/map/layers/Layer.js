@@ -6,7 +6,6 @@ import {
     PADDING_DEFAULT,
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
-import { getFeaturesBounds, getZoomTarget } from '../../../util/zoom.js'
 
 class Layer extends PureComponent {
     static contextTypes = {
@@ -47,7 +46,7 @@ class Layer extends PureComponent {
         this.syncOrder(prevProps)
         this.syncOpacity(prevProps)
         this.syncVisibility(prevProps)
-        this.syncFocusedFeature(prevProps)
+        this.syncHighlightedFeature(prevProps)
     }
 
     syncDefinition(prevProps, prevState = {}) {
@@ -93,16 +92,12 @@ class Layer extends PureComponent {
         }
     }
 
-    syncFocusedFeature(prevProps) {
-        const { feature } = this.props
-        if (feature === prevProps.feature) {
-            return
-        }
-
-        this.zoomToFocusedFeature(feature)
-
-        if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
-            this.highlightFeature()
+    syncHighlightedFeature(prevProps) {
+        if (
+            this.getHighlightedId(prevProps.feature) !==
+            this.getHighlightedId(this.props.feature)
+        ) {
+            this.drawHighlight()
         }
     }
 
@@ -132,7 +127,7 @@ class Layer extends PureComponent {
         await this.createLayer(true)
         this.setLayerOrder()
         this.setLayerVisibility()
-        this.highlightFeature()
+        this.drawHighlight()
     }
 
     // Override in subclass if needed
@@ -201,21 +196,12 @@ class Layer extends PureComponent {
         }
     }
 
-    zoomToFocusedFeature(feature) {
-        const target = getZoomTarget(feature, this.props.id)
-        if (target?.layer) {
-            this.fitBounds()
-        } else if (target) {
-            this.panToFeature(target.ids)
-        }
-    }
-
-    getHoverId(feature = this.props.feature) {
+    getHighlightedId(feature) {
         return feature?.layerId === this.props.id ? feature.id : null
     }
 
-    highlightFeature() {
-        this.layer?.highlight?.(this.getHoverId())
+    drawHighlight() {
+        this.layer?.highlight?.(this.getHighlightedId(this.props.feature))
     }
 
     onFeatureMouseEnter(evt) {
@@ -232,25 +218,6 @@ class Layer extends PureComponent {
 
     onFeatureMouseLeave() {
         this.props.highlightFeature?.(null)
-    }
-
-    panToFeature(ids) {
-        if (!this.layer?.getFeaturesById) {
-            return
-        }
-        const bounds = getFeaturesBounds(
-            ids.flatMap((id) => this.layer.getFeaturesById(id) ?? [])
-        )
-        if (!bounds) {
-            return
-        }
-
-        this.context.map.fitBounds(bounds, {
-            padding: PADDING_DEFAULT,
-            duration: DURATION_DEFAULT,
-            essential: true,
-            maxZoom: 17,
-        })
     }
 
     render() {
