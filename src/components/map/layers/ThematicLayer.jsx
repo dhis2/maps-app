@@ -233,7 +233,7 @@ class ThematicLayer extends Layer {
         ) {
             try {
                 this.layer.setData(filteredData)
-                this.highlightFeature()
+                this.drawHighlight()
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error

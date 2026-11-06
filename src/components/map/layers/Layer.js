@@ -101,8 +101,11 @@ class Layer extends PureComponent {
 
         this.zoomToFocusedFeature(feature)
 
-        if (this.getHoverId(prevProps.feature) !== this.getHoverId(feature)) {
-            this.highlightFeature()
+        if (
+            this.getHighlightedId(prevProps.feature) !==
+            this.getHighlightedId(feature)
+        ) {
+            this.drawHighlight()
         }
     }
 
@@ -132,7 +135,7 @@ class Layer extends PureComponent {
         await this.createLayer(true)
         this.setLayerOrder()
         this.setLayerVisibility()
-        this.highlightFeature()
+        this.drawHighlight()
     }
 
     // Override in subclass if needed
@@ -210,12 +213,12 @@ class Layer extends PureComponent {
         }
     }
 
-    getHoverId(feature = this.props.feature) {
+    getHighlightedId(feature = this.props.feature) {
         return feature?.layerId === this.props.id ? feature.id : null
     }
 
-    highlightFeature() {
-        this.layer?.highlight?.(this.getHoverId())
+    drawHighlight() {
+        this.layer?.highlight?.(this.getHighlightedId())
     }
 
     onFeatureMouseEnter(evt) {
