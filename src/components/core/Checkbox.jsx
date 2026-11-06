@@ -8,7 +8,6 @@ import styles from './styles/Checkbox.module.css'
 const Checkbox = ({
     label,
     checked = false,
-    indeterminate = false,
     disabled,
     dense = true,
     tooltip,
@@ -24,8 +23,7 @@ const Checkbox = ({
     >
         <UiCheckbox
             label={label}
-            checked={!indeterminate && checked}
-            indeterminate={indeterminate}
+            checked={checked}
             dense={dense}
             disabled={disabled}
             onChange={({ checked }) => onChange(checked)}
@@ -45,7 +43,6 @@ Checkbox.propTypes = {
     dataTest: PropTypes.string,
     dense: PropTypes.bool,
     disabled: PropTypes.bool,
-    indeterminate: PropTypes.bool,
     label: PropTypes.node,
     style: PropTypes.object,
     tooltip: PropTypes.string,
