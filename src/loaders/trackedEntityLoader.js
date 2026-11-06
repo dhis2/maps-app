@@ -232,8 +232,7 @@ const fetchOptionNamesByOptionSet = async (engine, optionSetIds) => {
 }
 
 export const applyParsedConfig = (config) => {
-    const { relationships, periodType, dataTableColumnConfig } =
-        parseJsonConfig(config.config)
+    const { relationships, periodType } = parseJsonConfig(config.config)
 
     if (relationships) {
         config.relationshipType = relationships.type
@@ -245,10 +244,6 @@ export const applyParsedConfig = (config) => {
     }
 
     config.periodType = periodType
-
-    if (dataTableColumnConfig) {
-        config.dataTableColumnConfig = dataTableColumnConfig
-    }
 
     delete config.config
 }

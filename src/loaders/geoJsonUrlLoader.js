@@ -72,9 +72,8 @@ const geoJsonUrlLoader = async ({
 
     let newConfig
     let featureStyle
-    let dataTableColumnConfig
     const alerts = []
-    // keep featureStyle and dataTableColumnConfig properties outside of config while in app
+    // keep featureStyle property outside of config while in app
     if (typeof config === 'string') {
         // External layer is loaded in analytical object
         const parsed = await parseLayerConfig(config, engine)
@@ -86,13 +85,10 @@ const geoJsonUrlLoader = async ({
             })
         }
         featureStyle = { ...newConfig.featureStyle } || EMPTY_FEATURE_STYLE
-        dataTableColumnConfig = newConfig.dataTableColumnConfig
         delete newConfig.featureStyle
-        delete newConfig.dataTableColumnConfig
     } else {
         newConfig = { ...config }
         featureStyle = layer.featureStyle || EMPTY_FEATURE_STYLE
-        dataTableColumnConfig = layer.dataTableColumnConfig
     }
 
     let geoJson
@@ -157,7 +153,6 @@ const geoJsonUrlLoader = async ({
         keyAnalysisDigitGroupSeparator,
         config: newConfig,
         featureStyle,
-        dataTableColumnConfig,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
