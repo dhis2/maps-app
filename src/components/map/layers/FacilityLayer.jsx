@@ -159,10 +159,7 @@ class FacilityLayer extends Layer {
 
     onFeatureClick(evt) {
         this.onFeatureLeftClick(evt)
-
-        if (!this.isMultiSelectClick(evt)) {
-            this.setState({ popup: evt })
-        }
+        this.setState({ popup: evt })
     }
 
     onAssociatedGeometryClick(evt) {

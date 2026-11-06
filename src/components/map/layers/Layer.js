@@ -8,9 +8,6 @@ import {
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
 
-export const idsEqual = (a, b) =>
-    a.length === b.length && a.every((id, i) => id === b[i])
-
 class Layer extends PureComponent {
     static contextTypes = {
         map: PropTypes.object,
@@ -32,8 +29,6 @@ class Layer extends PureComponent {
         isVisible: PropTypes.bool,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
-        selection: PropTypes.object,
-        toggleFeatureSelection: PropTypes.func,
     }
 
     static defaultProps = {
@@ -55,7 +50,6 @@ class Layer extends PureComponent {
         this.syncOpacity(prevProps)
         this.syncVisibility(prevProps)
         this.syncFocusedFeature(prevProps)
-        this.syncSelectedFeatures(prevProps)
         this.syncHighlightColor(prevProps)
     }
 
@@ -115,19 +109,6 @@ class Layer extends PureComponent {
         }
     }
 
-    syncSelectedFeatures(prevProps) {
-        const { selection } = this.props
-        if (
-            selection !== prevProps.selection &&
-            !idsEqual(
-                this.getSelectedIds(prevProps.selection),
-                this.getSelectedIds(selection)
-            )
-        ) {
-            this.selectFeatures()
-        }
-    }
-
     syncHighlightColor(prevProps) {
         if (this.props.highlightColor === prevProps.highlightColor) {
             return
@@ -135,9 +116,6 @@ class Layer extends PureComponent {
 
         if (this.getHoverId()) {
             this.highlightFeature()
-        }
-        if (this.getSelectedIds().length) {
-            this.selectFeatures()
         }
     }
 
@@ -168,7 +146,6 @@ class Layer extends PureComponent {
         this.setLayerOrder()
         this.setLayerVisibility()
         this.highlightFeature()
-        this.selectFeatures()
     }
 
     // Override in subclass if needed
@@ -253,16 +230,8 @@ class Layer extends PureComponent {
         return feature?.layerId === this.props.id ? feature.id : null
     }
 
-    getSelectedIds(selection = this.props.selection) {
-        return selection?.layerId === this.props.id ? selection.ids : []
-    }
-
     highlightFeature() {
         this.layer?.highlight?.(this.getHoverId(), this.props.highlightColor)
-    }
-
-    selectFeatures() {
-        this.layer?.select?.(this.getSelectedIds(), this.props.highlightColor)
     }
 
     onFeatureLeftClick(evt) {
@@ -273,14 +242,6 @@ class Layer extends PureComponent {
         }
 
         this.props.clickFeature?.({ id, layerId: this.props.id })
-
-        if (this.isMultiSelectClick(evt)) {
-            this.props.toggleFeatureSelection?.(id, this.props.id)
-        }
-    }
-
-    isMultiSelectClick(evt) {
-        return Boolean(evt.ctrlKey || evt.metaKey)
     }
 
     onFeatureMouseEnter(evt) {
