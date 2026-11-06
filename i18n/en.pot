@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-30T10:39:05.107Z\n"
-"PO-Revision-Date: 2026-10-30T10:39:05.107Z\n"
+"POT-Creation-Date: 2026-10-30T10:59:35.314Z\n"
+"PO-Revision-Date: 2026-10-30T10:59:35.315Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -254,12 +254,6 @@ msgstr "Unpin column"
 msgid "Pin column to the left"
 msgstr "Pin column to the left"
 
-msgid "Search across all visible columns"
-msgstr "Search across all visible columns"
-
-msgid "Search all columns"
-msgstr "Search all columns"
-
 msgid "Highlight color"
 msgstr "Highlight color"
 
@@ -268,9 +262,6 @@ msgstr "{{filtered}} of {{total}} rows"
 
 msgid "{{total}} rows"
 msgstr "{{total}} rows"
-
-msgid "Show only features in current map view"
-msgstr "Show only features in current map view"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."

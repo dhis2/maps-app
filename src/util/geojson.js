@@ -204,12 +204,6 @@ export const getCentroid = (geometry, format = CENTROID_FORMAT_ARRAY) => {
     return coords
 }
 
-export const isPointInBounds = ([lng, lat], [west, south, east, north]) => {
-    const lngInBounds =
-        west <= east ? lng >= west && lng <= east : lng >= west || lng <= east
-    return lngInBounds && lat >= south && lat <= north
-}
-
 export const isFeatureInBounds = (feature, bounds) => {
     if (!bounds || !feature.geometry) {
         return false

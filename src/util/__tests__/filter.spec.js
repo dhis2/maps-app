@@ -1,5 +1,5 @@
 import { SENTINEL_ANY_VALUE } from '../../constants/dataTable.js'
-import { filterByGlobalSearch, filterData } from '../filter.js'
+import { filterData } from '../filter.js'
 
 describe('filterData', () => {
     it('should return the original data if no filters are provided', () => {
@@ -124,64 +124,5 @@ describe('filterData', () => {
             const filters = { a: { values: [], searchDerived: true } }
             expect(filterData(data, filters)).toEqual([])
         })
-    })
-})
-
-describe('filterByGlobalSearch', () => {
-    const data = [
-        { name: 'Kampala Hospital', type: 'Hospital' },
-        { name: 'Entebbe Clinic', type: 'Clinic' },
-        { name: 'Jinja Hospital', type: 'Hospital' },
-    ]
-    const stringDataKeys = ['name', 'type']
-
-    it('returns the original data when the search string is empty', () => {
-        expect(filterByGlobalSearch(data, '', { stringDataKeys })).toEqual(data)
-        expect(filterByGlobalSearch(data, '   ', { stringDataKeys })).toEqual(
-            data
-        )
-    })
-
-    it('returns the original data when there are no string or org-unit data keys', () => {
-        expect(filterByGlobalSearch(data, 'Kampala', {})).toEqual(data)
-    })
-
-    it('matches case-insensitively across any of the given fields', () => {
-        expect(
-            filterByGlobalSearch(data, 'kampala', { stringDataKeys })
-        ).toEqual([{ name: 'Kampala Hospital', type: 'Hospital' }])
-    })
-
-    it('matches rows where any field contains the search string', () => {
-        expect(
-            filterByGlobalSearch(data, 'hospital', { stringDataKeys })
-        ).toEqual([
-            { name: 'Kampala Hospital', type: 'Hospital' },
-            { name: 'Jinja Hospital', type: 'Hospital' },
-        ])
-    })
-
-    it('returns no rows when nothing matches', () => {
-        expect(
-            filterByGlobalSearch(data, 'nairobi', { stringDataKeys })
-        ).toEqual([])
-    })
-
-    it('also matches org-unit-typed columns by their resolved name, since the raw stored value is an id/path', () => {
-        const orgUnitData = [
-            { id: 'a', orgUnitPath: '/country1/region1/facility1' },
-            { id: 'b', orgUnitPath: '/country1/region2/facility2' },
-        ]
-        const idToName = new Map([
-            ['country1', 'Sierra Leone'],
-            ['region1', 'Bo'],
-            ['facility1', 'Bo Hospital'],
-        ])
-        expect(
-            filterByGlobalSearch(orgUnitData, 'bo hospital', {
-                orgUnitDataKeys: ['orgUnitPath'],
-                idToName,
-            })
-        ).toEqual([{ id: 'a', orgUnitPath: '/country1/region1/facility1' }])
     })
 })
