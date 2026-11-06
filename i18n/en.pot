@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-30T12:28:30.474Z\n"
-"PO-Revision-Date: 2026-10-30T12:28:30.475Z\n"
+"POT-Creation-Date: 2026-10-30T12:46:15.311Z\n"
+"PO-Revision-Date: 2026-10-30T12:46:15.311Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -155,9 +155,6 @@ msgstr "Operator"
 msgid "Date"
 msgstr "Date"
 
-msgid "Sort by {{column}}"
-msgstr "Sort by {{column}}"
-
 msgid "Edit layer"
 msgstr "Edit layer"
 
@@ -211,6 +208,9 @@ msgstr "No matches"
 
 msgid "No value"
 msgstr "No value"
+
+msgid "Sort by {{column}}"
+msgstr "Sort by {{column}}"
 
 msgid "Event details aren't available while this layer is clustered on the server"
 msgstr "Event details aren't available while this layer is clustered on the server"
