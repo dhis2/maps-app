@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-30T09:14:18.342Z\n"
-"PO-Revision-Date: 2026-10-30T09:14:18.342Z\n"
+"POT-Creation-Date: 2026-10-30T10:09:21.933Z\n"
+"PO-Revision-Date: 2026-10-30T10:09:21.933Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -232,24 +232,6 @@ msgstr "to match the rows under it, or type to search"
 
 msgid "Select matches"
 msgstr "Select matches"
-
-msgid "Drill up one level"
-msgstr "Drill up one level"
-
-msgid "Drill down one level"
-msgstr "Drill down one level"
-
-msgid "View profile"
-msgstr "View profile"
-
-msgid "Zoom to feature"
-msgstr "Zoom to feature"
-
-msgid "Zoom to layer"
-msgstr "Zoom to layer"
-
-msgid "Zoom to filtered features"
-msgstr "Zoom to filtered features"
 
 msgid "Event details aren't available while this layer is clustered on the server"
 msgstr "Event details aren't available while this layer is clustered on the server"
@@ -890,6 +872,15 @@ msgstr "External layer definition not found, showing last known settings"
 
 msgid "Error"
 msgstr "Error"
+
+msgid "Drill up one level"
+msgstr "Drill up one level"
+
+msgid "Drill down one level"
+msgstr "Drill down one level"
+
+msgid "View profile"
+msgstr "View profile"
 
 msgid "Show longitude/latitude"
 msgstr "Show longitude/latitude"

@@ -138,18 +138,6 @@ describe('data table', () => {
         checkTableCell({ row: 0, column: 4, expectedContent: '35' })
         checkTableCell({ row: 4, column: 4, expectedContent: '76' })
 
-        // Right-click a row and select "View profile"
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .findByDataTest('dhis2-uicore-datatablerow')
-            .first()
-            .rightclick()
-
-        cy.getByDataTest('data-table-context-menu-view-profile').click()
-
-        // Check that the org unit profile drawer is opened
-        cy.getByDataTest('org-unit-profile').should('be.visible')
-
         cy.getByDataTest('layers-toggle-button').click()
 
         // Close the datatable
@@ -262,20 +250,6 @@ describe('data table', () => {
         // (the first click on a new column always sorts ascending)
         checkTableCell({ row: 0, column: 9, expectedContent: '6' })
         checkTableCell({ row: 1, column: 9, expectedContent: '32' })
-
-        // Right-click a row: Event layers have no profile to view
-        cy.getByDataTest('bottom-panel')
-            .findByDataTest('dhis2-uicore-tablebody')
-            .findByDataTest('dhis2-uicore-datatablerow')
-            .first()
-            .rightclick()
-
-        cy.getByDataTest('data-table-context-menu-view-profile').should(
-            'not.exist'
-        )
-
-        // Check that the org unit profile drawer is NOT opened
-        cy.getByDataTest('org-unit-profile').should('not.exist')
     })
 
     it('places undefined data at the end when sorting', () => {
