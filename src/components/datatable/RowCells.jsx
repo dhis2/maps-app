@@ -4,26 +4,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {
     RENDERER_COLOR,
-    RENDERER_ICON,
-    RENDERER_DATE,
-    RENDERER_ORG_UNIT,
-    RENDERER_ORG_UNIT_NAME,
-    RENDERER_BOOLEAN,
-    TYPE_DATE,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import { getRowId } from '../../util/dataTable.js'
-import {
-    formatBoolean,
-    formatDate,
-    formatDatetime,
-} from '../../util/helpers.js'
-import { formatWithSeparator } from '../../util/numbers.js'
-import {
-    formatOrgUnitOwnName,
-    formatOrgUnitPathBreadcrumb,
-} from '../../util/orgUnitGroups.js'
+import CellValue from './CellValue.jsx'
 import styles from './styles/DataTable.module.css'
 
 const RowCells = ({
@@ -54,12 +39,6 @@ const RowCells = ({
                 const { value, align } = cell
                 const renderer = rendererByDataKey.get(dataKey)
                 const isColorCell = renderer === RENDERER_COLOR
-                const isIconCell = renderer === RENDERER_ICON
-                const isDateCell = renderer === RENDERER_DATE
-                const isDateOnlyCell = typeByDataKey.get(dataKey) === TYPE_DATE
-                const isOrgUnitHierarchyCell = renderer === RENDERER_ORG_UNIT
-                const isOrgUnitNameCell = renderer === RENDERER_ORG_UNIT_NAME
-                const isBooleanCell = renderer === RENDERER_BOOLEAN
                 return (
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
@@ -76,39 +55,15 @@ const RowCells = ({
                         backgroundColor={isColorCell ? value : null}
                         align={align}
                     >
-                        {isColorCell && value?.toLowerCase()}
-                        {isIconCell && value && (
-                            <img
-                                className={styles.iconCell}
-                                src={value}
-                                alt=""
-                                onError={(e) => {
-                                    e.target.style.visibility = 'hidden'
-                                }}
-                            />
-                        )}
-                        {isDateCell &&
-                            value &&
-                            (isDateOnlyCell
-                                ? formatDate(value)
-                                : formatDatetime(value))}
-                        {isOrgUnitHierarchyCell &&
-                            value &&
-                            formatOrgUnitPathBreadcrumb(value, orgUnitIdToName)}
-                        {isOrgUnitNameCell &&
-                            value &&
-                            formatOrgUnitOwnName(value, orgUnitIdToName)}
-                        {isBooleanCell && value != null && formatBoolean(value)}
-                        {!isColorCell &&
-                            !isIconCell &&
-                            !isDateCell &&
-                            !isOrgUnitHierarchyCell &&
-                            !isOrgUnitNameCell &&
-                            !isBooleanCell &&
-                            formatWithSeparator(
-                                value,
+                        <CellValue
+                            value={value}
+                            renderer={renderer}
+                            type={typeByDataKey.get(dataKey)}
+                            orgUnitIdToName={orgUnitIdToName}
+                            keyAnalysisDigitGroupSeparator={
                                 keyAnalysisDigitGroupSeparator
-                            )}
+                            }
+                        />
                     </DataTableCell>
                 )
             })}
