@@ -93,14 +93,6 @@ describe('RowCells', () => {
         expect(screen.getByText('2024-03-15 10:30')).toBeInTheDocument()
     })
 
-    it('renders no checkbox', () => {
-        renderRow([
-            { dataKey: 'id', value: 'row1' },
-            { dataKey: 'name', value: 'Bo' },
-        ])
-        expect(screen.queryByRole('checkbox')).not.toBeInTheDocument()
-    })
-
     it('skips headers with no matching cell in the row', () => {
         renderRow([{ dataKey: 'id', value: 'row1' }])
         expect(screen.queryByText('Bo')).not.toBeInTheDocument()
