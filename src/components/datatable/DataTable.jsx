@@ -27,9 +27,9 @@ import {
 } from '../../util/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
+import ColumnHeader from './ColumnHeader.jsx'
 import FilterInput from './FilterInput.jsx'
 import RowCells from './RowCells.jsx'
-import SortableColumnHeader from './SortableColumnHeader.jsx'
 import styles from './styles/DataTable.module.css'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
@@ -199,7 +199,7 @@ const Table = ({
                 {visibleHeaders.map(
                     ({ name, dataKey, type, optionSet, renderer }, index) => {
                         return (
-                            <SortableColumnHeader
+                            <ColumnHeader
                                 className={styles.columnHeader}
                                 key={`${dataKey}-${index}`}
                                 name={name}

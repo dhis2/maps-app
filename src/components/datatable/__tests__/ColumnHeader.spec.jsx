@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
-import SortableColumnHeader from '../SortableColumnHeader.jsx'
+import ColumnHeader from '../ColumnHeader.jsx'
 
 const ACTIVE_FILL = 'var(--colors-teal600)'
 const UP_ARROW = '4 7 12 7 8 2'
@@ -11,7 +11,7 @@ const renderHeader = (props) =>
         <table>
             <thead>
                 <tr>
-                    <SortableColumnHeader
+                    <ColumnHeader
                         name="Value"
                         dataKey="rawValue"
                         onSort={jest.fn()}
@@ -27,7 +27,7 @@ const activeArrows = (container) =>
         .filter((p) => p.getAttribute('fill') === ACTIVE_FILL)
         .map((p) => p.getAttribute('points'))
 
-describe('SortableColumnHeader', () => {
+describe('ColumnHeader', () => {
     test.each([
         ['asc', [UP_ARROW]],
         ['desc', [DOWN_ARROW]],

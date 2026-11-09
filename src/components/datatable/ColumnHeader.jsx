@@ -6,7 +6,7 @@ import { SortIcon } from '../core/icons.jsx'
 import styles from './styles/DataTable.module.css'
 import TopTooltip from './TopTooltip.jsx'
 
-const SortableColumnHeader = ({
+const ColumnHeader = ({
     name,
     dataKey,
     sortDirection,
@@ -35,11 +35,11 @@ const SortableColumnHeader = ({
     )
 }
 
-SortableColumnHeader.propTypes = {
+ColumnHeader.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onSort: PropTypes.func.isRequired,
     sortDirection: PropTypes.string,
 }
 
-export default SortableColumnHeader
+export default ColumnHeader
