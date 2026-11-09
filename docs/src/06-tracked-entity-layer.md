@@ -36,8 +36,18 @@ opens the Tracked entity layer configuration dialog.
 
 -   Select the **Display tracked entity relationships** checkbox to show relationships on the map.
 
--   Select the **Relationship type** to display from the dropdown list. Only relationships defined
-    for the selected tracked entity type are available.
+-   Select the **Relationship type** to display from the dropdown list. Only relationships from the
+    selected tracked entity type to tracked entities are available. Relationships to events or
+    enrollments are not shown.
+
+-   Relationships are drawn from the tracked entities shown by the layer. The related tracked
+    entities at the other end are filtered as follows:
+    -   **Org units:** the same org units and selection mode as the layer.
+    -   **Period:** the same dates as the layer. If the layer uses the enrollment date, the dates
+        apply to the enrollment date of the related tracked entities when the relationship type sets
+        a program for them, and to their last updated date otherwise.
+    -   **Program, program status and follow-up:** not applied. The related tracked entities are
+        shown whatever program they are in, unless the relationship type sets one.
 
 #### 3. Period
 
@@ -58,9 +68,11 @@ opens the Tracked entity layer configuration dialog.
 
     -   **Selected only**: Include tracked entities belonging to selected org units only.
 
-    -   **Selected and below**: Include tracked entities in and right below selected org units.
+    -   **Immediate children**: Include tracked entities in the org units right below selected org units, not in the selected org units themselves.
 
     -   **Selected and all below**: Include tracked entities in and all below selected org units.
+
+    The default is **Selected and all below** from DHIS2 2.41, and **Selected only** on 2.40.
 
 #### 5. Style
 
