@@ -1,5 +1,6 @@
 import {
     createTrackedEntityFeatures,
+    isAtTrackerLimit,
     TEI_40_QUERY,
     TEI_41_QUERY,
     TEI_FIELDS,
@@ -131,6 +132,8 @@ export const getDataWithRelationships = async ({
     instances: sourceInstances,
     queryOptions,
     engine,
+    maxLimit,
+    isSourceTruncated,
 }) => {
     const { relationshipType, trackerParams } = queryOptions
 
@@ -164,8 +167,12 @@ export const getDataWithRelationships = async ({
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
+    let isTruncated = false
     if (isRelatedLoaded) {
+        // The related tracked entities are among the loaded ones, so cut
+        // with them
         normalizedPotentialTargetInstances = normalizedSourceInstances
+        isTruncated = Boolean(isSourceTruncated)
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
@@ -173,8 +180,15 @@ export const getDataWithRelationships = async ({
             { variables: getRelatedParams(trackerParams, to) }
         )
 
-        normalizedPotentialTargetInstances = normalizeInstances(
+        const potentialTargetInstances =
             tei[isVersion40 ? 'instances' : 'trackedEntities']
+        normalizedPotentialTargetInstances = normalizeInstances(
+            potentialTargetInstances
+        )
+        // Capped by the tracker API limit like the source instances
+        isTruncated = isAtTrackerLimit(
+            potentialTargetInstances.length,
+            maxLimit
         )
     }
 
@@ -205,6 +219,7 @@ export const getDataWithRelationships = async ({
         primary: Object.values(normalizedSourceInstances),
         relationships: Object.values(relationshipsById),
         secondary: targetInstances,
+        isTruncated,
     }
 }
 
@@ -229,6 +244,8 @@ export const loadTrackedEntityRelationships = async ({
     serverVersion,
     instances,
     trackerParams,
+    maxLimit,
+    isSourceTruncated,
 }) => {
     const { relationshipType: relationshipTypeID } = config
 
@@ -254,6 +271,8 @@ export const loadTrackedEntityRelationships = async ({
             instances,
             queryOptions: { relationshipType, trackerParams },
             engine,
+            maxLimit,
+            isSourceTruncated,
         })
 
         return {
@@ -262,6 +281,7 @@ export const loadTrackedEntityRelationships = async ({
             secondaryData: createTrackedEntityFeatures(dataWithRels.secondary),
             relationshipType,
             relatedEntityType,
+            isTruncated: dataWithRels.isTruncated,
             // Only relationships between tracked entities can be shown
             isSupported:
                 relationshipType.fromConstraint.relationshipEntity ===
