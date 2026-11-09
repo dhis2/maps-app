@@ -1,6 +1,7 @@
 import turfBbox from '@turf/bbox'
 import { booleanPointInPolygon } from '@turf/boolean-point-in-polygon'
 import turfCentroid from '@turf/centroid'
+import { wktToGeoJSON } from 'betterknown'
 import findIndex from 'lodash/findIndex'
 import { formatWithSeparator } from './numbers.js'
 
@@ -84,6 +85,26 @@ export const buildEventGeometryGetter = (headers) => {
     return (event) => {
         const value = event[geomCol]
         return value ? JSON.parse(value) : null
+    }
+}
+
+export const trackedEntityGeometryTypes = new Set([
+    GEO_TYPE_POINT,
+    GEO_TYPE_POLYGON,
+    GEO_TYPE_MULTIPOLYGON,
+])
+
+// Tracker analytics geometries are (E)WKT, with or without an SRID prefix
+export const parseWkt = (wkt) => {
+    if (typeof wkt !== 'string' || !wkt) {
+        return null
+    }
+
+    try {
+        const geometry = wktToGeoJSON(wkt)
+        return trackedEntityGeometryTypes.has(geometry?.type) ? geometry : null
+    } catch {
+        return null
     }
 }
 

@@ -1,5 +1,9 @@
 import i18n from '@dhis2/d2-i18n'
-import { WARNING_NO_DATA } from '../constants/alerts.js'
+import {
+    CUSTOM_ALERT,
+    ERROR_CRITICAL,
+    WARNING_NO_DATA,
+} from '../constants/alerts.js'
 import {
     TEI_COLOR,
     TEI_RADIUS,
@@ -8,106 +12,17 @@ import {
     TEI_RELATIONSHIP_LINE_COLOR,
 } from '../constants/layers.js'
 import { getProgramStatuses } from '../constants/programStatuses.js'
-import { getOrgUnitsFromRows } from '../util/analytics.js'
+import { GEO_TYPE_POINT, GEO_TYPE_LINE } from '../util/geojson.js'
+import { formatWithSeparator } from '../util/numbers.js'
+import { formatStartEndDate, getDateArray } from '../util/time.js'
 import {
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-    GEO_TYPE_LINE,
-    GEO_TYPE_FEATURE,
-} from '../util/geojson.js'
-import { getDataWithRelationships } from '../util/teiRelationshipsParser.js'
-import { trimTime, formatStartEndDate, getDateArray } from '../util/time.js'
-
-const fields = ['trackedEntity~rename(id)', 'geometry']
-
-// Valid geometry types for TEIs
-const teiGeometryTypes = new Set([
-    GEO_TYPE_POINT,
-    GEO_TYPE_POLYGON,
-    GEO_TYPE_MULTIPOLYGON,
-])
-
-const TEI_40_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        programStatus,
-        followUp,
-        trackedEntityType,
-        enrollmentEnrolledAfter,
-        enrollmentEnrolledBefore,
-        updatedAfter,
-        updatedBefore,
-    }) => ({
-        fields,
-        orgUnit: orgUnits,
-        ouMode: orgUnitMode,
-        program: program,
-        programStatus,
-        followUp,
-        trackedEntityType,
-        enrollmentEnrolledAfter,
-        enrollmentEnrolledBefore,
-        updatedAfter,
-        updatedBefore,
-        skipPaging: true,
-    }),
-}
-
-const TEI_41_QUERY = {
-    resource: 'tracker/trackedEntities',
-    params: ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        programStatus,
-        trackedEntityType,
-        enrollmentEnrolledAfter,
-        enrollmentEnrolledBefore,
-        updatedAfter,
-        updatedBefore,
-        // TODO no followUp?
-    }) => ({
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program,
-        programStatus,
-        trackedEntityType,
-        enrollmentEnrolledAfter,
-        enrollmentEnrolledBefore,
-        updatedAfter,
-        updatedBefore,
-        paging: false,
-    }),
-}
-
-const RELATIONSHIP_TYPES_QUERY = {
-    resource: 'relationshipTypes',
-    id: ({ id }) => id,
-}
-
-const TRACKED_ENTITY_TYPES_QUERY = {
-    resource: 'trackedEntityTypes',
-    id: ({ id }) => id,
-    params: {
-        fields: 'displayName,featureType',
-    },
-}
-
-const toGeoJson = (instances) =>
-    instances.map(({ id, geometry }) => ({
-        type: GEO_TYPE_FEATURE,
-        geometry,
-        properties: {
-            id,
-        },
-    }))
+    getTrackedEntityDefaultOrgUnitMode,
+    getTrackerMaxLimit,
+    canLoadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromAnalytics,
+    loadTrackedEntitiesFromTracker,
+} from '../util/trackedEntity.js'
+import { loadTrackedEntityRelationships } from '../util/trackedEntityRelationships.js'
 
 export const parseJsonConfig = (config) => {
     if (!config.config || typeof config.config !== 'string') {
@@ -134,36 +49,17 @@ export const parseJsonConfig = (config) => {
     delete config.config
 }
 
-const fetchRelationshipData = async ({
-    engine,
-    isVersion40,
-    instances,
-    relationshipTypeID,
-    orgUnits,
-    organisationUnitSelectionMode,
+const getRelationshipLegendItems = ({
+    relationshipType,
+    relatedEntityType,
     relatedPointColor,
     relatedPointRadius,
     relationshipLineColor,
-    legend,
 }) => {
-    const { relationshipType } = await engine.query(
-        { relationshipType: RELATIONSHIP_TYPES_QUERY },
-        { variables: { id: relationshipTypeID } }
-    )
-
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
-
     const isPoint =
         relatedEntityType.featureType === GEO_TYPE_POINT.toUpperCase()
 
-    legend.items.push(
+    return [
         {
             type: GEO_TYPE_LINE,
             name: relationshipType.displayName,
@@ -177,90 +73,21 @@ const fetchRelationshipData = async ({
                 ? relatedPointRadius || TEI_RELATED_RADIUS
                 : undefined,
             weight: isPoint ? undefined : 1,
-        }
-    )
-
-    const dataWithRels = await getDataWithRelationships({
-        isVersion40,
-        instances,
-        queryOptions: {
-            relationshipType,
-            orgUnits,
-            organisationUnitSelectionMode,
         },
-        engine,
-    })
-
-    return {
-        data: toGeoJson(dataWithRels.primary),
-        relationships: dataWithRels.relationships,
-        secondaryData: toGeoJson(dataWithRels.secondary),
-    }
+    ]
 }
 
-const buildQueryVariables = ({
-    fields,
-    orgUnits,
-    orgUnitMode,
+const getLegend = ({
+    name,
+    trackedEntityType,
     program,
     programStatus,
-    followUp,
-    trackedEntityType,
-    periodType,
     startDate,
     endDate,
+    eventPointColor,
+    eventPointRadius,
+    areaRadius,
 }) => {
-    const followUpBool = followUp ? 'TRUE' : 'FALSE'
-    const boolFollowUp =
-        program && followUp !== undefined ? followUpBool : undefined
-
-    return {
-        fields,
-        orgUnits,
-        orgUnitMode,
-        program: program?.id,
-        programStatus,
-        followUp: boolFollowUp,
-        trackedEntityType: program ? undefined : trackedEntityType?.id,
-        enrollmentEnrolledAfter:
-            periodType === 'program' ? trimTime(startDate) : undefined,
-        enrollmentEnrolledBefore:
-            periodType === 'program' ? trimTime(endDate) : undefined,
-        updatedAfter:
-            periodType === 'program' ? undefined : trimTime(startDate),
-        updatedBefore: periodType === 'program' ? undefined : trimTime(endDate),
-    }
-}
-
-const trackedEntityLoader = async ({
-    config,
-    engine,
-    keyAnalysisDigitGroupSeparator,
-    serverVersion,
-}) => {
-    parseJsonConfig(config)
-
-    const {
-        trackedEntityType,
-        program,
-        programStatus,
-        followUp,
-        relationshipType: relationshipTypeID,
-        periodType,
-        startDate,
-        endDate,
-        rows,
-        organisationUnitSelectionMode,
-        eventPointColor,
-        eventPointRadius,
-        areaRadius,
-        relatedPointColor,
-        relatedPointRadius,
-        relationshipLineColor,
-    } = config
-
-    const name = program ? program.name : i18n.t('Tracked entity')
-
     const legend = {
         title: name,
         period: formatStartEndDate(
@@ -278,78 +105,219 @@ const trackedEntityLoader = async ({
         ],
     }
 
-    // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
-    const isVersion40 = `${serverVersion.minor}` === '40'
-
-    const orgUnits = getOrgUnitsFromRows(rows)
-        .map((ou) => ou.id)
-        .join(isVersion40 ? ';' : ',')
-
-    const fieldsWithRelationships = [...fields, 'relationships']
-    let explanation
-
     if (program && programStatus) {
-        explanation = `${i18n.t('Program status')}: ${
-            getProgramStatuses().find((s) => s.id === programStatus).name
-        }`
+        legend.explanation = [
+            `${i18n.t('Program status')}: ${
+                getProgramStatuses().find((s) => s.id === programStatus)
+                    ?.name ?? programStatus
+            }`,
+        ]
     }
 
-    const { trackedEntities } = await engine.query(
-        { trackedEntities: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
+    return legend
+}
+
+const getTruncatedMessage = (result, keyAnalysisDigitGroupSeparator) => {
+    const limit = formatWithSeparator(
+        result.limit,
+        keyAnalysisDigitGroupSeparator
+    )
+
+    // Only analytics returns the total
+    if (!result.total) {
+        return i18n.t('Displaying first {{limit}} tracked entities', { limit })
+    }
+
+    return i18n.t(
+        'Displaying first {{limit}} tracked entities out of {{total}}',
         {
-            variables: buildQueryVariables({
-                fields: fieldsWithRelationships,
-                orgUnits,
-                orgUnitMode: organisationUnitSelectionMode,
-                program,
-                programStatus,
-                followUp,
-                trackedEntityType,
-                periodType,
-                startDate,
-                endDate,
-            }),
+            limit,
+            total: formatWithSeparator(
+                result.total,
+                keyAnalysisDigitGroupSeparator
+            ),
         }
     )
+}
 
-    const instances = trackedEntities[
-        isVersion40 ? 'instances' : 'trackedEntities'
-    ].filter(
-        (instance) =>
-            teiGeometryTypes.has(instance.geometry?.type) &&
-            instance.geometry?.coordinates
-    )
+// One alert for all warnings: a layer only shows its last custom warning
+const getWarningsAlert = (name, warnings) => ({
+    warning: true,
+    code: CUSTOM_ALERT,
+    message: `${name}: ${warnings.join('. ')}`,
+})
 
-    let alert
+const getRelationshipWarnings = (
+    relationshipResult,
+    maxLimit,
+    keyAnalysisDigitGroupSeparator
+) => {
+    if (!relationshipResult) {
+        return [i18n.t('Relationships could not be loaded')]
+    }
 
-    if (!instances.length) {
-        alert = {
-            code: WARNING_NO_DATA,
-            message: trackedEntityType.name,
+    const warnings = []
+
+    if (!relationshipResult.isSupported) {
+        warnings.push(
+            i18n.t('Only relationships between tracked entities are supported')
+        )
+    }
+
+    if (relationshipResult.isTruncated) {
+        warnings.push(
+            i18n.t(
+                'Only the first {{limit}} candidate tracked entities were retrieved, so some relationships may not be displayed',
+                {
+                    limit: formatWithSeparator(
+                        maxLimit,
+                        keyAnalysisDigitGroupSeparator
+                    ),
+                }
+            )
+        )
+    }
+
+    return warnings
+}
+
+const trackedEntityLoader = async ({
+    config,
+    engine,
+    analyticsEngine,
+    keyAnalysisDigitGroupSeparator,
+    serverVersion,
+    KeyTrackedEntityInstanceMaxLimit,
+    KeyTrackedEntityMaxLimit,
+}) => {
+    parseJsonConfig(config)
+
+    // The main and relationship requests share the default org unit mode
+    const loadConfig = {
+        ...config,
+        organisationUnitSelectionMode:
+            config.organisationUnitSelectionMode ||
+            getTrackedEntityDefaultOrgUnitMode(serverVersion),
+    }
+
+    const {
+        trackedEntityType,
+        program,
+        programStatus,
+        relationshipType: relationshipTypeID,
+        startDate,
+        endDate,
+        eventPointColor,
+        eventPointRadius,
+        areaRadius,
+        relatedPointColor,
+        relatedPointRadius,
+        relationshipLineColor,
+    } = config
+
+    const name = program ? program.name : i18n.t('Tracked entity')
+
+    const alerts = []
+    const warnings = []
+    let legend, loadError, relationships, secondaryData
+    let data = []
+
+    try {
+        legend = getLegend({
+            name,
+            trackedEntityType,
+            program,
+            programStatus,
+            startDate,
+            endDate,
+            eventPointColor,
+            eventPointRadius,
+            areaRadius,
+        })
+
+        const maxLimit = getTrackerMaxLimit(
+            { KeyTrackedEntityInstanceMaxLimit, KeyTrackedEntityMaxLimit },
+            serverVersion
+        )
+        const result = canLoadTrackedEntitiesFromAnalytics(
+            loadConfig,
+            serverVersion
+        )
+            ? await loadTrackedEntitiesFromAnalytics({
+                  config: loadConfig,
+                  analyticsEngine,
+                  serverVersion,
+              })
+            : await loadTrackedEntitiesFromTracker({
+                  config: loadConfig,
+                  engine,
+                  serverVersion,
+                  maxLimit,
+              })
+        data = result.data
+
+        // At the tracker API limit or the analytics page size
+        if (result.isTruncated) {
+            warnings.push(
+                getTruncatedMessage(result, keyAnalysisDigitGroupSeparator)
+            )
         }
+
+        if (!data.length) {
+            alerts.push({
+                code: WARNING_NO_DATA,
+                message: trackedEntityType.name,
+            })
+        }
+
+        if (relationshipTypeID) {
+            // The tracked entities are still shown when this fails
+            const relationshipResult = await loadTrackedEntityRelationships({
+                config: loadConfig,
+                engine,
+                serverVersion,
+                // Relationship layers always load from the tracker API
+                instances: result.instances,
+                trackerParams: result.trackerParams,
+                maxLimit,
+                isSourceTruncated: result.isTruncated,
+            })
+
+            warnings.push(
+                ...getRelationshipWarnings(
+                    relationshipResult,
+                    maxLimit,
+                    keyAnalysisDigitGroupSeparator
+                )
+            )
+
+            // Only relationships between tracked entities are drawn
+            if (relationshipResult?.relatedEntityType) {
+                legend.items.push(
+                    ...getRelationshipLegendItems({
+                        relationshipType: relationshipResult.relationshipType,
+                        relatedEntityType: relationshipResult.relatedEntityType,
+                        relatedPointColor,
+                        relatedPointRadius,
+                        relationshipLineColor,
+                    })
+                )
+            }
+
+            if (relationshipResult) {
+                ;({ data, relationships, secondaryData } = relationshipResult)
+            }
+        }
+    } catch (error) {
+        loadError = error.message || error
+        alerts.push({
+            code: ERROR_CRITICAL,
+            message: loadError,
+        })
     }
 
-    let data, relationships, secondaryData
-
-    if (relationshipTypeID) {
-        ;({ data, relationships, secondaryData } = await fetchRelationshipData({
-            engine,
-            isVersion40,
-            instances,
-            relationshipTypeID,
-            orgUnits,
-            organisationUnitSelectionMode,
-            relatedPointColor,
-            relatedPointRadius,
-            relationshipLineColor,
-            legend,
-        }))
-    } else {
-        data = toGeoJson(instances)
-    }
-
-    if (explanation) {
-        legend.explanation = [explanation]
+    if (warnings.length > 0) {
+        alerts.push(getWarningsAlert(name, warnings))
     }
 
     return {
@@ -360,7 +328,9 @@ const trackedEntityLoader = async ({
         relationships,
         secondaryData,
         legend,
-        ...(alert ? { alerts: [alert] } : {}),
+        // Always set, as the config can have the previous load's alerts and error
+        alerts,
+        loadError,
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
