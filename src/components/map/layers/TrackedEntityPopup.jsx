@@ -16,7 +16,7 @@ const TRACKED_ENTITIES_QUERY = {
         resource: `tracker/trackedEntities`,
         id: ({ id }) => id,
         params: ({ program }) => ({
-            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute],relationships',
+            fields: 'updatedAt,orgUnit,attributes[displayName~rename(name),value,attribute]',
             program: program?.id,
         }),
     },
@@ -84,7 +84,8 @@ const TrackedEntityPopup = ({
     } = useDataQuery(TRACKED_ENTITIES_QUERY, {
         variables: {
             id: feature.properties.id,
-            program,
+            // Related tracked entities may not be enrolled in the layer program
+            program: activeDataSource === 'primary' ? program : undefined,
         },
         lazy: true,
     })
