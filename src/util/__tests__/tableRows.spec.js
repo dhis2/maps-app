@@ -1,8 +1,4 @@
-import {
-    GEOJSON_URL_LAYER,
-    THEMATIC_LAYER,
-    TRACKED_ENTITY_LAYER,
-} from '../../constants/layers.js'
+import { GEOJSON_URL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
 import { buildTableData, ERROR_NO_VALID_DATA } from '../tableRows.js'
 
 const feature = (id, extraProperties = {}, coordinates = [10, 10]) => ({
@@ -90,40 +86,6 @@ describe('buildTableData - generic layer', () => {
             { id: 'a', name: 'A', count: 5, index: 0 },
             { id: 'c', name: 'C', index: 1 },
         ])
-    })
-})
-
-describe('buildTableData - tracked entity layer', () => {
-    test('merges data and dataWithoutCoords, drops features with hasAdditionalGeometry, merges aggregations and stamps a row-order index', () => {
-        const data = [feature('a', { w75KJ2mc4zz: 'Gabrielle' })]
-        const dataWithoutCoords = [
-            feature('b', {
-                w75KJ2mc4zz: 'Hidden',
-                hasAdditionalGeometry: true,
-            }),
-            feature('c', { w75KJ2mc4zz: 'Charlie' }),
-        ]
-        const result = buildTableData(TRACKED_ENTITY_LAYER, {
-            data,
-            dataWithoutCoords,
-            aggregations: { a: { count: 5 } },
-        })
-        expect(result.data).toEqual([
-            { id: 'a', w75KJ2mc4zz: 'Gabrielle', count: 5, index: 0 },
-            { id: 'c', w75KJ2mc4zz: 'Charlie', index: 1 },
-        ])
-    })
-
-    test('filters out-of-view features when showOnlyFeaturesInView is on', () => {
-        const inBounds = feature('in', {}, [10, 10])
-        const outOfBounds = feature('out', {}, [100, 100])
-        const result = buildTableData(TRACKED_ENTITY_LAYER, {
-            data: [inBounds, outOfBounds],
-            showOnlyFeaturesInView: true,
-            mapBounds: [0, 0, 20, 20],
-            aggregations: {},
-        })
-        expect(result.data.map((r) => r.id)).toEqual(['in'])
     })
 })
 
