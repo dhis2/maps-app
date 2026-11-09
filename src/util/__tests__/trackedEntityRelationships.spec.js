@@ -1,4 +1,7 @@
-import { getDataWithRelationships } from '../teiRelationshipsParser.js'
+import {
+    getDataWithRelationships,
+    loadTrackedEntityRelationships,
+} from '../trackedEntityRelationships.js'
 
 const expectResultToMatchExpected = (result, expected) => {
     expect(result).toHaveProperty('primary')
@@ -394,8 +397,11 @@ describe('getDataWithRelationships', () => {
         },
     ]
     const OUProps = {
-        orgUnits: 'someOU',
-        orgUnitsMode: 'someOUMode',
+        trackerParams: {
+            orgUnits: 'someOU',
+            orgUnitMode: 'someOUMode',
+            program: 'program1',
+        },
     }
     let mockEngine
 
@@ -425,7 +431,14 @@ describe('getDataWithRelationships', () => {
             queryOptions: { relationshipType, ...OUProps },
             engine: mockEngine,
         })
-        expect(result).toEqual([]) // This the current behavior but it should be revised
+        // The tracked entities are shown, without relationships
+        expect(result).toEqual({
+            primary: mockSourceInstances.filter(
+                (instance) => instance.geometry?.coordinates
+            ),
+            relationships: [],
+            secondary: [],
+        })
         expect(mockEngine.query).not.toHaveBeenCalled()
     })
 
@@ -550,13 +563,9 @@ describe('getDataWithRelationships', () => {
             },
             expect.objectContaining({
                 variables: {
-                    fields: [
-                        'trackedEntity~rename(id)',
-                        'geometry',
-                        'relationships',
-                    ],
+                    fields: ['trackedEntity~rename(id)', 'geometry'],
                     orgUnits: 'someOU',
-                    orgUnitMode: undefined,
+                    orgUnitMode: 'someOUMode',
                     program: 'program2',
                     trackedEntityType: undefined,
                 },
@@ -659,13 +668,9 @@ describe('getDataWithRelationships', () => {
                 },
                 expect.objectContaining({
                     variables: {
-                        fields: [
-                            'trackedEntity~rename(id)',
-                            'geometry',
-                            'relationships',
-                        ],
+                        fields: ['trackedEntity~rename(id)', 'geometry'],
                         orgUnits: 'someOU',
-                        orgUnitMode: undefined,
+                        orgUnitMode: 'someOUMode',
                         program: 'program2',
                         trackedEntityType: undefined,
                     },
@@ -673,4 +678,445 @@ describe('getDataWithRelationships', () => {
             )
         }
     )
+})
+
+describe('getDataWithRelationships target query', () => {
+    // `program` is left out, not undefined: the code checks 'program' in to
+    const constraint = ({ type = 'type1', program } = {}) => ({
+        relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+        trackedEntityType: { id: type },
+        ...(program && { program: { id: program } }),
+    })
+
+    const instance = {
+        id: 'te1',
+        geometry: { type: 'Point', coordinates: [1, 2] },
+        relationships: [
+            {
+                relationship: 'relationship1',
+                relationshipType: 'relationshipTypeId1',
+                from: { trackedEntity: { trackedEntity: 'te1' } },
+                to: { trackedEntity: { trackedEntity: 'te2' } },
+            },
+        ],
+    }
+
+    it.each([
+        {
+            name: 'same type, different programs, to program set',
+            layerProgram: 'program1',
+            from: { program: 'program1' },
+            to: { program: 'program2' },
+            query: { program: 'program2', trackedEntityType: undefined },
+        },
+        {
+            name: 'same type, different programs, no to program',
+            layerProgram: 'program1',
+            from: { program: 'program1' },
+            to: {},
+            query: { program: undefined, trackedEntityType: 'type1' },
+        },
+        {
+            name: 'different types, different programs, to program set',
+            from: { program: 'program1' },
+            to: { type: 'type2', program: 'program2' },
+            query: { program: 'program2', trackedEntityType: undefined },
+        },
+        {
+            name: 'different types, different programs, no to program',
+            from: { program: 'program1' },
+            to: { type: 'type2' },
+            query: { program: undefined, trackedEntityType: 'type2' },
+        },
+        {
+            name: 'different types, no programs',
+            from: {},
+            to: { type: 'type2' },
+            query: { program: undefined, trackedEntityType: 'type2' },
+        },
+        {
+            name: 'same type, same program',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: null,
+        },
+        {
+            name: 'same type, no programs',
+            from: {},
+            to: {},
+            query: null,
+        },
+        {
+            // The layer loaded all tracked entities of the type
+            name: 'same type, different programs, no layer program',
+            from: { program: 'program1' },
+            to: { program: 'program2' },
+            query: null,
+        },
+        {
+            name: 'same type, same program as the layer',
+            layerProgram: 'program1',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: null,
+        },
+        {
+            // Related tracked entities outside the layer program
+            name: 'same type, no programs, layer program',
+            layerProgram: 'program1',
+            from: {},
+            to: {},
+            query: { program: undefined, trackedEntityType: 'type1' },
+        },
+        {
+            name: 'same type, same program, other layer program',
+            layerProgram: 'program3',
+            from: { program: 'program1' },
+            to: { program: 'program1' },
+            query: { program: 'program1', trackedEntityType: undefined },
+        },
+    ])('$name', async ({ layerProgram, from, to, query }) => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValue({ tei: { trackedEntities: [] } }),
+        }
+
+        await getDataWithRelationships({
+            isVersion40: false,
+            instances: [instance],
+            queryOptions: {
+                relationshipType: {
+                    id: 'relationshipTypeId1',
+                    fromConstraint: constraint(from),
+                    toConstraint: constraint(to),
+                },
+                trackerParams: { orgUnits: 'ou1', program: layerProgram },
+            },
+            engine,
+        })
+
+        if (query) {
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            expect(tei.params(variables)).toMatchObject(query)
+        } else {
+            // The targets are among the loaded instances
+            expect(engine.query).not.toHaveBeenCalled()
+        }
+    })
+
+    it.each([
+        {
+            version: '2.40',
+            isVersion40: true,
+            root: 'instances',
+            orgUnits: 'ou1;ou2',
+            params: {
+                orgUnit: 'ou1;ou2',
+                ouMode: 'DESCENDANTS',
+                skipPaging: true,
+            },
+        },
+        {
+            version: '2.41',
+            isVersion40: false,
+            root: 'trackedEntities',
+            orgUnits: 'ou1,ou2',
+            params: {
+                orgUnits: 'ou1,ou2',
+                orgUnitMode: 'DESCENDANTS',
+                paging: false,
+            },
+        },
+    ])(
+        'requests the related tracked entities on $version',
+        async ({ isVersion40, root, orgUnits, params }) => {
+            const engine = {
+                query: jest.fn().mockResolvedValue({ tei: { [root]: [] } }),
+            }
+
+            await getDataWithRelationships({
+                isVersion40,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint({ program: 'program2' }),
+                    },
+                    trackerParams: {
+                        orgUnits,
+                        orgUnitMode: 'DESCENDANTS',
+                        program: 'program1',
+                    },
+                },
+                engine,
+            })
+
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            expect(tei.resource).toBe('tracker/trackedEntities')
+            expect(tei.params(variables)).toEqual({
+                fields: ['trackedEntity~rename(id)', 'geometry'],
+                program: 'program2',
+                ...params,
+            })
+        }
+    )
+
+    it.each([
+        { name: 'reaches', maxLimit: 2, expected: true },
+        { name: 'stays below', maxLimit: 3, expected: false },
+        { name: 'has no', maxLimit: null, expected: false },
+    ])(
+        'flags the related request as cut when it $name the limit',
+        async ({ maxLimit, expected }) => {
+            const target = (id) => ({
+                id,
+                geometry: { type: 'Point', coordinates: [1, 2] },
+            })
+            const engine = {
+                query: jest.fn().mockResolvedValue({
+                    tei: { trackedEntities: [target('te2'), target('te3')] },
+                }),
+            }
+
+            const result = await getDataWithRelationships({
+                isVersion40: false,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint({ program: 'program2' }),
+                    },
+                    trackerParams: { orgUnits: 'ou1', program: 'program1' },
+                },
+                engine,
+                maxLimit,
+            })
+
+            expect(result.isTruncated).toBe(expected)
+        }
+    )
+
+    it('requests no related tracked entities without tracked entities', async () => {
+        const engine = { query: jest.fn() }
+
+        const result = await getDataWithRelationships({
+            isVersion40: false,
+            instances: [],
+            queryOptions: {
+                relationshipType: {
+                    id: 'relationshipTypeId1',
+                    fromConstraint: constraint({ program: 'program1' }),
+                    toConstraint: constraint({ program: 'program2' }),
+                },
+                trackerParams: {
+                    orgUnits: '',
+                    orgUnitMode: 'SELECTED',
+                    program: 'program1',
+                },
+            },
+            engine,
+        })
+
+        expect(engine.query).not.toHaveBeenCalled()
+        expect(result).toEqual({
+            primary: [],
+            relationships: [],
+            secondary: [],
+        })
+    })
+
+    describe('applies the layer org units and period', () => {
+        const fields = ['trackedEntity~rename(id)', 'geometry']
+        const layer = {
+            orgUnits: 'ou1',
+            orgUnitMode: 'DESCENDANTS',
+            program: 'program1',
+            enrollmentStatus: 'ACTIVE',
+            followUp: 'TRUE',
+        }
+        const lastUpdated = {
+            updatedAfter: '2024-01-01',
+            updatedBefore: '2024-12-31',
+        }
+        const enrollmentDates = {
+            enrollmentEnrolledAfter: '2024-01-01',
+            enrollmentEnrolledBefore: '2024-12-31',
+        }
+
+        const getRelatedParams = async (trackerParams, to) => {
+            const engine = {
+                query: jest
+                    .fn()
+                    .mockResolvedValue({ tei: { trackedEntities: [] } }),
+            }
+
+            await getDataWithRelationships({
+                isVersion40: false,
+                instances: [instance],
+                queryOptions: {
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint({ program: 'program1' }),
+                        toConstraint: constraint(to),
+                    },
+                    trackerParams,
+                },
+                engine,
+            })
+
+            const [[{ tei }, { variables }]] = engine.query.mock.calls
+            return tei.params(variables)
+        }
+
+        it('in the related program, without status or follow-up', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...lastUpdated },
+                    { type: 'type2', program: 'program2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                program: 'program2',
+                ...lastUpdated,
+                paging: false,
+            })
+        })
+
+        it('keeps enrollment dates in the related program', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...enrollmentDates },
+                    { type: 'type2', program: 'program2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                program: 'program2',
+                ...enrollmentDates,
+                paging: false,
+            })
+        })
+
+        it('by the related type, with last updated dates', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...lastUpdated },
+                    { type: 'type2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                trackedEntityType: 'type2',
+                ...lastUpdated,
+                paging: false,
+            })
+        })
+
+        it('by the related type, with enrollment dates as last updated dates', async () => {
+            expect(
+                await getRelatedParams(
+                    { ...layer, ...enrollmentDates },
+                    { type: 'type2' }
+                )
+            ).toEqual({
+                fields,
+                orgUnits: 'ou1',
+                orgUnitMode: 'DESCENDANTS',
+                trackedEntityType: 'type2',
+                ...lastUpdated,
+                paging: false,
+            })
+        })
+
+        it.each([
+            { name: 'status', filter: { enrollmentStatus: 'ACTIVE' } },
+            { name: 'status on 2.41', filter: { programStatus: 'ACTIVE' } },
+            { name: 'follow-up', filter: { followUp: 'TRUE' } },
+        ])(
+            'requests the related tracked entities in the layer program with $name',
+            async ({ filter }) => {
+                // Loaded by the layer otherwise, but filtered by it
+                expect(
+                    await getRelatedParams(
+                        {
+                            orgUnits: 'ou1',
+                            program: 'program1',
+                            ...filter,
+                            ...lastUpdated,
+                        },
+                        { program: 'program1' }
+                    )
+                ).toEqual({
+                    fields,
+                    orgUnits: 'ou1',
+                    program: 'program1',
+                    ...lastUpdated,
+                    paging: false,
+                })
+            }
+        )
+    })
+})
+
+describe('loadTrackedEntityRelationships', () => {
+    const constraint = {
+        relationshipEntity: 'TRACKED_ENTITY_INSTANCE',
+        trackedEntityType: { id: 'type1' },
+    }
+    const load = (engine) =>
+        loadTrackedEntityRelationships({
+            config: { relationshipType: 'relationshipTypeId1' },
+            engine,
+            serverVersion: { major: 2, minor: 41, patch: 0 },
+            instances: [
+                {
+                    id: 'te1',
+                    geometry: { type: 'Point', coordinates: [1, 2] },
+                    relationships: [],
+                },
+            ],
+            trackerParams: { orgUnits: 'ou1' },
+        })
+
+    it('resolves to null when a request fails', async () => {
+        const engine = {
+            query: jest.fn().mockRejectedValue(new Error('Not found')),
+        }
+
+        expect(await load(engine)).toBeNull()
+    })
+
+    it('returns empty relationships, not null, when no tracked entity has one', async () => {
+        const engine = {
+            query: jest
+                .fn()
+                .mockResolvedValueOnce({
+                    relationshipType: {
+                        id: 'relationshipTypeId1',
+                        fromConstraint: constraint,
+                        toConstraint: constraint,
+                    },
+                })
+                .mockResolvedValueOnce({
+                    relatedEntityType: {
+                        displayName: 'Person',
+                        featureType: 'POINT',
+                    },
+                }),
+        }
+
+        const result = await load(engine)
+
+        expect(result.data.map((f) => f.properties.id)).toEqual(['te1'])
+        expect(result.relationships).toEqual([])
+        expect(result.secondaryData).toEqual([])
+        expect(result.isSupported).toBe(true)
+    })
 })
