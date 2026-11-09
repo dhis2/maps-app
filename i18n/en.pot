@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-10-30T10:59:35.314Z\n"
-"PO-Revision-Date: 2026-10-30T10:59:35.315Z\n"
+"POT-Creation-Date: 2026-11-09T14:47:35.431Z\n"
+"PO-Revision-Date: 2026-11-09T14:47:35.431Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -666,6 +666,22 @@ msgstr "No relationship types were found for tracked entity type {{type}}"
 msgid "Relationship type"
 msgstr "Relationship type"
 
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+
 msgid "No data to show for this feature."
 msgstr "No data to show for this feature."
 
@@ -1065,8 +1081,8 @@ msgstr "Organisation unit profile"
 msgid "Selected only"
 msgstr "Selected only"
 
-msgid "Selected and below"
-msgstr "Selected and below"
+msgid "Immediate children"
+msgstr "Immediate children"
 
 msgid "Selected and all below"
 msgstr "Selected and all below"
@@ -1960,6 +1976,25 @@ msgstr "Thematic layer"
 msgid "related"
 msgstr "related"
 
+msgid "Displaying first {{limit}} tracked entities"
+msgstr "Displaying first {{limit}} tracked entities"
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr "Displaying first {{limit}} tracked entities out of {{total}}"
+
+msgid "Relationships could not be loaded"
+msgstr "Relationships could not be loaded"
+
+msgid "Only relationships between tracked entities are supported"
+msgstr "Only relationships between tracked entities are supported"
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+
 msgid "Tracked entity"
 msgstr "Tracked entity"
 
@@ -2044,9 +2079,6 @@ msgstr "Org unit boundary"
 msgid "Org unit hierarchy"
 msgstr "Org unit hierarchy"
 
-msgid "Created"
-msgstr "Created"
-
 msgid "Group"
 msgstr "Group"
 
@@ -2061,9 +2093,6 @@ msgstr "Value ({{period}})"
 
 msgid "Event Id"
 msgstr "Event Id"
-
-msgid "Tracked entity Id"
-msgstr "Tracked entity Id"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"
