@@ -21,6 +21,10 @@ export const SYSTEM_SETTINGS = [
     'keyHideMonthlyPeriods',
     'keyHideBiMonthlyPeriods',
     'keyDefaultBaseMap',
+    // Tracker API limit, 2.40 and 2.41+ names: see getTrackerMaxLimit
+    // The server spells them with a capital K
+    'KeyTrackedEntityInstanceMaxLimit',
+    'KeyTrackedEntityMaxLimit',
     ...Object.keys(MAP_SERVICE_KEY_TESTS),
 ]
 

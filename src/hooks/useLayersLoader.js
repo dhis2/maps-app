@@ -32,7 +32,11 @@ export const useLayersLoader = () => {
     const engine = useDataEngine()
     const [analyticsEngine] = useState(() => Analytics.getAnalytics(engine))
     const {
-        systemSettings: { keyAnalysisDigitGroupSeparator },
+        systemSettings: {
+            keyAnalysisDigitGroupSeparator,
+            KeyTrackedEntityInstanceMaxLimit,
+            KeyTrackedEntityMaxLimit,
+        },
         currentUser,
         spatialSupport,
     } = useCachedData()
@@ -62,9 +66,11 @@ export const useLayersLoader = () => {
                 userId,
                 userOrgUnitIdsByKeyword, // Event loader
                 baseUrl,
-                analyticsEngine, // Thematic and Event loader
+                analyticsEngine, // Thematic, Event and Tracked entity loader
                 periodTypeData, // Thematic and Event loader
                 serverVersion, // Tracked entity loader
+                KeyTrackedEntityInstanceMaxLimit, // Tracked entity loader (2.40)
+                KeyTrackedEntityMaxLimit, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader
                 spatialSupport, // Event loader
             })
@@ -131,5 +137,7 @@ export const useLayersLoader = () => {
         dataTable,
         serverVersion,
         spatialSupport,
+        KeyTrackedEntityInstanceMaxLimit,
+        KeyTrackedEntityMaxLimit,
     ])
 }
