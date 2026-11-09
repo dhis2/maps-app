@@ -1,3 +1,4 @@
+import { WARNING_EXTERNAL_LAYER_NOT_FOUND } from '../constants/alerts.js'
 import { EXTERNAL_LAYER } from '../constants/layers.js'
 import { parseLayerConfig } from '../util/external.js'
 import { getPredefinedLegendItems } from '../util/legend.js'
@@ -5,9 +6,17 @@ import { LEGEND_SET_QUERY } from '../util/requests.js'
 
 const externalLoader = async ({ config: layer, engine }) => {
     let config
+    const alerts = []
     if (typeof layer.config === 'string') {
         // External layer is loaded in analytical object
-        config = await parseLayerConfig(layer.config, engine)
+        const parsed = await parseLayerConfig(layer.config, engine)
+        config = parsed.config
+        if (parsed.notFound) {
+            alerts.push({
+                code: WARNING_EXTERNAL_LAYER_NOT_FOUND,
+                message: layer.name,
+            })
+        }
     } else {
         config = { ...layer.config }
     }
@@ -37,6 +46,7 @@ const externalLoader = async ({ config: layer, engine }) => {
         isLoaded: true,
         isLoading: false,
         isExpanded: true,
+        ...(alerts.length ? { alerts } : {}),
     }
 }
 

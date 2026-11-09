@@ -36,7 +36,7 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
 }
 
 describe('data table', () => {
-    it('opens data table and filters and sorts', () => {
+    it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
         const expectedBottoms1 = [viewportHeight]
         const expectedHeights1 = [
@@ -47,7 +47,7 @@ describe('data table', () => {
         cy.visit(`/#/${map.id}`)
         cy.get('canvas', EXTENDED_TIMEOUT).should('be.visible')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         assertMapPosition(expectedBottoms1, expectedHeights1)
 
         cy.getByDataTest('moremenubutton').first().click()
@@ -62,10 +62,10 @@ describe('data table', () => {
             .contains('Show data table')
             .click()
 
-        //check that the bottom panel is present
+        // Check that the bottom panel is present
         cy.getByDataTest('bottom-panel').should('be.visible')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         cy.getByDataTest('bottom-panel')
             .invoke('height')
             .then((height) => {
@@ -77,76 +77,92 @@ describe('data table', () => {
                 assertMapPosition(expectedBottoms2, expectedHeights2)
             })
 
-        // check number of columns
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
+
+        // Check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .should('have.length', 10)
 
-        // Filter by name
-        cy.getByDataTest('data-table-column-filter-input-Name')
+        // Filter by Org unit
+        cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
-            .type('bar')
+            .type('bar{enter}')
 
-        // check that the filter returned the correct number of rows
+        // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 7)
 
-        // confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bargbe' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Upper Bambara' })
+        // Confirm that the sort order is initially ascending by Name
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bargbe' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Upper Bambara' })
 
-        // Sort by name
-        cy.get('button[title="Sort by Name"]').click()
+        // Sort by name (descending)
+        cy.getByDataTest('data-table-column-sort-button-Org unit').click()
+        cy.getByDataTest('data-table-column-sort-button-Org unit').click()
 
-        // confirm that the rows are sorted by Name descending
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Upper Bambara' })
-        checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
+        // Sorting can shift the virtualized table's scroll position
+        // (possibly an internal react-virtuoso quirk)
+        // so we reset to top before asserting on row indices below
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        // filter by Value (numeric)
-        cy.getByDataTest('data-table-column-filter-input-Value')
+        // Confirm that the rows are sorted by Name descending
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Upper Bambara' })
+        checkTableCell({ row: 6, column: 2, expectedContent: 'Bargbe' })
+
+        // Filter by Value (numeric)
+        cy.getByDataTest('data-table-column-filter-search-Value')
             .find('input')
-            .type('>26')
+            .type('>26{enter}')
 
-        // check that the (combined) filter returned the correct number of rows
+        // Check that the (combined) filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 5)
 
         // Sort by value
-        cy.get('button[title="Sort by Value"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
 
-        // check that the rows are sorted by Value ascending
-        checkTableCell({ row: 0, column: 3, expectedContent: '35' })
-        checkTableCell({ row: 4, column: 3, expectedContent: '76' })
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        // click on a row
+        // Check that the rows are sorted by Value ascending
+        checkTableCell({ row: 0, column: 5, expectedContent: '35' })
+        checkTableCell({ row: 4, column: 5, expectedContent: '76' })
+
+        // Right-click a row and select "View profile"
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .first()
-            .click()
+            .rightclick()
 
-        // check that the org unit profile drawer is opened
+        cy.getByDataTest('data-table-context-menu-view-profile').click()
+
+        // Check that the org unit profile drawer is opened
         cy.getByDataTest('org-unit-profile').should('be.visible')
 
-        // close the datatable
+        cy.getByDataTest('layers-toggle-button').click()
+
+        // Close the datatable
         cy.getByDataTest('moremenubutton').first().click()
         cy.getByDataTest('more-menu')
             .find('li')
             .contains('Hide data table')
             .click()
 
-        //check that the bottom panel is closed
+        // Check that the bottom panel is closed
         cy.getByDataTest('bottom-panel').should('not.exist')
 
-        //check that the map resizes properly
+        // Check that the map resizes properly
         assertMapPosition(expectedBottoms1, expectedHeights1)
     })
 
-    it('opens the data table for an Event layer', () => {
+    it('opens data table for an Event layer', () => {
         cy.visit('/')
 
         const EvenLayer = new EventLayer()
@@ -174,76 +190,87 @@ describe('data table', () => {
 
         cy.getByDataTest('bottom-panel').should('be.visible')
 
-        // check number of columns
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
+
+        // Check number of columns
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
-            .should('have.length', 10)
+            .should('have.length', 13)
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-datatablecellhead')
             .contains('Age in years', { matchCase: false })
             .should('be.visible')
 
-        // filter by Org unit
+        // Filter by Org unit
         const ouName = 'Moyowa'
-        cy.getByDataTest('data-table-column-filter-input-Org unit')
+        cy.getByDataTest('data-table-column-filter-search-Org unit')
             .find('input')
-            .type(ouName)
+            .type(`${ouName}{enter}`)
 
-        // check that all the rows have Org unit Moyowa
-        checkTableCell({ row: 0, column: 1, expectedContent: ouName })
-        checkTableCell({ row: 2, column: 1, expectedContent: ouName })
+        // Check that all the rows have Org unit Moyowa
+        checkTableCell({ row: 0, column: 3, expectedContent: ouName })
+        checkTableCell({ row: 2, column: 3, expectedContent: ouName })
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 3)
 
-        // filter by Mode of Discharge
-        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
+        // Filter by Mode of Discharge
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
             .find('input')
             .type('Absconded')
+        cy.contains('label', 'Absconded').click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 1)
 
-        cy.getByDataTest('data-table-column-filter-input-Mode of Discharge')
-            .find('input')
-            .clear()
+        cy.get('.backdrop').last().click()
+
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
+            .find('.clear-button')
+            .click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 3)
 
-        // filter by Age in years (numeric)
-        cy.getByDataTest('data-table-column-filter-input-Age in years')
+        // Filter by Age in years (numeric)
+        cy.getByDataTest('data-table-column-filter-search-Age in years')
             .find('input')
-            .type('<51')
+            .type('<51{enter}')
 
-        // check that the filter returned the correct number of rows
+        // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 2)
 
         // Sort by Age in years
-        cy.get('button[title="Sort by Age in years"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Age in years').click()
 
-        // confirm that the rows are sorted by Age in years descending
-        checkTableCell({ row: 0, column: 7, expectedContent: '32' })
-        checkTableCell({ row: 1, column: 7, expectedContent: '6' })
+        // Confirm that the rows are sorted by Age in years ascending
+        // (the first click on a new column always sorts ascending)
+        checkTableCell({ row: 0, column: 10, expectedContent: '6' })
+        checkTableCell({ row: 1, column: 10, expectedContent: '32' })
 
-        // click on a row
+        // Right-click a row: Event layers have no profile to view
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .first()
-            .click()
+            .rightclick()
 
-        // check that the org unit profile drawer is NOT opened
+        cy.getByDataTest('data-table-context-menu-view-profile').should(
+            'not.exist'
+        )
+
+        // Check that the org unit profile drawer is NOT opened
         cy.getByDataTest('org-unit-profile').should('not.exist')
     })
 
@@ -287,52 +314,66 @@ describe('data table', () => {
         // Check that the bottom panel is present
         cy.getByDataTest('bottom-panel').should('be.visible')
 
+        // Collapse the Layers Panel to give the table more width
+        cy.getByDataTest('layers-toggle-button').click()
+
         // Confirm that the sort order is initially ascending by Name
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Bendu CHC' })
 
-        cy.get('button[title="Sort by Value"]').click()
+        // First click on a new column always sorts ascending
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
 
-        // Check that first row has Gbamgbama CHC with value 117.98
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '117.98' })
-
-        // Check that row 5 has Tihun CHC with value 28.63
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '28.63' })
-
-        // Check that row 6 has no value (undefined)
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
-
-        // Sort ascending by Value
-        cy.get('button[title="Sort by Value"]').click()
-
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 0, column: 3, expectedContent: '28.63' })
-
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 5, column: 3, expectedContent: '117.98' })
-
-        checkTableCell({ row: 6, column: 3, expectedContent: '' })
-
-        // Sort by index and scroll to the top
-        cy.get('button[title="Sort by Index"]').click()
+        // Reset scroll position after sorting - see comment above
         cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
-        checkTableCell({ row: 0, column: 0, expectedContent: '28' })
+        // Check that first row has Tihun CHC with value 28.63
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '28.63' })
+
+        // Check that row 5 has Gbamgbama CHC with value 117.98
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '117.98' })
+
+        // Check that row 6 has no value (undefined)
+        checkTableCell({ row: 6, column: 5, expectedContent: '' })
+
+        // Sort descending by Value
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
+
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
+
+        checkTableCell({ row: 0, column: 2, expectedContent: 'Gbamgbama CHC' })
+        checkTableCell({ row: 0, column: 5, expectedContent: '117.98' })
+
+        checkTableCell({ row: 5, column: 2, expectedContent: 'Tihun CHC' })
+        checkTableCell({ row: 5, column: 5, expectedContent: '28.63' })
+
+        checkTableCell({ row: 6, column: 5, expectedContent: '' })
+
+        // Third click on the same column cycles back to natural (unsorted)
+        // order - there's no dedicated Index column/button any more
+        cy.getByDataTest('data-table-column-sort-button-Value').click()
+
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value is empty
-        checkTableCell({ row: 0, column: 5, expectedContent: '' })
+        checkTableCell({ row: 0, column: 7, expectedContent: '' })
 
         // Sort by range, which is a string
-        cy.get('button[title="Sort by Range"]').click()
+        cy.getByDataTest('data-table-column-sort-button-Range').click()
+
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top')
 
         // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 5, expectedContent: '0 – 40' })
+        checkTableCell({ row: 0, column: 7, expectedContent: '0 – 40' })
 
         // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 5, expectedContent: '90 – 120' })
+        checkTableCell({ row: 5, column: 7, expectedContent: '90 – 120' })
 
         // Check that row 6 range value is empty
-        checkTableCell({ row: 6, column: 5, expectedContent: '' })
+        checkTableCell({ row: 6, column: 7, expectedContent: '' })
     })
 })

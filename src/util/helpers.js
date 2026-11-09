@@ -156,7 +156,7 @@ export const formatCoordinate = (value) => {
 }
 
 // Formats a DHIS2 yes/no or yes only value
-const formatBoolean = (value) => {
+export const formatBoolean = (value) => {
     if (value === 'true' || value === '1') {
         return i18n.t('Yes')
     }
@@ -167,7 +167,7 @@ const formatBoolean = (value) => {
 }
 
 // Formats a DHIS2 date string value
-const formatDate = (value) => {
+export const formatDate = (value) => {
     const datePattern = /^(\d{4}-\d{2}-\d{2})/
     const match = value.match(datePattern)
     return match ? match[1] : value

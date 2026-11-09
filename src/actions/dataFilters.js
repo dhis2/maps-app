@@ -12,3 +12,8 @@ export const clearDataFilter = (layerId, fieldId) => ({
     layerId,
     fieldId,
 })
+
+export const clearDataFilters = (layerId) => ({
+    type: types.DATA_FILTERS_CLEAR_ALL,
+    layerId,
+})

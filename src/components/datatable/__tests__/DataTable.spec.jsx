@@ -1,27 +1,31 @@
-import { shouldClearFeatureHighlight } from '../DataTable.jsx'
+import { getReversedSelection } from '../useRowSelection.js'
 
-// DataTable.jsx transitively imports MapApi.js (maplibre-gl), which is not
-// needed here and fails to load under jsdom.
-jest.mock('../../map/MapApi.js', () => ({
-    loadEarthEngineWorker: jest.fn(),
-}))
-
-describe('shouldClearFeatureHighlight', () => {
-    test('clears when leaving to no element (cursor exits the window)', () => {
-        // Regression: relatedTarget is null on window exit, which previously
-        // threw `null.tagName` and crashed the table via the ErrorBoundary.
-        expect(shouldClearFeatureHighlight({ relatedTarget: null })).toBe(true)
+describe('getReversedSelection', () => {
+    test('selects every visible row when nothing is currently selected', () => {
+        expect(getReversedSelection([], ['a', 'b', 'c'])).toEqual([
+            'a',
+            'b',
+            'c',
+        ])
     })
 
-    test('does not clear when hovering to an adjacent row cell (TD)', () => {
-        expect(
-            shouldClearFeatureHighlight({ relatedTarget: { tagName: 'TD' } })
-        ).toBe(false)
+    test('deselects every visible row when all are currently selected', () => {
+        expect(getReversedSelection(['a', 'b', 'c'], ['a', 'b', 'c'])).toEqual(
+            []
+        )
     })
 
-    test('clears when leaving to a non-TD element', () => {
-        expect(
-            shouldClearFeatureHighlight({ relatedTarget: { tagName: 'DIV' } })
-        ).toBe(true)
+    test('flips only the visible rows, keeping the rest of the selection as-is', () => {
+        expect(getReversedSelection(['a'], ['a', 'b', 'c'])).toEqual(['b', 'c'])
+    })
+
+    test('preserves ids selected outside the current filtered view untouched', () => {
+        // "z" was selected before a column filter narrowed the visible rows
+        // down to just a/b/c - reversing must not drop it.
+        expect(getReversedSelection(['a', 'z'], ['a', 'b', 'c'])).toEqual([
+            'z',
+            'b',
+            'c',
+        ])
     })
 })

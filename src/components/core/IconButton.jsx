@@ -1,36 +1,45 @@
 import { Tooltip } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
-import React from 'react'
+import React, { forwardRef } from 'react'
 import styles from './styles/IconButton.module.css'
 
-const IconButton = ({
-    tooltip,
-    onClick,
-    className,
-    children,
-    dataTest,
-    disabled,
-    ariaLabel,
-}) => {
-    return (
-        <button
-            onClick={onClick}
-            className={cx(styles.iconButton, className, {
-                [styles.disabled]: !!disabled,
-            })}
-            data-test={dataTest}
-            disabled={disabled}
-            aria-label={ariaLabel}
-        >
-            {tooltip ? (
-                <Tooltip content={tooltip}>{children}</Tooltip>
-            ) : (
-                children
-            )}
-        </button>
-    )
-}
+const IconButton = forwardRef(
+    (
+        {
+            tooltip,
+            onClick,
+            className,
+            children,
+            dataTest,
+            disabled,
+            ariaLabel,
+        },
+        ref
+    ) => {
+        return (
+            <button
+                ref={ref}
+                type="button"
+                onClick={onClick}
+                className={cx(styles.iconButton, className, {
+                    [styles.disabled]: !!disabled,
+                })}
+                data-test={dataTest}
+                disabled={disabled}
+                aria-label={ariaLabel}
+            >
+                {tooltip ? (
+                    <Tooltip content={tooltip}>{children}</Tooltip>
+                ) : (
+                    children
+                )}
+            </button>
+        )
+    }
+)
+
+IconButton.displayName = 'IconButton'
 
 IconButton.propTypes = {
     ariaLabel: PropTypes.string,
