@@ -51,7 +51,6 @@ export const DATA_TABLE_LAYER_TYPES = [
     THEMATIC_LAYER,
     ORG_UNIT_LAYER,
     EVENT_LAYER,
-    TRACKED_ENTITY_LAYER,
     EARTH_ENGINE_LAYER,
     GEOJSON_URL_LAYER,
 ]
@@ -123,6 +122,7 @@ export const EVENT_CENTROID_DEFAULT = [
 ]
 
 /* TEI LAYER */
+export const TEI_CLIENT_PAGE_SIZE = 50000
 export const TEI_COLOR = '#BB0000'
 export const TEI_RADIUS = 6
 export const TEI_BUFFER = 100
