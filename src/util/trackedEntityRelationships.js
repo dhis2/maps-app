@@ -91,14 +91,48 @@ const getInstanceRelationships = (
 }
 /* eslint-enable max-params */
 
+// Related tracked entities are requested with the relationship type's "to"
+// program, or its "to" type without one. Same org units and period as the
+// layer, no program status or follow-up
+const getRelatedParams = (trackerParams, to) => {
+    const params = {
+        ...trackerParams,
+        fields: TEI_FIELDS,
+        programStatus: undefined,
+        enrollmentStatus: undefined,
+        followUp: undefined,
+    }
+
+    if ('program' in to) {
+        return {
+            ...params,
+            program: to.program.id,
+            trackedEntityType: undefined,
+        }
+    }
+
+    // Enrollment dates need a program, so they become last updated dates
+    return {
+        ...params,
+        program: undefined,
+        trackedEntityType: to.trackedEntityType.id,
+        enrollmentEnrolledAfter: undefined,
+        enrollmentEnrolledBefore: undefined,
+        updatedAfter:
+            trackerParams.updatedAfter ?? trackerParams.enrollmentEnrolledAfter,
+        updatedBefore:
+            trackerParams.updatedBefore ??
+            trackerParams.enrollmentEnrolledBefore,
+    }
+}
+
 export const getDataWithRelationships = async ({
     isVersion40,
     instances: sourceInstances,
     queryOptions,
     engine,
 }) => {
-    const { relationshipType, orgUnits, organisationUnitSelectionMode } =
-        queryOptions
+    const { relationshipType, trackerParams } = queryOptions
 
     const from = relationshipType.fromConstraint
     const to = relationshipType.toConstraint
@@ -107,48 +141,36 @@ export const getDataWithRelationships = async ({
         from.relationshipEntity !== TRACKED_ENTITY_INSTANCE ||
         to.relationshipEntity !== TRACKED_ENTITY_INSTANCE
     ) {
-        return []
+        // Only relationships between tracked entities can be shown
+        return {
+            primary: Object.values(normalizeInstances(sourceInstances)),
+            relationships: [],
+            secondary: [],
+        }
     }
 
-    const isSameTrackedEntityType =
-        from.trackedEntityType.id === to.trackedEntityType.id
-    // Same program on both sides, or no program on either side
-    const isSameProgram =
-        ('program' in from &&
-            'program' in to &&
-            from?.program?.id === to?.program?.id) ||
-        !('program' in from || 'program' in to)
-    const isToProgramDefined = 'program' in to
-
-    // Use target as source if from/to TE Types and Programs match, otherwise
-    // fetch/re-fetch using program if available TE type otherwise
-    let relatedRequestParams = null
-    if (!isSameProgram) {
-        relatedRequestParams =
-            isSameTrackedEntityType && isToProgramDefined
-                ? { program: to.program.id } // Same TE type, defined 'to' program
-                : { trackedEntityType: to.trackedEntityType.id } // Different TE type, or no 'to' program
-    }
+    // The related tracked entities are among those the layer loaded when they
+    // are of its type, in its program if it has one, and not filtered out by
+    // program status or follow-up, which don't apply to them
+    const isRelatedLoaded =
+        to.trackedEntityType.id === from.trackedEntityType.id &&
+        (!trackerParams.program || to.program?.id === trackerParams.program) &&
+        !trackerParams.programStatus &&
+        !trackerParams.enrollmentStatus &&
+        !trackerParams.followUp
 
     // Keep TEI with coords and convert array to object (id = key)
     const normalizedSourceInstances = normalizeInstances(sourceInstances)
 
     // Retrieve potential target instances
     let normalizedPotentialTargetInstances
-    if (isSameTrackedEntityType && isSameProgram) {
+    if (isRelatedLoaded) {
         normalizedPotentialTargetInstances = normalizedSourceInstances
     } else {
         // VERSION-TOGGLE: https://github.com/dhis2/dhis2-releases/tree/master/releases/2.41#deprecated-apis
         const { tei } = await engine.query(
             { tei: isVersion40 ? TEI_40_QUERY : TEI_41_QUERY },
-            {
-                variables: {
-                    fields: [...TEI_FIELDS, 'relationships'],
-                    orgUnits,
-                    orgUnitMode: organisationUnitSelectionMode,
-                    ...relatedRequestParams,
-                },
-            }
+            { variables: getRelatedParams(trackerParams, to) }
         )
 
         normalizedPotentialTargetInstances = normalizeInstances(
@@ -205,36 +227,30 @@ export const loadTrackedEntityRelationships = async ({
     engine,
     serverVersion,
     instances,
-    orgUnits,
+    trackerParams,
 }) => {
-    const {
-        relationshipType: relationshipTypeID,
-        organisationUnitSelectionMode,
-    } = config
+    const { relationshipType: relationshipTypeID } = config
 
     const { relationshipType } = await engine.query(
         { relationshipType: RELATIONSHIP_TYPES_QUERY },
         { variables: { id: relationshipTypeID } }
     )
 
-    const { relatedEntityType } = await engine.query(
-        { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
-        {
-            variables: {
-                id: relationshipType.toConstraint.trackedEntityType.id,
-            },
-        }
-    )
+    // Relationships to events or enrollments have no related type
+    const relatedEntityTypeId =
+        relationshipType.toConstraint.trackedEntityType?.id
+    const { relatedEntityType } = relatedEntityTypeId
+        ? await engine.query(
+              { relatedEntityType: TRACKED_ENTITY_TYPES_QUERY },
+              { variables: { id: relatedEntityTypeId } }
+          )
+        : {}
 
     const dataWithRels = await getDataWithRelationships({
         // VERSION-TOGGLE: see util/versionToggle.js
         isVersion40: !serverSupportsTracker41Api(serverVersion),
         instances,
-        queryOptions: {
-            relationshipType,
-            orgUnits,
-            organisationUnitSelectionMode,
-        },
+        queryOptions: { relationshipType, trackerParams },
         engine,
     })
 
