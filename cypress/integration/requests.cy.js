@@ -200,7 +200,7 @@ describe('API requests check for all layer types', () => {
                 // -- apiFetch - src/util/api.js
                 // -- @dhis2/d2 - src/api/Api.js
                 'getTrackedEntities40_TrackedEntities1',
-                // -- teiRelationshipsParser - src/util/teiRelationshipsParser.js
+                // -- trackedEntityRelationships - src/util/trackedEntityRelationships.js
                 // -- apiFetch - src/util/api.js
                 // -- @dhis2/d2 - src/api/Api.js
                 // TODO: Should this be only TEIs within the same timeframe?
@@ -213,7 +213,7 @@ describe('API requests check for all layer types', () => {
                 // -- apiFetch - src/util/api.js
                 // -- @dhis2/d2 - src/api/Api.js
                 'getTrackedEntities41_TrackedEntities1',
-                // -- teiRelationshipsParser - src/util/teiRelationshipsParser.js
+                // -- trackedEntityRelationships - src/util/trackedEntityRelationships.js
                 // -- apiFetch - src/util/api.js
                 // -- @dhis2/d2 - src/api/Api.js
                 // TODO: Should this be only TEIs within the same timeframe?
