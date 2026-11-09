@@ -248,7 +248,7 @@ describe('buildKnownOrgUnitNames', () => {
         )
     })
 
-    it('contributes nothing for an Event/Tracked-Entity-shaped row (id is the event/TEI id, no name for the referenced org unit)', () => {
+    it('contributes nothing for an event row (id is the event id, no name for the referenced org unit)', () => {
         const rows = [{ id: 'event1', orgUnit: 'ou1' }]
         expect(buildKnownOrgUnitNames(rows)).toEqual(new Map())
     })

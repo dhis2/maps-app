@@ -1,3 +1,10 @@
+# [101.18.0](https://github.com/dhis2/maps-app/compare/v101.17.7...v101.18.0) (2026-11-09)
+
+
+### Features
+
+* faster and more reliable tracked entity layers [DHIS2-16362] ([#3835](https://github.com/dhis2/maps-app/issues/3835)) ([61748d4](https://github.com/dhis2/maps-app/commit/61748d452f6d0f57724a1aeaecf18631655bfc25))
+
 ## [101.17.7](https://github.com/dhis2/maps-app/compare/v101.17.6...v101.17.7) (2026-10-27)
 
 
