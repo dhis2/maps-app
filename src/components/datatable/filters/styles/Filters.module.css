@@ -123,3 +123,26 @@
     flex-direction: column;
     gap: var(--spacers-dp12);
 }
+/* Number */
+
+.numberInputs {
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
+}
+
+.numberInputs > * {
+    flex: 1;
+    min-width: 0;
+}
+
+.numberInputs > .and {
+    flex: 0 0 auto;
+    font-size: 13px;
+    color: var(--colors-grey700);
+}
+
+/* Sits right under the inputs rather than a full stack gap away */
+.stack > .rangeError {
+    margin-top: calc(-1 * var(--spacers-dp8));
+}

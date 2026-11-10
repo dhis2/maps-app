@@ -17,7 +17,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import { FILTER_TEXT, SORT_ASCENDING } from '../../constants/dataTable.js'
+import {
+    FILTER_NUMBER,
+    FILTER_TEXT,
+    SORT_ASCENDING,
+} from '../../constants/dataTable.js'
 import {
     getFilterType,
     getNextSorting,
@@ -38,7 +42,7 @@ import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
 // Filter kinds with a popover; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT])
+const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -205,9 +209,9 @@ const Table = ({
                 {visibleHeaders.map((header, index) => {
                     const { name, dataKey, type, optionSet, renderer } = header
                     const canFilter = isFilterable(dataKey, type)
+                    const filterType = getFilterType(header)
                     const hasPopover =
-                        canFilter &&
-                        POPOVER_FILTER_TYPES.has(getFilterType(header))
+                        canFilter && POPOVER_FILTER_TYPES.has(filterType)
                     const hasFilterInput = canFilter && !hasPopover
 
                     return (
@@ -226,6 +230,7 @@ const Table = ({
                                         layerId={layerId}
                                         name={name}
                                         dataKey={dataKey}
+                                        filterType={filterType}
                                         filter={dataFilters?.[dataKey]}
                                     />
                                 )

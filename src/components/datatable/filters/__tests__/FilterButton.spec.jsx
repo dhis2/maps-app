@@ -10,7 +10,7 @@ import FilterButton from '../FilterButton.jsx'
 
 const mockStore = configureMockStore()
 
-const renderButton = async (filter) => {
+const renderButton = async (filter, filterType = 'text') => {
     const store = mockStore({})
     render(
         <Provider store={store}>
@@ -18,6 +18,7 @@ const renderButton = async (filter) => {
                 layerId="layer1"
                 name="Org unit"
                 dataKey="name"
+                filterType={filterType}
                 filter={filter}
             />
         </Provider>
@@ -27,13 +28,12 @@ const renderButton = async (filter) => {
     return store
 }
 
-const typeText = (text) =>
-    fireEvent.change(
-        screen
-            .getByTestId('data-table-filter-text-input')
-            .querySelector('input'),
-        { target: { value: text } }
-    )
+const typeInto = (dataTest, text) =>
+    fireEvent.change(screen.getByTestId(dataTest).querySelector('input'), {
+        target: { value: text },
+    })
+
+const typeText = (text) => typeInto('data-table-filter-text-input', text)
 
 const applyButton = () => screen.getByTestId('data-table-filter-apply')
 
@@ -101,5 +101,48 @@ describe('FilterButton', () => {
         expect(
             screen.queryByTestId('data-table-filter-text-input')
         ).not.toBeInTheDocument()
+    })
+})
+
+describe('FilterButton on a number column', () => {
+    const range = (value, value2) => ({
+        type: 'number',
+        operator: 'between',
+        value,
+        value2,
+    })
+
+    test('applies a number greater than the typed value', async () => {
+        const store = await renderButton(undefined, 'number')
+
+        typeInto('data-table-filter-number-value', '5')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()).toEqual([
+            {
+                type: DATA_FILTER_SET,
+                layerId: 'layer1',
+                fieldId: 'name',
+                filter: { type: 'number', operator: 'gt', value: '5' },
+            },
+        ])
+    })
+
+    test('a range needs both bounds before it can be applied', async () => {
+        await renderButton(range('1', '5'), 'number')
+
+        typeInto('data-table-filter-number-value2', '')
+        expect(applyButton()).toBeDisabled()
+    })
+
+    test('a range with its bounds reversed shows why it cannot be applied', async () => {
+        await renderButton(range('1', '5'), 'number')
+
+        typeInto('data-table-filter-number-value2', '0')
+
+        expect(applyButton()).toBeDisabled()
+        expect(
+            screen.getByText('Max must be greater than Min')
+        ).toBeInTheDocument()
     })
 })

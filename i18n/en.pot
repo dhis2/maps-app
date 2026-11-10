@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-10T18:23:38.513Z\n"
-"PO-Revision-Date: 2026-11-10T18:23:38.513Z\n"
+"POT-Creation-Date: 2026-11-10T21:09:29.510Z\n"
+"PO-Revision-Date: 2026-11-10T21:09:29.511Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -269,6 +269,9 @@ msgstr "Apply"
 msgid "Condition"
 msgstr "Condition"
 
+msgid "and"
+msgstr "and"
+
 msgid "Type to filter"
 msgstr "Type to filter"
 
@@ -277,6 +280,27 @@ msgstr "Is empty"
 
 msgid "Is not empty"
 msgstr "Is not empty"
+
+msgid "Equal to"
+msgstr "Equal to"
+
+msgid "Not equal to"
+msgstr "Not equal to"
+
+msgid "Greater than"
+msgstr "Greater than"
+
+msgid "Greater than or equal to"
+msgstr "Greater than or equal to"
+
+msgid "Less than"
+msgstr "Less than"
+
+msgid "Less than or equal to"
+msgstr "Less than or equal to"
+
+msgid "Between"
+msgstr "Between"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
