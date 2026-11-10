@@ -12,17 +12,14 @@ const NAME_HEADER = { dataKey: 'name' }
 
 const defaultProps = {
     visibleHeaders: [NAME_HEADER],
-    selectedIdSet: new Set(),
     hoveredFeature: null,
     layerId: 'layer1',
-    isCheckboxColumnPinned: false,
     pinnedLeftOffsets: {},
     pinnedColumnCount: 0,
     columnWidths: [],
     rendererByDataKey: new Map(),
     typeByDataKey: new Map(),
     keyAnalysisDigitGroupSeparator: undefined,
-    onToggleSelection: jest.fn(),
 }
 
 const renderRow = (row, overrides = {}) =>
@@ -97,22 +94,6 @@ describe('RowCells', () => {
             { rendererByDataKey: new Map([['name', RENDERER_DATE]]) }
         )
         expect(screen.getByText('2024-03-15 10:30')).toBeInTheDocument()
-    })
-
-    it('checks the checkbox when the row id is in selectedIdSet', () => {
-        renderRow([{ dataKey: 'id', value: 'row1' }], {
-            selectedIdSet: new Set(['row1']),
-        })
-        expect(screen.getByRole('checkbox')).toBeChecked()
-    })
-
-    it('calls onToggleSelection with the row id when the checkbox is clicked', () => {
-        const onToggleSelection = jest.fn()
-        renderRow([{ dataKey: 'id', value: 'row1' }], { onToggleSelection })
-
-        screen.getByRole('checkbox').click()
-
-        expect(onToggleSelection).toHaveBeenCalledWith('row1')
     })
 
     it('skips headers with no matching cell in the row', () => {

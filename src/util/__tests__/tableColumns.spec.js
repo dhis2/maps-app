@@ -221,13 +221,13 @@ describe('getPinnedLeftOffsets', () => {
         )
     })
 
-    it('starts the first pinned column after the checkbox column', () => {
+    it('starts the first pinned column at the left edge', () => {
         const offsets = getPinnedLeftOffsets(
             visibleHeaders,
             ['rawValue'],
             columnWidths
         )
-        expect(offsets).toEqual({ rawValue: 76 })
+        expect(offsets).toEqual({ rawValue: 0 })
     })
 
     it('accumulates offsets for consecutive pinned columns', () => {
@@ -236,7 +236,7 @@ describe('getPinnedLeftOffsets', () => {
             ['rawValue', 'name'],
             columnWidths
         )
-        expect(offsets).toEqual({ rawValue: 76, name: 176 })
+        expect(offsets).toEqual({ rawValue: 0, name: 100 })
     })
 
     it('only offsets columns that are actually pinned', () => {
@@ -245,7 +245,7 @@ describe('getPinnedLeftOffsets', () => {
             ['id'],
             columnWidths
         )
-        expect(offsets).toEqual({ id: 76 })
+        expect(offsets).toEqual({ id: 0 })
     })
 
     it('does not let an unpinned column contribute width when pinned columns are not contiguous', () => {
@@ -256,7 +256,7 @@ describe('getPinnedLeftOffsets', () => {
             ['rawValue', 'id'],
             columnWidths
         )
-        expect(offsets).toEqual({ rawValue: 76, id: 176 })
+        expect(offsets).toEqual({ rawValue: 0, id: 100 })
     })
 })
 
@@ -327,11 +327,11 @@ describe('reverseVisibleKeys', () => {
 })
 
 describe('getPinnedCellProps', () => {
-    const pinnedLeftOffsets = { rawValue: 76, name: 176 }
+    const pinnedLeftOffsets = { rawValue: 0, name: 100 }
     const pinnedColumnCount = 2
     const columnWidths = [100, 150, 80, 120]
 
-    it('marks a pinned-in-range column as fixed with its left/width offsets', () => {
+    it('marks a column pinned at the left edge as fixed, at 0px', () => {
         expect(
             getPinnedCellProps('rawValue', 0, {
                 pinnedLeftOffsets,
@@ -340,7 +340,7 @@ describe('getPinnedCellProps', () => {
             })
         ).toEqual({
             fixed: true,
-            left: '76px',
+            left: '0px',
             width: '100px',
             isLastPinned: false,
         })
@@ -370,7 +370,7 @@ describe('getPinnedCellProps', () => {
             })
         ).toEqual({
             fixed: true,
-            left: '176px',
+            left: '100px',
             width: '150px',
             isLastPinned: true,
         })

@@ -1,11 +1,9 @@
 import {
     SENTINEL_NO_VALUE,
-    SENTINEL_SELECTED_ROW,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
 import {
-    compareBySelected,
     compareColumnOptionValues,
     compareFieldValues,
     compareRangeValues,
@@ -142,50 +140,11 @@ describe('compareRangeValues', () => {
     })
 })
 
-describe('compareBySelected', () => {
-    const selectedIdSet = new Set(['1'])
-
-    it('puts selected rows first when ascending', () => {
-        expect(
-            compareBySelected(
-                { id: '1' },
-                { id: '2' },
-                { selectedIdSet, sortDirection: 'asc' }
-            )
-        ).toBeLessThan(0)
-    })
-
-    it('puts selected rows last when descending', () => {
-        expect(
-            compareBySelected(
-                { id: '1' },
-                { id: '2' },
-                { selectedIdSet, sortDirection: 'desc' }
-            )
-        ).toBeGreaterThan(0)
-    })
-})
-
 describe('compareRows', () => {
     it('falls back to natural (index) order when there is no sortField', () => {
         expect(
             compareRows({ index: 2 }, { index: 0 }, { sortField: null })
         ).toBeGreaterThan(0)
-    })
-
-    it('sorts by the selected-row sentinel field via compareBySelected', () => {
-        const selectedIdSet = new Set(['1'])
-        expect(
-            compareRows(
-                { id: '1' },
-                { id: '2' },
-                {
-                    sortField: SENTINEL_SELECTED_ROW,
-                    sortDirection: 'asc',
-                    selectedIdSet,
-                }
-            )
-        ).toBeLessThan(0)
     })
 
     it('otherwise sorts by the named field via compareFieldValues', () => {
