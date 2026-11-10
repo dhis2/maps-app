@@ -1,5 +1,17 @@
 import {
+    FILTER_DATE,
+    FILTER_NUMBER,
+    FILTER_OPTIONS,
+    FILTER_TEXT,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    TYPE_NUMBER,
+    TYPE_STRING,
+    TYPE_TIME,
+} from '../../constants/dataTable.js'
+import {
     buildFeatureIndex,
+    getFilterType,
     getNextSorting,
     getPanelHeights,
     getRowClickAction,
@@ -208,5 +220,23 @@ describe('getPanelHeights', () => {
             controlsHeight: 32,
         })
         expect(result.displayHeight).toBe(32)
+    })
+})
+
+describe('getFilterType', () => {
+    test('keeps the filter kind the column sets', () => {
+        expect(
+            getFilterType({ type: TYPE_NUMBER, filterType: FILTER_OPTIONS })
+        ).toBe(FILTER_OPTIONS)
+    })
+
+    test.each([
+        [TYPE_NUMBER, FILTER_NUMBER],
+        [TYPE_DATE, FILTER_DATE],
+        [TYPE_DATETIME, FILTER_DATE],
+        [TYPE_TIME, FILTER_TEXT],
+        [TYPE_STRING, FILTER_TEXT],
+    ])('gives a %s column a %s filter', (type, filterType) => {
+        expect(getFilterType({ type })).toBe(filterType)
     })
 })

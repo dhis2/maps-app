@@ -16,6 +16,8 @@ import {
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
+    FILTER_OPTIONS,
+    FILTER_ORG_UNIT,
 } from '../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -72,6 +74,16 @@ const getCustomFieldRenderer = (type, valueType) => {
     return undefined
 }
 
+const getCustomFieldFilterType = (valueType, hasOptionSet) => {
+    if (hasOptionSet || booleanValueTypes.includes(valueType)) {
+        return FILTER_OPTIONS
+    }
+    if (ouValueTypes.includes(valueType)) {
+        return FILTER_ORG_UNIT
+    }
+    return undefined
+}
+
 const ID = 'id'
 const VALUE = 'rawValue'
 const LEGEND = 'legend'
@@ -102,26 +114,46 @@ const defaultFieldsMap = () => ({
         dataKey: ORG_UNIT,
         type: TYPE_STRING,
         renderer: RENDERER_ORG_UNIT_NAME,
+        // Holds the org unit path: listed by name, filtered by path
+        filterType: FILTER_OPTIONS,
     },
     [LEVEL]: {
         name: i18n.t('Org unit level'),
         dataKey: LEVEL,
         type: TYPE_NUMBER,
+        filterType: FILTER_OPTIONS,
     },
-    [TYPE]: { name: i18n.t('Geometry type'), dataKey: TYPE, type: TYPE_STRING },
+    [TYPE]: {
+        name: i18n.t('Geometry type'),
+        dataKey: TYPE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
-    [LEGEND]: { name: i18n.t('Legend'), dataKey: LEGEND, type: TYPE_STRING },
-    [RANGE]: { name: i18n.t('Range'), dataKey: RANGE, type: TYPE_STRING },
+    [LEGEND]: {
+        name: i18n.t('Legend'),
+        dataKey: LEGEND,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
+    [RANGE]: {
+        name: i18n.t('Range'),
+        dataKey: RANGE,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
     },
     [ORG_UNIT_PATH]: {
         name: i18n.t('Org unit hierarchy'),
         dataKey: ORG_UNIT_PATH,
         type: TYPE_ORG_UNIT,
         renderer: RENDERER_ORG_UNIT,
+        filterType: FILTER_ORG_UNIT,
     },
     [EVENTDATE]: {
         name: i18n.t('Event date'),
@@ -140,13 +172,20 @@ const defaultFieldsMap = () => ({
         dataKey: COLOR,
         type: TYPE_STRING,
         renderer: RENDERER_COLOR,
+        filterType: FILTER_OPTIONS,
     },
-    [GROUP]: { name: i18n.t('Group'), dataKey: GROUP, type: TYPE_STRING },
+    [GROUP]: {
+        name: i18n.t('Group'),
+        dataKey: GROUP,
+        type: TYPE_STRING,
+        filterType: FILTER_OPTIONS,
+    },
     [ICON]: {
         name: i18n.t('Icon'),
         dataKey: ICON,
         type: TYPE_STRING,
         renderer: RENDERER_ICON,
+        filterType: FILTER_OPTIONS,
     },
 })
 
@@ -256,6 +295,7 @@ const getEventHeaders = ({
                 dataKey,
                 type,
                 renderer: getCustomFieldRenderer(type, valueType),
+                filterType: getCustomFieldFilterType(valueType, !!optionSet),
                 optionSet: optionSet || null,
             }
         })

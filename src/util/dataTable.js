@@ -1,6 +1,29 @@
-import { SORT_ASCENDING, SORT_DESCENDING } from '../constants/dataTable.js'
+import {
+    SORT_ASCENDING,
+    SORT_DESCENDING,
+    TYPE_NUMBER,
+    TYPE_DATE,
+    TYPE_DATETIME,
+    FILTER_TEXT,
+    FILTER_NUMBER,
+    FILTER_DATE,
+} from '../constants/dataTable.js'
 
 export const isFilterable = (dataKey, type) => !!type
+
+// The column's own filter kind, else one that fits its values
+export const getFilterType = ({ type, filterType }) => {
+    if (filterType) {
+        return filterType
+    }
+    if (type === TYPE_NUMBER) {
+        return FILTER_NUMBER
+    }
+    if (type === TYPE_DATE || type === TYPE_DATETIME) {
+        return FILTER_DATE
+    }
+    return FILTER_TEXT
+}
 
 export const shouldClearFeatureHighlight = (event) =>
     event.relatedTarget?.tagName !== 'TD'

@@ -120,11 +120,13 @@ describe('useTableData headers', () => {
             dataKey: 'iconUrl',
             type: 'string',
             renderer: 'rendericon',
+            filterType: 'options',
         })
         expect(headers).toContainEqual({
             name: 'Group',
             dataKey: 'group',
             type: 'string',
+            filterType: 'options',
         })
         expect(headers).not.toContainEqual(
             expect.objectContaining({ dataKey: 'color' })
@@ -826,11 +828,13 @@ describe('useTableData headers', () => {
             name: 'Legend',
             dataKey: 'legend',
             type: 'string',
+            filterType: 'options',
         })
         expect(headers).toContainEqual({
             name: 'Range',
             dataKey: 'range',
             type: 'string',
+            filterType: 'options',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: 'High', dataKey: 'legend' })
@@ -1247,6 +1251,7 @@ describe('useTableData headers', () => {
             dataKey: 'color',
             type: 'string',
             renderer: 'rendercolor',
+            filterType: 'options',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: '#ff0000', dataKey: 'color' })

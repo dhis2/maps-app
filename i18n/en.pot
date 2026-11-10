@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-10T17:50:46.424Z\n"
-"PO-Revision-Date: 2026-11-10T17:50:46.424Z\n"
+"POT-Creation-Date: 2026-11-10T18:23:31.130Z\n"
+"PO-Revision-Date: 2026-11-10T18:23:31.130Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -2022,6 +2022,12 @@ msgstr ""
 
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
+
+msgid "Max must be greater than Min"
+msgstr "Max must be greater than Min"
+
+msgid "To must be after From"
+msgstr "To must be after From"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"

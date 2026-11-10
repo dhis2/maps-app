@@ -1,4 +1,6 @@
 import {
+    FILTER_OPTIONS,
+    FILTER_ORG_UNIT,
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
@@ -334,5 +336,44 @@ describe('getHeadersForLayer - unknown layer type', () => {
         expect(getHeadersForLayer('somethingElse', {})).toEqual({
             headers: null,
         })
+    })
+})
+
+describe('getHeadersForLayer - filter kinds', () => {
+    const filterTypeOf = (result, dataKey) =>
+        result.headers.find((h) => h.dataKey === dataKey).filterType
+
+    test('columns with a few known values and the org unit get an options filter, the org unit hierarchy an org unit filter', () => {
+        const result = getHeadersForLayer(THEMATIC_LAYER, {})
+        expect(filterTypeOf(result, 'level')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'legend')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'range')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'color')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'type')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'orgUnitPath')).toBe(FILTER_ORG_UNIT)
+        expect(filterTypeOf(result, 'orgUnitOwn')).toBe(FILTER_OPTIONS)
+    })
+
+    test('event data items with an option set or a boolean value get an options filter, org unit values an org unit filter', () => {
+        const layerHeaders = [
+            {
+                name: 'w75KJ2mc4zz',
+                column: 'Gender',
+                valueType: 'TEXT',
+                optionSet: 'pC3N9N77UmT',
+            },
+            { name: 'zDhUuAYrxNC', column: 'Pregnant', valueType: 'BOOLEAN' },
+            {
+                name: 'oZg33kd9taw',
+                column: 'Referred to',
+                valueType: 'ORGANISATION_UNIT',
+            },
+            { name: 'qrur9Dvnyt5', column: 'Age', valueType: 'INTEGER' },
+        ]
+        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
+        expect(filterTypeOf(result, 'w75KJ2mc4zz')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'zDhUuAYrxNC')).toBe(FILTER_OPTIONS)
+        expect(filterTypeOf(result, 'oZg33kd9taw')).toBe(FILTER_ORG_UNIT)
+        expect(filterTypeOf(result, 'qrur9Dvnyt5')).toBeUndefined()
     })
 })
