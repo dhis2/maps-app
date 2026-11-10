@@ -11,7 +11,6 @@ import {
     closeDataTable,
     resizeDataTable,
     toggleShowOnlyFeaturesInView,
-    setSelectionFilter,
     setHighlightColor,
 } from '../../actions/dataTable.js'
 import useDebouncedValue from '../../hooks/useDebouncedValue.js'
@@ -44,7 +43,6 @@ const BottomPanel = () => {
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
     )
-    const selectionFilter = useSelector((state) => state.ui.selectionFilter)
     const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
@@ -62,7 +60,6 @@ const BottomPanel = () => {
     const hasActiveFilters = hasActiveDataTableFilters({
         dataFilters,
         globalSearch: searchInputValue,
-        selectionFilter,
         showOnlyFeaturesInView,
     })
 
@@ -138,7 +135,6 @@ const BottomPanel = () => {
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
-        dispatch(setSelectionFilter([]))
         setSearchInputValue('')
         if (showOnlyFeaturesInView) {
             dispatch(toggleShowOnlyFeaturesInView())

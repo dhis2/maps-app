@@ -26,36 +26,6 @@ describe('ui reducer — highlightColor', () => {
     })
 })
 
-describe('ui reducer — selectionFilter', () => {
-    it('defaults to an empty array', () => {
-        expect(ui(undefined, {}).selectionFilter).toEqual([])
-    })
-
-    it('sets an explicit value on SELECTION_FILTER_SET', () => {
-        const state = ui(undefined, {
-            type: types.SELECTION_FILTER_SET,
-            value: ['selected'],
-        })
-
-        expect(state.selectionFilter).toEqual(['selected'])
-    })
-
-    it.each([
-        types.MAP_NEW,
-        types.MAP_SET,
-        types.DATA_TABLE_CLOSE,
-        types.DATA_TABLE_TOGGLE,
-    ])('resets to an empty array on %s', (type) => {
-        const prevState = {
-            ...ui(undefined, {}),
-            selectionFilter: ['selected'],
-        }
-        const state = ui(prevState, { type })
-
-        expect(state.selectionFilter).toEqual([])
-    })
-})
-
 describe('ui reducer — lastClickedFeature', () => {
     it('defaults to null', () => {
         expect(ui(undefined, {}).lastClickedFeature).toBe(null)

@@ -20,7 +20,6 @@ const MapView = (props) => {
         selection,
         highlightFeature,
         highlightColor,
-        selectionFilter,
         clickFeature,
         toggleFeatureSelection,
         bounds,
@@ -66,7 +65,6 @@ const MapView = (props) => {
                             selection={selection}
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
-                            selectionFilter={selectionFilter}
                             clickFeature={clickFeature}
                             toggleFeatureSelection={toggleFeatureSelection}
                             interpretationModalOpen={interpretationModalOpen}
@@ -87,7 +85,6 @@ const MapView = (props) => {
                             selection={selection}
                             highlightFeature={highlightFeature}
                             highlightColor={highlightColor}
-                            selectionFilter={selectionFilter}
                             clickFeature={clickFeature}
                             toggleFeatureSelection={toggleFeatureSelection}
                             coordinatePopup={coordinatePopup}
@@ -124,7 +121,6 @@ MapView.propTypes = {
     openContextMenu: PropTypes.func,
     resizeCount: PropTypes.number,
     selection: PropTypes.object,
-    selectionFilter: PropTypes.array,
     setMapObject: PropTypes.func,
     toggleFeatureSelection: PropTypes.func,
 }

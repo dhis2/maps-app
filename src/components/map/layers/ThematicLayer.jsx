@@ -200,7 +200,6 @@ class ThematicLayer extends Layer {
             this.syncFocusedFeature(prevProps)
             this.syncSelectedFeatures(prevProps)
             this.syncHighlightColor(prevProps)
-            this.syncVisibleIds(prevProps)
             return
         }
 
@@ -238,7 +237,6 @@ class ThematicLayer extends Layer {
                 this.layer.setData(filteredData)
                 this.highlightFeature()
                 this.selectFeatures()
-                this.updateVisibleIds()
             } catch (e) {
                 console.warn('Failed to set layer data incrementally:', e)
                 // fallback to full update on error

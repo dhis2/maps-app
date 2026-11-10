@@ -46,12 +46,10 @@ export const getRowClickAction = (
 export const hasActiveDataTableFilters = ({
     dataFilters,
     globalSearch,
-    selectionFilter,
     showOnlyFeaturesInView,
 }) =>
     Object.keys(dataFilters ?? {}).length > 0 ||
     !!globalSearch?.trim() ||
-    selectionFilter?.length > 0 ||
     !!showOnlyFeaturesInView
 
 export const buildFeatureIndex = (data) => {
