@@ -15,10 +15,6 @@ import {
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
     TYPE_NUMBER,
-    TYPE_DATE,
-    TYPE_DATETIME,
-    TYPE_TIME,
-    TYPE_ORG_UNIT,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../constants/dataTable.js'
 import useOptionSet from '../../hooks/useOptionSet.js'
@@ -48,13 +44,11 @@ import {
 } from '../../util/orgUnitGroups.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import Checkbox from '../core/Checkbox.jsx'
-import DateGroupFilterInput from './DateGroupFilterInput.jsx'
 import {
     FilterDropdownPopover,
     getDropdownPlacement,
 } from './FilterDropdownPopover.jsx'
 import FilterHelpTooltip from './FilterHelpTooltip.jsx'
-import OrgUnitGroupFilterInput from './OrgUnitGroupFilterInput.jsx'
 import styles from './styles/FilterInput.module.css'
 
 const NUMERIC_HELP_HEIGHT = 140
@@ -603,35 +597,6 @@ const FilterInput = React.memo(function FilterInput({
     }
 
     const filterValue = filters?.[dataKey]
-
-    const isDateType =
-        type === TYPE_DATE || type === TYPE_DATETIME || type === TYPE_TIME
-
-    if (isDateType) {
-        return (
-            <DateGroupFilterInput
-                dataKey={dataKey}
-                name={name}
-                layerId={layerId}
-                filterValue={filterValue}
-                options={options ?? []}
-                type={type}
-            />
-        )
-    }
-
-    if (type === TYPE_ORG_UNIT) {
-        return (
-            <OrgUnitGroupFilterInput
-                dataKey={dataKey}
-                name={name}
-                layerId={layerId}
-                filterValue={filterValue}
-                options={options ?? []}
-                idToName={orgUnitIdToName}
-            />
-        )
-    }
 
     if (optionSetId) {
         return (
