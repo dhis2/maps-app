@@ -6,7 +6,6 @@ import {
     CenteredContent,
     CircularLoader,
 } from '@dhis2/ui'
-import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React, {
     useReducer,
@@ -27,12 +26,7 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
-import {
-    getPinnedCellProps,
-    getPinnedCount,
-    getPinnedLeftOffsets,
-    getVisibleHeaders,
-} from '../../util/tableColumns.js'
+import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
@@ -135,10 +129,6 @@ const Table = ({
     }, [onHeadersChange, headers, layer.id])
 
     const columnConfig = layer.dataTableColumnConfig
-    const pinnedKeys = useMemo(
-        () => columnConfig?.pinnedKeys ?? [],
-        [columnConfig]
-    )
 
     const visibleHeaders = useMemo(
         () => getVisibleHeaders(headers, columnConfig) ?? [],
@@ -160,16 +150,6 @@ const Table = ({
         headers: visibleHeaders,
         error,
     })
-
-    const pinnedColumnCount = useMemo(
-        () => getPinnedCount(visibleHeaders, pinnedKeys),
-        [visibleHeaders, pinnedKeys]
-    )
-
-    const pinnedLeftOffsets = useMemo(
-        () => getPinnedLeftOffsets(visibleHeaders, pinnedKeys, columnWidths),
-        [visibleHeaders, pinnedKeys, columnWidths]
-    )
 
     useEffect(() => {
         onCountChange?.(totalCount, filteredCount)
@@ -220,20 +200,10 @@ const Table = ({
             <DataTableRow ref={headerRowRef}>
                 {visibleHeaders.map(
                     ({ name, dataKey, type, optionSet, renderer }, index) => {
-                        const { fixed, left, isLastPinned } =
-                            getPinnedCellProps(dataKey, index, {
-                                pinnedLeftOffsets,
-                                pinnedColumnCount,
-                                columnWidths,
-                            })
                         return (
                             <DataTableColumnHeader
-                                className={cx(styles.columnHeader, {
-                                    [styles.pinnedColumnShadow]: isLastPinned,
-                                })}
+                                className={styles.columnHeader}
                                 key={`${dataKey}-${index}`}
-                                fixed={fixed}
-                                left={left}
                                 onFilterIconClick={
                                     isFilterable(dataKey, type) &&
                                     Function.prototype
@@ -303,8 +273,6 @@ const Table = ({
             sortField,
             sortDirection,
             visibleHeaders,
-            pinnedLeftOffsets,
-            pinnedColumnCount,
             columnWidths,
             columnOptions,
             headerRowRef,
@@ -319,9 +287,6 @@ const Table = ({
                 visibleHeaders={visibleHeaders}
                 hoveredFeature={feature}
                 layerId={layer.id}
-                pinnedLeftOffsets={pinnedLeftOffsets}
-                pinnedColumnCount={pinnedColumnCount}
-                columnWidths={columnWidths}
                 rendererByDataKey={rendererByDataKey}
                 typeByDataKey={typeByDataKey}
                 keyAnalysisDigitGroupSeparator={keyAnalysisDigitGroupSeparator}
@@ -332,9 +297,6 @@ const Table = ({
             visibleHeaders,
             feature,
             layer.id,
-            pinnedLeftOffsets,
-            pinnedColumnCount,
-            columnWidths,
             rendererByDataKey,
             typeByDataKey,
             keyAnalysisDigitGroupSeparator,
