@@ -1,5 +1,4 @@
 import { GEOJSON_URL_LAYER } from '../constants/layers.js'
-import { isFeatureInBounds } from './geojson.js'
 import { formatRangeWithSeparator } from './numbers.js'
 
 export const ERROR_NO_VALID_DATA = 'NO_VALID_DATA'
@@ -10,8 +9,6 @@ export const buildTableData = (
         data,
         dataWithoutCoords,
         serverCluster,
-        showOnlyFeaturesInView,
-        mapBounds,
         aggregations,
         isStyledEvent,
         isMultiPeriodThematic,
@@ -36,13 +33,9 @@ export const buildTableData = (
         return { errorCode: ERROR_NO_VALID_DATA }
     }
 
-    const inViewData = showOnlyFeaturesInView
-        ? allData.filter((d) => isFeatureInBounds(d, mapBounds))
-        : allData
-
     if (layerType === GEOJSON_URL_LAYER) {
         return {
-            data: inViewData.map((d, index) => ({
+            data: allData.map((d, index) => ({
                 ...d.properties,
                 // Row-order tie-breaker for compareRows when no sortField is set
                 index,
@@ -50,7 +43,7 @@ export const buildTableData = (
         }
     }
 
-    const rows = inViewData
+    const rows = allData
         .filter((d) => !d.properties.hasAdditionalGeometry)
         .map((d, index) => {
             const properties = d.properties || d

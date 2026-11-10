@@ -14,15 +14,6 @@ export const resizeDataTable = (height) => ({
     height,
 })
 
-export const setMapBounds = (bounds) => ({
-    type: types.MAP_BOUNDS_CHANGED,
-    bounds,
-})
-
-export const toggleShowOnlyFeaturesInView = () => ({
-    type: types.TOGGLE_SHOW_ONLY_IN_VIEW,
-})
-
 export const setHighlightColor = (color) => ({
     type: types.HIGHLIGHT_COLOR_SET,
     color,

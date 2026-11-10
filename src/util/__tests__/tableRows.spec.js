@@ -1,9 +1,9 @@
 import { GEOJSON_URL_LAYER, THEMATIC_LAYER } from '../../constants/layers.js'
 import { buildTableData, ERROR_NO_VALID_DATA } from '../tableRows.js'
 
-const feature = (id, extraProperties = {}, coordinates = [10, 10]) => ({
+const feature = (id, extraProperties = {}) => ({
     id,
-    geometry: { type: 'Point', coordinates },
+    geometry: { type: 'Point', coordinates: [10, 10] },
     properties: { id, ...extraProperties },
 })
 
@@ -41,32 +41,6 @@ describe('buildTableData - geoJsonUrl layer', () => {
         const data = [feature('a'), feature('b'), feature('c')]
         const result = buildTableData(GEOJSON_URL_LAYER, { data })
         expect(result.data.map((r) => r.index)).toEqual([0, 1, 2])
-    })
-})
-
-describe('buildTableData - showOnlyFeaturesInView', () => {
-    const inBounds = feature('in', {}, [10, 10])
-    const outOfBounds = feature('out', {}, [100, 100])
-    const bounds = [0, 0, 20, 20]
-
-    test('keeps all features when showOnlyFeaturesInView is off', () => {
-        const result = buildTableData(THEMATIC_LAYER, {
-            data: [inBounds, outOfBounds],
-            showOnlyFeaturesInView: false,
-            mapBounds: bounds,
-            aggregations: {},
-        })
-        expect(result.data.map((r) => r.id)).toEqual(['in', 'out'])
-    })
-
-    test('filters out features outside the given bounds when showOnlyFeaturesInView is on', () => {
-        const result = buildTableData(THEMATIC_LAYER, {
-            data: [inBounds, outOfBounds],
-            showOnlyFeaturesInView: true,
-            mapBounds: bounds,
-            aggregations: {},
-        })
-        expect(result.data.map((r) => r.id)).toEqual(['in'])
     })
 })
 
