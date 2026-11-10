@@ -40,7 +40,6 @@ class Map extends Component {
         openContextMenu: PropTypes.func.isRequired,
         basemap: PropTypes.object,
         bounds: PropTypes.array,
-        clickFeature: PropTypes.func,
         closeCoordinatePopup: PropTypes.func,
         controls: PropTypes.array,
         coordinatePopup: PropTypes.array,
@@ -180,7 +179,6 @@ class Map extends Component {
             layers,
             feature,
             highlightFeature,
-            clickFeature,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
             openContextMenu,
@@ -230,7 +228,6 @@ class Map extends Component {
                                     index={layers.length - index}
                                     feature={highlight}
                                     highlightFeature={highlightFeature}
-                                    clickFeature={clickFeature}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}
                                     setFeatureProfile={setFeatureProfile}

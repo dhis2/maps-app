@@ -269,10 +269,7 @@ class EventLayer extends Layer {
         ) : null
     }
 
-    onEventClick(evt) {
-        const { feature, coordinates } = evt
-
-        this.onFeatureLeftClick(evt)
+    onEventClick({ feature, coordinates }) {
         this.setState({ popup: { feature, coordinates } })
     }
 

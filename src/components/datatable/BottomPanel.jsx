@@ -52,16 +52,6 @@ const BottomPanel = () => {
         []
     )
 
-    const onControlsDoubleClick = useCallback(
-        (e) => {
-            if (e.target.closest('button, input, label')) {
-                return
-            }
-            toggleCollapsed()
-        },
-        [toggleCollapsed]
-    )
-
     const onResizeStart = useCallback(() => {
         isDraggingRef.current = true
         preDragCollapsedRef.current = isCollapsed
@@ -160,10 +150,7 @@ const BottomPanel = () => {
             className={styles.bottomPanel}
             data-test="bottom-panel"
         >
-            <div
-                className={styles.dataTableControls}
-                onDoubleClick={onControlsDoubleClick}
-            >
+            <div className={styles.dataTableControls}>
                 <CollapseControl
                     isCollapsed={isCollapsed}
                     onClick={toggleCollapsed}
