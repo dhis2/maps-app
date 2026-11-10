@@ -164,7 +164,7 @@ const isTrueFilter = (value, filter) => {
     return value === Number(filter) // Equal number
 }
 
-const isValuelessFilter = (filter) =>
+export const isValuelessFilter = (filter) =>
     filter?.operator === OPERATOR_EMPTY ||
     filter?.operator === OPERATOR_NOT_EMPTY
 

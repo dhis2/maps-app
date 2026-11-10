@@ -89,11 +89,22 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('show a filter input for the columns that have a type', () => {
+    test('text columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
         renderTable()
-        expect(screen.getByTestId('filter-orgUnitOwn')).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-button-orgUnitOwn')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('filter-orgUnitOwn')
+        ).not.toBeInTheDocument()
         expect(screen.getByTestId('filter-rawValue')).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-rawValue')
+        ).not.toBeInTheDocument()
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-untyped')
+        ).not.toBeInTheDocument()
     })
 
     test('highlight the arrow of the sort direction on the sorted column only', () => {
