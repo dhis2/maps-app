@@ -91,9 +91,9 @@ const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
 export const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const defaultFieldsMap = () => ({
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
+    [ID]: { name: i18n.t('ID'), dataKey: ID, type: TYPE_STRING },
     [ORG_UNIT_ID]: {
-        name: i18n.t('Org unit Id'),
+        name: i18n.t('Org unit ID'),
         dataKey: ORG_UNIT_ID,
         type: TYPE_STRING,
     },
@@ -187,7 +187,7 @@ const getStyleHeaders = ({
 }
 
 const getThematicHeaders = () =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(defaultFieldsMap()[VALUE])
         .concat(
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
@@ -233,7 +233,7 @@ const getEventHeaders = ({
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = getOrgUnitCoreFields(i18n.t('Event Id'), {
+    const fields = getOrgUnitCoreFields(i18n.t('Event ID'), {
         includeOrgUnitId: true,
     })
         .concat(defaultFieldsMap()[EVENTDATE])
@@ -290,7 +290,7 @@ const getOrgUnitStyleHeaders = (data) => {
 }
 
 const getFixedFieldsWithOrgUnitStyle = (data) =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(getOrgUnitStyleHeaders(data))
         .concat(defaultFieldsMap()[TYPE])
 
@@ -332,7 +332,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    return getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(customFields)
         .concat(defaultFieldsMap()[TYPE])
 }

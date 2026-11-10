@@ -60,7 +60,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -218,7 +218,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(5)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -280,7 +280,7 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(9)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -366,7 +366,7 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit ID', dataKey: 'id' },
             { name: 'Org unit', dataKey: 'orgUnitOwn' },
             { name: 'Org unit level', dataKey: 'level' },
             { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
@@ -483,7 +483,7 @@ describe('useTableData headers', () => {
         )
         const { headers, rows } = result.current
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id' },
+            { name: 'Org unit ID', dataKey: 'id' },
             { name: 'Org unit', dataKey: 'orgUnitOwn' },
             { name: 'Org unit level', dataKey: 'level' },
             { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
@@ -574,8 +574,8 @@ describe('useTableData headers', () => {
         const { headers, rows, isLoading } = result.current
         expect(headers).toHaveLength(10)
         expect(headers).toMatchObject([
-            { name: 'Event Id', dataKey: 'id', type: 'string' },
-            { name: 'Org unit Id', dataKey: 'orgUnitId', type: 'string' },
+            { name: 'Event ID', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'orgUnitId', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -1009,7 +1009,7 @@ describe('useTableData headers', () => {
 
         expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
@@ -1172,7 +1172,7 @@ describe('useTableData headers', () => {
 
         expect(headers).toHaveLength(7)
         expect(headers).toMatchObject([
-            { name: 'Org unit Id', dataKey: 'id', type: 'string' },
+            { name: 'Org unit ID', dataKey: 'id', type: 'string' },
             { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
             { name: 'Org unit level', dataKey: 'level', type: 'number' },
             {
