@@ -75,22 +75,6 @@ describe('GeoJSON URL Layer', () => {
             .find('tbody')
             .find('tr')
             .should('have.length', 1)
-
-        // open the feature panel via the row context menu
-        cy.getByDataTest('bottom-panel')
-            .find('tbody')
-            .find('tr')
-            .find('td')
-            .first()
-            .rightclick()
-
-        cy.getByDataTest('data-table-context-menu-view-profile').click()
-
-        // check that Feature profile is displayed
-        cy.getByDataTest('details-panel')
-            .findByDataTest('feature-profile-header')
-            .contains(OVERLAY_TITLE)
-            .should('be.visible')
     })
 
     it('handles a 404 error', () => {

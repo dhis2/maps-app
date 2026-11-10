@@ -14,7 +14,6 @@ import React, {
     useMemo,
     useEffect,
     useRef,
-    useState,
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
@@ -22,7 +21,6 @@ import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import { SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
-    buildFeatureIndex,
     getNextSorting,
     getRowId,
     hasActiveDataTableFilters,
@@ -40,7 +38,6 @@ import { SortIcon } from '../core/icons.jsx'
 import FilterInput from './FilterInput.jsx'
 import RowCells from './RowCells.jsx'
 import styles from './styles/DataTable.module.css'
-import TableContextMenu from './TableContextMenu.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import TopTooltip from './TopTooltip.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
@@ -120,27 +117,6 @@ const Table = ({
             }
         },
         [dispatch]
-    )
-
-    const featureById = useMemo(
-        () => buildFeatureIndex(layer.data),
-        [layer.data]
-    )
-
-    const [tableContextMenu, setTableContextMenu] = useState(null)
-
-    const onRowContextMenu = useCallback(
-        (e, row) => {
-            e.preventDefault()
-            const id = getRowId(row)
-            const feature = featureById.get(id)
-            setTableContextMenu({
-                x: e.clientX,
-                y: e.clientY,
-                featureProps: feature?.properties ?? { id },
-            })
-        },
-        [featureById]
     )
 
     const {
@@ -246,7 +222,6 @@ const Table = ({
         () => ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
-            onContextMenu: onRowContextMenu,
             onRowDoubleClick,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
@@ -258,7 +233,6 @@ const Table = ({
         [
             setFeatureHighlight,
             clearFeatureHighlight,
-            onRowContextMenu,
             onRowDoubleClick,
             columnWidths,
             totalCount,
@@ -293,11 +267,6 @@ const Table = ({
             })
         }
     }, [lastClickedFeature, layer.id])
-
-    const allRowIds = useMemo(
-        () => rows?.map(getRowId).filter(Boolean) ?? [],
-        [rows]
-    )
 
     const computeItemKey = useCallback(
         (index, row) => getRowId(row) ?? index,
@@ -473,12 +442,6 @@ const Table = ({
                     </CenteredContent>
                 </ComponentCover>
             )}
-            <TableContextMenu
-                contextMenu={tableContextMenu}
-                layer={layer}
-                filteredIds={hasActiveFilters ? allRowIds : null}
-                onClose={() => setTableContextMenu(null)}
-            />
         </>
     )
 }
