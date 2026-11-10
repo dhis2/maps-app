@@ -9,7 +9,6 @@ import {
     clickFeature,
 } from '../../actions/feature.js'
 import { openContextMenu, closeCoordinatePopup } from '../../actions/map.js'
-import { toggleFeatureSelection } from '../../actions/selection.js'
 import useBasemapConfig from '../../hooks/useBasemapConfig.js'
 import useDebouncedHighlightFeature from '../../hooks/useDebouncedHighlightFeature.js'
 import MapLoadingMask from './MapLoadingMask.jsx'
@@ -24,7 +23,6 @@ const MapContainer = ({ resizeCount, setMap }) => {
         (state) => !!state.interpretation.id
     )
     const feature = useSelector((state) => state.feature)
-    const selection = useSelector((state) => state.selection)
     const { layersSorting, highlightColor } = useSelector((state) => state.ui)
     const basemapConfig = useBasemapConfig(basemap)
     const dispatch = useDispatch()
@@ -49,13 +47,9 @@ const MapContainer = ({ resizeCount, setMap }) => {
                 layers={loadedMapViews}
                 bounds={bounds}
                 feature={feature}
-                selection={selection}
                 highlightColor={highlightColor}
                 highlightFeature={debouncedHighlightFeature}
                 clickFeature={(payload) => dispatch(clickFeature(payload))}
-                toggleFeatureSelection={(id, layerId) =>
-                    dispatch(toggleFeatureSelection(id, layerId))
-                }
                 openContextMenu={(config) => dispatch(openContextMenu(config))}
                 coordinatePopup={coordinatePopup}
                 interpretationModalOpen={interpretationModalOpen}

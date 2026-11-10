@@ -6,7 +6,6 @@ export const DRILL_DOWN = 'context-menu-drill-down'
 export const VIEW_PROFILE = 'context-menu-view-profile'
 export const ZOOM_TO_FEATURE = 'context-menu-zoom-to-feature'
 export const ZOOM_TO_LAYER = 'context-menu-zoom-to-layer'
-export const ZOOM_TO_SELECTED = 'context-menu-zoom-to-selected'
 export const SHOW_LONG_LAT = 'context-menu-show-long-lat'
 
 const ALL_OPTIONS = [
@@ -15,7 +14,6 @@ const ALL_OPTIONS = [
     VIEW_PROFILE,
     ZOOM_TO_FEATURE,
     ZOOM_TO_LAYER,
-    ZOOM_TO_SELECTED,
     SHOW_LONG_LAT,
 ]
 

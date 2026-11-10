@@ -46,7 +46,6 @@ export default class EarthEngineLayer extends Layer {
             await this.createLayer(true)
             this.setLayerOrder()
             this.highlightFeature()
-            this.selectFeatures()
         }
     }
 
@@ -257,11 +256,8 @@ export default class EarthEngineLayer extends Layer {
 
     onFeatureClick(evt) {
         this.onFeatureLeftClick(evt)
-
-        if (!this.isMultiSelectClick(evt)) {
-            this.getAggregations()
-            this.setState({ popup: evt })
-        }
+        this.getAggregations()
+        this.setState({ popup: evt })
     }
 
     onLoad() {

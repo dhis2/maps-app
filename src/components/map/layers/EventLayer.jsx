@@ -274,10 +274,7 @@ class EventLayer extends Layer {
         const { feature, coordinates } = evt
 
         this.onFeatureLeftClick(evt)
-
-        if (!this.isMultiSelectClick(evt)) {
-            this.setState({ popup: { feature, coordinates } })
-        }
+        this.setState({ popup: { feature, coordinates } })
     }
 
     onPopupClose = () => {
