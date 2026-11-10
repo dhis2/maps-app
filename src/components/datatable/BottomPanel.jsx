@@ -10,6 +10,7 @@ import { clearDataFilters } from '../../actions/dataFilters.js'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { hasActiveDataTableFilters } from '../../util/dataTable.js'
+import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
 import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
@@ -31,6 +32,9 @@ const BottomPanel = () => {
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
 
     const dispatch = useDispatch()
     const panelRef = useRef(null)
@@ -175,6 +179,9 @@ const BottomPanel = () => {
                 <RowCountControl
                     totalCount={totalCount}
                     filteredCount={filteredCount}
+                    keyAnalysisDigitGroupSeparator={
+                        keyAnalysisDigitGroupSeparator
+                    }
                 />
                 <span className={styles.divider} />
                 <ClearFiltersControl
