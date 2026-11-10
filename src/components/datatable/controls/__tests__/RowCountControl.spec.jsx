@@ -7,6 +7,14 @@ import {
 import RowCountControl from '../RowCountControl.jsx'
 
 describe('RowCountControl', () => {
+    test('shows nothing while the counts are unknown', () => {
+        const { container } = render(
+            <RowCountControl totalCount={null} filteredCount={null} />
+        )
+
+        expect(container).toBeEmptyDOMElement()
+    })
+
     test.each([
         [DIGIT_GROUP_SEPARATOR_SPACE, '1 166 rows'],
         [DIGIT_GROUP_SEPARATOR_COMMA, '1,166 rows'],

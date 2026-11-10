@@ -91,3 +91,72 @@ describe('Layer highlighted feature', () => {
         expect(rebuilt.highlight).toHaveBeenCalledWith('a')
     })
 })
+
+describe('Layer map hover', () => {
+    const hover = (instance, properties) =>
+        instance.onFeatureMouseEnter({ feature: { properties } })
+
+    test('highlights the hovered feature of this layer', () => {
+        const layer = createLayer()
+        layer.props.highlightFeature = jest.fn()
+        hover(layer, { id: 'a' })
+        expect(layer.props.highlightFeature).toHaveBeenCalledWith({
+            id: 'a',
+            layerId: 'layer1',
+            origin: 'map',
+        })
+    })
+
+    test('highlights nothing for a feature without an id', () => {
+        const layer = createLayer()
+        layer.props.highlightFeature = jest.fn()
+        hover(layer, {})
+        expect(layer.props.highlightFeature).not.toHaveBeenCalled()
+    })
+
+    test('ends the highlight when the mouse leaves the feature', () => {
+        const layer = createLayer()
+        layer.props.highlightFeature = jest.fn()
+        layer.onFeatureMouseLeave()
+        expect(layer.props.highlightFeature).toHaveBeenCalledWith(null)
+    })
+})
+
+describe('Layer table filters', () => {
+    const createFilteredLayer = () => {
+        const instance = createHighlightLayer()
+        instance.props = { ...instance.props, data: [], dataFilters: null }
+        instance.layer.setOpacity = jest.fn()
+        instance.updateLayer = jest.fn()
+        instance.setPeriod = jest.fn((callback) => callback())
+        return instance
+    }
+
+    const update = (instance, props) => {
+        const prevProps = instance.props
+        instance.props = { ...prevProps, ...props }
+        instance.componentDidUpdate(prevProps)
+    }
+
+    test('redraws the layer as a filter change when the table filters change', () => {
+        const layer = createFilteredLayer()
+        update(layer, { dataFilters: { name: 'Bo' } })
+        expect(layer.updateLayer).toHaveBeenCalledWith(true)
+    })
+
+    test('resets the period before redrawing an edited layer', () => {
+        const layer = createFilteredLayer()
+        update(layer, { editCounter: 1 })
+        expect(layer.setPeriod).toHaveBeenCalled()
+        expect(layer.updateLayer).toHaveBeenCalled()
+        expect(layer.setPeriod.mock.invocationCallOrder[0]).toBeLessThan(
+            layer.updateLayer.mock.invocationCallOrder[0]
+        )
+    })
+
+    test('does not redraw the layer when nothing it draws changes', () => {
+        const layer = createFilteredLayer()
+        update(layer, { opacity: 0.5 })
+        expect(layer.updateLayer).not.toHaveBeenCalled()
+    })
+})
