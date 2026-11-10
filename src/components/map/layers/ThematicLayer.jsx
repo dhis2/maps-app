@@ -198,7 +198,6 @@ class ThematicLayer extends Layer {
             this.syncOpacity(prevProps)
             this.syncVisibility(prevProps)
             this.syncFocusedFeature(prevProps)
-            this.syncHighlightColor(prevProps)
             return
         }
 
