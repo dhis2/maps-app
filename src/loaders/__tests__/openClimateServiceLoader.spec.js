@@ -49,7 +49,7 @@ describe('openClimateServiceLoader', () => {
         })
 
         expect(global.fetch).toHaveBeenCalledWith(
-            'http://ocs/stac/collections/chirps3_precipitation_monthly_normal_1991_2020'
+            'http://ocs/stac/chirps3_precipitation_monthly_normal_1991_2020/collection.json'
         )
         expect(result.name).toBe('Precipitation monthly normal')
         expect(result.render.selector).toEqual({ month: 2 })
@@ -76,7 +76,7 @@ describe('openClimateServiceLoader', () => {
             engine: { query: jest.fn().mockRejectedValue(new Error()) },
         })
         expect(global.fetch).toHaveBeenCalledWith(
-            'https://ocs-demo-nepal.dhis2.org/stac/collections/chirps3_precipitation_monthly_normal_1991_2020'
+            'https://ocs-demo-nepal.dhis2.org/stac/chirps3_precipitation_monthly_normal_1991_2020/collection.json'
         )
         expect(result.isLoaded).toBe(true)
         expect(result.alerts).toBeUndefined()

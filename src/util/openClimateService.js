@@ -55,7 +55,7 @@ const fetchJson = async (url) => {
 }
 
 export const fetchCollection = (url, datasetId) =>
-    fetchJson(`${url}/stac/collections/${encodeURIComponent(datasetId)}`)
+    fetchJson(`${url}/stac/${encodeURIComponent(datasetId)}/collection.json`)
 
 // Raster collections have a Zarr asset
 export const isRasterCollection = (collection) =>
@@ -70,7 +70,7 @@ const collectionsCache = {}
 // Published collections of an instance that can be shown on a map, fetched once per url
 export const fetchCollections = (url) => {
     if (!collectionsCache[url]) {
-        collectionsCache[url] = fetchJson(`${url}/stac`)
+        collectionsCache[url] = fetchJson(`${url}/stac/catalog.json`)
             .then((catalog) =>
                 Promise.all(
                     (catalog.links || [])
