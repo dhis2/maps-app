@@ -64,6 +64,14 @@ const filterSearchedValues = (column, search) => {
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
+const filterPickedValue = (column, label) => {
+    openColumnFilter(column)
+    cy.getByDataTest('data-table-filter-options-list')
+        .contains('label', label)
+        .click()
+    cy.getByDataTest('data-table-filter-apply').click()
+}
+
 describe('data table', () => {
     it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
@@ -222,7 +230,7 @@ describe('data table', () => {
 
         // Filter by Org unit
         const ouName = 'Moyowa'
-        filterSearchedValues('Org unit', ouName)
+        filterPickedValue('Org unit', ouName)
 
         // Check that all the rows have Org unit Moyowa
         checkTableCell({ row: 0, column: 2, expectedContent: ouName })
@@ -234,11 +242,7 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // Filter by Mode of Discharge
-        openColumnFilter('Mode of Discharge')
-        cy.getByDataTest('data-table-filter-options-list')
-            .contains('label', 'Absconded')
-            .click()
-        cy.getByDataTest('data-table-filter-apply').click()
+        filterPickedValue('Mode of Discharge', 'Absconded')
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
