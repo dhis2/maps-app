@@ -7,6 +7,8 @@ import {
     IconArrowDown16,
     IconInfo16,
     IconLocation16,
+    IconAdd16,
+    IconEdit16,
 } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Fragment, useRef } from 'react'
@@ -18,11 +20,13 @@ import {
     showEarthEngineValue,
 } from '../../actions/map.js'
 import { setOrgUnitProfile } from '../../actions/orgUnits.js'
+import { openOsmFeatureForm, startOsmDrawing } from '../../actions/osmEdit.js'
 import {
     FACILITY_LAYER,
     EARTH_ENGINE_LAYER,
     RENDERING_STRATEGY_SPLIT_BY_PERIOD,
 } from '../../constants/layers.js'
+import { isSplitViewMap } from '../../util/helpers.js'
 import { drillUpDown } from '../../util/map.js'
 import styles from './styles/ContextMenu.module.css'
 
@@ -35,6 +39,7 @@ const ContextMenu = (props) => {
         layerConfig,
         coordinates,
         earthEngineLayers,
+        isSplitView: isSplitViewLayout,
         position,
         offset,
         closeContextMenu,
@@ -42,6 +47,8 @@ const ContextMenu = (props) => {
         showEarthEngineValue,
         setOrgUnitProfile,
         updateLayer,
+        openOsmFeatureForm,
+        startOsmDrawing,
     } = props
 
     if (!position) {
@@ -88,6 +95,13 @@ const ContextMenu = (props) => {
                 break
             case 'show_ee_value':
                 showEarthEngineValue(id, coordinates)
+                break
+            // The category is picked in the form
+            case 'add_osm_feature':
+                openOsmFeatureForm(null, { type: 'Point', coordinates })
+                break
+            case 'draw_osm_line':
+                startOsmDrawing(null, coordinates)
                 break
 
             default:
@@ -147,6 +161,24 @@ const ContextMenu = (props) => {
                             />
                         )}
 
+                        {coordinates && !isSplitViewLayout && (
+                            <MenuItem
+                                dataTest="context-menu-add-osm-feature"
+                                label={i18n.t('Add OSM feature here')}
+                                icon={<IconAdd16 />}
+                                onClick={() => onClick('add_osm_feature')}
+                            />
+                        )}
+
+                        {coordinates && !isSplitViewLayout && (
+                            <MenuItem
+                                dataTest="context-menu-draw-osm-line"
+                                label={i18n.t('Draw OSM line from here')}
+                                icon={<IconEdit16 />}
+                                onClick={() => onClick('draw_osm_line')}
+                            />
+                        )}
+
                         {earthEngineLayers.map((layer) => (
                             <MenuItem
                                 dataTest="context-menu-show-ee-value"
@@ -170,12 +202,15 @@ const ContextMenu = (props) => {
 ContextMenu.propTypes = {
     closeContextMenu: PropTypes.func.isRequired,
     openCoordinatePopup: PropTypes.func.isRequired,
+    openOsmFeatureForm: PropTypes.func.isRequired,
     setOrgUnitProfile: PropTypes.func.isRequired,
     showEarthEngineValue: PropTypes.func.isRequired,
+    startOsmDrawing: PropTypes.func.isRequired,
     updateLayer: PropTypes.func.isRequired,
     coordinates: PropTypes.array,
     earthEngineLayers: PropTypes.array,
     feature: PropTypes.object,
+    isSplitView: PropTypes.bool,
     layerConfig: PropTypes.object,
     layerType: PropTypes.string,
     map: PropTypes.object,
@@ -189,6 +224,7 @@ export default connect(
         earthEngineLayers: map.mapViews.filter(
             (view) => view.layer === EARTH_ENGINE_LAYER
         ),
+        isSplitView: isSplitViewMap(map.mapViews),
     }),
     {
         closeContextMenu,
@@ -196,5 +232,7 @@ export default connect(
         showEarthEngineValue,
         setOrgUnitProfile,
         updateLayer,
+        openOsmFeatureForm,
+        startOsmDrawing,
     }
 )(ContextMenu)
