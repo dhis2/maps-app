@@ -51,6 +51,16 @@ const filterNumberColumn = (column, operator, value) => {
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
+// Picks every value whose label contains the search text
+const filterSearchedValues = (column, search) => {
+    openColumnFilter(column)
+    cy.getByDataTest('data-table-filter-options-search')
+        .find('input')
+        .type(search)
+    cy.getByDataTest('data-table-filter-options-toggle-all').click()
+    cy.getByDataTest('data-table-filter-apply').click()
+}
+
 describe('data table', () => {
     it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
@@ -102,9 +112,7 @@ describe('data table', () => {
             .should('have.length', 9)
 
         // Filter by Org unit
-        cy.getByDataTest('data-table-column-filter-search-Org unit')
-            .find('input')
-            .type('bar{enter}')
+        filterSearchedValues('Org unit', 'bar')
 
         // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -211,9 +219,7 @@ describe('data table', () => {
 
         // Filter by Org unit
         const ouName = 'Moyowa'
-        cy.getByDataTest('data-table-column-filter-search-Org unit')
-            .find('input')
-            .type(`${ouName}{enter}`)
+        filterSearchedValues('Org unit', ouName)
 
         // Check that all the rows have Org unit Moyowa
         checkTableCell({ row: 0, column: 2, expectedContent: ouName })
@@ -225,21 +231,19 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // Filter by Mode of Discharge
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .find('input')
-            .type('Absconded')
-        cy.contains('label', 'Absconded').click()
+        openColumnFilter('Mode of Discharge')
+        cy.getByDataTest('data-table-filter-options-list')
+            .contains('label', 'Absconded')
+            .click()
+        cy.getByDataTest('data-table-filter-apply').click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 1)
 
-        cy.get('.backdrop').last().click()
-
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .find('.clear-button')
-            .click()
+        openColumnFilter('Mode of Discharge')
+        cy.getByDataTest('data-table-filter-clear').click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
