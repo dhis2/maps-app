@@ -59,7 +59,7 @@ const uniqueEvents = (events) => [
 
 // Events of the org units and their descendants, as an inline GeoJSON url,
 // with their org unit names for the feature profile
-const getOsmDataUrl = async (engine, programId, orgUnitIds) => {
+export const getOsmDataUrl = async (engine, programId, orgUnitIds) => {
     const events = uniqueEvents(
         (
             await Promise.all(

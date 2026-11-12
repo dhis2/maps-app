@@ -290,6 +290,38 @@ describe('cleanMapConfig', () => {
         })
     })
 
+    test('saves OSM layers without their features, which reload from the events', () => {
+        const config = {
+            mapViews: [
+                {
+                    layer: 'geoJsonUrl',
+                    name: 'OSM Health facilities, Western Area',
+                    opacity: 1,
+                    config: {
+                        name: 'OSM Health facilities, Western Area',
+                        url: 'data:application/geo+json,%7B%7D',
+                        osmProgram: 'duL5mvaOFgU',
+                        osmOrgUnits: ['at6UHUQatSo'],
+                    },
+                    featureStyle: { color: '#1b9e77', pointSize: 6 },
+                    isVisible: true,
+                },
+            ],
+        }
+
+        const { mapViews } = cleanMapConfig({
+            config,
+            defaultBasemapId: 'thedefaultBasemap',
+        })
+
+        expect(JSON.parse(mapViews[0].config)).toEqual({
+            name: 'OSM Health facilities, Western Area',
+            osmProgram: 'duL5mvaOFgU',
+            osmOrgUnits: ['at6UHUQatSo'],
+            featureStyle: { color: '#1b9e77', pointSize: 6 },
+        })
+    })
+
     test('serializes legendDecimalPlaces into config JSON for thematic layer', () => {
         const config = {
             mapViews: [

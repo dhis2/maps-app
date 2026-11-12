@@ -1,5 +1,8 @@
 import i18n from '@dhis2/d2-i18n'
-import { getOsmLegendItems } from '../components/osmImport/osmLayer.js'
+import {
+    getOsmDataUrl,
+    getOsmLegendItems,
+} from '../components/osmImport/osmLayer.js'
 import { parseLayerConfig } from '../util/external.js'
 import {
     buildGeoJsonFeatures,
@@ -75,6 +78,15 @@ const geoJsonUrlLoader = async ({
     let loadError
 
     try {
+        // Saved OSM layers show the current events of their org units
+        if (newConfig.osmProgram && !newConfig.url) {
+            const { url } = await getOsmDataUrl(
+                engine,
+                newConfig.osmProgram,
+                newConfig.osmOrgUnits
+            )
+            newConfig.url = url
+        }
         geoJson = await fetchData(newConfig.url, engine, baseUrl)
     } catch (e) {
         loadError = i18n.t(
