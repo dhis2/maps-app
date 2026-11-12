@@ -18,6 +18,7 @@ import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
+    FILTER_DATE,
     FILTER_NUMBER,
     FILTER_OPTIONS,
     FILTER_TEXT,
@@ -49,6 +50,7 @@ const POPOVER_FILTER_TYPES = new Set([
     FILTER_TEXT,
     FILTER_NUMBER,
     FILTER_OPTIONS,
+    FILTER_DATE,
 ])
 
 const EMPTY_OPTIONS = []

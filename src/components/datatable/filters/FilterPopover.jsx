@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
+    FILTER_DATE,
     FILTER_NUMBER,
     FILTER_OPTIONS,
     FILTER_TEXT,
@@ -14,6 +15,7 @@ import {
     isSameFilter,
     isValidFilter,
 } from '../../../util/filter.js'
+import DateFilter from './DateFilter.jsx'
 import NumberFilter from './NumberFilter.jsx'
 import OptionsFilter from './OptionsFilter.jsx'
 import styles from './styles/Filters.module.css'
@@ -23,6 +25,7 @@ const EDITORS = {
     [FILTER_TEXT]: TextFilter,
     [FILTER_NUMBER]: NumberFilter,
     [FILTER_OPTIONS]: OptionsFilter,
+    [FILTER_DATE]: DateFilter,
 }
 
 const FilterPopover = ({

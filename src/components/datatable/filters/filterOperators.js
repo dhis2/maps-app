@@ -41,3 +41,8 @@ export const getNumberOperators = () => [
     { value: OPERATOR_BETWEEN, label: i18n.t('Between') },
     ...getEmptyOperators(),
 ]
+
+export const getDateOperators = () => [
+    { value: OPERATOR_BETWEEN, label: i18n.t('Date range') },
+    ...getEmptyOperators(),
+]

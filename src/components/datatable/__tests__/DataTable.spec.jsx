@@ -39,6 +39,12 @@ const HEADERS = [
         filterType: 'options',
     },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
+    {
+        name: 'Org unit hierarchy',
+        dataKey: 'orgUnitPath',
+        type: 'orgUnit',
+        filterType: 'orgUnit',
+    },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
@@ -97,7 +103,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text, number and options columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
+    test('text, number, options and date columns get a filter button, org unit columns the filter input, untyped columns neither', () => {
         renderTable()
         expect(
             screen.getByTestId('data-table-filter-button-orgUnitOwn')
@@ -113,9 +119,13 @@ describe('DataTable column headers', () => {
             screen.getByTestId('data-table-filter-button-legend')
         ).toBeInTheDocument()
         expect(screen.queryByTestId('filter-legend')).not.toBeInTheDocument()
-        expect(screen.getByTestId('filter-eventdate')).toBeInTheDocument()
         expect(
-            screen.queryByTestId('data-table-filter-button-eventdate')
+            screen.getByTestId('data-table-filter-button-eventdate')
+        ).toBeInTheDocument()
+        expect(screen.queryByTestId('filter-eventdate')).not.toBeInTheDocument()
+        expect(screen.getByTestId('filter-orgUnitPath')).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-orgUnitPath')
         ).not.toBeInTheDocument()
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
         expect(

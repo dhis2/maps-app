@@ -146,3 +146,39 @@ describe('FilterButton on a number column', () => {
         ).toBeInTheDocument()
     })
 })
+
+describe('FilterButton on a date column', () => {
+    test('applies a range of days', async () => {
+        const store = await renderButton(undefined, 'date')
+
+        typeInto('data-table-filter-date-from', '2024-01-01')
+        typeInto('data-table-filter-date-to', '2024-03-31')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()).toEqual([
+            {
+                type: DATA_FILTER_SET,
+                layerId: 'layer1',
+                fieldId: 'name',
+                filter: {
+                    type: 'date',
+                    operator: 'between',
+                    from: '2024-01-01',
+                    to: '2024-03-31',
+                },
+            },
+        ])
+    })
+
+    test('a range ending before it starts shows why it cannot be applied', async () => {
+        await renderButton(
+            { type: 'date', operator: 'between', from: '2024-05-01' },
+            'date'
+        )
+
+        typeInto('data-table-filter-date-to', '2024-04-01')
+
+        expect(applyButton()).toBeDisabled()
+        expect(screen.getByText('To must be after From')).toBeInTheDocument()
+    })
+})
