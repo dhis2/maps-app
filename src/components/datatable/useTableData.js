@@ -195,6 +195,16 @@ export const useTableData = ({
         [headers, deferredDataForOptions]
     )
 
+    const columnValueCounts = useMemo(
+        () =>
+            Object.fromEntries(
+                Object.entries(columnDistinctValues ?? {}).map(
+                    ([dataKey, { counts }]) => [dataKey, counts]
+                )
+            ),
+        [columnDistinctValues]
+    )
+
     // Cheap: just re-orders each column's already-known distinct-value list
     const columnOptions = useMemo(
         () =>
@@ -292,5 +302,6 @@ export const useTableData = ({
         filteredCount,
         orgUnitIdToName,
         columnOptions,
+        columnValueCounts,
     }
 }

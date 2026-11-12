@@ -32,6 +32,12 @@ const ACTIVE_FILL = 'var(--colors-teal600)'
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
     { name: 'Value', dataKey: 'rawValue', type: 'number' },
+    {
+        name: 'Legend',
+        dataKey: 'legend',
+        type: 'string',
+        filterType: 'options',
+    },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
@@ -74,6 +80,7 @@ beforeEach(() => {
         totalCount: 0,
         filteredCount: 0,
         columnOptions: {},
+        columnValueCounts: {},
         orgUnitIdToName: new Map(),
     })
 })
@@ -90,7 +97,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text and number columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
+    test('text, number and options columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
         renderTable()
         expect(
             screen.getByTestId('data-table-filter-button-orgUnitOwn')
@@ -102,6 +109,10 @@ describe('DataTable column headers', () => {
             screen.getByTestId('data-table-filter-button-rawValue')
         ).toBeInTheDocument()
         expect(screen.queryByTestId('filter-rawValue')).not.toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-button-legend')
+        ).toBeInTheDocument()
+        expect(screen.queryByTestId('filter-legend')).not.toBeInTheDocument()
         expect(screen.getByTestId('filter-eventdate')).toBeInTheDocument()
         expect(
             screen.queryByTestId('data-table-filter-button-eventdate')

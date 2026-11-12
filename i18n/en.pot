@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-10T21:09:29.510Z\n"
-"PO-Revision-Date: 2026-11-10T21:09:29.511Z\n"
+"POT-Creation-Date: 2026-11-12T08:20:09.287Z\n"
+"PO-Revision-Date: 2026-11-12T08:20:09.287Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -271,6 +271,28 @@ msgstr "Condition"
 
 msgid "and"
 msgstr "and"
+
+msgid "Search values"
+msgstr "Search values"
+
+msgid "{{count}} selected"
+msgid_plural "{{count}} selected"
+msgstr[0] "{{count}} selected"
+msgstr[1] "{{count}} selected"
+
+msgid "{{count}} values"
+msgid_plural "{{count}} values"
+msgstr[0] "{{count}} values"
+msgstr[1] "{{count}} values"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "No values match \"{{- search}}\""
+msgstr "No values match \"{{- search}}\""
 
 msgid "Type to filter"
 msgstr "Type to filter"
@@ -2073,11 +2095,6 @@ msgstr "Max must be greater than Min"
 
 msgid "To must be after From"
 msgstr "To must be after From"
-
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
 
 msgid "Thematic"
 msgstr "Thematic"

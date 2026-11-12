@@ -19,8 +19,10 @@ import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
     FILTER_NUMBER,
+    FILTER_OPTIONS,
     FILTER_TEXT,
     SORT_ASCENDING,
+    TYPE_NUMBER,
 } from '../../constants/dataTable.js'
 import {
     getFilterType,
@@ -30,6 +32,7 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
+import { formatCellText } from '../../util/tableCells.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnHeader from './ColumnHeader.jsx'
@@ -42,7 +45,37 @@ import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
 // Filter kinds with a popover; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
+const POPOVER_FILTER_TYPES = new Set([
+    FILTER_TEXT,
+    FILTER_NUMBER,
+    FILTER_OPTIONS,
+])
+
+const EMPTY_OPTIONS = []
+const EMPTY_COUNTS = new Map()
+
+// The column's values, labelled as its cells, for the options filter
+const getFilterColumn = (
+    { dataKey, type, renderer, optionSet },
+    {
+        columnOptions,
+        columnValueCounts,
+        orgUnitIdToName,
+        keyAnalysisDigitGroupSeparator,
+    }
+) => ({
+    options: columnOptions[dataKey] ?? EMPTY_OPTIONS,
+    counts: columnValueCounts[dataKey] ?? EMPTY_COUNTS,
+    optionSetId: optionSet?.id,
+    renderer,
+    formatValue: (value) =>
+        formatCellText(type === TYPE_NUMBER ? Number(value) : value, {
+            renderer,
+            type,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        }),
+})
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -124,6 +157,7 @@ const Table = ({
         totalCount,
         filteredCount,
         columnOptions,
+        columnValueCounts,
         orgUnitIdToName,
     } = useTableData({
         layer,
@@ -231,6 +265,12 @@ const Table = ({
                                         name={name}
                                         dataKey={dataKey}
                                         filterType={filterType}
+                                        column={getFilterColumn(header, {
+                                            columnOptions,
+                                            columnValueCounts,
+                                            orgUnitIdToName,
+                                            keyAnalysisDigitGroupSeparator,
+                                        })}
                                         filter={dataFilters?.[dataKey]}
                                     />
                                 )
@@ -269,8 +309,10 @@ const Table = ({
             visibleHeaders,
             columnWidths,
             columnOptions,
+            columnValueCounts,
             headerRowRef,
             orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
             layerId,
             dataFilters,
         ]

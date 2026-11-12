@@ -4,19 +4,25 @@ import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
-import { FILTER_NUMBER, FILTER_TEXT } from '../../../constants/dataTable.js'
+import {
+    FILTER_NUMBER,
+    FILTER_OPTIONS,
+    FILTER_TEXT,
+} from '../../../constants/dataTable.js'
 import {
     isEmptyFilter,
     isSameFilter,
     isValidFilter,
 } from '../../../util/filter.js'
 import NumberFilter from './NumberFilter.jsx'
+import OptionsFilter from './OptionsFilter.jsx'
 import styles from './styles/Filters.module.css'
 import TextFilter from './TextFilter.jsx'
 
 const EDITORS = {
     [FILTER_TEXT]: TextFilter,
     [FILTER_NUMBER]: NumberFilter,
+    [FILTER_OPTIONS]: OptionsFilter,
 }
 
 const FilterPopover = ({
@@ -25,6 +31,7 @@ const FilterPopover = ({
     name,
     dataKey,
     filterType,
+    column,
     filter,
     onClose,
 }) => {
@@ -83,7 +90,7 @@ const FilterPopover = ({
                     </button>
                 </div>
                 <div className={styles.popoverBody}>
-                    <Editor draft={draft} onChange={setDraft} />
+                    <Editor draft={draft} column={column} onChange={setDraft} />
                 </div>
                 <div className={styles.popoverFooter}>
                     <Button
@@ -117,6 +124,7 @@ FilterPopover.propTypes = {
     layerId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
+    column: PropTypes.object,
     filter: PropTypes.object,
 }
 

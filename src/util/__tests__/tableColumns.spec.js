@@ -232,16 +232,27 @@ describe('getColumnDistinctValues', () => {
         expect(getColumnDistinctValues(typedHeaders, [])).toBe(null)
     })
 
-    it('collects the distinct string value of each column across all rows', () => {
+    it('collects the distinct string value of each column across all rows, with its row count', () => {
         const data = [
             { name: 'A', rawValue: 1 },
             { name: 'B', rawValue: 2 },
             { name: 'A', rawValue: 1 },
         ]
         const result = getColumnDistinctValues(typedHeaders, data)
-        expect(result.name).toEqual({ values: ['A', 'B'], type: 'string' })
+        expect(result.name).toEqual({
+            values: ['A', 'B'],
+            counts: new Map([
+                ['A', 2],
+                ['B', 1],
+            ]),
+            type: 'string',
+        })
         expect(result.rawValue).toEqual({
             values: ['1', '2'],
+            counts: new Map([
+                ['1', 2],
+                ['2', 1],
+            ]),
             type: TYPE_NUMBER,
         })
     })
