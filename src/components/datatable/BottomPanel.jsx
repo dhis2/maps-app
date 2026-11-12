@@ -9,10 +9,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { clearDataFilters } from '../../actions/dataFilters.js'
 import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
-import { hasActiveDataTableFilters } from '../../util/dataTable.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
-import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
 import CollapseControl from './controls/CollapseControl.jsx'
 import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
@@ -24,14 +22,12 @@ import styles from './styles/BottomPanel.module.css'
 import { usePanelHeights } from './usePanelHeights.js'
 
 const MIN_HEIGHT = 50
-const EMPTY_FILTERS = {}
 
 const BottomPanel = () => {
     const activeLayerId = useSelector((state) => state.dataTable)
     const activeLayer = useSelector((state) =>
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
-    const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
     const {
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
@@ -45,8 +41,6 @@ const BottomPanel = () => {
     const [filteredCount, setFilteredCount] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [headersByLayer, setHeadersByLayer] = useState(null)
-
-    const hasActiveFilters = hasActiveDataTableFilters({ dataFilters })
 
     const { maxHeight, collapsedHeight, displayHeight } =
         usePanelHeights(isCollapsed)
@@ -182,11 +176,6 @@ const BottomPanel = () => {
                     keyAnalysisDigitGroupSeparator={
                         keyAnalysisDigitGroupSeparator
                     }
-                />
-                <span className={styles.divider} />
-                <ClearFiltersControl
-                    disabled={!hasActiveFilters}
-                    onClick={onClearFilters}
                 />
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />

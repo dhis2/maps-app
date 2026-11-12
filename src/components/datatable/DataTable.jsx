@@ -17,14 +17,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import {
-    FILTER_DATE,
-    FILTER_NUMBER,
-    FILTER_OPTIONS,
-    FILTER_TEXT,
-    SORT_ASCENDING,
-    TYPE_NUMBER,
-} from '../../constants/dataTable.js'
+import { SORT_ASCENDING, TYPE_NUMBER } from '../../constants/dataTable.js'
 import {
     getFilterType,
     getNextSorting,
@@ -37,21 +30,13 @@ import { formatCellText } from '../../util/tableCells.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnHeader from './ColumnHeader.jsx'
+import ActiveFiltersBar from './filters/ActiveFiltersBar.jsx'
 import FilterButton from './filters/FilterButton.jsx'
-import FilterInput from './FilterInput.jsx'
 import RowCells from './RowCells.jsx'
 import styles from './styles/DataTable.module.css'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
-
-// Filter kinds with a popover; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([
-    FILTER_TEXT,
-    FILTER_NUMBER,
-    FILTER_OPTIONS,
-    FILTER_DATE,
-])
 
 const EMPTY_OPTIONS = []
 const EMPTY_COUNTS = new Map()
@@ -239,16 +224,27 @@ const Table = ({
         []
     )
 
+    const getColumn = useCallback(
+        (header) =>
+            getFilterColumn(header, {
+                columnOptions,
+                columnValueCounts,
+                orgUnitIdToName,
+                keyAnalysisDigitGroupSeparator,
+            }),
+        [
+            columnOptions,
+            columnValueCounts,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        ]
+    )
+
     const fixedHeaderContent = useCallback(
         () => (
             <DataTableRow ref={headerRowRef}>
                 {visibleHeaders.map((header, index) => {
-                    const { name, dataKey, type, optionSet, renderer } = header
-                    const canFilter = isFilterable(dataKey, type)
-                    const filterType = getFilterType(header)
-                    const hasPopover =
-                        canFilter && POPOVER_FILTER_TYPES.has(filterType)
-                    const hasFilterInput = canFilter && !hasPopover
+                    const { name, dataKey, type } = header
 
                     return (
                         <ColumnHeader
@@ -261,36 +257,14 @@ const Table = ({
                             }
                             onSort={sortData}
                             filterButton={
-                                hasPopover && (
+                                isFilterable(dataKey, type) && (
                                     <FilterButton
                                         layerId={layerId}
                                         name={name}
                                         dataKey={dataKey}
-                                        filterType={filterType}
-                                        column={getFilterColumn(header, {
-                                            columnOptions,
-                                            columnValueCounts,
-                                            orgUnitIdToName,
-                                            keyAnalysisDigitGroupSeparator,
-                                        })}
+                                        filterType={getFilterType(header)}
+                                        column={getColumn(header)}
                                         filter={dataFilters?.[dataKey]}
-                                    />
-                                )
-                            }
-                            onFilterIconClick={
-                                hasFilterInput && Function.prototype
-                            }
-                            showFilter={hasFilterInput}
-                            filter={
-                                hasFilterInput && (
-                                    <FilterInput
-                                        type={type}
-                                        dataKey={dataKey}
-                                        name={name}
-                                        options={columnOptions[dataKey]}
-                                        optionSetId={optionSet?.id}
-                                        renderer={renderer}
-                                        orgUnitIdToName={orgUnitIdToName}
                                     />
                                 )
                             }
@@ -310,11 +284,8 @@ const Table = ({
             sortDirection,
             visibleHeaders,
             columnWidths,
-            columnOptions,
-            columnValueCounts,
+            getColumn,
             headerRowRef,
-            orgUnitIdToName,
-            keyAnalysisDigitGroupSeparator,
             layerId,
             dataFilters,
         ]
@@ -361,16 +332,26 @@ const Table = ({
 
     return (
         <>
-            <TableVirtuoso
-                context={tableContext}
-                components={TableComponents}
-                style={TABLE_STYLE}
-                data={rows}
-                computeItemKey={computeItemKey}
-                increaseViewportBy={VIEWPORT_OVERSCAN}
-                fixedHeaderContent={fixedHeaderContent}
-                itemContent={itemContent}
-            />
+            <div className={styles.tableLayout}>
+                <ActiveFiltersBar
+                    layerId={layerId}
+                    filters={dataFilters}
+                    headers={headers}
+                    getColumn={getColumn}
+                />
+                <div className={styles.tableBody}>
+                    <TableVirtuoso
+                        context={tableContext}
+                        components={TableComponents}
+                        style={TABLE_STYLE}
+                        data={rows}
+                        computeItemKey={computeItemKey}
+                        increaseViewportBy={VIEWPORT_OVERSCAN}
+                        fixedHeaderContent={fixedHeaderContent}
+                        itemContent={itemContent}
+                    />
+                </div>
+            </div>
             {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
                 <ComponentCover translucent>
                     <CenteredContent>

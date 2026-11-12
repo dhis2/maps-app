@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-12T08:23:12.463Z\n"
-"PO-Revision-Date: 2026-11-12T08:23:12.463Z\n"
+"POT-Creation-Date: 2026-11-12T11:45:51.471Z\n"
+"PO-Revision-Date: 2026-11-12T11:45:51.471Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -164,54 +164,6 @@ msgstr "Edit layer"
 msgid "Something went wrong"
 msgstr "Something went wrong"
 
-msgid "greater than 5"
-msgstr "greater than 5"
-
-msgid "greater than or equal to 5"
-msgstr "greater than or equal to 5"
-
-msgid "less than (or equal to) 5"
-msgstr "less than (or equal to) 5"
-
-msgid "equal to 2 OR greater than 8"
-msgstr "equal to 2 OR greater than 8"
-
-msgid "greater than 3 AND less than 8"
-msgstr "greater than 3 AND less than 8"
-
-msgid "Select values, or type text"
-msgstr "Select values, or type text"
-
-msgid "to match rows that contain it"
-msgstr "to match rows that contain it"
-
-msgid "Use filter"
-msgstr "Use filter"
-
-msgid "Contains"
-msgstr "Contains"
-
-msgid "Search or type > 5, < 8…"
-msgstr "Search or type > 5, < 8…"
-
-msgid "Search"
-msgstr "Search"
-
-msgid "Reverse selection"
-msgstr "Reverse selection"
-
-msgid "Any value"
-msgstr "Any value"
-
-msgid "Too many values to list - type to filter this column"
-msgstr "Too many values to list - type to filter this column"
-
-msgid "No matches"
-msgstr "No matches"
-
-msgid "No value"
-msgstr "No value"
-
 msgid "Event details aren't available while this layer is clustered on the server"
 msgstr "Event details aren't available while this layer is clustered on the server"
 
@@ -239,8 +191,14 @@ msgstr "Collapse"
 msgid "Configure columns"
 msgstr "Configure columns"
 
+msgid "Search"
+msgstr "Search"
+
 msgid "Select all columns"
 msgstr "Select all columns"
+
+msgid "Reverse selection"
+msgstr "Reverse selection"
 
 msgid "Reset to defaults"
 msgstr "Reset to defaults"
@@ -254,6 +212,9 @@ msgstr "{{filtered}} of {{total}} rows"
 msgid "{{total}} rows"
 msgstr "{{total}} rows"
 
+msgid "Clear all"
+msgstr "Clear all"
+
 msgid "Condition"
 msgstr "Condition"
 
@@ -266,6 +227,9 @@ msgstr "To"
 msgid "Filter by {{column}}"
 msgstr "Filter by {{column}}"
 
+msgid "Filtering by org unit is not available yet"
+msgstr "Filtering by org unit is not available yet"
+
 msgid "Filter by"
 msgstr "Filter by"
 
@@ -277,6 +241,9 @@ msgstr "Apply"
 
 msgid "and"
 msgstr "and"
+
+msgid "No value"
+msgstr "No value"
 
 msgid "Search values"
 msgstr "Search values"
@@ -309,6 +276,9 @@ msgstr "Is empty"
 msgid "Is not empty"
 msgstr "Is not empty"
 
+msgid "Contains"
+msgstr "Contains"
+
 msgid "Equal to"
 msgstr "Equal to"
 
@@ -332,6 +302,26 @@ msgstr "Between"
 
 msgid "Date range"
 msgstr "Date range"
+
+msgid "{{first}}, {{second}} +{{count}}"
+msgid_plural "{{first}}, {{second}} +{{count}}"
+msgstr[0] "{{first}}, {{second}} +{{count}}"
+msgstr[1] "{{first}}, {{second}} +{{count}}"
+
+msgid "from {{date}}"
+msgstr "from {{date}}"
+
+msgid "until {{date}}"
+msgstr "until {{date}}"
+
+msgid "is empty"
+msgstr "is empty"
+
+msgid "is not empty"
+msgstr "is not empty"
+
+msgid "contains \"{{- value}}\""
+msgstr "contains \"{{- value}}\""
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."

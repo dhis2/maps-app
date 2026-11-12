@@ -15,15 +15,6 @@ jest.mock('../useColumnWidths.js', () => ({
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
     useCachedData: () => ({ systemSettings: {} }),
 }))
-jest.mock('../FilterInput.jsx', () => {
-    const PropTypes = require('prop-types')
-    const FilterInputMock = ({ dataKey }) => (
-        <span data-test={`filter-${dataKey}`} />
-    )
-    FilterInputMock.displayName = 'FilterInputMock'
-    FilterInputMock.propTypes = { dataKey: PropTypes.string }
-    return FilterInputMock
-})
 
 const mockStore = configureMockStore()
 
@@ -103,34 +94,21 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text, number, options and date columns get a filter button, org unit columns the filter input, untyped columns neither', () => {
+    test('typed columns get a filter button, turned off for org unit columns; untyped columns get none', () => {
         renderTable()
-        expect(
-            screen.getByTestId('data-table-filter-button-orgUnitOwn')
-        ).toBeInTheDocument()
-        expect(
-            screen.queryByTestId('filter-orgUnitOwn')
-        ).not.toBeInTheDocument()
-        expect(
-            screen.getByTestId('data-table-filter-button-rawValue')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-rawValue')).not.toBeInTheDocument()
-        expect(
-            screen.getByTestId('data-table-filter-button-legend')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-legend')).not.toBeInTheDocument()
-        expect(
-            screen.getByTestId('data-table-filter-button-eventdate')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-eventdate')).not.toBeInTheDocument()
-        expect(screen.getByTestId('filter-orgUnitPath')).toBeInTheDocument()
-        expect(
-            screen.queryByTestId('data-table-filter-button-orgUnitPath')
-        ).not.toBeInTheDocument()
-        expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
-        expect(
-            screen.queryByTestId('data-table-filter-button-untyped')
-        ).not.toBeInTheDocument()
+        const filterButton = (dataKey) =>
+            screen.queryByTestId(`data-table-filter-button-${dataKey}`)
+
+        for (const dataKey of [
+            'orgUnitOwn',
+            'rawValue',
+            'legend',
+            'eventdate',
+        ]) {
+            expect(filterButton(dataKey)).toBeEnabled()
+        }
+        expect(filterButton('orgUnitPath')).toBeDisabled()
+        expect(filterButton('untyped')).not.toBeInTheDocument()
     })
 
     test('highlight the arrow of the sort direction on the sorted column only', () => {

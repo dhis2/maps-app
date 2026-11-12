@@ -126,3 +126,14 @@ td.hovered {
 .editLayerLink:hover {
     color: var(--colors-blue700);
 }
+
+.tableLayout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tableBody {
+    flex: 1;
+    min-height: 0;
+}
