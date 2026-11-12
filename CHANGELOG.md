@@ -1,3 +1,24 @@
+# [101.18.0](https://github.com/dhis2/maps-app/compare/v101.17.7...v101.18.0) (2026-11-09)
+
+
+### Features
+
+* faster and more reliable tracked entity layers [DHIS2-16362] ([#3835](https://github.com/dhis2/maps-app/issues/3835)) ([61748d4](https://github.com/dhis2/maps-app/commit/61748d452f6d0f57724a1aeaecf18631655bfc25))
+
+## [101.17.7](https://github.com/dhis2/maps-app/compare/v101.17.6...v101.17.7) (2026-10-27)
+
+
+### Bug Fixes
+
+* support more scripts in map labels [DHIS2-21946] ([#3766](https://github.com/dhis2/maps-app/issues/3766)) ([0c32509](https://github.com/dhis2/maps-app/commit/0c325097e2d1767b1f380214c020015b07203ccd))
+
+## [101.17.6](https://github.com/dhis2/maps-app/compare/v101.17.5...v101.17.6) (2026-10-23)
+
+
+### Bug Fixes
+
+* upgrade calendar date handling ([6d9dc4a](https://github.com/dhis2/maps-app/commit/6d9dc4a89341ed0bcd753116d19692964358f917))
+
 ## [101.17.5](https://github.com/dhis2/maps-app/compare/v101.17.4...v101.17.5) (2026-09-30)
 
 
