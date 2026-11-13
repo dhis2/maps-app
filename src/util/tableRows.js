@@ -79,12 +79,9 @@ export const buildTableData = (
             const currentPeriodItem = isTimelineThematic
                 ? valuesByPeriod?.[externalPeriod?.id]?.[orgUnitId]
                 : null
-            const otherPeriodValues = {}
+            const periodValues = {}
             ;(periods ?? []).forEach((period) => {
-                if (isTimelineThematic && period.id === externalPeriod?.id) {
-                    return
-                }
-                otherPeriodValues[`period_${period.id}_rawValue`] =
+                periodValues[`period_${period.id}_rawValue`] =
                     valuesByPeriod?.[period.id]?.[orgUnitId]?.value ?? null
             })
 
@@ -96,7 +93,7 @@ export const buildTableData = (
                     legend: currentPeriodItem.legend,
                     range: currentPeriodItem.range,
                 }),
-                ...otherPeriodValues,
+                ...periodValues,
                 ...aggregations[d.id],
                 index,
             }
