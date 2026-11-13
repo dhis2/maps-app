@@ -186,7 +186,77 @@ const layerMenu = () => {
     return cy.getByDataTest('more-menu', EXTENDED_TIMEOUT)
 }
 
+const DRILL = 'OFjbKmUcffK'
+
+const showLayersPanel = () =>
+    cy.get('body').then(($b) => {
+        if (!$b.find('[data-test="sortable-layers-list"]:visible').length) {
+            cy.getByDataTest('layers-toggle-button').click()
+            cy.wait(800)
+        }
+    })
+
+// The elements of the app's document matching the selectors, for a crop
+const appElements = (...selectors) =>
+    cy
+        .document()
+        .then((doc) => selectors.map((selector) => doc.querySelector(selector)))
+
+const drillDown = () => {
+    mapMenu()
+    cy.getByDataTest('context-menu-drill-down').click()
+    cy.wait(6000)
+}
+
+// Moves the top layer one place down with the keyboard, as dnd-kit allows
+const moveTopLayerDown = () => {
+    cy.getByDataTest('sortable-handle').first().focus().type(' ')
+    cy.wait(400)
+    cy.focused().type('{downarrow}')
+    cy.wait(400)
+    cy.focused().type(' ')
+    cy.wait(3000)
+}
+
+const layerCards = () => cy.getByDataTest('sortable-layers-list')
+
+const drillShots = (prefix) => {
+    openMap(DRILL)
+    showLayersPanel()
+    drillDown()
+    moveTopLayerDown()
+    // Collapsed cards fit both layers in the shot
+    cy.getByDataTest('sortable-handle').each(($handle) =>
+        cy.wrap($handle).next().click()
+    )
+    cy.wait(800)
+    mark(layerCards())
+    shoot(`${prefix}-order`, {
+        context: appElements('canvas', '[data-test="layers-panel"]'),
+        margin: { x: 0, y: 0 },
+    })
+    openMap(DRILL)
+    showLayersPanel()
+    drillDown()
+    layerMenu()
+    cy.contains('[data-test="more-menu"] li', 'Show data table').click()
+    panel()
+        .findByDataTest('dhis2-uicore-datatablerow', EXTENDED_TIMEOUT)
+        .eq(2)
+        .as('row')
+    cy.wait(2500)
+    cy.get('@row').trigger('mouseover').trigger('mouseenter')
+    cy.wait(1000)
+    mark(cy.get('@row'))
+    shoot(`${prefix}-hover`, {
+        context: appElements('canvas', '[data-test="bottom-panel"]'),
+        margin: { x: 0, y: 0 },
+    })
+}
+
 const shots = {
+    3832: () => drillShots('3838-before'),
+    3838: () => drillShots('3838-after'),
     3817: () => {
         openTable()
         cy.getByDataTest('data-table-selection-filter-button').click()
