@@ -209,6 +209,9 @@ ContextMenu.propTypes = {
 export default connect(
     ({ contextMenu, map }) => ({
         ...contextMenu,
+        layerConfig: map.mapViews.find(
+            (view) => view.id === contextMenu?.layerId
+        ),
         earthEngineLayers: map.mapViews.filter(
             (view) => view.layer === EARTH_ENGINE_LAYER
         ),
