@@ -293,7 +293,11 @@ const columnShots = (prefix) => {
     // November 2025, then December 2025, the last month with data
     cy.get('.dhis2-map-timeline rect').eq(1).click({ force: true })
     cy.wait(2500)
-    mark(headerCells().filter(':contains("December 2025")'))
+    mark(
+        headerCells().filter(
+            ':contains("December 2025"), :contains("current period")'
+        )
+    )
     mark(cy.get('.dhis2-map-timeline'))
     shoot(`${prefix}-timeline`, {
         context: appElements(
