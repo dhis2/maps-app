@@ -73,17 +73,31 @@ describe('getHeadersForLayer - thematic', () => {
             { id: 'p1', name: 'Jan' },
             { id: 'p2', name: 'Feb' },
         ]
-        const externalPeriod = { id: 'p1', name: 'Jan' }
         const result = getHeadersForLayer(THEMATIC_LAYER, {
             isMultiPeriodThematic: true,
             isTimelineThematic: true,
             periods,
-            externalPeriod,
         })
         expect(dataKeys(result)).toContain('period_p1_rawValue')
         expect(dataKeys(result)).toContain('period_p2_rawValue')
-        const valueHeader = result.headers.find((h) => h.dataKey === 'rawValue')
-        expect(valueHeader.name).toContain('Jan')
+    })
+
+    test('multi-period timeline: the columns that follow the timeline are named "current period", apart from the fixed period columns', () => {
+        const result = getHeadersForLayer(THEMATIC_LAYER, {
+            isMultiPeriodThematic: true,
+            isTimelineThematic: true,
+            periods: [{ id: 'p1', name: 'Jan' }],
+        })
+        const names = result.headers.map((h) => h.name)
+        expect(names).toEqual(
+            expect.arrayContaining([
+                'Value (current period)',
+                'Legend (current period)',
+                'Range (current period)',
+                'Color (current period)',
+                'Value (Jan)',
+            ])
+        )
     })
 })
 

@@ -370,10 +370,10 @@ describe('useTableData headers', () => {
             { name: 'Org unit', dataKey: 'orgUnitOwn' },
             { name: 'Org unit level', dataKey: 'level' },
             { name: 'Org unit hierarchy', dataKey: 'orgUnitPath' },
-            { name: 'Value (February 2023)', dataKey: 'rawValue' },
-            { name: 'Legend (February 2023)', dataKey: 'legend' },
-            { name: 'Range (February 2023)', dataKey: 'range' },
-            { name: 'Color (February 2023)', dataKey: 'color' },
+            { name: 'Value (current period)', dataKey: 'rawValue' },
+            { name: 'Legend (current period)', dataKey: 'legend' },
+            { name: 'Range (current period)', dataKey: 'range' },
+            { name: 'Color (current period)', dataKey: 'color' },
             { name: 'Geometry type', dataKey: 'type' },
         ])
         expect(rows[0]).toEqual(
