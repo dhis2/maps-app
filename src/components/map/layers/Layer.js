@@ -24,8 +24,10 @@ class Layer extends PureComponent {
         highlightFeature: PropTypes.func,
         index: PropTypes.number,
         isVisible: PropTypes.bool,
+        layer: PropTypes.string,
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
+        renderingStrategy: PropTypes.string,
     }
 
     static defaultProps = {
@@ -226,8 +228,7 @@ class Layer extends PureComponent {
 
     onFeatureRightClick(evt) {
         const [x, y] = evt.position
-        const layerConfig = { ...this.props }
-        const { id: layerId, layer: layerType, renderingStrategy } = layerConfig
+        const { id: layerId, layer: layerType, renderingStrategy } = this.props
         const { map } = this.context
         const container = map.getContainer()
         const { left, top } = container.getBoundingClientRect()
@@ -238,7 +239,6 @@ class Layer extends PureComponent {
             ...evt,
             position: [x, y],
             offset: [left, top],
-            layerConfig,
             layerId,
             layerType,
             isSplitView,
