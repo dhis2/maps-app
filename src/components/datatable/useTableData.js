@@ -149,7 +149,6 @@ export const useTableData = ({
             {
                 isMultiPeriodThematic,
                 isTimelineThematic,
-                externalPeriod,
                 periods,
                 layerHeaders,
                 styleDataItem,
@@ -184,7 +183,6 @@ export const useTableData = ({
         layerHeaders,
         isMultiPeriodThematic,
         isTimelineThematic,
-        externalPeriodDependency,
         periodsDependency,
     ])
 
