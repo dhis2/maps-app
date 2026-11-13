@@ -194,19 +194,15 @@ const getThematicHeaders = () =>
         )
         .concat(defaultFieldsMap()[TYPE])
 
-const getMultiPeriodThematicHeaders = ({
-    isTimelineThematic,
-    externalPeriod,
-    periods,
-}) => {
+const getMultiPeriodThematicHeaders = ({ isTimelineThematic, periods }) => {
     const headers = isTimelineThematic
         ? getThematicHeaders().map((header) =>
               [VALUE, LEGEND, RANGE, COLOR].includes(header.dataKey)
                   ? {
                         ...header,
-                        name: `${header.name} (${
-                            externalPeriod?.name ?? i18n.t('Current period')
-                        })`,
+                        name: i18n.t('{{column}} (current period)', {
+                            column: header.name,
+                        }),
                     }
                   : header
           )
@@ -345,7 +341,6 @@ export const getHeadersForLayer = (layerType, ctx) => {
                 headers: ctx.isMultiPeriodThematic
                     ? getMultiPeriodThematicHeaders({
                           isTimelineThematic: ctx.isTimelineThematic,
-                          externalPeriod: ctx.externalPeriod,
                           periods: ctx.periods,
                       })
                     : getThematicHeaders(),
