@@ -11,15 +11,15 @@
 # Edem Kossi <ekossi@hispwca.org>, 2025
 # Viktor Varland <viktor@dhis2.org>, 2025
 # Esther Tokouli, 2026
-# Cyrille Kabrane, 2026
 # Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2026
+# Cyrille Kabrane, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Yao Selom SAKA (HISP WCA) <ysaka@hispwca.org>, 2026\n"
+"Last-Translator: Cyrille Kabrane, 2026\n"
 "Language-Team: French (https://app.transifex.com/hisp-uio/teams/100509/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -257,6 +257,12 @@ msgstr "Télécharger la carte"
 
 msgid "Show map name"
 msgstr "Afficher le nom de la carte"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "Afficher la description de la carte"
@@ -643,6 +649,17 @@ msgstr "Aucun type de relation trouvé pour le type d'entité suivie {{type}}"
 
 msgid "Relationship type"
 msgstr "Type de relation"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr "Aucune donnée n'est disponible pour cette fonctionnalité."
@@ -1042,8 +1059,8 @@ msgstr "Profil de l'unité d'organisation"
 msgid "Selected only"
 msgstr "Unité sélectionnée uniquement"
 
-msgid "Selected and below"
-msgstr "Unité sélectionnée et ses subordonnées directes"
+msgid "Immediate children"
+msgstr "Subordonnées directs"
 
 msgid "Selected and all below"
 msgstr "Unité sélectionnée et toutes les unités subordonnées"
@@ -1186,6 +1203,12 @@ msgstr "Écart-type"
 
 msgid "OSM Light"
 msgstr "OSM Clair"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Detailed"
@@ -1946,6 +1969,23 @@ msgstr "Couche thématique "
 
 msgid "related"
 msgstr "associé"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entité suivie"

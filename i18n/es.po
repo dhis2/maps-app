@@ -1,6 +1,5 @@
 # Translators:
 # ericbp <ericbarredap@gmail.com>, 2020
-# Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2020
 # Alison Andrade <aandrade@ippfwhr.org>, 2021
 # Juan M Alcantara Acosta <jmalcantara1@gmail.com>, 2021
 # Carlos Tejo Alonso, 2022
@@ -14,13 +13,14 @@
 # Viktor Varland <viktor@dhis2.org>, 2025
 # Janeth Cruz, 2026
 # Philip Larsen Donnelly, 2026
+# Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Philip Larsen Donnelly, 2026\n"
+"Last-Translator: Sergio Valenzuela <sergio.valenzuela@ehas.org>, 2026\n"
 "Language-Team: Spanish (https://app.transifex.com/hisp-uio/teams/100509/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -255,6 +255,12 @@ msgstr "Descargar mapa"
 
 msgid "Show map name"
 msgstr "Mostrar nombre del mapa"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "Mostrar descripción del mapa"
@@ -640,6 +646,17 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "Tipo de relación"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr "No hay datos que mostrar para esta entidad geográfica."
@@ -1037,8 +1054,8 @@ msgstr "Perfil de la unidad organizativa"
 msgid "Selected only"
 msgstr "Sólo seleccionados"
 
-msgid "Selected and below"
-msgstr "Elemento seleccionado y elemento siguiente"
+msgid "Immediate children"
+msgstr "Únicamente el nivel inmediatamente inferior"
 
 msgid "Selected and all below"
 msgstr "Elemento seleccionado y elemento siguiente"
@@ -1173,6 +1190,12 @@ msgstr "Desviación estándar"
 
 msgid "OSM Light"
 msgstr "OSM Sencillo"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Detallado"
@@ -1899,6 +1922,23 @@ msgstr "Capa temática"
 
 msgid "related"
 msgstr "relacionado"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entidad registrada"

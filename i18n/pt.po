@@ -5,17 +5,17 @@
 # Sheila André <sandre@saudigitus.org>, 2025
 # David Júnior <davidjr.mondlane@gmail.com>, 2025
 # Helton Dias, 2025
-# Viktor Varland <viktor@dhis2.org>, 2025
 # Shelsea Chumaio, 2026
 # Gabriela Rodriguez <grodriguezcoronado@gmail.com>, 2026
 # Ge Joao <gsimango@saudigitus.org>, 2026
+# Viktor Varland <viktor@dhis2.org>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ge Joao <gsimango@saudigitus.org>, 2026\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2026\n"
 "Language-Team: Portuguese (https://app.transifex.com/hisp-uio/teams/100509/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -250,6 +250,12 @@ msgstr "Transferir mapas "
 
 msgid "Show map name"
 msgstr "Mostrar o nome do mapa"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "Mostrar descrição do mapa"
@@ -631,6 +637,17 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "Tipo de Relação"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr "Não há dados a apresentar para esta caraterística."
@@ -1028,8 +1045,8 @@ msgstr "Perfil da unidade organizacional"
 msgid "Selected only"
 msgstr "Apenas selecionados"
 
-msgid "Selected and below"
-msgstr "Selecionado e abaixo"
+msgid "Immediate children"
+msgstr "Crianças imediatas"
 
 msgid "Selected and all below"
 msgstr "Selecionado e tudo abaixo"
@@ -1158,6 +1175,12 @@ msgstr "Desvio padrão"
 
 msgid "OSM Light"
 msgstr "OSM Ligth"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Detalhado"
@@ -1884,6 +1907,23 @@ msgstr "Camada temática"
 
 msgid "related"
 msgstr "Relacionado "
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Entidade Rastreada"
