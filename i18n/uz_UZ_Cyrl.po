@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Khurshid Ibatov <x.ibatov@dtsj.uz>, 2026\n"
 "Language-Team: Uzbek (Cyrillic) (https://app.transifex.com/hisp-uio/teams/100509/uz@Cyrl/)\n"
@@ -237,6 +237,12 @@ msgstr "Харитани юклаш"
 
 msgid "Show map name"
 msgstr "Харита номини кўрсатиш"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "Харита тафсилотларини кўрсатиш"
@@ -613,6 +619,17 @@ msgstr "Кузатувдаги объектлар ўзаро алоқалар т
 
 msgid "Relationship type"
 msgstr "Ўзаро алоқалар тури"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -998,8 +1015,8 @@ msgstr "Ташкилий бирлик профили"
 msgid "Selected only"
 msgstr "Фақатгина танланган"
 
-msgid "Selected and below"
-msgstr "Танланган ва қуйида"
+msgid "Immediate children"
+msgstr "Бевосита болалар"
 
 msgid "Selected and all below"
 msgstr "Танланган ва барчаси қуйида"
@@ -1128,6 +1145,12 @@ msgstr "Стюденс"
 
 msgid "OSM Light"
 msgstr "OSM манба"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Батафсил"
@@ -1848,6 +1871,23 @@ msgstr "Тематик қават"
 
 msgid "related"
 msgstr "боғлиқлик"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Кузатув объекти"

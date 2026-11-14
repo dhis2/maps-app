@@ -10,7 +10,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Viktor Varland <viktor@dhis2.org>, 2026\n"
 "Language-Team: Lao (https://app.transifex.com/hisp-uio/teams/100509/lo/)\n"
@@ -240,6 +240,12 @@ msgstr "ດາວໂຫຼດແຜນທີ່"
 
 msgid "Show map name"
 msgstr "ສະແດງຊື່ແຜນທີ່"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "ສະແດງລາຍລະອຽດແຜນທີ່"
@@ -601,6 +607,17 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "ປະເພດຂອງສາຍພົວພັນ"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -978,8 +995,8 @@ msgstr "ຂໍ້ມູນສ່ວນຕົວຂອງຫົວໜ່ວຍກ
 msgid "Selected only"
 msgstr "ເລືອກສະເພາະ"
 
-msgid "Selected and below"
-msgstr "ເລືອກ ແລະ ດ້ານລຸ່ມ"
+msgid "Immediate children"
+msgstr "ໂຄງຮ່າງການຈັດຕັ້ງຍ່ອຍຂັ້ນ 1"
 
 msgid "Selected and all below"
 msgstr "ເລືອກ ແລະຕ່ຳກ່ວາທັງໝົດ"
@@ -1108,6 +1125,12 @@ msgstr "Std dev"
 
 msgid "OSM Light"
 msgstr "ແຜນທີ່ແບບ OSM"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM ລາຍລະອຽດ"
@@ -1817,6 +1840,23 @@ msgid "Thematic layer"
 msgstr "ໂຕສະແດງຂໍ້ມູນ"
 
 msgid "related"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
 msgstr ""
 
 msgid "Tracked entity"
