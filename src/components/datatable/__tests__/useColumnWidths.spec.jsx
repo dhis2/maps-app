@@ -30,15 +30,18 @@ const flushRaf = () => {
     }
 }
 
-// A stable reference: the hook re-measures whenever `headers` changes
-// identity, so passing a literal from the test body would spuriously
-// reset the measurement on every rerender
 const HEADERS = [{ dataKey: 'a' }, { dataKey: 'b' }]
 
-const Harness = ({ availableWidth, error, widths, onColumnWidths }) => {
+const Harness = ({
+    availableWidth,
+    error,
+    widths,
+    onColumnWidths,
+    headers = HEADERS,
+}) => {
     const { headerRowRef, columnWidths } = useColumnWidths({
         availableWidth,
-        headers: HEADERS,
+        headers,
         error,
     })
     onColumnWidths(columnWidths)
@@ -60,6 +63,7 @@ Harness.propTypes = {
     onColumnWidths: PropTypes.func.isRequired,
     availableWidth: PropTypes.number,
     error: PropTypes.bool,
+    headers: PropTypes.array,
 }
 
 describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
@@ -108,5 +112,64 @@ describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
             )
         })
         expect(latestWidths).toEqual([100, 150])
+    })
+})
+
+describe('useColumnWidths - re-measuring', () => {
+    const renderWithHeaders = (headers) => {
+        const calls = []
+        const props = {
+            availableWidth: 500,
+            widths: [120, 150],
+            onColumnWidths: (w) => calls.push(w),
+        }
+        const view = render(<Harness {...props} headers={headers} />)
+        act(() => {
+            flushRaf()
+        })
+        const rerenderWith = (nextHeaders) => {
+            calls.length = 0
+            act(() => {
+                view.rerender(<Harness {...props} headers={nextHeaders} />)
+            })
+            return calls
+        }
+        return rerenderWith
+    }
+
+    it('keeps the widths when the same columns come in a new list, as on each timeline period', () => {
+        const rerenderWith = renderWithHeaders([
+            { dataKey: 'a', name: 'A' },
+            { dataKey: 'b', name: 'B' },
+        ])
+
+        const calls = rerenderWith([
+            { dataKey: 'a', name: 'A' },
+            { dataKey: 'b', name: 'B' },
+        ])
+
+        expect(calls).not.toContainEqual([])
+    })
+
+    it('re-measures when a column is added or renamed', () => {
+        const rerenderWith = renderWithHeaders([
+            { dataKey: 'a', name: 'A' },
+            { dataKey: 'b', name: 'B' },
+        ])
+
+        expect(
+            rerenderWith([
+                { dataKey: 'a', name: 'A' },
+                { dataKey: 'b', name: 'B' },
+                { dataKey: 'c', name: 'C' },
+            ])
+        ).toContainEqual([])
+        expect(
+            rerenderWith([
+                { dataKey: 'a', name: 'A2' },
+                { dataKey: 'b', name: 'B' },
+                { dataKey: 'c', name: 'C' },
+            ])
+        ).toContainEqual([])
     })
 })
