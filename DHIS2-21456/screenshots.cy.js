@@ -318,6 +318,33 @@ const rowCountShot = (name) => {
     shoot(name, { context: toolbar() })
 }
 
+const EE_POPULATION = 'H41xCjRPqFG'
+
+const eeMaskShot = (name) => {
+    openTable(EE_POPULATION)
+    // Earth Engine fills the band columns some seconds after the rows
+    panel()
+        .find('[data-test="dhis2-uicore-tablebody"] tr td:nth-child(5)', {
+            timeout: 120000,
+        })
+        .first()
+        .should(($td) => expect($td.text().trim()).not.to.equal(''))
+    cy.wait(2000)
+    panel()
+        .find('input[placeholder="Search or type > 5, < 8…"]')
+        // "Sum Population Age Groups Worldpop Global2", after "Org unit level"
+        .eq(1)
+        .as('filter')
+        .type('> 50000{enter}')
+        .blur()
+    cy.wait(5000)
+    mark(cy.get('@filter'))
+    shoot(name, {
+        context: appElements('canvas', '[data-test="bottom-panel"]'),
+        margin: { x: 0, y: 0 },
+    })
+}
+
 const shots = {
     3832: () => drillShots('3838-before'),
     3838: () => {
@@ -333,6 +360,8 @@ const shots = {
         rowCountShot('3842-before')
     },
     3842: () => rowCountShot('3842-after'),
+    3844: () => eeMaskShot('3845-before'),
+    3845: () => eeMaskShot('3845-after'),
     3817: () => {
         openTable()
         cy.getByDataTest('data-table-selection-filter-button').click()
