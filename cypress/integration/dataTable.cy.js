@@ -244,6 +244,11 @@ describe('data table', () => {
             .find('.clear-button')
             .click()
 
+        // Leave the field as a mouse would, so its help tooltip closes
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
+            .closest('[data-test="data-table-filter-help-reference"]')
+            .trigger('mouseout')
+
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
