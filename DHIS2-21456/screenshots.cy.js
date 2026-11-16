@@ -308,6 +308,16 @@ const columnShots = (prefix) => {
     })
 }
 
+const GENDER_EVENTS = 'VHXAvJDCcvq'
+
+const rowCountShot = (name) => {
+    openTable(GENDER_EVENTS)
+    // The org unit names of 19k rows take a few more seconds
+    cy.wait(8000)
+    mark(panel().contains('rows'))
+    shoot(name, { context: toolbar() })
+}
+
 const shots = {
     3832: () => drillShots('3838-before'),
     3838: () => {
@@ -318,7 +328,11 @@ const shots = {
         emptyLayerShot('3839-after')
         columnShots('3840-before')
     },
-    3840: () => columnShots('3840-after'),
+    3840: () => {
+        columnShots('3840-after')
+        rowCountShot('3842-before')
+    },
+    3842: () => rowCountShot('3842-after'),
     3817: () => {
         openTable()
         cy.getByDataTest('data-table-selection-filter-button').click()
