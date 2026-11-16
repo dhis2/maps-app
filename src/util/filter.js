@@ -171,8 +171,11 @@ const normalizeFilter = (filter) => {
                     ? String(filter.value2)
                     : undefined,
             }
-        case FILTER_OPTIONS:
-            return { type: filter.type, values: [...filter.values].sort() }
+        case FILTER_OPTIONS: {
+            const values = [...filter.values]
+            values.sort((a, b) => a.localeCompare(b))
+            return { type: filter.type, values }
+        }
         case FILTER_DATE:
             return {
                 type: filter.type,

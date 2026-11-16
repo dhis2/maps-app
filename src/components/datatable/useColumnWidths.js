@@ -32,13 +32,18 @@ export const useColumnWidths = ({ availableWidth, headers, error }) => {
         }
     }, [columnWidths])
 
+    // The table rebuilds its headers on every data change, timeline periods included
+    const columnsKey = (headers ?? [])
+        .map(({ dataKey, name }) => `${dataKey}:${name}`)
+        .join('|')
+
     useEffect(() => {
-        // Reset to auto layout for re-measurement when headers change
+        // Reset to auto layout for re-measurement when the columns change
         if (!error) {
             minColumnWidthsRef.current = []
             setColumnWidths([])
         }
-    }, [headers, error])
+    }, [columnsKey, error])
 
     useEffect(() => {
         // Scale column widths proportionally on resize, clamped to initial measured widths
