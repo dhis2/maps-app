@@ -32,7 +32,7 @@ const flushRaf = () => {
 
 const HEADERS = [{ dataKey: 'a' }, { dataKey: 'b' }]
 
-const Harness = ({
+const MeasuredTable = ({
     availableWidth,
     error,
     widths,
@@ -58,7 +58,7 @@ const Harness = ({
     )
 }
 
-Harness.propTypes = {
+MeasuredTable.propTypes = {
     widths: PropTypes.arrayOf(PropTypes.number).isRequired,
     onColumnWidths: PropTypes.func.isRequired,
     availableWidth: PropTypes.number,
@@ -70,7 +70,7 @@ describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
     it('floors a narrower-than-minimum measured column up to the minimum, leaving wider columns untouched', () => {
         let latestWidths
         render(
-            <Harness
+            <MeasuredTable
                 availableWidth={500}
                 widths={[20, 150]}
                 onColumnWidths={(w) => {
@@ -87,7 +87,7 @@ describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
     it('the floored width stays the resize-clamp floor on a later shrink, instead of scaling down further', () => {
         let latestWidths
         const { rerender } = render(
-            <Harness
+            <MeasuredTable
                 availableWidth={500}
                 widths={[20, 150]}
                 onColumnWidths={(w) => {
@@ -102,7 +102,7 @@ describe('useColumnWidths - MIN_COLUMN_WIDTH floor', () => {
 
         act(() => {
             rerender(
-                <Harness
+                <MeasuredTable
                     availableWidth={100}
                     widths={[20, 150]}
                     onColumnWidths={(w) => {
@@ -123,14 +123,16 @@ describe('useColumnWidths - re-measuring', () => {
             widths: [120, 150],
             onColumnWidths: (w) => calls.push(w),
         }
-        const view = render(<Harness {...props} headers={headers} />)
+        const view = render(<MeasuredTable {...props} headers={headers} />)
         act(() => {
             flushRaf()
         })
         const rerenderWith = (nextHeaders) => {
             calls.length = 0
             act(() => {
-                view.rerender(<Harness {...props} headers={nextHeaders} />)
+                view.rerender(
+                    <MeasuredTable {...props} headers={nextHeaders} />
+                )
             })
             return calls
         }
