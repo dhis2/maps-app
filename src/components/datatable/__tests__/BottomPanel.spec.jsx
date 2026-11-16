@@ -1,4 +1,4 @@
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -29,13 +29,16 @@ beforeAll(() => {
 
 const DATA_TABLE_HEIGHT = 300
 
-const renderBottomPanel = () => {
+const renderBottomPanel = ({
+    dataTable = 'layer1',
+    mapViews = [{ id: 'layer1', name: 'Layer 1' }],
+} = {}) => {
     const store = mockStore({
         ui: {
             dataTableHeight: DATA_TABLE_HEIGHT,
         },
-        dataTable: 'layer1',
-        map: { mapViews: [{ id: 'layer1', name: 'Layer 1' }] },
+        dataTable,
+        map: { mapViews },
     })
     const { container } = render(
         <Provider store={store}>
@@ -77,5 +80,20 @@ describe('BottomPanel resize cancel', () => {
 
         fireEvent.pointerCancel(handle, { pointerId: 1, clientY: 0 })
         expect(getDisplayHeight()).toBe(`${DATA_TABLE_HEIGHT}px`)
+    })
+})
+
+describe('BottomPanel toolbar', () => {
+    test('shows the name of the layer whose table is open', () => {
+        renderBottomPanel({
+            dataTable: 'layer2',
+            mapViews: [
+                { id: 'layer1', name: 'Layer 1' },
+                { id: 'layer2', name: 'Layer 2' },
+            ],
+        })
+
+        expect(screen.getByText('Layer 2')).toBeInTheDocument()
+        expect(screen.queryByText('Layer 1')).not.toBeInTheDocument()
     })
 })
