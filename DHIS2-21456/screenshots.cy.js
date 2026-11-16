@@ -345,6 +345,151 @@ const eeMaskShot = (name) => {
     })
 }
 
+const FACILITY_TYPE = 'iB2d92gcSFv'
+const APGAR_EVENTS = 'yvM3atGSniL'
+
+// The search field under the column name, before the filter popovers
+const oldSearch = (name) =>
+    panel().find(`[data-test="data-table-column-filter-search-${name}"] input`)
+
+const popover = () => cy.getByDataTest('data-table-filter-popover')
+
+const openFilter = (dataKey) => {
+    panel().find(`[data-test="data-table-filter-button-${dataKey}"]`).click()
+    popover().should('be.visible')
+    cy.wait(500)
+}
+
+const chooseCondition = (dataTest, label) => {
+    cy.getByDataTest(dataTest)
+        .find('[data-test="dhis2-uicore-select-input"]')
+        .click()
+    cy.contains('[data-test="dhis2-uicore-singleselectoption"]', label).click()
+    cy.wait(300)
+}
+
+const applyFilter = () => {
+    cy.getByDataTest('data-table-filter-apply').click()
+    cy.wait(2500)
+}
+
+const tableAndMap = () => appElements('canvas', '[data-test="bottom-panel"]')
+
+const popoverShot = (name) => {
+    mark(popover())
+    shoot(name, {
+        context: appElements(
+            '[data-test="bottom-panel"]',
+            '[data-test="data-table-filter-popover"]'
+        ),
+        margin: { x: 0, y: 0 },
+    })
+}
+
+const oldSearchShot = (mapId, column, text, name) => {
+    openTable(mapId)
+    oldSearch(column).click()
+    if (text) {
+        // The field re-renders when its dropdown opens
+        oldSearch(column).type(`${text}{enter}`, { force: true })
+    }
+    oldSearch(column).as('search')
+    cy.wait(2500)
+    mark(cy.get('@search'))
+    shoot(name, { context: tableAndMap(), margin: { x: 0, y: 0 } })
+    cy.get('body').type('{esc}')
+}
+
+const textShots = (prefix) => {
+    openTable()
+    openFilter('id')
+    cy.getByDataTest('data-table-filter-text-input')
+        .find('input')
+        .type('O6uvpzGd5pu')
+    popoverShot(`${prefix}-popover`)
+    applyFilter()
+    mark(panel().find('[data-test="data-table-filter-button-id"]'))
+    shoot(`${prefix}-result`, {
+        context: tableAndMap(),
+        margin: { x: 0, y: 0 },
+    })
+}
+
+const setNumberBetween = (dataKey, min, max) => {
+    openFilter(dataKey)
+    chooseCondition('data-table-filter-number-operator', 'Between')
+    cy.getByDataTest('data-table-filter-number-value').find('input').type(min)
+    cy.getByDataTest('data-table-filter-number-value2').find('input').type(max)
+}
+
+const numberShots = (prefix) => {
+    openTable()
+    setNumberBetween('rawValue', '2000', '4000')
+    popoverShot(`${prefix}-popover`)
+    applyFilter()
+    mark(panel().find('[data-test="data-table-filter-button-rawValue"]'))
+    shoot(`${prefix}-result`, {
+        context: tableAndMap(),
+        margin: { x: 0, y: 0 },
+    })
+}
+
+const optionsShots = (prefix) => {
+    openTable(FACILITY_TYPE)
+    openFilter('group')
+    popoverShot(`${prefix}-popover`)
+    popover().contains('CHP').click()
+    applyFilter()
+    mark(panel().find('[data-test="data-table-filter-button-group"]'))
+    shoot(`${prefix}-result`, {
+        context: tableAndMap(),
+        margin: { x: 0, y: 0 },
+    })
+}
+
+const dateShots = (prefix) => {
+    openTable(APGAR_EVENTS)
+    openFilter('eventdate')
+    cy.getByDataTest('data-table-filter-date-from')
+        .find('input')
+        .type('2025-01-01')
+    cy.getByDataTest('data-table-filter-date-to')
+        .find('input')
+        .type('2025-03-31')
+    popoverShot(`${prefix}-popover`)
+    applyFilter()
+    mark(panel().find('[data-test="data-table-filter-button-eventdate"]'))
+    shoot(`${prefix}-result`, {
+        context: tableAndMap(),
+        margin: { x: 0, y: 0 },
+    })
+}
+
+// Two filters: Value between 2000 and 4000, and three org units by name
+const twoFilters = () => {
+    openTable()
+    setNumberBetween('rawValue', '2000', '4000')
+    applyFilter()
+    openFilter('orgUnitOwn')
+    ;['Bombali', 'Kambia', 'Kenema'].forEach((name) =>
+        popover().contains(name).click()
+    )
+    applyFilter()
+}
+
+const barShot = (name) => {
+    twoFilters()
+    // Opening the filters scrolls the table sideways
+    panel().find('[data-virtuoso-scroller]').scrollTo('left')
+    cy.wait(500)
+    mark(
+        cy.get(
+            '[data-test="data-table-filters-bar"], [data-test="bottom-panel"] button[aria-label="Clear filters"]'
+        )
+    )
+    shoot(name, { context: tableAndMap(), margin: { x: 0, y: 0 } })
+}
+
 const shots = {
     3832: () => drillShots('3838-before'),
     3838: () => {
@@ -362,6 +507,23 @@ const shots = {
     3842: () => rowCountShot('3842-after'),
     3844: () => eeMaskShot('3845-before'),
     3845: () => eeMaskShot('3845-after'),
+    3846: () =>
+        oldSearchShot(THEMATIC, 'Org unit ID', 'O6uvpzGd5pu', '3847-before'),
+    3847: () => {
+        textShots('3847-after')
+        oldSearchShot(THEMATIC, 'Value', '>= 2000 & <= 4000', '3848-before')
+    },
+    3848: () => numberShots('3848-after'),
+    3849: () => oldSearchShot(FACILITY_TYPE, 'Group', null, '3850-before'),
+    3850: () => {
+        optionsShots('3850-after')
+        oldSearchShot(APGAR_EVENTS, 'Event date', null, '3851-before')
+    },
+    3851: () => {
+        dateShots('3851-after')
+        barShot('3852-before')
+    },
+    3852: () => barShot('3852-after'),
     3817: () => {
         openTable()
         cy.getByDataTest('data-table-selection-filter-button').click()
