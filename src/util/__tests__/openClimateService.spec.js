@@ -30,7 +30,7 @@ const collection = {
         default: {
             rescale: [[-30, 30]],
             colormap_name: 'rdbu_r',
-            'open_climate_service:variable': 't2m',
+            'ogs:variable': 't2m',
         },
     },
     assets: {

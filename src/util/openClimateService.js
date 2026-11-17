@@ -308,7 +308,7 @@ export const getRenderOptions = (collection) => {
     const render = collection.renders?.default || {}
     const zarr = collection.assets.zarr
     const variable =
-        render['open_climate_service:variable'] ||
+        render['ogs:variable'] ||
         Object.keys(collection['cube:variables'] || {})[0]
     const [min, max] = render.rescale?.[0] || [0, 100]
     let crs = collection['proj:code'] || 'EPSG:4326'

@@ -16,7 +16,7 @@ const collection = {
         default: {
             rescale: [[0, 20]],
             colormap_name: 'blues',
-            'open_climate_service:variable': 'precip',
+            'ogs:variable': 'precip',
             nodata: -9999,
         },
     },
