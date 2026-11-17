@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -110,6 +110,17 @@ describe('DataTable column headers', () => {
         expect(
             screen.queryByTestId('data-table-filter-button-untyped')
         ).not.toBeInTheDocument()
+    })
+
+    test('put the filter button between the column name and the sort button', () => {
+        renderTable()
+        const header = sortButton('Org unit').closest('th')
+        const buttons = within(header).getAllByRole('button')
+
+        expect(buttons.map((b) => b.getAttribute('data-test'))).toEqual([
+            'data-table-filter-button-orgUnitOwn',
+            'data-table-column-sort-button-Org unit',
+        ])
     })
 
     test('highlight the arrow of the sort direction on the sorted column only', () => {
