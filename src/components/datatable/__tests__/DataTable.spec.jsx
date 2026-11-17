@@ -27,7 +27,7 @@ jest.mock('../FilterInput.jsx', () => {
 
 const mockStore = configureMockStore()
 
-const ACTIVE_FILL = 'var(--colors-teal600)'
+const ACTIVE_FILL = 'var(--colors-blue700)'
 
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },

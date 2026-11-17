@@ -33,14 +33,23 @@ td.hovered {
     justify-content: space-between;
 }
 
+/* The name takes the free width, so the buttons sit at the right of the column */
+.columnHeader :global(span.content) {
+    flex: 1;
+    min-width: 0;
+}
+
 .headerContent {
     display: flex;
     align-items: flex-start;
+    width: 100%;
     min-width: 0;
     gap: 2px;
 }
 
 .headerTitle {
+    flex: 1;
+    min-width: 0;
     padding-top: var(--spacers-dp4);
 }
 
