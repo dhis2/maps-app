@@ -20,6 +20,7 @@ const ColumnHeader = ({
         <DataTableColumnHeader name={dataKey} {...columnHeaderProps}>
             <span className={styles.headerContent}>
                 <span className={styles.headerTitle}>{name}</span>
+                {filterButton}
                 <TopTooltip content={sortLabel}>
                     <button
                         type="button"
@@ -31,7 +32,6 @@ const ColumnHeader = ({
                         <SortIcon direction={sortDirection} />
                     </button>
                 </TopTooltip>
-                {filterButton}
             </span>
         </DataTableColumnHeader>
     )
