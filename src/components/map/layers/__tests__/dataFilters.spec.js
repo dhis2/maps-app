@@ -1,4 +1,5 @@
 import { getValuesByPeriod } from '../../../../loaders/thematicLoader.js'
+import { addLegendProperties } from '../../../../util/styleByDataItem.js'
 import EarthEngineLayer from '../earthEngine/EarthEngineLayer.jsx'
 import EventLayer from '../EventLayer.jsx'
 import FacilityLayer from '../FacilityLayer.jsx'
@@ -117,6 +118,26 @@ describe('table filters on the map layers', () => {
         const periodData = instance.buildPeriodData()
 
         expect(periodData.map((feature) => feature.id)).toEqual(['kono'])
+    })
+
+    test('a styled event layer filters the Legend column, as the table does', () => {
+        const legend = { items: [{ name: 'Low' }, { name: 'High' }] }
+        const data = addLegendProperties(
+            [
+                { ...point('bo', 'Bo', 10), properties: { colorGroup: 1 } },
+                { ...point('kono', 'Kono', 2), properties: { colorGroup: 0 } },
+            ],
+            legend,
+            {}
+        )
+        const { instance, configs } = createComponent(EventLayer, {
+            data,
+            dataFilters: { legend: 'high' },
+        })
+
+        instance.createLayer()
+
+        expect(drawnIds(configs)).toEqual(['bo'])
     })
 
     test('an Earth Engine layer masks the areas the filters leave out, without a rebuild', async () => {

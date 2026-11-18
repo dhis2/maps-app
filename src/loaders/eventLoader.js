@@ -39,7 +39,10 @@ import {
     getUserOrgUnitIdsByKeyword,
 } from '../util/orgUnits.js'
 import { OPTION_SET_QUERY } from '../util/requests.js'
-import { styleByDataItem } from '../util/styleByDataItem.js'
+import {
+    addLegendProperties,
+    styleByDataItem,
+} from '../util/styleByDataItem.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
 import { isValidUid } from '../util/uid.js'
 
@@ -352,6 +355,10 @@ const loadEventLayer = async ({
 
         if (styleDataItem) {
             await styleByDataItem(config, engine)
+            config.data = addLegendProperties(config.data, config.legend, {
+                keyAnalysisDigitGroupSeparator,
+                legendDecimalPlaces: config.legendDecimalPlaces,
+            })
         }
 
         // Result alert

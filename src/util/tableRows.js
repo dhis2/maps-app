@@ -1,5 +1,4 @@
 import { GEOJSON_URL_LAYER } from '../constants/layers.js'
-import { formatRangeWithSeparator } from './numbers.js'
 
 export const ERROR_NO_VALID_DATA = 'NO_VALID_DATA'
 
@@ -10,15 +9,11 @@ export const buildTableData = (
         dataWithoutCoords,
         serverCluster,
         aggregations,
-        isStyledEvent,
         isMultiPeriodThematic,
         isTimelineThematic,
-        legend,
         valuesByPeriod,
         externalPeriod,
         periods,
-        keyAnalysisDigitGroupSeparator,
-        legendDecimalPlaces,
     }
 ) => {
     if (serverCluster) {
@@ -47,24 +42,6 @@ export const buildTableData = (
         .filter((d) => !d.properties.hasAdditionalGeometry)
         .map((d, index) => {
             const properties = d.properties || d
-
-            if (isStyledEvent) {
-                const legendItem = legend?.items?.[properties.colorGroup]
-                return {
-                    ...properties,
-                    legend: legendItem?.name,
-                    range:
-                        legendItem && 'startValue' in legendItem
-                            ? formatRangeWithSeparator(
-                                  legendItem,
-                                  keyAnalysisDigitGroupSeparator,
-                                  { precision: legendDecimalPlaces }
-                              )
-                            : undefined,
-                    ...aggregations[d.id],
-                    index,
-                }
-            }
 
             if (!isMultiPeriodThematic) {
                 return {
