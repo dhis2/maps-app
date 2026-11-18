@@ -88,7 +88,7 @@ export const buildTableData = (
             return {
                 ...properties,
                 ...(currentPeriodItem && {
-                    rawValue: currentPeriodItem.value,
+                    rawValue: currentPeriodItem.rawValue,
                     color: currentPeriodItem.color,
                     legend: currentPeriodItem.legend,
                     range: currentPeriodItem.range,

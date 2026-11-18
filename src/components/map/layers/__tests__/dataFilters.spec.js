@@ -1,3 +1,4 @@
+import { getValuesByPeriod } from '../../../../loaders/thematicLoader.js'
 import EarthEngineLayer from '../earthEngine/EarthEngineLayer.jsx'
 import EventLayer from '../EventLayer.jsx'
 import FacilityLayer from '../FacilityLayer.jsx'
@@ -89,6 +90,28 @@ describe('table filters on the map layers', () => {
             noDataLegend: {},
             unclassifiedLegend: {},
             dataFilters: { value: '>5' },
+        })
+
+        const periodData = instance.buildPeriodData()
+
+        expect(periodData.map((feature) => feature.id)).toEqual(['kono'])
+    })
+
+    test('a timeline thematic layer filters the Value column on the current period, as the table does', () => {
+        const valuesByPeriod = getValuesByPeriod({
+            headers: [{ name: 'pe' }, { name: 'ou' }, { name: 'value' }],
+            rows: [
+                ['2024', 'bo', '1'],
+                ['2024', 'kono', '8'],
+            ],
+        })
+        const { instance } = createComponent(ThematicLayer, {
+            renderingStrategy: 'TIMELINE',
+            externalPeriod: { id: '2024' },
+            valuesByPeriod,
+            noDataLegend: {},
+            unclassifiedLegend: {},
+            dataFilters: { rawValue: '>5' },
         })
 
         const periodData = instance.buildPeriodData()

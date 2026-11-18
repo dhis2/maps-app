@@ -613,9 +613,9 @@ export const getValuesByPeriod = (data) => {
     return rows.reduce((obj, row) => {
         const period = row[periodIndex]
         const periodObj = (obj[period] = obj[period] || {})
-        periodObj[row[ouIndex]] = {
-            value: Number.parseFloat(row[valueIndex]),
-        }
+        const value = Number.parseFloat(row[valueIndex])
+        // rawValue is what the table's Value column and its filter read, on the map too
+        periodObj[row[ouIndex]] = { value, rawValue: value }
         return obj
     }, {})
 }

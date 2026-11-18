@@ -102,7 +102,15 @@ describe('buildTableData - multi-period thematic layer', () => {
         { id: 'p2', name: 'Feb' },
     ]
     const valuesByPeriod = {
-        p1: { a: { value: 1, color: '#f00', legend: 'Low', range: '0-1' } },
+        p1: {
+            a: {
+                value: 1,
+                rawValue: 1,
+                color: '#f00',
+                legend: 'Low',
+                range: '0-1',
+            },
+        },
         p2: { a: { value: 2 } },
     }
 
