@@ -3,7 +3,7 @@ import {
     numberValueTypes,
     booleanValueTypes,
 } from '../../constants/valueTypes.js'
-import { styleByDataItem } from '../styleByDataItem.js'
+import { addLegendProperties, styleByDataItem } from '../styleByDataItem.js'
 
 jest.mock('@dhis2/d2-i18n', () => ({
     t: jest.fn((str) => str),
@@ -651,5 +651,51 @@ describe('styleByDataItem', () => {
                 }),
             ])
         )
+    })
+})
+
+describe('addLegendProperties', () => {
+    const feature = (colorGroup) => ({
+        id: 'a',
+        properties: { id: 'a', colorGroup },
+    })
+
+    test('adds the legend name and a formatted range from the matching legend item', () => {
+        const legend = { items: [{ name: 'Low', startValue: 0, endValue: 10 }] }
+
+        const [{ properties }] = addLegendProperties([feature(0)], legend, {
+            keyAnalysisDigitGroupSeparator: 'SPACE',
+        })
+
+        expect(properties).toMatchObject({ legend: 'Low', range: '0 – 10' })
+    })
+
+    test('formats the range with the layer’s legendDecimalPlaces', () => {
+        const legend = {
+            items: [{ name: 'High', startValue: 50.256, endValue: 100.789 }],
+        }
+
+        const [{ properties }] = addLegendProperties([feature(0)], legend, {
+            legendDecimalPlaces: 1,
+        })
+
+        expect(properties.range).toBe('50.3 – 100.8')
+    })
+
+    test('leaves the range out when the legend item has no start and end value', () => {
+        const legend = { items: [{ name: 'Uncategorized' }] }
+
+        const [{ properties }] = addLegendProperties([feature(0)], legend, {})
+
+        expect(properties.legend).toBe('Uncategorized')
+        expect(properties.range).toBeUndefined()
+    })
+
+    test('leaves features without a legend item unchanged', () => {
+        const unstyled = feature(undefined)
+
+        expect(addLegendProperties([unstyled], { items: [] }, {})).toEqual([
+            unstyled,
+        ])
     })
 })
