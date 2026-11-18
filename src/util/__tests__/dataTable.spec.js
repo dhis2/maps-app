@@ -1,11 +1,12 @@
 import {
     FILTER_DATE,
     FILTER_NUMBER,
-    FILTER_OPTIONS,
     FILTER_TEXT,
+    FILTER_TIME,
     TYPE_DATE,
     TYPE_DATETIME,
     TYPE_NUMBER,
+    TYPE_ORG_UNIT,
     TYPE_STRING,
     TYPE_TIME,
 } from '../../constants/dataTable.js'
@@ -224,19 +225,14 @@ describe('getPanelHeights', () => {
 })
 
 describe('getFilterType', () => {
-    test('keeps the filter kind the column sets', () => {
-        expect(
-            getFilterType({ type: TYPE_NUMBER, filterType: FILTER_OPTIONS })
-        ).toBe(FILTER_OPTIONS)
-    })
-
     test.each([
         [TYPE_NUMBER, FILTER_NUMBER],
         [TYPE_DATE, FILTER_DATE],
         [TYPE_DATETIME, FILTER_DATE],
-        [TYPE_TIME, FILTER_TEXT],
+        [TYPE_TIME, FILTER_TIME],
         [TYPE_STRING, FILTER_TEXT],
-    ])('gives a %s column a %s filter', (type, filterType) => {
+        [TYPE_ORG_UNIT, FILTER_TEXT],
+    ])('gives a %s column a %s condition', (type, filterType) => {
         expect(getFilterType({ type })).toBe(filterType)
     })
 })
