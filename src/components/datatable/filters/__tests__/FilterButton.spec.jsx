@@ -10,7 +10,7 @@ import FilterButton from '../FilterButton.jsx'
 
 const mockStore = configureMockStore()
 
-const renderButton = async (filter) => {
+const renderButton = async (filter, filterType = 'text') => {
     const store = mockStore({})
     render(
         <Provider store={store}>
@@ -18,7 +18,7 @@ const renderButton = async (filter) => {
                 layerId="layer1"
                 name="Event ID"
                 dataKey="id"
-                filterType="text"
+                filterType={filterType}
                 filter={filter}
             />
         </Provider>
@@ -28,11 +28,12 @@ const renderButton = async (filter) => {
     return store
 }
 
-const typeText = (text) =>
-    fireEvent.change(
-        screen.getByTestId('data-table-filter-value').querySelector('input'),
-        { target: { value: text } }
-    )
+const typeInto = (dataTest, text) =>
+    fireEvent.change(screen.getByTestId(dataTest).querySelector('input'), {
+        target: { value: text },
+    })
+
+const typeText = (text) => typeInto('data-table-filter-value', text)
 
 const applyButton = () => screen.getByTestId('data-table-filter-apply')
 
@@ -100,5 +101,52 @@ describe('FilterButton', () => {
         expect(store.getActions()).toEqual([
             { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'id' },
         ])
+    })
+})
+
+describe('FilterButton on a number column', () => {
+    const range = (value, value2) => ({
+        type: 'number',
+        operator: 'between',
+        value,
+        value2,
+        excluded: [''],
+    })
+
+    test('applies the two typed numbers as a "Between" condition', async () => {
+        const store = await renderButton(undefined, 'number')
+
+        typeInto('data-table-filter-value', '1')
+        typeInto('data-table-filter-value2', '5')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()).toEqual([
+            {
+                type: DATA_FILTER_SET,
+                layerId: 'layer1',
+                fieldId: 'id',
+                filter: range('1', '5'),
+            },
+        ])
+    })
+
+    test('"Between" needs both numbers before it can be applied', async () => {
+        await renderButton(range('1', '5'), 'number')
+
+        typeInto('data-table-filter-value2', '')
+
+        expect(applyButton()).toBeDisabled()
+        expect(screen.getByText('Fill in both values')).toBeInTheDocument()
+    })
+
+    test('numbers in reverse order show why they cannot be applied', async () => {
+        await renderButton(range('1', '5'), 'number')
+
+        typeInto('data-table-filter-value2', '0')
+
+        expect(applyButton()).toBeDisabled()
+        expect(
+            screen.getByText('The second number must be greater than the first')
+        ).toBeInTheDocument()
     })
 })

@@ -17,7 +17,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import { FILTER_TEXT, SORT_ASCENDING } from '../../constants/dataTable.js'
+import {
+    FILTER_NUMBER,
+    FILTER_TEXT,
+    SORT_ASCENDING,
+} from '../../constants/dataTable.js'
 import {
     getFilterType,
     getNextSorting,
@@ -40,7 +44,7 @@ import { useTableData } from './useTableData.js'
 
 // Conditions the popover offers so far; the other columns keep FilterInput,
 // and so do the ones whose filter needs the list of values
-const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT])
+const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
 
 const hasFilterPopover = (header) =>
     POPOVER_FILTER_TYPES.has(getFilterType(header)) &&
