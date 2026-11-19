@@ -1,7 +1,7 @@
 ## Manage facility layers { #using_maps_facility_layer }
 
-The facility layer displays icons representing types of facilities. Only point-type org units are
-shown - polygon org units such as districts or regions are not displayed.
+The facility layer shows icons representing types of facilities. Only point-type organisation units
+are shown - polygon organisation units such as districts or regions are not shown.
 
 ![](../resources/images/maps_facility_layer.png)
 
@@ -18,21 +18,22 @@ Facility layer configuration dialog.
 
 ![](../resources/images/maps_facility_layer_dialog_ORG_UNITS.png)
 
--   Select the org units you want to include in the layer. You can freely combine specific org
-    units, org unit levels, org unit groups, and relative user org units (**User organisation
-    unit**, **User sub-units**, **User sub-x2-units**). When user org units are selected, the map
-    data will appear according to the assigned org units for each user in the org unit hierarchy.
-    Only org units with a point location are displayed.
+-   Choose the organisation units you want to include in the layer. You can freely combine specific
+    org units, organisation unit levels, organisation unit groups, and relative user organisation
+    units (**User organisation unit**, **User sub-units**, **User sub-x2-units**). When user
+    organisation units are selected, the map data will appear according to the assigned organisation
+    units for each user in the organisation unit hierarchy. Only organisation units with a point
+    location are shown.
 
-    > **Tip**: Levels and groups act as filters within the org units you select - combining them
-    > will show only org units at those levels or in those groups that are descendants of your
-    > selected org units.
+    > **Tip**: Levels and groups act as filters within the organisation units you choose - combining
+    > them will show only organisation units at those levels or in those groups that are descendants
+    > of your selected organisation units.
 
--   The system administrator can set the default org unit level containing facilities in the
-    **System Settings** app.
+-   The system administrator can set the default organisation unit level containing facilities in
+    the **System Settings** app.
 
--   **Use associated geometry**: This dropdown will only show if there are any additional geometries
-    available for your org units. This is typically used to show facility catchment areas.
+-   **Use associated geometry**: This field is shown only if there are additional geometries
+    available for your organisation units. This is typically used to show facility catchment areas.
 
 #### 2. Style
 
@@ -41,18 +42,20 @@ Facility layer configuration dialog.
 -   **Labels**: Allows labels to be shown on the layer. Font size, weight and color can be modified
     here.
 
--   **Buffer**: Displays a visual buffer around each facility. The radius of the buffer can be
-    modified here. Not available if associated geometry is used.
+-   **Buffer**: Shows a visual buffer around each facility. The radius of the buffer can be modified
+    here. Not available if associated geometry is used.
 
--   **Count org units without a point location**: Org units without point coordinates are counted
-    and shown in a **Data quality** section of the legend. They also appear in the data table.
+-   **Count org units without a point location**: Organisation units without point coordinates are
+    counted and shown in a **Data quality** section of the legend. They also appear in the data
+    table.
 
--   Facilities with a point location can be styled with an **org unit group set** using different
-    icons. Select a group set from the list of org unit group sets defined for your DHIS2 instance.
-    The system administrator can set the default org unit group set in the **System Settings** app.
+-   Facilities with a point location can be styled with an organisation unit group set using
+    different icons. Choose a group set from the list of organisation unit group sets defined for
+    your DHIS2 instance. The system administrator can set the default organisation unit group set in
+    the **System Settings** app.
 
-    **Include unclassified org units**: Org units not belonging to any group in the selected group
-    set are shown with a configurable color and label (default: "Unclassified").
+    **Include unclassified org units**: Organisation units not belonging to any group in the
+    selected group set are shown with a configurable color and label (default: "Unclassified").
 
 -   If no group set is selected, the facilities will be shown as filled circles. The color and
     radius can be changed.
@@ -69,28 +72,28 @@ Click **Add layer**.
 
 ### Filter values in a facility layer
 
-Facility layers have a **Show/hide data table** option that can be toggled on or off from the
-facility layer card.
+Facility layers have a **Show data table** option in the more actions (three dots) menu of the layer
+card. When the table is open, the option changes to **Hide data table**.
 
 ![](../resources/images/maps_facility_layer_data_table.png)
 
-The data table displays the data associated with the facility layer. Click the arrow buttons in a
+The data table shows the data associated with the facility layer. Click the arrow buttons in a
 column header to sort by that column. Type in the filter fields below each column header to filter
-the displayed rows. The name filter field is an effective way to search for individual facilities.
+the rows shown. The name filter field is an effective way to search for individual facilities.
 
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map.
 
-### Open org unit profile
+### Open organisation unit profile
 
-You can open the [org unit profile](#using_maps_org_unit_profile) in three ways:
+You can open the [organisation unit profile](#using_maps_org_unit_profile) in three ways:
 
-1. Click an org unit on the map, then click the **View profile** button in the popup.
+1. Click an organisation unit on the map, then click the **View profile** button in the popup.
 
-2. Right-click one of the org units on the map, and select **View profile** from the menu.
+2. Right-click one of the organisation units on the map, and choose **View profile** from the menu.
 
-3. Click an org unit row in the **data table**.
+3. Click an organisation unit row in the **data table**.
 
 ### Remove a facility layer
 

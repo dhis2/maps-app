@@ -1,13 +1,13 @@
 ## Manage event layers { #using_maps_event_layer }
 
-The event layer displays the geographical location of events recorded in DHIS2 programs. While in
-thematic layers you can visualize event data aggregated to org unit level, with event layers you can
-display the individual events or cases when they have their own point or polygon coordinates.
-Alternative coordinate fields also let you plot events using locations other than the event itself,
-such as the org unit or enrollment location.
+The event layer shows the geographical location of events recorded in DHIS2 programs. While in
+thematic layers you can visualize event data aggregated to organisation unit level, with event
+layers you can show the individual events or cases when they have their own point or polygon
+coordinates. Alternative coordinate fields also let you plot events using locations other than the
+event itself, such as the organisation unit or enrollment location.
 
-To display aggregated event statistics at the org unit level, use a thematic layer with event data
-items instead.
+To show aggregated event statistics at the organisation unit level, use a thematic layer with event
+data items instead.
 
 ![](../resources/images/maps_event_layer.png)
 
@@ -24,19 +24,19 @@ layer configuration dialog.
 
 ![](../resources/images/maps_event_layer_dialog_DATA.png)
 
--   Select a program and then select a program stage. The **Stage** field is only shown once a
-    program is selected.
+-   Choose a program and then choose a program stage. The **Stage** field is shown only after you
+    choose a program.
 
     If there is only one stage available for the selected program, the stage is automatically
     selected.
 
--   Select a value from the **Coordinate field** to determine which positions are displayed on the
-    map. By default, "Event location" is selected. You can also choose "Org unit location".
-    Depending on the selected program, additional options may include "Tracked entity location",
-    "Enrollment location", and coordinate or org unit type data elements or attributes, such as
-    "Household location" or "Referral facility". The number of events represented on the map may
-    vary depending on the selected option and the availability of coordinates. When org unit
-    location is used, polygons are represented by their centroids.
+-   Choose a value from the **Coordinate field** to determine which positions are shown on the map.
+    By default, **Event location** is selected. You can also choose **Organisation unit location**.
+    Depending on the selected program, additional options can include **Tracked entity location**,
+    **Enrollment location**, and coordinate or organisation unit type data elements or attributes,
+    such as "Household location" or "Referral facility". The number of events shown on the map can
+    vary depending on the selected option and the availability of coordinates. When organisation
+    unit location is used, polygons are represented by their centroids.
 
 -   By default, all events with coordinates are shown on the map. Use the **Event status** field to
     only show events having one status: Active or Completed.
@@ -45,18 +45,18 @@ layer configuration dialog.
 
 ![](../resources/images/maps_event_layer_dialog_PERIOD.png)
 
-Select the time span for when the events took place.
+Choose the time span for when the events took place.
 
 -   **Choose from presets**: You can combine one or more relative and fixed periods.
 
-    -   _Relative period_: Select **Relative periods**, then the **Period type** (**Years**,
-        **Months**, etc.) and choose one or more relative periods, such as **This year** and **Last
-        year** or **Last 12 months**. A **default relative period for analysis** can be set in the
-        **System Settings** app.
+    -   _Relative period_: Choose **Relative periods**, then the **Period type** (for example
+        **Years** or **Months**) and choose one or more relative periods, such as **This year** and
+        **Last year** or **Last 12 months**. A **default relative period for analysis** can be set
+        in the **System Settings** app.
 
-    -   _Fixed period_: Select **Fixed periods**, then choose the **Period type** (**Yearly**,
-        **Monthly**, etc.) and choose one or more fixed periods, such as **2024** or **January
-        2025** and **February 2025**.
+    -   _Fixed period_: Choose **Fixed periods**, then choose the **Period type** (for example
+        **Yearly** or **Monthly**) and choose one or more fixed periods, such as **2024** or
+        **January 2025** and **February 2025**.
 
 -   **Define start–end dates**: Specify exact start and end dates. Both dates are inclusive and will
     be reflected in the outputs.
@@ -65,70 +65,71 @@ Select the time span for when the events took place.
 
 ![](../resources/images/maps_event_layer_dialog_ORG_UNITS.png)
 
--   Select the org units you want to include in the layer. You can combine specific org units and
-    relative user org units (**User organisation unit**, **User sub-units**, **User sub-x2-units**).
-    When user org units are selected, the map data will appear according to the assigned org units
-    for each user in the org unit hierarchy. Data from all org units within and below the selected
-    org units is included (**Selected and all below**).
+-   Choose the organisation units you want to include in the layer. You can combine specific
+    organisation units and relative user organisation units (**User organisation unit**, **User
+    sub-units**, **User sub-x2-units**). When user organisation units are selected, the map data
+    will appear according to the assigned organisation units for each user in the organisation unit
+    hierarchy. Data from all organisation units within and below the selected organisation units is
+    included (**Selected and all below**).
 
 #### 4. Filter
 
 ![](../resources/images/maps_event_layer_dialog_FILTER.png)
 
--   Click **Add filter** and select an available data item to add a new filter to the data set.
+-   Click **Add filter** and choose an available data item to add a new filter to the data set.
 
-    -   For data item of type _option set_, you can select any of the options from the dropdown box,
-        or type to filter.
+    -   For data item of type _option set_, you can choose any of the options from the menu, or type
+        to filter.
 
-    -   For data item of type _number_, you can select operators like equal, not equal, greater than
+    -   For data item of type _number_, you can choose operators like equal, not equal, greater than
         or less than.
 
     -   For data item of type _boolean_ (yes/no), you can check the box if the condition should be
         true.
 
-    -   For data item of type _text_, select **Contains** (matches any value containing the search
+    -   For data item of type _text_, choose **Contains** (matches any value containing the search
         text) or **Is exact** (matches only identical values).
 
-    Multiple filters may be added. Click the trash button on the right of the filter to remove it.
+    You can add multiple filters. Click the trash button on the right of the filter to remove it.
 
 #### 5. Style
 
 ![](../resources/images/maps_event_layer_dialog_STYLE.png)
 
--   Select **Group events** to group nearby events (cluster), or **View all events** to display
-    events individually.
+-   Choose **Group events** to group nearby events (cluster), or **View all events** to show events
+    individually.
 
-    -   Select a **color** and **radius** for the event or cluster points.
+    -   Choose a **color** and **radius** for the event or cluster points.
 
-    -   Select **Show buffer** to display a visual buffer around each event. The radius of the
-        buffer can be modified here. Only available when **View all events** is selected.
+    -   Choose **Buffer** to show a visual buffer around each event. The radius of the buffer can be
+        modified here. Only available when **View all events** is selected.
 
 -   **Count events without coordinates**: Events without coordinates are counted and shown in a
-    **Data quality** section of the legend. They also appear in the data table. These events may or
-    may not have data.
+    **Data quality** section of the legend. They also appear in the data table. These events might
+    or might not have data.
 
 -   **Filter and count events outside org unit boundaries**: Events falling outside the boundaries
-    of the selected org units are excluded from the map, and counted in the **Data quality** section
-    of the legend, which also flags when some or all of the selected org units lack boundary data.
-    These events remain in the data table, but can be identified by their empty **Org unit
-    boundary** column value. Events inside a boundary are tagged with the name of their containing
-    org unit in that same column.
+    of the selected organisation units are excluded from the map, and counted in the **Data
+    quality** section of the legend, which also flags when some or all of the selected organisation
+    units lack boundary data. These events remain in the data table, but can be identified by their
+    empty **Organisation unit boundary** column value. Events inside a boundary are tagged with the
+    name of their containing organisation unit in that same column.
 
--   **Label**: Select a data element or attribute to show on the layer. Font size, weight, style and
+-   **Label**: Choose a data element or attribute to show on the layer. Font size, weight, style and
     color can also be modified.
 
--   Select **Style by data item** (data element or attribute) to colorize the events according to a
-    data value. If events are grouped, clusters are displayed as small donut charts showing the
+-   Choose **Style by data item** (data element or attribute) to colorize the events according to a
+    data value. If events are grouped, clusters are shown as small donut charts showing the
     distribution of the data values. The available options vary for different data types:
 
-    -   **Option sets**: Select a color for each option in an option set. You can set default colors
+    -   **Option sets**: Choose a color for each option in an option set. You can set default colors
         for an option in the Metadata Management app.
 
     -   **Numbers**: You can style a numeric data item in
         [the same way as thematic layers](#using_maps_thematic_layer_style) using automatic or
         predefined legends.
 
-    -   **Booleans**: Select a color for true/yes and another for false/no.
+    -   **Booleans**: Choose a color for true/yes and another for false/no.
 
     **Include unclassified events**: Events whose values fall outside all classification ranges are
     shown with a configurable color and label (default: "Unclassified").
@@ -152,19 +153,19 @@ Click **Add layer**.
 
 ### Filter events
 
-Event layers have a **Show/hide data table** option that can be toggled on or off from the event
-layer card.
+Event layers have a **Show data table** option in the more actions (three dots) menu of the layer
+card. When the table is open, the option changes to **Hide data table**.
 
 ![](../resources/images/maps_event_layer_data_table.png)
 
-The data table displays the data associated with the event layer. Click the arrow buttons in a
-column header to sort by that column. Type in the filter fields below each column header to filter
-the displayed rows.
+The data table shows the data associated with the event layer. Click the arrow buttons in a column
+header to sort by that column. Type in the filter fields below each column header to filter the rows
+shown.
 
-Additional columns appear for data elements configured to display in reports, and for any data item
-used to style the events — both the data value and the color can be filtered in those columns.
-Numeric columns support comparison operators: `>`, `<`, `>=`, and `<=`, with `,` for OR and `&` for
-AND logic — for example: `2,>3&<8`.
+Additional columns appear for data elements that have **Display in reports** selected, and for any
+data item used to style the events. You can filter both the data value and the color in those
+columns. Numeric columns support comparison operators: `>`, `<`, `>=`, and `<=`, with `,` for OR and
+`&` for AND logic. For example: `2,>3&<8`.
 
 > **Note**
 >
@@ -173,18 +174,18 @@ AND logic — for example: `2,>3&<8`.
 ### Modify information in event data table and popups
 
 If you have access to the selected program in the Metadata Management app, you can modify the
-information displayed in the event popup window.
+information shown in the event popup window.
 
 ![](../resources/images/maps_eventlayer_eventinfopopup.png)
 
 1.  Open the **Metadata Management** app.
 
-2.  Select **Programs**.
+2.  Choose **Programs**.
 
-3.  Click the program you want to modify and select **Data** or the stage first then **Data** in the
+3.  Click the program you want to modify and choose **Data** or the stage first then **Data** in the
     case of a Tracker program.
 
-4.  For every data element you want to display in the popup window, select corresponding **Display
+4.  For every data element you want to show in the popup window, choose the corresponding **Display
     in reports**.
 
 5.  Click **Save**.
@@ -201,23 +202,23 @@ selected for **Display in reports**.
 -   In the layer card to the left, click the _more actions_ (three dots) icon and then click
     **Download data**.
 
--   Select the **ID format** to use as the key for data element values in the downloaded GeoJSON
+-   Choose the **ID Format** to use as the key for data element values in the downloaded GeoJSON
     file:
 
     -   **ID**: Use the unique ID of the data element.
     -   **Name**: Use the human-friendly name of the data element (translated).
     -   **Code**: Use the code of the data element.
 
--   Select whether or not to **Use human-readable keys** for other event attributes, such as Program
+-   Choose whether or not to **Use human-readable keys** for other event attributes, such as Program
     Stage, Latitude, Longitude, Event Data, and Org Unit ID, Name, and Code. When this option is
     **not** selected, these values will be computer-friendly IDs instead of human-readable
     (translated) names.
 
 -   Click the **Download** button to generate and download a GeoJSON file. The data will be
-    requested from the DHIS2 server and processed by the maps application. This operation may take
+    requested from the DHIS2 server and processed by the maps application. This operation can take
     several minutes to complete.
 
--   Once the GeoJSON file has been downloaded, it can be imported into most standard GIS software.
+-   After you download the GeoJSON file, you can import it into most standard GIS software.
 
 > **Note**
 >

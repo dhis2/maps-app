@@ -7,8 +7,8 @@ locate sites, facilities, villages or towns on the map.
 
 1.  On the right side of the Maps window, click the magnifier icon.
 
-2.  Type the location you're looking for.
+2.  Type the location you are looking for.
 
     A list of matching locations appear as you type.
 
-3.  From the list, select a location. A pin indicates the location on the map.
+3.  From the list, choose a location. A pin indicates the location on the map.

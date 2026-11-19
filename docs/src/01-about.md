@@ -1,8 +1,8 @@
 ## About the Maps app { #about_maps }
 
-The Maps app was introduced in release 2.29 as a replacement for the original GIS app, offering a
-more intuitive and user-friendly interface. Since version 2.34, the mapping engine is based on WebGL
-technology, capable of showing thousands of features on a map simultaneously.
+The Maps app was introduced in v29 as a replacement for the original GIS app, offering a more
+intuitive and user-friendly interface. Since v34, the mapping engine is based on WebGL technology,
+capable of showing thousands of features on a map simultaneously.
 
 > **Note**
 >
@@ -10,11 +10,11 @@ technology, capable of showing thousands of features on a map simultaneously.
 > working in your browser or to troubleshoot display issues.
 
 With the Maps app, you can overlay multiple layers and choose from different basemaps. Supported
-layer types include thematic maps, events, tracked entities, facilities, org unit boundaries, and
-Earth Engine data such as population, elevation, or climate indicators. You can label features,
-search and filter data, and save or share maps with other users, or download them as an image. Saved
-maps can be added to dashboards in the **Dashboard** app. Thematic layers also integrate with the
-**Data Visualizer** app, letting you open the same data as a chart.
+layer types include thematic maps, events, tracked entities, facilities, organisation unit
+boundaries, and Earth Engine data such as population, elevation, or climate indicators. You can
+label features, search and filter data, and save or share maps with other users, or download them as
+an image. Saved maps can be added to dashboards in the **Dashboard** app. Thematic layers also
+integrate with the **Data Visualizer** app, letting you open the same data as a chart.
 
 > **Note**
 >
@@ -70,7 +70,7 @@ to right are:
 
 -   The **ruler** button allows you to measure distances and areas on the map.
 
--   Right-click on the map to display the longitude and latitude of that location.
+-   Right-click on the map to show the longitude and latitude of that location.
 
 ### File menu
 
