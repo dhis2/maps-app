@@ -403,9 +403,7 @@ const oldSearchShot = (mapId, column, text, name) => {
 const textShots = (prefix) => {
     openTable()
     openFilter('id')
-    cy.getByDataTest('data-table-filter-text-input')
-        .find('input')
-        .type('O6uvpzGd5pu')
+    cy.getByDataTest('data-table-filter-value').find('input').type('O6uvpzGd5pu')
     popoverShot(`${prefix}-popover`)
     applyFilter()
     mark(panel().find('[data-test="data-table-filter-button-id"]'))
@@ -415,11 +413,22 @@ const textShots = (prefix) => {
     })
 }
 
+// Between is the default condition for numbers
 const setNumberBetween = (dataKey, min, max) => {
     openFilter(dataKey)
-    chooseCondition('data-table-filter-number-operator', 'Between')
-    cy.getByDataTest('data-table-filter-number-value').find('input').type(min)
-    cy.getByDataTest('data-table-filter-number-value2').find('input').type(max)
+    cy.getByDataTest('data-table-filter-value').find('input').type(min)
+    cy.getByDataTest('data-table-filter-value2').find('input').type(max)
+}
+
+// Every value starts checked: keep the given ones
+const keepOnlyValues = (labels) => {
+    cy.getByDataTest('data-table-filter-values-uncheck-all').click()
+    labels.forEach((label) =>
+        cy
+            .getByDataTest('data-table-filter-values-list')
+            .contains('label', label)
+            .click()
+    )
 }
 
 const numberShots = (prefix) => {
@@ -437,8 +446,8 @@ const numberShots = (prefix) => {
 const optionsShots = (prefix) => {
     openTable(FACILITY_TYPE)
     openFilter('group')
+    keepOnlyValues(['CHP'])
     popoverShot(`${prefix}-popover`)
-    popover().contains('CHP').click()
     applyFilter()
     mark(panel().find('[data-test="data-table-filter-button-group"]'))
     shoot(`${prefix}-result`, {
@@ -450,12 +459,8 @@ const optionsShots = (prefix) => {
 const dateShots = (prefix) => {
     openTable(APGAR_EVENTS)
     openFilter('eventdate')
-    cy.getByDataTest('data-table-filter-date-from')
-        .find('input')
-        .type('2025-01-01')
-    cy.getByDataTest('data-table-filter-date-to')
-        .find('input')
-        .type('2025-03-31')
+    cy.getByDataTest('data-table-filter-value').find('input').type('2025-01-01')
+    cy.getByDataTest('data-table-filter-value2').find('input').type('2025-03-31')
     popoverShot(`${prefix}-popover`)
     applyFilter()
     mark(panel().find('[data-test="data-table-filter-button-eventdate"]'))
@@ -471,10 +476,17 @@ const twoFilters = () => {
     setNumberBetween('rawValue', '2000', '4000')
     applyFilter()
     openFilter('orgUnitOwn')
-    ;['Bombali', 'Kambia', 'Kenema'].forEach((name) =>
-        popover().contains(name).click()
-    )
+    keepOnlyValues(['Bombali', 'Kambia', 'Kenema'])
     applyFilter()
+}
+
+// A condition on the org unit names, in the column that had no filter before
+const hierarchyShot = (name) => {
+    openTable()
+    openFilter('orgUnitPath')
+    cy.getByDataTest('data-table-filter-value').find('input').type('Bombali')
+    popoverShot(name)
+    cy.get('body').type('{esc}')
 }
 
 const barShot = (name) => {
@@ -482,9 +494,12 @@ const barShot = (name) => {
     // Opening the filters scrolls the table sideways
     panel().find('[data-virtuoso-scroller]').scrollTo('left')
     cy.wait(500)
+    // Before the bar, the active filters only show as dots on their buttons
     mark(
         cy.get(
-            '[data-test="data-table-filters-bar"], [data-test="bottom-panel"] button[aria-label="Clear filters"]'
+            name.endsWith('before')
+                ? '[data-test="bottom-panel"] button[aria-pressed="true"]'
+                : '[data-test="data-table-filters-bar"]'
         )
     )
     shoot(name, { context: tableAndMap(), margin: { x: 0, y: 0 } })
@@ -517,6 +532,7 @@ const shots = {
     3849: () => oldSearchShot(FACILITY_TYPE, 'Group', null, '3850-before'),
     3850: () => {
         optionsShots('3850-after')
+        hierarchyShot('3850-after-hierarchy')
         oldSearchShot(APGAR_EVENTS, 'Event date', null, '3851-before')
     },
     3851: () => {
