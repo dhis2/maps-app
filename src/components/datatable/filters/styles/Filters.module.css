@@ -107,11 +107,21 @@
 }
 
 .popoverBody {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacers-dp12);
     padding: var(--spacers-dp12) var(--spacers-dp16);
+}
+
+.popoverBody > .linkButton {
+    align-self: flex-start;
+    font-size: 13px;
 }
 
 .popoverFooter {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     gap: var(--spacers-dp8);
     padding: var(--spacers-dp8) var(--spacers-dp16);
@@ -123,27 +133,27 @@
     flex-direction: column;
     gap: var(--spacers-dp12);
 }
-/* Number */
+/* Condition */
 
-.numberInputs {
+.conditionInputs {
     display: flex;
     align-items: center;
     gap: var(--spacers-dp8);
 }
 
-.numberInputs > * {
+.conditionInputs > * {
     flex: 1;
     min-width: 0;
 }
 
-.numberInputs > .and {
+.conditionInputs > .and {
     flex: 0 0 auto;
     font-size: 13px;
     color: var(--colors-grey700);
 }
 
 /* Sits right under the inputs rather than a full stack gap away */
-.stack > .rangeError {
+.stack > .conditionError {
     margin-top: calc(-1 * var(--spacers-dp8));
 }
 /* Options */
@@ -229,19 +239,29 @@
     color: var(--colors-grey600);
 }
 
+/* An unchecked value no row has any more */
+.optionGone {
+    color: var(--colors-grey500);
+}
+
+.listNote {
+    font-size: 12px;
+    color: var(--colors-grey600);
+}
+
+.preview {
+    flex: 1;
+    font-size: 12px;
+    color: var(--colors-grey700);
+    font-variant-numeric: tabular-nums;
+}
+
 .iconThumbnail {
     width: 16px;
     height: 16px;
     margin-right: 6px;
     object-fit: contain;
     vertical-align: -3px;
-}
-/* Date */
-
-.dateInputs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacers-dp8);
 }
 
 /* Active filters bar */

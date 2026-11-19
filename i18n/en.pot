@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-13T19:27:21.487Z\n"
-"PO-Revision-Date: 2026-11-13T19:27:21.487Z\n"
+"POT-Creation-Date: 2026-11-19T14:49:59.861Z\n"
+"PO-Revision-Date: 2026-11-19T14:49:59.862Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -215,8 +215,8 @@ msgstr "{{total}} rows"
 msgid "Clear all"
 msgstr "Clear all"
 
-msgid "Condition"
-msgstr "Condition"
+msgid "Number"
+msgstr "Number"
 
 msgid "From"
 msgstr "From"
@@ -224,14 +224,29 @@ msgstr "From"
 msgid "To"
 msgstr "To"
 
+msgid "Text"
+msgstr "Text"
+
+msgid "Condition"
+msgstr "Condition"
+
+msgid "and"
+msgstr "and"
+
 msgid "Filter by {{column}}"
 msgstr "Filter by {{column}}"
 
-msgid "Filtering by org unit is not available yet"
-msgstr "Filtering by org unit is not available yet"
-
 msgid "Filter by"
 msgstr "Filter by"
+
+msgid "+ Add a condition"
+msgstr "+ Add a condition"
+
+msgid "Pick values"
+msgstr "Pick values"
+
+msgid "{{kept}} of {{total}} rows"
+msgstr "{{kept}} of {{total}} rows"
 
 msgid "Clear"
 msgstr "Clear"
@@ -239,89 +254,113 @@ msgstr "Clear"
 msgid "Apply"
 msgstr "Apply"
 
-msgid "and"
-msgstr "and"
-
 msgid "No value"
 msgstr "No value"
 
-msgid "Search values"
-msgstr "Search values"
-
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
-
-msgid "{{count}} values"
-msgid_plural "{{count}} values"
-msgstr[0] "{{count}} values"
-msgstr[1] "{{count}} values"
-
-msgid "Deselect all"
-msgstr "Deselect all"
+msgid "{{checked}} of {{count}} checked"
+msgid_plural "{{checked}} of {{count}} checked"
+msgstr[0] "{{checked}} of {{count}} checked"
+msgstr[1] "{{checked}} of {{count}} checked"
 
 msgid "Select all"
 msgstr "Select all"
 
-msgid "No values match \"{{- search}}\""
-msgstr "No values match \"{{- search}}\""
+msgid "Deselect all"
+msgstr "Deselect all"
 
-msgid "Type to filter"
-msgstr "Type to filter"
+msgid "No value matches"
+msgstr "No value matches"
 
-msgid "Is empty"
-msgstr "Is empty"
-
-msgid "Is not empty"
-msgstr "Is not empty"
+msgid "{{count}} values hidden by the condition"
+msgid_plural "{{count}} values hidden by the condition"
+msgstr[0] "{{count}} value hidden by the condition"
+msgstr[1] "{{count}} values hidden by the condition"
 
 msgid "Contains"
 msgstr "Contains"
 
-msgid "Equal to"
-msgstr "Equal to"
+msgid "Does not contain"
+msgstr "Does not contain"
 
-msgid "Not equal to"
-msgstr "Not equal to"
+msgid "Is"
+msgstr "Is"
 
-msgid "Greater than"
-msgstr "Greater than"
-
-msgid "Greater than or equal to"
-msgstr "Greater than or equal to"
-
-msgid "Less than"
-msgstr "Less than"
-
-msgid "Less than or equal to"
-msgstr "Less than or equal to"
+msgid "Starts with"
+msgstr "Starts with"
 
 msgid "Between"
 msgstr "Between"
 
-msgid "Date range"
-msgstr "Date range"
+msgid "Equal to (=)"
+msgstr "Equal to (=)"
+
+msgid "Not equal to (≠)"
+msgstr "Not equal to (≠)"
+
+msgid "Greater than (>)"
+msgstr "Greater than (>)"
+
+msgid "Greater than or equal to (≥)"
+msgstr "Greater than or equal to (≥)"
+
+msgid "Less than (<)"
+msgstr "Less than (<)"
+
+msgid "Less than or equal to (≤)"
+msgstr "Less than or equal to (≤)"
+
+msgid "On"
+msgstr "On"
+
+msgid "Before"
+msgstr "Before"
+
+msgid "After"
+msgstr "After"
+
+msgid "At"
+msgstr "At"
+
+msgid "Find in list"
+msgstr "Find in list"
+
+msgid "contains \"{{- value}}\""
+msgstr "contains \"{{- value}}\""
+
+msgid "does not contain \"{{- value}}\""
+msgstr "does not contain \"{{- value}}\""
+
+msgid "is \"{{- value}}\""
+msgstr "is \"{{- value}}\""
+
+msgid "starts with \"{{- value}}\""
+msgstr "starts with \"{{- value}}\""
+
+msgid "at {{value}}"
+msgstr "at {{value}}"
+
+msgid "on {{value}}"
+msgstr "on {{value}}"
+
+msgid "before {{value}}"
+msgstr "before {{value}}"
+
+msgid "after {{value}}"
+msgstr "after {{value}}"
 
 msgid "{{first}}, {{second}} +{{count}}"
 msgid_plural "{{first}}, {{second}} +{{count}}"
 msgstr[0] "{{first}}, {{second}} +{{count}}"
 msgstr[1] "{{first}}, {{second}} +{{count}}"
 
-msgid "from {{date}}"
-msgstr "from {{date}}"
+msgid "not {{- values}}"
+msgstr "not {{- values}}"
 
-msgid "until {{date}}"
-msgstr "until {{date}}"
+msgid "or no value"
+msgstr "or no value"
 
-msgid "is empty"
-msgstr "is empty"
-
-msgid "is not empty"
-msgstr "is not empty"
-
-msgid "contains \"{{- value}}\""
-msgstr "contains \"{{- value}}\""
+msgid "with a value"
+msgstr "with a value"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -2089,11 +2128,20 @@ msgstr ""
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
 
-msgid "Max must be greater than Min"
-msgstr "Max must be greater than Min"
+msgid "The second number must be greater than the first"
+msgstr "The second number must be greater than the first"
 
-msgid "To must be after From"
-msgstr "To must be after From"
+msgid "The end date must be after the start date"
+msgstr "The end date must be after the start date"
+
+msgid "The end time must be after the start time"
+msgstr "The end time must be after the start time"
+
+msgid "Enter a number"
+msgstr "Enter a number"
+
+msgid "Fill in both values"
+msgstr "Fill in both values"
 
 msgid "Thematic"
 msgstr "Thematic"

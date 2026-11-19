@@ -27,14 +27,14 @@ const HEADERS = [
         name: 'Legend',
         dataKey: 'legend',
         type: 'string',
-        filterType: 'options',
+        filterView: 'values',
     },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     {
         name: 'Org unit hierarchy',
         dataKey: 'orgUnitPath',
         type: 'orgUnit',
-        filterType: 'orgUnit',
+        renderer: 'renderorgunit',
     },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
@@ -77,8 +77,8 @@ beforeEach(() => {
         totalCount: 0,
         filteredCount: 0,
         columnOptions: {},
-        columnValueCounts: {},
         orgUnitIdToName: new Map(),
+        filterRows: [],
     })
 })
 
@@ -94,7 +94,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('typed columns get a filter button, turned off for org unit columns; untyped columns get none', () => {
+    test('every typed column gets a filter button, the org unit hierarchy included; untyped columns get none', () => {
         renderTable()
         const filterButton = (dataKey) =>
             screen.queryByTestId(`data-table-filter-button-${dataKey}`)
@@ -104,10 +104,10 @@ describe('DataTable column headers', () => {
             'rawValue',
             'legend',
             'eventdate',
+            'orgUnitPath',
         ]) {
             expect(filterButton(dataKey)).toBeEnabled()
         }
-        expect(filterButton('orgUnitPath')).toBeDisabled()
         expect(filterButton('untyped')).not.toBeInTheDocument()
     })
 

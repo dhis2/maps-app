@@ -3,8 +3,12 @@ import {
     SENTINEL_NO_VALUE,
     FILTER_TEXT,
     FILTER_NUMBER,
-    FILTER_OPTIONS,
     FILTER_DATE,
+    FILTER_TIME,
+    OPERATOR_CONTAINS,
+    OPERATOR_NOT_CONTAINS,
+    OPERATOR_IS,
+    OPERATOR_STARTS_WITH,
     OPERATOR_EQUAL,
     OPERATOR_NOT_EQUAL,
     OPERATOR_GREATER,
@@ -12,35 +16,46 @@ import {
     OPERATOR_LESS,
     OPERATOR_LESS_OR_EQUAL,
     OPERATOR_BETWEEN,
-    OPERATOR_EMPTY,
-    OPERATOR_NOT_EMPTY,
+    OPERATOR_ON,
+    OPERATOR_BEFORE,
+    OPERATOR_AFTER,
 } from '../constants/dataTable.js'
 
-// Filters an array of object with a set of filters
-export const filterData = (data, filters) => {
-    if (!filters) {
-        return data
+// A column filter is { type, operator, value, value2, excluded, excludedByCondition }:
+// a condition on the column's values, and the values unchecked in its list.
+// Columns whose cells show a name instead of the value (org units, options)
+// store their condition as excludedByCondition, the values it leaves out,
+// so the map can apply it without the names.
+
+// "No value": missing, empty or blank text, or a number that isn't one
+export const isEmptyValue = (value) => {
+    if (value == null) {
+        return true
     }
-
-    let filteredData = [...data]
-
-    Object.keys(filters).forEach((field) => {
-        const filter = filters[field]
-
-        filteredData = filteredData.filter((d) => {
-            const props = d.properties || d // GeoJSON or plain object
-            return matchesFilter(props[field], filter)
-        })
-    })
-
-    return filteredData
+    if (typeof value === 'number') {
+        return Number.isNaN(value)
+    }
+    return String(value).trim() === ''
 }
 
-// Option values are compared as strings, missing values as SENTINEL_NO_VALUE
-export const toOptionValue = (value) =>
-    value == null ? SENTINEL_NO_VALUE : String(value)
+// A value's key in a filter's list of values, the same for every missing value
+export const toFilterKey = (value) =>
+    isEmptyValue(value) ? SENTINEL_NO_VALUE : String(value)
 
-const isEmptyValue = (value) => value == null || String(value).trim() === ''
+// Text compared without case or accents
+export const normalizeText = (text) =>
+    String(text)
+        .normalize('NFD')
+        .replace(/\p{Diacritic}/gu, '')
+        .toLowerCase()
+        .trim()
+
+const textOperators = {
+    [OPERATOR_CONTAINS]: (text, query) => text.includes(query),
+    [OPERATOR_NOT_CONTAINS]: (text, query) => !text.includes(query),
+    [OPERATOR_IS]: (text, query) => text === query,
+    [OPERATOR_STARTS_WITH]: (text, query) => text.startsWith(query),
+}
 
 const numberOperators = {
     [OPERATOR_EQUAL]: (number, a) => number === a,
@@ -49,142 +64,183 @@ const numberOperators = {
     [OPERATOR_GREATER_OR_EQUAL]: (number, a) => number >= a,
     [OPERATOR_LESS]: (number, a) => number < a,
     [OPERATOR_LESS_OR_EQUAL]: (number, a) => number <= a,
-    [OPERATOR_BETWEEN]: (number, a, b) =>
-        number >= Math.min(a, b) && number <= Math.max(a, b),
+    [OPERATOR_BETWEEN]: (number, a, b) => number >= a && number <= b,
 }
 
-const matchesNumber = (value, { operator, value: a, value2: b }) => {
-    const number = Number(value)
-    if (isEmptyValue(value) || Number.isNaN(number)) {
-        return false
-    }
-    return numberOperators[operator]?.(number, Number(a), Number(b)) ?? true
+// Dates and times compare as text: YYYY-MM-DD (by day) and HH:MM
+const orderedOperators = {
+    [OPERATOR_ON]: (text, a) => text === a,
+    [OPERATOR_BEFORE]: (text, a) => text < a,
+    [OPERATOR_AFTER]: (text, a) => text > a,
+    [OPERATOR_BETWEEN]: (text, a, b) => text >= a && text <= b,
 }
 
-// Dates are compared on their first 10 characters (YYYY-MM-DD)
-const matchesDate = (value, { from, to }) => {
-    if (isEmptyValue(value)) {
-        return false
-    }
-    const date = String(value).slice(0, 10)
-    return (!from || date >= from) && (!to || date <= to)
+const operatorsByType = {
+    [FILTER_TEXT]: textOperators,
+    [FILTER_NUMBER]: numberOperators,
+    [FILTER_DATE]: orderedOperators,
+    [FILTER_TIME]: orderedOperators,
 }
 
-// Filters set from the data table's column filter popovers
-export const matchesFilter = (value, filter) => {
-    if (filter.operator === OPERATOR_EMPTY) {
-        return isEmptyValue(value)
+const COMPARED_LENGTH = { [FILTER_DATE]: 10, [FILTER_TIME]: 5 }
+
+const isBlank = (text) => text == null || String(text).trim() === ''
+
+const needsSecondValue = (filter) => filter.operator === OPERATOR_BETWEEN
+
+// Whether the filter has a complete condition (Between needs both values)
+export const hasCondition = (filter) =>
+    !!operatorsByType[filter?.type]?.[filter.operator] &&
+    !isBlank(filter.value) &&
+    (!needsSecondValue(filter) || !isBlank(filter.value2))
+
+const toComparedText = (value, type) =>
+    String(value).trim().slice(0, COMPARED_LENGTH[type])
+
+// The condition as a test on one value, prepared once per filter; null without one
+export const getConditionTest = (filter) => {
+    if (!hasCondition(filter)) {
+        return null
     }
-    if (filter.operator === OPERATOR_NOT_EMPTY) {
-        return !isEmptyValue(value)
+    const { type, operator, value, value2 } = filter
+    const test = operatorsByType[type][operator]
+
+    if (type === FILTER_NUMBER) {
+        const a = Number(value)
+        const b = Number(value2)
+        return (cell) => test(Number(cell), a, b)
     }
-    switch (filter.type) {
-        case FILTER_TEXT:
-            return stringFilter(value ?? '', filter.value)
-        case FILTER_NUMBER:
-            return matchesNumber(value, filter)
-        case FILTER_OPTIONS:
-            return filter.values.includes(toOptionValue(value))
-        case FILTER_DATE:
-            return matchesDate(value, filter)
-        default:
-            return true
+    if (type === FILTER_TEXT) {
+        const query = normalizeText(value)
+        return (cell) => test(normalizeText(cell), query)
+    }
+    const a = toComparedText(value, type)
+    const b = toComparedText(value2 ?? '', type)
+    return (cell) => test(toComparedText(cell, type), a, b)
+}
+
+// Rows without a value follow the "No value" checkbox, whatever the condition
+const prepareColumnFilter = (filter) => {
+    const excluded = new Set([
+        ...(filter.excluded ?? []),
+        ...(filter.excludedByCondition ?? []),
+    ])
+    const condition = filter.excludedByCondition
+        ? null
+        : getConditionTest(filter)
+
+    return (value) => {
+        const key = toFilterKey(value)
+        if (excluded.has(key)) {
+            return false
+        }
+        return key === SENTINEL_NO_VALUE || !condition || condition(value)
     }
 }
 
-// Simple check if string contains another string
-export const stringFilter = (string, filter) => {
-    return ('' + string).toLowerCase().includes(filter.toLowerCase())
+// Whether one value passes a filter
+export const matchesFilter = (value, filter) =>
+    prepareColumnFilter(filter)(value)
+
+// The rows (or GeoJSON features) that pass every filter, each filter prepared once
+export const filterData = (data, filters) => {
+    if (!filters) {
+        return data
+    }
+
+    const tests = Object.entries(filters)
+        .filter(([, filter]) => filter != null)
+        .map(([field, filter]) => [field, prepareColumnFilter(filter)])
+
+    return data.filter((d) => {
+        const props = d.properties || d // GeoJSON or plain object
+        return tests.every(([field, test]) => test(props[field]))
+    })
 }
 
-export const isValuelessFilter = (filter) =>
-    filter?.operator === OPERATOR_EMPTY ||
-    filter?.operator === OPERATOR_NOT_EMPTY
-
-// A draft that would keep every row is no filter
-export const isEmptyFilter = (filter) => {
-    if (!filter) {
-        return true
+// Setting a condition unchecks "No value", clearing it checks it back
+export const updateNoValueForCondition = (previous, next) => {
+    if (hasCondition(previous) === hasCondition(next)) {
+        return next
     }
-    if (isValuelessFilter(filter)) {
-        return false
+    const excluded = new Set(next.excluded)
+    if (hasCondition(next)) {
+        excluded.add(SENTINEL_NO_VALUE)
+    } else {
+        excluded.delete(SENTINEL_NO_VALUE)
     }
-    switch (filter.type) {
-        case FILTER_TEXT:
-            return isEmptyValue(filter.value)
-        case FILTER_NUMBER:
-            return isEmptyValue(filter.value) && isEmptyValue(filter.value2)
-        case FILTER_OPTIONS:
-            return !filter.values?.length
-        case FILTER_DATE:
-            return !filter.from && !filter.to
-        default:
-            return true
-    }
+    return { ...next, excluded: [...excluded] }
 }
 
-const isBetweenNumbers = (filter) =>
-    filter?.type === FILTER_NUMBER && filter.operator === OPERATOR_BETWEEN
+// A filter that would keep every row
+export const isEmptyFilter = (filter) =>
+    !filter ||
+    (!hasCondition(filter) &&
+        !filter.excluded?.length &&
+        !filter.excludedByCondition?.length)
 
-// Shown under the second input of a range
+const BOUNDS_ERRORS = {
+    [FILTER_NUMBER]: () =>
+        i18n.t('The second number must be greater than the first'),
+    [FILTER_DATE]: () => i18n.t('The end date must be after the start date'),
+    [FILTER_TIME]: () => i18n.t('The end time must be after the start time'),
+}
+
+const isNotNumber = (text) => !isBlank(text) && Number.isNaN(Number(text))
+
+const areBoundsReversed = ({ type, value, value2 }) => {
+    if (type === FILTER_NUMBER) {
+        return Number(value) > Number(value2)
+    }
+    return toComparedText(value, type) > toComparedText(value2, type)
+}
+
+// Shown under the inputs; a filter with an error can't be applied
 export const getFilterError = (filter) => {
-    if (
-        isBetweenNumbers(filter) &&
-        !isEmptyValue(filter.value) &&
-        !isEmptyValue(filter.value2) &&
-        Number(filter.value) > Number(filter.value2)
-    ) {
-        return i18n.t('Max must be greater than Min')
+    if (!filter?.operator) {
+        return null
     }
     if (
-        filter?.type === FILTER_DATE &&
-        filter.from &&
-        filter.to &&
-        filter.from > filter.to
+        filter.type === FILTER_NUMBER &&
+        (isNotNumber(filter.value) || isNotNumber(filter.value2))
     ) {
-        return i18n.t('To must be after From')
+        return i18n.t('Enter a number')
+    }
+    if (!needsSecondValue(filter)) {
+        return null
+    }
+    if (isBlank(filter.value) !== isBlank(filter.value2)) {
+        return i18n.t('Fill in both values')
+    }
+    if (!isBlank(filter.value) && areBoundsReversed(filter)) {
+        return BOUNDS_ERRORS[filter.type]?.() ?? null
     }
     return null
 }
 
-// A range needs both bounds before it can be applied
-export const isValidFilter = (filter) =>
-    !(
-        isBetweenNumbers(filter) &&
-        isEmptyValue(filter.value) !== isEmptyValue(filter.value2)
-    ) && !getFilterError(filter)
+const sortedKeys = (keys) =>
+    [...(keys ?? [])].sort((a, b) => a.localeCompare(b))
 
-const normalizeFilter = (filter) => {
+// The filter as stored: no empty condition, values sorted
+export const normalizeFilter = (filter) => {
     if (isEmptyFilter(filter)) {
         return null
     }
-    if (isValuelessFilter(filter)) {
-        return { type: filter.type, operator: filter.operator }
+    const normalized = {
+        type: filter.type,
+        excluded: sortedKeys(filter.excluded),
     }
-    switch (filter.type) {
-        case FILTER_NUMBER:
-            return {
-                type: filter.type,
-                operator: filter.operator,
-                value: String(filter.value),
-                value2: isBetweenNumbers(filter)
-                    ? String(filter.value2)
-                    : undefined,
-            }
-        case FILTER_OPTIONS: {
-            const values = [...filter.values]
-            values.sort((a, b) => a.localeCompare(b))
-            return { type: filter.type, values }
+    if (hasCondition(filter)) {
+        normalized.operator = filter.operator
+        normalized.value = String(filter.value).trim()
+        if (needsSecondValue(filter)) {
+            normalized.value2 = String(filter.value2).trim()
         }
-        case FILTER_DATE:
-            return {
-                type: filter.type,
-                from: filter.from || undefined,
-                to: filter.to || undefined,
-            }
-        default:
-            return { type: filter.type, value: filter.value }
     }
+    if (filter.excludedByCondition) {
+        normalized.excludedByCondition = sortedKeys(filter.excludedByCondition)
+    }
+    return normalized
 }
 
 // Tells whether applying a draft would change the column's filter

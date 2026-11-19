@@ -7,10 +7,23 @@ import {
     clearDataFilter,
     clearDataFilters,
 } from '../../../actions/dataFilters.js'
+import { TYPE_NUMBER } from '../../../constants/dataTable.js'
 import { getFilterType } from '../../../util/dataTable.js'
+import { formatCellText } from '../../../util/tableCells.js'
 import FilterPopover from './FilterPopover.jsx'
 import { getFilterSummary } from './filterSummary.js'
 import styles from './styles/Filters.module.css'
+
+// Unchecked values read as the table cells
+const getKeyFormatter =
+    ({ renderer, type }, { orgUnitIdToName, keyAnalysisDigitGroupSeparator }) =>
+    (key) =>
+        formatCellText(type === TYPE_NUMBER ? Number(key) : key, {
+            renderer,
+            type,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        })
 
 // The chip opens its column's filter, so it can be edited even when the
 // column is hidden or scrolled out of view
@@ -29,14 +42,13 @@ const FilterChip = ({ layerId, header, column, filter }) => {
                 dataTest={`data-table-filter-chip-${dataKey}`}
             >
                 <span className={styles.chipColumn}>{name}</span>{' '}
-                {getFilterSummary(filter, column.formatValue)}
+                {getFilterSummary(filter, getKeyFormatter(header, column))}
             </Chip>
             {isOpen && (
                 <FilterPopover
                     anchorRef={anchorRef}
                     layerId={layerId}
-                    name={name}
-                    dataKey={dataKey}
+                    header={header}
                     filterType={getFilterType(header)}
                     column={column}
                     filter={filter}
@@ -57,7 +69,7 @@ FilterChip.propTypes = {
     layerId: PropTypes.string.isRequired,
 }
 
-const ActiveFiltersBar = ({ layerId, filters, headers, getColumn }) => {
+const ActiveFiltersBar = ({ layerId, filters, headers, column }) => {
     const dispatch = useDispatch()
     const filtered = headers.filter(({ dataKey }) => filters?.[dataKey])
 
@@ -72,7 +84,7 @@ const ActiveFiltersBar = ({ layerId, filters, headers, getColumn }) => {
                     key={header.dataKey}
                     layerId={layerId}
                     header={header}
-                    column={getColumn(header)}
+                    column={column}
                     filter={filters[header.dataKey]}
                 />
             ))}
@@ -89,7 +101,7 @@ const ActiveFiltersBar = ({ layerId, filters, headers, getColumn }) => {
 }
 
 ActiveFiltersBar.propTypes = {
-    getColumn: PropTypes.func.isRequired,
+    column: PropTypes.object.isRequired,
     headers: PropTypes.array.isRequired,
     layerId: PropTypes.string.isRequired,
     filters: PropTypes.object,
