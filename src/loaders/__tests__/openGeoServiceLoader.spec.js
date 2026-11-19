@@ -1,4 +1,4 @@
-import openClimateServiceLoader from '../openClimateServiceLoader.js'
+import openGeoServiceLoader from '../openGeoServiceLoader.js'
 
 jest.mock('../../components/map/MapApi.js', () => ({
     loadEarthEngineWorker: jest.fn(),
@@ -27,7 +27,7 @@ const engine = (settings) => ({
     query: jest.fn().mockResolvedValue({ settings }),
 })
 
-describe('openClimateServiceLoader', () => {
+describe('openGeoServiceLoader', () => {
     beforeEach(() => {
         global.fetch = jest.fn().mockResolvedValue({
             ok: true,
@@ -36,10 +36,10 @@ describe('openClimateServiceLoader', () => {
     })
 
     it('loads a saved layer', async () => {
-        const result = await openClimateServiceLoader({
+        const result = await openGeoServiceLoader({
             config: {
                 id: 'layer1',
-                layer: 'openClimateService',
+                layer: 'openGeoService',
                 config: JSON.stringify({
                     datasetId: collection.id,
                     selection: { month: 3 },
@@ -62,7 +62,7 @@ describe('openClimateServiceLoader', () => {
 
     it('keeps the saved config, so unset dimensions follow the latest data', async () => {
         const config = { datasetId: collection.id }
-        const result = await openClimateServiceLoader({
+        const result = await openGeoServiceLoader({
             config: { id: 'layer1', config },
             engine: engine({ url: 'http://ocs' }),
         })
@@ -71,12 +71,12 @@ describe('openClimateServiceLoader', () => {
     })
 
     it('uses the default instance when none is linked', async () => {
-        const result = await openClimateServiceLoader({
+        const result = await openGeoServiceLoader({
             config: { id: 'layer1', config: { datasetId: collection.id } },
             engine: { query: jest.fn().mockRejectedValue(new Error()) },
         })
         expect(global.fetch).toHaveBeenCalledWith(
-            'https://ocs-demo-nepal.dhis2.org/stac/chirps3_precipitation_monthly_normal_1991_2020/collection.json'
+            'https://geoservice.dhis2.org/nepal/stac/chirps3_precipitation_monthly_normal_1991_2020/collection.json'
         )
         expect(result.isLoaded).toBe(true)
         expect(result.alerts).toBeUndefined()
@@ -114,7 +114,7 @@ describe('openClimateServiceLoader', () => {
             })
         )
 
-        const result = await openClimateServiceLoader({
+        const result = await openGeoServiceLoader({
             config: { id: 'layer1', config: { datasetId: districts.id } },
             engine: engine({ url: 'http://ocs' }),
         })

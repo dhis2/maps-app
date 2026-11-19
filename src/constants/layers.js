@@ -17,7 +17,7 @@ export const TRACKED_ENTITY_LAYER = 'trackedEntity'
 export const GEOJSON_LAYER = 'geoJson'
 export const GROUP_LAYER = 'group'
 export const GEOJSON_URL_LAYER = 'geoJsonUrl'
-export const OPEN_CLIMATE_SERVICE_LAYER = 'openClimateService'
+export const OPEN_GEO_SERVICE_LAYER = 'openGeoService'
 
 export const MAP_SERVICE_KEY_TESTS = {
     keyBingMapsApiKey: [

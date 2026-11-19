@@ -10,7 +10,7 @@ import {
     isRasterCollection,
     isVectorCollection,
     normalizeUrl,
-} from '../openClimateService.js'
+} from '../openGeoService.js'
 
 const collection = {
     id: 'era5land_temperature_monthly',
@@ -47,7 +47,7 @@ const normal = {
     },
 }
 
-describe('openClimateService', () => {
+describe('openGeoService', () => {
     it('expands a temporal dimension into steps', () => {
         expect(getDimensions(collection)).toEqual([
             {
@@ -144,7 +144,6 @@ describe('openClimateService', () => {
             fillValue: null,
             zarrVersion: 3,
             crs: 'EPSG:4326',
-            proj4: null,
             unit: 'degC',
             bounds: [
                 [80.1, 26.4],

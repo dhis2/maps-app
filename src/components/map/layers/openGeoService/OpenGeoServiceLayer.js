@@ -2,7 +2,7 @@ import Layer from '../Layer.js'
 import VectorTileLayer from './VectorTileLayer.js'
 import ZarrLayer from './ZarrLayer.js'
 
-export default class OpenClimateServiceLayer extends Layer {
+export default class OpenGeoServiceLayer extends Layer {
     createLayer() {
         const { id, index, opacity, isVisible, render } = this.props
         const { map, isPlugin } = this.context

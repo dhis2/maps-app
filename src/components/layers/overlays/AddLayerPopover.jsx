@@ -7,7 +7,7 @@ import getEarthEngineLayers from '../../../constants/earthEngineLayers/index.js'
 import { EXTERNAL_LAYER } from '../../../constants/layers.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import useManagedLayerSourcesStore from '../../../hooks/useManagedLayerSourcesStore.js'
-import useOpenClimateService from '../../../hooks/useOpenClimateService.js'
+import useOpenGeoService from '../../../hooks/useOpenGeoService.js'
 import { isSplitViewMap } from '../../../util/helpers.js'
 import { groupLayerSources } from '../../../util/layerSources.js'
 import { useCachedData } from '../../cachedDataProvider/CachedDataProvider.jsx'
@@ -17,7 +17,7 @@ import LayerList from './LayerList.jsx'
 const includeManagedLayers = (
     defaultLayerSources,
     managedLayerSources,
-    openClimateServiceLayers
+    openGeoServiceLayers
 ) => {
     // Earth Engine layers that are added to this DHIS2 instance
     const managedEarthEngineLayers = getEarthEngineLayers().filter(
@@ -27,12 +27,12 @@ const includeManagedLayers = (
     // Make copy before slicing below
     const layerSources = [...defaultLayerSources]
 
-    // Insert Earth Engine and Open Climate Service layers before external layers
+    // Insert Earth Engine and Open Geo Service layers before external layers
     layerSources.splice(
         5,
         0,
         ...managedEarthEngineLayers,
-        ...openClimateServiceLayers
+        ...openGeoServiceLayers
     )
 
     return layerSources
@@ -45,12 +45,11 @@ const AddLayerPopover = ({ anchorEl, onClose, onManaging }) => {
     const dispatch = useDispatch()
     const { defaultLayerSources } = useCachedData()
     const { managedLayerSources } = useManagedLayerSourcesStore()
-    const { layerSources: openClimateServiceLayers, enabled } =
-        useOpenClimateService()
+    const { layerSources: openGeoServiceLayers, enabled } = useOpenGeoService()
     const layerSources = includeManagedLayers(
         defaultLayerSources,
         managedLayerSources,
-        openClimateServiceLayers.filter(({ config }) =>
+        openGeoServiceLayers.filter(({ config }) =>
             enabled.includes(config.datasetId)
         )
     )

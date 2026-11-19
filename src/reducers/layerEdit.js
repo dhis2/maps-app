@@ -608,7 +608,7 @@ const layerEdit = (state = null, action) => {
                 period: action.payload,
             }
 
-        case types.LAYER_EDIT_OPEN_CLIMATE_SERVICE_SELECTION_SET:
+        case types.LAYER_EDIT_OPEN_GEO_SERVICE_SELECTION_SET:
             return {
                 ...state,
                 config: {

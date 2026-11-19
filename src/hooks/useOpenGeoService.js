@@ -1,36 +1,36 @@
 import { useDataEngine } from '@dhis2/app-runtime'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-    DEFAULT_OPEN_CLIMATE_SERVICE_URL,
-    OPEN_CLIMATE_SERVICE_RESOURCE,
-    fetchOpenClimateServiceSettings,
+    DEFAULT_OPEN_GEO_SERVICE_URL,
+    OPEN_GEO_SERVICE_RESOURCE,
+    fetchOpenGeoServiceSettings,
     fetchCollections,
     getLayerSource,
     normalizeUrl,
-} from '../util/openClimateService.js'
+} from '../util/openGeoService.js'
 
 // The stored settings, shared by all components (undefined until loaded)
 let storedSettings
 
-// The Open Climate Service linked to this DHIS2 instance, and its published
+// The Open Geo Service linked to this DHIS2 instance, and its published
 // raster and vector datasets as layer sources. An administrator chooses which datasets
 // are available to add to maps. Until another instance is linked, the default instance
 // is used; `settings` stays null until an administrator saves a choice.
-const useOpenClimateService = () => {
+const useOpenGeoService = () => {
     const engine = useDataEngine()
     const [settings, setSettings] = useState(storedSettings)
     const [layerSources, setLayerSources] = useState([])
     const [error, setError] = useState()
     const isLoaded = settings !== undefined
     const url = isLoaded
-        ? settings?.url || DEFAULT_OPEN_CLIMATE_SERVICE_URL
+        ? settings?.url || DEFAULT_OPEN_GEO_SERVICE_URL
         : undefined
-    const isDefault = url === DEFAULT_OPEN_CLIMATE_SERVICE_URL
+    const isDefault = url === DEFAULT_OPEN_GEO_SERVICE_URL
     const enabled = useMemo(() => settings?.enabled || [], [settings])
 
     useEffect(() => {
         if (storedSettings === undefined) {
-            fetchOpenClimateServiceSettings(engine)
+            fetchOpenGeoServiceSettings(engine)
                 .then((settings) => {
                     storedSettings = settings
                     setSettings(settings)
@@ -61,7 +61,7 @@ const useOpenClimateService = () => {
     const save = useCallback(
         async (newSettings) => {
             await engine.mutate({
-                resource: OPEN_CLIMATE_SERVICE_RESOURCE,
+                resource: OPEN_GEO_SERVICE_RESOURCE,
                 type: storedSettings ? 'update' : 'create',
                 data: newSettings,
             })
@@ -71,7 +71,7 @@ const useOpenClimateService = () => {
         [engine]
     )
 
-    // Checks that the url is an OCS instance before it is stored
+    // Checks that the url is a GeoService instance before it is stored
     const link = useCallback(
         async (newUrl) => {
             const url = normalizeUrl(newUrl)
@@ -84,7 +84,7 @@ const useOpenClimateService = () => {
     // Goes back to the default instance
     const unlink = useCallback(async () => {
         await engine.mutate({
-            resource: OPEN_CLIMATE_SERVICE_RESOURCE,
+            resource: OPEN_GEO_SERVICE_RESOURCE,
             type: 'delete',
         })
         storedSettings = null
@@ -114,4 +114,4 @@ const useOpenClimateService = () => {
     }
 }
 
-export default useOpenClimateService
+export default useOpenGeoService

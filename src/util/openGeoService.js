@@ -1,20 +1,19 @@
 import { scale } from 'chroma-js'
-import { OPEN_CLIMATE_SERVICE_LAYER } from '../constants/layers.js'
+import { OPEN_GEO_SERVICE_LAYER } from '../constants/layers.js'
 import {
     MAPS_APP_NAMESPACE,
-    MAPS_APP_KEY_OPEN_CLIMATE_SERVICE,
+    MAPS_APP_KEY_OPEN_GEO_SERVICE,
 } from '../constants/settings.js'
 
-// Client for an Open Climate Service (OCS) instance. Published datasets are
+// Client for an Open Geo Service instance. Published datasets are
 // listed in the instance's STAC catalog, and each raster collection points to
 // a GeoZarr store that is rendered in the browser (see ZarrLayer.js).
-// Mirrors the OCS map viewer, so a dataset looks the same in both places.
+// Mirrors the GeoService map viewer, so a dataset looks the same in both places.
 
-export const OPEN_CLIMATE_SERVICE_RESOURCE = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_OPEN_CLIMATE_SERVICE}`
+export const OPEN_GEO_SERVICE_RESOURCE = `dataStore/${MAPS_APP_NAMESPACE}/${MAPS_APP_KEY_OPEN_GEO_SERVICE}`
 
 // Used until an administrator links another instance. Its datasets are still off by default.
-export const DEFAULT_OPEN_CLIMATE_SERVICE_URL =
-    'https://ocs-demo-nepal.dhis2.org'
+export const DEFAULT_OPEN_GEO_SERVICE_URL = 'https://geoservice.dhis2.org/nepal'
 
 const MAX_STEPS = 50000
 const LEGEND_CLASSES = 7
@@ -28,11 +27,11 @@ export const normalizeUrl = (url = '') => {
     return normalized
 }
 
-// Returns { url, enabled } for the linked OCS, or null if no instance is linked
-export const fetchOpenClimateServiceSettings = async (engine) => {
+// Returns { url, enabled } for the linked GeoService, or null if no instance is linked
+export const fetchOpenGeoServiceSettings = async (engine) => {
     try {
         const { settings } = await engine.query({
-            settings: { resource: OPEN_CLIMATE_SERVICE_RESOURCE },
+            settings: { resource: OPEN_GEO_SERVICE_RESOURCE },
         })
         return settings?.url
             ? { ...settings, url: normalizeUrl(settings.url) }
@@ -42,9 +41,9 @@ export const fetchOpenClimateServiceSettings = async (engine) => {
     }
 }
 
-export const fetchOpenClimateServiceUrl = async (engine) =>
-    (await fetchOpenClimateServiceSettings(engine))?.url ||
-    DEFAULT_OPEN_CLIMATE_SERVICE_URL
+export const fetchOpenGeoServiceUrl = async (engine) =>
+    (await fetchOpenGeoServiceSettings(engine))?.url ||
+    DEFAULT_OPEN_GEO_SERVICE_URL
 
 const fetchJson = async (url) => {
     const response = await fetch(url)
@@ -93,12 +92,12 @@ export const fetchCollections = (url) => {
 
 // A collection as an entry in the add layer popover
 export const getLayerSource = (collection) => ({
-    layer: OPEN_CLIMATE_SERVICE_LAYER,
-    layerId: `${OPEN_CLIMATE_SERVICE_LAYER}:${collection.id}`,
+    layer: OPEN_GEO_SERVICE_LAYER,
+    layerId: `${OPEN_GEO_SERVICE_LAYER}:${collection.id}`,
     name: collection.title || collection.id,
     img: collection.assets?.thumbnail?.href,
     description: collection.description,
-    source: 'Open Climate Service',
+    source: 'Open Geo Service',
     config: { datasetId: collection.id },
 })
 
@@ -333,7 +332,6 @@ export const getRenderOptions = (collection) => {
         fillValue: render.nodata ?? null,
         zarrVersion: zarr['zarr:zarr_format'] ?? null,
         crs,
-        proj4: collection['open_climate_service:proj4'] ?? null,
         unit: collection['cube:variables']?.[variable]?.unit,
         bounds: getBounds(collection),
     }

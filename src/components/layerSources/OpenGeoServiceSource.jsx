@@ -1,14 +1,14 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, InputField, NoticeBox } from '@dhis2/ui'
 import React, { useState } from 'react'
-import useOpenClimateService from '../../hooks/useOpenClimateService.js'
+import useOpenGeoService from '../../hooks/useOpenGeoService.js'
 import LayerSource from './LayerSource.jsx'
-import styles from './styles/OpenClimateServiceSource.module.css'
+import styles from './styles/OpenGeoServiceSource.module.css'
 
-// The linked Open Climate Service instance, the default one until an administrator
+// The linked Open Geo Service instance, the default one until an administrator
 // links another. Its published raster and vector datasets are listed, and the
 // administrator chooses which are available to add to maps.
-const OpenClimateServiceSource = () => {
+const OpenGeoServiceSource = () => {
     const {
         url,
         isDefault,
@@ -18,7 +18,7 @@ const OpenClimateServiceSource = () => {
         link,
         unlink,
         setVisibility,
-    } = useOpenClimateService()
+    } = useOpenGeoService()
     const [isChanging, setIsChanging] = useState(false)
     const [value, setValue] = useState('')
     const [linkError, setLinkError] = useState()
@@ -38,7 +38,7 @@ const OpenClimateServiceSource = () => {
             .catch(() =>
                 setLinkError(
                     i18n.t(
-                        'Could not connect to an Open Climate Service at this address'
+                        'Could not connect to an Open Geo Service at this address'
                     )
                 )
             )
@@ -47,14 +47,11 @@ const OpenClimateServiceSource = () => {
 
     return (
         <>
-            <div
-                className={styles.source}
-                data-test="openclimateservice-source"
-            >
-                <h2>{i18n.t('Open Climate Service')}</h2>
+            <div className={styles.source} data-test="opengeoservice-source">
+                <h2>{i18n.t('Open Geo Service')}</h2>
                 <p>
                     {i18n.t(
-                        'Climate and earth observation data published by an Open Climate Service instance.'
+                        'Climate and earth observation data published by an Open Geo Service instance.'
                     )}
                 </p>
                 {url && !isChanging && (
@@ -105,7 +102,7 @@ const OpenClimateServiceSource = () => {
                 )}
                 {url && error && (
                     <NoticeBox warning className={styles.notice}>
-                        {i18n.t('The Open Climate Service is not responding')}
+                        {i18n.t('The Open Geo Service is not responding')}
                     </NoticeBox>
                 )}
             </div>
@@ -125,4 +122,4 @@ const OpenClimateServiceSource = () => {
     )
 }
 
-export default OpenClimateServiceSource
+export default OpenGeoServiceSource

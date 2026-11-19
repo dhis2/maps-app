@@ -1,4 +1,4 @@
-import { getColormap } from '../../../../util/openClimateService.js'
+import { getColormap } from '../../../../util/openGeoService.js'
 
 // Renders a GeoZarr store with @carbonplan/zarr-layer (a MapLibre custom layer).
 // Implements the layer interface that the maps-gl map expects (addTo, removeFrom,
@@ -45,7 +45,6 @@ class ZarrLayer {
                 zarrVersion: render.zarrVersion,
             }),
             ...(render.fillValue !== null && { fillValue: render.fillValue }),
-            ...(render.proj4 !== null && { proj4: render.proj4 }),
             onLoadingStateChange: this.onLoadingStateChange,
         })
 

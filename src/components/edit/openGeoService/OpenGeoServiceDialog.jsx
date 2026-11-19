@@ -4,14 +4,14 @@ import { CircularLoader } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setOpenClimateServiceSelection } from '../../../actions/layerEdit.js'
+import { setOpenGeoServiceSelection } from '../../../actions/layerEdit.js'
 import {
     fetchCollection,
-    fetchOpenClimateServiceUrl,
+    fetchOpenGeoServiceUrl,
     formatStep,
     getDefaultSelection,
     getDimensions,
-} from '../../../util/openClimateService.js'
+} from '../../../util/openGeoService.js'
 import { DatePicker, SelectField, Tab, Tabs } from '../../core/index.js'
 import styles from '../styles/LayerDialog.module.css'
 
@@ -74,11 +74,7 @@ DimensionSelect.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
-const OpenClimateServiceDialog = ({
-    config,
-    validateLayer,
-    onLayerValidation,
-}) => {
+const OpenGeoServiceDialog = ({ config, validateLayer, onLayerValidation }) => {
     const [collection, setCollection] = useState()
     const [error, setError] = useState()
     const [tab, setTab] = useState('data')
@@ -87,7 +83,7 @@ const OpenClimateServiceDialog = ({
     const { datasetId, selection } = config
 
     useEffect(() => {
-        fetchOpenClimateServiceUrl(engine)
+        fetchOpenGeoServiceUrl(engine)
             .then((url) => fetchCollection(url, datasetId))
             .then(setCollection)
             .catch(() => setError(i18n.t('The dataset is not available')))
@@ -124,7 +120,7 @@ const OpenClimateServiceDialog = ({
                         value={values[dimension.key]}
                         onChange={(value) =>
                             dispatch(
-                                setOpenClimateServiceSelection({
+                                setOpenGeoServiceSelection({
                                     [dimension.key]: value,
                                 })
                             )
@@ -147,7 +143,7 @@ const OpenClimateServiceDialog = ({
     )
 }
 
-OpenClimateServiceDialog.propTypes = {
+OpenGeoServiceDialog.propTypes = {
     config: PropTypes.shape({
         datasetId: PropTypes.string.isRequired,
         selection: PropTypes.object,
@@ -156,4 +152,4 @@ OpenClimateServiceDialog.propTypes = {
     onLayerValidation: PropTypes.func.isRequired,
 }
 
-export default OpenClimateServiceDialog
+export default OpenGeoServiceDialog

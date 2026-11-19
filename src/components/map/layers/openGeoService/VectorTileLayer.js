@@ -18,8 +18,8 @@ const addPmtilesProtocol = () => {
     }
 }
 
-// Draws an Open Climate Service vector collection from its PMTiles archive, with
-// the MapLibre style OCS publishes for it. Implements the layer interface that
+// Draws an Open Geo Service vector collection from its PMTiles archive, with
+// the MapLibre style GeoService publishes for it. Implements the layer interface that
 // the maps-gl map expects (addTo, removeFrom, move, setIndex, ...), as maps-gl
 // does not have a vector tile overlay type.
 // It could move to maps-gl as a layer type.
@@ -32,7 +32,7 @@ class VectorTileLayer {
         this._id = id
         this._isVisible = options.isVisible !== false
         this._source = source
-        // Layer and source ids are prefixed, so two OCS layers never collide
+        // Layer and source ids are prefixed, so two GeoService layers never collide
         this._layers = render.style.layers
             .filter((layer) => layer.source === sourceName)
             .map((layer) => ({ ...layer, id: `${id}-${layer.id}`, source: id }))

@@ -3,7 +3,7 @@ import { CUSTOM_ALERT } from '../constants/alerts.js'
 import { parseJsonConfig } from '../util/config.js'
 import {
     fetchCollection,
-    fetchOpenClimateServiceUrl,
+    fetchOpenGeoServiceUrl,
     fetchStyle,
     getDefaultSelection,
     getDimensions,
@@ -14,10 +14,10 @@ import {
     getVectorColor,
     getVectorOptions,
     isVectorCollection,
-} from '../util/openClimateService.js'
+} from '../util/openGeoService.js'
 import { createLegend } from './earthEngineLoader.js'
 
-const openClimateServiceLoader = async ({
+const openGeoServiceLoader = async ({
     config: layer,
     engine,
     keyAnalysisDigitGroupSeparator,
@@ -43,7 +43,7 @@ const openClimateServiceLoader = async ({
         isLoading: false,
     })
 
-    const url = await fetchOpenClimateServiceUrl(engine)
+    const url = await fetchOpenGeoServiceUrl(engine)
 
     let collection
 
@@ -59,11 +59,11 @@ const openClimateServiceLoader = async ({
     const legendSource = {
         title: name,
         description: collection.description,
-        source: 'Open Climate Service',
+        source: 'Open Geo Service',
         sourceUrl: `${url}/datasets/${encodeURIComponent(datasetId)}`,
     }
 
-    // A vector collection is drawn from its vector tiles, with the style OCS publishes
+    // A vector collection is drawn from its vector tiles, with the style GeoService publishes
     if (isVectorCollection(collection)) {
         let style
         try {
@@ -135,4 +135,4 @@ const openClimateServiceLoader = async ({
     }
 }
 
-export default openClimateServiceLoader
+export default openGeoServiceLoader
