@@ -1,6 +1,6 @@
 import {
-    FILTER_OPTIONS,
-    FILTER_ORG_UNIT,
+    FILTER_VIEW_VALUES,
+    FILTER_VIEW_VALUES_ONLY,
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
@@ -353,22 +353,23 @@ describe('getHeadersForLayer - unknown layer type', () => {
     })
 })
 
-describe('getHeadersForLayer - filter kinds', () => {
-    const filterTypeOf = (result, dataKey) =>
-        result.headers.find((h) => h.dataKey === dataKey).filterType
+describe('getHeadersForLayer - filter views', () => {
+    const filterViewOf = (result, dataKey) =>
+        result.headers.find((h) => h.dataKey === dataKey).filterView
 
-    test('columns with a few known values and the org unit get an options filter, the org unit hierarchy an org unit filter', () => {
+    test('columns with few values open on their list, Color on its list only, the others on the condition', () => {
         const result = getHeadersForLayer(THEMATIC_LAYER, {})
-        expect(filterTypeOf(result, 'level')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'legend')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'range')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'color')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'type')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'orgUnitPath')).toBe(FILTER_ORG_UNIT)
-        expect(filterTypeOf(result, 'orgUnitOwn')).toBe(FILTER_OPTIONS)
+        expect(filterViewOf(result, 'orgUnitOwn')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'level')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'legend')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'range')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'type')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'color')).toBe(FILTER_VIEW_VALUES_ONLY)
+        expect(filterViewOf(result, 'orgUnitPath')).toBeUndefined()
+        expect(filterViewOf(result, 'rawValue')).toBeUndefined()
     })
 
-    test('event data items with an option set or a boolean value get an options filter, org unit values an org unit filter', () => {
+    test('event data items with an option set or a Yes/no value open on their list, the others on the condition', () => {
         const layerHeaders = [
             {
                 name: 'w75KJ2mc4zz',
@@ -385,9 +386,9 @@ describe('getHeadersForLayer - filter kinds', () => {
             { name: 'qrur9Dvnyt5', column: 'Age', valueType: 'INTEGER' },
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
-        expect(filterTypeOf(result, 'w75KJ2mc4zz')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'zDhUuAYrxNC')).toBe(FILTER_OPTIONS)
-        expect(filterTypeOf(result, 'oZg33kd9taw')).toBe(FILTER_ORG_UNIT)
-        expect(filterTypeOf(result, 'qrur9Dvnyt5')).toBeUndefined()
+        expect(filterViewOf(result, 'w75KJ2mc4zz')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'zDhUuAYrxNC')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'oZg33kd9taw')).toBeUndefined()
+        expect(filterViewOf(result, 'qrur9Dvnyt5')).toBeUndefined()
     })
 })

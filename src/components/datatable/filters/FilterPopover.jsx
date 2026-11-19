@@ -5,43 +5,101 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
-    FILTER_DATE,
-    FILTER_NUMBER,
-    FILTER_OPTIONS,
-    FILTER_TEXT,
+    FILTER_VIEW_VALUES,
+    FILTER_VIEW_VALUES_ONLY,
+    SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
 import {
+    getFilterError,
+    hasCondition,
     isEmptyFilter,
     isSameFilter,
-    isValidFilter,
+    normalizeFilter,
+    updateNoValueForCondition,
 } from '../../../util/filter.js'
-import DateFilter from './DateFilter.jsx'
-import NumberFilter from './NumberFilter.jsx'
-import OptionsFilter from './OptionsFilter.jsx'
+import {
+    countKeptRows,
+    getListedValues,
+    toAppliedFilter,
+} from '../../../util/filterValues.js'
+import ConditionRow from './ConditionRow.jsx'
+import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
-import TextFilter from './TextFilter.jsx'
+import useFilterValues from './useFilterValues.js'
+import ValueList from './ValueList.jsx'
 
-const EDITORS = {
-    [FILTER_TEXT]: TextFilter,
-    [FILTER_NUMBER]: NumberFilter,
-    [FILTER_OPTIONS]: OptionsFilter,
-    [FILTER_DATE]: DateFilter,
-}
+const getDraft = (filterType, filter) => ({
+    type: filterType,
+    operator: getOperators(filterType)[0]?.value,
+    value: '',
+    ...filter,
+    excluded: filter?.excluded ?? [],
+})
+
+// Columns with few values open on their list, the others on their condition;
+// a part folds into a link only while it is empty
+const getOpenParts = (filterView, filter) => ({
+    condition:
+        filterView !== FILTER_VIEW_VALUES_ONLY &&
+        (filterView !== FILTER_VIEW_VALUES || hasCondition(filter)),
+    values:
+        filterView === FILTER_VIEW_VALUES ||
+        filterView === FILTER_VIEW_VALUES_ONLY ||
+        !!filter?.excluded?.some((key) => key !== SENTINEL_NO_VALUE),
+})
 
 const FilterPopover = ({
     anchorRef,
     layerId,
-    name,
-    dataKey,
+    header,
     filterType,
     column,
     filter,
     onClose,
 }) => {
+    const { name, dataKey, renderer, filterView } = header
     const dispatch = useDispatch()
-    const [draft, setDraft] = useState(filter)
-    const Editor = EDITORS[filterType]
-    const canApply = !isSameFilter(draft, filter) && isValidFilter(draft)
+    const { allValues, values, matchOnLabel } = useFilterValues({
+        header,
+        ...column,
+    })
+    const [draft, setDraft] = useState(() => getDraft(filterType, filter))
+    // "No value" follows the condition until the user checks or unchecks it
+    const [isNoValueChosen, setIsNoValueChosen] = useState(
+        () =>
+            !!filter &&
+            hasCondition(filter) !==
+                filter.excluded?.includes(SENTINEL_NO_VALUE)
+    )
+    const [openParts, setOpenParts] = useState(() =>
+        getOpenParts(filterView, filter)
+    )
+
+    const options = { matchOnLabel, allValues }
+    const applied = normalizeFilter(toAppliedFilter(draft, options))
+    const error = getFilterError(draft)
+    const canApply = !isSameFilter(applied, filter) && !error
+    const { listed, hidden } = getListedValues(values, draft, options)
+    const keptCount = countKeptRows(values, draft, options)
+    const totalCount = countKeptRows(values, { excluded: [] }, options)
+
+    const updateCondition = (changes) =>
+        setDraft((previous) => {
+            const next = { ...previous, ...changes }
+            return isNoValueChosen
+                ? next
+                : updateNoValueForCondition(previous, next)
+        })
+
+    const updateExcluded = (excluded, toggledKey) => {
+        if (toggledKey === SENTINEL_NO_VALUE) {
+            setIsNoValueChosen(true)
+        }
+        setDraft((previous) => ({ ...previous, excluded }))
+    }
+
+    const openPart = (part) =>
+        setOpenParts((parts) => ({ ...parts, [part]: true }))
 
     const apply = (event) => {
         event.preventDefault()
@@ -49,9 +107,9 @@ const FilterPopover = ({
             return
         }
         dispatch(
-            isEmptyFilter(draft)
+            isEmptyFilter(applied)
                 ? clearDataFilter(layerId, dataKey)
-                : setDataFilter(layerId, dataKey, draft)
+                : setDataFilter(layerId, dataKey, applied)
         )
         onClose()
     }
@@ -93,13 +151,59 @@ const FilterPopover = ({
                     </button>
                 </div>
                 <div className={styles.popoverBody}>
-                    <Editor draft={draft} column={column} onChange={setDraft} />
+                    {openParts.condition && (
+                        <ConditionRow
+                            filterType={filterType}
+                            draft={draft}
+                            onChange={updateCondition}
+                        />
+                    )}
+                    {!openParts.condition &&
+                        filterView !== FILTER_VIEW_VALUES_ONLY && (
+                            <button
+                                type="button"
+                                className={styles.linkButton}
+                                onClick={() => openPart('condition')}
+                                data-test="data-table-filter-add-condition"
+                            >
+                                {i18n.t('+ Add a condition')}
+                            </button>
+                        )}
+                    {openParts.values ? (
+                        <ValueList
+                            listed={listed}
+                            hidden={hidden}
+                            excluded={draft.excluded}
+                            renderer={renderer}
+                            onChange={updateExcluded}
+                        />
+                    ) : (
+                        <button
+                            type="button"
+                            className={styles.linkButton}
+                            onClick={() => openPart('values')}
+                            data-test="data-table-filter-pick-values"
+                        >
+                            {i18n.t('Pick values')}
+                        </button>
+                    )}
                 </div>
                 <div className={styles.popoverFooter}>
+                    <span
+                        className={styles.preview}
+                        aria-live="polite"
+                        data-test="data-table-filter-preview"
+                    >
+                        {!error &&
+                            i18n.t('{{kept}} of {{total}} rows', {
+                                kept: keptCount,
+                                total: totalCount,
+                            })}
+                    </span>
                     <Button
                         small
                         secondary
-                        disabled={!filter && isEmptyFilter(draft)}
+                        disabled={!filter && isEmptyFilter(applied)}
                         onClick={clear}
                         dataTest="data-table-filter-clear"
                     >
@@ -122,12 +226,21 @@ const FilterPopover = ({
 
 FilterPopover.propTypes = {
     anchorRef: PropTypes.object.isRequired,
-    dataKey: PropTypes.string.isRequired,
+    column: PropTypes.shape({
+        rows: PropTypes.array.isRequired,
+        filters: PropTypes.object,
+        keyAnalysisDigitGroupSeparator: PropTypes.string,
+        orgUnitIdToName: PropTypes.instanceOf(Map),
+    }).isRequired,
     filterType: PropTypes.string.isRequired,
+    header: PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        filterView: PropTypes.string,
+        renderer: PropTypes.string,
+    }).isRequired,
     layerId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    column: PropTypes.object,
     filter: PropTypes.object,
 }
 

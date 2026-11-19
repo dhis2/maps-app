@@ -36,15 +36,9 @@ const HEADERS = [
         name: 'Legend',
         dataKey: 'legend',
         type: 'string',
-        filterType: 'options',
+        filterView: 'values',
     },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
-    {
-        name: 'Org unit hierarchy',
-        dataKey: 'orgUnitPath',
-        type: 'orgUnit',
-        filterType: 'orgUnit',
-    },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
@@ -86,8 +80,8 @@ beforeEach(() => {
         totalCount: 0,
         filteredCount: 0,
         columnOptions: {},
-        columnValueCounts: {},
         orgUnitIdToName: new Map(),
+        filterRows: [],
     })
 })
 
@@ -103,7 +97,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text, number, options and date columns get a filter button, org unit columns the filter input, untyped columns neither', () => {
+    test('text and number columns get a filter button, those with few values too, date columns the filter input, untyped columns neither', () => {
         renderTable()
         expect(
             screen.getByTestId('data-table-filter-button-orgUnitOwn')
@@ -119,13 +113,9 @@ describe('DataTable column headers', () => {
             screen.getByTestId('data-table-filter-button-legend')
         ).toBeInTheDocument()
         expect(screen.queryByTestId('filter-legend')).not.toBeInTheDocument()
+        expect(screen.getByTestId('filter-eventdate')).toBeInTheDocument()
         expect(
-            screen.getByTestId('data-table-filter-button-eventdate')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-eventdate')).not.toBeInTheDocument()
-        expect(screen.getByTestId('filter-orgUnitPath')).toBeInTheDocument()
-        expect(
-            screen.queryByTestId('data-table-filter-button-orgUnitPath')
+            screen.queryByTestId('data-table-filter-button-eventdate')
         ).not.toBeInTheDocument()
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
         expect(

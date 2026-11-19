@@ -1,3 +1,5 @@
+import { getValuesByPeriod } from '../../../../loaders/thematicLoader.js'
+import { addLegendProperties } from '../../../../util/styleByDataItem.js'
 import EarthEngineLayer from '../earthEngine/EarthEngineLayer.jsx'
 import EventLayer from '../EventLayer.jsx'
 import FacilityLayer from '../FacilityLayer.jsx'
@@ -94,6 +96,48 @@ describe('table filters on the map layers', () => {
         const periodData = instance.buildPeriodData()
 
         expect(periodData.map((feature) => feature.id)).toEqual(['kono'])
+    })
+
+    test('a timeline thematic layer filters the Value column on the current period, as the table does', () => {
+        const valuesByPeriod = getValuesByPeriod({
+            headers: [{ name: 'pe' }, { name: 'ou' }, { name: 'value' }],
+            rows: [
+                ['2024', 'bo', '1'],
+                ['2024', 'kono', '8'],
+            ],
+        })
+        const { instance } = createComponent(ThematicLayer, {
+            renderingStrategy: 'TIMELINE',
+            externalPeriod: { id: '2024' },
+            valuesByPeriod,
+            noDataLegend: {},
+            unclassifiedLegend: {},
+            dataFilters: { rawValue: '>5' },
+        })
+
+        const periodData = instance.buildPeriodData()
+
+        expect(periodData.map((feature) => feature.id)).toEqual(['kono'])
+    })
+
+    test('a styled event layer filters the Legend column, as the table does', () => {
+        const legend = { items: [{ name: 'Low' }, { name: 'High' }] }
+        const data = addLegendProperties(
+            [
+                { ...point('bo', 'Bo', 10), properties: { colorGroup: 1 } },
+                { ...point('kono', 'Kono', 2), properties: { colorGroup: 0 } },
+            ],
+            legend,
+            {}
+        )
+        const { instance, configs } = createComponent(EventLayer, {
+            data,
+            dataFilters: { legend: 'high' },
+        })
+
+        instance.createLayer()
+
+        expect(drawnIds(configs)).toEqual(['bo'])
     })
 
     test('an Earth Engine layer masks the areas the filters leave out, without a rebuild', async () => {

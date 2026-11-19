@@ -18,12 +18,9 @@ import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
-    FILTER_DATE,
     FILTER_NUMBER,
-    FILTER_OPTIONS,
     FILTER_TEXT,
     SORT_ASCENDING,
-    TYPE_NUMBER,
 } from '../../constants/dataTable.js'
 import {
     getFilterType,
@@ -33,7 +30,6 @@ import {
     isFilterable,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
-import { formatCellText } from '../../util/tableCells.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnHeader from './ColumnHeader.jsx'
@@ -45,39 +41,11 @@ import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
-// Filter kinds with a popover; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([
-    FILTER_TEXT,
-    FILTER_NUMBER,
-    FILTER_OPTIONS,
-    FILTER_DATE,
-])
+// Conditions the popover offers so far; the other columns keep FilterInput
+const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
 
-const EMPTY_OPTIONS = []
-const EMPTY_COUNTS = new Map()
-
-// The column's values, labelled as its cells, for the options filter
-const getFilterColumn = (
-    { dataKey, type, renderer, optionSet },
-    {
-        columnOptions,
-        columnValueCounts,
-        orgUnitIdToName,
-        keyAnalysisDigitGroupSeparator,
-    }
-) => ({
-    options: columnOptions[dataKey] ?? EMPTY_OPTIONS,
-    counts: columnValueCounts[dataKey] ?? EMPTY_COUNTS,
-    optionSetId: optionSet?.id,
-    renderer,
-    formatValue: (value) =>
-        formatCellText(type === TYPE_NUMBER ? Number(value) : value, {
-            renderer,
-            type,
-            orgUnitIdToName,
-            keyAnalysisDigitGroupSeparator,
-        }),
-})
+const hasFilterPopover = (header) =>
+    POPOVER_FILTER_TYPES.has(getFilterType(header))
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -159,14 +127,9 @@ const Table = ({
         totalCount,
         filteredCount,
         columnOptions,
-        columnValueCounts,
         orgUnitIdToName,
-    } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-        keyAnalysisDigitGroupSeparator,
-    })
+        filterRows,
+    } = useTableData({ layer, sortField, sortDirection })
 
     useEffect(() => {
         onHeadersChange?.(headers, layer.id)
@@ -187,6 +150,22 @@ const Table = ({
     const typeByDataKey = useMemo(
         () => new Map(visibleHeaders.map((h) => [h.dataKey, h.type])),
         [visibleHeaders]
+    )
+
+    // What a column's filter popover counts its values from
+    const filterColumn = useMemo(
+        () => ({
+            rows: filterRows ?? [],
+            filters: dataFilters,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        }),
+        [
+            filterRows,
+            dataFilters,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        ]
     )
 
     const { headerRowRef, columnWidths } = useColumnWidths({
@@ -245,9 +224,7 @@ const Table = ({
                 {visibleHeaders.map((header, index) => {
                     const { name, dataKey, type, optionSet, renderer } = header
                     const canFilter = isFilterable(dataKey, type)
-                    const filterType = getFilterType(header)
-                    const hasPopover =
-                        canFilter && POPOVER_FILTER_TYPES.has(filterType)
+                    const hasPopover = canFilter && hasFilterPopover(header)
                     const hasFilterInput = canFilter && !hasPopover
 
                     return (
@@ -264,15 +241,9 @@ const Table = ({
                                 hasPopover && (
                                     <FilterButton
                                         layerId={layerId}
-                                        name={name}
-                                        dataKey={dataKey}
-                                        filterType={filterType}
-                                        column={getFilterColumn(header, {
-                                            columnOptions,
-                                            columnValueCounts,
-                                            orgUnitIdToName,
-                                            keyAnalysisDigitGroupSeparator,
-                                        })}
+                                        header={header}
+                                        filterType={getFilterType(header)}
+                                        column={filterColumn}
                                         filter={dataFilters?.[dataKey]}
                                     />
                                 )
@@ -311,12 +282,11 @@ const Table = ({
             visibleHeaders,
             columnWidths,
             columnOptions,
-            columnValueCounts,
             headerRowRef,
             orgUnitIdToName,
-            keyAnalysisDigitGroupSeparator,
             layerId,
             dataFilters,
+            filterColumn,
         ]
     )
 
