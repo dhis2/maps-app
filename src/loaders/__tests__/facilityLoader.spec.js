@@ -74,7 +74,7 @@ describe('applyMissingCoordsCount', () => {
                     name: 'Tihun CHC',
                     orgUnitId: 'fac2',
                     orgUnitPath: '/country1/region1/fac2',
-                    orgUnitOwn: '/country1/region1/fac2',
+                    orgUnitOwn: 'fac2',
                     level: 3,
                 },
             },

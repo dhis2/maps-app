@@ -5,25 +5,22 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
-    FILTER_NUMBER,
-    FILTER_OPTIONS,
-    FILTER_TEXT,
-} from '../../../constants/dataTable.js'
-import {
+    getFilterError,
     isEmptyFilter,
     isSameFilter,
-    isValidFilter,
+    normalizeFilter,
+    updateNoValueForCondition,
 } from '../../../util/filter.js'
-import NumberFilter from './NumberFilter.jsx'
-import OptionsFilter from './OptionsFilter.jsx'
+import ConditionRow from './ConditionRow.jsx'
+import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
-import TextFilter from './TextFilter.jsx'
 
-const EDITORS = {
-    [FILTER_TEXT]: TextFilter,
-    [FILTER_NUMBER]: NumberFilter,
-    [FILTER_OPTIONS]: OptionsFilter,
-}
+const getEmptyFilter = (filterType) => ({
+    type: filterType,
+    operator: getOperators(filterType)[0]?.value,
+    value: '',
+    excluded: [],
+})
 
 const FilterPopover = ({
     anchorRef,
@@ -31,14 +28,20 @@ const FilterPopover = ({
     name,
     dataKey,
     filterType,
-    column,
     filter,
     onClose,
 }) => {
     const dispatch = useDispatch()
-    const [draft, setDraft] = useState(filter)
-    const Editor = EDITORS[filterType]
-    const canApply = !isSameFilter(draft, filter) && isValidFilter(draft)
+    const [draft, setDraft] = useState(() => ({
+        ...getEmptyFilter(filterType),
+        ...filter,
+    }))
+    const canApply = !isSameFilter(draft, filter) && !getFilterError(draft)
+
+    const updateCondition = (changes) =>
+        setDraft((previous) =>
+            updateNoValueForCondition(previous, { ...previous, ...changes })
+        )
 
     const apply = (event) => {
         event.preventDefault()
@@ -48,7 +51,7 @@ const FilterPopover = ({
         dispatch(
             isEmptyFilter(draft)
                 ? clearDataFilter(layerId, dataKey)
-                : setDataFilter(layerId, dataKey, draft)
+                : setDataFilter(layerId, dataKey, normalizeFilter(draft))
         )
         onClose()
     }
@@ -90,7 +93,11 @@ const FilterPopover = ({
                     </button>
                 </div>
                 <div className={styles.popoverBody}>
-                    <Editor draft={draft} column={column} onChange={setDraft} />
+                    <ConditionRow
+                        filterType={filterType}
+                        draft={draft}
+                        onChange={updateCondition}
+                    />
                 </div>
                 <div className={styles.popoverFooter}>
                     <Button
@@ -124,7 +131,6 @@ FilterPopover.propTypes = {
     layerId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    column: PropTypes.object,
     filter: PropTypes.object,
 }
 

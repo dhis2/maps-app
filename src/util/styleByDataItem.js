@@ -11,6 +11,7 @@ import { cssColor } from '../util/colors.js'
 import { OPTION_SET_QUERY, LEGEND_SET_QUERY } from '../util/requests.js'
 import { getLegendItemForValue } from './classify.js'
 import { getAutomaticLegendItems, getPredefinedLegendItems } from './legend.js'
+import { formatRangeWithSeparator } from './numbers.js'
 
 // Narrower than helpers.js's hasValue on purpose: a raw value literally
 // equal to "Not set" is still real data here, not a no-data sentinel.
@@ -62,6 +63,35 @@ const addFeature = (acc, feature, { item, value }) => {
         },
     })
 }
+
+// Legend name and range of each styled event, read by the map's filters and the data table
+export const addLegendProperties = (
+    features,
+    legend,
+    { keyAnalysisDigitGroupSeparator, legendDecimalPlaces }
+) =>
+    features.map((feature) => {
+        const legendItem = legend?.items?.[feature.properties.colorGroup]
+        if (!legendItem) {
+            return feature
+        }
+        const range =
+            'startValue' in legendItem
+                ? formatRangeWithSeparator(
+                      legendItem,
+                      keyAnalysisDigitGroupSeparator,
+                      { precision: legendDecimalPlaces }
+                  )
+                : undefined
+        return {
+            ...feature,
+            properties: {
+                ...feature.properties,
+                legend: legendItem.name,
+                range,
+            },
+        }
+    })
 
 // "Style by data item" handling for event layer
 // Can be reused for TEI layer when the Web API is improved

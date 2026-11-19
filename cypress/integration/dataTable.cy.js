@@ -38,19 +38,16 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
 const openColumnFilter = (column) =>
     cy.get(`button[aria-label="Filter by ${column}"]`).click()
 
-// Without an operator, the filter keeps its default: greater than
-const filterNumberColumn = (column, value, operator) => {
+const filterNumberColumn = (column, operator, value) => {
     openColumnFilter(column)
-    if (operator) {
-        cy.getByDataTest('data-table-filter-number-operator')
-            .find('[data-test="dhis2-uicore-select-input"]')
-            .click()
-        cy.contains(
-            '[data-test="dhis2-uicore-singleselectoption"]',
-            operator
-        ).click()
-    }
-    cy.getByDataTest('data-table-filter-number-value').find('input').type(value)
+    cy.getByDataTest('data-table-filter-operator')
+        .find('[data-test="dhis2-uicore-select-input"]')
+        .click()
+    cy.contains(
+        '[data-test="dhis2-uicore-singleselectoption"]',
+        operator
+    ).click()
+    cy.getByDataTest('data-table-filter-value').find('input').type(value)
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
@@ -151,7 +148,7 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
 
         // Filter by Value (numeric)
-        filterNumberColumn('Value', '26')
+        filterNumberColumn('Value', 'Greater than (>)', '26')
 
         // Check that the (combined) filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -258,7 +255,7 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // Filter by Age in years (numeric)
-        filterNumberColumn('Age in years', '51', 'Less than (<)')
+        filterNumberColumn('Age in years', 'Less than (<)', '51')
 
         // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
