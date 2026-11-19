@@ -73,7 +73,7 @@ describe('applyMissingCoordsCount', () => {
                     name: 'District B',
                     orgUnitId: 'ou2',
                     orgUnitPath: '/country1/region1/ou2',
-                    orgUnitOwn: '/country1/region1/ou2',
+                    orgUnitOwn: 'ou2',
                     level: 3,
                 },
             },

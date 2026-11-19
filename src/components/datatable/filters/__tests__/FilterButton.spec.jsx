@@ -10,35 +10,41 @@ import FilterButton from '../FilterButton.jsx'
 
 const mockStore = configureMockStore()
 
-const renderButton = async (filter, filterType = 'text') => {
+const renderButton = async (filter) => {
     const store = mockStore({})
     render(
         <Provider store={store}>
             <FilterButton
                 layerId="layer1"
-                name="Org unit"
-                dataKey="name"
-                filterType={filterType}
+                name="Event ID"
+                dataKey="id"
+                filterType="text"
                 filter={filter}
             />
         </Provider>
     )
-    fireEvent.click(screen.getByTestId('data-table-filter-button-name'))
+    fireEvent.click(screen.getByTestId('data-table-filter-button-id'))
     await screen.findByTestId('data-table-filter-popover')
     return store
 }
 
-const typeInto = (dataTest, text) =>
-    fireEvent.change(screen.getByTestId(dataTest).querySelector('input'), {
-        target: { value: text },
-    })
-
-const typeText = (text) => typeInto('data-table-filter-text-input', text)
+const typeText = (text) =>
+    fireEvent.change(
+        screen.getByTestId('data-table-filter-value').querySelector('input'),
+        { target: { value: text } }
+    )
 
 const applyButton = () => screen.getByTestId('data-table-filter-apply')
 
+const CONTAINS_BO = {
+    type: 'text',
+    operator: 'contains',
+    value: 'bo',
+    excluded: [''],
+}
+
 describe('FilterButton', () => {
-    test('applies the text typed in the popover as the column filter', async () => {
+    test('applies the typed text as a "Contains" condition, which leaves out the rows without a value', async () => {
         const store = await renderButton()
 
         typeText('bo')
@@ -48,8 +54,8 @@ describe('FilterButton', () => {
             {
                 type: DATA_FILTER_SET,
                 layerId: 'layer1',
-                fieldId: 'name',
-                filter: { type: 'text', operator: 'contains', value: 'bo' },
+                fieldId: 'id',
+                filter: CONTAINS_BO,
             },
         ])
         expect(
@@ -58,7 +64,7 @@ describe('FilterButton', () => {
     })
 
     test('cannot apply the filter the column already has', async () => {
-        await renderButton({ type: 'text', operator: 'contains', value: 'bo' })
+        await renderButton(CONTAINS_BO)
 
         expect(applyButton()).toBeDisabled()
 
@@ -67,82 +73,32 @@ describe('FilterButton', () => {
     })
 
     test('applying an emptied text clears the column filter', async () => {
-        const store = await renderButton({
-            type: 'text',
-            operator: 'contains',
-            value: 'bo',
-        })
+        const store = await renderButton(CONTAINS_BO)
 
         typeText('')
         fireEvent.click(applyButton())
 
         expect(store.getActions()).toEqual([
-            { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'name' },
+            { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'id' },
         ])
     })
 
+    test('keeps the values already unchecked in the column filter', async () => {
+        const store = await renderButton({ ...CONTAINS_BO, excluded: ['x'] })
+
+        typeText('ko')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter.excluded).toEqual(['x'])
+    })
+
     test('clears the column filter', async () => {
-        const store = await renderButton({
-            type: 'text',
-            operator: 'contains',
-            value: 'bo',
-        })
+        const store = await renderButton(CONTAINS_BO)
 
         fireEvent.click(screen.getByTestId('data-table-filter-clear'))
 
         expect(store.getActions()).toEqual([
-            { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'name' },
+            { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'id' },
         ])
-    })
-
-    test('is empty takes no text', async () => {
-        await renderButton({ type: 'text', operator: 'empty' })
-
-        expect(
-            screen.queryByTestId('data-table-filter-text-input')
-        ).not.toBeInTheDocument()
-    })
-})
-
-describe('FilterButton on a number column', () => {
-    const range = (value, value2) => ({
-        type: 'number',
-        operator: 'between',
-        value,
-        value2,
-    })
-
-    test('applies a number greater than the typed value', async () => {
-        const store = await renderButton(undefined, 'number')
-
-        typeInto('data-table-filter-number-value', '5')
-        fireEvent.click(applyButton())
-
-        expect(store.getActions()).toEqual([
-            {
-                type: DATA_FILTER_SET,
-                layerId: 'layer1',
-                fieldId: 'name',
-                filter: { type: 'number', operator: 'gt', value: '5' },
-            },
-        ])
-    })
-
-    test('a range needs both bounds before it can be applied', async () => {
-        await renderButton(range('1', '5'), 'number')
-
-        typeInto('data-table-filter-number-value2', '')
-        expect(applyButton()).toBeDisabled()
-    })
-
-    test('a range with its bounds reversed shows why it cannot be applied', async () => {
-        await renderButton(range('1', '5'), 'number')
-
-        typeInto('data-table-filter-number-value2', '0')
-
-        expect(applyButton()).toBeDisabled()
-        expect(
-            screen.getByText('Max must be greater than Min')
-        ).toBeInTheDocument()
     })
 })

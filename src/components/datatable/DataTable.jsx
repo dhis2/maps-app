@@ -17,17 +17,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import {
-    FILTER_NUMBER,
-    FILTER_TEXT,
-    SORT_ASCENDING,
-} from '../../constants/dataTable.js'
+import { FILTER_TEXT, SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
     getFilterType,
     getNextSorting,
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
+    isNamedValueColumn,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
@@ -41,8 +38,14 @@ import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
-// Filter kinds with a popover; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
+// Conditions the popover offers so far; the other columns keep FilterInput,
+// and so do the ones whose filter needs the list of values
+const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT])
+
+const hasFilterPopover = (header) =>
+    POPOVER_FILTER_TYPES.has(getFilterType(header)) &&
+    !header.filterView &&
+    !isNamedValueColumn(header)
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -125,12 +128,7 @@ const Table = ({
         filteredCount,
         columnOptions,
         orgUnitIdToName,
-    } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-        keyAnalysisDigitGroupSeparator,
-    })
+    } = useTableData({ layer, sortField, sortDirection })
 
     useEffect(() => {
         onHeadersChange?.(headers, layer.id)
@@ -209,9 +207,7 @@ const Table = ({
                 {visibleHeaders.map((header, index) => {
                     const { name, dataKey, type, optionSet, renderer } = header
                     const canFilter = isFilterable(dataKey, type)
-                    const filterType = getFilterType(header)
-                    const hasPopover =
-                        canFilter && POPOVER_FILTER_TYPES.has(filterType)
+                    const hasPopover = canFilter && hasFilterPopover(header)
                     const hasFilterInput = canFilter && !hasPopover
 
                     return (
@@ -230,7 +226,7 @@ const Table = ({
                                         layerId={layerId}
                                         name={name}
                                         dataKey={dataKey}
-                                        filterType={filterType}
+                                        filterType={getFilterType(header)}
                                         filter={dataFilters?.[dataKey]}
                                     />
                                 )
