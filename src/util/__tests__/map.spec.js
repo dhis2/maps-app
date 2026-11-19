@@ -62,9 +62,7 @@ describe('toGeoJson', () => {
         expect(feature.properties.orgUnitPath).toBe(
             '/country1/region1/facility1'
         )
-        expect(feature.properties.orgUnitOwn).toBe(
-            '/country1/region1/facility1'
-        )
+        expect(feature.properties.orgUnitOwn).toBe('facility1')
     })
 })
 
