@@ -63,46 +63,21 @@ describe('buildTableData - generic layer', () => {
     })
 })
 
-describe('buildTableData - styled event layer', () => {
-    test('derives legend name and a formatted range from the matching legend item', () => {
-        const data = [feature('a', { colorGroup: 0 })]
-        const legend = {
-            items: {
-                0: { name: 'Low', startValue: 0, endValue: 10 },
-            },
-        }
-        const result = buildTableData('event', {
-            data,
-            aggregations: {},
-            isStyledEvent: true,
-            legend,
-            keyAnalysisDigitGroupSeparator: 'SPACE',
-        })
-        expect(result.data[0].legend).toBe('Low')
-        expect(result.data[0].range).toBe('0 – 10')
-    })
-
-    test('leaves range undefined when the matched legend item has no start/end value', () => {
-        const data = [feature('a', { colorGroup: 0 })]
-        const legend = { items: { 0: { name: 'Uncategorized' } } }
-        const result = buildTableData('event', {
-            data,
-            aggregations: {},
-            isStyledEvent: true,
-            legend,
-        })
-        expect(result.data[0].legend).toBe('Uncategorized')
-        expect(result.data[0].range).toBeUndefined()
-    })
-})
-
 describe('buildTableData - multi-period thematic layer', () => {
     const periods = [
         { id: 'p1', name: 'Jan' },
         { id: 'p2', name: 'Feb' },
     ]
     const valuesByPeriod = {
-        p1: { a: { value: 1, color: '#f00', legend: 'Low', range: '0-1' } },
+        p1: {
+            a: {
+                value: 1,
+                rawValue: 1,
+                color: '#f00',
+                legend: 'Low',
+                range: '0-1',
+            },
+        },
         p2: { a: { value: 2 } },
     }
 

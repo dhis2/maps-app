@@ -53,7 +53,8 @@ export const toGeoJson = (organisationUnits) =>
                     parentId: ou.pi,
                     parentName: ou.pn,
                     [ORG_UNIT_PATH_DATA_KEY]: orgUnitPath,
-                    [ORG_UNIT_DATA_KEY]: orgUnitPath,
+                    // The own id only, so showing it fetches one name, not every ancestor's
+                    [ORG_UNIT_DATA_KEY]: ou.id,
                     dimensions: ou.dimensions,
                 },
             }

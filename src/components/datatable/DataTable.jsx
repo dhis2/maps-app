@@ -121,12 +121,7 @@ const Table = ({
         filteredCount,
         columnOptions,
         orgUnitIdToName,
-    } = useTableData({
-        layer,
-        sortField,
-        sortDirection,
-        keyAnalysisDigitGroupSeparator,
-    })
+    } = useTableData({ layer, sortField, sortDirection })
 
     useEffect(() => {
         onHeadersChange?.(headers, layer.id)
