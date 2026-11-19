@@ -1,4 +1,4 @@
-import { render, fireEvent, screen } from '@testing-library/react'
+import { act, render, fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -100,5 +100,32 @@ describe('FilterButton', () => {
         expect(store.getActions()).toEqual([
             { type: DATA_FILTER_CLEAR, layerId: 'layer1', fieldId: 'id' },
         ])
+    })
+})
+
+describe('FilterButton tooltip', () => {
+    afterEach(() => jest.useRealTimers())
+
+    test('hides its tooltip while the popover is open, so it never covers the popover', () => {
+        jest.useFakeTimers()
+        render(
+            <Provider store={mockStore({})}>
+                <FilterButton
+                    layerId="layer1"
+                    name="Event ID"
+                    dataKey="id"
+                    filterType="text"
+                />
+            </Provider>
+        )
+        const button = screen.getByTestId('data-table-filter-button-id')
+        const tooltip = () => document.querySelector('.topTooltipContent')
+
+        fireEvent.mouseOver(button)
+        act(() => jest.advanceTimersByTime(300))
+        expect(tooltip()).toHaveTextContent('Filter by Event ID')
+
+        fireEvent.click(button)
+        expect(tooltip()).toBeNull()
     })
 })
