@@ -36,7 +36,7 @@ const HEADERS = [
         name: 'Legend',
         dataKey: 'legend',
         type: 'string',
-        filterType: 'options',
+        filterView: 'values',
     },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     { name: 'Untyped', dataKey: 'untyped' },
@@ -80,8 +80,8 @@ beforeEach(() => {
         totalCount: 0,
         filteredCount: 0,
         columnOptions: {},
-        columnValueCounts: {},
         orgUnitIdToName: new Map(),
+        filterRows: [],
     })
 })
 
@@ -97,7 +97,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text, number and options columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
+    test('text and number columns get a filter button, those with few values too, date columns the filter input, untyped columns neither', () => {
         renderTable()
         expect(
             screen.getByTestId('data-table-filter-button-orgUnitOwn')

@@ -51,19 +51,19 @@ const filterNumberColumn = (column, operator, value) => {
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
-// Picks every value whose label contains the search text
-const filterSearchedValues = (column, search) => {
+// Columns with few values open on their list: the condition is behind a link
+const filterContaining = (column, text) => {
     openColumnFilter(column)
-    cy.getByDataTest('data-table-filter-options-search')
-        .find('input')
-        .type(search)
-    cy.getByDataTest('data-table-filter-options-toggle-all').click()
+    cy.getByDataTest('data-table-filter-add-condition').click()
+    cy.getByDataTest('data-table-filter-value').find('input').type(text)
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
+// Every value starts checked: keep one by unchecking all, then checking it
 const filterPickedValue = (column, label) => {
     openColumnFilter(column)
-    cy.getByDataTest('data-table-filter-options-list')
+    cy.getByDataTest('data-table-filter-values-uncheck-all').click()
+    cy.getByDataTest('data-table-filter-values-list')
         .contains('label', label)
         .click()
     cy.getByDataTest('data-table-filter-apply').click()
@@ -120,7 +120,7 @@ describe('data table', () => {
             .should('have.length', 9)
 
         // Filter by Org unit
-        filterSearchedValues('Org unit', 'bar')
+        filterContaining('Org unit', 'bar')
 
         // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')

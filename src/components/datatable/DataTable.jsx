@@ -28,7 +28,6 @@ import {
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
-    isNamedValueColumn,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
@@ -42,14 +41,11 @@ import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
-// Conditions the popover offers so far; the other columns keep FilterInput,
-// and so do the ones whose filter needs the list of values
+// Conditions the popover offers so far; the other columns keep FilterInput
 const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
 
 const hasFilterPopover = (header) =>
-    POPOVER_FILTER_TYPES.has(getFilterType(header)) &&
-    !header.filterView &&
-    !isNamedValueColumn(header)
+    POPOVER_FILTER_TYPES.has(getFilterType(header))
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -132,6 +128,7 @@ const Table = ({
         filteredCount,
         columnOptions,
         orgUnitIdToName,
+        filterRows,
     } = useTableData({ layer, sortField, sortDirection })
 
     useEffect(() => {
@@ -153,6 +150,22 @@ const Table = ({
     const typeByDataKey = useMemo(
         () => new Map(visibleHeaders.map((h) => [h.dataKey, h.type])),
         [visibleHeaders]
+    )
+
+    // What a column's filter popover counts its values from
+    const filterColumn = useMemo(
+        () => ({
+            rows: filterRows ?? [],
+            filters: dataFilters,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        }),
+        [
+            filterRows,
+            dataFilters,
+            orgUnitIdToName,
+            keyAnalysisDigitGroupSeparator,
+        ]
     )
 
     const { headerRowRef, columnWidths } = useColumnWidths({
@@ -228,9 +241,9 @@ const Table = ({
                                 hasPopover && (
                                     <FilterButton
                                         layerId={layerId}
-                                        name={name}
-                                        dataKey={dataKey}
+                                        header={header}
                                         filterType={getFilterType(header)}
+                                        column={filterColumn}
                                         filter={dataFilters?.[dataKey]}
                                     />
                                 )
@@ -273,6 +286,7 @@ const Table = ({
             orgUnitIdToName,
             layerId,
             dataFilters,
+            filterColumn,
         ]
     )
 

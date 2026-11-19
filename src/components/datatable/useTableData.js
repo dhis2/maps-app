@@ -178,16 +178,6 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         [headers, deferredDataForOptions]
     )
 
-    const columnValueCounts = useMemo(
-        () =>
-            Object.fromEntries(
-                Object.entries(columnDistinctValues ?? {}).map(
-                    ([dataKey, { counts }]) => [dataKey, counts]
-                )
-            ),
-        [columnDistinctValues]
-    )
-
     // Cheap: just re-orders each column's already-known distinct-value list
     const columnOptions = useMemo(
         () =>
@@ -285,6 +275,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         filteredCount,
         orgUnitIdToName,
         columnOptions,
-        columnValueCounts,
+        // Every row before the filters: the filter popovers count their values from them
+        filterRows: dataWithAggregations,
     }
 }

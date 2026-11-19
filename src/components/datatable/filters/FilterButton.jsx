@@ -7,17 +7,10 @@ import TopTooltip from '../TopTooltip.jsx'
 import FilterPopover from './FilterPopover.jsx'
 import styles from './styles/Filters.module.css'
 
-const FilterButton = ({
-    layerId,
-    name,
-    dataKey,
-    filterType,
-    column,
-    filter,
-}) => {
+const FilterButton = ({ layerId, header, filterType, column, filter }) => {
     const anchorRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
-    const label = i18n.t('Filter by {{column}}', { column: name })
+    const label = i18n.t('Filter by {{column}}', { column: header.name })
 
     return (
         <>
@@ -32,7 +25,7 @@ const FilterButton = ({
                     aria-label={label}
                     aria-pressed={!!filter}
                     onClick={() => setIsOpen(true)}
-                    data-test={`data-table-filter-button-${dataKey}`}
+                    data-test={`data-table-filter-button-${header.dataKey}`}
                 >
                     <IconFilter16 />
                 </button>
@@ -41,8 +34,7 @@ const FilterButton = ({
                 <FilterPopover
                     anchorRef={anchorRef}
                     layerId={layerId}
-                    name={name}
-                    dataKey={dataKey}
+                    header={header}
                     filterType={filterType}
                     column={column}
                     filter={filter}
@@ -54,11 +46,13 @@ const FilterButton = ({
 }
 
 FilterButton.propTypes = {
-    dataKey: PropTypes.string.isRequired,
+    column: PropTypes.object.isRequired,
     filterType: PropTypes.string.isRequired,
+    header: PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }).isRequired,
     layerId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    column: PropTypes.object,
     filter: PropTypes.object,
 }
 

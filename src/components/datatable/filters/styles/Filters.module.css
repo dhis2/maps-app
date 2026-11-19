@@ -107,11 +107,21 @@
 }
 
 .popoverBody {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacers-dp12);
     padding: var(--spacers-dp12) var(--spacers-dp16);
+}
+
+.popoverBody > .linkButton {
+    align-self: flex-start;
+    font-size: 13px;
 }
 
 .popoverFooter {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     gap: var(--spacers-dp8);
     padding: var(--spacers-dp8) var(--spacers-dp16);
@@ -227,6 +237,23 @@
     padding: var(--spacers-dp8);
     font-size: 13px;
     color: var(--colors-grey600);
+}
+
+/* An unchecked value no row has any more */
+.optionGone {
+    color: var(--colors-grey500);
+}
+
+.listNote {
+    font-size: 12px;
+    color: var(--colors-grey600);
+}
+
+.preview {
+    flex: 1;
+    font-size: 12px;
+    color: var(--colors-grey700);
+    font-variant-numeric: tabular-nums;
 }
 
 .iconThumbnail {
