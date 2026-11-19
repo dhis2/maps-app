@@ -6,6 +6,7 @@ import {
     isEmptyFilter,
     isSameFilter,
     toFilterKey,
+    updateNoValueForCondition,
 } from '../filter.js'
 
 describe('filterData', () => {
@@ -359,5 +360,35 @@ describe('column filter helpers', () => {
                 { type: 'number', operator: 'lt', value: 5 }
             )
         ).toBe(false)
+    })
+})
+
+describe('updateNoValueForCondition', () => {
+    const contains = (value, excluded) => ({
+        type: 'text',
+        operator: 'contains',
+        value,
+        excluded,
+    })
+
+    test('setting a condition unchecks "No value"', () => {
+        expect(
+            updateNoValueForCondition(contains('', ['x']), contains('b', ['x']))
+                .excluded
+        ).toEqual(['x', ''])
+    })
+
+    test('clearing the condition checks "No value" back', () => {
+        expect(
+            updateNoValueForCondition(
+                contains('b', ['', 'x']),
+                contains('', ['', 'x'])
+            ).excluded
+        ).toEqual(['x'])
+    })
+
+    test('changing a condition that stays set leaves "No value" as it is', () => {
+        const next = contains('bo', [])
+        expect(updateNoValueForCondition(contains('b', []), next)).toBe(next)
     })
 })

@@ -5,24 +5,43 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
+    getFilterError,
     isEmptyFilter,
     isSameFilter,
-    isValidFilter,
+    normalizeFilter,
+    updateNoValueForCondition,
 } from '../../../util/filter.js'
+import ConditionRow from './ConditionRow.jsx'
+import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
-import TextFilter from './TextFilter.jsx'
+
+const getEmptyFilter = (filterType) => ({
+    type: filterType,
+    operator: getOperators(filterType)[0]?.value,
+    value: '',
+    excluded: [],
+})
 
 const FilterPopover = ({
     anchorRef,
     layerId,
     name,
     dataKey,
+    filterType,
     filter,
     onClose,
 }) => {
     const dispatch = useDispatch()
-    const [draft, setDraft] = useState(filter)
-    const canApply = !isSameFilter(draft, filter) && isValidFilter(draft)
+    const [draft, setDraft] = useState(() => ({
+        ...getEmptyFilter(filterType),
+        ...filter,
+    }))
+    const canApply = !isSameFilter(draft, filter) && !getFilterError(draft)
+
+    const updateCondition = (changes) =>
+        setDraft((previous) =>
+            updateNoValueForCondition(previous, { ...previous, ...changes })
+        )
 
     const apply = (event) => {
         event.preventDefault()
@@ -32,7 +51,7 @@ const FilterPopover = ({
         dispatch(
             isEmptyFilter(draft)
                 ? clearDataFilter(layerId, dataKey)
-                : setDataFilter(layerId, dataKey, draft)
+                : setDataFilter(layerId, dataKey, normalizeFilter(draft))
         )
         onClose()
     }
@@ -74,7 +93,11 @@ const FilterPopover = ({
                     </button>
                 </div>
                 <div className={styles.popoverBody}>
-                    <TextFilter draft={draft} onChange={setDraft} />
+                    <ConditionRow
+                        filterType={filterType}
+                        draft={draft}
+                        onChange={updateCondition}
+                    />
                 </div>
                 <div className={styles.popoverFooter}>
                     <Button
@@ -104,6 +127,7 @@ const FilterPopover = ({
 FilterPopover.propTypes = {
     anchorRef: PropTypes.object.isRequired,
     dataKey: PropTypes.string.isRequired,
+    filterType: PropTypes.string.isRequired,
     layerId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,

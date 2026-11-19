@@ -230,6 +230,20 @@ export const filterData = (data, filters) => {
     })
 }
 
+// Setting a condition unchecks "No value", clearing it checks it back
+export const updateNoValueForCondition = (previous, next) => {
+    if (hasCondition(previous) === hasCondition(next)) {
+        return next
+    }
+    const excluded = new Set(next.excluded)
+    if (hasCondition(next)) {
+        excluded.add(SENTINEL_NO_VALUE)
+    } else {
+        excluded.delete(SENTINEL_NO_VALUE)
+    }
+    return { ...next, excluded: [...excluded] }
+}
+
 // A filter that would keep every row
 export const isEmptyFilter = (filter) =>
     !filter ||

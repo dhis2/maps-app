@@ -7,7 +7,7 @@ import TopTooltip from '../TopTooltip.jsx'
 import FilterPopover from './FilterPopover.jsx'
 import styles from './styles/Filters.module.css'
 
-const FilterButton = ({ layerId, name, dataKey, filter }) => {
+const FilterButton = ({ layerId, name, dataKey, filterType, filter }) => {
     const anchorRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
     const label = i18n.t('Filter by {{column}}', { column: name })
@@ -36,6 +36,7 @@ const FilterButton = ({ layerId, name, dataKey, filter }) => {
                     layerId={layerId}
                     name={name}
                     dataKey={dataKey}
+                    filterType={filterType}
                     filter={filter}
                     onClose={() => setIsOpen(false)}
                 />
@@ -46,6 +47,7 @@ const FilterButton = ({ layerId, name, dataKey, filter }) => {
 
 FilterButton.propTypes = {
     dataKey: PropTypes.string.isRequired,
+    filterType: PropTypes.string.isRequired,
     layerId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     filter: PropTypes.object,

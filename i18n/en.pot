@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-13T19:27:12.042Z\n"
-"PO-Revision-Date: 2026-11-13T19:27:12.042Z\n"
+"POT-Creation-Date: 2026-11-19T09:36:43.842Z\n"
+"PO-Revision-Date: 2026-11-19T09:36:43.842Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -254,6 +254,12 @@ msgstr "{{filtered}} of {{total}} rows"
 msgid "{{total}} rows"
 msgstr "{{total}} rows"
 
+msgid "Condition"
+msgstr "Condition"
+
+msgid "Text"
+msgstr "Text"
+
 msgid "Filter by {{column}}"
 msgstr "Filter by {{column}}"
 
@@ -266,17 +272,14 @@ msgstr "Clear"
 msgid "Apply"
 msgstr "Apply"
 
-msgid "Condition"
-msgstr "Condition"
+msgid "Does not contain"
+msgstr "Does not contain"
 
-msgid "Type to filter"
-msgstr "Type to filter"
+msgid "Is"
+msgstr "Is"
 
-msgid "Is empty"
-msgstr "Is empty"
-
-msgid "Is not empty"
-msgstr "Is not empty"
+msgid "Starts with"
+msgstr "Starts with"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -2044,11 +2047,20 @@ msgstr ""
 msgid "Cannot get authorization token for Google Earth Engine."
 msgstr "Cannot get authorization token for Google Earth Engine."
 
-msgid "Max must be greater than Min"
-msgstr "Max must be greater than Min"
+msgid "The second number must be greater than the first"
+msgstr "The second number must be greater than the first"
 
-msgid "To must be after From"
-msgstr "To must be after From"
+msgid "The end date must be after the start date"
+msgstr "The end date must be after the start date"
+
+msgid "The end time must be after the start time"
+msgstr "The end time must be after the start time"
+
+msgid "Enter a number"
+msgstr "Enter a number"
+
+msgid "Fill in both values"
+msgstr "Fill in both values"
 
 msgid "{{count}} selected"
 msgid_plural "{{count}} selected"

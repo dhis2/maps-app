@@ -9,6 +9,10 @@ import {
     FILTER_NUMBER,
     FILTER_DATE,
     FILTER_TIME,
+    RENDERER_BOOLEAN,
+    RENDERER_ICON,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
 } from '../constants/dataTable.js'
 
 export const isFilterable = (dataKey, type) => !!type
@@ -19,6 +23,17 @@ const FILTER_TYPE_BY_COLUMN_TYPE = {
     [TYPE_DATETIME]: FILTER_DATE,
     [TYPE_TIME]: FILTER_TIME,
 }
+
+const NAMED_VALUE_RENDERERS = new Set([
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
+    RENDERER_BOOLEAN,
+    RENDERER_ICON,
+])
+
+// Columns whose cells show a name for the stored value: org units, option sets, Yes/no, icons
+export const isNamedValueColumn = ({ renderer, optionSet }) =>
+    NAMED_VALUE_RENDERERS.has(renderer) || !!optionSet
 
 // The kind of condition that fits a column's values; text for the others, org units included
 export const getFilterType = ({ type }) =>

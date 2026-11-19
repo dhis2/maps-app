@@ -3,6 +3,11 @@ import {
     FILTER_NUMBER,
     FILTER_TEXT,
     FILTER_TIME,
+    RENDERER_BOOLEAN,
+    RENDERER_DATE,
+    RENDERER_ICON,
+    RENDERER_ORG_UNIT,
+    RENDERER_ORG_UNIT_NAME,
     TYPE_DATE,
     TYPE_DATETIME,
     TYPE_NUMBER,
@@ -19,6 +24,7 @@ import {
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
+    isNamedValueColumn,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
 
@@ -234,5 +240,19 @@ describe('getFilterType', () => {
         [TYPE_ORG_UNIT, FILTER_TEXT],
     ])('gives a %s column a %s condition', (type, filterType) => {
         expect(getFilterType({ type })).toBe(filterType)
+    })
+})
+
+describe('isNamedValueColumn', () => {
+    test.each([
+        [{ renderer: RENDERER_ORG_UNIT }, true],
+        [{ renderer: RENDERER_ORG_UNIT_NAME }, true],
+        [{ renderer: RENDERER_BOOLEAN }, true],
+        [{ renderer: RENDERER_ICON }, true],
+        [{ optionSet: { id: 'os1' } }, true],
+        [{ renderer: RENDERER_DATE }, false],
+        [{}, false],
+    ])('%j is %s', (header, isNamed) => {
+        expect(isNamedValueColumn(header)).toBe(isNamed)
     })
 })
