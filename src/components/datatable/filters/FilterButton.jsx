@@ -14,7 +14,8 @@ const FilterButton = ({ layerId, name, dataKey, filterType, filter }) => {
 
     return (
         <>
-            <TopTooltip content={label}>
+            {/* The cursor stays on the button after the click: no tooltip over the popover */}
+            <TopTooltip content={label} disabled={isOpen}>
                 <button
                     ref={anchorRef}
                     type="button"
