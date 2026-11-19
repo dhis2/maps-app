@@ -5,7 +5,7 @@ import styles from './styles/TopTooltip.module.css'
 
 const topTooltipModifiers = [{ name: 'offset', options: { offset: [0, 4] } }]
 
-const TopTooltip = ({ content, children }) => {
+const TopTooltip = ({ content, disabled, children }) => {
     const [open, setOpen] = useState(false)
     const referenceRef = useRef(null)
     const openTimerRef = useRef(null)
@@ -38,7 +38,7 @@ const TopTooltip = ({ content, children }) => {
             onBlur={onClose}
         >
             {children}
-            {open && (
+            {open && !disabled && (
                 <Portal>
                     <Popper
                         placement="top"
@@ -58,6 +58,7 @@ const TopTooltip = ({ content, children }) => {
 TopTooltip.propTypes = {
     children: PropTypes.node.isRequired,
     content: PropTypes.node.isRequired,
+    disabled: PropTypes.bool,
 }
 
 export default TopTooltip
