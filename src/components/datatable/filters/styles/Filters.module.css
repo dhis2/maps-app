@@ -263,10 +263,3 @@
     object-fit: contain;
     vertical-align: -3px;
 }
-/* Date */
-
-.dateInputs {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacers-dp8);
-}

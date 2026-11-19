@@ -281,3 +281,52 @@ describe('FilterButton value list', () => {
         expect(store.getActions()[0].filter.excluded).toEqual([])
     })
 })
+
+describe('FilterButton on date and time columns', () => {
+    const DATE_COLUMN = {
+        filterType: 'date',
+        header: { name: 'Event date', dataKey: 'id', type: 'date' },
+    }
+
+    test('applies a date range from the two date inputs', async () => {
+        const store = await renderButton(undefined, DATE_COLUMN)
+
+        expect(
+            screen.getByTestId('data-table-filter-value').querySelector('input')
+        ).toHaveAttribute('type', 'date')
+        typeInto('data-table-filter-value', '2025-01-01')
+        typeInto('data-table-filter-value2', '2025-03-31')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter).toEqual({
+            type: 'date',
+            operator: 'between',
+            value: '2025-01-01',
+            value2: '2025-03-31',
+            excluded: [''],
+        })
+    })
+
+    test('dates in reverse order show why they cannot be applied', async () => {
+        await renderButton(undefined, DATE_COLUMN)
+
+        typeInto('data-table-filter-value', '2025-03-31')
+        typeInto('data-table-filter-value2', '2025-01-01')
+
+        expect(applyButton()).toBeDisabled()
+        expect(
+            screen.getByText('The end date must be after the start date')
+        ).toBeInTheDocument()
+    })
+
+    test('a time column takes times', async () => {
+        await renderButton(undefined, {
+            filterType: 'time',
+            header: { name: 'Time', dataKey: 'id', type: 'time' },
+        })
+
+        expect(
+            screen.getByTestId('data-table-filter-value').querySelector('input')
+        ).toHaveAttribute('type', 'time')
+    })
+})
