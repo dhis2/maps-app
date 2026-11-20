@@ -1727,7 +1727,7 @@ describe('useTableData columnOptions', () => {
         ])
     })
 
-    test('exposes optionSet on event columns for later resolution by FilterInput', () => {
+    test('exposes optionSet on event columns for the options filter to name the values', () => {
         const layer = {
             layer: 'event',
             dataFilters: null,

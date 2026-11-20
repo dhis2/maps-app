@@ -140,7 +140,11 @@ describe('Layer table filters', () => {
 
     test('redraws the layer as a filter change when the table filters change', () => {
         const layer = createFilteredLayer()
-        update(layer, { dataFilters: { name: 'Bo' } })
+        update(layer, {
+            dataFilters: {
+                name: { type: 'text', operator: 'contains', value: 'Bo' },
+            },
+        })
         expect(layer.updateLayer).toHaveBeenCalledWith(true)
     })
 

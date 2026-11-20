@@ -1,6 +1,5 @@
 import i18n from '@dhis2/d2-i18n'
 import {
-    SENTINEL_ANY_VALUE,
     SENTINEL_NO_VALUE,
     FILTER_TEXT,
     FILTER_NUMBER,
@@ -139,80 +138,9 @@ const prepareColumnFilter = (filter) => {
     }
 }
 
-export const isOrgUnitValueFilter = (filter) =>
-    filter != null &&
-    typeof filter === 'object' &&
-    !Array.isArray(filter) &&
-    Array.isArray(filter.values) &&
-    filter.searchDerived === true
-
-// Simple check if string contains another string
-export const stringFilter = (string, filter) => {
-    return ('' + string).toLowerCase().includes(filter.toLowerCase())
-}
-
-// Returns true if the filter is true
-const isTrueFilter = (value, filter) => {
-    if (filter.includes('>=')) {
-        return value >= Number(filter.split('>=')[1])
-    }
-
-    if (filter.includes('<=')) {
-        return value <= Number(filter.split('<=')[1])
-    }
-
-    if (filter.includes('>')) {
-        return value > Number(filter.split('>')[1])
-    }
-
-    if (filter.includes('<')) {
-        return value < Number(filter.split('<')[1])
-    }
-
-    return value === Number(filter) // Equal number
-}
-
-// Numeric filter supporting AND, OR, GREATER THAN, LESS THAN or equal number
-export const numericFilter = (value, filter) => {
-    // TODO: Syntax error handling
-    return filter.split(',').some((orFilter) => {
-        // OR filter
-        return orFilter
-            .split('&')
-            .every((filter) => isTrueFilter(value, filter)) // AND filter
-    })
-}
-
-// The search fields under the column names, until every column has a filter button
-const prepareSearchFieldFilter = (filter) => (value) => {
-    const stringValue = value == null ? SENTINEL_NO_VALUE : String(value)
-
-    if (isOrgUnitValueFilter(filter)) {
-        return filter.values.includes(stringValue)
-    }
-
-    if (Array.isArray(filter)) {
-        // Multi-select: OR match against the raw stored value
-        return (
-            filter.length === 0 ||
-            filter.includes(stringValue) ||
-            (stringValue !== SENTINEL_NO_VALUE &&
-                filter.includes(SENTINEL_ANY_VALUE))
-        )
-    }
-
-    return typeof value === 'number'
-        ? numericFilter(value, filter)
-        : stringFilter(value, filter)
-}
-
-const prepareFilter = (filter) =>
-    filter?.type
-        ? prepareColumnFilter(filter)
-        : prepareSearchFieldFilter(filter)
-
 // Whether one value passes a filter
-export const matchesFilter = (value, filter) => prepareFilter(filter)(value)
+export const matchesFilter = (value, filter) =>
+    prepareColumnFilter(filter)(value)
 
 // The rows (or GeoJSON features) that pass every filter, each filter prepared once
 export const filterData = (data, filters) => {
@@ -222,7 +150,7 @@ export const filterData = (data, filters) => {
 
     const tests = Object.entries(filters)
         .filter(([, filter]) => filter != null)
-        .map(([field, filter]) => [field, prepareFilter(filter)])
+        .map(([field, filter]) => [field, prepareColumnFilter(filter)])
 
     return data.filter((d) => {
         const props = d.properties || d // GeoJSON or plain object

@@ -15,15 +15,6 @@ jest.mock('../useColumnWidths.js', () => ({
 jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
     useCachedData: () => ({ systemSettings: {} }),
 }))
-jest.mock('../FilterInput.jsx', () => {
-    const PropTypes = require('prop-types')
-    const FilterInputMock = ({ dataKey }) => (
-        <span data-test={`filter-${dataKey}`} />
-    )
-    FilterInputMock.displayName = 'FilterInputMock'
-    FilterInputMock.propTypes = { dataKey: PropTypes.string }
-    return FilterInputMock
-})
 
 const mockStore = configureMockStore()
 
@@ -39,6 +30,12 @@ const HEADERS = [
         filterView: 'values',
     },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
+    {
+        name: 'Org unit hierarchy',
+        dataKey: 'orgUnitPath',
+        type: 'orgUnit',
+        renderer: 'renderorgunit',
+    },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
@@ -97,25 +94,21 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('every typed column gets a filter button and no search field, untyped columns neither', () => {
+    test('every typed column gets a filter button, the org unit hierarchy included; untyped columns get none', () => {
         renderTable()
+        const filterButton = (dataKey) =>
+            screen.queryByTestId(`data-table-filter-button-${dataKey}`)
+
         for (const dataKey of [
             'orgUnitOwn',
             'rawValue',
             'legend',
             'eventdate',
+            'orgUnitPath',
         ]) {
-            expect(
-                screen.getByTestId(`data-table-filter-button-${dataKey}`)
-            ).toBeInTheDocument()
-            expect(
-                screen.queryByTestId(`filter-${dataKey}`)
-            ).not.toBeInTheDocument()
+            expect(filterButton(dataKey)).toBeEnabled()
         }
-        expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
-        expect(
-            screen.queryByTestId('data-table-filter-button-untyped')
-        ).not.toBeInTheDocument()
+        expect(filterButton('untyped')).not.toBeInTheDocument()
     })
 
     test('put the filter button between the column name and the sort button', () => {

@@ -263,3 +263,26 @@
     object-fit: contain;
     vertical-align: -3px;
 }
+
+/* Active filters bar */
+
+.filtersBar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 var(--spacers-dp4);
+    min-height: 36px;
+    /* Chips add 4px of margin, so the first chip lines up with the cell text */
+    padding: 2px var(--spacers-dp12) 2px var(--spacers-dp8);
+    background: var(--colors-grey050);
+    border-bottom: 1px solid var(--colors-grey300);
+    flex-shrink: 0;
+}
+
+.chipAnchor {
+    display: inline-flex;
+}
+
+.chipColumn {
+    font-weight: 500;
+}

@@ -19,6 +19,8 @@ const point = (id, name, value) => ({
     properties: { id, name, value },
 })
 
+const TEXT_FILTER = { type: 'text', operator: 'contains', value: 'bo' }
+
 const DATA = [point('bo', 'Bo', 10), point('kono', 'Kono', 2)]
 
 // Records every layer config the component gives the map
@@ -58,7 +60,7 @@ const createComponent = (Component, props) => {
     instance.props = {
         id: 'layer1',
         data: DATA,
-        dataFilters: { name: 'bo' },
+        dataFilters: { name: TEXT_FILTER },
         ...props,
     }
     instance.state = {}
@@ -90,7 +92,9 @@ describe('table filters on the map layers', () => {
             },
             noDataLegend: {},
             unclassifiedLegend: {},
-            dataFilters: { value: '>5' },
+            dataFilters: {
+                value: { type: 'number', operator: 'gt', value: 5 },
+            },
         })
 
         const periodData = instance.buildPeriodData()
@@ -112,7 +116,9 @@ describe('table filters on the map layers', () => {
             valuesByPeriod,
             noDataLegend: {},
             unclassifiedLegend: {},
-            dataFilters: { rawValue: '>5' },
+            dataFilters: {
+                rawValue: { type: 'number', operator: 'gt', value: '5' },
+            },
         })
 
         const periodData = instance.buildPeriodData()
@@ -132,7 +138,7 @@ describe('table filters on the map layers', () => {
         )
         const { instance, configs } = createComponent(EventLayer, {
             data,
-            dataFilters: { legend: 'high' },
+            dataFilters: { legend: { type: 'text', excluded: ['Low'] } },
         })
 
         instance.createLayer()
@@ -148,7 +154,7 @@ describe('table filters on the map layers', () => {
         const instance = new EarthEngineLayer({
             id: 'layer1',
             data: DATA,
-            dataFilters: { name: 'bo' },
+            dataFilters: { name: TEXT_FILTER },
         })
         instance.layer = { filter: jest.fn() }
         instance.createLayer.mockClear()
