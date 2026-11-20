@@ -23,7 +23,7 @@ Click **File** \> **New**.
 
 2.  Find the saved map you want to open. You can either use \< and \> or the search field to find a
     saved map. The list is filtered on every character that you enter. You can filter the list by
-    selecting **Show all**, **Created by me** or **Created by others**.
+    choosing **Show all**, **Created by me** or **Created by others**.
 
 3.  Click the name of the map you want to open.
 
@@ -57,7 +57,7 @@ When you have created a map it is convenient to save it for later use:
 
 1.  Click **File** \> **Translate**.
 
-2.  Select the **Locale** (language) for your translation.
+2.  Choose the **Locale** (language) for your translation.
 
 3.  Enter a translated **Name** and **Description**. The original text will show below the field.
 
@@ -70,18 +70,18 @@ modify the sharing settings:
 
 1.  Click **File** \> **Share**. The sharing settings dialog opens.
 
-2.  **Give access to a user or group**: In the text box, search for the name of the user or group
-    you want to share your saved map with and select it.
+2.  **Give access to a user or group**: In the field, search for the name of the user or group you
+    want to share your saved map with and choose it.
 
-    Select the access level and click **Give access**.
+    Choose the access level and click **Give access**.
 
     Repeat the step to add more users or groups.
 
 3.  **Users and groups that currently have access**: For each user or group, choose the access
     level. The options are:
 
-    -   **No access**: The public won't have access to the map. This setting is only applicable to
-        All users.
+    -   **No access**: The public will not have access to the map. This setting is only applicable
+        to All users.
 
     -   **View only**: Users can view but not edit the map.
 
@@ -99,7 +99,7 @@ modify the sharing settings:
 
 ### Delete a map
 
-1.  Click **File** \> **Delete**. A confirmation dialog is displayed.
+1.  Click **File** \> **Delete**. A confirmation dialog is shown.
 
 2.  Click **Delete** to confirm that you want to delete the saved map. Your map is deleted and the
     layers are cleared from the view.

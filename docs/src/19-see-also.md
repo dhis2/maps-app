@@ -10,13 +10,13 @@
 -   Settings:
 
     -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Infrastructural%20indicators)
-    -   [Use centroids for organisation unit polygons in event analytics / Org unit group set in facility map layers / Org unit level in facility map layers / Default basemap](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Use%20centroids%20for%20organisation%20unit%20polygons%20in%20event%20analytics)
+    -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Use%20centroids%20for%20organisation%20unit%20polygons%20in%20event%20analytics)
     -   [Bing Maps / Azure Maps API keys](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Bing%20Maps%20API%20key)
 
 -   Metadata management:
 
-    -   [Manage legends](https://docs.dhis2.org/master/en/user/html/manage_legend.html)
-    -   [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata.html#create_data_element:~:text=Aggregation%20operators)
+    -   [Manage legends](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_manage_legend)
+    -   [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element)
 
 -   Training:
     -   [Trainer's Guide to Maps](https://docs.dhis2.org/en/topics/training-docs/analytics-tools-academy/maps/traineraposs-guide-to-maps.html)

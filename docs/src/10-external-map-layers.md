@@ -32,9 +32,12 @@ In the middle of the card is a legend if the layer has one.
 
 Along the bottom of the overlay card from left to right are:
 
+-   An eye symbol to toggle the visibility of the layer
+
 -   A slider for modifying the layer transparency
 
--   A delete icon to remove the layer from the current map
+-   A more actions (three dots) button with options to duplicate the layer and to remove it from the
+    current map
 
 ### GeoJSON external layers
 
@@ -42,7 +45,8 @@ If you add a GeoJSON external layer to your map, you will have a few style choic
 
 ![](../resources/images/maps_geojson_external_layer_style.png)
 
-Once the GeoJSON layer is displayed, you can view its data table:
+After the GeoJSON layer appears, you can open its data table with **Show data table** in the more
+actions (three dots) menu. The menu also has an option to download the data.
 
 ![](../resources/images/maps_geojson_external_layer_data_table.png)
 

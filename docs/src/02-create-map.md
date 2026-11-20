@@ -12,15 +12,15 @@ opens:
 Available layer types are:
 
 -   [**Thematic**](#using_maps_thematic_layer): Visualize data values (indicators or data elements)
-    aggregated by org unit.
--   [**Events**](#using_maps_event_layer): Display individual events from event or tracker programs.
--   [**Tracked entities**](#using_maps_tracked_entity_layer): Display tracked entities and their
+    aggregated by organisation unit.
+-   [**Events**](#using_maps_event_layer): Show individual events from event or tracker programs.
+-   [**Tracked entities**](#using_maps_tracked_entity_layer): Show tracked entities and their
     relationships on the map.
--   [**Facilities**](#using_maps_facility_layer): Display facilities as icons based on their
+-   [**Facilities**](#using_maps_facility_layer): Show facilities as icons based on their
     coordinates.
--   [**Org units**](#using_maps_org_unit_layer): Display org unit boundaries.
+-   [**Org units**](#using_maps_org_unit_layer): Show organisation unit boundaries.
 
-In addition, several layers may be provided by [Google Earth Engine](#using_maps_gee) (such as
+In addition, several layers can come from [Google Earth Engine](#using_maps_gee) (such as
 population, elevation, or climate indicators) and
 [other external services](#using_maps_external_map_layers). Various Google Earth Engine layer
 sources are available if a Google Earth Engine service account key has been set up (see
@@ -30,6 +30,7 @@ sources are available if a Google Earth Engine service account key has been set 
 >
 > The [**Maps app administrator**](#maps_app_administrator) can:
 >
-> -   Select the sources for Google Earth Engine layers available to other users via the **Manage
+> -   Choose the sources for Google Earth Engine layers available to other users using the **Manage
 >     available layer sources** button.
-> -   Add external layer sources in the Maintenance app.
+> -   Add external layer sources in the Maintenance app. The **Metadata Management** app does not
+>     manage external map layers.
