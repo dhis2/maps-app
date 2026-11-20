@@ -67,10 +67,6 @@ class GeoJsonLayer extends Layer {
 
         this.onFeatureLeftClick(evt)
 
-        if (this.isMultiSelectClick(evt)) {
-            return
-        }
-
         const feature = this.props.data.find(
             (d) => d.properties.id === evt.feature.properties.id
         )

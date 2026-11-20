@@ -167,12 +167,9 @@ class TrackedEntityLayer extends Layer {
         const { feature, coordinates } = evt
 
         this.onFeatureLeftClick(evt)
-
-        if (!this.isMultiSelectClick(evt)) {
-            this.setState({
-                popup: { feature, coordinates, activeDataSource: 'primary' },
-            })
-        }
+        this.setState({
+            popup: { feature, coordinates, activeDataSource: 'primary' },
+        })
     }
     onEventClickSecondary({ feature, coordinates }) {
         this.setState({

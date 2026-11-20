@@ -66,7 +66,6 @@ const Table = ({
 
     const dispatch = useDispatch()
     const feature = useSelector((state) => state.feature)
-    const selection = useSelector((state) => state.selection)
     const showOnlyFeaturesInView = useSelector(
         (state) => state.ui.showOnlyFeaturesInView
     )
@@ -142,11 +141,6 @@ const Table = ({
             })
         },
         [featureById]
-    )
-
-    const selectedIds = useMemo(
-        () => (selection.layerId === layer.id ? selection.ids : []),
-        [selection, layer.id]
     )
 
     const {
@@ -482,7 +476,6 @@ const Table = ({
             <TableContextMenu
                 contextMenu={tableContextMenu}
                 layer={layer}
-                selectedIds={selectedIds}
                 filteredIds={hasActiveFilters ? allRowIds : null}
                 onClose={() => setTableContextMenu(null)}
             />

@@ -45,7 +45,6 @@ const ContextMenu = (props) => {
         layerConfig,
         coordinates,
         earthEngineLayers,
-        selectedIds,
         position,
         offset,
         closeContextMenu,
@@ -130,14 +129,6 @@ const ContextMenu = (props) => {
                     zoom: true,
                 })
                 break
-            case 'zoom_to_selected':
-                highlightFeature({
-                    ids: selectedIds,
-                    layerId: layerConfig.id,
-                    origin: 'map',
-                    zoom: true,
-                })
-                break
 
             default:
         }
@@ -211,14 +202,6 @@ const ContextMenu = (props) => {
                             />
                         )}
 
-                        <MenuItem
-                            dataTest="context-menu-zoom-to-selected"
-                            label={i18n.t('Zoom to selected features')}
-                            icon={<IconZoomIn16 />}
-                            disabled={!selectedIds.length}
-                            onClick={() => onClick('zoom_to_selected')}
-                        />
-
                         {coordinates && !isSplitView && (
                             <MenuItem
                                 dataTest="context-menu-show-long-lat"
@@ -264,19 +247,14 @@ ContextMenu.propTypes = {
     map: PropTypes.object,
     offset: PropTypes.array,
     position: PropTypes.array,
-    selectedIds: PropTypes.array,
 }
 
 export default connect(
-    ({ contextMenu, map, selection }) => ({
+    ({ contextMenu, map }) => ({
         ...contextMenu,
         earthEngineLayers: map.mapViews.filter(
             (view) => view.layer === EARTH_ENGINE_LAYER
         ),
-        selectedIds:
-            selection.layerId === contextMenu?.layerConfig?.id
-                ? selection.ids
-                : [],
     }),
     {
         closeContextMenu,
