@@ -9,7 +9,6 @@ const defaultState = {
     mapContextMenu: true,
     downloadMode: false,
     layersSorting: false,
-    lastClickedFeature: null,
     activeTimelinePeriod: null,
 }
 
@@ -38,17 +37,11 @@ const ui = (state = defaultState, action) => {
         case types.INTERPRETATIONS_PANEL_CLOSE:
         case types.ORGANISATION_UNIT_PROFILE_CLOSE:
         case types.FEATURE_PROFILE_CLOSE:
-            return {
-                ...state,
-                rightPanelOpen: false,
-            }
-
         case types.MAP_NEW:
         case types.MAP_SET:
             return {
                 ...state,
                 rightPanelOpen: false,
-                lastClickedFeature: null,
             }
 
         case types.DOWNLOAD_MODE_OPEN:
@@ -78,12 +71,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 layersSorting: false,
-            }
-
-        case types.MAP_FEATURE_CLICKED:
-            return {
-                ...state,
-                lastClickedFeature: action.payload,
             }
 
         case types.ACTIVE_TIMELINE_PERIOD_SET:

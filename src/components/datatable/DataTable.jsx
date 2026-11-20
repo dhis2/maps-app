@@ -56,7 +56,6 @@ const Table = ({
         systemSettings: { keyAnalysisDigitGroupSeparator },
     } = useCachedData()
 
-    const virtuosoRef = useRef(null)
     const { mapViews } = useSelector((state) => state.map)
     const activeLayerId = useSelector((state) => state.dataTable)
 
@@ -176,26 +175,6 @@ const Table = ({
         onCountChange?.(totalCount, filteredCount)
     }, [onCountChange, totalCount, filteredCount])
 
-    const onRowDoubleClick = useCallback(
-        (row) => {
-            const id = getRowId(row)
-
-            if (!id) {
-                return
-            }
-
-            dispatch(
-                highlightFeature({
-                    id,
-                    layerId: layer.id,
-                    origin: 'table',
-                    zoom: true,
-                })
-            )
-        },
-        [dispatch, layer.id]
-    )
-
     const hasActiveFilters = hasActiveDataTableFilters({
         dataFilters: layer.dataFilters,
     })
@@ -212,7 +191,6 @@ const Table = ({
         () => ({
             onMouseEnter: setFeatureHighlight,
             onMouseLeave: clearFeatureHighlight,
-            onRowDoubleClick,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
             hasActiveFilters,
@@ -223,7 +201,6 @@ const Table = ({
         [
             setFeatureHighlight,
             clearFeatureHighlight,
-            onRowDoubleClick,
             columnWidths,
             totalCount,
             hasActiveFilters,
@@ -232,31 +209,6 @@ const Table = ({
             onForceClientCluster,
         ]
     )
-
-    const lastClickedFeature = useSelector(
-        (state) => state.ui.lastClickedFeature
-    )
-    const rowsRef = useRef(rows)
-    rowsRef.current = rows
-    useEffect(() => {
-        if (!lastClickedFeature || lastClickedFeature.layerId !== layer.id) {
-            return
-        }
-        const currentRows = rowsRef.current
-        if (!currentRows) {
-            return
-        }
-        const rowIndex = currentRows.findIndex(
-            (row) => getRowId(row) === lastClickedFeature.id
-        )
-        if (rowIndex !== -1) {
-            virtuosoRef.current?.scrollToIndex({
-                index: rowIndex,
-                align: 'center',
-                behavior: 'smooth',
-            })
-        }
-    }, [lastClickedFeature, layer.id])
 
     const computeItemKey = useCallback(
         (index, row) => getRowId(row) ?? index,
@@ -408,7 +360,6 @@ const Table = ({
     return (
         <>
             <TableVirtuoso
-                ref={virtuosoRef}
                 context={tableContext}
                 components={TableComponents}
                 style={TABLE_STYLE}

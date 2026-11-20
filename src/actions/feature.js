@@ -13,8 +13,3 @@ export const setFeatureProfile = (payload) => ({
 export const closeFeatureProfile = () => ({
     type: types.FEATURE_PROFILE_CLOSE,
 })
-
-export const clickFeature = (payload) => ({
-    type: types.MAP_FEATURE_CLICKED,
-    payload,
-})

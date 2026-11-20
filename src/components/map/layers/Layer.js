@@ -16,7 +16,6 @@ class Layer extends PureComponent {
 
     static propTypes = {
         id: PropTypes.string.isRequired,
-        clickFeature: PropTypes.func,
         config: PropTypes.object,
         data: PropTypes.array,
         dataFilters: PropTypes.object,
@@ -222,16 +221,6 @@ class Layer extends PureComponent {
         this.layer?.highlight?.(this.getHoverId())
     }
 
-    onFeatureLeftClick(evt) {
-        const id = evt.feature?.properties?.id
-
-        if (!id) {
-            return
-        }
-
-        this.props.clickFeature?.({ id, layerId: this.props.id })
-    }
-
     onFeatureMouseEnter(evt) {
         const id = evt.feature?.properties?.id
 
@@ -297,11 +286,6 @@ class Layer extends PureComponent {
         const { left, top } = container.getBoundingClientRect()
         const isSplitView =
             renderingStrategy === RENDERING_STRATEGY_SPLIT_BY_PERIOD
-        const id = evt.feature?.properties?.id
-
-        if (id) {
-            this.props.clickFeature?.({ id, layerId: this.props.id })
-        }
 
         this.props.openContextMenu({
             ...evt,

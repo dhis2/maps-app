@@ -255,7 +255,6 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.onFeatureLeftClick(evt)
         this.getAggregations()
         this.setState({ popup: evt })
     }
