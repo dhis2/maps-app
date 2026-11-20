@@ -43,12 +43,19 @@ With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://
 
 The plugin e2e tests (`cypress/integration/plugin.cy.js`) use the same page, sending the plugin dashboard-like props through `window.setPluginProps`.
 
+## e2e tests on pull requests
+
+The e2e tests run on every push to a ready-for-review pull request into master, the only branch that requires them to pass. Drafts and pull requests into other branches (such as stacked pull requests) skip them; build, lint and unit tests still run.
+
+A draft into master shows its required e2e check as "Expected" until it is marked ready for review, which starts the tests. A pull request whose base changes to master runs them on its next push, such as "Update branch".
+
+Add the `e2e run` label to run them once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run.
+
+A pull request comment shows the last full e2e run, and whether e2e ran on the latest commit.
+
 ## Cypress Cloud
 
-To record tests in Cypress Cloud, you can use one of the following methods based on your needs:
-
--   **Commit Message**: Include `[e2e record]` in your commit messages to activate recording.
--   **GitHub Labels**: Apply the `e2e record` label to your pull request to trigger recording.
+To record tests in Cypress Cloud, add the `e2e record` label to your pull request. Adding it starts a recorded e2e run, and later runs are recorded while the label is on.
 
 This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
 
