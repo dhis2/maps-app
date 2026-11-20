@@ -10,7 +10,6 @@ import {
     EARTH_ENGINE_LAYER,
     FACILITY_LAYER,
     GEOJSON_URL_LAYER,
-    TRACKED_ENTITY_LAYER,
 } from '../../constants/layers.js'
 import {
     ERROR_NON_HOMOGENOUS_FEATURES,
@@ -254,103 +253,6 @@ describe('getHeadersForLayer - org unit / facility', () => {
             'group',
             'type',
         ])
-    })
-})
-
-describe('getHeadersForLayer - tracked entity', () => {
-    test('id field plus valid-uid custom fields from layerHeaders, always with a color column', () => {
-        const layerHeaders = [
-            { name: 'First name', dataKey: 'w75KJ2mc4zz', valueType: 'TEXT' },
-            { name: 'Bad', dataKey: 'not-a-uid', valueType: 'TEXT' },
-        ]
-        const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
-            layerHeaders,
-        })
-        expect(dataKeys(result)).toEqual([
-            'id',
-            'orgUnitId',
-            'orgUnitOwn',
-            'level',
-            'orgUnitPath',
-            'createdAt',
-            'updatedAt',
-            'w75KJ2mc4zz',
-            'color',
-            'type',
-        ])
-        const nameHeader = result.headers.find(
-            (h) => h.dataKey === 'w75KJ2mc4zz'
-        )
-        expect(nameHeader.type).toBe(TYPE_STRING)
-        const createdHeader = result.headers.find(
-            (h) => h.dataKey === 'createdAt'
-        )
-        expect(createdHeader.type).toBe(TYPE_DATETIME)
-        expect(createdHeader.renderer).toBe(RENDERER_DATE)
-        const updatedHeader = result.headers.find(
-            (h) => h.dataKey === 'updatedAt'
-        )
-        expect(updatedHeader.type).toBe(TYPE_DATETIME)
-        expect(updatedHeader.renderer).toBe(RENDERER_DATE)
-    })
-
-    test('custom DATE/DATETIME/TIME/BOOLEAN attributes get their matching type', () => {
-        const layerHeaders = [
-            {
-                name: 'Date of birth',
-                dataKey: 'w75KJ2mc4zz',
-                valueType: 'DATE',
-            },
-            {
-                name: 'Enrolled at',
-                dataKey: 'zDhUuAYrxNC',
-                valueType: 'DATETIME',
-            },
-            { name: 'Visit time', dataKey: 'oZg33kd9taw', valueType: 'TIME' },
-            {
-                name: 'Referred by facility',
-                dataKey: 'c3d4e5f6a7b',
-                valueType: 'ORGANISATION_UNIT',
-            },
-            {
-                name: 'Follow-up',
-                dataKey: 'd4e5f6a7b8c',
-                valueType: 'BOOLEAN',
-            },
-        ]
-        const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
-            layerHeaders,
-        })
-        const headerFor = (dataKey) =>
-            result.headers.find((h) => h.dataKey === dataKey)
-        const typeOf = (dataKey) => headerFor(dataKey).type
-        expect(typeOf('w75KJ2mc4zz')).toBe(TYPE_DATE)
-        expect(typeOf('zDhUuAYrxNC')).toBe(TYPE_DATETIME)
-        expect(typeOf('oZg33kd9taw')).toBe(TYPE_TIME)
-        expect(typeOf('c3d4e5f6a7b')).toBe(TYPE_STRING)
-        expect(typeOf('d4e5f6a7b8c')).toBe(TYPE_STRING)
-        expect(headerFor('w75KJ2mc4zz').renderer).toBe(RENDERER_DATE)
-        expect(headerFor('zDhUuAYrxNC').renderer).toBe(RENDERER_DATE)
-        expect(headerFor('oZg33kd9taw').renderer).toBe(RENDERER_DATE)
-        expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
-        expect(headerFor('d4e5f6a7b8c').renderer).toBe(RENDERER_BOOLEAN)
-    })
-
-    test('option-set-backed custom attribute carries the optionSet id onto the header (was silently dropped before)', () => {
-        const layerHeaders = [
-            {
-                name: 'Gender',
-                dataKey: 'b2c3d4e5f6a',
-                valueType: 'TEXT',
-                optionSet: { id: 'os1' },
-            },
-        ]
-        const result = getHeadersForLayer(TRACKED_ENTITY_LAYER, {
-            layerHeaders,
-        })
-        const header = result.headers.find((h) => h.dataKey === 'b2c3d4e5f6a')
-        expect(header.optionSet).toEqual({ id: 'os1' })
-        expect(header.type).toBe(TYPE_STRING)
     })
 })
 

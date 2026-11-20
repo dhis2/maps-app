@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-09T14:41:34.140Z\n"
-"PO-Revision-Date: 2026-11-09T14:41:34.140Z\n"
+"POT-Creation-Date: 2026-11-09T14:46:15.396Z\n"
+"PO-Revision-Date: 2026-11-09T14:46:15.396Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -2136,9 +2136,6 @@ msgstr "Org unit boundary"
 msgid "Org unit hierarchy"
 msgstr "Org unit hierarchy"
 
-msgid "Created"
-msgstr "Created"
-
 msgid "Group"
 msgstr "Group"
 
@@ -2153,9 +2150,6 @@ msgstr "Value ({{period}})"
 
 msgid "Event Id"
 msgstr "Event Id"
-
-msgid "Tracked entity Id"
-msgstr "Tracked entity Id"
 
 msgid "Start date is invalid"
 msgstr "Start date is invalid"
