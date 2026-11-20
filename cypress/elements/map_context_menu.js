@@ -4,18 +4,9 @@ import { getMaps } from './map_canvas.js'
 export const DRILL_UP = 'context-menu-drill-up'
 export const DRILL_DOWN = 'context-menu-drill-down'
 export const VIEW_PROFILE = 'context-menu-view-profile'
-export const ZOOM_TO_FEATURE = 'context-menu-zoom-to-feature'
-export const ZOOM_TO_LAYER = 'context-menu-zoom-to-layer'
 export const SHOW_LONG_LAT = 'context-menu-show-long-lat'
 
-const ALL_OPTIONS = [
-    DRILL_UP,
-    DRILL_DOWN,
-    VIEW_PROFILE,
-    ZOOM_TO_FEATURE,
-    ZOOM_TO_LAYER,
-    SHOW_LONG_LAT,
-]
+const ALL_OPTIONS = [DRILL_UP, DRILL_DOWN, VIEW_PROFILE, SHOW_LONG_LAT]
 
 export const expectContextMenuOptions = (availableOptions) => {
     getMaps()

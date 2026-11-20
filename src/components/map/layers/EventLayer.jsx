@@ -129,7 +129,6 @@ class EventLayer extends Layer {
             countColor,
             radius,
             onClick: this.onEventClick.bind(this),
-            onRightClick: this.onFeatureRightClick.bind(this),
             onMouseEnter: this.onFeatureMouseEnter.bind(this),
             onMouseLeave: this.onFeatureMouseLeave.bind(this),
             ...(styleDataItem && { hoverLabel: LABEL_TEMPLATE_TOOLTIP_ONLY }),
