@@ -32,6 +32,7 @@ const ACTIVE_FILL = 'var(--colors-blue700)'
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
     { name: 'Value', dataKey: 'rawValue', type: 'number' },
+    { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
@@ -89,7 +90,7 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
+    test('text and number columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
         renderTable()
         expect(
             screen.getByTestId('data-table-filter-button-orgUnitOwn')
@@ -97,9 +98,13 @@ describe('DataTable column headers', () => {
         expect(
             screen.queryByTestId('filter-orgUnitOwn')
         ).not.toBeInTheDocument()
-        expect(screen.getByTestId('filter-rawValue')).toBeInTheDocument()
         expect(
-            screen.queryByTestId('data-table-filter-button-rawValue')
+            screen.getByTestId('data-table-filter-button-rawValue')
+        ).toBeInTheDocument()
+        expect(screen.queryByTestId('filter-rawValue')).not.toBeInTheDocument()
+        expect(screen.getByTestId('filter-eventdate')).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-eventdate')
         ).not.toBeInTheDocument()
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
         expect(

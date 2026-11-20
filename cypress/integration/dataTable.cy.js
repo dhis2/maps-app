@@ -35,6 +35,22 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
         .should('contain', expectedContent)
 }
 
+const openColumnFilter = (column) =>
+    cy.get(`button[aria-label="Filter by ${column}"]`).click()
+
+const filterNumberColumn = (column, operator, value) => {
+    openColumnFilter(column)
+    cy.getByDataTest('data-table-filter-operator')
+        .find('[data-test="dhis2-uicore-select-input"]')
+        .click()
+    cy.contains(
+        '[data-test="dhis2-uicore-singleselectoption"]',
+        operator
+    ).click()
+    cy.getByDataTest('data-table-filter-value').find('input').type(value)
+    cy.getByDataTest('data-table-filter-apply').click()
+}
+
 describe('data table', () => {
     it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
@@ -116,9 +132,7 @@ describe('data table', () => {
         checkTableCell({ row: 6, column: 1, expectedContent: 'Bargbe' })
 
         // Filter by Value (numeric)
-        cy.getByDataTest('data-table-column-filter-search-Value')
-            .find('input')
-            .type('>26{enter}')
+        filterNumberColumn('Value', 'Greater than (>)', '26')
 
         // Check that the (combined) filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -227,15 +241,18 @@ describe('data table', () => {
             .find('.clear-button')
             .click()
 
+        // Leave the field as a mouse would, so its help tooltip closes
+        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
+            .closest('[data-test="data-table-filter-help-reference"]')
+            .trigger('mouseout')
+
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 3)
 
         // Filter by Age in years (numeric)
-        cy.getByDataTest('data-table-column-filter-search-Age in years')
-            .find('input')
-            .type('<51{enter}')
+        filterNumberColumn('Age in years', 'Less than (<)', '51')
 
         // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
