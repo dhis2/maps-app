@@ -91,9 +91,9 @@ const ORG_UNIT_ID = ORG_UNIT_ID_DATA_KEY
 export const ERROR_NON_HOMOGENOUS_FEATURES = 'NON_HOMOGENOUS_FEATURES'
 
 const defaultFieldsMap = () => ({
-    [ID]: { name: i18n.t('Id'), dataKey: ID, type: TYPE_STRING },
+    [ID]: { name: i18n.t('ID'), dataKey: ID, type: TYPE_STRING },
     [ORG_UNIT_ID]: {
-        name: i18n.t('Org unit Id'),
+        name: i18n.t('Org unit ID'),
         dataKey: ORG_UNIT_ID,
         type: TYPE_STRING,
     },
@@ -187,43 +187,35 @@ const getStyleHeaders = ({
 }
 
 const getThematicHeaders = () =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(defaultFieldsMap()[VALUE])
         .concat(
             getStyleHeaders({ hasLegend: true, hasRange: true, hasColor: true })
         )
         .concat(defaultFieldsMap()[TYPE])
 
-const getMultiPeriodThematicHeaders = ({
-    isTimelineThematic,
-    externalPeriod,
-    periods,
-}) => {
+const getMultiPeriodThematicHeaders = ({ isTimelineThematic, periods }) => {
     const headers = isTimelineThematic
         ? getThematicHeaders().map((header) =>
               [VALUE, LEGEND, RANGE, COLOR].includes(header.dataKey)
                   ? {
                         ...header,
-                        name: `${header.name} (${
-                            externalPeriod?.name ?? i18n.t('Current period')
-                        })`,
+                        name: i18n.t('{{column}} (current period)', {
+                            column: header.name,
+                        }),
                     }
                   : header
           )
         : getOrgUnitHeaders()
 
-    const otherPeriods = isTimelineThematic
-        ? (periods ?? []).filter((p) => p.id !== externalPeriod?.id)
-        : periods ?? []
-
-    otherPeriods.forEach((period) => {
+    for (const period of periods ?? []) {
         headers.push({
             name: i18n.t('Value ({{period}})', { period: period.name }),
             dataKey: `period_${period.id}_rawValue`,
             type: TYPE_NUMBER,
             defaultHidden: true,
         })
-    })
+    }
 
     return headers
 }
@@ -233,7 +225,7 @@ const getEventHeaders = ({
     styleDataItem,
     countEventsOutsideOrgUnits,
 }) => {
-    const fields = getOrgUnitCoreFields(i18n.t('Event Id'), {
+    const fields = getOrgUnitCoreFields(i18n.t('Event ID'), {
         includeOrgUnitId: true,
     })
         .concat(defaultFieldsMap()[EVENTDATE])
@@ -290,7 +282,7 @@ const getOrgUnitStyleHeaders = (data) => {
 }
 
 const getFixedFieldsWithOrgUnitStyle = (data) =>
-    getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(getOrgUnitStyleHeaders(data))
         .concat(defaultFieldsMap()[TYPE])
 
@@ -332,7 +324,7 @@ const getEarthEngineHeaders = ({ aggregationType, legend, data }) => {
         })
     }
 
-    return getOrgUnitCoreFields(i18n.t('Org unit Id'))
+    return getOrgUnitCoreFields(i18n.t('Org unit ID'))
         .concat(customFields)
         .concat(defaultFieldsMap()[TYPE])
 }
@@ -349,7 +341,6 @@ export const getHeadersForLayer = (layerType, ctx) => {
                 headers: ctx.isMultiPeriodThematic
                     ? getMultiPeriodThematicHeaders({
                           isTimelineThematic: ctx.isTimelineThematic,
-                          externalPeriod: ctx.externalPeriod,
                           periods: ctx.periods,
                       })
                     : getThematicHeaders(),
