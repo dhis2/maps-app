@@ -134,40 +134,13 @@ describe('isFilterable', () => {
 })
 
 describe('hasActiveDataTableFilters', () => {
-    const empty = {
-        dataFilters: {},
-        globalSearch: '',
-        showOnlyFeaturesInView: false,
-    }
-
     test('is false when nothing is filtered', () => {
-        expect(hasActiveDataTableFilters(empty)).toBe(false)
+        expect(hasActiveDataTableFilters({ dataFilters: {} })).toBe(false)
     })
 
     test('is true when a column filter is set', () => {
         expect(
-            hasActiveDataTableFilters({
-                ...empty,
-                dataFilters: { name: 'foo' },
-            })
-        ).toBe(true)
-    })
-
-    test('is true for a non-blank global search, trimmed', () => {
-        expect(
-            hasActiveDataTableFilters({ ...empty, globalSearch: '  ' })
-        ).toBe(false)
-        expect(
-            hasActiveDataTableFilters({ ...empty, globalSearch: ' foo ' })
-        ).toBe(true)
-    })
-
-    test('is true when showOnlyFeaturesInView is on, even with nothing else set', () => {
-        expect(
-            hasActiveDataTableFilters({
-                ...empty,
-                showOnlyFeaturesInView: true,
-            })
+            hasActiveDataTableFilters({ dataFilters: { name: 'foo' } })
         ).toBe(true)
     })
 })

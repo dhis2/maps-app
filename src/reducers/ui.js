@@ -9,8 +9,6 @@ const defaultState = {
     mapContextMenu: true,
     downloadMode: false,
     layersSorting: false,
-    mapBounds: null,
-    showOnlyFeaturesInView: false,
     highlightColor: null,
     lastClickedFeature: null,
     activeTimelinePeriod: null,
@@ -81,18 +79,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 layersSorting: false,
-            }
-
-        case types.MAP_BOUNDS_CHANGED:
-            return {
-                ...state,
-                mapBounds: action.bounds,
-            }
-
-        case types.TOGGLE_SHOW_ONLY_IN_VIEW:
-            return {
-                ...state,
-                showOnlyFeaturesInView: !state.showOnlyFeaturesInView,
             }
 
         case types.HIGHLIGHT_COLOR_SET:

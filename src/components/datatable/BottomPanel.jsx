@@ -10,10 +10,8 @@ import { clearDataFilters } from '../../actions/dataFilters.js'
 import {
     closeDataTable,
     resizeDataTable,
-    toggleShowOnlyFeaturesInView,
     setHighlightColor,
 } from '../../actions/dataTable.js'
-import useDebouncedValue from '../../hooks/useDebouncedValue.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { hasActiveDataTableFilters } from '../../util/dataTable.js'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
@@ -21,11 +19,9 @@ import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
 import CollapseControl from './controls/CollapseControl.jsx'
 import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
-import GlobalSearchControl from './controls/GlobalSearchControl.jsx'
 import HighlightColorControl from './controls/HighlightColorControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
-import ShowInViewControl from './controls/ShowInViewControl.jsx'
 import DataTable from './DataTable.jsx'
 import ErrorBoundary from './ErrorBoundary.jsx'
 import styles from './styles/BottomPanel.module.css'
@@ -40,9 +36,6 @@ const BottomPanel = () => {
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
-    const showOnlyFeaturesInView = useSelector(
-        (state) => state.ui.showOnlyFeaturesInView
-    )
     const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
@@ -53,15 +46,9 @@ const BottomPanel = () => {
     const [totalCount, setTotalCount] = useState(null)
     const [filteredCount, setFilteredCount] = useState(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
-    const [searchInputValue, setSearchInputValue] = useState('')
-    const globalSearch = useDebouncedValue(searchInputValue, 200)
     const [headersByLayer, setHeadersByLayer] = useState(null)
 
-    const hasActiveFilters = hasActiveDataTableFilters({
-        dataFilters,
-        globalSearch: searchInputValue,
-        showOnlyFeaturesInView,
-    })
+    const hasActiveFilters = hasActiveDataTableFilters({ dataFilters })
 
     const { maxHeight, collapsedHeight, displayHeight } =
         usePanelHeights(isCollapsed)
@@ -135,15 +122,7 @@ const BottomPanel = () => {
 
     const onClearFilters = useCallback(() => {
         dispatch(clearDataFilters(activeLayerId))
-        setSearchInputValue('')
-        if (showOnlyFeaturesInView) {
-            dispatch(toggleShowOnlyFeaturesInView())
-        }
-    }, [dispatch, activeLayerId, showOnlyFeaturesInView])
-
-    const onToggleShowOnlyFeaturesInView = useCallback(() => {
-        dispatch(toggleShowOnlyFeaturesInView())
-    }, [dispatch])
+    }, [dispatch, activeLayerId])
 
     const onCloseDataTable = useCallback(() => {
         dispatch(closeDataTable())
@@ -230,14 +209,6 @@ const BottomPanel = () => {
                     disabled={!hasActiveFilters}
                     onClick={onClearFilters}
                 />
-                <GlobalSearchControl
-                    value={searchInputValue}
-                    onChange={setSearchInputValue}
-                />
-                <ShowInViewControl
-                    active={showOnlyFeaturesInView}
-                    onClick={onToggleShowOnlyFeaturesInView}
-                />
                 <span className={styles.divider} />
                 <CloseControl onClick={onCloseDataTable} />
             </div>
@@ -247,7 +218,6 @@ const BottomPanel = () => {
                         availableWidth={panelWidth}
                         onCountChange={onCountChange}
                         onHeadersChange={onHeadersChange}
-                        globalSearch={globalSearch}
                         onClearFilters={onClearFilters}
                     />
                 </ErrorBoundary>
