@@ -18,9 +18,6 @@ export const TYPE_DATETIME = 'datetime'
 export const TYPE_TIME = 'time'
 export const TYPE_ORG_UNIT = 'orgUnit'
 
-export const DATE_GROUPS_GRANULARITY = 'date-groups'
-export const ORG_UNIT_GROUPS_GRANULARITY = 'org-unit-groups'
-
 export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
 export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
 export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
