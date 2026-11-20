@@ -86,7 +86,6 @@ const thematicLoader = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
-        dataTableColumnConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -102,9 +101,6 @@ const thematicLoader = async ({
     }
     if (noDataLegendFromConfig) {
         config.noDataLegend = noDataLegendFromConfig
-    }
-    if (dataTableColumnConfig) {
-        config.dataTableColumnConfig = dataTableColumnConfig
     }
     if (config.noDataColor) {
         config.noDataLegend = {

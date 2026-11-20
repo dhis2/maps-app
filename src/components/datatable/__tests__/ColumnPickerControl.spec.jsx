@@ -303,7 +303,7 @@ describe('ColumnPicker defaultHidden headers (e.g. period columns)', () => {
         },
     ]
 
-    test('appears in the main list, unchecked, when there is no saved config yet', () => {
+    test('appears in the main list, unchecked, when there are no column settings yet', () => {
         renderColumnPicker({ allHeaders: headersWithHiddenColumn })
         openPicker()
         expect(screen.getByLabelText('Value (Jan 2023)')).not.toBeChecked()

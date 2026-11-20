@@ -96,7 +96,6 @@ export const parseLayerConfig = async (layerConfig, engine) => {
             )
             const newConfig = createExternalLayerConfig(externalLayer)
             newConfig.featureStyle = { ...config.featureStyle }
-            newConfig.dataTableColumnConfig = config.dataTableColumnConfig
             return { config: newConfig }
         } catch (error_) {
             return { config, notFound: true }

@@ -50,7 +50,7 @@ describe('getOrderedHeaders', () => {
 })
 
 describe('getVisibleHeaders', () => {
-    it('returns all headers unchanged when there is no saved config', () => {
+    it('returns all headers unchanged when there are no column settings', () => {
         expect(getVisibleHeaders(headers, null)).toEqual(headers)
     })
 
@@ -133,7 +133,7 @@ describe('getVisibleHeaders', () => {
         ])
     })
 
-    it('excludes defaultHidden headers when there is no saved config yet', () => {
+    it('excludes defaultHidden headers when there are no column settings yet', () => {
         const withPeriodColumn = [
             ...headers,
             {

@@ -276,11 +276,10 @@ describe('parseLayerConfig', () => {
         ).resolves.toEqual({ config })
     })
 
-    test('returns a freshly-fetched config on success, carrying featureStyle/dataTableColumnConfig forward', async () => {
+    test('returns a freshly-fetched config on success, carrying featureStyle forward', async () => {
         const localConfig = {
             id: 'ext-1',
             featureStyle: { color: '#ff0000' },
-            dataTableColumnConfig: { visibleKeys: ['name'] },
         }
         const engine = {
             query: jest.fn().mockResolvedValue({
@@ -305,7 +304,6 @@ describe('parseLayerConfig', () => {
             name: 'Fresh name',
             url: 'https://fresh-url',
             featureStyle: { color: '#ff0000' },
-            dataTableColumnConfig: { visibleKeys: ['name'] },
         })
     })
 
