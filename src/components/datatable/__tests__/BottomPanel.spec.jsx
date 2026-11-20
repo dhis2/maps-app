@@ -10,6 +10,9 @@ jest.mock('../DataTable.jsx', () => {
     DataTableMock.displayName = 'DataTableMock'
     return DataTableMock
 })
+jest.mock('../../cachedDataProvider/CachedDataProvider.jsx', () => ({
+    useCachedData: () => ({ systemSettings: {} }),
+}))
 
 const mockStore = configureMockStore()
 
