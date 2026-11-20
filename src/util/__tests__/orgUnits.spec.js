@@ -183,6 +183,23 @@ describe('attachOrgUnitPaths', () => {
             getOuId
         )
         expect(result[0].properties.orgUnitPath).toBeNull()
+        expect(result[0].properties.orgUnitOwn).toBe('ou1')
+    })
+
+    it('gives the Org unit column the org unit’s own id, not its path', async () => {
+        const engine = {
+            query: jest.fn().mockResolvedValue({
+                organisationUnits: {
+                    organisationUnits: [{ id: 'ou1', path: '/country1/ou1' }],
+                },
+            }),
+        }
+        const result = await attachOrgUnitPaths(
+            [{ properties: { ouId: 'ou1' } }],
+            engine,
+            getOuId
+        )
+        expect(result[0].properties.orgUnitOwn).toBe('ou1')
     })
 
     it('is a no-op that returns the input untouched when there are no features', async () => {

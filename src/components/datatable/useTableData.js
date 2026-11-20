@@ -50,12 +50,7 @@ const EMPTY_AGGREGATIONS = {}
 const EMPTY_LAYER = {}
 const EMPTY_COLUMN_OPTIONS = {}
 
-export const useTableData = ({
-    layer,
-    sortField,
-    sortDirection,
-    keyAnalysisDigitGroupSeparator,
-}) => {
+export const useTableData = ({ layer, sortField, sortDirection }) => {
     const allAggregations = useSelector((state) => state.aggregations)
     const aggregations = allAggregations[layer.id] || EMPTY_AGGREGATIONS
     const externalPeriod = useSelector(
@@ -78,7 +73,6 @@ export const useTableData = ({
         renderingStrategy,
         valuesByPeriod,
         periods,
-        legendDecimalPlaces,
     } = layer || EMPTY_LAYER
 
     const isMultiPeriodThematic =
@@ -88,7 +82,6 @@ export const useTableData = ({
     const isTimelineThematic =
         isMultiPeriodThematic &&
         renderingStrategy === RENDERING_STRATEGY_TIMELINE
-    const isStyledEvent = layerType === EVENT_LAYER && !!styleDataItem
 
     // Period inputs only count for the layers that show them, so other
     // layers don't recompute the memos below when they change
@@ -106,15 +99,11 @@ export const useTableData = ({
                 dataWithoutCoords,
                 serverCluster,
                 aggregations,
-                isStyledEvent,
                 isMultiPeriodThematic,
                 isTimelineThematic,
-                legend,
                 valuesByPeriod,
                 externalPeriod,
                 periods,
-                keyAnalysisDigitGroupSeparator,
-                legendDecimalPlaces,
             }
         )
 
@@ -133,10 +122,6 @@ export const useTableData = ({
         valuesByPeriodDependency,
         externalPeriodDependency,
         periodsDependency,
-        isStyledEvent,
-        legend,
-        keyAnalysisDigitGroupSeparator,
-        legendDecimalPlaces,
     ])
 
     const headers = useMemo(() => {

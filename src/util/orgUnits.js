@@ -389,7 +389,8 @@ export const attachOrgUnitPaths = async (features, engine, getOuId) => {
                 ...feature.properties,
                 [ORG_UNIT_ID_DATA_KEY]: ouId ?? null,
                 [ORG_UNIT_PATH_DATA_KEY]: path,
-                [ORG_UNIT_DATA_KEY]: path,
+                // The own id only, so showing it fetches one name, not every ancestor's
+                [ORG_UNIT_DATA_KEY]: ouId ?? null,
                 [ORG_UNIT_LEVEL_DATA_KEY]: path
                     ? path.split('/').filter(Boolean).length
                     : null,

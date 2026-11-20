@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
 import { SENTINEL_NO_VALUE } from '../../../constants/dataTable.js'
 import useOrgUnitAncestorNames from '../../../hooks/useOrgUnitAncestorNames.js'
+import { addLegendProperties } from '../../../util/styleByDataItem.js'
 import { useTableData } from '../useTableData.js'
 
 jest.mock('../../map/MapApi.js', () => ({
@@ -329,11 +330,17 @@ describe('useTableData headers', () => {
             renderingStrategy: 'TIMELINE',
             valuesByPeriod: {
                 202301: {
-                    'ou-1': { value: 100, color: '#aaaaaa', legend: 'Low' },
+                    'ou-1': {
+                        value: 100,
+                        rawValue: 100,
+                        color: '#aaaaaa',
+                        legend: 'Low',
+                    },
                 },
                 202302: {
                     'ou-1': {
                         value: 200,
+                        rawValue: 200,
                         color: '#bbbbbb',
                         legend: 'High',
                         range: '150 – 250',
@@ -815,6 +822,7 @@ describe('useTableData headers', () => {
                 },
             ],
         }
+        layer.data = addLegendProperties(layer.data, layer.legend, {})
 
         const { result } = renderHook(
             () =>
@@ -886,6 +894,9 @@ describe('useTableData headers', () => {
                 },
             ],
         }
+        layer.data = addLegendProperties(layer.data, layer.legend, {
+            legendDecimalPlaces: layer.legendDecimalPlaces,
+        })
 
         const { result } = renderHook(
             () =>
@@ -934,6 +945,7 @@ describe('useTableData headers', () => {
                 },
             ],
         }
+        layer.data = addLegendProperties(layer.data, layer.legend, {})
 
         const { result } = renderHook(
             () =>
