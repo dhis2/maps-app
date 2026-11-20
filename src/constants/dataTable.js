@@ -22,3 +22,30 @@ export const ORG_UNIT_PATH_DATA_KEY = 'orgUnitPath'
 export const ORG_UNIT_DATA_KEY = 'orgUnitOwn'
 export const ORG_UNIT_ID_DATA_KEY = 'orgUnitId'
 export const ORG_UNIT_LEVEL_DATA_KEY = 'level'
+
+// Kinds of column filter condition, by the column's values
+export const FILTER_TEXT = 'text'
+export const FILTER_NUMBER = 'number'
+export const FILTER_DATE = 'date'
+export const FILTER_TIME = 'time'
+
+// What a column's filter shows first: the condition (default), the list of values, or only the list
+export const FILTER_VIEW_VALUES = 'values'
+export const FILTER_VIEW_VALUES_ONLY = 'valuesOnly'
+
+export const OPERATOR_CONTAINS = 'contains'
+export const OPERATOR_NOT_CONTAINS = 'notContains'
+export const OPERATOR_IS = 'is'
+export const OPERATOR_STARTS_WITH = 'startsWith'
+export const OPERATOR_EQUAL = 'eq'
+export const OPERATOR_NOT_EQUAL = 'neq'
+export const OPERATOR_GREATER = 'gt'
+export const OPERATOR_GREATER_OR_EQUAL = 'gte'
+export const OPERATOR_LESS = 'lt'
+export const OPERATOR_LESS_OR_EQUAL = 'lte'
+export const OPERATOR_BETWEEN = 'between'
+export const OPERATOR_ON = 'on'
+export const OPERATOR_BEFORE = 'before'
+export const OPERATOR_AFTER = 'after'
+// "Find in list": the text only searches the list of values, it is never saved
+export const OPERATOR_FIND = 'find'

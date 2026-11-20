@@ -35,11 +35,11 @@ describe('thematicLoader value extraction', () => {
 
         expect(getValuesByPeriod(data)).toEqual({
             202501: {
-                ou1: { value: 16082 },
-                ou2: { value: 118.13 },
+                ou1: { value: 16082, rawValue: 16082 },
+                ou2: { value: 118.13, rawValue: 118.13 },
             },
             202502: {
-                ou1: { value: 238 },
+                ou1: { value: 238, rawValue: 238 },
             },
         })
     })

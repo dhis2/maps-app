@@ -1,4 +1,6 @@
 import {
+    FILTER_VIEW_VALUES,
+    FILTER_VIEW_VALUES_ONLY,
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
@@ -348,5 +350,45 @@ describe('getHeadersForLayer - unknown layer type', () => {
         expect(getHeadersForLayer('somethingElse', {})).toEqual({
             headers: null,
         })
+    })
+})
+
+describe('getHeadersForLayer - filter views', () => {
+    const filterViewOf = (result, dataKey) =>
+        result.headers.find((h) => h.dataKey === dataKey).filterView
+
+    test('columns with few values open on their list, Color on its list only, the others on the condition', () => {
+        const result = getHeadersForLayer(THEMATIC_LAYER, {})
+        expect(filterViewOf(result, 'orgUnitOwn')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'level')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'legend')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'range')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'type')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'color')).toBe(FILTER_VIEW_VALUES_ONLY)
+        expect(filterViewOf(result, 'orgUnitPath')).toBeUndefined()
+        expect(filterViewOf(result, 'rawValue')).toBeUndefined()
+    })
+
+    test('event data items with an option set or a Yes/no value open on their list, the others on the condition', () => {
+        const layerHeaders = [
+            {
+                name: 'w75KJ2mc4zz',
+                column: 'Gender',
+                valueType: 'TEXT',
+                optionSet: 'pC3N9N77UmT',
+            },
+            { name: 'zDhUuAYrxNC', column: 'Pregnant', valueType: 'BOOLEAN' },
+            {
+                name: 'oZg33kd9taw',
+                column: 'Referred to',
+                valueType: 'ORGANISATION_UNIT',
+            },
+            { name: 'qrur9Dvnyt5', column: 'Age', valueType: 'INTEGER' },
+        ]
+        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
+        expect(filterViewOf(result, 'w75KJ2mc4zz')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'zDhUuAYrxNC')).toBe(FILTER_VIEW_VALUES)
+        expect(filterViewOf(result, 'oZg33kd9taw')).toBeUndefined()
+        expect(filterViewOf(result, 'qrur9Dvnyt5')).toBeUndefined()
     })
 })
