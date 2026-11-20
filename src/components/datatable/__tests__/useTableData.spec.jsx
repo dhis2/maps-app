@@ -1794,3 +1794,33 @@ describe('useTableData columnOptions', () => {
         ])
     })
 })
+
+describe('useTableData errors', () => {
+    test.each(['facility', 'event', 'thematic'])(
+        'a %s layer without rows shows the no-data message',
+        (layerType) => {
+            const layer = { layer: layerType, dataFilters: null, data: [] }
+
+            const { result } = renderHook(
+                () =>
+                    useTableData({
+                        layer,
+                        sortField: 'name',
+                        sortDirection: 'asc',
+                    }),
+                {
+                    wrapper: ({ children }) => (
+                        <Provider store={mockStore({ aggregations: {} })}>
+                            {children}
+                        </Provider>
+                    ),
+                }
+            )
+
+            expect(result.current.rows).toBeNull()
+            expect(result.current.error).toBe(
+                'No valid data was found for the current layer configuration.'
+            )
+        }
+    )
+})
