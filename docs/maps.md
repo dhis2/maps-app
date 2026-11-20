@@ -108,8 +108,8 @@ Available layer types are:
 In addition, several layers can come from [Google Earth Engine](#using_maps_gee) (such as
 population, elevation, or climate indicators) and
 [other external services](#using_maps_external_map_layers). Various Google Earth Engine layer
-sources are available if the Google Earth Engine API key has been set up (see
-[documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)).
+sources are available if a Google Earth Engine service account key has been set up (see
+[documentation](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html)).
 
 > **Note**
 >
@@ -156,9 +156,9 @@ visibility and adjust its transparency.
 
 > **Note**
 >
-> Bing Maps is being retired. See the [Bing Maps Blog](https://aka.ms/BMERetirementAnnouncement) for
-> the retirement announcement. For migration to Azure Maps, consult the
-> [Bing Maps Migration Overview](https://learn.microsoft.com/azure/azure-maps/migrate-bing-maps-overview).
+> Microsoft is retiring Bing Maps. Free (Basic) Bing Maps keys stopped working on 30 June 2025, and
+> paid Bing Maps for Enterprise licences end on 30 June 2028. To set up Azure Maps instead, see
+> [Azure Maps and Bing Maps basemaps setup](https://docs.dhis2.org/en/topics/tutorials/azure-maps-and-bing-maps-basemaps-setup.html).
 ## Manage thematic layers { #using_maps_thematic_layer }
 
 _Thematic maps_ represent spatial variation of geographic distributions. They show aggregated data
@@ -975,8 +975,10 @@ actions_ (three dots) icon and then click **Remove layer**.
 
 ![](resources/images/maps_ee_layer.png)
 
-Google Earth Engine layers are enabled if a Google Earth Engine API key has been configured for your
-system. Contact your system administrator if you need access to these layers.
+Google Earth Engine layers are enabled if a Google Earth Engine service account key has been
+configured for your system. Contact your system administrator if you need access to these layers.
+System administrators can set up the key by following
+[Google Earth Engine sign-up](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html).
 
 The layers from Google Earth Engine let you show and aggregate external data for your organisation
 units. Aggregated values can be viewed either in popups or in the data table.
@@ -1509,7 +1511,7 @@ The **Maps** app administrator is able to:
 -   Configuration:
 
     -   [Configure DHIS2 Maps](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/maps.html)
-    -   [Accessing map layers from Google Earth Engine](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html#accessing-map-layers-from-google-earth-engine)
+    -   [Google Earth Engine sign-up](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html#accessing-map-layers-from-google-earth-engine)
     -   [Geo-enabled microplanning](https://docs.dhis2.org/en/implement/health/immunization/immunization-campaigns/use.html?h=microplanning#geoenabled-microplanning),
         including details about facility catchment areas
 
@@ -1517,7 +1519,7 @@ The **Maps** app administrator is able to:
 
     -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Infrastructural%20indicators)
     -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Use%20centroids%20for%20organisation%20unit%20polygons%20in%20event%20analytics)
-    -   [Google Maps / Bing / Azure API keys](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)
+    -   [Bing Maps / Azure Maps API keys](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Bing%20Maps%20API%20key)
 
 -   Metadata management:
 
