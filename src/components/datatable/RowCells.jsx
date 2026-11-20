@@ -30,10 +30,8 @@ import styles from './styles/DataTable.module.css'
 const RowCells = ({
     row,
     visibleHeaders,
-    selectedIdSet,
     hoveredFeature,
     layerId,
-    isCheckboxColumnPinned,
     pinnedLeftOffsets,
     pinnedColumnCount,
     columnWidths,
@@ -41,10 +39,8 @@ const RowCells = ({
     typeByDataKey,
     keyAnalysisDigitGroupSeparator,
     orgUnitIdToName,
-    onToggleSelection,
 }) => {
     const rowId = getRowId(row)
-    const isSelected = !!rowId && selectedIdSet.has(rowId)
     const isHovered =
         !!rowId &&
         hoveredFeature?.id === rowId &&
@@ -54,23 +50,6 @@ const RowCells = ({
 
     return (
         <>
-            <DataTableCell
-                staticStyle
-                fixed={isCheckboxColumnPinned}
-                left={isCheckboxColumnPinned ? '0px' : undefined}
-                width={isCheckboxColumnPinned ? '76px' : undefined}
-                className={cx(styles.checkboxCell, {
-                    [styles.selected]: isSelected,
-                    [styles.hovered]: isHovered,
-                })}
-            >
-                <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={() => rowId && onToggleSelection(rowId)}
-                    onClick={(e) => e.stopPropagation()}
-                />
-            </DataTableCell>
             {visibleHeaders.map(({ dataKey }, index) => {
                 const cell = cellsByDataKey.get(dataKey)
                 if (!cell) {
@@ -108,7 +87,6 @@ const RowCells = ({
                                 dataKey === 'id' ||
                                 dataKey === ORG_UNIT_ID_DATA_KEY ||
                                 isColorCell,
-                            [styles.selected]: isSelected && !isColorCell,
                             [styles.hovered]: isHovered && !isColorCell,
                             [styles.pinnedColumnShadow]: isLastPinned,
                         })}
@@ -157,15 +135,12 @@ const RowCells = ({
 
 RowCells.propTypes = {
     columnWidths: PropTypes.array.isRequired,
-    isCheckboxColumnPinned: PropTypes.bool.isRequired,
     pinnedColumnCount: PropTypes.number.isRequired,
     pinnedLeftOffsets: PropTypes.object.isRequired,
     rendererByDataKey: PropTypes.instanceOf(Map).isRequired,
     row: PropTypes.array.isRequired,
-    selectedIdSet: PropTypes.instanceOf(Set).isRequired,
     typeByDataKey: PropTypes.instanceOf(Map).isRequired,
     visibleHeaders: PropTypes.array.isRequired,
-    onToggleSelection: PropTypes.func.isRequired,
     hoveredFeature: PropTypes.object,
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     layerId: PropTypes.string,
