@@ -32,11 +32,8 @@ import {
     filterHeadersByName,
     getDefaultVisibleKeys,
     getOrderedHeaders,
-    getPinnedCount,
-    isPinnedGroupEnd,
     reorderHeaderKeys,
     reverseVisibleKeys,
-    togglePinnedKey,
     toggleVisibleKey,
 } from '../../../util/tableColumns.js'
 import { FilterDropdownPopover } from '../FilterDropdownPopover.jsx'
@@ -46,7 +43,6 @@ import ToolbarIconButton from './ToolbarIconButton.jsx'
 
 const DRAG_OVERLAY_Z_INDEX = 2100
 const EMPTY_HEADERS = []
-const EMPTY_KEYS = []
 
 const ColumnPickerControl = React.memo(function ColumnPickerControl({
     layerId,
@@ -83,28 +79,21 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
 
     const visibleKeys =
         columnConfig?.visibleKeys ?? getDefaultVisibleKeys(headers)
-    const pinnedKeys = columnConfig?.pinnedKeys ?? EMPTY_KEYS
     const orderedKeys =
         columnConfig?.orderedKeys ?? headers.map((h) => h.dataKey)
 
     const orderedHeaders = useMemo(
         () =>
             isOpen
-                ? getOrderedHeaders(headers, { orderedKeys, pinnedKeys })
+                ? getOrderedHeaders(headers, { orderedKeys })
                 : EMPTY_HEADERS,
-        [isOpen, headers, orderedKeys, pinnedKeys]
-    )
-
-    const pinnedCount = useMemo(
-        () => (isOpen ? getPinnedCount(orderedHeaders, pinnedKeys) : 0),
-        [isOpen, orderedHeaders, pinnedKeys]
+        [isOpen, headers, orderedKeys]
     )
 
     const updateConfig = (partial) =>
         dispatch(
             setDataTableColumnConfig(layerId, {
                 visibleKeys,
-                pinnedKeys,
                 orderedKeys,
                 ...partial,
             })
@@ -114,9 +103,6 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
         updateConfig({
             visibleKeys: toggleVisibleKey(visibleKeys, dataKey, checked),
         })
-
-    const onTogglePinned = (dataKey) =>
-        updateConfig({ pinnedKeys: togglePinnedKey(pinnedKeys, dataKey) })
 
     const isAllVisible = visibleKeys.length === headers.length
     const onToggleSelectAll = () =>
@@ -262,17 +248,8 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
                                             isVisible={visibleKeys.includes(
                                                 header.dataKey
                                             )}
-                                            isPinned={pinnedKeys.includes(
-                                                header.dataKey
-                                            )}
-                                            isPinnedGroupEnd={isPinnedGroupEnd(
-                                                header,
-                                                pinnedCount,
-                                                orderedHeaders
-                                            )}
                                             isDragActive={activeId != null}
                                             onToggleVisible={onToggleVisible}
-                                            onTogglePinned={onTogglePinned}
                                         />
                                     ))}
                                 </div>
@@ -292,9 +269,6 @@ const ColumnPickerControl = React.memo(function ColumnPickerControl({
                                             <ColumnRowFields
                                                 header={activeHeader}
                                                 isVisible={visibleKeys.includes(
-                                                    activeHeader.dataKey
-                                                )}
-                                                isPinned={pinnedKeys.includes(
                                                     activeHeader.dataKey
                                                 )}
                                                 dataTestSuffix="-preview"
@@ -323,7 +297,6 @@ ColumnPickerControl.propTypes = {
     ),
     columnConfig: PropTypes.shape({
         orderedKeys: PropTypes.arrayOf(PropTypes.string),
-        pinnedKeys: PropTypes.arrayOf(PropTypes.string),
         visibleKeys: PropTypes.arrayOf(PropTypes.string),
     }),
 }
