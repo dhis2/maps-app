@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-19T14:32:15.236Z\n"
-"PO-Revision-Date: 2026-11-19T14:32:15.236Z\n"
+"POT-Creation-Date: 2026-11-19T14:41:39.082Z\n"
+"PO-Revision-Date: 2026-11-19T14:41:39.082Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -278,11 +278,39 @@ msgstr "Filter by {{column}}"
 msgid "Filter by"
 msgstr "Filter by"
 
+msgid "+ Add a condition"
+msgstr "+ Add a condition"
+
+msgid "Pick values"
+msgstr "Pick values"
+
+msgid "{{kept}} of {{total}} rows"
+msgstr "{{kept}} of {{total}} rows"
+
 msgid "Clear"
 msgstr "Clear"
 
 msgid "Apply"
 msgstr "Apply"
+
+msgid "{{checked}} of {{count}} checked"
+msgid_plural "{{checked}} of {{count}} checked"
+msgstr[0] "{{checked}} of {{count}} checked"
+msgstr[1] "{{checked}} of {{count}} checked"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "No value matches"
+msgstr "No value matches"
+
+msgid "{{count}} values hidden by the condition"
+msgid_plural "{{count}} values hidden by the condition"
+msgstr[0] "{{count}} value hidden by the condition"
+msgstr[1] "{{count}} values hidden by the condition"
 
 msgid "Does not contain"
 msgstr "Does not contain"
@@ -313,6 +341,9 @@ msgstr "Less than (<)"
 
 msgid "Less than or equal to (≤)"
 msgstr "Less than or equal to (≤)"
+
+msgid "Find in list"
+msgstr "Find in list"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."

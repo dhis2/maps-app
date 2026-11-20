@@ -275,5 +275,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         filteredCount,
         orgUnitIdToName,
         columnOptions,
+        // Every row before the filters: the filter popovers count their values from them
+        filterRows: dataWithAggregations,
     }
 }

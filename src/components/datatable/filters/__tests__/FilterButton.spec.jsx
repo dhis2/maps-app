@@ -8,22 +8,48 @@ import {
 } from '../../../../constants/actionTypes.js'
 import FilterButton from '../FilterButton.jsx'
 
+jest.mock('../../../../hooks/useOptionSet.js', () => () => ({
+    optionSet: null,
+}))
+
 const mockStore = configureMockStore()
 
-const renderButton = async (filter, filterType = 'text') => {
+const ROWS = [
+    { id: 'a1', ou: 'ou1', gender: 'Female' },
+    { id: 'b2', ou: 'ou2', gender: 'Male' },
+    { id: 'c3', ou: 'ou1', gender: null },
+]
+
+const COLUMN = {
+    rows: ROWS,
+    filters: {},
+    orgUnitIdToName: new Map([
+        ['ou1', 'Bo'],
+        ['ou2', 'Kenema'],
+    ]),
+}
+
+const ID_HEADER = { name: 'Event ID', dataKey: 'id', type: 'string' }
+
+const renderButton = async (
+    filter,
+    { filterType = 'text', header = ID_HEADER } = {}
+) => {
     const store = mockStore({})
     render(
         <Provider store={store}>
             <FilterButton
                 layerId="layer1"
-                name="Event ID"
-                dataKey="id"
+                header={header}
                 filterType={filterType}
+                column={COLUMN}
                 filter={filter}
             />
         </Provider>
     )
-    fireEvent.click(screen.getByTestId('data-table-filter-button-id'))
+    fireEvent.click(
+        screen.getByTestId(`data-table-filter-button-${header.dataKey}`)
+    )
     await screen.findByTestId('data-table-filter-popover')
     return store
 }
@@ -105,6 +131,10 @@ describe('FilterButton', () => {
 })
 
 describe('FilterButton on a number column', () => {
+    const NUMBER_COLUMN = {
+        filterType: 'number',
+        header: { name: 'Event ID', dataKey: 'id', type: 'number' },
+    }
     const range = (value, value2) => ({
         type: 'number',
         operator: 'between',
@@ -114,7 +144,7 @@ describe('FilterButton on a number column', () => {
     })
 
     test('applies the two typed numbers as a "Between" condition', async () => {
-        const store = await renderButton(undefined, 'number')
+        const store = await renderButton(undefined, NUMBER_COLUMN)
 
         typeInto('data-table-filter-value', '1')
         typeInto('data-table-filter-value2', '5')
@@ -131,7 +161,7 @@ describe('FilterButton on a number column', () => {
     })
 
     test('"Between" needs both numbers before it can be applied', async () => {
-        await renderButton(range('1', '5'), 'number')
+        await renderButton(range('1', '5'), NUMBER_COLUMN)
 
         typeInto('data-table-filter-value2', '')
 
@@ -140,7 +170,7 @@ describe('FilterButton on a number column', () => {
     })
 
     test('numbers in reverse order show why they cannot be applied', async () => {
-        await renderButton(range('1', '5'), 'number')
+        await renderButton(range('1', '5'), NUMBER_COLUMN)
 
         typeInto('data-table-filter-value2', '0')
 
@@ -148,6 +178,107 @@ describe('FilterButton on a number column', () => {
         expect(
             screen.getByText('The second number must be greater than the first')
         ).toBeInTheDocument()
+    })
+})
+
+describe('FilterButton value list', () => {
+    const OU_HEADER = {
+        name: 'Org unit',
+        dataKey: 'ou',
+        type: 'string',
+        renderer: 'renderorgunitname',
+        filterView: 'values',
+    }
+    const GENDER_HEADER = { name: 'Gender', dataKey: 'gender', type: 'string' }
+
+    const listItems = () => [
+        ...screen
+            .getByTestId('data-table-filter-values-list')
+            .querySelectorAll('li'),
+    ]
+    const checkbox = (label) =>
+        listItems()
+            .find((li) => li.textContent.startsWith(label))
+            .querySelector('input')
+
+    test('a column with few values opens on its list, its condition behind a link', async () => {
+        await renderButton(undefined, { header: OU_HEADER })
+
+        expect(
+            screen.getByTestId('data-table-filter-values-list')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-value')
+        ).not.toBeInTheDocument()
+
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        expect(
+            screen.getByTestId('data-table-filter-value')
+        ).toBeInTheDocument()
+    })
+
+    test('other columns open on their condition, the list behind a link', async () => {
+        await renderButton(undefined, { header: GENDER_HEADER })
+
+        expect(
+            screen.queryByTestId('data-table-filter-values-list')
+        ).not.toBeInTheDocument()
+        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
+        expect(
+            screen.getByTestId('data-table-filter-values-list')
+        ).toBeInTheDocument()
+    })
+
+    test('lists the values by the names the cells show, with their row count and "No value"', async () => {
+        await renderButton(undefined, { header: OU_HEADER })
+
+        expect(listItems().map((li) => li.textContent)).toEqual([
+            'No value0',
+            'Bo2',
+            'Kenema1',
+        ])
+    })
+
+    test('applies the unchecked values, and shows the rows it keeps', async () => {
+        const store = await renderButton(undefined, { header: OU_HEADER })
+
+        fireEvent.click(checkbox('Kenema'))
+        expect(
+            screen.getByTestId('data-table-filter-preview')
+        ).toHaveTextContent('2 of 3 rows')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter).toEqual({
+            type: 'text',
+            excluded: ['ou2'],
+        })
+    })
+
+    test('a condition on a column showing names is applied through the values it leaves out', async () => {
+        const store = await renderButton(undefined, { header: OU_HEADER })
+
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        typeText('ken')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter).toEqual({
+            type: 'text',
+            operator: 'contains',
+            value: 'ken',
+            excluded: [''],
+            excludedByCondition: ['ou1'],
+        })
+    })
+
+    test('checking "No value" back keeps the rows without a value despite the condition', async () => {
+        const store = await renderButton(undefined, { header: GENDER_HEADER })
+
+        typeText('fem')
+        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
+        fireEvent.click(checkbox('No value'))
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter.excluded).toEqual([])
     })
 })
 
@@ -160,9 +291,9 @@ describe('FilterButton tooltip', () => {
             <Provider store={mockStore({})}>
                 <FilterButton
                     layerId="layer1"
-                    name="Event ID"
-                    dataKey="id"
+                    header={ID_HEADER}
                     filterType="text"
+                    column={COLUMN}
                 />
             </Provider>
         )

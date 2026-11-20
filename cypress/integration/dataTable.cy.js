@@ -51,6 +51,24 @@ const filterNumberColumn = (column, operator, value) => {
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
+// Columns with few values open on their list: the condition is behind a link
+const filterContaining = (column, text) => {
+    openColumnFilter(column)
+    cy.getByDataTest('data-table-filter-add-condition').click()
+    cy.getByDataTest('data-table-filter-value').find('input').type(text)
+    cy.getByDataTest('data-table-filter-apply').click()
+}
+
+// Every value starts checked: keep one by unchecking all, then checking it
+const filterPickedValue = (column, label) => {
+    openColumnFilter(column)
+    cy.getByDataTest('data-table-filter-values-uncheck-all').click()
+    cy.getByDataTest('data-table-filter-values-list')
+        .contains('label', label)
+        .click()
+    cy.getByDataTest('data-table-filter-apply').click()
+}
+
 describe('data table', () => {
     it('opens data table for a Thematic layer and filters and sorts', () => {
         const viewportHeight = Cypress.config('viewportHeight')
@@ -102,9 +120,7 @@ describe('data table', () => {
             .should('have.length', 9)
 
         // Filter by Org unit
-        cy.getByDataTest('data-table-column-filter-search-Org unit')
-            .find('input')
-            .type('bar{enter}')
+        filterContaining('Org unit', 'bar')
 
         // Check that the filter returned the correct number of rows
         cy.getByDataTest('bottom-panel')
@@ -211,9 +227,7 @@ describe('data table', () => {
 
         // Filter by Org unit
         const ouName = 'Moyowa'
-        cy.getByDataTest('data-table-column-filter-search-Org unit')
-            .find('input')
-            .type(`${ouName}{enter}`)
+        filterPickedValue('Org unit', ouName)
 
         // Check that all the rows have Org unit Moyowa
         checkTableCell({ row: 0, column: 2, expectedContent: ouName })
@@ -225,26 +239,15 @@ describe('data table', () => {
             .should('have.length', 3)
 
         // Filter by Mode of Discharge
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .find('input')
-            .type('Absconded')
-        cy.contains('label', 'Absconded').click()
+        filterPickedValue('Mode of Discharge', 'Absconded')
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
             .findByDataTest('dhis2-uicore-datatablerow')
             .should('have.length', 1)
 
-        cy.get('.backdrop').last().click()
-
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .find('.clear-button')
-            .click()
-
-        // Leave the field as a mouse would, so its help tooltip closes
-        cy.getByDataTest('data-table-column-filter-search-Mode of Discharge')
-            .closest('[data-test="data-table-filter-help-reference"]')
-            .trigger('mouseout')
+        openColumnFilter('Mode of Discharge')
+        cy.getByDataTest('data-table-filter-clear').click()
 
         cy.getByDataTest('bottom-panel')
             .findByDataTest('dhis2-uicore-tablebody')
