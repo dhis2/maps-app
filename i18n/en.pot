@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-19T14:41:39.082Z\n"
-"PO-Revision-Date: 2026-11-19T14:41:39.082Z\n"
+"POT-Creation-Date: 2026-11-19T14:43:32.091Z\n"
+"PO-Revision-Date: 2026-11-19T14:43:32.091Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -341,6 +341,18 @@ msgstr "Less than (<)"
 
 msgid "Less than or equal to (≤)"
 msgstr "Less than or equal to (≤)"
+
+msgid "On"
+msgstr "On"
+
+msgid "Before"
+msgstr "Before"
+
+msgid "After"
+msgstr "After"
+
+msgid "At"
+msgstr "At"
 
 msgid "Find in list"
 msgstr "Find in list"

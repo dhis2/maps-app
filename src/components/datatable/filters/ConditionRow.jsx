@@ -3,14 +3,21 @@ import { Help, Input, SingleSelectField, SingleSelectOption } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
+    FILTER_DATE,
     FILTER_NUMBER,
+    FILTER_TIME,
     OPERATOR_BETWEEN,
 } from '../../../constants/dataTable.js'
 import { getFilterError } from '../../../util/filter.js'
 import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
 
-const INPUT_TYPES = { [FILTER_NUMBER]: 'number' }
+// Dates are compared as YYYY-MM-DD and times as HH:MM, the browser inputs' own formats
+const INPUT_TYPES = {
+    [FILTER_NUMBER]: 'number',
+    [FILTER_DATE]: 'date',
+    [FILTER_TIME]: 'time',
+}
 
 const getPlaceholders = (filterType) =>
     filterType === FILTER_NUMBER

@@ -97,26 +97,21 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('text and number columns get a filter button, those with few values too, date columns the filter input, untyped columns neither', () => {
+    test('every typed column gets a filter button and no search field, untyped columns neither', () => {
         renderTable()
-        expect(
-            screen.getByTestId('data-table-filter-button-orgUnitOwn')
-        ).toBeInTheDocument()
-        expect(
-            screen.queryByTestId('filter-orgUnitOwn')
-        ).not.toBeInTheDocument()
-        expect(
-            screen.getByTestId('data-table-filter-button-rawValue')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-rawValue')).not.toBeInTheDocument()
-        expect(
-            screen.getByTestId('data-table-filter-button-legend')
-        ).toBeInTheDocument()
-        expect(screen.queryByTestId('filter-legend')).not.toBeInTheDocument()
-        expect(screen.getByTestId('filter-eventdate')).toBeInTheDocument()
-        expect(
-            screen.queryByTestId('data-table-filter-button-eventdate')
-        ).not.toBeInTheDocument()
+        for (const dataKey of [
+            'orgUnitOwn',
+            'rawValue',
+            'legend',
+            'eventdate',
+        ]) {
+            expect(
+                screen.getByTestId(`data-table-filter-button-${dataKey}`)
+            ).toBeInTheDocument()
+            expect(
+                screen.queryByTestId(`filter-${dataKey}`)
+            ).not.toBeInTheDocument()
+        }
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
         expect(
             screen.queryByTestId('data-table-filter-button-untyped')
