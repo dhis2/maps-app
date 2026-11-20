@@ -45,7 +45,7 @@ const getChanges = ({
     return null
 }
 
-module.exports = async ({
+const updateE2eComment = async ({
     github,
     context,
     setupResult,
@@ -118,3 +118,5 @@ module.exports = async ({
         })
     }
 }
+
+module.exports = updateE2eComment
