@@ -1,5 +1,10 @@
 import { arrayMoveImmutable } from 'array-move'
-import { SENTINEL_NO_VALUE, TYPE_NUMBER } from '../constants/dataTable.js'
+import {
+    SENTINEL_NO_VALUE,
+    SORT_ASCENDING,
+    TYPE_NUMBER,
+} from '../constants/dataTable.js'
+import { compareColumnOptionValues } from './tableSort.js'
 
 export const getDefaultVisibleKeys = (headers) =>
     headers.filter((h) => !h.defaultHidden).map((h) => h.dataKey)
@@ -71,6 +76,35 @@ export const getColumnDistinctValues = (headers, data) => {
     })
 
     return result
+}
+
+// The sorted column lists its values in the sort direction, the others ascending
+export const sortColumnOptions = (
+    columnDistinctValues,
+    { sortField, sortDirection } = {}
+) => {
+    if (!columnDistinctValues) {
+        return null
+    }
+
+    const result = {}
+    Object.entries(columnDistinctValues).forEach(
+        ([dataKey, { values, type }]) => {
+            const direction =
+                dataKey === sortField ? sortDirection : SORT_ASCENDING
+            result[dataKey] = [...values]
+                .sort((a, b) =>
+                    compareColumnOptionValues(a, b, {
+                        dataKey,
+                        type,
+                        direction,
+                    })
+                )
+                .map((value) => ({ value }))
+        }
+    )
+
+    return Object.keys(result).length ? result : null
 }
 
 export const buildRowCells = (item, headers) =>
