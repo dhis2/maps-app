@@ -2,7 +2,7 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
 import ColumnHeader from '../ColumnHeader.jsx'
 
-const ACTIVE_FILL = 'var(--colors-teal600)'
+const ACTIVE_FILL = 'var(--colors-blue700)'
 const UP_ARROW = '4 7 12 7 8 2'
 const DOWN_ARROW = '4 9 12 9 8 14'
 

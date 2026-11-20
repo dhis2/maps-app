@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-18T14:23:59.617Z\n"
-"PO-Revision-Date: 2026-11-18T14:23:59.617Z\n"
+"POT-Creation-Date: 2026-11-19T09:36:43.842Z\n"
+"PO-Revision-Date: 2026-11-19T09:36:43.842Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -253,6 +253,33 @@ msgstr "{{filtered}} of {{total}} rows"
 
 msgid "{{total}} rows"
 msgstr "{{total}} rows"
+
+msgid "Condition"
+msgstr "Condition"
+
+msgid "Text"
+msgstr "Text"
+
+msgid "Filter by {{column}}"
+msgstr "Filter by {{column}}"
+
+msgid "Filter by"
+msgstr "Filter by"
+
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Apply"
+msgstr "Apply"
+
+msgid "Does not contain"
+msgstr "Does not contain"
+
+msgid "Is"
+msgstr "Is"
+
+msgid "Starts with"
+msgstr "Starts with"
 
 msgid "No valid data was found for the current layer configuration."
 msgstr "No valid data was found for the current layer configuration."
@@ -1080,9 +1107,6 @@ msgstr "Selected and all below"
 
 msgid "Selection mode"
 msgstr "Selection mode"
-
-msgid "Clear"
-msgstr "Clear"
 
 msgid "Previous year"
 msgstr "Previous year"

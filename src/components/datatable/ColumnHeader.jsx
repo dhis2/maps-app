@@ -11,6 +11,7 @@ const ColumnHeader = ({
     dataKey,
     sortDirection,
     onSort,
+    filterButton,
     ...columnHeaderProps
 }) => {
     const sortLabel = i18n.t('Sort by {{column}}', { column: name })
@@ -19,6 +20,7 @@ const ColumnHeader = ({
         <DataTableColumnHeader name={dataKey} {...columnHeaderProps}>
             <span className={styles.headerContent}>
                 <span className={styles.headerTitle}>{name}</span>
+                {filterButton}
                 <TopTooltip content={sortLabel}>
                     <button
                         type="button"
@@ -39,6 +41,7 @@ ColumnHeader.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onSort: PropTypes.func.isRequired,
+    filterButton: PropTypes.node,
     sortDirection: PropTypes.string,
 }
 

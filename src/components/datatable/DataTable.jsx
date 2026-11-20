@@ -17,23 +17,35 @@ import { useSelector, useDispatch } from 'react-redux'
 import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
-import { SORT_ASCENDING } from '../../constants/dataTable.js'
+import { FILTER_TEXT, SORT_ASCENDING } from '../../constants/dataTable.js'
 import {
+    getFilterType,
     getNextSorting,
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
+    isNamedValueColumn,
     shouldClearFeatureHighlight,
 } from '../../util/dataTable.js'
 import { getVisibleHeaders } from '../../util/tableColumns.js'
 import { useCachedData } from '../cachedDataProvider/CachedDataProvider.jsx'
 import ColumnHeader from './ColumnHeader.jsx'
 import FilterInput from './FilterInput.jsx'
+import FilterButton from './filters/FilterButton.jsx'
 import RowCells from './RowCells.jsx'
 import styles from './styles/DataTable.module.css'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
+
+// Conditions the popover offers so far; the other columns keep FilterInput,
+// and so do the ones whose filter needs the list of values
+const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT])
+
+const hasFilterPopover = (header) =>
+    POPOVER_FILTER_TYPES.has(getFilterType(header)) &&
+    !header.filterView &&
+    !isNamedValueColumn(header)
 
 const TABLE_STYLE = { height: '100%', width: '100%' }
 const VIEWPORT_OVERSCAN = { top: 400, bottom: 400 }
@@ -62,6 +74,7 @@ const Table = ({
     )
 
     const layer = mapViews.find((l) => l.id === activeLayerId)
+    const { id: layerId, dataFilters } = layer
 
     const sortData = useCallback(
         ({ name }) => {
@@ -191,45 +204,58 @@ const Table = ({
     const fixedHeaderContent = useCallback(
         () => (
             <DataTableRow ref={headerRowRef}>
-                {visibleHeaders.map(
-                    ({ name, dataKey, type, optionSet, renderer }, index) => {
-                        return (
-                            <ColumnHeader
-                                className={styles.columnHeader}
-                                key={`${dataKey}-${index}`}
-                                name={name}
-                                dataKey={dataKey}
-                                sortDirection={
-                                    dataKey === sortField ? sortDirection : null
-                                }
-                                onSort={sortData}
-                                onFilterIconClick={
-                                    isFilterable(dataKey, type) &&
-                                    Function.prototype
-                                }
-                                showFilter={isFilterable(dataKey, type)}
-                                filter={
-                                    isFilterable(dataKey, type) && (
-                                        <FilterInput
-                                            type={type}
-                                            dataKey={dataKey}
-                                            name={name}
-                                            options={columnOptions[dataKey]}
-                                            optionSetId={optionSet?.id}
-                                            renderer={renderer}
-                                            orgUnitIdToName={orgUnitIdToName}
-                                        />
-                                    )
-                                }
-                                width={
-                                    columnWidths.length > 0
-                                        ? `${columnWidths[index]}px`
-                                        : 'auto'
-                                }
-                            />
-                        )
-                    }
-                )}
+                {visibleHeaders.map((header, index) => {
+                    const { name, dataKey, type, optionSet, renderer } = header
+                    const canFilter = isFilterable(dataKey, type)
+                    const hasPopover = canFilter && hasFilterPopover(header)
+                    const hasFilterInput = canFilter && !hasPopover
+
+                    return (
+                        <ColumnHeader
+                            className={styles.columnHeader}
+                            key={`${dataKey}-${index}`}
+                            name={name}
+                            dataKey={dataKey}
+                            sortDirection={
+                                dataKey === sortField ? sortDirection : null
+                            }
+                            onSort={sortData}
+                            filterButton={
+                                hasPopover && (
+                                    <FilterButton
+                                        layerId={layerId}
+                                        name={name}
+                                        dataKey={dataKey}
+                                        filterType={getFilterType(header)}
+                                        filter={dataFilters?.[dataKey]}
+                                    />
+                                )
+                            }
+                            onFilterIconClick={
+                                hasFilterInput && Function.prototype
+                            }
+                            showFilter={hasFilterInput}
+                            filter={
+                                hasFilterInput && (
+                                    <FilterInput
+                                        type={type}
+                                        dataKey={dataKey}
+                                        name={name}
+                                        options={columnOptions[dataKey]}
+                                        optionSetId={optionSet?.id}
+                                        renderer={renderer}
+                                        orgUnitIdToName={orgUnitIdToName}
+                                    />
+                                )
+                            }
+                            width={
+                                columnWidths.length > 0
+                                    ? `${columnWidths[index]}px`
+                                    : 'auto'
+                            }
+                        />
+                    )
+                })}
             </DataTableRow>
         ),
         [
@@ -241,6 +267,8 @@ const Table = ({
             columnOptions,
             headerRowRef,
             orgUnitIdToName,
+            layerId,
+            dataFilters,
         ]
     )
 

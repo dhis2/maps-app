@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen, fireEvent, within } from '@testing-library/react'
 import React from 'react'
 import { Provider } from 'react-redux'
 import configureMockStore from 'redux-mock-store'
@@ -27,7 +27,7 @@ jest.mock('../FilterInput.jsx', () => {
 
 const mockStore = configureMockStore()
 
-const ACTIVE_FILL = 'var(--colors-teal600)'
+const ACTIVE_FILL = 'var(--colors-blue700)'
 
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
@@ -89,11 +89,33 @@ describe('DataTable column headers', () => {
         })
     })
 
-    test('show a filter input for the columns that have a type', () => {
+    test('text columns get a filter button, other typed columns the filter input, untyped columns neither', () => {
         renderTable()
-        expect(screen.getByTestId('filter-orgUnitOwn')).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-button-orgUnitOwn')
+        ).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('filter-orgUnitOwn')
+        ).not.toBeInTheDocument()
         expect(screen.getByTestId('filter-rawValue')).toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-rawValue')
+        ).not.toBeInTheDocument()
         expect(screen.queryByTestId('filter-untyped')).not.toBeInTheDocument()
+        expect(
+            screen.queryByTestId('data-table-filter-button-untyped')
+        ).not.toBeInTheDocument()
+    })
+
+    test('put the filter button between the column name and the sort button', () => {
+        renderTable()
+        const header = sortButton('Org unit').closest('th')
+        const buttons = within(header).getAllByRole('button')
+
+        expect(buttons.map((b) => b.getAttribute('data-test'))).toEqual([
+            'data-table-filter-button-orgUnitOwn',
+            'data-table-column-sort-button-Org unit',
+        ])
     })
 
     test('highlight the arrow of the sort direction on the sorted column only', () => {
