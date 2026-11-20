@@ -156,7 +156,7 @@ visibility and adjust its transparency.
 >
 > Microsoft is retiring Bing Maps. Free (Basic) Bing Maps keys stopped working on 30 June 2025, and
 > paid Bing Maps for Enterprise licences end on 30 June 2028. To set up Azure Maps instead, see
-> [Azure Maps and Bing Maps basemaps](https://docs.dhis2.org/en/topics/tutorials/azure-maps-and-bing-maps-basemaps.html).
+> [Azure Maps and Bing Maps basemaps setup](https://docs.dhis2.org/en/topics/tutorials/azure-maps-and-bing-maps-basemaps-setup.html).
 ## Manage thematic layers { #using_maps_thematic_layer }
 
 _Thematic maps_ represent spatial variation of geographic distributions. They display aggregated
