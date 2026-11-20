@@ -7,11 +7,7 @@ import React, {
 } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearDataFilters } from '../../actions/dataFilters.js'
-import {
-    closeDataTable,
-    resizeDataTable,
-    setHighlightColor,
-} from '../../actions/dataTable.js'
+import { closeDataTable, resizeDataTable } from '../../actions/dataTable.js'
 import useKeyDown from '../../hooks/useKeyDown.js'
 import { hasActiveDataTableFilters } from '../../util/dataTable.js'
 import ActiveLayerControl from './controls/ActiveLayerControl.jsx'
@@ -19,7 +15,6 @@ import ClearFiltersControl from './controls/ClearFiltersControl.jsx'
 import CloseControl from './controls/CloseControl.jsx'
 import CollapseControl from './controls/CollapseControl.jsx'
 import ColumnPickerControl from './controls/ColumnPickerControl.jsx'
-import HighlightColorControl from './controls/HighlightColorControl.jsx'
 import ResizeHandleControl from './controls/ResizeHandleControl.jsx'
 import RowCountControl from './controls/RowCountControl.jsx'
 import DataTable from './DataTable.jsx'
@@ -36,7 +31,6 @@ const BottomPanel = () => {
         state.map.mapViews.find((l) => l.id === activeLayerId)
     )
     const dataFilters = activeLayer?.dataFilters ?? EMPTY_FILTERS
-    const highlightColor = useSelector((state) => state.ui.highlightColor)
 
     const dispatch = useDispatch()
     const panelRef = useRef(null)
@@ -128,11 +122,6 @@ const BottomPanel = () => {
         dispatch(closeDataTable())
     }, [dispatch])
 
-    const onHighlightColorChange = useCallback(
-        (color) => dispatch(setHighlightColor(color)),
-        [dispatch]
-    )
-
     useLayoutEffect(() => {
         if (isDraggingRef.current) {
             return
@@ -182,10 +171,6 @@ const BottomPanel = () => {
                 <span className={styles.divider} />
                 <ActiveLayerControl name={activeLayer?.name} />
                 <span className={styles.divider} />
-                <HighlightColorControl
-                    color={highlightColor}
-                    onChange={onHighlightColorChange}
-                />
                 <ColumnPickerControl
                     layerId={activeLayerId}
                     allHeaders={allHeaders}

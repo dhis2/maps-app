@@ -30,7 +30,6 @@ const renderBottomPanel = () => {
     const store = mockStore({
         ui: {
             dataTableHeight: DATA_TABLE_HEIGHT,
-            highlightColor: null,
         },
         dataTable: 'layer1',
         map: { mapViews: [{ id: 'layer1', name: 'Layer 1' }] },

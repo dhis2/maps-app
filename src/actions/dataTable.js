@@ -14,11 +14,6 @@ export const resizeDataTable = (height) => ({
     height,
 })
 
-export const setHighlightColor = (color) => ({
-    type: types.HIGHLIGHT_COLOR_SET,
-    color,
-})
-
 export const setDataTableColumnConfig = (layerId, config) => ({
     type: types.DATA_TABLE_COLUMN_CONFIG_SET,
     layerId,

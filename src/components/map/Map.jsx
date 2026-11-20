@@ -46,7 +46,6 @@ class Map extends Component {
         coordinatePopup: PropTypes.array,
         engine: PropTypes.object,
         feature: PropTypes.object,
-        highlightColor: PropTypes.string,
         highlightFeature: PropTypes.func,
         isFullscreen: PropTypes.bool,
         isPlugin: PropTypes.bool,
@@ -181,7 +180,6 @@ class Map extends Component {
             layers,
             feature,
             highlightFeature,
-            highlightColor,
             clickFeature,
             coordinatePopup: coordinates,
             closeCoordinatePopup,
@@ -232,7 +230,6 @@ class Map extends Component {
                                     index={layers.length - index}
                                     feature={highlight}
                                     highlightFeature={highlightFeature}
-                                    highlightColor={highlightColor}
                                     clickFeature={clickFeature}
                                     openContextMenu={openContextMenu}
                                     setAggregations={setAggregations}

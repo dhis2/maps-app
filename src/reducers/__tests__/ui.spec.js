@@ -1,31 +1,6 @@
 import * as types from '../../constants/actionTypes.js'
 import ui from '../ui.js'
 
-describe('ui reducer — highlightColor', () => {
-    it('defaults to null (no color override until the user picks one)', () => {
-        expect(ui(undefined, {}).highlightColor).toBe(null)
-    })
-
-    it('sets a new highlight color', () => {
-        const state = ui(undefined, {
-            type: types.HIGHLIGHT_COLOR_SET,
-            color: '#FF0000',
-        })
-
-        expect(state.highlightColor).toBe('#FF0000')
-    })
-
-    it('leaves other state untouched', () => {
-        const prevState = { ...ui(undefined, {}), dataTableHeight: 400 }
-        const state = ui(prevState, {
-            type: types.HIGHLIGHT_COLOR_SET,
-            color: '#FF0000',
-        })
-
-        expect(state.dataTableHeight).toBe(400)
-    })
-})
-
 describe('ui reducer — lastClickedFeature', () => {
     it('defaults to null', () => {
         expect(ui(undefined, {}).lastClickedFeature).toBe(null)
