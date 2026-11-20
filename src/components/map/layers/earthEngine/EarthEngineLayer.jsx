@@ -47,7 +47,6 @@ export default class EarthEngineLayer extends Layer {
             this.setLayerOrder()
             this.highlightFeature()
             this.selectFeatures()
-            this.updateVisibleIds()
         }
     }
 

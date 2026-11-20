@@ -16,7 +16,6 @@ const SplitView = ({
     selection,
     highlightFeature,
     highlightColor,
-    selectionFilter,
     clickFeature,
     toggleFeatureSelection,
     controls,
@@ -101,7 +100,6 @@ const SplitView = ({
                                 selection={selection}
                                 highlightFeature={highlightFeature}
                                 highlightColor={highlightColor}
-                                selectionFilter={selectionFilter}
                                 clickFeature={clickFeature}
                                 toggleFeatureSelection={toggleFeatureSelection}
                                 openContextMenu={openContextMenu}
@@ -136,7 +134,6 @@ SplitView.propTypes = {
     layersSorting: PropTypes.bool,
     resizeCount: PropTypes.number,
     selection: PropTypes.object,
-    selectionFilter: PropTypes.array,
     setMapObject: PropTypes.func,
     toggleFeatureSelection: PropTypes.func,
 }

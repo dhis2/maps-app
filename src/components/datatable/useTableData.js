@@ -15,10 +15,6 @@ import {
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
 } from '../../constants/layers.js'
-import {
-    SELECTION_FILTER_SELECTED,
-    SELECTION_FILTER_NOT_SELECTED,
-} from '../../constants/selection.js'
 import useOrgUnitAncestorNames from '../../hooks/useOrgUnitAncestorNames.js'
 import { filterByGlobalSearch, filterData } from '../../util/filter.js'
 import { buildKnownOrgUnitNames } from '../../util/orgUnits.js'
@@ -63,7 +59,6 @@ export const useTableData = ({
     sortDirection,
     showOnlyFeaturesInView,
     mapBounds,
-    selectionFilter,
     selectedIdSet,
     globalSearch,
     keyAnalysisDigitGroupSeparator,
@@ -106,9 +101,7 @@ export const useTableData = ({
     // doesn't recompute dataWithAggregations below when it's off
     const boundsDependency = showOnlyFeaturesInView ? mapBounds : null
     const selectedIdSetDependency =
-        sortField === SENTINEL_SELECTED_ROW || selectionFilter?.length
-            ? selectedIdSet
-            : null
+        sortField === SENTINEL_SELECTED_ROW ? selectedIdSet : null
     const periodsDependency = isMultiPeriodThematic ? periods : null
     const valuesByPeriodDependency = isMultiPeriodThematic
         ? valuesByPeriod
@@ -290,21 +283,6 @@ export const useTableData = ({
             })
         }
 
-        if (selectionFilter?.length) {
-            const wantSelected = selectionFilter.includes(
-                SELECTION_FILTER_SELECTED
-            )
-            const wantNotSelected = selectionFilter.includes(
-                SELECTION_FILTER_NOT_SELECTED
-            )
-            // Both (or neither) checked means "show everything"
-            if (wantSelected !== wantNotSelected) {
-                filteredData = filteredData.filter(
-                    (item) => !!selectedIdSet?.has(item.id) === wantSelected
-                )
-            }
-        }
-
         // Sort
         const sortFieldRenderer = headers.find(
             (h) => h.dataKey === sortField
@@ -329,7 +307,6 @@ export const useTableData = ({
         globalSearch,
         sortField,
         sortDirection,
-        selectionFilter,
         selectedIdSetDependency,
         orgUnitIdToName,
     ])

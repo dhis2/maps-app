@@ -137,7 +137,6 @@ describe('hasActiveDataTableFilters', () => {
     const empty = {
         dataFilters: {},
         globalSearch: '',
-        selectionFilter: [],
         showOnlyFeaturesInView: false,
     }
 
@@ -160,15 +159,6 @@ describe('hasActiveDataTableFilters', () => {
         ).toBe(false)
         expect(
             hasActiveDataTableFilters({ ...empty, globalSearch: ' foo ' })
-        ).toBe(true)
-    })
-
-    test('is true when a selection filter is applied', () => {
-        expect(
-            hasActiveDataTableFilters({
-                ...empty,
-                selectionFilter: ['selected'],
-            })
         ).toBe(true)
     })
 

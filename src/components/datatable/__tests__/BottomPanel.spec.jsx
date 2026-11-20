@@ -31,7 +31,6 @@ const renderBottomPanel = () => {
         ui: {
             dataTableHeight: DATA_TABLE_HEIGHT,
             showOnlyFeaturesInView: false,
-            selectionFilter: [],
             highlightColor: null,
         },
         dataTable: 'layer1',

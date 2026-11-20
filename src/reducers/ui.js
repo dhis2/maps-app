@@ -11,7 +11,6 @@ const defaultState = {
     layersSorting: false,
     mapBounds: null,
     showOnlyFeaturesInView: false,
-    selectionFilter: [],
     highlightColor: null,
     lastClickedFeature: null,
     activeTimelinePeriod: null,
@@ -52,15 +51,7 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 rightPanelOpen: false,
-                selectionFilter: [],
                 lastClickedFeature: null,
-            }
-
-        case types.DATA_TABLE_CLOSE:
-        case types.DATA_TABLE_TOGGLE:
-            return {
-                ...state,
-                selectionFilter: [],
             }
 
         case types.DOWNLOAD_MODE_OPEN:
@@ -102,12 +93,6 @@ const ui = (state = defaultState, action) => {
             return {
                 ...state,
                 showOnlyFeaturesInView: !state.showOnlyFeaturesInView,
-            }
-
-        case types.SELECTION_FILTER_SET:
-            return {
-                ...state,
-                selectionFilter: action.value,
             }
 
         case types.HIGHLIGHT_COLOR_SET:

@@ -7,10 +7,6 @@ import {
     PADDING_DEFAULT,
     DURATION_DEFAULT,
 } from '../../../constants/layers.js'
-import {
-    SELECTION_FILTER_SELECTED,
-    SELECTION_FILTER_NOT_SELECTED,
-} from '../../../constants/selection.js'
 
 export const idsEqual = (a, b) =>
     a.length === b.length && a.every((id, i) => id === b[i])
@@ -37,7 +33,6 @@ class Layer extends PureComponent {
         opacity: PropTypes.number,
         openContextMenu: PropTypes.func,
         selection: PropTypes.object,
-        selectionFilter: PropTypes.array,
         toggleFeatureSelection: PropTypes.func,
     }
 
@@ -62,7 +57,6 @@ class Layer extends PureComponent {
         this.syncFocusedFeature(prevProps)
         this.syncSelectedFeatures(prevProps)
         this.syncHighlightColor(prevProps)
-        this.syncVisibleIds(prevProps)
     }
 
     syncDefinition(prevProps, prevState = {}) {
@@ -147,21 +141,6 @@ class Layer extends PureComponent {
         }
     }
 
-    syncVisibleIds(prevProps) {
-        const { selection, selectionFilter } = this.props
-        if (
-            !idsEqual(
-                this.getVisibleIds(
-                    prevProps.selection,
-                    prevProps.selectionFilter
-                ) ?? [],
-                this.getVisibleIds(selection, selectionFilter) ?? []
-            )
-        ) {
-            this.updateVisibleIds()
-        }
-    }
-
     componentWillUnmount() {
         this.removeLayer()
     }
@@ -190,7 +169,6 @@ class Layer extends PureComponent {
         this.setLayerVisibility()
         this.highlightFeature()
         this.selectFeatures()
-        this.updateVisibleIds()
     }
 
     // Override in subclass if needed
@@ -285,41 +263,6 @@ class Layer extends PureComponent {
 
     selectFeatures() {
         this.layer?.select?.(this.getSelectedIds(), this.props.highlightColor)
-    }
-
-    getVisibleIds(
-        selection = this.props.selection,
-        selectionFilter = this.props.selectionFilter
-    ) {
-        if (!selectionFilter?.length || selection?.layerId !== this.props.id) {
-            return null
-        }
-
-        const wantSelected = selectionFilter.includes(SELECTION_FILTER_SELECTED)
-        const wantNotSelected = selectionFilter.includes(
-            SELECTION_FILTER_NOT_SELECTED
-        )
-
-        // Both (or neither, though that's already handled above) checked
-        // means "show everything" - same as no filter at all.
-        if (wantSelected === wantNotSelected) {
-            return null
-        }
-
-        const selectedIds = this.getSelectedIds(selection)
-
-        if (wantSelected) {
-            return selectedIds
-        }
-
-        const selectedIdSet = new Set(selectedIds)
-        return (this.props.data ?? [])
-            .map((feature) => feature.properties?.id ?? feature.id)
-            .filter((id) => id != null && !selectedIdSet.has(id))
-    }
-
-    updateVisibleIds() {
-        this.layer?.setVisibleIds?.(this.getVisibleIds())
     }
 
     onFeatureLeftClick(evt) {
