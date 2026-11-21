@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Persian (Afghanistan) (https://app.transifex.com/hisp-uio/teams/100509/fa_AF/)\n"
@@ -233,6 +233,12 @@ msgid "Download map"
 msgstr ""
 
 msgid "Show map name"
+msgstr ""
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show map description"
@@ -595,6 +601,17 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "نوع ابعاد اطلاعات"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -976,8 +993,8 @@ msgstr ""
 msgid "Selected only"
 msgstr ""
 
-msgid "Selected and below"
-msgstr ""
+msgid "Immediate children"
+msgstr "اطفال نزدیک"
 
 msgid "Selected and all below"
 msgstr ""
@@ -1106,6 +1123,12 @@ msgstr ""
 
 msgid "OSM Light"
 msgstr "روشنی OSM"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr ""
@@ -1815,6 +1838,23 @@ msgid "Thematic layer"
 msgstr "د موضوع اړوند طبقه"
 
 msgid "related"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
 msgstr ""
 
 msgid "Tracked entity"

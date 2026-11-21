@@ -2,16 +2,16 @@
 # Saurabh Leekha <saurabh.leekha@hispindia.org>, 2021
 # Yury Rogachev <yury@dhis2.org>, 2024
 # Nadiia <semchuk@aph.org.ua>, 2025
-# Philip Larsen Donnelly, 2025
 # Viktor Varland <viktor@dhis2.org>, 2026
 # Ulanbek Abakirov <ulans@mail.ru>, 2026
+# Philip Larsen Donnelly, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Ulanbek Abakirov <ulans@mail.ru>, 2026\n"
+"Last-Translator: Philip Larsen Donnelly, 2026\n"
 "Language-Team: Russian (https://app.transifex.com/hisp-uio/teams/100509/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -238,6 +238,12 @@ msgid "Download map"
 msgstr ""
 
 msgid "Show map name"
+msgstr ""
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show map description"
@@ -600,6 +606,17 @@ msgstr ""
 
 msgid "Relationship type"
 msgstr "Relationship type"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -991,8 +1008,8 @@ msgstr ""
 msgid "Selected only"
 msgstr ""
 
-msgid "Selected and below"
-msgstr ""
+msgid "Immediate children"
+msgstr "Прямые потомки"
 
 msgid "Selected and all below"
 msgstr ""
@@ -1120,6 +1137,12 @@ msgid "Std dev"
 msgstr ""
 
 msgid "OSM Light"
+msgstr ""
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
 msgstr ""
 
 msgid "OSM Detailed"
@@ -1830,6 +1853,23 @@ msgid "Thematic layer"
 msgstr "Тематический уровень"
 
 msgid "related"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
 msgstr ""
 
 msgid "Tracked entity"
