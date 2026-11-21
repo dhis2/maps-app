@@ -10,7 +10,7 @@ import {
 } from '../constants/layers.js'
 
 // TODO: get latitude, longitude, zoom from map + basemap: 'none'
-const validMapProperties = [
+export const validMapProperties = [
     // 'basemap' and 'basemaps' removed — set exclusively by getBasemapPayload
     'id',
     'latitude',
@@ -25,7 +25,7 @@ const validMapProperties = [
     'subscribers',
 ]
 
-const validLayerProperties = [
+export const validLayerProperties = [
     'aggregationType',
     'areaRadius',
     'geometryCentroid',

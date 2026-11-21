@@ -8,6 +8,7 @@ import DownloadSettings from '../download/DownloadSettings.jsx'
 import LayersPanel from '../layers/LayersPanel.jsx'
 import MapPosition from '../map/MapPosition.jsx'
 import AppMenu from './AppMenu.jsx'
+import ConfirmLeaveModal from './ConfirmLeaveModal.jsx'
 import DetailsPanel from './DetailsPanel.jsx'
 import ModalContainer from './ModalContainer.jsx'
 import './App.css'
@@ -28,7 +29,7 @@ const App = () => {
         )
     }, [])
 
-    useLoadMap()
+    const { locationToConfirm, confirmLeave, cancelLeave } = useLoadMap()
     useLoadDataStore()
     useLayersLoader()
 
@@ -69,6 +70,12 @@ const App = () => {
                 )}
             </div>
             <ModalContainer />
+            {locationToConfirm && (
+                <ConfirmLeaveModal
+                    onCancel={cancelLeave}
+                    onConfirm={confirmLeave}
+                />
+            )}
         </>
     )
 }
