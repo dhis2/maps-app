@@ -1,16 +1,16 @@
 # Translators:
 # Philip Larsen Donnelly, 2025
-# Viktor Varland <viktor@dhis2.org>, 2025
 # Em Le <em.hispvietnam@gmail.com>, 2026
 # Mai Nguyen <thanhmai.jica@gmail.com>, 2026
 # Thuy Nguyen <thuynguyen@hispvietnam.org>, 2026
+# Viktor Varland <viktor@dhis2.org>, 2026
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
-"Last-Translator: Thuy Nguyen <thuynguyen@hispvietnam.org>, 2026\n"
+"Last-Translator: Viktor Varland <viktor@dhis2.org>, 2026\n"
 "Language-Team: Vietnamese (https://app.transifex.com/hisp-uio/teams/100509/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -241,6 +241,12 @@ msgstr "Tải bản đồ"
 
 msgid "Show map name"
 msgstr "Hiển thị tên bản đồ"
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
+msgstr ""
 
 msgid "Show map description"
 msgstr "Hiển thị mô tả bản đồ"
@@ -609,6 +615,17 @@ msgstr "Không tìm thấy loại mối quan hệ nào cho loại cá thể {{ty
 
 msgid "Relationship type"
 msgstr "Loại quan hệ"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr "Không có dữ liệu nào hiển thị cho tính năng này."
@@ -995,8 +1012,8 @@ msgstr "Hồ sơ đơn vị"
 msgid "Selected only"
 msgstr "Chỉ được chọn"
 
-msgid "Selected and below"
-msgstr "Đã chọn và bên dưới"
+msgid "Immediate children"
+msgstr "Đơn Vị Con Trực Tiếp"
 
 msgid "Selected and all below"
 msgstr "Đã chọn và tất cả bên dưới"
@@ -1133,6 +1150,12 @@ msgstr "Độ lệch chuẩn"
 
 msgid "OSM Light"
 msgstr "Bản đồ ánh sáng OSM"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "Bản đồ chi tiết OSM"
@@ -1858,6 +1881,23 @@ msgstr "Lớp Chuyên Đề"
 
 msgid "related"
 msgstr "có liên quan"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Đối Tượng Theo Dõi"
