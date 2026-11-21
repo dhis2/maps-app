@@ -2,6 +2,7 @@ import i18n from '@dhis2/d2-i18n'
 import { CenteredContent } from '@dhis2/ui'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import styles from './styles/ErrorBoundary.module.css'
 
 class ErrorBoundary extends Component {
     constructor(props) {
@@ -24,7 +25,9 @@ class ErrorBoundary extends Component {
         if (this.state.error) {
             return (
                 <CenteredContent>
-                    <p>{i18n.t('Something went wrong')}</p>
+                    <p className={styles.message}>
+                        {i18n.t('Something went wrong')}
+                    </p>
                 </CenteredContent>
             )
         }

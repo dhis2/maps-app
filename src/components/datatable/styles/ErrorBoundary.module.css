@@ -1,0 +1,5 @@
+.message {
+    color: var(--colors-grey600);
+    font-style: italic;
+    font-size: 12px;
+}

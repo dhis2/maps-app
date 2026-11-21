@@ -1,59 +1,192 @@
-.dataTable {
-    height: 1px;
-}
-
-.dataTable > :global(thead) {
-    user-select: none;
-}
-
-td.dataCell {
+td.dataCell,
+th.dataCell {
     padding-top: var(--spacers-dp8);
     padding-bottom: var(--spacers-dp8);
     font-size: 11px;
+    overflow-wrap: anywhere;
+    vertical-align: middle;
 }
 
-td.dataCell:hover {
+td.dataCell:hover,
+th.dataCell:hover {
     cursor: default;
 }
 
-td.lightText {
+td.lightText,
+th.lightText {
     color: var(--colors-white);
 }
 
-.columnHeader > :global(span.container) {
+td.monoCell,
+th.monoCell {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+}
+
+.iconCell {
+    display: block;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+th.checkboxCell,
+td.checkboxCell {
+    width: 76px;
+    min-width: 76px;
+    max-width: 76px;
+    text-align: center;
+    padding: 0;
+    padding-top: 3px;
+    vertical-align: middle;
+}
+
+.checkboxCell input[type='checkbox'] {
+    accent-color: var(--colors-teal600);
+}
+
+.checkboxHeaderContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+}
+
+td.selected,
+th.selected {
+    background-color: var(--colors-blue050);
+}
+
+td.hovered,
+th.hovered {
+    background-color: var(--colors-blue100);
+}
+
+.pinnedColumnShadow {
+    box-shadow: 2px 0 4px -2px rgba(12, 14, 16, 0.15);
+}
+
+.columnHeader > :global(span.container),
+.checkboxCell > :global(span.container) {
     justify-content: space-between;
+}
+
+.headerContent {
+    display: flex;
+    align-items: flex-start;
+    min-width: 0;
+    gap: 2px;
+}
+
+.headerTitle {
+    padding-top: var(--spacers-dp4);
+}
+
+.reverseButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    padding-top: 1px;
+    margin-right: -8px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.reverseButton svg {
+    flex-shrink: 0;
+}
+
+.reverseButton:hover:not(:disabled) {
+    background: var(--colors-grey400);
+}
+
+.sortButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.sortButton:hover:not(:disabled),
+.sortButton:focus-visible:not(:disabled) {
+    background: var(--colors-grey400);
+}
+
+.sortButton:focus {
+    outline: none;
+}
+
+.sortButton:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 .columnHeader :global(input.dense) {
     padding: 4px 6px;
+    font-size: 11px;
 }
 
 .columnHeader :global(input::placeholder) {
     color: var(--colors-grey400);
 }
 
-/* Hide the filter icon */
 .columnHeader
     > :global(span.container)
     > :global(span.top)
+    > button:last-of-type,
+.checkboxCell
+    > :global(span.container)
+    > :global(span.top)
     > button:last-of-type {
-    visibility: hidden;
+    display: none;
 }
 
-.noResults {
+.loadingContent {
     display: flex;
-    color: var(--colors-grey600);
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    font-style: italic;
-    min-height: 40px;
+    gap: var(--spacers-dp8);
+}
+
+.loadingReason {
+    font-size: 12px;
+    color: var(--colors-white);
 }
 
 .noSupport {
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: var(--spacers-dp8);
     color: var(--colors-grey600);
     font-style: italic;
+    font-size: 12px;
+}
+
+.editLayerLink {
+    font-size: 12px;
+    font-style: normal;
+    color: var(--colors-blue600);
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.editLayerLink:hover {
+    color: var(--colors-blue700);
 }

@@ -1,0 +1,55 @@
+/* The button prefix outranks core/IconButton's own .iconButton rules. */
+button.toolbarIconButton {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+button.toolbarIconButton svg {
+    color: var(--colors-grey800);
+}
+
+/* The button prefix also outranks @dhis2/ui's own Tooltip span display. */
+button.toolbarIconButton > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
+
+button.toolbarIconButton:not(:disabled):hover {
+    background-color: var(--colors-grey300);
+}
+
+button.toolbarIconButton:not(:disabled):hover svg {
+    color: var(--colors-grey900);
+}
+
+button.toolbarIconButton:disabled {
+    cursor: not-allowed;
+}
+
+button.toolbarIconButton:disabled svg {
+    color: var(--colors-grey400);
+}
+
+button.toolbarIconButton.active {
+    background-color: var(--colors-blue100);
+}
+
+button.toolbarIconButton.active:not(:disabled) svg {
+    color: var(--colors-blue700);
+}
+
+button.toolbarIconButton.active:not(:disabled):hover {
+    background-color: var(--colors-blue200);
+}
+
+button.toolbarIconButton.active:not(:disabled):hover svg {
+    color: var(--colors-blue700);
+}

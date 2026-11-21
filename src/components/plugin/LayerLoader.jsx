@@ -35,6 +35,7 @@ const LayerLoader = ({ config, onLoad }) => {
             KeyTrackedEntityMaxLimit,
         },
         currentUser,
+        spatialSupport,
     } = useCachedData()
     const {
         keyAnalysisDisplayProperty,
@@ -69,6 +70,7 @@ const LayerLoader = ({ config, onLoad }) => {
             analyticsEngine, // Thematic, Event and Tracked entity loader
             periodTypeData, // Thematic and Event loader
             serverVersion, // Tracked entity loader
+            spatialSupport, // Event loader
             KeyTrackedEntityInstanceMaxLimit, // Tracked entity loader (2.40)
             KeyTrackedEntityMaxLimit, // Tracked entity loader
         }).then((result) => {
@@ -86,6 +88,7 @@ const LayerLoader = ({ config, onLoad }) => {
         keyAnalysisDisplayProperty,
         keyAnalysisDigitGroupSeparator,
         serverVersion,
+        spatialSupport,
         KeyTrackedEntityInstanceMaxLimit,
         KeyTrackedEntityMaxLimit,
     ])

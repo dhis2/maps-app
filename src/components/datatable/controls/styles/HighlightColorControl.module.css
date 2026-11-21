@@ -1,0 +1,27 @@
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+}
+
+.wrapper:hover {
+    background-color: var(--colors-grey300);
+}
+
+/* The div prefix outranks core/ColorPicker's own .colorPicker rules. */
+div.colorPicker {
+    margin-bottom: 0;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+div.colorPicker label {
+    box-sizing: border-box;
+    overflow: hidden;
+    min-width: 16px;
+    min-height: 16px;
+}
