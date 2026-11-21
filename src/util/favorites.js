@@ -267,6 +267,8 @@ const models2objects = (layer, cleanMapviewConfig) => {
         if (cleanMapviewConfig) {
             layer.config = {
                 ...layer.config,
+                // OSM layers hold their features inline: reload them from the events instead
+                ...(layer.config.osmProgram && { url: undefined }),
                 featureStyle: { ...layer.featureStyle },
             }
         }

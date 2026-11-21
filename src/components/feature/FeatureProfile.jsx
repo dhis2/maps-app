@@ -5,6 +5,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeFeatureProfile } from '../../actions/feature.js'
 import Drawer from '../core/Drawer.jsx'
+import OsmFeatureActions from '../osmImport/OsmFeatureActions.jsx'
 import styles from './styles/FeatureProfile.module.css'
 
 const DrawerContent = ({ data }) => {
@@ -42,7 +43,7 @@ const FeatureProfile = () => {
     const featureProfile = useSelector((state) => state.featureProfile)
     const dispatch = useDispatch()
 
-    const { name, data } = featureProfile
+    const { name, data, osm } = featureProfile
 
     return (
         <Drawer className={styles.drawer}>
@@ -56,6 +57,7 @@ const FeatureProfile = () => {
                 </span>
             </div>
             <div className={styles.content}>
+                {osm && <OsmFeatureActions {...osm} name={data.name} />}
                 <DrawerContent data={data} />
             </div>
         </Drawer>
