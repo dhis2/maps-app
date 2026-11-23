@@ -5,11 +5,11 @@
 Google Earth Engine layers are enabled if a Google Earth Engine API key has been configured for your
 system. Contact your system administrator if you need access to these layers.
 
-The layers from Google Earth Engine let you display and aggregate external data for your org units.
-Aggregated values can be viewed either in popups or in the data table.
+The layers from Google Earth Engine let you show and aggregate external data for your organisation
+units. Aggregated values can be viewed either in popups or in the data table.
 
 Earth Engine layers are represented by layer cards in the layer panel. The more actions (three dots)
-button includes an option to show or hide the data table.
+button includes options to show or hide the data table and to download the data.
 
 ![](../resources/images/maps_ee_layer_types.png)
 
@@ -20,7 +20,7 @@ button includes an option to show or hide the data table.
 The following layer sources are supported (sources marked with an asterisk "\*" are available by
 default):
 
--   **Population (group)**: Detailed population data from WorldPop. Estimates are provided annually
+-   **Population** (group): Detailed population data from WorldPop. Estimates are provided annually
     and include current, historical, and projected population values. Available between 2015
     and 2030.
 
@@ -32,21 +32,21 @@ default):
 
 -   **Elevation** \*: Elevation above sea level.
 
--   **Heat stress (group)**: Universal Thermal Climate Index (UTCI), a measure of the thermal stress
+-   **Heat stress** (group): Universal Thermal Climate Index (UTCI), a measure of the thermal stress
     experienced by a person in a given environment. Available from 1950.
 
     -   **Heat stress daily**.
     -   **Heat stress weekly** (derived from daily dataset).
     -   **Heat stress monthly** (derived from daily dataset).
 
--   **Humidity (group)**: Relative humidity is the amount of water vapour present in air. Available
-    from 1950.
+-   **Relative humidity** (group): Relative humidity is the amount of water vapour present in air.
+    Available from 1950.
 
-    -   **Humidity daily**.
-    -   **Humidity weekly** (derived from daily dataset).
-    -   **Humidity monthly**.
+    -   **Relative humidity daily**.
+    -   **Relative humidity weekly** (derived from daily dataset).
+    -   **Relative humidity monthly**.
 
--   **Precipitation (group)**: Accumulated water that falls to the surface. Combines model data with
+-   **Precipitation** (group): Accumulated water that falls to the surface. Combines model data with
     observations from across the world. Two sources are available:
 
     -   ERA5-Land. Available from 1950.
@@ -58,15 +58,15 @@ default):
         -   **Precipitation weekly** (derived from daily dataset).
         -   **Precipitation monthly** (derived from daily dataset).
 
--   **Temperature (group)**: Temperature at 2m above the surface. Combines model data with
+-   **Temperature** (group): Temperature at 2m above the surface. Combines model data with
     observations from across the world. Available from 1950.
 
     -   **Temperature daily**.
     -   **Temperature weekly** (derived from daily dataset).
     -   **Temperature monthly** \*.
 
--   **Land cover** \*: 17 distinct landcover types collected from satellites by NASA. Available
-    yearly, between 2001 and 2022.
+-   **Landcover** \*: 17 distinct landcover types collected from satellites by NASA. Available
+    yearly since 2001.
 
 -   **Vegetation**: Normalized difference vegetation index (NDVI) and Enhanced Vegetation Index
     (EVI), used to quantify vegetation greenness. Collected from satellites by NASA. Available at
@@ -86,39 +86,39 @@ opens the layer configuration dialog.
 
 -   **Dataset** (if within a data group):
 
-    -   For **Population** you can select either the **Population** or the **Population age group**
+    -   For **Population** you can choose either the **Population** or the **Population age group**
         dataset.
 
 -   **Data subset**:
 
-    -   For **Population age groups** you can select the age/gender **groups** you would like to
+    -   For **Population age groups** you can choose the age/gender **groups** you would like to
         include when aggregating the data.
-    -   For **Temperature** or **Heat stress** you can select the **temporal aggregation method**
+    -   For **Temperature** or **Heat stress** you can choose the **temporal aggregation method**
         you want to use (Mean, Min, Max).
-    -   For **Vegetation** you can select the **index** you want to use (NDVI or EVI).
+    -   For **Vegetation** you can choose the **index** you want to use (NDVI or EVI).
 
--   Select the **spatial aggregation methods** to use when calculating values for the selected org
+-   Choose the **spatial aggregation methods** to use when calculating values for the selected org
     units. This only affects results in popups and the data table (some options might not be
     available depending on the layer source).
 
-    -   **Sum**: Calculates the total number within each org unit. Recommended to use for the
-        population layers.
+    -   **Sum**: Calculates the total number within each organisation unit. Recommended to use for
+        the population layers.
 
-    -   **Min**: Returns the minimum value in the layer unit displayed below the selection. For
+    -   **Min**: Returns the minimum value in the layer unit shown below the selection. For
         population layers it will be the minimum _people per hectare_. For the elevation layer it
         will return the lowest elevation (meters above sea level).
 
     -   **Max**: Returns the maximum value in the layer unit. For population layers it will be the
         maximum _people per hectare_. For the elevation layer it will return the highest elevation
-        for each org unit.
+        for each organisation unit.
 
     -   **Mean**: Returns the mean value in the layer unit. For population layers it will be the
         mean _people per hectare_. For the precipitation layer it will be the mean rainfall in
-        millimeters across the org unit.
+        millimeters across the organisation unit.
 
     -   **Median**: Returns the median value in the layer unit. For population layers it will be the
         median _people per hectare_. For the temperature layer it will be the median °C across the
-        org unit.
+        organisation unit.
 
     -   **Standard deviation**: Returns the standard deviation value in the layer unit.
 
@@ -126,37 +126,37 @@ opens the layer configuration dialog.
 
     -   **Special cases**:
         -   For "building footprints": **Count**: Returns the number of buildings within each org
-            unit. Note that building counts are only available for smaller org unit areas.
-        -   For "landcover": **Percentage**, **Hectare**, **Acres**: Return the area covered by each
-            landcover category within each org unit in different units.
+            unit. Note that building counts are only available for smaller organisation unit areas.
+        -   For "landcover": **Percentage**, **Hectares**, **Acres**: Return the area covered by
+            each landcover category within each organisation unit in different units.
 
 #### 2. Period
 
 ![](../resources/images/maps_ee_layer_dialog_PERIOD.png)
 
--   Select the period type (if multiple sources are enabled for **Heat stress**, **Precipitation**,
+-   Choose the period type (if multiple sources are enabled for **Heat stress**, **Precipitation**,
     **Temperature**, or **Vegetation**).
 
--   Select the period for the data source. The available periods are set by the layer source. Some
+-   Choose the period for the data source. The available periods are set by the layer source. Some
     sources are only available at a single point in time.
 
 #### 3. Org units
 
 ![](../resources/images/maps_ee_layer_dialog_ORG_UNITS.png)
 
--   Select the org units where you want to see aggregated data values. You can freely combine
-    specific org units, org unit levels, org unit groups, and relative user org units (**User
-    organisation unit**, **User sub-units**, **User sub-x2-units**). When user org units are
-    selected, the map data will appear according to the assigned org units for each user in the org
-    unit hierarchy.
+-   Choose the organisation units where you want to see aggregated data values. You can freely
+    combine specific organisation units, organisation unit levels, organisation unit groups, and
+    relative user organisation units (**User organisation unit**, **User sub-units**, **User
+    sub-x2-units**). When user organisation units are selected, the map data will appear according
+    to the assigned organisation units for each user in the org unit hierarchy.
 
-    > **Tip**: Levels and groups act as filters within the org units you select - combining them
-    > will show only org units at those levels or in those groups that are descendants of your
-    > selected org units.
+    > **Tip**: Levels and groups act as filters within the organisation units you choose - combining
+    > them will show only organisation units at those levels or in those groups that are descendants
+    > of your selected organisation units.
 
--   **Use associated geometry**: This dropdown will only show if there are any additional geometries
-    available for your org units. This is typically used to calculate values for facility catchment
-    areas.
+-   **Use associated geometry**: This field is shown only if there are additional geometries
+    available for your organisation units. This is typically used to calculate values for facility
+    catchment areas.
 
 #### 4. Style
 
@@ -164,17 +164,17 @@ opens the layer configuration dialog.
 
 -   Adjust the legend **Min**, **Max**, number of **Classes**, and color map, as desired.
 
--   **Buffer**: If you select org units with a single point coordinate (facilities), you can set a
-    radius buffer to calculate the data value within. A radius of 5000 meters will aggregate all
-    values available within a 5 km distance from a facility. Buffer option is not available if
-    associated geometry is used.
+-   **Buffer**: If you choose organisation units with a single point coordinate (facilities), you
+    can set a radius buffer to calculate the data value within. A radius of 5000 meters will
+    aggregate all values available within a 5 km distance from a facility. Buffer option is not
+    available if associated geometry is used.
 
--   **Count org units without coordinates**: Org units without coordinates are counted and shown in
-    a **Data quality** section of the legend. They also appear in the data table.
+-   **Count org units without coordinates**: Organisation units without coordinates are counted and
+    shown in a **Data quality** section of the legend. They also appear in the data table.
 
 Click **Add layer**.
 
-Click an org unit or facility on the map to see the aggregation result.
+Click an organisation unit or facility on the map to see the aggregation result.
 
 ### Modify an Earth Engine layer
 
@@ -186,31 +186,31 @@ Click an org unit or facility on the map to see the aggregation result.
 
 ### Filter values in an Earth Engine layer
 
-Earth Engine layers have a **Show/hide data table** option that can be toggled on or off from the
-layer card.
+Earth Engine layers have a **Show data table** option in the more actions (three dots) menu of the
+layer card. When the table is open, the option changes to **Hide data table**.
 
 ![](../resources/images/maps_ee_layer_data_table.png)
 
-The data table displays all the aggregated values for the selected org units. Click the arrow
+The data table shows all the aggregated values for the selected organisation units. Click the arrow
 buttons in a column header to sort by that column. Type in the filter fields below each column
-header to filter the displayed rows.
+header to filter the rows shown.
 
 There is one column for each selected aggregation type. These numeric columns support comparison
-operators: `>`, `<`, `>=`, and `<=`, with `,` for OR and `&` for AND logic — for example: `2,>3&<8`.
+operators: `>`, `<`, `>=`, and `<=`, with `,` for OR and `&` for AND logic. For example: `2,>3&<8`.
 
 > **Note**
 >
 > Data table filters are temporary and are not saved with the map.
 
-### Open org unit profile
+### Open organisation unit profile
 
-You can open the [org unit profile](#using_maps_org_unit_profile) in three ways:
+You can open the [organisation unit profile](#using_maps_org_unit_profile) in three ways:
 
-1. Click an org unit on the map, then click the **View profile** button in the popup.
+1. Click an organisation unit on the map, then click the **View profile** button in the popup.
 
-2. Right-click one of the org units on the map, and select **View profile** from the menu.
+2. Right-click one of the organisation units on the map, and choose **View profile** from the menu.
 
-3. Click an org unit row in the **data table**.
+3. Click an organisation unit row in the **data table**.
 
 ### Remove an Earth Engine layer
 

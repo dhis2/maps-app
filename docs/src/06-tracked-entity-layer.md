@@ -1,6 +1,6 @@
 ## Manage tracked entity layers { #using_maps_tracked_entity_layer }
 
-The tracked entity layer displays the geographical location of tracked entities registered in DHIS2.
+The tracked entity layer shows the geographical location of tracked entities registered in DHIS2.
 Tracked entities with associated point or polygon coordinates appear on the map.
 
 ![](../resources/images/maps_tracked_entity_layer.png)
@@ -17,14 +17,14 @@ opens the Tracked entity layer configuration dialog.
 
 ![](../resources/images/maps_tracked_entity_layer_dialog_DATA.png)
 
--   Select the **Tracked entity type** you want to show on the map.
+-   Choose the **Tracked entity type** you want to show on the map.
 
--   Select a **Program** to filter tracked entities by enrollment.
+-   Choose a **Program** to filter tracked entities by enrollment.
 
--   Use the **Program status** field to select the enrollment status of tracked entities to include:
+-   Use the **Program status** field to choose the enrollment status of tracked entities to include:
     All, Active, Completed, or Cancelled.
 
--   Filter by the **Follow-up** flag to include only tracked entities marked for follow-up.
+-   Filter by the **Follow up** flag to include only tracked entities marked for follow-up.
 
 #### 2. Relationships
 
@@ -34,15 +34,15 @@ opens the Tracked entity layer configuration dialog.
 >
 > Displaying tracked entity relationships in Maps is an experimental feature.
 
--   Select the **Display tracked entity relationships** checkbox to show relationships on the map.
+-   Choose the **Display Tracked Entity relationships** checkbox to show relationships on the map.
 
--   Select the **Relationship type** to display from the dropdown list. Only relationships from the
-    selected tracked entity type to tracked entities are available. Relationships to events or
-    enrollments are not shown.
+-   Choose the **Relationship type** to show from the list. Only relationships from the selected
+    tracked entity type to tracked entities are available. Relationships to events or enrollments
+    are not shown.
 
 -   Relationships are drawn from the tracked entities shown by the layer. The related tracked
     entities at the other end are filtered as follows:
-    -   **Org units:** the same org units and selection mode as the layer.
+    -   **Org units:** the same organisation units and selection mode as the layer.
     -   **Period:** the same dates as the layer. If the layer uses the enrollment date, the dates
         apply to the enrollment date of the related tracked entities when the relationship type sets
         a program for them, and to their last updated date otherwise.
@@ -63,29 +63,35 @@ opens the Tracked entity layer configuration dialog.
 
 ![](../resources/images/maps_tracked_entity_layer_dialog_ORG_UNITS.png)
 
--   Select the org units you want to include in the layer. Only specific org units can be selected.
-    A **selection mode** determines how the org unit tree is traversed:
+-   Choose the organisation units you want to include in the layer. Only specific organisation units
+    can be selected. A **selection mode** determines how the organisation unit tree is traversed:
 
-    -   **Selected only**: Include tracked entities belonging to selected org units only.
+    -   **Selected only**: Include tracked entities belonging to selected organisation units only.
 
-    -   **Immediate children**: Include tracked entities in the org units right below selected org units, not in the selected org units themselves.
+    -   **Immediate children**: Include tracked entities in the organisation units right below
+        selected org units, not in the selected organisation units themselves.
 
-    -   **Selected and all below**: Include tracked entities in and all below selected org units.
+    -   **Selected and all below**: Include tracked entities in and all below selected organisation
+        units.
 
-    The default is **Selected and all below** from DHIS2 2.41, and **Selected only** on 2.40.
+    In v40, the default selection mode of a tracked entity layer in the Maps app is **Selected
+    only**.
+
+    From v41, the default selection mode of a tracked entity layer in the Maps app is **Selected and
+    all below**.
 
 #### 5. Style
 
 ![](../resources/images/maps_tracked_entity_layer_dialog_STYLE.png)
 
--   Select a **Color** for tracked entity points and polygons.
+-   Choose a **Color** for tracked entity points and polygons.
 
--   Select the **Point size** for the points.
+-   Choose the **Point size** for the points.
 
--   Select **Buffer** to display a visual buffer around each tracked entity. The buffer distance in
+-   Choose **Buffer** to show a visual buffer around each tracked entity. The buffer distance in
     meters can be modified here.
 
--   If a relationship type has been selected on the Relationships tab, you can select a **Color**
+-   If a relationship type has been selected on the Relationships tab, you can choose a **Color**
     and **Point size** for related tracked entities and a **Line color** for the relationship lines.
 
 Click **Add layer**.
@@ -102,17 +108,17 @@ Click **Add layer**.
 ### Modify information in tracked entity popups
 
 If you have access to the selected program in the Metadata Management app, you can modify the
-information displayed in the tracked entity popup window.
+information shown in the tracked entity popup window.
 
 ![](../resources/images/maps_eventlayer_eventinfopopup.png)
 
 1.  Open the **Metadata Management** app.
 
-2.  Select **Program**.
+2.  Choose **Programs**.
 
-3.  Click the program you want to modify and select **Enrollment: Data**.
+3.  Click the program you want to modify and choose **Enrollment: Data**.
 
-4.  For every attribute you want to display in the popup window, enable **Display in list**.
+4.  For every attribute you want to show in the popup window, enable **Display in list**.
 
 5.  Click **Save**.
 
