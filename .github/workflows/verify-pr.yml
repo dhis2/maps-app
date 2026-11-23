@@ -13,6 +13,12 @@ env:
     GH_TOKEN: ${{secrets.DHIS2_BOT_GITHUB_TOKEN}}
     CI: true
 
+# A newer run of the same kind replaces an older one (pushing a pull request's head and base
+# together sends two events). Kinds are kept apart, so a label run never cancels a push run's e2e.
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.action == 'labeled' && github.event.label.name == 'e2e run' && 'e2e-run' || github.event.action }}
+    cancel-in-progress: true
+
 jobs:
     # Decides whether e2e runs: on ready PRs into master, and on any PR when `e2e run` is added.
     # Other labels don't start e2e. Same rule in e2e-dev.yml.
