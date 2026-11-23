@@ -1,5 +1,5 @@
-// Creates or updates the PR comment that shows the last full e2e run, and whether e2e ran on the
-// latest commit. Called from verify-pr.yml through actions/github-script.
+// Creates or updates the pull request comment that shows the last full e2e run, and whether the
+// e2e tests ran on the latest commit. Called from verify-pr.yml through actions/github-script.
 const MARKER = '<!-- e2e-last-full-run -->'
 const TITLE =
     '**e2e tests** _(updated when a run finishes; live status in the checks)_'
@@ -55,6 +55,21 @@ const getChanges = ({
 const findLine = (lines, label) =>
     lines.find((line) => line.includes(label)) ?? ''
 
+// A re-run of an older run, or one that finished late, must not replace a newer full run
+const isAfterShownRun = async ({ github, owner, repo, shownLine, sha }) => {
+    const shownSha = shownLine.match(/\/commit\/([0-9a-f]+)\)/)?.[1]
+    if (!shownSha) {
+        return true
+    }
+    const { data } = await github.rest.repos.compareCommits({
+        owner,
+        repo,
+        base: shownSha,
+        head: sha,
+    })
+    return data.status === 'ahead' || data.status === 'identical'
+}
+
 const updateE2eComment = async ({
     github,
     context,
@@ -85,8 +100,8 @@ const updateE2eComment = async ({
         repo,
         pull_number: pr.number,
     })
-    const newLatestLine =
-        currentPr.head.sha === pr.head.sha ? changes.latestLine : undefined
+    const isLatestCommit = currentPr.head.sha === pr.head.sha
+    const newLatestLine = isLatestCommit ? changes.latestLine : undefined
     if (changes.lastRunLine === undefined && newLatestLine === undefined) {
         console.log(
             `No comment update: ${pr.head.sha} is no longer the latest commit`
@@ -105,12 +120,30 @@ const updateE2eComment = async ({
         (c) => c.user?.login === bot.login && c.body?.startsWith(MARKER)
     )
     const lines = comment?.body.split('\n') ?? []
+    const shownLastRunLine = findLine(lines, LAST_RUN)
+
+    const replacesLastRun =
+        changes.lastRunLine !== undefined &&
+        (isLatestCommit ||
+            (await isAfterShownRun({
+                github,
+                owner,
+                repo,
+                shownLine: shownLastRunLine,
+                sha: pr.head.sha,
+            })))
+    if (!replacesLastRun && newLatestLine === undefined) {
+        console.log(
+            `No comment update: the comment shows a newer full run than ${pr.head.sha}`
+        )
+        return
+    }
 
     const body = [
         MARKER,
         TITLE,
         newLatestLine ?? findLine(lines, LATEST),
-        changes.lastRunLine ?? (findLine(lines, LAST_RUN) || NO_RUN_LINE),
+        replacesLastRun ? changes.lastRunLine : shownLastRunLine || NO_RUN_LINE,
     ]
         .filter(Boolean)
         .join('\n')

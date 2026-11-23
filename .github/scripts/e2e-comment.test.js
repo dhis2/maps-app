@@ -12,6 +12,12 @@ const commit = (sha) =>
 const PASSED_LINE = `✅ Last full run ${commit(
     'aaaaaaa1111'
 )}: passed (2026-11-20 10:41 UTC, base \`master\`). [Run](${RUN_URL})`
+const OLDER_FAILED_LINE = `❌ Last full run ${commit(
+    '0000000aaaa'
+)}: failed (2026-11-19 08:00 UTC, base \`master\`). [Run](${RUN_URL})`
+const NEWER_PASSED_LINE = `✅ Last full run ${commit(
+    'bbbbbbb2222'
+)}: passed (2026-11-20 09:00 UTC, base \`master\`). [Run](${RUN_URL})`
 const NO_RUN_LINE = '➖ Last full run: none yet.'
 const SKIPPED_LINE = `⏭️ Latest commit ${commit(
     'bbbbbbb2222'
@@ -24,11 +30,16 @@ const botComment = (...lines) => ({
     body: comment(...lines),
 })
 
-const createGithub = ({ comments = [], headSha } = {}) => ({
+const createGithub = ({ comments = [], headSha, compareStatus } = {}) => ({
     paginate: jest.fn(async () => comments),
     rest: {
         pulls: {
             get: jest.fn(async () => ({ data: { head: { sha: headSha } } })),
+        },
+        repos: {
+            compareCommits: jest.fn(async () => ({
+                data: { status: compareStatus },
+            })),
         },
         users: { getAuthenticated: jest.fn(async () => ({ data: BOT })) },
         issues: {
@@ -53,12 +64,21 @@ const createContext = ({
     },
 })
 
-// The run's commit is the PR's latest commit unless headSha says otherwise
-const run = ({ comments, headSha, setupResult, e2eResult, ...pr }) => {
+// The run's commit is the pull request's latest commit unless headSha says otherwise.
+// compareStatus is how the run's commit compares with the one the comment shows.
+const run = ({
+    comments,
+    headSha,
+    compareStatus,
+    setupResult,
+    e2eResult,
+    ...pr
+}) => {
     const context = createContext(pr)
     const github = createGithub({
         comments,
         headSha: headSha ?? context.payload.pull_request.head.sha,
+        compareStatus,
     })
     return updateE2eComment({
         github,
@@ -160,7 +180,7 @@ describe('e2e comment', () => {
         )
     })
 
-    it('leaves the comment unchanged when a newer push cancelled the run', async () => {
+    it('leaves the comment unchanged when the e2e run was cancelled', async () => {
         const issues = await run({
             comments: [botComment(PASSED_LINE)],
             setupResult: 'success',
@@ -180,6 +200,37 @@ describe('e2e comment', () => {
         expect(issues.updateComment.mock.calls[0][0].body).toBe(
             comment(SKIPPED_LINE, PASSED_LINE)
         )
+    })
+
+    it.each([
+        ['newer than', 'ahead'],
+        ['the same as', 'identical'],
+    ])(
+        'replaces the last full run with an older commit run %s the one shown',
+        async (_relation, compareStatus) => {
+            const issues = await run({
+                comments: [botComment(SKIPPED_LINE, OLDER_FAILED_LINE)],
+                headSha: 'bbbbbbb2222',
+                compareStatus,
+                setupResult: 'success',
+                e2eResult: 'success',
+            })
+            expect(issues.updateComment.mock.calls[0][0].body).toBe(
+                comment(SKIPPED_LINE, PASSED_LINE)
+            )
+        }
+    )
+
+    it('keeps a newer full run when an older commit is re-run', async () => {
+        const issues = await run({
+            comments: [botComment(NEWER_PASSED_LINE)],
+            headSha: 'bbbbbbb2222',
+            compareStatus: 'behind',
+            setupResult: 'success',
+            e2eResult: 'failure',
+        })
+        expect(issues.updateComment).not.toHaveBeenCalled()
+        expect(issues.createComment).not.toHaveBeenCalled()
     })
 
     it('leaves the comment unchanged when a skipped run finishes after a newer push', async () => {

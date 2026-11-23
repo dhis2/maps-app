@@ -14,14 +14,14 @@ env:
     CI: true
 
 # A newer run of the same kind replaces an older one (pushing a pull request's head and base
-# together sends two events). Kinds are kept apart, so a label run never cancels a push run's e2e.
+# together sends two events). Runs started by labels other than `e2e run` have their own group,
+# so they never cancel e2e tests.
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.action == 'labeled' && github.event.label.name == 'e2e run' && 'e2e-run' || github.event.action }}
     cancel-in-progress: true
 
 jobs:
-    # Decides whether e2e runs: on ready PRs into master, and on any PR when `e2e run` is added.
-    # Other labels don't start e2e. Same rule in e2e-dev.yml.
+    # Same rule as e2e-dev.yml: ready pull requests into master, or when `e2e run` is added
     setup-matrix:
         if: >-
             ${{
@@ -99,22 +99,24 @@ jobs:
               run: yarn d2-app-scripts test
 
     call-workflow-e2e-prod:
-        # A run on a PR into another branch gets another check name, so it can't satisfy master's
-        # required check after the PR's base changes to master
+        # A run on a pull request into another branch gets another check name, so it can't satisfy
+        # master's required check after the base changes to master
         name: ${{ github.event.pull_request.base.ref == github.event.repository.default_branch && 'call-workflow-e2e-prod' || 'call-workflow-e2e-other-base' }}
         # Skipped through setup-matrix rather than inside the called workflow, so the required
         # e2e-tests-success check is never created as skipped (which would count as passed)
         needs: [build, lint, test, setup-matrix]
         uses: dhis2/workflows/.github/workflows/analytics-e2e-tests-prod.yml@maps-app
         with:
-            should_record: ${{ contains(join(github.event.pull_request.labels.*.name), 'e2e record') }}
+            should_record: ${{ contains(github.event.pull_request.labels.*.name, 'e2e record') }}
             spec-group: ${{ needs.setup-matrix.outputs.matrix }}
         secrets:
             username: ${{ secrets.CYPRESS_DHIS2_USERNAME }}
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-    # Fork PRs and runs started by Dependabot get no secrets, so no bot token to write the comment
+    # Runs started by labels other than `e2e run` skip the e2e tests even on a ready pull request
+    # into master, so the comment would give a wrong reason. Fork pull requests and runs started
+    # by Dependabot get no bot token to write it.
     e2e-comment:
         needs: [setup-matrix, call-workflow-e2e-prod]
         if: >-

@@ -16,7 +16,8 @@ defaults:
         shell: bash
 
 jobs:
-    # Runs while `e2e dev` is on, whenever verify-pr.yml runs the e2e tests (same rule)
+    # Same rule as verify-pr.yml: ready pull requests into master, or when `e2e run` is added.
+    # Only while `e2e dev` is on.
     setup-matrix:
         if: >-
             ${{
