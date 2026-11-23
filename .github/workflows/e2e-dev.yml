@@ -2,7 +2,8 @@ name: 'e2e development'
 
 on:
     pull_request:
-        types: ['opened', 'labeled', 'reopened', 'synchronize']
+        types:
+            ['opened', 'labeled', 'reopened', 'synchronize', 'ready_for_review']
 
 env:
     CI: true
@@ -10,17 +11,21 @@ env:
     API_VERSION: 44
     SHOULD_RECORD: ${{ contains(github.event.pull_request.labels.*.name, 'e2e record') }}
 
-concurrency:
-    group: ${{ github.workflow}}-${{ github.ref }}
-    cancel-in-progress: true
-
 defaults:
     run:
         shell: bash
 
 jobs:
+    # Runs while `e2e dev` is on, whenever verify-pr.yml runs the e2e tests (same rule)
     setup-matrix:
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e dev') }}
+        if: >-
+            ${{
+                contains(github.event.pull_request.labels.*.name, 'e2e dev') &&
+                ((github.event.action == 'labeled' && github.event.label.name == 'e2e run') ||
+                (github.event.action != 'labeled' &&
+                    !github.event.pull_request.draft &&
+                    github.event.pull_request.base.ref == github.event.repository.default_branch))
+            }}
         runs-on: ubuntu-latest
         outputs:
             matrix: ${{ steps.set-matrix.outputs.specs }}
@@ -32,7 +37,10 @@ jobs:
 
     e2e-dev:
         needs: setup-matrix
-        if: ${{ contains(github.event.pull_request.labels.*.name, 'e2e dev') }}
+        # Set on the job, so a run that skips the tests doesn't cancel one in progress
+        concurrency:
+            group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.spec-group.id }}
+            cancel-in-progress: true
         runs-on: ubuntu-latest
         strategy:
             fail-fast: false

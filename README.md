@@ -49,17 +49,15 @@ The e2e tests run on every push to a ready-for-review pull request into master, 
 
 A draft into master shows its required e2e check as "Expected" until it is marked ready for review, which starts the tests. A pull request whose base changes to master runs them on its next push, such as "Update branch".
 
-Add the `e2e run` label to run them once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run.
+Add the `e2e run` label to run them once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run. Other labels don't start the e2e tests.
 
 A pull request comment shows the last full e2e run, and whether e2e ran on the latest commit.
 
-## Cypress Cloud
+## Cypress Cloud and the DHIS2 development version
 
-To record tests in Cypress Cloud, add the `e2e record` label to your pull request. Adding it starts a recorded e2e run, and later runs are recorded while the label is on.
+While a pull request has the `e2e record` label, its e2e runs are recorded in Cypress Cloud. While it has the `e2e dev` label, each e2e run also runs the tests against the DHIS2 development version. A run reads the labels when it starts, so add them before `e2e run`.
 
-This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
-
-To also run the e2e tests against the DHIS2 development version, apply the `e2e dev` label to your pull request.
+Recording is opt-in to save Cypress Cloud credits.
 
 ## Learn More
 
