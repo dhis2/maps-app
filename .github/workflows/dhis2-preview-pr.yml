@@ -7,7 +7,6 @@ name: 'dhis2: pr preview'
 #       DHIS2_BOT_GITHUB_TOKEN
 # - Repo secrets:
 #       NETLIFY_SITE_ID
-# - Customize the 'jobs.build.steps.netlify-deploy.publish-dir' property
 
 on:
     pull_request:
@@ -17,11 +16,11 @@ jobs:
     preview:
         # Set on the job, so a run that skips the build doesn't cancel one in progress
         concurrency:
-            group: ${{ github.workflow}}-${{ github.ref }}
+            group: ${{ github.workflow }}-${{ github.ref }}
             cancel-in-progress: true
         runs-on: ubuntu-latest
-        # A new label only triggers a rebuild when it's the plugin host one
-        if: "!github.event.push.repository.fork && github.actor != 'dependabot[bot]' && (github.event.action != 'labeled' || github.event.label.name == 'preview plugin')"
+        # Of the labels, only `preview plugin` rebuilds the preview
+        if: "!github.event.pull_request.head.repo.fork && github.actor != 'dependabot[bot]' && (github.event.action != 'labeled' || github.event.label.name == 'preview plugin')"
         steps:
             - uses: actions/checkout@v7
             - uses: actions/setup-node@v7
@@ -51,10 +50,7 @@ jobs:
                   enable-commit-comment: true
                   enable-commit-status: true
                   alias: pr-${{ github.event.number }}
-                  # customize according to project needs
                   publish-dir: 'build/app'
               env:
-                  # org secret
                   NETLIFY_AUTH_TOKEN: ${{ secrets.DHIS2_BOT_NETLIFY_TOKEN }}
-                  # repo secret
                   NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
