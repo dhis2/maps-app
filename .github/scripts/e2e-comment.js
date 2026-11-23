@@ -1,7 +1,11 @@
 // Creates or updates the PR comment that shows the last full e2e run, and whether e2e ran on the
 // latest commit. Called from verify-pr.yml through actions/github-script.
 const MARKER = '<!-- e2e-last-full-run -->'
-const NO_RUN_LINE = '**Last full e2e run:** none yet.'
+const TITLE =
+    '**e2e tests** _(updated when a run finishes; live status in the checks)_'
+const LATEST = 'Latest commit'
+const LAST_RUN = 'Last full run'
+const NO_RUN_LINE = `➖ ${LAST_RUN}: none yet.`
 
 const formatDate = (date) =>
     `${date.toISOString().slice(0, 16).replace('T', ' ')} UTC`
@@ -9,29 +13,32 @@ const formatDate = (date) =>
 const getSkipReason = (pr, defaultBranch) =>
     pr.draft ? 'draft' : `base \`${pr.base.ref}\` isn't \`${defaultBranch}\``
 
-// Returns the lines this run changes, or null when it changes nothing
+// Returns the lines this run changes, or null when it changes nothing.
+// An empty latest line means the last full run is on the latest commit.
 const getChanges = ({
     pr,
     defaultBranch,
+    commitUrl,
     runUrl,
     setupResult,
     e2eResult,
     now,
 }) => {
-    const sha = pr.head.sha.slice(0, 7)
+    const commit = `[\`${pr.head.sha.slice(0, 7)}\`](${commitUrl})`
 
     if (e2eResult === 'success' || e2eResult === 'failure') {
-        const outcome = e2eResult === 'success' ? 'passed' : 'failed'
+        const [icon, result] =
+            e2eResult === 'success' ? ['✅', 'passed'] : ['❌', 'failed']
         return {
-            lastRunLine: `**Last full e2e run:** ${outcome} on \`${sha}\`, ${formatDate(
+            lastRunLine: `${icon} ${LAST_RUN} ${commit}: ${result} (${formatDate(
                 now
-            )}, base \`${pr.base.ref}\`. [Run](${runUrl})`,
+            )}, base \`${pr.base.ref}\`). [Run](${runUrl})`,
             latestLine: '',
         }
     }
     if (e2eResult === 'skipped' && setupResult === 'skipped') {
         return {
-            latestLine: `Skipped on \`${sha}\` (${getSkipReason(
+            latestLine: `⏭️ ${LATEST} ${commit}: skipped (${getSkipReason(
                 pr,
                 defaultBranch
             )}). Add the \`e2e run\` label for a one-off run.`,
@@ -39,11 +46,14 @@ const getChanges = ({
     }
     if (e2eResult === 'skipped') {
         return {
-            latestLine: `Not run on \`${sha}\`: build, lint, test or setup-matrix failed.`,
+            latestLine: `⚠️ ${LATEST} ${commit}: not run (build, lint, test or setup-matrix failed).`,
         }
     }
     return null
 }
+
+const findLine = (lines, label) =>
+    lines.find((line) => line.includes(label)) ?? ''
 
 const updateE2eComment = async ({
     github,
@@ -58,6 +68,7 @@ const updateE2eComment = async ({
     const changes = getChanges({
         pr,
         defaultBranch: context.payload.repository.default_branch,
+        commitUrl: `${context.serverUrl}/${owner}/${repo}/commit/${pr.head.sha}`,
         runUrl: `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`,
         setupResult,
         e2eResult,
@@ -93,14 +104,16 @@ const updateE2eComment = async ({
     const comment = comments.find(
         (c) => c.user?.login === bot.login && c.body?.startsWith(MARKER)
     )
-    const [, lastRunLine = '', latestLine = ''] =
-        comment?.body.split('\n') ?? []
+    const lines = comment?.body.split('\n') ?? []
 
     const body = [
         MARKER,
-        changes.lastRunLine ?? (lastRunLine || NO_RUN_LINE),
-        newLatestLine ?? latestLine,
-    ].join('\n')
+        TITLE,
+        newLatestLine ?? findLine(lines, LATEST),
+        changes.lastRunLine ?? (findLine(lines, LAST_RUN) || NO_RUN_LINE),
+    ]
+        .filter(Boolean)
+        .join('\n')
 
     if (comment) {
         await github.rest.issues.updateComment({
