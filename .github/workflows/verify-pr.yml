@@ -13,20 +13,19 @@ env:
     CI: true
 
 # A newer run of the same kind replaces an older one (pushing a pull request's head and base
-# together sends two events). Runs started by labels other than `e2e run` have their own group,
-# so they never cancel e2e tests.
+# together sends two events). Runs of different kinds don't cancel each other.
 concurrency:
     group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.action == 'labeled' && github.event.label.name == 'e2e run' && 'e2e-run' || github.event.action }}
     cancel-in-progress: true
 
 jobs:
-    # Same rule as e2e-dev.yml: ready pull requests into master, or when `e2e run` is added
+    # Same rule as e2e-dev.yml: every run on a ready pull request into master, label runs included
+    # (the merge box only counts the latest run), or when `e2e run` is added
     setup-matrix:
         if: >-
             ${{
                 (github.event.action == 'labeled' && github.event.label.name == 'e2e run') ||
-                (github.event.action != 'labeled' &&
-                    !github.event.pull_request.draft &&
+                (!github.event.pull_request.draft &&
                     github.event.pull_request.base.ref == github.event.repository.default_branch)
             }}
         runs-on: ubuntu-latest
@@ -114,15 +113,14 @@ jobs:
             password: ${{ secrets.CYPRESS_DHIS2_PASSWORD }}
             recordkey: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-    # Runs started by labels other than `e2e run` skip the e2e tests even on a ready pull request
-    # into master, so the comment would give a wrong reason. Fork pull requests and runs started
-    # by Dependabot get no bot token to write it.
+    # Label runs that skip the e2e tests have nothing new to report. Fork pull requests and runs
+    # started by Dependabot get no bot token to write the comment.
     e2e-comment:
         needs: [setup-matrix, call-workflow-e2e-prod]
         if: >-
             ${{
                 !cancelled() &&
-                (github.event.action != 'labeled' || github.event.label.name == 'e2e run') &&
+                (github.event.action != 'labeled' || needs.setup-matrix.result != 'skipped') &&
                 !github.event.pull_request.head.repo.fork &&
                 github.actor != 'dependabot[bot]'
             }}

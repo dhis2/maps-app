@@ -49,7 +49,7 @@ The e2e tests run on every push to a ready-for-review pull request into master, 
 
 A draft into master shows its required e2e check as "Expected" until it is marked ready for review, which starts the e2e tests. A pull request whose base changes to master runs the e2e tests on its next push, such as "Update branch".
 
-Add the `e2e run` label to run the e2e tests once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run. Other labels don't start the e2e tests.
+Add the `e2e run` label to run the e2e tests once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run. Other labels start the e2e tests only on a ready pull request into master: GitHub only counts the latest run of a workflow, so every run there includes them.
 
 A pull request comment shows the last full e2e run, and whether the e2e tests ran on the latest commit.
 
