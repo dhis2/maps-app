@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-24T14:31:31.759Z\n"
-"PO-Revision-Date: 2026-11-24T14:31:31.759Z\n"
+"POT-Creation-Date: 2026-11-24T15:45:19.569Z\n"
+"PO-Revision-Date: 2026-11-24T15:45:19.569Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -306,6 +306,12 @@ msgstr "Deselect all"
 
 msgid "No value matches"
 msgstr "No value matches"
+
+msgid "Showing the first {{shown}} values."
+msgstr "Showing the first {{shown}} values."
+
+msgid "Set a condition to reach the others."
+msgstr "Set a condition to reach the others."
 
 msgid "{{count}} values hidden by the condition"
 msgid_plural "{{count}} values hidden by the condition"

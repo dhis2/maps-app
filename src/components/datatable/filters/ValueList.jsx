@@ -146,10 +146,11 @@ const ValueList = ({
             </ul>
             {listed.length > MAX_LISTED && (
                 <span className={styles.listNote}>
-                    {i18n.t(
-                        '{{count}} more values: narrow the list with a condition or Find in list',
-                        { count: listed.length - MAX_LISTED }
-                    )}
+                    {i18n.t('Showing the first {{shown}} values.', {
+                        shown: MAX_LISTED,
+                    })}
+                    <br />
+                    {i18n.t('Set a condition to reach the others.')}
                 </span>
             )}
             {hidden > 0 && (
