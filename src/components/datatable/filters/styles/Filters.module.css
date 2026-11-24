@@ -55,9 +55,19 @@
 
 /* Popover */
 
+/* Two sizes, as the table: 13px as its headers, 11px as its cells */
 .popover {
     width: 300px;
-    font-size: 14px;
+    font-size: 13px;
+}
+
+/* The form prefix outranks @dhis2/ui's own 14px on its labels, inputs, select and buttons */
+form.popover :global(label),
+form.popover :global(label.dense),
+form.popover :global(input),
+form.popover :global(.root),
+form.popover :global(button.small) {
+    font-size: 13px;
 }
 
 .popoverHeader {
@@ -73,7 +83,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     color: var(--colors-grey900);
 }
@@ -162,13 +172,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--colors-grey700);
 }
 
 .linkButton {
     all: unset;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--colors-blue700);
     cursor: pointer;
 }
@@ -213,7 +223,7 @@
 }
 
 .count {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--colors-grey600);
     font-variant-numeric: tabular-nums;
 }
@@ -249,13 +259,13 @@
 }
 
 .listNote {
-    font-size: 12px;
+    font-size: 11px;
     color: var(--colors-grey600);
 }
 
 .preview {
     flex: 1;
-    font-size: 12px;
+    font-size: 11px;
     color: var(--colors-grey700);
     font-variant-numeric: tabular-nums;
 }
