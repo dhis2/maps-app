@@ -38,6 +38,7 @@ const ConditionRow = ({ filterType, draft, onChange }) => {
                         key={value}
                         value={value}
                         label={label}
+                        className={styles.operatorOption}
                     />
                 ))}
             </SingleSelectField>

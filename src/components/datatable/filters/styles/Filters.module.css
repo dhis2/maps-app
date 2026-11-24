@@ -156,6 +156,11 @@ form.popover :global(button.small) {
     min-width: 0;
 }
 
+/* The operator menu opens outside the popover: the size goes on each option's label */
+.operatorOption > :global(span) {
+    font-size: 13px;
+}
+
 .conditionInputs > .and {
     flex: 0 0 auto;
     font-size: 13px;
