@@ -124,6 +124,7 @@ const FilterPopover = ({
         <Popover
             reference={anchorRef}
             placement="bottom-start"
+            observePopperResize
             arrow={false}
             maxWidth={320}
             onClickOutside={onClose}
