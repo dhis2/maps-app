@@ -187,7 +187,7 @@ const FilterPopover = ({
                             onClick={() => openPart('values')}
                             data-test="data-table-filter-pick-values"
                         >
-                            {i18n.t('Pick values')}
+                            {i18n.t('+ Pick values')}
                         </button>
                     )}
                 </div>
