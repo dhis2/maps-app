@@ -9,6 +9,7 @@ import {
     FILTER_VIEW_VALUES_ONLY,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
+import { isMonospaceColumn } from '../../../util/dataTable.js'
 import {
     getFilterError,
     hasCondition,
@@ -175,6 +176,7 @@ const FilterPopover = ({
                             hidden={hidden}
                             excluded={draft.excluded}
                             renderer={renderer}
+                            isMonospace={isMonospaceColumn(header)}
                             onChange={updateExcluded}
                         />
                     ) : (
