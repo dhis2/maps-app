@@ -11,7 +11,7 @@ import {
 import styles from './styles/Filters.module.css'
 
 // Long lists show their first values; a condition or "Find in list" narrows them
-const MAX_LISTED = 200
+const MAX_LISTED = 100
 
 const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
