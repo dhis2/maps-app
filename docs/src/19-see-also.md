@@ -15,8 +15,8 @@
 
 -   Metadata management:
 
-    -   [Manage legends](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_manage_legend)
-    -   [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element)
+    -   [Manage legends](#mm_manage_legend)
+    -   [Aggregation operators](#mm_create_data_element)
 
 -   Training:
     -   [Trainer's Guide to Maps](#trainers-guide-to-maps)

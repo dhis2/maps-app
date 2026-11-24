@@ -28,8 +28,7 @@ Thematic layer configuration dialog.
 
 -   Choose a value from the **Aggregation type** field for the data values to be shown on the map.
     By default, "By data element" is selected. Alternative values are: Count, Average, Sum, Standard
-    deviation, Variance, Min, Max. See also
-    [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element).
+    deviation, Variance, Min, Max. See also [Aggregation operators](#mm_create_data_element).
 
 -   **Only show completed events**: Includes only completed events in the aggregation process. This
     is useful when you want to exclude partial events in indicator calculations. Available for
