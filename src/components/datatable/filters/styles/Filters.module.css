@@ -233,6 +233,10 @@
     color: var(--colors-grey700);
 }
 
+.monoLabel {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
+}
+
 .noMatch {
     padding: var(--spacers-dp8);
     font-size: 13px;

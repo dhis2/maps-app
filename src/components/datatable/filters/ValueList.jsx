@@ -13,12 +13,12 @@ import styles from './styles/Filters.module.css'
 // Long lists show their first values; a condition or "Find in list" narrows them
 const MAX_LISTED = 200
 
-const ValueLabel = ({ entry, renderer }) => {
+const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
     return (
-        <span>
+        <span className={cx({ [styles.monoLabel]: isMonospace })}>
             {renderer === RENDERER_ICON && !entry.isGone && (
                 <img
                     className={styles.iconThumbnail}
@@ -42,11 +42,19 @@ const ValueLabel = ({ entry, renderer }) => {
 
 ValueLabel.propTypes = {
     entry: PropTypes.object.isRequired,
+    isMonospace: PropTypes.bool,
     renderer: PropTypes.string,
 }
 
 // The column's values with a checkbox each: every value starts checked, unchecked ones are left out
-const ValueList = ({ listed, hidden, excluded, renderer, onChange }) => {
+const ValueList = ({
+    listed,
+    hidden,
+    excluded,
+    renderer,
+    isMonospace,
+    onChange,
+}) => {
     const excludedKeys = new Set(excluded)
     const listedKeys = listed.map(({ key }) => key)
     const checkedCount = listedKeys.filter(
@@ -120,6 +128,7 @@ const ValueList = ({ listed, hidden, excluded, renderer, onChange }) => {
                                     <ValueLabel
                                         entry={entry}
                                         renderer={renderer}
+                                        isMonospace={isMonospace}
                                     />
                                     <span className={styles.count}>
                                         {entry.count}
@@ -162,6 +171,7 @@ ValueList.propTypes = {
     hidden: PropTypes.number.isRequired,
     listed: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func.isRequired,
+    isMonospace: PropTypes.bool,
     renderer: PropTypes.string,
 }
 

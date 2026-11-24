@@ -3,7 +3,9 @@ import {
     FILTER_NUMBER,
     FILTER_TEXT,
     FILTER_TIME,
+    ORG_UNIT_ID_DATA_KEY,
     RENDERER_BOOLEAN,
+    RENDERER_COLOR,
     RENDERER_DATE,
     RENDERER_ICON,
     RENDERER_ORG_UNIT,
@@ -24,6 +26,7 @@ import {
     getRowId,
     hasActiveDataTableFilters,
     isFilterable,
+    isMonospaceColumn,
     isNamedValueColumn,
     shouldClearFeatureHighlight,
 } from '../dataTable.js'
@@ -254,5 +257,16 @@ describe('isNamedValueColumn', () => {
         [{}, false],
     ])('%j is %s', (header, isNamed) => {
         expect(isNamedValueColumn(header)).toBe(isNamed)
+    })
+})
+
+describe('isMonospaceColumn', () => {
+    test.each([
+        [{ dataKey: 'id' }, true],
+        [{ dataKey: ORG_UNIT_ID_DATA_KEY }, true],
+        [{ dataKey: 'color', renderer: RENDERER_COLOR }, true],
+        [{ dataKey: 'name' }, false],
+    ])('%j is %s', (header, isMonospace) => {
+        expect(isMonospaceColumn(header)).toBe(isMonospace)
     })
 })
