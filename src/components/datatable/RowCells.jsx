@@ -47,7 +47,8 @@ const RowCells = ({
                                 dataKey,
                                 renderer,
                             }),
-                            [styles.hovered]: isHovered && !isColorCell,
+                            [styles.hovered]:
+                                isHovered && !(isColorCell && value),
                         })}
                         backgroundColor={isColorCell ? value : null}
                         align={align}

@@ -260,4 +260,23 @@ describe('RowCells', () => {
             false,
         ])
     })
+
+    it('marks empty color cells of the hovered feature, as they have no color to keep', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'color', value: undefined },
+            ],
+            {
+                visibleHeaders: [{ dataKey: 'id' }, { dataKey: 'color' }],
+                rendererByDataKey: new Map([['color', RENDERER_COLOR]]),
+                hoveredFeature: { id: 'row1', layerId: 'layer1' },
+            }
+        )
+        const cells = [...container.querySelectorAll('td')]
+        expect(cells.map((td) => td.classList.contains('hovered'))).toEqual([
+            true,
+            true,
+        ])
+    })
 })
