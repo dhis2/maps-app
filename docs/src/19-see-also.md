@@ -3,7 +3,7 @@
 -   Configuration:
 
     -   [Configure DHIS2 Maps](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/maps.html)
-    -   [Google Earth Engine sign-up](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html#accessing-map-layers-from-google-earth-engine)
+    -   [Google Earth Engine sign-up](#google_earth_engine_sign_up)
     -   [Geo-enabled microplanning](https://docs.dhis2.org/en/implement/health/immunization/immunization-campaigns/use.html?h=microplanning#geoenabled-microplanning),
         including details about facility catchment areas
 

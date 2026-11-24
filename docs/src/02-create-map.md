@@ -24,7 +24,7 @@ In addition, several layers can come from [Google Earth Engine](#using_maps_gee)
 population, elevation, or climate indicators) and
 [other external services](#using_maps_external_map_layers). Various Google Earth Engine layer
 sources are available if a Google Earth Engine service account key has been set up (see
-[documentation](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html)).
+[Google Earth Engine sign-up](#google_earth_engine_sign_up)).
 
 > **Note**
 >
