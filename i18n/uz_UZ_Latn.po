@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Yury Rogachev <yury@dhis2.org>, 2026\n"
 "Language-Team: Uzbek (Latin) (https://app.transifex.com/hisp-uio/teams/100509/uz@Latn/)\n"
@@ -239,6 +239,12 @@ msgid "Download map"
 msgstr "Xaritani yuklash"
 
 msgid "Show map name"
+msgstr ""
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show map description"
@@ -610,6 +616,17 @@ msgstr "Kuzatuvdagi obʼektlar oʼzaro aloqalar turlari {{type}} topilmadi"
 
 msgid "Relationship type"
 msgstr "Oʼzaro aloqalar turi"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -991,8 +1008,8 @@ msgstr ""
 msgid "Selected only"
 msgstr "Faqatgina tanlangan"
 
-msgid "Selected and below"
-msgstr "Tanlangan va quyida"
+msgid "Immediate children"
+msgstr "Bevosita bolalar"
 
 msgid "Selected and all below"
 msgstr "Tanlangan va barchasi quyida"
@@ -1121,6 +1138,12 @@ msgstr ""
 
 msgid "OSM Light"
 msgstr "OSM manba"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Batafsil"
@@ -1835,6 +1858,23 @@ msgstr "Tematik qavat"
 
 msgid "related"
 msgstr "bogʼliqlik"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Kuzatuv obʼekti"

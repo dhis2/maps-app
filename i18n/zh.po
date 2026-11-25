@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-09-01T12:42:29.454Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: easylin <lin_xd@126.com>, 2026\n"
 "Language-Team: Chinese (https://app.transifex.com/hisp-uio/teams/100509/zh/)\n"
@@ -605,6 +605,17 @@ msgstr "跟踪的实体类型没有发现关系类型"
 msgid "Relationship type"
 msgstr "关系类型"
 
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr "组织单位和时间段也适用于相关的受监控实体，而项目状态和后续行动则不适用。"
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr "启用此选项后，受追踪的实体将直接从捕获的数据 中加载，而非从分析表中加载。此时将应用您的数据 捕获权限，而非分析权限。"
+
 msgid "No data to show for this feature."
 msgstr "没有可显示此功能的数据。"
 
@@ -980,8 +991,8 @@ msgstr "组织机构简介"
 msgid "Selected only"
 msgstr "仅选择"
 
-msgid "Selected and below"
-msgstr "选择的和下面的"
+msgid "Immediate children"
+msgstr "直接下属机构"
 
 msgid "Selected and all below"
 msgstr "选择的和所有下面的"
@@ -1829,6 +1840,23 @@ msgstr "专题层"
 
 msgid "related"
 msgstr "相关的"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr "显示前{{limit}} 个被追踪的实体"
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr "显示前{{limit}} 个被追踪的实体，共计{{total}}"
+
+msgid "Relationships could not be loaded"
+msgstr "无法加载关系"
+
+msgid "Only relationships between tracked entities are supported"
+msgstr "仅支持被追踪实体之间的关系"
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr "仅检索到了前{{limit}} 个候选追踪实体，因此某些关系可能无法显示"
 
 msgid "Tracked entity"
 msgstr "跟踪实体"

@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: i18next-conv\n"
-"POT-Creation-Date: 2026-07-10T08:27:09.245Z\n"
+"POT-Creation-Date: 2026-11-03T09:39:28.361Z\n"
 "PO-Revision-Date: 2019-06-25 18:35+0000\n"
 "Last-Translator: Karoline Tufte Lien <karoline@dhis2.org>, 2026\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/hisp-uio/teams/100509/nb/)\n"
@@ -234,6 +234,12 @@ msgid "Download map"
 msgstr "Last ned kart"
 
 msgid "Show map name"
+msgstr ""
+
+msgid "Name can be changed from File > Rename menu"
+msgstr ""
+
+msgid "Set the map name when you save the map or from File > Rename menu"
 msgstr ""
 
 msgid "Show map description"
@@ -600,6 +606,17 @@ msgstr "Ingen relasjonstyper ble funnet for sporet enhetstype {{type}}"
 
 msgid "Relationship type"
 msgstr "Relasjonstype"
+
+msgid ""
+"Org units and the period also apply to related tracked entities, program "
+"status and follow-up don't."
+msgstr ""
+
+msgid ""
+"With this option, tracked entities are loaded directly from captured data, "
+"not from analytics tables. Your data capture permissions apply instead of "
+"your analytics permissions."
+msgstr ""
 
 msgid "No data to show for this feature."
 msgstr ""
@@ -986,8 +1003,8 @@ msgstr ""
 msgid "Selected only"
 msgstr "Bare valgt"
 
-msgid "Selected and below"
-msgstr "Valgt og under"
+msgid "Immediate children"
+msgstr "Nærmeste underenheter"
 
 msgid "Selected and all below"
 msgstr "Valgt og alle under"
@@ -1116,6 +1133,12 @@ msgstr ""
 
 msgid "OSM Light"
 msgstr "OSM tynn"
+
+msgid "OSM Dark"
+msgstr ""
+
+msgid "OSM Fiord"
+msgstr ""
 
 msgid "OSM Detailed"
 msgstr "OSM Detaljert"
@@ -1830,6 +1853,23 @@ msgstr "Tematisk lag"
 
 msgid "related"
 msgstr "relatert"
+
+msgid "Displaying first {{limit}} tracked entities"
+msgstr ""
+
+msgid "Displaying first {{limit}} tracked entities out of {{total}}"
+msgstr ""
+
+msgid "Relationships could not be loaded"
+msgstr ""
+
+msgid "Only relationships between tracked entities are supported"
+msgstr ""
+
+msgid ""
+"Only the first {{limit}} candidate tracked entities were retrieved, so some "
+"relationships may not be displayed"
+msgstr ""
 
 msgid "Tracked entity"
 msgstr "Sporet enhet"
