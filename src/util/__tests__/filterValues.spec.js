@@ -1,3 +1,4 @@
+import { RENDERER_ICON } from '../../constants/dataTable.js'
 import {
     countColumnValues,
     countKeptRows,
@@ -73,6 +74,77 @@ describe('countColumnValues', () => {
             '30 – 50',
             '120 – 990',
         ])
+    })
+
+    describe('columns showing the legend', () => {
+        const LEGEND_ITEMS = [
+            { name: 'Low', startValue: 0, endValue: 30, color: '#fee' },
+            { name: 'High', startValue: 50, endValue: 90, color: '#f00' },
+            { name: 'Medium', startValue: 30, endValue: 50, color: '#f88' },
+        ]
+        const CLASSED_ROWS = [
+            { legend: 'Low', range: '0 – 30', color: '#fee' },
+            { legend: 'Medium', range: '30 – 50', color: '#f88' },
+            { legend: 'High', range: '50 – 90', color: '#f00' },
+        ]
+        const count = (dataKey, options) =>
+            countColumnValues(CLASSED_ROWS, {
+                header: { dataKey, type: 'string' },
+                getLabel: String,
+                legendItems: LEGEND_ITEMS,
+                ...options,
+            })
+
+        test('lists Range in the legend’s order, highest class first as in the layer card', () => {
+            expect(count('range').map(({ key }) => key)).toEqual([
+                '',
+                '50 – 90',
+                '30 – 50',
+                '0 – 30',
+            ])
+        })
+
+        test('lists Legend in the legend’s order, each class with its color', () => {
+            expect(
+                count('legend').map(({ key, color }) => [key, color])
+            ).toEqual([
+                ['', undefined],
+                ['High', '#f00'],
+                ['Medium', '#f88'],
+                ['Low', '#fee'],
+            ])
+        })
+
+        test('lists Color and Icon in the group set’s order, values outside the legend last', () => {
+            const values = countColumnValues(
+                [
+                    { group: 'Hospital', iconUrl: 'a.png' },
+                    { iconUrl: 'z.png' },
+                    { group: 'Clinic', iconUrl: 'b.png' },
+                ],
+                {
+                    header: { dataKey: 'iconUrl', renderer: RENDERER_ICON },
+                    getLabel: String,
+                    legendItems: [{ name: 'Clinic' }, { name: 'Hospital' }],
+                }
+            )
+            expect(values.map(({ key }) => key)).toEqual([
+                '',
+                'b.png',
+                'a.png',
+                'z.png',
+            ])
+        })
+
+        test('follows the table instead when it is sorted by the column', () => {
+            const sorting = { sortField: 'range', sortDirection: 'asc' }
+            expect(count('range', { sorting }).map(({ key }) => key)).toEqual([
+                '',
+                '0 – 30',
+                '30 – 50',
+                '50 – 90',
+            ])
+        })
     })
 
     test('lists the values of the column the table is sorted by in the rows’ order, "No value" first', () => {

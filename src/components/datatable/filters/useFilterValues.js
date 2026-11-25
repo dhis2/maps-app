@@ -18,6 +18,7 @@ const useFilterValues = ({
     keyAnalysisDigitGroupSeparator,
     sortField,
     sortDirection,
+    legendItems,
 }) => {
     const { optionSet } = useOptionSet(header.optionSet?.id)
     const sorting = useMemo(
@@ -55,8 +56,9 @@ const useFilterValues = ({
                 getLabel,
                 byLabel: matchOnLabel,
                 sorting,
+                legendItems,
             }),
-        [rows, header, getLabel, matchOnLabel, sorting]
+        [rows, header, getLabel, matchOnLabel, sorting, legendItems]
     )
 
     const values = useMemo(
@@ -66,8 +68,9 @@ const useFilterValues = ({
                 getLabel,
                 byLabel: matchOnLabel,
                 sorting,
+                legendItems,
             }),
-        [rows, filters, header, getLabel, matchOnLabel, sorting]
+        [rows, filters, header, getLabel, matchOnLabel, sorting, legendItems]
     )
 
     return { allValues, values, matchOnLabel }

@@ -17,6 +17,8 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
+    // A color value shows itself; a legend class shows its color
+    const swatch = renderer === RENDERER_COLOR ? entry.value : entry.color
     return (
         <span className={cx({ [styles.monoLabel]: isMonospace })}>
             {renderer === RENDERER_ICON && !entry.isGone && (
@@ -29,10 +31,10 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
                     }}
                 />
             )}
-            {renderer === RENDERER_COLOR && !entry.isGone && (
+            {swatch && !entry.isGone && (
                 <span
                     className={styles.swatch}
-                    style={{ backgroundColor: entry.value }}
+                    style={{ backgroundColor: swatch }}
                 />
             )}
             {entry.label}

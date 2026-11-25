@@ -161,6 +161,7 @@ const Table = ({
             keyAnalysisDigitGroupSeparator,
             sortField,
             sortDirection,
+            legendItems: layer.legend?.items,
         }),
         [
             filterRows,
@@ -169,6 +170,7 @@ const Table = ({
             keyAnalysisDigitGroupSeparator,
             sortField,
             sortDirection,
+            layer.legend?.items,
         ]
     )
 

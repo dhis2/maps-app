@@ -233,6 +233,7 @@ FilterPopover.propTypes = {
         rows: PropTypes.array.isRequired,
         filters: PropTypes.object,
         keyAnalysisDigitGroupSeparator: PropTypes.string,
+        legendItems: PropTypes.array,
         orgUnitIdToName: PropTypes.instanceOf(Map),
         sortDirection: PropTypes.string,
         sortField: PropTypes.string,

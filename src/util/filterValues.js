@@ -1,5 +1,7 @@
 import {
     OPERATOR_FIND,
+    RENDERER_COLOR,
+    RENDERER_ICON,
     SENTINEL_NO_VALUE,
     SORT_ASCENDING,
     TYPE_NUMBER,
@@ -11,12 +13,28 @@ import {
     normalizeText,
     toFilterKey,
 } from './filter.js'
+import { sortLegendItems } from './legend.js'
 import { compareFieldValues, compareRangeValues } from './tableSort.js'
 
 // The list of values in a column's filter popover: what it lists, the rows it keeps,
 // and the filter it applies
 
+const LEGEND = 'legend'
 const RANGE = 'range'
+const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
+
+// Columns that show a row's legend class or group: listed in the legend's order
+const isLegendColumn = ({ dataKey, renderer }) =>
+    dataKey === LEGEND || dataKey === RANGE || LEGEND_RENDERERS.has(renderer)
+
+// Each class or group's place in the legend, as the layer card lists them
+const getLegendRanks = (legendItems) =>
+    new Map(
+        sortLegendItems(legendItems ?? []).map(({ name }, index) => [
+            name,
+            index,
+        ])
+    )
 
 // Ascending, as each kind of value reads: names and text alphabetically, numbers and ranges by value
 const compareDefault = (header, byLabel) => (a, b) => {
@@ -43,11 +61,30 @@ const compareAsTable =
             idToName,
         })
 
-const compareEntries = (header, { byLabel, sorting }) => {
-    const compare =
-        sorting?.sortField === header.dataKey
-            ? compareAsTable(header, sorting)
-            : compareDefault(header, byLabel)
+// Values outside the legend come after it, in the default order
+const compareByLegend = (compare) => (a, b) => {
+    if (a.legendRank === b.legendRank) {
+        return compare(a, b)
+    }
+    if (a.legendRank === undefined) {
+        return 1
+    }
+    if (b.legendRank === undefined) {
+        return -1
+    }
+    return a.legendRank - b.legendRank
+}
+
+const getCompare = (header, { byLabel, sorting }) => {
+    if (sorting?.sortField === header.dataKey) {
+        return compareAsTable(header, sorting)
+    }
+    const compare = compareDefault(header, byLabel)
+    return isLegendColumn(header) ? compareByLegend(compare) : compare
+}
+
+const compareEntries = (header, options) => {
+    const compare = getCompare(header, options)
     return (a, b) => {
         if (a.key === SENTINEL_NO_VALUE) {
             return -1
@@ -59,11 +96,21 @@ const compareEntries = (header, { byLabel, sorting }) => {
     }
 }
 
+// A legend column's value takes its row's place in the legend; Legend also shows its class color
+const getLegendFields = (row, header, legendRanks) =>
+    legendRanks && {
+        legendRank: legendRanks.get(row.legend ?? row.group),
+        ...(header.dataKey === LEGEND && { color: row.color }),
+    }
+
 // Each value of a column with its label and row count, "No value" first
 export const countColumnValues = (
     rows,
-    { header, getLabel, byLabel, sorting }
+    { header, getLabel, byLabel, sorting, legendItems }
 ) => {
+    const legendRanks = isLegendColumn(header)
+        ? getLegendRanks(legendItems)
+        : null
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
@@ -79,6 +126,7 @@ export const countColumnValues = (
                 value,
                 label: getLabel(value, row),
                 count: 1,
+                ...getLegendFields(row, header, legendRanks),
             })
         }
     }
