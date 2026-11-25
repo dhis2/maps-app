@@ -207,7 +207,7 @@ const FileMenu = ({ onFileMenuAction }) => {
             saveAsAlert.show({ msg: getSavedMessage(getMapName(name)) })
 
             if (res.response.uid) {
-                history.push(`/${res.response.uid}`)
+                history.push(`/${res.response.uid}`, { isSaving: true })
             }
         }
     }
