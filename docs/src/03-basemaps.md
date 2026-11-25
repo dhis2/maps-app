@@ -35,6 +35,6 @@ visibility and adjust its transparency.
 
 > **Note**
 >
-> Bing Maps is being retired. See the [Bing Maps Blog](https://aka.ms/BMERetirementAnnouncement) for
-> the retirement announcement. For migration to Azure Maps, consult the
-> [Bing Maps Migration Overview](https://learn.microsoft.com/azure/azure-maps/migrate-bing-maps-overview).
+> Microsoft is retiring Bing Maps. Free (Basic) Bing Maps keys stopped working on 30 June 2025, and
+> paid Bing Maps for Enterprise licences end on 30 June 2028. To set up Azure Maps instead, see
+> [Azure Maps and Bing Maps basemaps setup](#azure_maps_and_bing_maps_basemaps_setup).

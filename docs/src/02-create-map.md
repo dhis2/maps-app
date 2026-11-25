@@ -23,8 +23,8 @@ Available layer types are:
 In addition, several layers can come from [Google Earth Engine](#using_maps_gee) (such as
 population, elevation, or climate indicators) and
 [other external services](#using_maps_external_map_layers). Various Google Earth Engine layer
-sources are available if the Google Earth Engine API key has been set up (see
-[documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)).
+sources are available if a Google Earth Engine service account key has been set up (see
+[Google Earth Engine sign-up](#google_earth_engine_sign_up)).
 
 > **Note**
 >

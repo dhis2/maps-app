@@ -108,8 +108,8 @@ Available layer types are:
 In addition, several layers can come from [Google Earth Engine](#using_maps_gee) (such as
 population, elevation, or climate indicators) and
 [other external services](#using_maps_external_map_layers). Various Google Earth Engine layer
-sources are available if the Google Earth Engine API key has been set up (see
-[documentation](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)).
+sources are available if a Google Earth Engine service account key has been set up (see
+[Google Earth Engine sign-up](#google_earth_engine_sign_up)).
 
 > **Note**
 >
@@ -156,9 +156,9 @@ visibility and adjust its transparency.
 
 > **Note**
 >
-> Bing Maps is being retired. See the [Bing Maps Blog](https://aka.ms/BMERetirementAnnouncement) for
-> the retirement announcement. For migration to Azure Maps, consult the
-> [Bing Maps Migration Overview](https://learn.microsoft.com/azure/azure-maps/migrate-bing-maps-overview).
+> Microsoft is retiring Bing Maps. Free (Basic) Bing Maps keys stopped working on 30 June 2025, and
+> paid Bing Maps for Enterprise licences end on 30 June 2028. To set up Azure Maps instead, see
+> [Azure Maps and Bing Maps basemaps setup](#azure_maps_and_bing_maps_basemaps_setup).
 ## Manage thematic layers { #using_maps_thematic_layer }
 
 _Thematic maps_ represent spatial variation of geographic distributions. They show aggregated data
@@ -189,8 +189,10 @@ Thematic layer configuration dialog.
 
 -   Choose a value from the **Aggregation type** field for the data values to be shown on the map.
     By default, "By data element" is selected. Alternative values are: Count, Average, Sum, Standard
-    deviation, Variance, Min, Max. See also
-    [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element).
+    deviation, Variance, Min, Max. See also Aggregation operators in the
+    [Metadata Management app](#mm_create_data_element) or the
+    [Maintenance app](#create_data_element). The Metadata Management app replaces the Maintenance
+    app and works with DHIS2 2.41 and later.
 
 -   **Only show completed events**: Includes only completed events in the aggregation process. This
     is useful when you want to exclude partial events in indicator calculations. Available for
@@ -975,8 +977,10 @@ actions_ (three dots) icon and then click **Remove layer**.
 
 ![](resources/images/maps_ee_layer.png)
 
-Google Earth Engine layers are enabled if a Google Earth Engine API key has been configured for your
-system. Contact your system administrator if you need access to these layers.
+Google Earth Engine layers are enabled if a Google Earth Engine service account key has been
+configured for your system. Contact your system administrator if you need access to these layers.
+System administrators can set up the key by following
+[Google Earth Engine sign-up](#google_earth_engine_sign_up).
 
 The layers from Google Earth Engine let you show and aggregate external data for your organisation
 units. Aggregated values can be viewed either in popups or in the data table.
@@ -1508,22 +1512,25 @@ The **Maps** app administrator is able to:
 
 -   Configuration:
 
-    -   [Configure DHIS2 Maps](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/maps.html)
-    -   [Accessing map layers from Google Earth Engine](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html#accessing-map-layers-from-google-earth-engine)
-    -   [Geo-enabled microplanning](https://docs.dhis2.org/en/implement/health/immunization/immunization-campaigns/use.html?h=microplanning#geoenabled-microplanning),
-        including details about facility catchment areas
+    -   [Configure DHIS2 Maps](#gis_creating)
+    -   [Google Earth Engine sign-up](#google_earth_engine_sign_up)
+    -   [Geo-enabled microplanning](#geoenabled-microplanning), including details about facility
+        catchment areas
 
 -   Settings:
 
-    -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Infrastructural%20indicators)
-    -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Use%20centroids%20for%20organisation%20unit%20polygons%20in%20event%20analytics)
-    -   [Google Maps / Bing / Azure API keys](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)
+    -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](#system_server_settings)
+    -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](#system_server_settings)
+    -   [Bing Maps / Azure Maps API keys](#system_server_settings)
 
--   Metadata management:
+-   Metadata management (the Metadata Management app replaces the Maintenance app and works with
+    DHIS2 2.41 and later):
 
-    -   [Manage legends](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_manage_legend)
-    -   [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element)
+    -   Manage legends: [Metadata Management app](#mm_manage_legend),
+        [Maintenance app](#manage_legend)
+    -   Aggregation operators: [Metadata Management app](#mm_create_data_element),
+        [Maintenance app](#create_data_element)
 
 -   Training:
-    -   [Trainer's Guide to Maps](https://docs.dhis2.org/en/topics/training-docs/analytics-tools-academy/maps/traineraposs-guide-to-maps.html)
-    -   [Learner's Guide to Maps](https://docs.dhis2.org/en/topics/training-docs/analytics-tools-academy/maps/learneraposs-guide-to-maps.html)
+    -   [Trainer's Guide to Maps](#trainers-guide-to-maps)
+    -   [Learner's Guide to Maps](#learners-guide-to-maps)
