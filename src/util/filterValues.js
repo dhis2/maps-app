@@ -6,24 +6,48 @@ import {
     normalizeText,
     toFilterKey,
 } from './filter.js'
-import { compareColumnOptionValues } from './tableSort.js'
+import { compareColumnOptionValues, compareFieldValues } from './tableSort.js'
 
 // The list of values in a column's filter popover: what it lists, the rows it keeps,
 // and the filter it applies
 
-const compareEntries = (header, byLabel) => (a, b) => {
-    if (
-        !byLabel ||
-        a.key === SENTINEL_NO_VALUE ||
-        b.key === SENTINEL_NO_VALUE
-    ) {
-        return compareColumnOptionValues(a.key, b.key, header)
+const compareDefault = (header, byLabel) => (a, b) =>
+    byLabel
+        ? a.label.localeCompare(b.label)
+        : compareColumnOptionValues(a.key, b.key, header)
+
+// The column the table is sorted by lists its values in the rows' order
+const compareAsTable =
+    (header, { sortDirection, idToName }) =>
+    (a, b) =>
+        compareFieldValues(a.value, b.value, {
+            sortField: header.dataKey,
+            sortDirection,
+            orgUnitRenderer: header.renderer,
+            idToName,
+        })
+
+const compareEntries = (header, { byLabel, sorting }) => {
+    const compare =
+        sorting?.sortField === header.dataKey
+            ? compareAsTable(header, sorting)
+            : compareDefault(header, byLabel)
+    return (a, b) => {
+        if (a.key === SENTINEL_NO_VALUE) {
+            return -1
+        }
+        if (b.key === SENTINEL_NO_VALUE) {
+            return 1
+        }
+        return compare(a, b)
     }
-    return a.label.localeCompare(b.label)
 }
 
 // Each value of a column with its label and row count, "No value" first
-export const countColumnValues = (rows, { header, getLabel, byLabel }) => {
+export const countColumnValues = (
+    rows,
+    { header, getLabel, byLabel, sorting }
+) => {
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
@@ -42,7 +66,9 @@ export const countColumnValues = (rows, { header, getLabel, byLabel }) => {
             })
         }
     }
-    return [...byKey.values()].sort(compareEntries(header, byLabel))
+    return [...byKey.values()].sort(
+        compareEntries(header, { byLabel, sorting })
+    )
 }
 
 // The rows the other columns' filters keep, which the list counts

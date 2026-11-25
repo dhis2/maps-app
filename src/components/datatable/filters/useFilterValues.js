@@ -16,8 +16,14 @@ const useFilterValues = ({
     filters,
     orgUnitIdToName,
     keyAnalysisDigitGroupSeparator,
+    sortField,
+    sortDirection,
 }) => {
     const { optionSet } = useOptionSet(header.optionSet?.id)
+    const sorting = useMemo(
+        () => ({ sortField, sortDirection, idToName: orgUnitIdToName }),
+        [sortField, sortDirection, orgUnitIdToName]
+    )
     const matchOnLabel = isNamedValueColumn(header)
 
     const getLabel = useMemo(() => {
@@ -48,8 +54,9 @@ const useFilterValues = ({
                 header,
                 getLabel,
                 byLabel: matchOnLabel,
+                sorting,
             }),
-        [rows, header, getLabel, matchOnLabel]
+        [rows, header, getLabel, matchOnLabel, sorting]
     )
 
     const values = useMemo(
@@ -58,8 +65,9 @@ const useFilterValues = ({
                 header,
                 getLabel,
                 byLabel: matchOnLabel,
+                sorting,
             }),
-        [rows, filters, header, getLabel, matchOnLabel]
+        [rows, filters, header, getLabel, matchOnLabel, sorting]
     )
 
     return { allValues, values, matchOnLabel }

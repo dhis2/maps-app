@@ -47,6 +47,24 @@ describe('countColumnValues', () => {
             ['12', 1],
         ])
     })
+
+    test('lists the values of the column the table is sorted by in the rows’ order, "No value" first', () => {
+        const values = countColumnValues(ROWS, {
+            header: { dataKey: 'value', type: 'number' },
+            getLabel: String,
+            sorting: { sortField: 'value', sortDirection: 'desc' },
+        })
+        expect(values.map(({ key }) => key)).toEqual(['', '12', '5'])
+    })
+
+    test('keeps the default order when the table is sorted by another column', () => {
+        const values = countColumnValues(ROWS, {
+            header: { dataKey: 'value', type: 'number' },
+            getLabel: String,
+            sorting: { sortField: 'gender', sortDirection: 'desc' },
+        })
+        expect(values.map(({ key }) => key)).toEqual(['', '5', '12'])
+    })
 })
 
 describe('getRowsForColumn', () => {

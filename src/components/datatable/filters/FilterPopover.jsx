@@ -234,6 +234,8 @@ FilterPopover.propTypes = {
         filters: PropTypes.object,
         keyAnalysisDigitGroupSeparator: PropTypes.string,
         orgUnitIdToName: PropTypes.instanceOf(Map),
+        sortDirection: PropTypes.string,
+        sortField: PropTypes.string,
     }).isRequired,
     filterType: PropTypes.string.isRequired,
     header: PropTypes.shape({

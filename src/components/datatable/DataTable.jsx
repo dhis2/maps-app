@@ -159,12 +159,16 @@ const Table = ({
             filters: dataFilters,
             orgUnitIdToName,
             keyAnalysisDigitGroupSeparator,
+            sortField,
+            sortDirection,
         }),
         [
             filterRows,
             dataFilters,
             orgUnitIdToName,
             keyAnalysisDigitGroupSeparator,
+            sortField,
+            sortDirection,
         ]
     )
 
