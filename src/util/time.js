@@ -3,7 +3,7 @@ import i18n from '@dhis2/d2-i18n'
 const DEFAULT_LOCALE = 'en'
 
 // BCP 47 locale format
-const dateLocale = (locale) =>
+export const dateLocale = (locale) =>
     locale?.includes('_') ? locale.replaceAll('_', '-') : locale
 
 /**

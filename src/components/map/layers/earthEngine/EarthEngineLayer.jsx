@@ -45,6 +45,9 @@ export default class EarthEngineLayer extends Layer {
             await this.removeLayer()
             await this.createLayer(true)
             this.setLayerOrder()
+            this.highlightFeature()
+            this.selectFeatures()
+            this.updateVisibleIds()
         }
     }
 
@@ -115,6 +118,8 @@ export default class EarthEngineLayer extends Layer {
             preload: !isPlugin && this.hasAggregations(),
             onClick: this.onFeatureClick.bind(this),
             onRightClick: this.onFeatureRightClick.bind(this),
+            onMouseEnter: this.onFeatureMouseEnter.bind(this),
+            onMouseLeave: this.onFeatureMouseLeave.bind(this),
             onLoad: this.onLoad.bind(this),
         }
 
@@ -252,8 +257,12 @@ export default class EarthEngineLayer extends Layer {
     }
 
     onFeatureClick(evt) {
-        this.getAggregations()
-        this.setState({ popup: evt })
+        this.onFeatureLeftClick(evt)
+
+        if (!this.isMultiSelectClick(evt)) {
+            this.getAggregations()
+            this.setState({ popup: evt })
+        }
     }
 
     onLoad() {

@@ -38,6 +38,7 @@ export const useLayersLoader = () => {
             KeyTrackedEntityMaxLimit,
         },
         currentUser,
+        spatialSupport,
     } = useCachedData()
     const { showAlerts } = useLoaderAlerts()
     const allLayers = useSelector((state) => state.map.mapViews)
@@ -71,6 +72,7 @@ export const useLayersLoader = () => {
                 KeyTrackedEntityInstanceMaxLimit, // Tracked entity loader (2.40)
                 KeyTrackedEntityMaxLimit, // Tracked entity loader
                 loadExtended: !!dataTable, // Event loader
+                spatialSupport, // Event loader
             })
             if (result.alerts) {
                 showAlerts(result.alerts)
@@ -93,7 +95,7 @@ export const useLayersLoader = () => {
                     layer.layer === EVENT_LAYER &&
                     layer.id === dataTable &&
                     !layer.isExtended &&
-                    !layer.serverCluster
+                    (!layer.serverCluster || layer.forceClientCluster)
                 ) {
                     return true
                 }
@@ -134,6 +136,7 @@ export const useLayersLoader = () => {
         baseUrl,
         dataTable,
         serverVersion,
+        spatialSupport,
         KeyTrackedEntityInstanceMaxLimit,
         KeyTrackedEntityMaxLimit,
     ])

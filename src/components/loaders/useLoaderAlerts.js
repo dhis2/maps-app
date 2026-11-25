@@ -7,6 +7,7 @@ import {
     WARNING_NO_OU_COORD,
     WARNING_NO_GEOMETRY_COORD,
     WARNING_OU_BOUNDARIES_FETCH_FAILED,
+    WARNING_EXTERNAL_LAYER_NOT_FOUND,
     ERROR_CRITICAL,
     CUSTOM_ALERT,
 } from '../../constants/alerts.js'
@@ -40,6 +41,11 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
     })
 
     const ouBoundariesFetchFailedAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
+        warning: true,
+        onHidden: loaderAlertAction,
+    })
+
+    const externalLayerNotFoundAlert = useAlert(ALERT_MESSAGE_DYNAMIC, {
         warning: true,
         onHidden: loaderAlertAction,
     })
@@ -80,6 +86,14 @@ function useLoaderAlerts(loaderAlertAction = Function.prototype) {
                     ouBoundariesFetchFailedAlert.show({
                         msg: `${msg}: ${i18n.t(
                             'Could not check org unit boundaries'
+                        )}`,
+                    })
+                    break
+                }
+                case WARNING_EXTERNAL_LAYER_NOT_FOUND: {
+                    externalLayerNotFoundAlert.show({
+                        msg: `${msg}: ${i18n.t(
+                            'External layer definition not found, showing last known settings'
                         )}`,
                     })
                     break

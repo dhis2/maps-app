@@ -1,0 +1,26 @@
+.resizeHandle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    min-width: 24px;
+    height: 100%;
+    z-index: 1500;
+    cursor: grab;
+}
+
+.gripBox {
+    width: 99%;
+    height: 24px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--colors-grey600);
+}
+
+.resizeHandle:hover .gripBox,
+.resizeHandle:active .gripBox {
+    background-color: var(--colors-grey200);
+    color: var(--colors-grey900);
+}

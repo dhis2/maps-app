@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import React, { useState, useEffect, useRef } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setMapBounds } from '../../actions/dataTable.js'
 import { getSplitViewLayer } from '../../util/helpers.js'
 import DownloadMapInfo from '../download/DownloadMapInfo.jsx'
 import NorthArrow from '../download/NorthArrow.jsx'
@@ -13,6 +14,7 @@ const MapPosition = () => {
     const [map, setMap] = useState()
     const [resizeCount, setResizeCount] = useState(0)
     const outerRef = useRef(null)
+    const dispatch = useDispatch()
     const {
         showName,
         showDescription,
@@ -82,6 +84,36 @@ const MapPosition = () => {
             }
         }
     }, [map, mapId])
+
+    // Track map bounds in Redux for the "show only features in view" data table toggle
+    useEffect(() => {
+        if (!map) {
+            return
+        }
+
+        const mapgl = map.getMapGL()
+
+        if (!mapgl) {
+            return
+        }
+
+        const emitBounds = () => {
+            const b = mapgl.getBounds()
+            dispatch(
+                setMapBounds([
+                    b.getWest(),
+                    b.getSouth(),
+                    b.getEast(),
+                    b.getNorth(),
+                ])
+            )
+        }
+
+        emitBounds()
+        mapgl.on('moveend', emitBounds)
+
+        return () => mapgl.off('moveend', emitBounds)
+    }, [map, dispatch])
 
     // Fit layer bounds when app mode is toggled
     useEffect(() => {

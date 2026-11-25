@@ -48,8 +48,9 @@ import {
 import {
     getCoordinateField,
     addAssociatedGeometries,
+    attachOrgUnitPaths,
+    getMissingOrgUnitId,
     getOrgUnitsWithoutCoordsCount,
-    fetchOrgUnitDetails,
 } from '../util/orgUnits.js'
 import { LEGEND_SET_QUERY, GEOFEATURES_QUERY } from '../util/requests.js'
 import { formatStartEndDate, getDateArray } from '../util/time.js'
@@ -85,6 +86,7 @@ const thematicLoader = async ({
         legendIsolated,
         unclassifiedLegend: unclassifiedLegendFromConfig,
         noDataLegend: noDataLegendFromConfig,
+        dataTableColumnConfig,
     } = parseJsonConfig(config.config)
     if (countFeaturesWithoutCoordinates) {
         config.countFeaturesWithoutCoordinates = true
@@ -100,6 +102,9 @@ const thematicLoader = async ({
     }
     if (noDataLegendFromConfig) {
         config.noDataLegend = noDataLegendFromConfig
+    }
+    if (dataTableColumnConfig) {
+        config.dataTableColumnConfig = dataTableColumnConfig
     }
     if (config.noDataColor) {
         config.noDataLegend = {
@@ -175,6 +180,7 @@ const thematicLoader = async ({
             legend: null,
             isLoaded: true,
             isLoading: false,
+            isExpanded: true,
             loadError,
         }
     }
@@ -195,26 +201,27 @@ const thematicLoader = async ({
         if (!result.error) {
             orgUnitsWithoutCoordsCount = result.count
             if (result.count > 0) {
-                const details = await fetchOrgUnitDetails(
+                const missingOrgUnitsWithPaths = await attachOrgUnitPaths(
+                    result.missingOrgUnits,
                     engine,
-                    result.missingOrgUnits.map((o) => o.id)
+                    getMissingOrgUnitId
                 )
-                config.dataWithoutCoords = result.missingOrgUnits.map((ou) => ({
-                    ...ou,
-                    properties: {
-                        ...ou.properties,
-                        level: details[ou.id]?.level,
-                        parentName: details[ou.id]?.parentName,
-                        rawValue: valueById[ou.id],
-                        value:
-                            valueById[ou.id] === undefined
-                                ? undefined
-                                : formatWithSeparator(
-                                      valueById[ou.id],
-                                      keyAnalysisDigitGroupSeparator
-                                  ),
-                    },
-                }))
+                config.dataWithoutCoords = missingOrgUnitsWithPaths.map(
+                    (ou) => ({
+                        ...ou,
+                        properties: {
+                            ...ou.properties,
+                            rawValue: valueById[ou.id],
+                            value:
+                                valueById[ou.id] === undefined
+                                    ? undefined
+                                    : formatWithSeparator(
+                                          valueById[ou.id],
+                                          keyAnalysisDigitGroupSeparator
+                                      ),
+                        },
+                    })
+                )
             }
         }
     }
@@ -537,6 +544,10 @@ const thematicLoader = async ({
 
                 Object.assign(item, {
                     ...getFeatureColor(legendItem, {
+                        isNoData,
+                        isUnclassified,
+                    }),
+                    ...getFeatureLegend(legendItem, {
                         isNoData,
                         isUnclassified,
                     }),
