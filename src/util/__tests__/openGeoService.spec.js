@@ -34,9 +34,8 @@ const collection = {
         },
     },
     assets: {
-        zarr: {
-            href: 'http://ocs/zarr/era5land_temperature_monthly',
-            'zarr:zarr_format': 3,
+        icechunk: {
+            href: 'http://ocs/icechunk/era5land_temperature_monthly',
         },
     },
 }
@@ -136,7 +135,7 @@ describe('openGeoService', () => {
     it('builds render options from the render hints', () => {
         expect(getRenderOptions(collection)).toEqual({
             kind: 'raster',
-            source: 'http://ocs/zarr/era5land_temperature_monthly',
+            source: 'http://ocs/icechunk/era5land_temperature_monthly',
             variable: 't2m',
             min: -30,
             max: 30,

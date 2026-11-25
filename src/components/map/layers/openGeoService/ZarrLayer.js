@@ -4,6 +4,16 @@ import { getColormap } from '../../../../util/openGeoService.js'
 // Implements the layer interface that the maps-gl map expects (addTo, removeFrom,
 // move, setIndex, ...), as maps-gl does not have a Zarr layer type.
 // It could move to maps-gl as a layer type.
+// Readers open the published version: the `published` branch, or `main` on an instance that
+// publishes on `main` (Open Geo Service CLIM-2024), where `published` no longer exists.
+const openIcechunkStore = async (IcechunkStore, href) => {
+    try {
+        return await IcechunkStore.open(href, { branch: 'published' })
+    } catch {
+        return IcechunkStore.open(href, { branch: 'main' })
+    }
+}
+
 class ZarrLayer {
     constructor(options) {
         this.options = options
@@ -17,9 +27,12 @@ class ZarrLayer {
         this._map = map
 
         // Load on demand, only needed when a map has a Zarr layer
-        const { ZarrLayer: ZarrCustomLayer } = await import(
-            '@carbonplan/zarr-layer'
-        )
+        const [{ ZarrLayer: ZarrCustomLayer }, { IcechunkStore }] =
+            await Promise.all([
+                import('@carbonplan/zarr-layer'),
+                import('icechunk-js'),
+            ])
+        const store = await openIcechunkStore(IcechunkStore, render.source)
 
         // Removed while loading
         if (this._map !== map) {
@@ -28,7 +41,7 @@ class ZarrLayer {
 
         this._layer = new ZarrCustomLayer({
             id: this._id,
-            source: render.source,
+            store,
             variable: render.variable,
             clim: [render.min, render.max],
             colormap: getColormap(render.colormapName),

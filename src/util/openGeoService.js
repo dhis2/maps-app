@@ -58,9 +58,10 @@ const fetchJson = async (url) => {
 export const fetchCollection = (url, datasetId) =>
     fetchJson(`${url}/collections/${encodeURIComponent(datasetId)}`)
 
-// Raster collections have a Zarr asset
+// Raster collections have an Icechunk asset, read in the browser as the Open Geo Service map
+// viewer reads it, so the instance only serves files and no /zarr translation is needed
 export const isRasterCollection = (collection) =>
-    Boolean(collection?.assets?.zarr?.href)
+    Boolean(collection?.assets?.icechunk?.href)
 
 // Vector collections can be shown when they have vector tiles and a style
 export const isVectorCollection = (collection) =>
@@ -300,7 +301,7 @@ export const getColormap = (name = 'viridis', count = 256) => {
 // What the layer needs to render a collection, from its render hints
 export const getRenderOptions = (collection) => {
     const render = collection.renders?.default || {}
-    const zarr = collection.assets.zarr
+    const icechunk = collection.assets.icechunk
     const variable =
         render['ogs:variable'] ||
         Object.keys(collection['cube:variables'] || {})[0]
@@ -319,13 +320,13 @@ export const getRenderOptions = (collection) => {
 
     return {
         kind: 'raster',
-        source: zarr.href,
+        source: icechunk.href,
         variable,
         min,
         max,
         colormapName: render.colormap_name || 'viridis',
         fillValue: render.nodata ?? null,
-        zarrVersion: zarr['zarr:zarr_format'] ?? null,
+        zarrVersion: 3, // Icechunk stores Zarr v3
         crs,
         unit: collection['cube:variables']?.[variable]?.unit,
         bounds: getBounds(collection),
