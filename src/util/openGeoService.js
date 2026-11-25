@@ -53,8 +53,10 @@ const fetchJson = async (url) => {
     return response.json()
 }
 
+// From openEO's /collections rather than /stac: its collections keep the dataset id as their id
+// and their assets absolute, while the STAC catalog nests collections by kind with relative links.
 export const fetchCollection = (url, datasetId) =>
-    fetchJson(`${url}/stac/${encodeURIComponent(datasetId)}/collection.json`)
+    fetchJson(`${url}/collections/${encodeURIComponent(datasetId)}`)
 
 // Raster collections have a Zarr asset
 export const isRasterCollection = (collection) =>
@@ -69,16 +71,9 @@ const collectionsCache = {}
 // Published collections of an instance that can be shown on a map, fetched once per url
 export const fetchCollections = (url) => {
     if (!collectionsCache[url]) {
-        collectionsCache[url] = fetchJson(`${url}/stac/catalog.json`)
-            .then((catalog) =>
-                Promise.all(
-                    (catalog.links || [])
-                        .filter((link) => link.rel === 'child')
-                        .map((link) => fetchJson(link.href).catch(() => null))
-                )
-            )
-            .then((collections) =>
-                collections.filter(
+        collectionsCache[url] = fetchJson(`${url}/collections`)
+            .then((listing) =>
+                (listing.collections || []).filter(
                     (c) => isRasterCollection(c) || isVectorCollection(c)
                 )
             )
