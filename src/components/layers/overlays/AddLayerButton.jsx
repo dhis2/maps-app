@@ -2,12 +2,14 @@ import i18n from '@dhis2/d2-i18n'
 import { IconAddCircle24 } from '@dhis2/ui'
 import React, { useState, useRef } from 'react'
 import ManageLayerSourcesModal from '../../layerSources/ManageLayerSourcesModal.jsx'
+import OsmImportModal from '../../osmImport/OsmImportModal.jsx'
 import AddLayerPopover from './AddLayerPopover.jsx'
 import styles from './styles/AddLayerButton.module.css'
 
 const AddLayerButton = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [isManaging, setIsManaging] = useState(false)
+    const [isImportingOsm, setIsImportingOsm] = useState(false)
     const buttonRef = useRef()
 
     const toggleDialog = () => setIsOpen(!isOpen)
@@ -36,10 +38,14 @@ const AddLayerButton = () => {
                     anchorEl={buttonRef}
                     onClose={toggleDialog}
                     onManaging={onManaging}
+                    onOsmImport={() => setIsImportingOsm(true)}
                 />
             )}
             {isManaging && (
                 <ManageLayerSourcesModal onClose={() => setIsManaging(false)} />
+            )}
+            {isImportingOsm && (
+                <OsmImportModal onClose={() => setIsImportingOsm(false)} />
             )}
         </>
     )
