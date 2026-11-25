@@ -48,6 +48,33 @@ describe('countColumnValues', () => {
         ])
     })
 
+    test('orders text alphabetically whatever its case and accents', () => {
+        const values = countColumnValues(
+            ['Zone', 'apple', 'Évora', 'banana'].map((name) => ({ name })),
+            { header: { dataKey: 'name', type: 'string' }, getLabel: String }
+        )
+        expect(values.map(({ key }) => key)).toEqual([
+            '',
+            'apple',
+            'banana',
+            'Évora',
+            'Zone',
+        ])
+    })
+
+    test('orders ranges by their bounds, not as text', () => {
+        const values = countColumnValues(
+            ['120 – 990', '0 – 30', '30 – 50'].map((range) => ({ range })),
+            { header: { dataKey: 'range', type: 'string' }, getLabel: String }
+        )
+        expect(values.map(({ key }) => key)).toEqual([
+            '',
+            '0 – 30',
+            '30 – 50',
+            '120 – 990',
+        ])
+    })
+
     test('lists the values of the column the table is sorted by in the rows’ order, "No value" first', () => {
         const values = countColumnValues(ROWS, {
             header: { dataKey: 'value', type: 'number' },

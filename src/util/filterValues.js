@@ -1,4 +1,9 @@
-import { OPERATOR_FIND, SENTINEL_NO_VALUE } from '../constants/dataTable.js'
+import {
+    OPERATOR_FIND,
+    SENTINEL_NO_VALUE,
+    SORT_ASCENDING,
+    TYPE_NUMBER,
+} from '../constants/dataTable.js'
 import {
     filterData,
     getConditionTest,
@@ -6,15 +11,26 @@ import {
     normalizeText,
     toFilterKey,
 } from './filter.js'
-import { compareColumnOptionValues, compareFieldValues } from './tableSort.js'
+import { compareFieldValues, compareRangeValues } from './tableSort.js'
 
 // The list of values in a column's filter popover: what it lists, the rows it keeps,
 // and the filter it applies
 
-const compareDefault = (header, byLabel) => (a, b) =>
-    byLabel
-        ? a.label.localeCompare(b.label)
-        : compareColumnOptionValues(a.key, b.key, header)
+const RANGE = 'range'
+
+// Ascending, as each kind of value reads: names and text alphabetically, numbers and ranges by value
+const compareDefault = (header, byLabel) => (a, b) => {
+    if (byLabel) {
+        return a.label.localeCompare(b.label)
+    }
+    if (header.dataKey === RANGE) {
+        return compareRangeValues(a.value, b.value, SORT_ASCENDING)
+    }
+    if (header.type === TYPE_NUMBER) {
+        return Number(a.value) - Number(b.value)
+    }
+    return String(a.value).localeCompare(String(b.value))
+}
 
 // The column the table is sorted by lists its values in the rows' order
 const compareAsTable =
