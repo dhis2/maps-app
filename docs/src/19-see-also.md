@@ -2,22 +2,25 @@
 
 -   Configuration:
 
-    -   [Configure DHIS2 Maps](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/maps.html)
-    -   [Accessing map layers from Google Earth Engine](https://docs.dhis2.org/en/topics/tutorials/google-earth-engine-sign-up.html#accessing-map-layers-from-google-earth-engine)
-    -   [Geo-enabled microplanning](https://docs.dhis2.org/en/implement/health/immunization/immunization-campaigns/use.html?h=microplanning#geoenabled-microplanning),
-        including details about facility catchment areas
+    -   [Configure DHIS2 Maps](#gis_creating)
+    -   [Google Earth Engine sign-up](#google_earth_engine_sign_up)
+    -   [Geo-enabled microplanning](#geoenabled-microplanning), including details about facility
+        catchment areas
 
 -   Settings:
 
-    -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Infrastructural%20indicators)
-    -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=Use%20centroids%20for%20organisation%20unit%20polygons%20in%20event%20analytics)
-    -   [Google Maps / Bing / Azure API keys](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/system-settings.html#system_server_settings:~:text=com/analytics.-,Google%20Maps%20API%20key,-Defines%20the%20API)
+    -   [Infrastructural indicators / Infrastructural data elements / Infrastructural period type](#system_server_settings)
+    -   [Use centroids for organisation unit polygons in event analytics / Organisation unit group set in facility map layers / Organisation unit level in facility map layers / Default basemap](#system_server_settings)
+    -   [Bing Maps / Azure Maps API keys](#system_server_settings)
 
--   Metadata management:
+-   Metadata management (the Metadata Management app replaces the Maintenance app and works with
+    DHIS2 2.41 and later):
 
-    -   [Manage legends](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_manage_legend)
-    -   [Aggregation operators](https://docs.dhis2.org/en/use/user-guides/dhis-core-version-master/configuring-the-system/metadata-metadata-management-app.html#mm_create_data_element)
+    -   Manage legends: [Metadata Management app](#mm_manage_legend),
+        [Maintenance app](#manage_legend)
+    -   Aggregation operators: [Metadata Management app](#mm_create_data_element),
+        [Maintenance app](#create_data_element)
 
 -   Training:
-    -   [Trainer's Guide to Maps](https://docs.dhis2.org/en/topics/training-docs/analytics-tools-academy/maps/traineraposs-guide-to-maps.html)
-    -   [Learner's Guide to Maps](https://docs.dhis2.org/en/topics/training-docs/analytics-tools-academy/maps/learneraposs-guide-to-maps.html)
+    -   [Trainer's Guide to Maps](#trainers-guide-to-maps)
+    -   [Learner's Guide to Maps](#learners-guide-to-maps)

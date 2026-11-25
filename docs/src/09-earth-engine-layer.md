@@ -2,8 +2,10 @@
 
 ![](../resources/images/maps_ee_layer.png)
 
-Google Earth Engine layers are enabled if a Google Earth Engine API key has been configured for your
-system. Contact your system administrator if you need access to these layers.
+Google Earth Engine layers are enabled if a Google Earth Engine service account key has been
+configured for your system. Contact your system administrator if you need access to these layers.
+System administrators can set up the key by following
+[Google Earth Engine sign-up](#google_earth_engine_sign_up).
 
 The layers from Google Earth Engine let you show and aggregate external data for your organisation
 units. Aggregated values can be viewed either in popups or in the data table.
