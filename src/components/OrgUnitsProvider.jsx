@@ -29,14 +29,15 @@ const OrgUnitsProvider = ({ children }) => {
     const engine = useDataEngine()
 
     useEffect(() => {
-        engine.query(ORG_UNITS_QUERY, {
-            onComplete: ({ levels, roots }) =>
+        engine
+            .query(ORG_UNITS_QUERY)
+            .then(({ levels, roots }) =>
                 setOrgUnits({
                     levels: levels.organisationUnitLevels,
                     roots: roots.organisationUnits,
-                }),
-            onError: setError,
-        })
+                })
+            )
+            .catch(setError)
     }, [engine])
 
     return (
