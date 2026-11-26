@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_ICON } from '../../constants/dataTable.js'
+import { RENDERER_GEOMETRY, RENDERER_ICON } from '../../constants/dataTable.js'
 import { formatCellText } from '../../util/tableCells.js'
+import GeometrySymbol from './GeometrySymbol.jsx'
 import styles from './styles/DataTable.module.css'
 
 const CellValue = ({
@@ -31,6 +32,14 @@ const CellValue = ({
         orgUnitIdToName,
         keyAnalysisDigitGroupSeparator,
     })
+    if (renderer === RENDERER_GEOMETRY && text) {
+        return (
+            <>
+                <GeometrySymbol type={value} className={styles.geometry} />
+                {text}
+            </>
+        )
+    }
     if (!swatch || !text) {
         return text
     }

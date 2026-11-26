@@ -7,6 +7,7 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_GEOMETRY,
     TYPE_DATE,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../../constants/dataTable.js'
@@ -110,6 +111,42 @@ describe('RowCells', () => {
         const icon = container.querySelector('img')
         fireEvent.error(icon)
         expect(icon).toHaveStyle({ visibility: 'hidden' })
+    })
+
+    it.each([
+        ['Point', 1],
+        ['MultiPoint', 2],
+        ['LineString', 1],
+        ['MultiLineString', 2],
+        ['Polygon', 1],
+        ['MultiPolygon', 2],
+    ])(
+        'shows a %s geometry type with its symbol, one shape per part',
+        (type, shapes) => {
+            renderRow(
+                [
+                    { dataKey: 'id', value: 'row1' },
+                    { dataKey: 'name', value: type },
+                ],
+                { rendererByDataKey: new Map([['name', RENDERER_GEOMETRY]]) }
+            )
+            expect(screen.getByText(type)).toBeInTheDocument()
+            expect(screen.getByTestId('geometry-symbol').children).toHaveLength(
+                shapes
+            )
+        }
+    )
+
+    it('shows other geometry types as text only', () => {
+        renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'name', value: 'GeometryCollection' },
+            ],
+            { rendererByDataKey: new Map([['name', RENDERER_GEOMETRY]]) }
+        )
+        expect(screen.getByText('GeometryCollection')).toBeInTheDocument()
+        expect(screen.queryByTestId('geometry-symbol')).toBeNull()
     })
 
     it('renders a date-only cell formatted as just the date', () => {

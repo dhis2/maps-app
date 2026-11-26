@@ -30,6 +30,14 @@ td.monoCell {
     box-shadow: inset 0 0 0 1px rgba(33, 41, 52, 0.15);
 }
 
+.geometry {
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+    vertical-align: -2px;
+    color: var(--colors-grey700);
+}
+
 .iconCell {
     display: block;
     width: 20px;

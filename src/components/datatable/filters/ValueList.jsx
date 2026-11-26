@@ -5,10 +5,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import {
     RENDERER_COLOR,
+    RENDERER_GEOMETRY,
     RENDERER_ICON,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
 import { isDarkColor } from '../../../util/colors.js'
+import GeometrySymbol from '../GeometrySymbol.jsx'
 import styles from './styles/Filters.module.css'
 
 // Long lists show their first values; a condition or "Find in list" narrows them
@@ -18,7 +20,7 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
-    // A color value is painted as in its table cell; a legend class shows its color
+    // A color value is painted as in its table cell; a legend class shows its color, a geometry type its symbol
     const isPainted = renderer === RENDERER_COLOR && !entry.isGone
     return (
         <span
@@ -37,6 +39,12 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
                     onError={(e) => {
                         e.target.style.visibility = 'hidden'
                     }}
+                />
+            )}
+            {renderer === RENDERER_GEOMETRY && (
+                <GeometrySymbol
+                    type={entry.value}
+                    className={styles.geometry}
                 />
             )}
             {entry.color && !entry.isGone && (
