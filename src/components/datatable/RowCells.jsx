@@ -2,7 +2,7 @@ import { DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_COLOR } from '../../constants/dataTable.js'
+import { RENDERER_COLOR, RENDERER_ICON } from '../../constants/dataTable.js'
 import { isDarkColor } from '../../util/colors.js'
 import { getRowId, isMonospaceColumn } from '../../util/dataTable.js'
 import CellValue from './CellValue.jsx'
@@ -25,7 +25,7 @@ const RowCells = ({
         hoveredFeature?.layerId === layerId
 
     const cellsByDataKey = new Map(row.map((cell) => [cell.dataKey, cell]))
-    // Legend cells show their class icon or color, as the legend in the layer card
+    // Legend and Icon cells show the class icon or color, as the legend in the layer card
     const legendSymbol = {
         iconUrl: cellsByDataKey.get('iconUrl')?.value,
         color: cellsByDataKey.get('color')?.value,
@@ -63,7 +63,10 @@ const RowCells = ({
                             renderer={renderer}
                             type={typeByDataKey.get(dataKey)}
                             legendSymbol={
-                                dataKey === 'legend' ? legendSymbol : undefined
+                                dataKey === 'legend' ||
+                                renderer === RENDERER_ICON
+                                    ? legendSymbol
+                                    : undefined
                             }
                             orgUnitIdToName={orgUnitIdToName}
                             keyAnalysisDigitGroupSeparator={

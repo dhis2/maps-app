@@ -188,6 +188,7 @@ const getStyleHeaders = ({
     hasGroup,
     hasColor,
     hasIcon,
+    isColorHidden = false,
 }) => {
     const headers = []
     if (hasLegend) {
@@ -200,7 +201,10 @@ const getStyleHeaders = ({
         headers.push(defaultFieldsMap()[GROUP])
     }
     if (hasColor) {
-        headers.push(defaultFieldsMap()[COLOR])
+        headers.push({
+            ...defaultFieldsMap()[COLOR],
+            ...(isColorHidden && { defaultHidden: true }),
+        })
     }
     if (hasIcon) {
         headers.push(defaultFieldsMap()[ICON])
@@ -285,7 +289,9 @@ const getEventHeaders = ({
     return fields.concat(customFields).concat(defaultFieldsMap()[TYPE])
 }
 
-const getOrgUnitStyleHeaders = (data) => {
+// Facility layers draw icons: the Icon column also shows the unclassified facilities' dot,
+// and the Color column, which only holds that dot's color, starts hidden
+const getOrgUnitStyleHeaders = (data, { drawsIcons = false } = {}) => {
     let hasLegend = false
     let hasGroup = false
     let hasColor = false
@@ -302,17 +308,24 @@ const getOrgUnitStyleHeaders = (data) => {
         }
     }
 
-    return getStyleHeaders({ hasLegend, hasGroup, hasColor, hasIcon })
+    return getStyleHeaders({
+        hasLegend,
+        hasGroup,
+        hasColor,
+        hasIcon: hasIcon || (drawsIcons && hasColor),
+        isColorHidden: drawsIcons,
+    })
 }
 
-const getFixedFieldsWithOrgUnitStyle = (data) =>
+const getFixedFieldsWithOrgUnitStyle = (data, options) =>
     getOrgUnitCoreFields(i18n.t('Org unit ID'))
-        .concat(getOrgUnitStyleHeaders(data))
+        .concat(getOrgUnitStyleHeaders(data, options))
         .concat(defaultFieldsMap()[TYPE])
 
 const getOrgUnitHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
-const getFacilityHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
+const getFacilityHeaders = (data) =>
+    getFixedFieldsWithOrgUnitStyle(data, { drawsIcons: true })
 
 const toTitleCase = (str) =>
     str.replace(

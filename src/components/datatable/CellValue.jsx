@@ -15,14 +15,23 @@ const CellValue = ({
     keyAnalysisDigitGroupSeparator,
 }) => {
     if (renderer === RENDERER_ICON) {
-        return value ? (
-            <img
-                className={styles.iconCell}
-                src={value}
-                alt=""
-                onError={(e) => {
-                    e.target.style.visibility = 'hidden'
-                }}
+        if (value) {
+            return (
+                <img
+                    className={styles.iconCell}
+                    src={value}
+                    alt=""
+                    onError={(e) => {
+                        e.target.style.visibility = 'hidden'
+                    }}
+                />
+            )
+        }
+        // Unclassified facilities are drawn as a dot instead of an icon
+        return legendSymbol?.color ? (
+            <span
+                className={styles.iconDot}
+                style={{ backgroundColor: legendSymbol.color }}
             />
         ) : null
     }

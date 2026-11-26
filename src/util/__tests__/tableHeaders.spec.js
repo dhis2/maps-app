@@ -289,6 +289,21 @@ describe('getHeadersForLayer - org unit / facility', () => {
             'type',
         ])
     })
+
+    test('facility: the Color column, holding only the unclassified dot’s color, starts hidden; the Icon column shows the dot', () => {
+        const result = getHeadersForLayer(FACILITY_LAYER, {
+            data: [{ legend: 'Unclassified', color: '#ccc' }],
+        })
+        const header = (dataKey) =>
+            result.headers.find((h) => h.dataKey === dataKey)
+        expect(header('color').defaultHidden).toBe(true)
+        expect(header('iconUrl')).toBeDefined()
+        expect(
+            getHeadersForLayer(ORG_UNIT_LAYER, {
+                data: [{ legend: 'Unclassified', color: '#ccc' }],
+            }).headers.find((h) => h.dataKey === 'color').defaultHidden
+        ).toBeUndefined()
+    })
 })
 
 describe('getHeadersForLayer - earth engine', () => {

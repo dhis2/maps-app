@@ -116,6 +116,21 @@ describe('RowCells', () => {
         )
     })
 
+    it('shows the dot of an unclassified facility in its Icon cell, in its color', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'name', value: undefined },
+                { dataKey: 'color', value: '#aabbcc' },
+            ],
+            { rendererByDataKey: new Map([['name', RENDERER_ICON]]) }
+        )
+        expect(container.querySelector('img')).toBeNull()
+        expect(container.querySelector('td span')).toHaveStyle({
+            backgroundColor: '#aabbcc',
+        })
+    })
+
     it('hides an icon that fails to load', () => {
         const { container } = renderRow(
             [
