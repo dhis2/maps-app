@@ -1,4 +1,5 @@
 module.exports = {
+    roots: ['./src', './.github/scripts'],
     setupFilesAfterEnv: ['<rootDir>/config/testSetup.js'],
     collectCoverageFrom: ['src/**/*.{js,jsx}'],
     testPathIgnorePatterns: ['/node_modules/', '/cypress/'],

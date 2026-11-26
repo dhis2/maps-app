@@ -43,16 +43,21 @@ With `yarn start` running, open [http://localhost:3000/plugin-host.html](http://
 
 The plugin e2e tests (`cypress/integration/plugin.cy.js`) use the same page, sending the plugin dashboard-like props through `window.setPluginProps`.
 
-## Cypress Cloud
+## e2e tests on pull requests
 
-To record tests in Cypress Cloud, you can use one of the following methods based on your needs:
+The e2e tests run on every push to a ready-for-review pull request into master, the only branch that requires them to pass. Drafts and pull requests into other branches (such as stacked pull requests) skip them; build, lint and unit tests still run.
 
--   **Commit Message**: Include `[e2e record]` in your commit messages to activate recording.
--   **GitHub Labels**: Apply the `e2e record` label to your pull request to trigger recording.
+A draft into master shows its required e2e check as "Expected" until it is marked ready for review, which starts the e2e tests. A pull request whose base changes to master runs the e2e tests on its next push, such as "Update branch".
 
-This setup helps in managing Cypress Cloud credits more efficiently, ensuring recordings are only made when explicitly required.
+Add the `e2e run` label to run the e2e tests once on any pull request. The workflow removes the label when the run starts, so adding it again starts another run. Other labels start the e2e tests only on a ready pull request into master: GitHub only counts the latest run of a workflow, so every run there includes them.
 
-To also run the e2e tests against the DHIS2 development version, apply the `e2e dev` label to your pull request.
+A pull request comment shows the last full e2e run, and whether the e2e tests ran on the latest commit.
+
+## Cypress Cloud and the DHIS2 development version
+
+While a pull request has the `e2e record` label, its e2e runs are recorded in Cypress Cloud. While it has the `e2e dev` label, each e2e run also runs the tests against the DHIS2 development version. A run reads the labels when it starts, so add them before `e2e run`.
+
+Recording is opt-in to save Cypress Cloud credits.
 
 ## Learn More
 
