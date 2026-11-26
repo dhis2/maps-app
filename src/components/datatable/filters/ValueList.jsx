@@ -8,6 +8,7 @@ import {
     RENDERER_ICON,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
+import { isDarkColor } from '../../../util/colors.js'
 import styles from './styles/Filters.module.css'
 
 // Long lists show their first values; a condition or "Find in list" narrows them
@@ -17,10 +18,17 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
-    // A color value shows itself; a legend class shows its color
-    const swatch = renderer === RENDERER_COLOR ? entry.value : entry.color
+    // A color value is painted as in its table cell; a legend class shows its color
+    const isPainted = renderer === RENDERER_COLOR && !entry.isGone
     return (
-        <span className={cx({ [styles.monoLabel]: isMonospace })}>
+        <span
+            className={cx({
+                [styles.monoLabel]: isMonospace,
+                [styles.paintedLabel]: isPainted,
+                [styles.lightLabel]: isPainted && isDarkColor(entry.value),
+            })}
+            style={isPainted ? { backgroundColor: entry.value } : undefined}
+        >
             {renderer === RENDERER_ICON && !entry.isGone && (
                 <img
                     className={styles.iconThumbnail}
@@ -31,10 +39,10 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
                     }}
                 />
             )}
-            {swatch && !entry.isGone && (
+            {entry.color && !entry.isGone && (
                 <span
                     className={styles.swatch}
-                    style={{ backgroundColor: swatch }}
+                    style={{ backgroundColor: entry.color }}
                 />
             )}
             {entry.label}
