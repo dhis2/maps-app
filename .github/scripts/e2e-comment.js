@@ -3,7 +3,7 @@
 //
 // The comment has two fixed lines, then two status lines that each run may change:
 //
-//   <!-- e2e-last-full-run -->                                     MARKER (hidden)
+//   <!-- e2e-last-full-run -->                                      MARKER (hidden)
 //   **e2e tests** _(updated when a run finishes; …)_                TITLE
 //   ⏭️ Latest commit `7d086dc`: skipped (draft). Add the …          latestCommitLine, left out when the last full run is on it
 //   ✅ Last full run `d404783`: passed (2026-11-24 15:48 UTC, …)    lastFullRunLine, or "➖ Last full run: none yet."
