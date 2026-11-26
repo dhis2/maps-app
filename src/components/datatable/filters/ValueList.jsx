@@ -11,6 +11,7 @@ import {
 } from '../../../constants/dataTable.js'
 import { isDarkColor } from '../../../util/colors.js'
 import GeometrySymbol from '../GeometrySymbol.jsx'
+import LegendSymbol from '../LegendSymbol.jsx'
 import styles from './styles/Filters.module.css'
 
 // Long lists show their first values; a condition or "Find in list" narrows them
@@ -20,7 +21,7 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (entry.key === SENTINEL_NO_VALUE) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
-    // A color value is painted as in its table cell; a legend class shows its color, a geometry type its symbol
+    // A color value is painted as in its table cell; a legend class shows its icon or color, a geometry type its symbol
     const isPainted = renderer === RENDERER_COLOR && !entry.isGone
     return (
         <span
@@ -47,12 +48,7 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
                     className={styles.geometry}
                 />
             )}
-            {entry.color && !entry.isGone && (
-                <span
-                    className={styles.swatch}
-                    style={{ backgroundColor: entry.color }}
-                />
-            )}
+            <LegendSymbol iconUrl={entry.iconUrl} color={entry.color} />
             {entry.label}
         </span>
     )

@@ -13,15 +13,15 @@ import {
     formatOrgUnitPathBreadcrumb,
 } from './orgUnitGroups.js'
 
-const LEGEND = 'legend'
 const RANGE = 'range'
+const LEGEND_DATA_KEYS = new Set(['legend', RANGE, 'group'])
 const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
 
-// Columns that show a row's legend class or group, sorted in the legend's order
+// Columns that show a row's legend class or what puts it there, sorted in the legend's order
 export const isLegendColumn = ({ dataKey, renderer } = {}) =>
-    dataKey === LEGEND || dataKey === RANGE || LEGEND_RENDERERS.has(renderer)
+    LEGEND_DATA_KEYS.has(dataKey) || LEGEND_RENDERERS.has(renderer)
 
-// A row's place in the legend, as the layer card lists it: by its class or group name,
+// A row's place in the legend, as the layer card lists it: by its class name,
 // or by its color for automatic classes, which have no name. "No data" ranks after every class
 export const getLegendRank = (legendItems) => {
     const byName = new Map()
@@ -35,8 +35,7 @@ export const getLegendRank = (legendItems) => {
             byColor.set(item.color, rank)
         }
     })
-    return (row) =>
-        byName.get(row.legend ?? row.group) ?? byColor.get(row.color)
+    return (row) => byName.get(row.legend) ?? byColor.get(row.color)
 }
 
 // The legend's order, reversed when descending; "No data" and rows outside the legend stay last

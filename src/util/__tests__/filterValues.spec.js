@@ -139,9 +139,9 @@ describe('countColumnValues', () => {
         test('lists Color and Icon in the group set’s order, values outside the legend last', () => {
             const values = countColumnValues(
                 [
-                    { group: 'Hospital', iconUrl: 'a.png' },
+                    { legend: 'Hospital', group: 'Hospital', iconUrl: 'a.png' },
                     { iconUrl: 'z.png' },
-                    { group: 'Clinic', iconUrl: 'b.png' },
+                    { legend: 'Clinic', group: 'Clinic', iconUrl: 'b.png' },
                 ],
                 {
                     header: { dataKey: 'iconUrl', renderer: RENDERER_ICON },
@@ -155,6 +155,48 @@ describe('countColumnValues', () => {
                 'a.png',
                 'z.png',
             ])
+        })
+
+        describe('layers styled by a group set', () => {
+            const GROUP_ROWS = [
+                { legend: 'MCHP', group: 'MCHP', iconUrl: 'm.png' },
+                { legend: 'Unclassified', color: '#ccc' },
+                { legend: 'CHC', group: 'CHC', iconUrl: 'c.png' },
+            ]
+            const GROUP_ITEMS = [
+                { name: 'MCHP', image: 'm.png' },
+                { name: 'CHC', image: 'c.png' },
+                { name: 'Unclassified', color: '#ccc' },
+            ]
+            const countGroups = (dataKey) =>
+                countColumnValues(GROUP_ROWS, {
+                    header: { dataKey, type: 'string' },
+                    getLabel: String,
+                    legendItems: GROUP_ITEMS,
+                })
+
+            test('lists Legend in the legend’s order, each class with its icon or color', () => {
+                expect(
+                    countGroups('legend').map(({ key, iconUrl, color }) => [
+                        key,
+                        iconUrl,
+                        color,
+                    ])
+                ).toEqual([
+                    ['', undefined, undefined],
+                    ['MCHP', 'm.png', undefined],
+                    ['CHC', 'c.png', undefined],
+                    ['Unclassified', undefined, '#ccc'],
+                ])
+            })
+
+            test('lists Group in the legend’s order, as Range for thematic layers', () => {
+                expect(countGroups('group').map(({ key }) => key)).toEqual([
+                    '',
+                    'MCHP',
+                    'CHC',
+                ])
+            })
         })
 
         test('lists automatic classes, named by their range, in the legend’s order by their color', () => {

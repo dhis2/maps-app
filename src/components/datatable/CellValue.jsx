@@ -3,13 +3,14 @@ import React from 'react'
 import { RENDERER_GEOMETRY, RENDERER_ICON } from '../../constants/dataTable.js'
 import { formatCellText } from '../../util/tableCells.js'
 import GeometrySymbol from './GeometrySymbol.jsx'
+import LegendSymbol from './LegendSymbol.jsx'
 import styles from './styles/DataTable.module.css'
 
 const CellValue = ({
     value,
     renderer,
     type,
-    swatch,
+    legendSymbol,
     orgUnitIdToName,
     keyAnalysisDigitGroupSeparator,
 }) => {
@@ -40,15 +41,12 @@ const CellValue = ({
             </>
         )
     }
-    if (!swatch || !text) {
+    if (!legendSymbol || !text) {
         return text
     }
     return (
         <>
-            <span
-                className={styles.swatch}
-                style={{ backgroundColor: swatch }}
-            />
+            <LegendSymbol {...legendSymbol} />
             {text}
         </>
     )
@@ -56,9 +54,12 @@ const CellValue = ({
 
 CellValue.propTypes = {
     keyAnalysisDigitGroupSeparator: PropTypes.string,
+    legendSymbol: PropTypes.shape({
+        color: PropTypes.string,
+        iconUrl: PropTypes.string,
+    }),
     orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
-    swatch: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,

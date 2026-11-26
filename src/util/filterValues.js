@@ -80,11 +80,14 @@ const compareEntries = (header, options) => {
     }
 }
 
-// A legend column's value takes its row's place in the legend; Legend also shows its class color
+// A legend column's value takes its row's place in the legend; Legend also shows its class icon or color
 const getLegendFields = (row, header, getRank) =>
     getRank && {
         legendRank: getRank(row),
-        ...(header.dataKey === LEGEND && { color: row.color }),
+        ...(header.dataKey === LEGEND && {
+            iconUrl: row.iconUrl,
+            color: row.color,
+        }),
     }
 
 // Each value of a column with its label and row count, "No value" first

@@ -270,6 +270,26 @@ describe('getHeadersForLayer - org unit / facility', () => {
             'type',
         ])
     })
+
+    test('styled by a group set: Legend, Group, Color and Icon in the places of thematic Legend, Range and Color', () => {
+        const result = getHeadersForLayer(FACILITY_LAYER, {
+            data: [
+                { legend: 'CHC', group: 'CHC', iconUrl: 'c.png' },
+                { legend: 'Unclassified', color: '#ccc' },
+            ],
+        })
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'legend',
+            'group',
+            'color',
+            'iconUrl',
+            'type',
+        ])
+    })
 })
 
 describe('getHeadersForLayer - earth engine', () => {

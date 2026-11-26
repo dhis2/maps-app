@@ -160,6 +160,7 @@ export const getStyledOrgUnits = ({
     }
 
     const useColor = styleType === STYLE_TYPE_COLOR
+    const unclassifiedName = unclassifiedLegend?.name || i18n.t('Unclassified')
 
     const styledFeatures = features
         .map((f) => {
@@ -186,6 +187,7 @@ export const getStyledOrgUnits = ({
 
             if (isUnclassified && unclassifiedLegend) {
                 properties.color = unclassifiedLegend.color
+                properties.legend = unclassifiedName
             } else if (useColor && color) {
                 properties.color = hasAdditionalGeometry
                     ? ORG_UNIT_COLOR
@@ -194,8 +196,10 @@ export const getStyledOrgUnits = ({
                 properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
             }
 
+            // The data table's Legend column names the class as the layer card does
             if (groupName) {
                 properties.group = groupName
+                properties.legend = groupName
             }
 
             if (properties.level && levelWeight) {
@@ -220,7 +224,7 @@ export const getStyledOrgUnits = ({
 
     if (unclassifiedLegend && groupSet.id) {
         groupItems.push({
-            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            name: unclassifiedName,
             color: unclassifiedLegend.color,
             ...(isFacilityLayer && !useColor ? { radius: radiusLow } : {}),
         })

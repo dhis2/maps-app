@@ -212,6 +212,7 @@ describe('isLegendColumn', () => {
     it.each([
         [{ dataKey: 'legend' }, true],
         [{ dataKey: 'range' }, true],
+        [{ dataKey: 'group' }, true],
         [{ dataKey: 'color', renderer: RENDERER_COLOR }, true],
         [{ dataKey: 'iconUrl', renderer: RENDERER_ICON }, true],
         [{ dataKey: 'rawValue' }, false],

@@ -301,21 +301,23 @@ const getEventHeaders = ({
 }
 
 const getOrgUnitStyleHeaders = (data) => {
+    let hasLegend = false
     let hasGroup = false
     let hasColor = false
     let hasIcon = false
 
     for (const d of data ?? []) {
+        hasLegend ||= d.legend != null
         hasGroup ||= d.group != null
         hasColor ||= d.color != null
         hasIcon ||= d.iconUrl != null
 
-        if (hasGroup && hasColor && hasIcon) {
+        if (hasLegend && hasGroup && hasColor && hasIcon) {
             break
         }
     }
 
-    return getStyleHeaders({ hasGroup, hasColor, hasIcon })
+    return getStyleHeaders({ hasLegend, hasGroup, hasColor, hasIcon })
 }
 
 const getFixedFieldsWithOrgUnitStyle = (data) =>

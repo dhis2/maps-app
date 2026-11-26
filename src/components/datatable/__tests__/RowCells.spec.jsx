@@ -60,6 +60,22 @@ describe('RowCells', () => {
         })
     })
 
+    it('shows a legend class with its icon, as facility legends in the layer card', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'CHC' },
+                { dataKey: 'iconUrl', value: 'https://example.com/chc.png' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(screen.getByText('CHC')).toBeInTheDocument()
+        expect(container.querySelector('td img')).toHaveAttribute(
+            'src',
+            'https://example.com/chc.png'
+        )
+    })
+
     it('shows a legend class without a swatch when the row has no color', () => {
         const { container } = renderRow(
             [
