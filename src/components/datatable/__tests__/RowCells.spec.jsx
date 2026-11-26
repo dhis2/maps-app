@@ -44,6 +44,32 @@ describe('RowCells', () => {
         expect(screen.getByText('Bo')).toBeInTheDocument()
     })
 
+    it('shows a legend class with its color, as the legend in the layer card', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'High' },
+                { dataKey: 'color', value: '#FF0000' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(screen.getByText('High')).toBeInTheDocument()
+        expect(container.querySelector('td span')).toHaveStyle({
+            backgroundColor: '#FF0000',
+        })
+    })
+
+    it('shows a legend class without a swatch when the row has no color', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'High' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(container.querySelector('td span')).toBeNull()
+    })
+
     it('renders a color cell as a lowercased swatch value with a background color', () => {
         renderRow(
             [

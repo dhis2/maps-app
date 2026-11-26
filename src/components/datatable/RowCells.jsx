@@ -25,6 +25,8 @@ const RowCells = ({
         hoveredFeature?.layerId === layerId
 
     const cellsByDataKey = new Map(row.map((cell) => [cell.dataKey, cell]))
+    // Legend cells show their class color, as the legend in the layer card
+    const legendColor = cellsByDataKey.get('color')?.value
 
     return (
         <>
@@ -57,6 +59,9 @@ const RowCells = ({
                             value={value}
                             renderer={renderer}
                             type={typeByDataKey.get(dataKey)}
+                            swatch={
+                                dataKey === 'legend' ? legendColor : undefined
+                            }
                             orgUnitIdToName={orgUnitIdToName}
                             keyAnalysisDigitGroupSeparator={
                                 keyAnalysisDigitGroupSeparator

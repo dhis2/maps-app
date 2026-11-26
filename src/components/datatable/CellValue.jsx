@@ -8,6 +8,7 @@ const CellValue = ({
     value,
     renderer,
     type,
+    swatch,
     orgUnitIdToName,
     keyAnalysisDigitGroupSeparator,
 }) => {
@@ -24,18 +25,31 @@ const CellValue = ({
         ) : null
     }
 
-    return formatCellText(value, {
+    const text = formatCellText(value, {
         renderer,
         type,
         orgUnitIdToName,
         keyAnalysisDigitGroupSeparator,
     })
+    if (!swatch || !text) {
+        return text
+    }
+    return (
+        <>
+            <span
+                className={styles.swatch}
+                style={{ backgroundColor: swatch }}
+            />
+            {text}
+        </>
+    )
 }
 
 CellValue.propTypes = {
     keyAnalysisDigitGroupSeparator: PropTypes.string,
     orgUnitIdToName: PropTypes.instanceOf(Map),
     renderer: PropTypes.string,
+    swatch: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.oneOfType([
         PropTypes.string,
