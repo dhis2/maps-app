@@ -27,14 +27,22 @@ const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
 const isLegendColumn = ({ dataKey, renderer }) =>
     dataKey === LEGEND || dataKey === RANGE || LEGEND_RENDERERS.has(renderer)
 
-// Each class or group's place in the legend, as the layer card lists them
-const getLegendRanks = (legendItems) =>
-    new Map(
-        sortLegendItems(legendItems ?? []).map(({ name }, index) => [
-            name,
-            index,
-        ])
-    )
+// A row's place in the legend, as the layer card lists it: by its class or group name,
+// or by its color for automatic classes, which have no name
+const getLegendRank = (legendItems) => {
+    const byName = new Map()
+    const byColor = new Map()
+    sortLegendItems(legendItems ?? []).forEach(({ name, color }, index) => {
+        if (name && !byName.has(name)) {
+            byName.set(name, index)
+        }
+        if (color && !byColor.has(color)) {
+            byColor.set(color, index)
+        }
+    })
+    return (row) =>
+        byName.get(row.legend ?? row.group) ?? byColor.get(row.color)
+}
 
 // Ascending, as each kind of value reads: names and text alphabetically, numbers and ranges by value
 const compareDefault = (header, byLabel) => (a, b) => {
@@ -97,9 +105,9 @@ const compareEntries = (header, options) => {
 }
 
 // A legend column's value takes its row's place in the legend; Legend also shows its class color
-const getLegendFields = (row, header, legendRanks) =>
-    legendRanks && {
-        legendRank: legendRanks.get(row.legend ?? row.group),
+const getLegendFields = (row, header, getRank) =>
+    getRank && {
+        legendRank: getRank(row),
         ...(header.dataKey === LEGEND && { color: row.color }),
     }
 
@@ -108,9 +116,7 @@ export const countColumnValues = (
     rows,
     { header, getLabel, byLabel, sorting, legendItems }
 ) => {
-    const legendRanks = isLegendColumn(header)
-        ? getLegendRanks(legendItems)
-        : null
+    const getRank = isLegendColumn(header) ? getLegendRank(legendItems) : null
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
@@ -126,7 +132,7 @@ export const countColumnValues = (
                 value,
                 label: getLabel(value, row),
                 count: 1,
-                ...getLegendFields(row, header, legendRanks),
+                ...getLegendFields(row, header, getRank),
             })
         }
     }

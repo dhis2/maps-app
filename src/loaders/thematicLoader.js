@@ -420,16 +420,15 @@ const thematicLoader = async ({
 
     const getFeatureLegend = (legendItem, { isNoData, isUnclassified }) => {
         if (legendItem) {
-            return {
-                legend: legendItem.name,
-                range: formatRangeWithSeparator(
-                    legendItem,
-                    keyAnalysisDigitGroupSeparator,
-                    {
-                        precision: config.legendDecimalPlaces,
-                    }
-                ),
-            }
+            const range = formatRangeWithSeparator(
+                legendItem,
+                keyAnalysisDigitGroupSeparator,
+                {
+                    precision: config.legendDecimalPlaces,
+                }
+            )
+            // Automatic classes have no name: the layer card shows their range instead
+            return { legend: legendItem.name || range, range }
         }
         if (isNoData) {
             return { legend: noDataLegendItem.name }

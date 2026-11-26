@@ -115,6 +115,27 @@ describe('countColumnValues', () => {
             ])
         })
 
+        test('lists "No data" last, as the layer card does', () => {
+            const values = countColumnValues(
+                [{ legend: 'No data', color: '#ccc' }, ...CLASSED_ROWS],
+                {
+                    header: { dataKey: 'legend', type: 'string' },
+                    getLabel: String,
+                    legendItems: [
+                        { name: 'No data', color: '#ccc', isNoData: true },
+                        ...LEGEND_ITEMS,
+                    ],
+                }
+            )
+            expect(values.map(({ key }) => key)).toEqual([
+                '',
+                'High',
+                'Medium',
+                'Low',
+                'No data',
+            ])
+        })
+
         test('lists Color and Icon in the group set’s order, values outside the legend last', () => {
             const values = countColumnValues(
                 [
@@ -133,6 +154,30 @@ describe('countColumnValues', () => {
                 'b.png',
                 'a.png',
                 'z.png',
+            ])
+        })
+
+        test('lists automatic classes, named by their range, in the legend’s order by their color', () => {
+            const values = countColumnValues(
+                [
+                    { legend: '0 – 30', color: '#fee' },
+                    { legend: '50 – 90', color: '#f00' },
+                    { legend: '30 – 50', color: '#f88' },
+                ],
+                {
+                    header: { dataKey: 'legend', type: 'string' },
+                    getLabel: String,
+                    legendItems: LEGEND_ITEMS.map((item) => ({
+                        ...item,
+                        name: undefined,
+                    })),
+                }
+            )
+            expect(values.map(({ key }) => key)).toEqual([
+                '',
+                '50 – 90',
+                '30 – 50',
+                '0 – 30',
             ])
         })
 

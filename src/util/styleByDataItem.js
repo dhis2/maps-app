@@ -87,7 +87,8 @@ export const addLegendProperties = (
             ...feature,
             properties: {
                 ...feature.properties,
-                legend: legendItem.name,
+                // Automatic classes have no name: the layer card shows their range instead
+                legend: legendItem.name || range,
                 range,
             },
         }
