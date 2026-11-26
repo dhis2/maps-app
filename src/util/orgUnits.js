@@ -226,6 +226,7 @@ export const getStyledOrgUnits = ({
         groupItems.push({
             name: unclassifiedName,
             color: unclassifiedLegend.color,
+            isUnclassified: true,
             ...(isFacilityLayer && !useColor ? { radius: radiusLow } : {}),
         })
     }

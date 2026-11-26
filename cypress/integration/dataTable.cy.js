@@ -35,6 +35,16 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
         .should('contain', expectedContent)
 }
 
+const checkEmptyTableCell = ({ row, column }) =>
+    cy
+        .getByDataTest('bottom-panel')
+        .findByDataTest('dhis2-uicore-tablebody')
+        .find('tr')
+        .eq(row)
+        .find('td')
+        .eq(column)
+        .should(($cell) => expect($cell.text().trim()).to.equal(''))
+
 const openColumnFilter = (column) =>
     cy.get(`button[aria-label="Filter by ${column}"]`).click()
 
@@ -283,7 +293,7 @@ describe('data table', () => {
         checkTableCell({ row: 1, column: 9, expectedContent: '32' })
     })
 
-    it('places undefined data at the end when sorting', () => {
+    it('sorts empty values first when ascending and last when descending', () => {
         cy.visit('/')
 
         const ThemLayer = new ThematicLayer()
@@ -329,7 +339,7 @@ describe('data table', () => {
         // Confirm that the sort order is initially ascending by Name
         checkTableCell({ row: 0, column: 1, expectedContent: 'Bendu CHC' })
 
-        // First click on a new column always sorts ascending
+        // First click on a new column always sorts ascending: empty values first
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // Reset scroll position after sorting - see comment above
@@ -337,18 +347,9 @@ describe('data table', () => {
             ensureScrollable: false,
         })
 
-        // Check that first row has Tihun CHC with value 28.63
-        checkTableCell({ row: 0, column: 1, expectedContent: 'Tihun CHC' })
-        checkTableCell({ row: 0, column: 4, expectedContent: '28.63' })
+        checkEmptyTableCell({ row: 0, column: 4 })
 
-        // Check that row 5 has Gbamgbama CHC with value 117.98
-        checkTableCell({ row: 5, column: 1, expectedContent: 'Gbamgbama CHC' })
-        checkTableCell({ row: 5, column: 4, expectedContent: '117.98' })
-
-        // Check that row 6 has no value (undefined)
-        checkTableCell({ row: 6, column: 4, expectedContent: '' })
-
-        // Sort descending by Value
+        // Sort descending by Value: empty values last
         cy.getByDataTest('data-table-column-sort-button-Value').click()
 
         // Reset scroll position after sorting - see comment above
@@ -362,7 +363,7 @@ describe('data table', () => {
         checkTableCell({ row: 5, column: 1, expectedContent: 'Tihun CHC' })
         checkTableCell({ row: 5, column: 4, expectedContent: '28.63' })
 
-        checkTableCell({ row: 6, column: 4, expectedContent: '' })
+        checkEmptyTableCell({ row: 6, column: 4 })
 
         // Third click on the same column cycles back to natural (unsorted)
         // order - there's no dedicated Index column/button any more
@@ -373,10 +374,7 @@ describe('data table', () => {
             ensureScrollable: false,
         })
 
-        // Check that row 0 range value is empty
-        checkTableCell({ row: 0, column: 6, expectedContent: '' })
-
-        // Sort by range, which is a string
+        // Sort by Range ascending: "No data" org units, without a range, first
         cy.getByDataTest('data-table-column-sort-button-Range').click()
 
         // Reset scroll position after sorting - see comment above
@@ -384,13 +382,18 @@ describe('data table', () => {
             ensureScrollable: false,
         })
 
-        // Check that row 0 range value has value '0-40'
-        checkTableCell({ row: 0, column: 6, expectedContent: '0 – 40' })
+        checkEmptyTableCell({ row: 0, column: 6 })
 
-        // Check that row 5 range value has value '90 - 120'
-        checkTableCell({ row: 5, column: 6, expectedContent: '90 – 120' })
+        // Sort by Range descending: as the layer card lists the classes, "No data" last
+        cy.getByDataTest('data-table-column-sort-button-Range').click()
 
-        // Check that row 6 range value is empty
-        checkTableCell({ row: 6, column: 6, expectedContent: '' })
+        // Reset scroll position after sorting - see comment above
+        cy.get('[data-testid="virtuoso-scroller"]').scrollTo('top', {
+            ensureScrollable: false,
+        })
+
+        checkTableCell({ row: 0, column: 6, expectedContent: '90 – 120' })
+        checkTableCell({ row: 5, column: 6, expectedContent: '0 – 40' })
+        checkEmptyTableCell({ row: 6, column: 6 })
     })
 })

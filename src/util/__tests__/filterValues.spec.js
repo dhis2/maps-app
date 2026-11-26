@@ -224,27 +224,27 @@ describe('countColumnValues', () => {
             ])
         })
 
-        test('reverses the legend’s order when the table sorts the column descending, "No data" still last', () => {
-            const values = countColumnValues(
-                [{ legend: 'No data', color: '#ccc' }, ...CLASSED_ROWS],
-                {
-                    header: { dataKey: 'legend', type: 'string' },
-                    getLabel: String,
-                    legendItems: [
-                        { name: 'No data', color: '#ccc', isNoData: true },
-                        ...LEGEND_ITEMS,
-                    ],
-                    sorting: { sortField: 'legend', sortDirection: 'desc' },
-                }
-            )
-            expect(values.map(({ key }) => key)).toEqual([
-                '',
-                'Low',
-                'Medium',
-                'High',
-                'No data',
-            ])
-        })
+        test.each([
+            ['desc', ['High', 'Medium', 'Low', 'No data']],
+            ['asc', ['No data', 'Low', 'Medium', 'High']],
+        ])(
+            'follows the table when it sorts the column %s, "No value" first',
+            (sortDirection, expected) => {
+                const values = countColumnValues(
+                    [{ legend: 'No data', color: '#ccc' }, ...CLASSED_ROWS],
+                    {
+                        header: { dataKey: 'legend', type: 'string' },
+                        getLabel: String,
+                        legendItems: [
+                            { name: 'No data', color: '#ccc', isNoData: true },
+                            ...LEGEND_ITEMS,
+                        ],
+                        sorting: { sortField: 'legend', sortDirection },
+                    }
+                )
+                expect(values.map(({ key }) => key)).toEqual(['', ...expected])
+            }
+        )
     })
 
     test('lists the values of the column the table is sorted by in the rows’ order, "No value" first', () => {

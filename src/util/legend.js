@@ -54,6 +54,8 @@ const getRange = (item) => {
     return null
 }
 
+export const hasLegendRange = (item) => getRange(item) !== null
+
 export const sortLegendItems = (items) =>
     [...items].sort((a, b) => {
         const aRange = getRange(a)

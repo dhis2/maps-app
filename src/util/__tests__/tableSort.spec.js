@@ -39,12 +39,15 @@ describe('compareFieldValues', () => {
         ).toBeGreaterThan(0)
     })
 
-    it('sorts undefined values to the end regardless of direction', () => {
+    it('counts empty values as the lowest: first when ascending, last when descending', () => {
         expect(
             compareFieldValues(undefined, 5, { sortDirection: 'asc' })
+        ).toBeLessThan(0)
+        expect(
+            compareFieldValues(undefined, 5, { sortDirection: 'desc' })
         ).toBeGreaterThan(0)
         expect(
-            compareFieldValues(5, undefined, { sortDirection: 'desc' })
+            compareFieldValues('', 'Bo', { sortDirection: 'asc' })
         ).toBeLessThan(0)
     })
 
@@ -54,10 +57,10 @@ describe('compareFieldValues', () => {
         ).toBe(0)
     })
 
-    it('sorts null values to the end too, without throwing (e.g. a period column with no data for some rows)', () => {
+    it('counts null values as empty too, without throwing (e.g. a period column with no data for some rows)', () => {
         expect(
             compareFieldValues(null, 5, { sortDirection: 'asc' })
-        ).toBeGreaterThan(0)
+        ).toBeLessThan(0)
         expect(
             compareFieldValues(5, null, { sortDirection: 'desc' })
         ).toBeLessThan(0)
@@ -162,21 +165,9 @@ describe('compareRows', () => {
     })
 
     describe('legend columns', () => {
-        const getRank = getLegendRank([
-            { name: 'No data', color: '#ccc', isNoData: true },
-            { name: 'Low', startValue: 0, endValue: 30, color: '#fee' },
-            { name: 'High', startValue: 50, endValue: 90, color: '#f00' },
-            { startValue: 30, endValue: 50, color: '#f88' },
-        ])
-        const rows = [
-            { legend: 'No data', color: '#ccc' },
-            { legend: 'Low', color: '#fee' },
-            { legend: '30 – 50', color: '#f88' },
-            { legend: 'Other', color: '#000' },
-            { legend: 'High', color: '#f00' },
-        ]
-        const sortRows = (sortDirection) =>
-            [...rows]
+        const sortRows = (rows, legendItems, sortDirection) => {
+            const getRank = getLegendRank(legendItems)
+            return [...rows]
                 .sort((a, b) =>
                     compareRows(a, b, {
                         sortField: 'legend',
@@ -185,25 +176,84 @@ describe('compareRows', () => {
                     })
                 )
                 .map(({ legend }) => legend)
+        }
 
-        it('sorts ascending in the legend’s order, as the layer card lists it, "No data" and other rows last', () => {
-            expect(sortRows('asc')).toEqual([
-                'High',
-                '30 – 50',
-                'Low',
+        describe('classes with a range', () => {
+            const ITEMS = [
+                { name: 'No data', color: '#ccc', isNoData: true },
+                { name: 'Low', startValue: 0, endValue: 30, color: '#fee' },
+                { name: 'High', startValue: 50, endValue: 90, color: '#f00' },
+                { startValue: 30, endValue: 50, color: '#f88' },
+                { name: 'Unclassified', color: '#999', isUnclassified: true },
+                {
+                    name: 'Outliers',
+                    startValue: 90,
+                    endValue: 990,
+                    color: '#000',
+                    isIsolated: true,
+                },
+            ]
+            const ROWS = [
                 'No data',
+                'Low',
+                'Outliers',
                 'Other',
-            ])
+                'High',
+                'Unclassified',
+            ]
+                .map((legend) => ({ legend }))
+                .concat({ legend: '30 – 50', color: '#f88' })
+
+            it('sorts descending as the layer card lists them, "No data" and rows outside the legend last', () => {
+                expect(sortRows(ROWS, ITEMS, 'desc')).toEqual([
+                    'High',
+                    '30 – 50',
+                    'Low',
+                    'Outliers',
+                    'Unclassified',
+                    'No data',
+                    'Other',
+                ])
+            })
+
+            it('sorts ascending in the reverse order, "No data" and rows outside the legend first', () => {
+                expect(sortRows(ROWS, ITEMS, 'asc')).toEqual([
+                    'Other',
+                    'No data',
+                    'Unclassified',
+                    'Outliers',
+                    'Low',
+                    '30 – 50',
+                    'High',
+                ])
+            })
         })
 
-        it('reverses the legend’s order when descending, "No data" and other rows still last', () => {
-            expect(sortRows('desc')).toEqual([
-                'Low',
-                '30 – 50',
-                'High',
-                'No data',
-                'Other',
-            ])
+        describe('groups', () => {
+            const ITEMS = [
+                { name: 'CHC', image: 'c.png' },
+                { name: 'MCHP', image: 'm.png' },
+                { name: 'Unclassified', color: '#ccc', isUnclassified: true },
+            ]
+            const ROWS = ['MCHP', 'Unclassified', 'CHC'].map((legend) => ({
+                legend,
+            }))
+
+            it('sorts ascending by name, as the layer card lists them, "Unclassified" first', () => {
+                expect(sortRows(ROWS, ITEMS, 'asc')).toEqual([
+                    'Unclassified',
+                    'CHC',
+                    'MCHP',
+                ])
+            })
+
+            it('sorts descending in the reverse order, "Unclassified" last', () => {
+                expect(sortRows(ROWS, ITEMS, 'desc')).toEqual([
+                    'MCHP',
+                    'CHC',
+                    'Unclassified',
+                ])
+            })
         })
     })
 })

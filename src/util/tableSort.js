@@ -7,7 +7,12 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../constants/dataTable.js'
-import { parseRange, sortLegendItems } from './legend.js'
+import {
+    hasLegendRange,
+    isRegularLegendItem,
+    parseRange,
+    sortLegendItems,
+} from './legend.js'
 import {
     formatOrgUnitOwnName,
     formatOrgUnitPathBreadcrumb,
@@ -21,36 +26,48 @@ const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
 export const isLegendColumn = ({ dataKey, renderer } = {}) =>
     LEGEND_DATA_KEYS.has(dataKey) || LEGEND_RENDERERS.has(renderer)
 
-// A row's place in the legend, as the layer card lists it: by its class name,
-// or by its color for automatic classes, which have no name. "No data" ranks after every class
-export const getLegendRank = (legendItems) => {
+const applyDirection = (diff, sortDirection) =>
+    sortDirection === SORT_ASCENDING ? diff : -diff
+
+// A row's place among the given classes: by its class name,
+// or by its color for automatic classes, which have no name
+const rankRows = (orderedItems) => {
     const byName = new Map()
     const byColor = new Map()
-    sortLegendItems(legendItems ?? []).forEach((item, index) => {
-        const rank = item.isNoData ? Infinity : index
+    orderedItems.forEach((item, index) => {
         if (item.name && !byName.has(item.name)) {
-            byName.set(item.name, rank)
+            byName.set(item.name, index)
         }
         if (item.color && !byColor.has(item.color)) {
-            byColor.set(item.color, rank)
+            byColor.set(item.color, index)
         }
     })
     return (row) => byName.get(row.legend) ?? byColor.get(row.color)
 }
 
-// The legend's order, reversed when descending; "No data" and rows outside the legend stay last
-export const compareLegendRanks = (aRank, bRank, sortDirection) => {
-    if (aRank === bRank) {
-        return 0
-    }
-    if (aRank === undefined || aRank === Infinity) {
-        return 1
-    }
-    if (bRank === undefined || bRank === Infinity) {
-        return -1
-    }
-    return sortDirection === SORT_ASCENDING ? aRank - bRank : bRank - aRank
+// From the lowest class to the highest: "No data", "Unclassified" and the isolated class first,
+// as for empty cells, then classes with a range from the lowest, then the others as the layer card lists them
+const getAscendingClasses = (legendItems) => {
+    const cardItems = sortLegendItems(legendItems)
+    const regularItems = cardItems.filter(isRegularLegendItem)
+    return [
+        ...cardItems.filter((item) => !isRegularLegendItem(item)).reverse(),
+        ...regularItems.filter(hasLegendRange).reverse(),
+        ...regularItems.filter((item) => !hasLegendRange(item)),
+    ]
 }
+
+// A row's place when sorting by a legend column
+export const getLegendRank = (legendItems) =>
+    rankRows(getAscendingClasses(legendItems ?? []))
+
+// A row's place in the layer card's list
+export const getLegendCardRank = (legendItems) =>
+    rankRows(sortLegendItems(legendItems ?? []))
+
+// Rows outside the legend count as the lowest, as empty cells do
+export const compareLegendRanks = (aRank, bRank, sortDirection) =>
+    applyDirection((aRank ?? -1) - (bRank ?? -1), sortDirection)
 
 const compareStrings = (a, b) => {
     if (a < b) {
@@ -92,7 +109,7 @@ export const compareRangeValues = (aVal, bVal, sortDirection) => {
     return sortDirection === SORT_ASCENDING ? aEnd - bEnd : bEnd - aEnd
 }
 
-const isNoValue = (val) => val === undefined || val === null
+const isNoValue = (val) => val === undefined || val === null || val === ''
 
 const resolveSortText = (value, renderer, idToName) => {
     if (renderer === RENDERER_ORG_UNIT) {
@@ -109,15 +126,14 @@ export const compareFieldValues = (
     bVal,
     { sortField, sortDirection, orgUnitRenderer, idToName }
 ) => {
-    // All missing values should be sorted to the end
-    if (isNoValue(aVal) && isNoValue(bVal)) {
-        return 0
-    }
-    if (isNoValue(aVal)) {
-        return 1
-    }
-    if (isNoValue(bVal)) {
-        return -1
+    // Empty cells count as the lowest value: first when ascending, last when descending
+    const aIsEmpty = isNoValue(aVal)
+    const bIsEmpty = isNoValue(bVal)
+    if (aIsEmpty || bIsEmpty) {
+        return applyDirection(
+            Number(bIsEmpty) - Number(aIsEmpty),
+            sortDirection
+        )
     }
     if (typeof aVal === 'number') {
         return sortDirection === SORT_ASCENDING ? aVal - bVal : bVal - aVal

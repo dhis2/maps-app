@@ -15,6 +15,7 @@ import {
     compareFieldValues,
     compareLegendRanks,
     compareRangeValues,
+    getLegendCardRank,
     getLegendRank,
     isLegendColumn,
 } from './tableSort.js'
@@ -54,10 +55,11 @@ const compareAsTable = (header, { sortDirection, idToName }) => {
         })
 }
 
+const toCardPlace = (rank) => rank ?? Number.MAX_SAFE_INTEGER
+
 // Values outside the legend come after it, in the default order
 const compareByLegend = (compare) => (a, b) =>
-    compareLegendRanks(a.legendRank, b.legendRank, SORT_ASCENDING) ||
-    compare(a, b)
+    toCardPlace(a.legendRank) - toCardPlace(b.legendRank) || compare(a, b)
 
 const getCompare = (header, { byLabel, sorting }) => {
     if (sorting?.sortField === header.dataKey) {
@@ -90,12 +92,22 @@ const getLegendFields = (row, header, getRank) =>
         }),
     }
 
+// A legend column lists its values as the table sorts them when sorted by it, else as the layer card does
+const getListRank = (header, sorting, legendItems) => {
+    if (!isLegendColumn(header)) {
+        return null
+    }
+    return sorting?.sortField === header.dataKey
+        ? getLegendRank(legendItems)
+        : getLegendCardRank(legendItems)
+}
+
 // Each value of a column with its label and row count, "No value" first
 export const countColumnValues = (
     rows,
     { header, getLabel, byLabel, sorting, legendItems }
 ) => {
-    const getRank = isLegendColumn(header) ? getLegendRank(legendItems) : null
+    const getRank = getListRank(header, sorting, legendItems)
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])

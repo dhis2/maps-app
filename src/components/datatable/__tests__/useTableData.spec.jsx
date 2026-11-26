@@ -1291,7 +1291,7 @@ describe('useTableData sorting', () => {
         ],
     }
 
-    test('sorts numeric values in ascending order with undefined/null at end', () => {
+    test('sorts numeric values in ascending order with undefined/null first', () => {
         const store = {
             aggregations: {},
         }
@@ -1312,7 +1312,7 @@ describe('useTableData sorting', () => {
         const valueColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'rawValue')?.value
         )
-        expect(valueColumn).toEqual([5, 10, 15, null, null])
+        expect(valueColumn).toEqual([null, null, 5, 10, 15])
     })
 
     test('sorts numeric values in descending order with undefined/null at end', () => {
@@ -1339,7 +1339,7 @@ describe('useTableData sorting', () => {
         expect(valueColumn).toEqual([15, 10, 5, null, null])
     })
 
-    test('sorts string values in ascending order with undefined at end', () => {
+    test('sorts string values in ascending order with undefined first', () => {
         const layerWithStringData = {
             id: 'test-layer',
             layer: 'thematic',
@@ -1372,7 +1372,7 @@ describe('useTableData sorting', () => {
         const nameColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
         )
-        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
+        expect(nameColumn).toEqual([undefined, 'Apple', 'Banana', 'Zebra'])
     })
 
     test('sorts string values in descending order with undefined at end', () => {
@@ -1450,7 +1450,7 @@ describe('useTableData sorting', () => {
         const valueColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'rawValue')?.value
         )
-        expect(valueColumn).toEqual([5, 10, null, null])
+        expect(valueColumn).toEqual([null, null, 5, 10])
     })
 
     test('handles all undefined values', () => {
