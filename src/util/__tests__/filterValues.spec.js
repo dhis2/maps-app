@@ -289,6 +289,7 @@ describe('getListedValues', () => {
         )
         expect(keys(result)).toEqual(['', 'ou1', 'ou2'])
         expect(result.hidden).toBe(1)
+        expect(result.isNarrowed).toBe(true)
     })
 
     test('"Find in list" lists the values whose name contains the text, without "No value"', () => {
@@ -299,6 +300,7 @@ describe('getListedValues', () => {
         )
         expect(keys(result)).toEqual(['ou2'])
         expect(result.hidden).toBe(0)
+        expect(result.isNarrowed).toBe(true)
     })
 
     test('keeps listing an unchecked value no row has any more', () => {
@@ -313,6 +315,7 @@ describe('getListedValues', () => {
             count: 0,
             isGone: true,
         })
+        expect(result.isNarrowed).toBe(false)
     })
 })
 

@@ -69,7 +69,11 @@ const FilterPopover = ({
     const applied = normalizeFilter(toAppliedFilter(draft, options))
     const error = getFilterError(draft)
     const canApply = !isSameFilter(applied, filter) && !error
-    const { listed, hidden } = getListedValues(values, draft, options)
+    const { listed, hidden, isNarrowed } = getListedValues(
+        values,
+        draft,
+        options
+    )
     const keptCount = countKeptRows(values, draft, options)
     const totalCount = countKeptRows(values, { excluded: [] }, options)
 
@@ -163,6 +167,7 @@ const FilterPopover = ({
                         <ValueList
                             listed={listed}
                             hidden={hidden}
+                            isNarrowed={isNarrowed}
                             excluded={draft.excluded}
                             renderer={renderer}
                             isMonospace={isMonospaceColumn(header)}

@@ -286,6 +286,24 @@ describe('FilterButton value list', () => {
         })
     })
 
+    test('with a condition, "Select all" and "Deselect all" leave "No value" as the condition set it', async () => {
+        const store = await renderButton(undefined, {
+            header: GENDER_HEADER,
+            ...FEW_VALUES,
+        })
+
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        typeText('fem')
+        fireEvent.click(screen.getByText('Deselect all'))
+        expect(checkbox('Female')).not.toBeChecked()
+        fireEvent.click(screen.getByText('Select all'))
+        expect(checkbox('Female')).toBeChecked()
+        expect(checkbox('No value')).not.toBeChecked()
+
+        fireEvent.click(applyButton())
+        expect(store.getActions()[0].filter.excluded).toEqual([''])
+    })
+
     test('checking "No value" back keeps the rows without a value despite the condition', async () => {
         const store = await renderButton(undefined, {
             header: GENDER_HEADER,

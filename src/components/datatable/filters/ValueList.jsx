@@ -64,6 +64,7 @@ ValueLabel.propTypes = {
 const ValueList = ({
     listed,
     hidden,
+    isNarrowed,
     excluded,
     renderer,
     isMonospace,
@@ -86,11 +87,14 @@ const ValueList = ({
         onChange([...next], key)
     }
 
-    // Act on the listed values only, so a condition or a search narrows what they change
+    // Act on the listed values only, so a condition or a search narrows what they change;
+    // "No value" never matches a condition: only its own checkbox changes it then
+    const keysToSet = isNarrowed
+        ? listedKeys.filter((key) => key !== SENTINEL_NO_VALUE)
+        : listedKeys
     const checkAll = () =>
-        onChange(excluded.filter((key) => !listedKeys.includes(key)))
-    const uncheckAll = () =>
-        onChange([...new Set([...excluded, ...listedKeys])])
+        onChange(excluded.filter((key) => !keysToSet.includes(key)))
+    const uncheckAll = () => onChange([...new Set([...excluded, ...keysToSet])])
 
     return (
         <div className={styles.stack}>
@@ -187,6 +191,7 @@ ValueList.propTypes = {
     listed: PropTypes.arrayOf(PropTypes.object).isRequired,
     onChange: PropTypes.func.isRequired,
     isMonospace: PropTypes.bool,
+    isNarrowed: PropTypes.bool,
     renderer: PropTypes.string,
 }
 

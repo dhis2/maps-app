@@ -170,7 +170,7 @@ const getFindText = (draft) =>
     draft.operator === OPERATOR_FIND ? normalizeText(draft.value ?? '') : ''
 
 // The values to list: those passing the condition, or found by "Find in list",
-// with "No value" and the unchecked values no row has any more
+// with "No value" and the unchecked values no row has any more; and whether either narrows the list
 export const getListedValues = (values, draft, { matchOnLabel }) => {
     const test = getEntryTest(draft, matchOnLabel)
     const findText = getFindText(draft)
@@ -194,7 +194,11 @@ export const getListedValues = (values, draft, { matchOnLabel }) => {
         .filter((key) => !counted.has(key))
         .map((key) => ({ key, label: key, count: 0, isGone: true }))
 
-    return { listed: [...listed, ...gone], hidden }
+    return {
+        listed: [...listed, ...gone],
+        hidden,
+        isNarrowed: !!test || !!findText,
+    }
 }
 
 // The rows the draft would keep, among those the other filters keep
