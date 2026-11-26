@@ -3,6 +3,7 @@ import {
     countColumnValues,
     countKeptRows,
     getListedValues,
+    getOpenParts,
     getRowsForColumn,
     toAppliedFilter,
 } from '../filterValues.js'
@@ -311,6 +312,45 @@ describe('getListedValues', () => {
             label: 'ou9',
             count: 0,
             isGone: true,
+        })
+    })
+})
+
+describe('getOpenParts', () => {
+    const valuesOf = (count) => [
+        { key: '', label: '', count: 3 },
+        ...Array.from({ length: count }, (_, i) => ({
+            key: `v${i}`,
+            label: `v${i}`,
+            count: 1,
+        })),
+    ]
+    const open = (count, filter, isValuesOnly = false) =>
+        getOpenParts(valuesOf(count), filter, { isValuesOnly })
+
+    test('opens on the list up to 10 values, "No value" not counted, on the condition from 11', () => {
+        expect(open(10)).toEqual({ condition: false, values: true })
+        expect(open(11)).toEqual({ condition: true, values: false })
+    })
+
+    test('also opens the part in use', () => {
+        const condition = { type: 'text', operator: 'contains', value: 'bo' }
+        const unchecked = { type: 'text', excluded: ['v1'] }
+        expect(open(3, condition)).toEqual({ condition: true, values: true })
+        expect(open(50, unchecked)).toEqual({ condition: true, values: true })
+    })
+
+    test('keeps the condition closed when only "No value" is unchecked', () => {
+        expect(open(50, { type: 'text', excluded: [''] })).toEqual({
+            condition: true,
+            values: false,
+        })
+    })
+
+    test('shows only the list for Color and Icon, whatever their number of values', () => {
+        expect(open(50, undefined, true)).toEqual({
+            condition: false,
+            values: true,
         })
     })
 })

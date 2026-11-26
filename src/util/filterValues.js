@@ -127,6 +127,24 @@ export const getRowsForColumn = (rows, filters, dataKey) => {
     return filterData(rows, otherFilters)
 }
 
+// Up to this many values are quicker to pick than to match with a condition
+const MAX_PICKED_VALUES = 10
+
+// The parts the popover opens with: the list for a column with few values, the condition
+// for the others, and any part already in use
+export const getOpenParts = (values, filter, { isValuesOnly }) => {
+    const valueCount = values.filter(
+        ({ key }) => key !== SENTINEL_NO_VALUE
+    ).length
+    const opensOnList = isValuesOnly || valueCount <= MAX_PICKED_VALUES
+    return {
+        condition: !isValuesOnly && (!opensOnList || hasCondition(filter)),
+        values:
+            opensOnList ||
+            !!filter?.excluded?.some((key) => key !== SENTINEL_NO_VALUE),
+    }
+}
+
 // The draft's condition on a listed value: on its label where cells show a name
 const getEntryTest = (draft, matchOnLabel) => {
     const test = getConditionTest(draft)

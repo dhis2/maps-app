@@ -5,7 +5,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
-    FILTER_VIEW_VALUES,
     FILTER_VIEW_VALUES_ONLY,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
@@ -21,6 +20,7 @@ import {
 import {
     countKeptRows,
     getListedValues,
+    getOpenParts,
     toAppliedFilter,
 } from '../../../util/filterValues.js'
 import ConditionRow from './ConditionRow.jsx'
@@ -35,18 +35,6 @@ const getDraft = (filterType, filter) => ({
     value: '',
     ...filter,
     excluded: filter?.excluded ?? [],
-})
-
-// Columns with few values open on their list, the others on their condition;
-// a part folds into a link only while it is empty
-const getOpenParts = (filterView, filter) => ({
-    condition:
-        filterView !== FILTER_VIEW_VALUES_ONLY &&
-        (filterView !== FILTER_VIEW_VALUES || hasCondition(filter)),
-    values:
-        filterView === FILTER_VIEW_VALUES ||
-        filterView === FILTER_VIEW_VALUES_ONLY ||
-        !!filter?.excluded?.some((key) => key !== SENTINEL_NO_VALUE),
 })
 
 const FilterPopover = ({
@@ -72,8 +60,9 @@ const FilterPopover = ({
             hasCondition(filter) !==
                 filter.excluded?.includes(SENTINEL_NO_VALUE)
     )
+    const isValuesOnly = filterView === FILTER_VIEW_VALUES_ONLY
     const [openParts, setOpenParts] = useState(() =>
-        getOpenParts(filterView, filter)
+        getOpenParts(values, filter, { isValuesOnly })
     )
 
     const options = { matchOnLabel, allValues }
@@ -160,17 +149,16 @@ const FilterPopover = ({
                             onChange={updateCondition}
                         />
                     )}
-                    {!openParts.condition &&
-                        filterView !== FILTER_VIEW_VALUES_ONLY && (
-                            <button
-                                type="button"
-                                className={styles.linkButton}
-                                onClick={() => openPart('condition')}
-                                data-test="data-table-filter-add-condition"
-                            >
-                                {i18n.t('+ Add a condition')}
-                            </button>
-                        )}
+                    {!openParts.condition && !isValuesOnly && (
+                        <button
+                            type="button"
+                            className={styles.linkButton}
+                            onClick={() => openPart('condition')}
+                            data-test="data-table-filter-add-condition"
+                        >
+                            {i18n.t('+ Add a condition')}
+                        </button>
+                    )}
                     {openParts.values ? (
                         <ValueList
                             listed={listed}

@@ -127,7 +127,6 @@ describe('useTableData headers', () => {
             name: 'Group',
             dataKey: 'group',
             type: 'string',
-            filterView: 'values',
         })
         expect(headers).not.toContainEqual(
             expect.objectContaining({ dataKey: 'color' })
@@ -845,13 +844,11 @@ describe('useTableData headers', () => {
             name: 'Legend',
             dataKey: 'legend',
             type: 'string',
-            filterView: 'values',
         })
         expect(headers).toContainEqual({
             name: 'Range',
             dataKey: 'range',
             type: 'string',
-            filterView: 'values',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: 'High', dataKey: 'legend' })

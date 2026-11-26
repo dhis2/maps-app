@@ -30,8 +30,7 @@ export const FILTER_NUMBER = 'number'
 export const FILTER_DATE = 'date'
 export const FILTER_TIME = 'time'
 
-// What a column's filter shows first: the condition (default), the list of values, or only the list
-export const FILTER_VIEW_VALUES = 'values'
+// A column whose filter shows only the list of values, without a condition
 export const FILTER_VIEW_VALUES_ONLY = 'valuesOnly'
 
 export const OPERATOR_CONTAINS = 'contains'

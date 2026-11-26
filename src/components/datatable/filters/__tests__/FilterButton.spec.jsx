@@ -29,11 +29,21 @@ const COLUMN = {
     ]),
 }
 
+// More than 10 values: the filter opens on its condition
+const MANY_VALUES_COLUMN = {
+    ...COLUMN,
+    rows: Array.from({ length: 11 }, (_, i) => ({ id: `e${i}` })),
+}
+
 const ID_HEADER = { name: 'Event ID', dataKey: 'id', type: 'string' }
 
 const renderButton = async (
     filter,
-    { filterType = 'text', header = ID_HEADER } = {}
+    {
+        filterType = 'text',
+        header = ID_HEADER,
+        column = MANY_VALUES_COLUMN,
+    } = {}
 ) => {
     const store = mockStore({})
     render(
@@ -42,7 +52,7 @@ const renderButton = async (
                 layerId="layer1"
                 header={header}
                 filterType={filterType}
-                column={COLUMN}
+                column={column}
                 filter={filter}
             />
         </Provider>
@@ -187,9 +197,9 @@ describe('FilterButton value list', () => {
         dataKey: 'ou',
         type: 'string',
         renderer: 'renderorgunitname',
-        filterView: 'values',
     }
     const GENDER_HEADER = { name: 'Gender', dataKey: 'gender', type: 'string' }
+    const FEW_VALUES = { column: COLUMN }
 
     const listItems = () => [
         ...screen
@@ -201,8 +211,8 @@ describe('FilterButton value list', () => {
             .find((li) => li.textContent.startsWith(label))
             .querySelector('input')
 
-    test('a column with few values opens on its list, its condition behind a link', async () => {
-        await renderButton(undefined, { header: OU_HEADER })
+    test('a column with up to 10 values opens on its list, its condition behind a link', async () => {
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
 
         expect(
             screen.getByTestId('data-table-filter-values-list')
@@ -217,8 +227,8 @@ describe('FilterButton value list', () => {
         ).toBeInTheDocument()
     })
 
-    test('other columns open on their condition, the list behind a link', async () => {
-        await renderButton(undefined, { header: GENDER_HEADER })
+    test('a column with more than 10 values opens on its condition, its list behind a link', async () => {
+        await renderButton()
 
         expect(
             screen.queryByTestId('data-table-filter-values-list')
@@ -230,7 +240,7 @@ describe('FilterButton value list', () => {
     })
 
     test('lists the values by the names the cells show, with their row count and "No value"', async () => {
-        await renderButton(undefined, { header: OU_HEADER })
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
 
         expect(listItems().map((li) => li.textContent)).toEqual([
             'No value0',
@@ -240,7 +250,10 @@ describe('FilterButton value list', () => {
     })
 
     test('applies the unchecked values, and shows the rows it keeps', async () => {
-        const store = await renderButton(undefined, { header: OU_HEADER })
+        const store = await renderButton(undefined, {
+            header: OU_HEADER,
+            ...FEW_VALUES,
+        })
 
         fireEvent.click(checkbox('Kenema'))
         expect(
@@ -255,7 +268,10 @@ describe('FilterButton value list', () => {
     })
 
     test('a condition on a column showing names is applied through the values it leaves out', async () => {
-        const store = await renderButton(undefined, { header: OU_HEADER })
+        const store = await renderButton(undefined, {
+            header: OU_HEADER,
+            ...FEW_VALUES,
+        })
 
         fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
         typeText('ken')
@@ -271,10 +287,13 @@ describe('FilterButton value list', () => {
     })
 
     test('checking "No value" back keeps the rows without a value despite the condition', async () => {
-        const store = await renderButton(undefined, { header: GENDER_HEADER })
+        const store = await renderButton(undefined, {
+            header: GENDER_HEADER,
+            ...FEW_VALUES,
+        })
 
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
         typeText('fem')
-        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
         fireEvent.click(checkbox('No value'))
         fireEvent.click(applyButton())
 

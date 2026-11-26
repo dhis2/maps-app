@@ -17,7 +17,6 @@ import {
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
-    FILTER_VIEW_VALUES,
     FILTER_VIEW_VALUES_ONLY,
 } from '../constants/dataTable.js'
 import {
@@ -75,12 +74,6 @@ const getCustomFieldRenderer = (type, valueType) => {
     return undefined
 }
 
-// Option sets and Yes/no have few values: their filter opens on the list
-const getCustomFieldFilterView = (valueType, hasOptionSet) =>
-    hasOptionSet || booleanValueTypes.includes(valueType)
-        ? FILTER_VIEW_VALUES
-        : undefined
-
 const ID = 'id'
 const VALUE = 'rawValue'
 const LEGEND = 'legend'
@@ -111,39 +104,33 @@ const defaultFieldsMap = () => ({
         dataKey: ORG_UNIT,
         type: TYPE_STRING,
         renderer: RENDERER_ORG_UNIT_NAME,
-        filterView: FILTER_VIEW_VALUES,
     },
     [LEVEL]: {
         name: i18n.t('Org unit level'),
         dataKey: LEVEL,
         type: TYPE_NUMBER,
-        filterView: FILTER_VIEW_VALUES,
     },
     [TYPE]: {
         name: i18n.t('Geometry type'),
         dataKey: TYPE,
         type: TYPE_STRING,
         renderer: RENDERER_GEOMETRY,
-        filterView: FILTER_VIEW_VALUES,
     },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
     [LEGEND]: {
         name: i18n.t('Legend'),
         dataKey: LEGEND,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [RANGE]: {
         name: i18n.t('Range'),
         dataKey: RANGE,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [ORG_UNIT_PATH]: {
         name: i18n.t('Org unit hierarchy'),
@@ -175,7 +162,6 @@ const defaultFieldsMap = () => ({
         name: i18n.t('Group'),
         dataKey: GROUP,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [ICON]: {
         name: i18n.t('Icon'),
@@ -284,7 +270,6 @@ const getEventHeaders = ({
                 dataKey,
                 type,
                 renderer: getCustomFieldRenderer(type, valueType),
-                filterView: getCustomFieldFilterView(valueType, !!optionSet),
                 optionSet: optionSet || null,
             }
         })

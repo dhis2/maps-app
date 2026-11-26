@@ -38,8 +38,19 @@ const checkTableCell = ({ row = 0, column = 0, expectedContent }) => {
 const openColumnFilter = (column) =>
     cy.get(`button[aria-label="Filter by ${column}"]`).click()
 
+// Columns with up to 10 values open on their list, the others on their condition:
+// the other part is behind a link
+const showPart = (linkDataTest) =>
+    cy.getByDataTest('data-table-filter-popover').then(($popover) => {
+        const link = $popover.find(`[data-test="${linkDataTest}"]`)
+        if (link.length) {
+            cy.wrap(link).click()
+        }
+    })
+
 const filterNumberColumn = (column, operator, value) => {
     openColumnFilter(column)
+    showPart('data-table-filter-add-condition')
     cy.getByDataTest('data-table-filter-operator')
         .find('[data-test="dhis2-uicore-select-input"]')
         .click()
@@ -51,10 +62,9 @@ const filterNumberColumn = (column, operator, value) => {
     cy.getByDataTest('data-table-filter-apply').click()
 }
 
-// Columns with few values open on their list: the condition is behind a link
 const filterContaining = (column, text) => {
     openColumnFilter(column)
-    cy.getByDataTest('data-table-filter-add-condition').click()
+    showPart('data-table-filter-add-condition')
     cy.getByDataTest('data-table-filter-value').find('input').type(text)
     cy.getByDataTest('data-table-filter-apply').click()
 }
@@ -62,6 +72,7 @@ const filterContaining = (column, text) => {
 // Every value starts checked: keep one by unchecking all, then checking it
 const filterPickedValue = (column, label) => {
     openColumnFilter(column)
+    showPart('data-table-filter-pick-values')
     cy.getByDataTest('data-table-filter-values-uncheck-all').click()
     cy.getByDataTest('data-table-filter-values-list')
         .contains('label', label)

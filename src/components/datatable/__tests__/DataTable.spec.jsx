@@ -32,12 +32,7 @@ const ACTIVE_FILL = 'var(--colors-blue700)'
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
     { name: 'Value', dataKey: 'rawValue', type: 'number' },
-    {
-        name: 'Legend',
-        dataKey: 'legend',
-        type: 'string',
-        filterView: 'values',
-    },
+    { name: 'Legend', dataKey: 'legend', type: 'string' },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
