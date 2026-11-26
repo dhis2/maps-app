@@ -25,7 +25,11 @@ import {
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
 import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
-import { compareRows } from '../../util/tableSort.js'
+import {
+    compareRows,
+    getLegendRank,
+    isLegendColumn,
+} from '../../util/tableSort.js'
 
 const ERROR_NO_HEADERS = 'NO_HEADERS'
 
@@ -223,15 +227,17 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         const filteredData = filterData(dataWithAggregations, dataFilters)
 
         // Sort
-        const sortFieldRenderer = headers.find(
-            (h) => h.dataKey === sortField
-        )?.renderer
+        const sortHeader = headers.find((h) => h.dataKey === sortField)
+        const getRank = isLegendColumn(sortHeader)
+            ? getLegendRank(legend?.items)
+            : null
         filteredData.sort((a, b) =>
             compareRows(a, b, {
                 sortField,
                 sortDirection,
-                orgUnitRenderer: sortFieldRenderer,
+                orgUnitRenderer: sortHeader?.renderer,
                 idToName: orgUnitIdToName,
+                getRank,
             })
         )
 
@@ -243,6 +249,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         sortField,
         sortDirection,
         orgUnitIdToName,
+        legend,
     ])
 
     // EE layers and event layers may be loading additional data

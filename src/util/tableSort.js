@@ -2,16 +2,56 @@ import {
     SENTINEL_NO_VALUE,
     SORT_ASCENDING,
     TYPE_NUMBER,
+    RENDERER_COLOR,
+    RENDERER_ICON,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../constants/dataTable.js'
-import { parseRange } from './legend.js'
+import { parseRange, sortLegendItems } from './legend.js'
 import {
     formatOrgUnitOwnName,
     formatOrgUnitPathBreadcrumb,
 } from './orgUnitGroups.js'
 
+const LEGEND = 'legend'
 const RANGE = 'range'
+const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
+
+// Columns that show a row's legend class or group, sorted in the legend's order
+export const isLegendColumn = ({ dataKey, renderer } = {}) =>
+    dataKey === LEGEND || dataKey === RANGE || LEGEND_RENDERERS.has(renderer)
+
+// A row's place in the legend, as the layer card lists it: by its class or group name,
+// or by its color for automatic classes, which have no name. "No data" ranks after every class
+export const getLegendRank = (legendItems) => {
+    const byName = new Map()
+    const byColor = new Map()
+    sortLegendItems(legendItems ?? []).forEach((item, index) => {
+        const rank = item.isNoData ? Infinity : index
+        if (item.name && !byName.has(item.name)) {
+            byName.set(item.name, rank)
+        }
+        if (item.color && !byColor.has(item.color)) {
+            byColor.set(item.color, rank)
+        }
+    })
+    return (row) =>
+        byName.get(row.legend ?? row.group) ?? byColor.get(row.color)
+}
+
+// The legend's order, reversed when descending; "No data" and rows outside the legend stay last
+export const compareLegendRanks = (aRank, bRank, sortDirection) => {
+    if (aRank === bRank) {
+        return 0
+    }
+    if (aRank === undefined || aRank === Infinity) {
+        return 1
+    }
+    if (bRank === undefined || bRank === Infinity) {
+        return -1
+    }
+    return sortDirection === SORT_ASCENDING ? aRank - bRank : bRank - aRank
+}
 
 const compareStrings = (a, b) => {
     if (a < b) {
@@ -95,10 +135,13 @@ export const compareFieldValues = (
 }
 
 export const compareRows = (a, b, options) => {
-    const { sortField } = options
+    const { sortField, sortDirection, getRank } = options
     // "None" (third click of the cycle) - fall back to natural order
     if (!sortField) {
         return a.index - b.index
+    }
+    if (getRank) {
+        return compareLegendRanks(getRank(a), getRank(b), sortDirection)
     }
     return compareFieldValues(a[sortField], b[sortField], options)
 }

@@ -181,13 +181,25 @@ describe('countColumnValues', () => {
             ])
         })
 
-        test('follows the table instead when it is sorted by the column', () => {
-            const sorting = { sortField: 'range', sortDirection: 'asc' }
-            expect(count('range', { sorting }).map(({ key }) => key)).toEqual([
+        test('reverses the legend’s order when the table sorts the column descending, "No data" still last', () => {
+            const values = countColumnValues(
+                [{ legend: 'No data', color: '#ccc' }, ...CLASSED_ROWS],
+                {
+                    header: { dataKey: 'legend', type: 'string' },
+                    getLabel: String,
+                    legendItems: [
+                        { name: 'No data', color: '#ccc', isNoData: true },
+                        ...LEGEND_ITEMS,
+                    ],
+                    sorting: { sortField: 'legend', sortDirection: 'desc' },
+                }
+            )
+            expect(values.map(({ key }) => key)).toEqual([
                 '',
-                '0 – 30',
-                '30 – 50',
-                '50 – 90',
+                'Low',
+                'Medium',
+                'High',
+                'No data',
             ])
         })
     })

@@ -1,5 +1,7 @@
 import {
     SENTINEL_NO_VALUE,
+    RENDERER_COLOR,
+    RENDERER_ICON,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
 } from '../../constants/dataTable.js'
@@ -8,6 +10,8 @@ import {
     compareFieldValues,
     compareRangeValues,
     compareRows,
+    getLegendRank,
+    isLegendColumn,
 } from '../tableSort.js'
 
 describe('compareFieldValues', () => {
@@ -155,6 +159,65 @@ describe('compareRows', () => {
                 { sortField: 'rawValue', sortDirection: 'asc' }
             )
         ).toBeLessThan(0)
+    })
+
+    describe('legend columns', () => {
+        const getRank = getLegendRank([
+            { name: 'No data', color: '#ccc', isNoData: true },
+            { name: 'Low', startValue: 0, endValue: 30, color: '#fee' },
+            { name: 'High', startValue: 50, endValue: 90, color: '#f00' },
+            { startValue: 30, endValue: 50, color: '#f88' },
+        ])
+        const rows = [
+            { legend: 'No data', color: '#ccc' },
+            { legend: 'Low', color: '#fee' },
+            { legend: '30 – 50', color: '#f88' },
+            { legend: 'Other', color: '#000' },
+            { legend: 'High', color: '#f00' },
+        ]
+        const sortRows = (sortDirection) =>
+            [...rows]
+                .sort((a, b) =>
+                    compareRows(a, b, {
+                        sortField: 'legend',
+                        sortDirection,
+                        getRank,
+                    })
+                )
+                .map(({ legend }) => legend)
+
+        it('sorts ascending in the legend’s order, as the layer card lists it, "No data" and other rows last', () => {
+            expect(sortRows('asc')).toEqual([
+                'High',
+                '30 – 50',
+                'Low',
+                'No data',
+                'Other',
+            ])
+        })
+
+        it('reverses the legend’s order when descending, "No data" and other rows still last', () => {
+            expect(sortRows('desc')).toEqual([
+                'Low',
+                '30 – 50',
+                'High',
+                'No data',
+                'Other',
+            ])
+        })
+    })
+})
+
+describe('isLegendColumn', () => {
+    it.each([
+        [{ dataKey: 'legend' }, true],
+        [{ dataKey: 'range' }, true],
+        [{ dataKey: 'color', renderer: RENDERER_COLOR }, true],
+        [{ dataKey: 'iconUrl', renderer: RENDERER_ICON }, true],
+        [{ dataKey: 'rawValue' }, false],
+        [undefined, false],
+    ])('%j is %s', (header, isLegend) => {
+        expect(isLegendColumn(header)).toBe(isLegend)
     })
 })
 

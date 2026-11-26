@@ -1,7 +1,5 @@
 import {
     OPERATOR_FIND,
-    RENDERER_COLOR,
-    RENDERER_ICON,
     SENTINEL_NO_VALUE,
     SORT_ASCENDING,
     TYPE_NUMBER,
@@ -13,36 +11,19 @@ import {
     normalizeText,
     toFilterKey,
 } from './filter.js'
-import { sortLegendItems } from './legend.js'
-import { compareFieldValues, compareRangeValues } from './tableSort.js'
+import {
+    compareFieldValues,
+    compareLegendRanks,
+    compareRangeValues,
+    getLegendRank,
+    isLegendColumn,
+} from './tableSort.js'
 
 // The list of values in a column's filter popover: what it lists, the rows it keeps,
 // and the filter it applies
 
 const LEGEND = 'legend'
 const RANGE = 'range'
-const LEGEND_RENDERERS = new Set([RENDERER_COLOR, RENDERER_ICON])
-
-// Columns that show a row's legend class or group: listed in the legend's order
-const isLegendColumn = ({ dataKey, renderer }) =>
-    dataKey === LEGEND || dataKey === RANGE || LEGEND_RENDERERS.has(renderer)
-
-// A row's place in the legend, as the layer card lists it: by its class or group name,
-// or by its color for automatic classes, which have no name
-const getLegendRank = (legendItems) => {
-    const byName = new Map()
-    const byColor = new Map()
-    sortLegendItems(legendItems ?? []).forEach(({ name, color }, index) => {
-        if (name && !byName.has(name)) {
-            byName.set(name, index)
-        }
-        if (color && !byColor.has(color)) {
-            byColor.set(color, index)
-        }
-    })
-    return (row) =>
-        byName.get(row.legend ?? row.group) ?? byColor.get(row.color)
-}
 
 // Ascending, as each kind of value reads: names and text alphabetically, numbers and ranges by value
 const compareDefault = (header, byLabel) => (a, b) => {
@@ -59,29 +40,24 @@ const compareDefault = (header, byLabel) => (a, b) => {
 }
 
 // The column the table is sorted by lists its values in the rows' order
-const compareAsTable =
-    (header, { sortDirection, idToName }) =>
-    (a, b) =>
+const compareAsTable = (header, { sortDirection, idToName }) => {
+    if (isLegendColumn(header)) {
+        return (a, b) =>
+            compareLegendRanks(a.legendRank, b.legendRank, sortDirection)
+    }
+    return (a, b) =>
         compareFieldValues(a.value, b.value, {
             sortField: header.dataKey,
             sortDirection,
             orgUnitRenderer: header.renderer,
             idToName,
         })
+}
 
 // Values outside the legend come after it, in the default order
-const compareByLegend = (compare) => (a, b) => {
-    if (a.legendRank === b.legendRank) {
-        return compare(a, b)
-    }
-    if (a.legendRank === undefined) {
-        return 1
-    }
-    if (b.legendRank === undefined) {
-        return -1
-    }
-    return a.legendRank - b.legendRank
-}
+const compareByLegend = (compare) => (a, b) =>
+    compareLegendRanks(a.legendRank, b.legendRank, SORT_ASCENDING) ||
+    compare(a, b)
 
 const getCompare = (header, { byLabel, sorting }) => {
     if (sorting?.sortField === header.dataKey) {
