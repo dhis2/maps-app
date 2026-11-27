@@ -1841,9 +1841,46 @@ describe('useTableData errors', () => {
             )
 
             expect(result.current.rows).toBeNull()
-            expect(result.current.error).toBe(
-                'No valid data was found for the current layer configuration.'
-            )
+            expect(result.current.error).toEqual({
+                title: 'No data to show',
+                description:
+                    'This layer has no features for its current settings.',
+            })
         }
     )
+
+    const renderExternalLayer = (data) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer: { layer: 'geoJsonUrl', dataFilters: null, data },
+                    sortField: null,
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore({ aggregations: {} })}>
+                        {children}
+                    </Provider>
+                ),
+            }
+        ).result
+
+    test('an external layer without features says so', () => {
+        expect(renderExternalLayer([]).current.error.description).toBe(
+            'This external layer has no features.'
+        )
+    })
+
+    test('an external layer mixing geometry types has no table', () => {
+        const result = renderExternalLayer([
+            { geometry: { type: 'Point' }, properties: { name: 'A' } },
+            { geometry: { type: 'LineString' }, properties: { name: 'B' } },
+        ])
+        expect(result.current.error).toEqual({
+            title: 'Data table not available',
+            description:
+                "The data table can't show an external layer with more than one geometry type.",
+        })
+    })
 })

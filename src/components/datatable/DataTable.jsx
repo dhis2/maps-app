@@ -22,6 +22,7 @@ import {
     FILTER_TEXT,
     SORT_ASCENDING,
 } from '../../constants/dataTable.js'
+import { GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import {
     getFilterType,
     getNextSorting,
@@ -37,6 +38,7 @@ import FilterInput from './FilterInput.jsx'
 import FilterButton from './filters/FilterButton.jsx'
 import RowCells from './RowCells.jsx'
 import styles from './styles/DataTable.module.css'
+import TableMessage from './TableMessage.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
@@ -124,6 +126,7 @@ const Table = ({
         isLoading,
         loadingReason,
         error,
+        noDataMessage,
         totalCount,
         filteredCount,
         columnOptions,
@@ -202,6 +205,7 @@ const Table = ({
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
+            noDataMessage,
             hasActiveFilters,
             onClearFilters,
             showServerClusterAction,
@@ -212,6 +216,7 @@ const Table = ({
             clearFeatureHighlight,
             columnWidths,
             totalCount,
+            noDataMessage,
             hasActiveFilters,
             onClearFilters,
             showServerClusterAction,
@@ -322,16 +327,17 @@ const Table = ({
 
     if (error) {
         return (
-            <p className={styles.noSupport}>
-                {error}
-                <button
-                    type="button"
-                    className={styles.editLayerLink}
-                    onClick={() => dispatch(editLayer(layer))}
-                >
-                    {i18n.t('Edit layer')}
-                </button>
-            </p>
+            <TableMessage
+                {...error}
+                action={
+                    layer.layer === GEOJSON_URL_LAYER
+                        ? undefined
+                        : {
+                              label: i18n.t('Edit layer'),
+                              onClick: () => dispatch(editLayer(layer)),
+                          }
+                }
+            />
         )
     }
 

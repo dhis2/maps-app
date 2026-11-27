@@ -127,30 +127,3 @@ td.hovered {
     font-size: 12px;
     color: var(--colors-white);
 }
-
-.noSupport {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    align-items: center;
-    gap: var(--spacers-dp8);
-    color: var(--colors-grey600);
-    font-style: italic;
-    font-size: 12px;
-}
-
-.editLayerLink {
-    font-size: 12px;
-    font-style: normal;
-    color: var(--colors-blue600);
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-.editLayerLink:hover {
-    color: var(--colors-blue700);
-}

@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types'
 import React from 'react'
 import styles from './styles/TableVirtuosoComponents.module.css'
+import TableMessage from './TableMessage.jsx'
 
 const DataTableWithVirtuosoContext = ({ context, ...props }) => (
     <DataTable
@@ -49,51 +50,37 @@ DataTableRowWithVirtuosoContext.propTypes = {
     ),
 }
 
-const getEmptyPlaceholderContent = (context) => {
+const getEmptyMessage = (context) => {
     if (context.showServerClusterAction) {
-        return (
-            <>
-                {i18n.t(
-                    "Event details aren't available while this layer is clustered on the server"
-                )}
-                <button
-                    type="button"
-                    className={styles.clearFiltersLink}
-                    onClick={context.onForceClientCluster}
-                >
-                    {i18n.t('Show event details')}
-                </button>
-            </>
-        )
+        return {
+            title: i18n.t("Event details aren't available"),
+            description: i18n.t('This layer is clustered on the server.'),
+            action: {
+                label: i18n.t('Show event details'),
+                onClick: context.onForceClientCluster,
+            },
+        }
     }
-
     if (context.totalCount > 0) {
-        return (
-            <>
-                {i18n.t('No features match your filters')}
-                {context.hasActiveFilters && (
-                    <button
-                        type="button"
-                        className={styles.clearFiltersLink}
-                        onClick={context.onClearFilters}
-                    >
-                        {i18n.t('Clear filters')}
-                    </button>
-                )}
-            </>
-        )
+        return {
+            title: i18n.t('No matching rows'),
+            description: i18n.t('Try changing or clearing your filters.'),
+            action: context.hasActiveFilters
+                ? {
+                      label: i18n.t('Clear filters'),
+                      onClick: context.onClearFilters,
+                  }
+                : undefined,
+        }
     }
-
-    return i18n.t('No results found')
+    return context.noDataMessage
 }
 
 export const EmptyPlaceholder = ({ context }) => (
     <tbody>
         <tr>
             <td colSpan={99999}>
-                <div className={styles.noResults}>
-                    {getEmptyPlaceholderContent(context)}
-                </div>
+                <TableMessage {...getEmptyMessage(context)} />
             </td>
         </tr>
     </tbody>
@@ -102,6 +89,10 @@ export const EmptyPlaceholder = ({ context }) => (
 EmptyPlaceholder.propTypes = {
     context: PropTypes.shape({
         hasActiveFilters: PropTypes.bool,
+        noDataMessage: PropTypes.shape({
+            description: PropTypes.string,
+            title: PropTypes.string,
+        }),
         showServerClusterAction: PropTypes.bool,
         totalCount: PropTypes.number,
         onClearFilters: PropTypes.func,

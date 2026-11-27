@@ -37,18 +37,19 @@ const HEADERS = [
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
-const renderTable = () =>
+const renderTable = (layerType = 'thematic') => {
+    const store = mockStore({
+        map: { mapViews: [{ id: 'layer1', layer: layerType }] },
+        dataTable: 'layer1',
+        feature: null,
+    })
     render(
-        <Provider
-            store={mockStore({
-                map: { mapViews: [{ id: 'layer1', layer: 'thematic' }] },
-                dataTable: 'layer1',
-                feature: null,
-            })}
-        >
+        <Provider store={store}>
             <DataTable availableWidth={800} />
         </Provider>
     )
+    return store
+}
 
 const lastSorting = () => {
     const { sortField, sortDirection } = useTableData.mock.lastCall[0]
@@ -173,5 +174,44 @@ describe('DataTable column headers', () => {
             sortField: null,
             sortDirection: 'asc',
         })
+    })
+})
+
+describe('DataTable message instead of the table', () => {
+    const NO_DATA = {
+        title: 'No data to show',
+        description: 'This layer has no features for its current settings.',
+    }
+
+    beforeEach(() => {
+        useTableData.mockReturnValue({
+            headers: null,
+            rows: null,
+            isLoading: false,
+            error: NO_DATA,
+            totalCount: 0,
+            filteredCount: 0,
+            columnOptions: {},
+            orgUnitIdToName: new Map(),
+            filterRows: [],
+        })
+    })
+
+    test('offers to edit the layer, whose settings decide its features', () => {
+        const store = renderTable('thematic')
+
+        expect(screen.getByText(NO_DATA.title)).toBeInTheDocument()
+        expect(screen.getByText(NO_DATA.description)).toBeInTheDocument()
+        fireEvent.click(screen.getByText('Edit layer'))
+        expect(store.getActions()).toContainEqual(
+            expect.objectContaining({ type: 'LAYER_EDIT' })
+        )
+    })
+
+    test('offers nothing for an external layer, which comes with its features', () => {
+        renderTable('geoJsonUrl')
+
+        expect(screen.getByText(NO_DATA.title)).toBeInTheDocument()
+        expect(screen.queryByText('Edit layer')).toBeNull()
     })
 })
