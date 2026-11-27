@@ -32,10 +32,13 @@ const useFilterValues = ({
         const optionNames = new Map(
             optionSet?.options.map(({ code, name }) => [code, name])
         )
-        return (value, row) => {
-            // Icons stand for a group: list them by its name
+        return (value) => {
+            // Icons by their file name, without its extension
             if (renderer === RENDERER_ICON) {
-                return row.group ?? String(value).split('/').pop()
+                return String(value)
+                    .split('/')
+                    .pop()
+                    .replace(/\.[^.]+$/, '')
             }
             return (
                 optionNames.get(String(value)) ??
