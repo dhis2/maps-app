@@ -158,6 +158,29 @@ describe('countColumnValues', () => {
             ])
         })
 
+        test('lists the unclassified facilities, which have no icon, as their class with its dot, where the legend puts it', () => {
+            const values = countColumnValues(
+                [
+                    { legend: 'Unclassified', color: '#ccc' },
+                    { legend: 'Clinic', iconUrl: 'b.png' },
+                ],
+                {
+                    header: { dataKey: 'iconUrl', renderer: RENDERER_ICON },
+                    getLabel: String,
+                    legendItems: [
+                        { name: 'Clinic' },
+                        { name: 'Unclassified', isUnclassified: true },
+                    ],
+                }
+            )
+            expect(
+                values.map(({ key, label, color }) => [key, label, color])
+            ).toEqual([
+                ['b.png', 'b.png', undefined],
+                ['', 'Unclassified', '#ccc'],
+            ])
+        })
+
         describe('layers styled by a group set', () => {
             const GROUP_ROWS = [
                 { legend: 'MCHP', group: 'MCHP', iconUrl: 'm.png' },

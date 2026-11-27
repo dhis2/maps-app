@@ -19,6 +19,7 @@ import {
     countKeptRows,
     getListedValues,
     getOpenParts,
+    isNoValueEntry,
     toAppliedFilter,
 } from '../../../util/filterValues.js'
 import { formatWithSeparator } from '../../../util/numbers.js'
@@ -84,9 +85,7 @@ const FilterPopover = ({
     const { listed, isNarrowed } = getListedValues(values, draft, options)
     const keptCount = countKeptRows(values, draft, options)
     const totalCount = countKeptRows(values, { excluded: [] }, options)
-    const valueCount = values.filter(
-        ({ key }) => key !== SENTINEL_NO_VALUE
-    ).length
+    const valueCount = values.filter((entry) => !isNoValueEntry(entry)).length
     const formatCount = (count) =>
         formatWithSeparator(count, column.keyAnalysisDigitGroupSeparator)
 

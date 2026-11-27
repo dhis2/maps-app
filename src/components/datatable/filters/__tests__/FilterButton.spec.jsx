@@ -366,6 +366,40 @@ describe('FilterButton value list', () => {
     })
 })
 
+describe('FilterButton on an icon column', () => {
+    const ICON_HEADER = {
+        name: 'Icon',
+        dataKey: 'iconUrl',
+        type: 'string',
+        renderer: 'rendericon',
+    }
+    const ICON_COLUMN = {
+        ...COLUMN,
+        rows: [
+            { iconUrl: 'https://dhis2/images/orgunitgroup/05.png' },
+            { iconUrl: 'https://dhis2/images/orgunitgroup/14.png' },
+            { legend: 'Unclassified', color: '#cccccc' },
+        ],
+    }
+
+    test('lists the icons by their file name, the unclassified facilities by their class, and offers a condition', async () => {
+        await renderButton(undefined, {
+            header: ICON_HEADER,
+            column: ICON_COLUMN,
+        })
+
+        const labels = [
+            ...screen
+                .getByTestId('data-table-filter-values-list')
+                .querySelectorAll('li'),
+        ].map((li) => li.textContent)
+        expect(labels).toEqual(['051', '141', 'Unclassified1'])
+        expect(
+            screen.getByTestId('data-table-filter-add-condition')
+        ).toBeInTheDocument()
+    })
+})
+
 describe('FilterButton popover', () => {
     test('closes on Escape without applying the draft', async () => {
         const store = await renderButton()

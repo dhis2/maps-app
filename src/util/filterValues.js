@@ -1,5 +1,6 @@
 import {
     OPERATOR_FIND,
+    RENDERER_ICON,
     SENTINEL_NO_VALUE,
     SORT_ASCENDING,
     TYPE_NUMBER,
@@ -69,13 +70,17 @@ const getCompare = (header, { byLabel, sorting }) => {
     return isLegendColumn(header) ? compareByLegend(compare) : compare
 }
 
+// The "No value" row, unless it lists the unclassified facilities like an icon
+export const isNoValueEntry = (entry) =>
+    entry.key === SENTINEL_NO_VALUE && !entry.label
+
 const compareEntries = (header, options) => {
     const compare = getCompare(header, options)
     return (a, b) => {
-        if (a.key === SENTINEL_NO_VALUE) {
+        if (isNoValueEntry(a)) {
             return -1
         }
-        if (b.key === SENTINEL_NO_VALUE) {
+        if (isNoValueEntry(b)) {
             return 1
         }
         return compare(a, b)
@@ -111,6 +116,7 @@ export const countColumnValues = (
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
+    const noValue = byKey.get(SENTINEL_NO_VALUE)
     for (const row of rows) {
         const value = row[header.dataKey]
         const key = toFilterKey(value)
@@ -124,6 +130,18 @@ export const countColumnValues = (
                 label: getLabel(value, row),
                 count: 1,
                 ...getLegendFields(row, header, getRank),
+            })
+        }
+        // Unclassified facilities have no icon file: their empty value is named after their class
+        if (
+            entry === noValue &&
+            header.renderer === RENDERER_ICON &&
+            row.legend
+        ) {
+            Object.assign(noValue, {
+                label: row.legend,
+                color: row.color,
+                legendRank: getRank?.(row),
             })
         }
     }
@@ -145,9 +163,7 @@ const MAX_PICKED_VALUES = 10
 // The parts the popover opens with: the list for a column with few values, the condition
 // for the others, and any part already in use
 export const getOpenParts = (values, filter) => {
-    const valueCount = values.filter(
-        ({ key }) => key !== SENTINEL_NO_VALUE
-    ).length
+    const valueCount = values.filter((entry) => !isNoValueEntry(entry)).length
     const opensOnList = valueCount <= MAX_PICKED_VALUES
     return {
         condition: !opensOnList || hasCondition(filter),
@@ -175,7 +191,7 @@ export const getListedValues = (values, draft, { matchOnLabel }) => {
     const test = getEntryTest(draft, matchOnLabel)
     const findText = getFindText(draft)
     const listed = values.filter((entry) =>
-        entry.key === SENTINEL_NO_VALUE
+        isNoValueEntry(entry)
             ? !findText
             : (!test || test(entry)) &&
               normalizeText(entry.label).includes(findText)

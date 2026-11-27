@@ -10,6 +10,7 @@ import {
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
 import { isDarkColor } from '../../../util/colors.js'
+import { isNoValueEntry } from '../../../util/filterValues.js'
 import GeometrySymbol from '../GeometrySymbol.jsx'
 import LegendSymbol from '../LegendSymbol.jsx'
 import styles from './styles/Filters.module.css'
@@ -17,8 +18,34 @@ import styles from './styles/Filters.module.css'
 // Long lists show their first values; a condition or "Find in list" narrows them
 const MAX_LISTED = 100
 
+// An icon value shows its icon; unclassified facilities, without one, their dot as on the map
+const IconSymbol = ({ entry }) => {
+    if (entry.value) {
+        return (
+            <img
+                className={styles.iconThumbnail}
+                src={entry.value}
+                alt=""
+                onError={(e) => {
+                    e.target.style.visibility = 'hidden'
+                }}
+            />
+        )
+    }
+    return (
+        <span
+            className={styles.iconDot}
+            style={{ backgroundColor: entry.color }}
+        />
+    )
+}
+
+IconSymbol.propTypes = {
+    entry: PropTypes.object.isRequired,
+}
+
 const ValueLabel = ({ entry, renderer, isMonospace }) => {
-    if (entry.key === SENTINEL_NO_VALUE) {
+    if (isNoValueEntry(entry)) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
     // A color value is painted as in its table cell; a legend class shows its icon or color, a geometry type its symbol
@@ -32,23 +59,17 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
             })}
             style={isPainted ? { backgroundColor: entry.value } : undefined}
         >
-            {renderer === RENDERER_ICON && !entry.isGone && (
-                <img
-                    className={styles.iconThumbnail}
-                    src={entry.value}
-                    alt=""
-                    onError={(e) => {
-                        e.target.style.visibility = 'hidden'
-                    }}
-                />
-            )}
             {renderer === RENDERER_GEOMETRY && (
                 <GeometrySymbol
                     type={entry.value}
                     className={styles.geometry}
                 />
             )}
-            <LegendSymbol iconUrl={entry.iconUrl} color={entry.color} />
+            {renderer === RENDERER_ICON ? (
+                !entry.isGone && <IconSymbol entry={entry} />
+            ) : (
+                <LegendSymbol iconUrl={entry.iconUrl} color={entry.color} />
+            )}
             {entry.label}
         </span>
     )
@@ -74,11 +95,11 @@ const ValueList = ({
     const excludedKeys = new Set(excluded)
     const listedKeys = listed.map(({ key }) => key)
     // "No value" comes first, on top of the values shown
-    const noValueRows = listed[0]?.key === SENTINEL_NO_VALUE ? 1 : 0
+    const noValueRows = listed[0] && isNoValueEntry(listed[0]) ? 1 : 0
     const shown = listed.slice(0, MAX_LISTED + noValueRows)
 
     // How many values the list shows, out of the column's values; "No value" isn't one
-    const isValue = ({ key }) => key !== SENTINEL_NO_VALUE
+    const isValue = (entry) => !isNoValueEntry(entry)
     const shownCount = shown.filter(isValue).length
     const totalCount = valueCount + listed.filter(({ isGone }) => isGone).length
     const countText =
