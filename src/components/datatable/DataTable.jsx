@@ -24,6 +24,7 @@ import {
     FILTER_TIME,
     SORT_ASCENDING,
 } from '../../constants/dataTable.js'
+import { GEOJSON_URL_LAYER } from '../../constants/layers.js'
 import {
     getFilterType,
     getNextSorting,
@@ -39,6 +40,7 @@ import FilterInput from './FilterInput.jsx'
 import FilterButton from './filters/FilterButton.jsx'
 import RowCells from './RowCells.jsx'
 import styles from './styles/DataTable.module.css'
+import TableMessage from './TableMessage.jsx'
 import TableComponents from './TableVirtuosoComponents.jsx'
 import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
@@ -131,6 +133,7 @@ const Table = ({
         isLoading,
         loadingReason,
         error,
+        noDataMessage,
         totalCount,
         filteredCount,
         columnOptions,
@@ -166,12 +169,18 @@ const Table = ({
             filters: dataFilters,
             orgUnitIdToName,
             keyAnalysisDigitGroupSeparator,
+            sortField,
+            sortDirection,
+            legendItems: layer.legend?.items,
         }),
         [
             filterRows,
             dataFilters,
             orgUnitIdToName,
             keyAnalysisDigitGroupSeparator,
+            sortField,
+            sortDirection,
+            layer.legend?.items,
         ]
     )
 
@@ -192,6 +201,10 @@ const Table = ({
     const showServerClusterAction =
         layer.serverCluster && !layer.forceClientCluster
 
+    const isBusy = isLoading || layer.isLoaded === false || !!layer.isLoading
+    // Without any row there is nothing to sort or filter
+    const areControlsDisabled = isBusy || totalCount === 0
+
     const onForceClientCluster = useCallback(
         () => dispatch(setForceClientCluster(layer.id)),
         [dispatch, layer.id]
@@ -203,6 +216,8 @@ const Table = ({
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
+            isBusy,
+            noDataMessage,
             hasActiveFilters,
             onClearFilters,
             showServerClusterAction,
@@ -213,6 +228,8 @@ const Table = ({
             clearFeatureHighlight,
             columnWidths,
             totalCount,
+            isBusy,
+            noDataMessage,
             hasActiveFilters,
             onClearFilters,
             showServerClusterAction,
@@ -244,6 +261,7 @@ const Table = ({
                                 dataKey === sortField ? sortDirection : null
                             }
                             onSort={sortData}
+                            disabled={areControlsDisabled}
                             filterButton={
                                 hasPopover && (
                                     <FilterButton
@@ -252,6 +270,7 @@ const Table = ({
                                         filterType={getFilterType(header)}
                                         column={filterColumn}
                                         filter={dataFilters?.[dataKey]}
+                                        disabled={areControlsDisabled}
                                     />
                                 )
                             }
@@ -269,6 +288,7 @@ const Table = ({
                                         optionSetId={optionSet?.id}
                                         renderer={renderer}
                                         orgUnitIdToName={orgUnitIdToName}
+                                        disabled={areControlsDisabled}
                                     />
                                 )
                             }
@@ -294,6 +314,7 @@ const Table = ({
             layerId,
             dataFilters,
             filterColumn,
+            areControlsDisabled,
         ]
     )
 
@@ -323,16 +344,17 @@ const Table = ({
 
     if (error) {
         return (
-            <p className={styles.noSupport}>
-                {error}
-                <button
-                    type="button"
-                    className={styles.editLayerLink}
-                    onClick={() => dispatch(editLayer(layer))}
-                >
-                    {i18n.t('Edit layer')}
-                </button>
-            </p>
+            <TableMessage
+                {...error}
+                action={
+                    layer.layer === GEOJSON_URL_LAYER
+                        ? undefined
+                        : {
+                              label: i18n.t('Edit layer'),
+                              onClick: () => dispatch(editLayer(layer)),
+                          }
+                }
+            />
         )
     }
 
@@ -348,7 +370,7 @@ const Table = ({
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={itemContent}
             />
-            {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
+            {isBusy && (
                 <ComponentCover translucent>
                     <CenteredContent>
                         <div className={styles.loadingContent}>

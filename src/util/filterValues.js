@@ -1,4 +1,10 @@
-import { OPERATOR_FIND, SENTINEL_NO_VALUE } from '../constants/dataTable.js'
+import {
+    OPERATOR_FIND,
+    RENDERER_ICON,
+    SENTINEL_NO_VALUE,
+    SORT_ASCENDING,
+    TYPE_NUMBER,
+} from '../constants/dataTable.js'
 import {
     filterData,
     getConditionTest,
@@ -6,24 +12,107 @@ import {
     normalizeText,
     toFilterKey,
 } from './filter.js'
-import { compareColumnOptionValues } from './tableSort.js'
+import {
+    compareFieldValues,
+    compareLegendRanks,
+    compareRangeValues,
+    getLegendCardRank,
+    getLegendRank,
+    isLegendColumn,
+} from './tableSort.js'
 
 // The list of values in a column's filter popover: what it lists, the rows it keeps,
 // and the filter it applies
 
-const compareEntries = (header, byLabel) => (a, b) => {
-    if (
-        !byLabel ||
-        a.key === SENTINEL_NO_VALUE ||
-        b.key === SENTINEL_NO_VALUE
-    ) {
-        return compareColumnOptionValues(a.key, b.key, header)
+const LEGEND = 'legend'
+const RANGE = 'range'
+
+// Ascending, as each kind of value reads: names and text alphabetically, numbers and ranges by value
+const compareDefault = (header, byLabel) => (a, b) => {
+    if (byLabel) {
+        return a.label.localeCompare(b.label)
     }
-    return a.label.localeCompare(b.label)
+    if (header.dataKey === RANGE) {
+        return compareRangeValues(a.value, b.value, SORT_ASCENDING)
+    }
+    if (header.type === TYPE_NUMBER) {
+        return Number(a.value) - Number(b.value)
+    }
+    return String(a.value).localeCompare(String(b.value))
+}
+
+// The column the table is sorted by lists its values in the rows' order
+const compareAsTable = (header, { sortDirection, idToName }) => {
+    if (isLegendColumn(header)) {
+        return (a, b) =>
+            compareLegendRanks(a.legendRank, b.legendRank, sortDirection)
+    }
+    return (a, b) =>
+        compareFieldValues(a.value, b.value, {
+            sortField: header.dataKey,
+            sortDirection,
+            orgUnitRenderer: header.renderer,
+            idToName,
+        })
+}
+
+const toCardPlace = (rank) => rank ?? Number.MAX_SAFE_INTEGER
+
+// Values outside the legend come after it, in the default order
+const compareByLegend = (compare) => (a, b) =>
+    toCardPlace(a.legendRank) - toCardPlace(b.legendRank) || compare(a, b)
+
+const getCompare = (header, { byLabel, sorting }) => {
+    if (sorting?.sortField === header.dataKey) {
+        return compareAsTable(header, sorting)
+    }
+    const compare = compareDefault(header, byLabel)
+    return isLegendColumn(header) ? compareByLegend(compare) : compare
+}
+
+export const isNoValueEntry = (entry) => entry.key === SENTINEL_NO_VALUE
+
+const compareEntries = (header, options) => {
+    const compare = getCompare(header, options)
+    return (a, b) => {
+        if (isNoValueEntry(a)) {
+            return -1
+        }
+        if (isNoValueEntry(b)) {
+            return 1
+        }
+        return compare(a, b)
+    }
+}
+
+// A legend column's value takes its row's place in the legend; Legend also shows its class
+// icon or color, Icon the color of the unclassified facilities' dot
+const getLegendFields = (row, header, getRank) =>
+    getRank && {
+        legendRank: getRank(row),
+        ...(header.dataKey === LEGEND && {
+            iconUrl: row.iconUrl,
+            color: row.color,
+        }),
+        ...(header.renderer === RENDERER_ICON && { color: row.color }),
+    }
+
+// A legend column lists its values as the table sorts them when sorted by it, else as the layer card does
+const getListRank = (header, sorting, legendItems) => {
+    if (!isLegendColumn(header)) {
+        return null
+    }
+    return sorting?.sortField === header.dataKey
+        ? getLegendRank(legendItems)
+        : getLegendCardRank(legendItems)
 }
 
 // Each value of a column with its label and row count, "No value" first
-export const countColumnValues = (rows, { header, getLabel, byLabel }) => {
+export const countColumnValues = (
+    rows,
+    { header, getLabel, byLabel, sorting, legendItems }
+) => {
+    const getRank = getListRank(header, sorting, legendItems)
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
@@ -39,10 +128,13 @@ export const countColumnValues = (rows, { header, getLabel, byLabel }) => {
                 value,
                 label: getLabel(value, row),
                 count: 1,
+                ...getLegendFields(row, header, getRank),
             })
         }
     }
-    return [...byKey.values()].sort(compareEntries(header, byLabel))
+    return [...byKey.values()].sort(
+        compareEntries(header, { byLabel, sorting })
+    )
 }
 
 // The rows the other columns' filters keep, which the list counts
@@ -50,6 +142,22 @@ export const getRowsForColumn = (rows, filters, dataKey) => {
     const otherFilters = { ...filters }
     delete otherFilters[dataKey]
     return filterData(rows, otherFilters)
+}
+
+// Up to this many values are quicker to pick than to match with a condition
+const MAX_PICKED_VALUES = 10
+
+// The parts the popover opens with: the list for a column with few values, the condition
+// for the others, and any part already in use
+export const getOpenParts = (values, filter) => {
+    const valueCount = values.filter((entry) => !isNoValueEntry(entry)).length
+    const opensOnList = valueCount <= MAX_PICKED_VALUES
+    return {
+        condition: !opensOnList || hasCondition(filter),
+        values:
+            opensOnList ||
+            !!filter?.excluded?.some((key) => key !== SENTINEL_NO_VALUE),
+    }
 }
 
 // The draft's condition on a listed value: on its label where cells show a name
@@ -65,31 +173,26 @@ const getFindText = (draft) =>
     draft.operator === OPERATOR_FIND ? normalizeText(draft.value ?? '') : ''
 
 // The values to list: those passing the condition, or found by "Find in list",
-// with "No value" and the unchecked values no row has any more
+// with "No value" and the unchecked values no row has any more; and whether either narrows the list
 export const getListedValues = (values, draft, { matchOnLabel }) => {
     const test = getEntryTest(draft, matchOnLabel)
     const findText = getFindText(draft)
-    const listed = []
-    let hidden = 0
-
-    for (const entry of values) {
-        if (entry.key === SENTINEL_NO_VALUE) {
-            if (!findText) {
-                listed.push(entry)
-            }
-        } else if (test && !test(entry)) {
-            hidden++
-        } else if (normalizeText(entry.label).includes(findText)) {
-            listed.push(entry)
-        }
-    }
+    const listed = values.filter((entry) =>
+        isNoValueEntry(entry)
+            ? !findText
+            : (!test || test(entry)) &&
+              normalizeText(entry.label).includes(findText)
+    )
 
     const counted = new Set(values.map(({ key }) => key))
     const gone = (draft.excluded ?? [])
         .filter((key) => !counted.has(key))
         .map((key) => ({ key, label: key, count: 0, isGone: true }))
 
-    return { listed: [...listed, ...gone], hidden }
+    return {
+        listed: [...listed, ...gone],
+        isNarrowed: !!test || !!findText,
+    }
 }
 
 // The rows the draft would keep, among those the other filters keep

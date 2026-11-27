@@ -1,6 +1,7 @@
 import {
     FIRST_DATA_ELEMENT_QUERY,
     ORG_UNITS_COUNT_QUERY,
+    ORG_UNITS_GROUPS_QUERY,
     ORG_UNITS_PATHS_QUERY,
 } from '../../util/requests.js'
 import { applyMissingCoordsCount } from '../facilityLoader.js'
@@ -9,6 +10,7 @@ const makeEngine = ({
     missingOuIds = [],
     ouNamesById = {},
     orgUnitPathsById = {},
+    groupIdsById = {},
 } = {}) => ({
     query: jest.fn((query, { variables } = {}) => {
         if (query === FIRST_DATA_ELEMENT_QUERY) {
@@ -38,6 +40,18 @@ const makeEngine = ({
                     organisationUnits: requestedIds
                         .filter((id) => orgUnitPathsById[id])
                         .map((id) => ({ id, path: orgUnitPathsById[id] })),
+                },
+            })
+        }
+        if (query === ORG_UNITS_GROUPS_QUERY) {
+            return Promise.resolve({
+                organisationUnits: {
+                    organisationUnits: variables.ids.split(',').map((id) => ({
+                        id,
+                        organisationUnitGroups: (groupIdsById[id] ?? []).map(
+                            (groupId) => ({ id: groupId })
+                        ),
+                    })),
                 },
             })
         }
@@ -78,6 +92,42 @@ describe('applyMissingCoordsCount', () => {
                     level: 3,
                 },
             },
+        ])
+    })
+
+    test('gives each facility without coordinates its group in the group set, but no legend, icon or color', async () => {
+        const engine = makeEngine({
+            missingOuIds: ['ou2', 'ou3'],
+            groupIdsById: { ou2: ['urban', 'chc'], ou3: ['urban'] },
+        })
+        const config = {}
+
+        await applyMissingCoordsCount(config, {
+            engine,
+            orgUnitIds: ['ou1', 'ou2', 'ou3'],
+            userId: 'user1',
+            features: [{ id: 'ou1' }],
+            groupSet: {
+                organisationUnitGroups: [
+                    { id: 'chc', name: 'CHC' },
+                    { id: 'mchp', name: 'MCHP' },
+                ],
+            },
+            legend: {},
+            alerts: [],
+        })
+
+        expect(
+            config.dataWithoutCoords.map(({ id, properties }) => [
+                id,
+                properties.group,
+                properties.legend,
+                properties.icon,
+                properties.color,
+            ])
+        ).toEqual([
+            ['ou2', 'CHC', undefined, undefined, undefined],
+            ['ou3', undefined, undefined, undefined, undefined],
         ])
     })
 

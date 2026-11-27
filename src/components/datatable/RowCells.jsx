@@ -2,8 +2,7 @@ import { DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_COLOR } from '../../constants/dataTable.js'
-import { isDarkColor } from '../../util/colors.js'
+import { ICON_UNCLASSIFIED, RENDERER_ICON } from '../../constants/dataTable.js'
 import { getRowId, isMonospaceColumn } from '../../util/dataTable.js'
 import CellValue from './CellValue.jsx'
 import styles from './styles/DataTable.module.css'
@@ -25,6 +24,12 @@ const RowCells = ({
         hoveredFeature?.layerId === layerId
 
     const cellsByDataKey = new Map(row.map((cell) => [cell.dataKey, cell]))
+    // Legend and Icon cells show the class icon or color, as the legend in the layer card
+    const icon = cellsByDataKey.get('icon')?.value
+    const legendSymbol = {
+        iconUrl: icon === ICON_UNCLASSIFIED ? undefined : icon,
+        color: cellsByDataKey.get('color')?.value,
+    }
 
     return (
         <>
@@ -35,27 +40,29 @@ const RowCells = ({
                 }
                 const { value, align } = cell
                 const renderer = rendererByDataKey.get(dataKey)
-                const isColorCell = renderer === RENDERER_COLOR
                 return (
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
                         staticStyle
                         className={cx(styles.dataCell, {
-                            [styles.lightText]:
-                                isColorCell && isDarkColor(value),
                             [styles.monoCell]: isMonospaceColumn({
                                 dataKey,
                                 renderer,
                             }),
-                            [styles.hovered]: isHovered && !isColorCell,
+                            [styles.hovered]: isHovered,
                         })}
-                        backgroundColor={isColorCell ? value : null}
                         align={align}
                     >
                         <CellValue
                             value={value}
                             renderer={renderer}
                             type={typeByDataKey.get(dataKey)}
+                            legendSymbol={
+                                dataKey === 'legend' ||
+                                renderer === RENDERER_ICON
+                                    ? legendSymbol
+                                    : undefined
+                            }
                             orgUnitIdToName={orgUnitIdToName}
                             keyAnalysisDigitGroupSeparator={
                                 keyAnalysisDigitGroupSeparator

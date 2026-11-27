@@ -4,36 +4,74 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
+    ICON_UNCLASSIFIED,
     RENDERER_COLOR,
+    RENDERER_GEOMETRY,
     RENDERER_ICON,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
+import { isNoValueEntry } from '../../../util/filterValues.js'
+import ColorChip from '../ColorChip.jsx'
+import GeometrySymbol from '../GeometrySymbol.jsx'
+import LegendSymbol from '../LegendSymbol.jsx'
 import styles from './styles/Filters.module.css'
 
 // Long lists show their first values; a condition or "Find in list" narrows them
-const MAX_LISTED = 200
+const MAX_LISTED = 100
 
-const ValueLabel = ({ entry, renderer, isMonospace }) => {
-    if (entry.key === SENTINEL_NO_VALUE) {
-        return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
+// An icon value shows its icon; unclassified facilities, without one, their dot as on the map
+const IconSymbol = ({ entry }) => {
+    if (entry.value !== ICON_UNCLASSIFIED) {
+        return (
+            <img
+                className={styles.iconThumbnail}
+                src={entry.value}
+                alt=""
+                onError={(e) => {
+                    e.target.style.visibility = 'hidden'
+                }}
+            />
+        )
     }
     return (
+        <span
+            className={styles.iconDot}
+            style={{ backgroundColor: entry.color }}
+        />
+    )
+}
+
+IconSymbol.propTypes = {
+    entry: PropTypes.object.isRequired,
+}
+
+const ValueLabel = ({ entry, renderer, isMonospace }) => {
+    if (isNoValueEntry(entry)) {
+        return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
+    }
+    if (renderer === RENDERER_COLOR && !entry.isGone) {
+        return (
+            <ColorChip
+                color={entry.value}
+                className={cx({ [styles.monoLabel]: isMonospace })}
+            >
+                {entry.label}
+            </ColorChip>
+        )
+    }
+    // A legend class shows its icon or color, a geometry type its symbol
+    return (
         <span className={cx({ [styles.monoLabel]: isMonospace })}>
-            {renderer === RENDERER_ICON && !entry.isGone && (
-                <img
-                    className={styles.iconThumbnail}
-                    src={entry.value}
-                    alt=""
-                    onError={(e) => {
-                        e.target.style.visibility = 'hidden'
-                    }}
+            {renderer === RENDERER_GEOMETRY && (
+                <GeometrySymbol
+                    type={entry.value}
+                    className={styles.geometry}
                 />
             )}
-            {renderer === RENDERER_COLOR && !entry.isGone && (
-                <span
-                    className={styles.swatch}
-                    style={{ backgroundColor: entry.value }}
-                />
+            {renderer === RENDERER_ICON ? (
+                !entry.isGone && <IconSymbol entry={entry} />
+            ) : (
+                <LegendSymbol iconUrl={entry.iconUrl} color={entry.color} />
             )}
             {entry.label}
         </span>
@@ -49,18 +87,37 @@ ValueLabel.propTypes = {
 // The column's values with a checkbox each: every value starts checked, unchecked ones are left out
 const ValueList = ({
     listed,
-    hidden,
+    valueCount,
+    isNarrowed,
     excluded,
     renderer,
     isMonospace,
+    formatCount,
     onChange,
 }) => {
     const excludedKeys = new Set(excluded)
     const listedKeys = listed.map(({ key }) => key)
-    const checkedCount = listedKeys.filter(
-        (key) => !excludedKeys.has(key)
-    ).length
-    const shown = listed.slice(0, MAX_LISTED)
+    // "No value" comes first, on top of the values shown
+    const noValueRows = listed[0] && isNoValueEntry(listed[0]) ? 1 : 0
+    const shown = listed.slice(0, MAX_LISTED + noValueRows)
+
+    // How many values the list shows, out of the column's values; "No value" isn't one
+    const isValue = (entry) => !isNoValueEntry(entry)
+    const shownCount = shown.filter(isValue).length
+    const totalCount = valueCount + listed.filter(({ isGone }) => isGone).length
+    const countText =
+        shownCount === totalCount
+            ? i18n.t('{{total}} value', {
+                  count: totalCount,
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{total}} values',
+              })
+            : i18n.t('{{shown}} of {{total}} value', {
+                  count: totalCount,
+                  shown: formatCount(shownCount),
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{shown}} of {{total}} values',
+              })
 
     const toggle = (key) => {
         const next = new Set(excludedKeys)
@@ -72,20 +129,23 @@ const ValueList = ({
         onChange([...next], key)
     }
 
-    // Act on the listed values only, so a condition or a search narrows what they change
+    // Act on the listed values only, so a condition or a search narrows what they change;
+    // "No value" never matches a condition: only its own checkbox changes it then
+    const keysToSet = isNarrowed
+        ? listedKeys.filter((key) => key !== SENTINEL_NO_VALUE)
+        : listedKeys
     const checkAll = () =>
-        onChange(excluded.filter((key) => !listedKeys.includes(key)))
-    const uncheckAll = () =>
-        onChange([...new Set([...excluded, ...listedKeys])])
+        onChange(excluded.filter((key) => !keysToSet.includes(key)))
+    const uncheckAll = () => onChange([...new Set([...excluded, ...keysToSet])])
 
     return (
         <div className={styles.stack}>
             <div className={styles.optionsMeta}>
-                <span aria-live="polite">
-                    {i18n.t('{{checked}} of {{count}} checked', {
-                        checked: checkedCount,
-                        count: listed.length,
-                    })}
+                <span
+                    aria-live="polite"
+                    data-test="data-table-filter-values-count"
+                >
+                    {countText}
                 </span>
                 <span>
                     <button
@@ -131,7 +191,7 @@ const ValueList = ({
                                         isMonospace={isMonospace}
                                     />
                                     <span className={styles.count}>
-                                        {entry.count}
+                                        {formatCount(entry.count)}
                                     </span>
                                 </span>
                             }
@@ -144,22 +204,9 @@ const ValueList = ({
                     </li>
                 )}
             </ul>
-            {listed.length > MAX_LISTED && (
+            {listed.length > shown.length && (
                 <span className={styles.listNote}>
-                    {i18n.t(
-                        '{{count}} more values: narrow the list with a condition or Find in list',
-                        { count: listed.length - MAX_LISTED }
-                    )}
-                </span>
-            )}
-            {hidden > 0 && (
-                <span className={styles.listNote}>
-                    {i18n.t('{{count}} values hidden by the condition', {
-                        count: hidden,
-                        defaultValue: '{{count}} value hidden by the condition',
-                        defaultValue_plural:
-                            '{{count}} values hidden by the condition',
-                    })}
+                    {i18n.t('Set a condition to reach the other values.')}
                 </span>
             )}
         </div>
@@ -168,10 +215,12 @@ const ValueList = ({
 
 ValueList.propTypes = {
     excluded: PropTypes.arrayOf(PropTypes.string).isRequired,
-    hidden: PropTypes.number.isRequired,
+    formatCount: PropTypes.func.isRequired,
     listed: PropTypes.arrayOf(PropTypes.object).isRequired,
+    valueCount: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     isMonospace: PropTypes.bool,
+    isNarrowed: PropTypes.bool,
     renderer: PropTypes.string,
 }
 

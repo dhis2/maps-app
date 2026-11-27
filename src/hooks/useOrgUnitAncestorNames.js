@@ -30,7 +30,8 @@ const useOrgUnitAncestorNames = (
     const idsKey = ids.join(',')
 
     const [idToName, setIdToName] = useState(new Map())
-    const [loading, setLoading] = useState(false)
+    // The ids the names were last settled for: loading until they are the current ones
+    const [settledKey, setSettledKey] = useState(null)
 
     useEffect(() => {
         if (!ids.length) {
@@ -53,12 +54,11 @@ const useOrgUnitAncestorNames = (
 
         if (!idsToFetch.length) {
             setIdToName(buildMerged())
-            setLoading(false)
+            setSettledKey(idsKey)
             return
         }
 
         let cancelled = false
-        setLoading(true)
         fetchOrgUnitPathDetails(engine, idsToFetch, nameProperty)
             .then((details) => {
                 Object.entries(details).forEach(([id, d]) => {
@@ -70,7 +70,7 @@ const useOrgUnitAncestorNames = (
                     return
                 }
                 setIdToName(buildMerged())
-                setLoading(false)
+                setSettledKey(idsKey)
             })
             .catch(log.error)
         return () => {
@@ -81,7 +81,7 @@ const useOrgUnitAncestorNames = (
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [engine, idsKey, nameProperty, knownIdToName])
 
-    return { idToName, loading }
+    return { idToName, loading: ids.length > 0 && settledKey !== idsKey }
 }
 
 export default useOrgUnitAncestorNames

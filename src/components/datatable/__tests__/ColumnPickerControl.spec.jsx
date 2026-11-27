@@ -65,6 +65,13 @@ describe('ColumnPicker trigger', () => {
         expect(screen.getByLabelText('Value')).toBeChecked()
         expect(screen.getByLabelText('Legend')).toBeChecked()
     })
+
+    test('closes on Escape', () => {
+        renderColumnPicker()
+        openPicker()
+        fireEvent.keyDown(window, { key: 'Escape' })
+        expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
+    })
 })
 
 describe('ColumnPicker visibility toggling', () => {

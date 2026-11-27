@@ -6,6 +6,7 @@ import {
     DATA_FILTER_CLEAR,
     DATA_FILTER_SET,
 } from '../../../../constants/actionTypes.js'
+import { DIGIT_GROUP_SEPARATOR_COMMA } from '../../../../constants/settings.js'
 import FilterButton from '../FilterButton.jsx'
 
 jest.mock('../../../../hooks/useOptionSet.js', () => () => ({
@@ -29,11 +30,21 @@ const COLUMN = {
     ]),
 }
 
+// More than 10 values: the filter opens on its condition
+const MANY_VALUES_COLUMN = {
+    ...COLUMN,
+    rows: Array.from({ length: 11 }, (_, i) => ({ id: `e${i}` })),
+}
+
 const ID_HEADER = { name: 'Event ID', dataKey: 'id', type: 'string' }
 
 const renderButton = async (
     filter,
-    { filterType = 'text', header = ID_HEADER } = {}
+    {
+        filterType = 'text',
+        header = ID_HEADER,
+        column = MANY_VALUES_COLUMN,
+    } = {}
 ) => {
     const store = mockStore({})
     render(
@@ -42,7 +53,7 @@ const renderButton = async (
                 layerId="layer1"
                 header={header}
                 filterType={filterType}
-                column={COLUMN}
+                column={column}
                 filter={filter}
             />
         </Provider>
@@ -187,9 +198,9 @@ describe('FilterButton value list', () => {
         dataKey: 'ou',
         type: 'string',
         renderer: 'renderorgunitname',
-        filterView: 'values',
     }
     const GENDER_HEADER = { name: 'Gender', dataKey: 'gender', type: 'string' }
+    const FEW_VALUES = { column: COLUMN }
 
     const listItems = () => [
         ...screen
@@ -201,8 +212,8 @@ describe('FilterButton value list', () => {
             .find((li) => li.textContent.startsWith(label))
             .querySelector('input')
 
-    test('a column with few values opens on its list, its condition behind a link', async () => {
-        await renderButton(undefined, { header: OU_HEADER })
+    test('a column with up to 10 values opens on its list, its condition behind a link', async () => {
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
 
         expect(
             screen.getByTestId('data-table-filter-values-list')
@@ -217,8 +228,8 @@ describe('FilterButton value list', () => {
         ).toBeInTheDocument()
     })
 
-    test('other columns open on their condition, the list behind a link', async () => {
-        await renderButton(undefined, { header: GENDER_HEADER })
+    test('a column with more than 10 values opens on its condition, its list behind a link', async () => {
+        await renderButton()
 
         expect(
             screen.queryByTestId('data-table-filter-values-list')
@@ -229,8 +240,54 @@ describe('FilterButton value list', () => {
         ).toBeInTheDocument()
     })
 
+    test('counts the values the list shows out of the column’s values, "No value" not being one', async () => {
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
+        const count = () =>
+            screen.getByTestId('data-table-filter-values-count').textContent
+
+        // Tests load no translations: plurals read singular
+        expect(count()).toMatch(/^2 values?$/)
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        typeText('ken')
+        expect(count()).toMatch(/^1 of 2 values?$/)
+    })
+
+    test('a long list shows its first 100 values, its counts grouped as the instance groups digits', async () => {
+        await renderButton(undefined, {
+            column: {
+                ...COLUMN,
+                rows: Array.from({ length: 1200 }, (_, i) => ({ id: `e${i}` })),
+                keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+            },
+        })
+        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
+
+        expect(
+            screen.getByTestId('data-table-filter-values-count')
+        ).toHaveTextContent(/^100 of 1,200 values?$/)
+        expect(
+            screen.getByText('Set a condition to reach the other values.')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-preview')
+        ).toHaveTextContent('1,200 of 1,200 rows')
+    })
+
+    test('groups the digits of each value’s row count as the instance does', async () => {
+        await renderButton(undefined, {
+            header: GENDER_HEADER,
+            column: {
+                ...COLUMN,
+                rows: Array.from({ length: 1200 }, () => ({ gender: 'F' })),
+                keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+            },
+        })
+
+        expect(listItems().map((li) => li.textContent)).toContain('F1,200')
+    })
+
     test('lists the values by the names the cells show, with their row count and "No value"', async () => {
-        await renderButton(undefined, { header: OU_HEADER })
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
 
         expect(listItems().map((li) => li.textContent)).toEqual([
             'No value0',
@@ -240,7 +297,10 @@ describe('FilterButton value list', () => {
     })
 
     test('applies the unchecked values, and shows the rows it keeps', async () => {
-        const store = await renderButton(undefined, { header: OU_HEADER })
+        const store = await renderButton(undefined, {
+            header: OU_HEADER,
+            ...FEW_VALUES,
+        })
 
         fireEvent.click(checkbox('Kenema'))
         expect(
@@ -255,7 +315,10 @@ describe('FilterButton value list', () => {
     })
 
     test('a condition on a column showing names is applied through the values it leaves out', async () => {
-        const store = await renderButton(undefined, { header: OU_HEADER })
+        const store = await renderButton(undefined, {
+            header: OU_HEADER,
+            ...FEW_VALUES,
+        })
 
         fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
         typeText('ken')
@@ -270,11 +333,32 @@ describe('FilterButton value list', () => {
         })
     })
 
-    test('checking "No value" back keeps the rows without a value despite the condition', async () => {
-        const store = await renderButton(undefined, { header: GENDER_HEADER })
+    test('with a condition, "Select all" and "Deselect all" leave "No value" as the condition set it', async () => {
+        const store = await renderButton(undefined, {
+            header: GENDER_HEADER,
+            ...FEW_VALUES,
+        })
 
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
         typeText('fem')
-        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
+        fireEvent.click(screen.getByText('Deselect all'))
+        expect(checkbox('Female')).not.toBeChecked()
+        fireEvent.click(screen.getByText('Select all'))
+        expect(checkbox('Female')).toBeChecked()
+        expect(checkbox('No value')).not.toBeChecked()
+
+        fireEvent.click(applyButton())
+        expect(store.getActions()[0].filter.excluded).toEqual([''])
+    })
+
+    test('checking "No value" back keeps the rows without a value despite the condition', async () => {
+        const store = await renderButton(undefined, {
+            header: GENDER_HEADER,
+            ...FEW_VALUES,
+        })
+
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        typeText('fem')
         fireEvent.click(checkbox('No value'))
         fireEvent.click(applyButton())
 
@@ -328,6 +412,55 @@ describe('FilterButton on date and time columns', () => {
         expect(
             screen.getByTestId('data-table-filter-value').querySelector('input')
         ).toHaveAttribute('type', 'time')
+    })
+})
+
+describe('FilterButton on an icon column', () => {
+    const ICON_HEADER = {
+        name: 'Icon',
+        dataKey: 'icon',
+        type: 'string',
+        renderer: 'rendericon',
+    }
+    const ICON_COLUMN = {
+        ...COLUMN,
+        rows: [
+            { icon: 'https://dhis2/images/orgunitgroup/05.png' },
+            { icon: 'https://dhis2/images/orgunitgroup/14.png' },
+            { legend: 'Unclassified', color: '#cccccc', icon: 'unclassified' },
+            { name: 'Facility without coordinates' },
+        ],
+    }
+
+    test('lists the icons by their file name, the unclassified facilities by their class, those without coordinates under "No value"', async () => {
+        await renderButton(undefined, {
+            header: ICON_HEADER,
+            column: ICON_COLUMN,
+        })
+
+        const labels = [
+            ...screen
+                .getByTestId('data-table-filter-values-list')
+                .querySelectorAll('li'),
+        ].map((li) => li.textContent)
+        expect(labels).toEqual(['No value1', '051', '141', 'Unclassified1'])
+        expect(
+            screen.getByTestId('data-table-filter-add-condition')
+        ).toBeInTheDocument()
+    })
+})
+
+describe('FilterButton popover', () => {
+    test('closes on Escape without applying the draft', async () => {
+        const store = await renderButton()
+
+        typeText('bo')
+        fireEvent.keyDown(window, { key: 'Escape' })
+
+        expect(
+            screen.queryByTestId('data-table-filter-popover')
+        ).not.toBeInTheDocument()
+        expect(store.getActions()).toEqual([])
     })
 })
 

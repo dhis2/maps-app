@@ -32,28 +32,24 @@ const ACTIVE_FILL = 'var(--colors-blue700)'
 const HEADERS = [
     { name: 'Org unit', dataKey: 'orgUnitOwn', type: 'string' },
     { name: 'Value', dataKey: 'rawValue', type: 'number' },
-    {
-        name: 'Legend',
-        dataKey: 'legend',
-        type: 'string',
-        filterView: 'values',
-    },
+    { name: 'Legend', dataKey: 'legend', type: 'string' },
     { name: 'Event date', dataKey: 'eventdate', type: 'date' },
     { name: 'Untyped', dataKey: 'untyped' },
 ]
 
-const renderTable = () =>
+const renderTable = (layerType = 'thematic') => {
+    const store = mockStore({
+        map: { mapViews: [{ id: 'layer1', layer: layerType }] },
+        dataTable: 'layer1',
+        feature: null,
+    })
     render(
-        <Provider
-            store={mockStore({
-                map: { mapViews: [{ id: 'layer1', layer: 'thematic' }] },
-                dataTable: 'layer1',
-                feature: null,
-            })}
-        >
+        <Provider store={store}>
             <DataTable availableWidth={800} />
         </Provider>
     )
+    return store
+}
 
 const lastSorting = () => {
     const { sortField, sortDirection } = useTableData.mock.lastCall[0]
@@ -71,17 +67,43 @@ const activeArrows = (name) =>
 const UP_ARROW = '4 7 12 7 8 2'
 const DOWN_ARROW = '4 9 12 9 8 14'
 
+const TABLE_DATA = {
+    headers: HEADERS,
+    rows: [],
+    isLoading: false,
+    error: null,
+    totalCount: 3,
+    filteredCount: 0,
+    columnOptions: {},
+    orgUnitIdToName: new Map(),
+    filterRows: [],
+}
+
 beforeEach(() => {
-    useTableData.mockReturnValue({
-        headers: HEADERS,
-        rows: [],
-        isLoading: false,
-        error: null,
-        totalCount: 0,
-        filteredCount: 0,
-        columnOptions: {},
-        orgUnitIdToName: new Map(),
-        filterRows: [],
+    useTableData.mockReturnValue(TABLE_DATA)
+})
+
+describe('DataTable sorting and filtering', () => {
+    test.each([
+        ['the layer has no rows', { totalCount: 0 }],
+        ['the table is loading', { isLoading: true }],
+    ])('are disabled while %s', (_, state) => {
+        useTableData.mockReturnValue({ ...TABLE_DATA, ...state })
+        renderTable()
+
+        expect(sortButton('Value')).toBeDisabled()
+        expect(
+            screen.getByTestId('data-table-filter-button-rawValue')
+        ).toBeDisabled()
+    })
+
+    test('stay available when filters leave no rows, to change the filters', () => {
+        renderTable()
+
+        expect(sortButton('Value')).not.toBeDisabled()
+        expect(
+            screen.getByTestId('data-table-filter-button-rawValue')
+        ).not.toBeDisabled()
     })
 })
 
@@ -173,5 +195,44 @@ describe('DataTable column headers', () => {
             sortField: null,
             sortDirection: 'asc',
         })
+    })
+})
+
+describe('DataTable message instead of the table', () => {
+    const NO_DATA = {
+        title: 'No data to show',
+        description: 'This layer has no features for its current settings.',
+    }
+
+    beforeEach(() => {
+        useTableData.mockReturnValue({
+            headers: null,
+            rows: null,
+            isLoading: false,
+            error: NO_DATA,
+            totalCount: 0,
+            filteredCount: 0,
+            columnOptions: {},
+            orgUnitIdToName: new Map(),
+            filterRows: [],
+        })
+    })
+
+    test('offers to edit the layer, whose settings decide its features', () => {
+        const store = renderTable('thematic')
+
+        expect(screen.getByText(NO_DATA.title)).toBeInTheDocument()
+        expect(screen.getByText(NO_DATA.description)).toBeInTheDocument()
+        fireEvent.click(screen.getByText('Edit layer'))
+        expect(store.getActions()).toContainEqual(
+            expect.objectContaining({ type: 'LAYER_EDIT' })
+        )
+    })
+
+    test('offers nothing for an external layer, which comes with its features', () => {
+        renderTable('geoJsonUrl')
+
+        expect(screen.getByText(NO_DATA.title)).toBeInTheDocument()
+        expect(screen.queryByText('Edit layer')).toBeNull()
     })
 })

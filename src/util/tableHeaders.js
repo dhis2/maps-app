@@ -6,6 +6,8 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
+    RENDERER_GEOMETRY,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
@@ -16,8 +18,6 @@ import {
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
-    FILTER_VIEW_VALUES,
-    FILTER_VIEW_VALUES_ONLY,
 } from '../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -61,7 +61,13 @@ const getCustomFieldType = (valueType, hasOptionSet) => {
 
 const DATE_LIKE_TYPES = new Set([TYPE_DATE, TYPE_DATETIME, TYPE_TIME])
 
-const getCustomFieldRenderer = (type, valueType) => {
+// The analytics response's own "eventstatus" column holds status codes, named in the cells
+const EVENT_STATUS = 'eventstatus'
+
+const getCustomFieldRenderer = (dataKey, type, valueType) => {
+    if (dataKey === EVENT_STATUS) {
+        return RENDERER_EVENT_STATUS
+    }
     if (DATE_LIKE_TYPES.has(type)) {
         return RENDERER_DATE
     }
@@ -74,12 +80,6 @@ const getCustomFieldRenderer = (type, valueType) => {
     return undefined
 }
 
-// Option sets and Yes/no have few values: their filter opens on the list
-const getCustomFieldFilterView = (valueType, hasOptionSet) =>
-    hasOptionSet || booleanValueTypes.includes(valueType)
-        ? FILTER_VIEW_VALUES
-        : undefined
-
 const ID = 'id'
 const VALUE = 'rawValue'
 const LEGEND = 'legend'
@@ -88,7 +88,7 @@ const LEVEL = ORG_UNIT_LEVEL_DATA_KEY
 const TYPE = 'type'
 const COLOR = 'color'
 const GROUP = 'group'
-const ICON = 'iconUrl'
+const ICON = 'icon'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
 const LASTUPDATED = 'lastupdated'
@@ -110,38 +110,33 @@ const defaultFieldsMap = () => ({
         dataKey: ORG_UNIT,
         type: TYPE_STRING,
         renderer: RENDERER_ORG_UNIT_NAME,
-        filterView: FILTER_VIEW_VALUES,
     },
     [LEVEL]: {
         name: i18n.t('Org unit level'),
         dataKey: LEVEL,
         type: TYPE_NUMBER,
-        filterView: FILTER_VIEW_VALUES,
     },
     [TYPE]: {
         name: i18n.t('Geometry type'),
         dataKey: TYPE,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
+        renderer: RENDERER_GEOMETRY,
     },
     [VALUE]: { name: i18n.t('Value'), dataKey: VALUE, type: TYPE_NUMBER },
     [LEGEND]: {
         name: i18n.t('Legend'),
         dataKey: LEGEND,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [RANGE]: {
         name: i18n.t('Range'),
         dataKey: RANGE,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [OUBOUNDARY]: {
         name: i18n.t('Org unit boundary'),
         dataKey: OUBOUNDARY,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [ORG_UNIT_PATH]: {
         name: i18n.t('Org unit hierarchy'),
@@ -166,21 +161,17 @@ const defaultFieldsMap = () => ({
         dataKey: COLOR,
         type: TYPE_STRING,
         renderer: RENDERER_COLOR,
-        // A hex code or an image isn't text to search: values only
-        filterView: FILTER_VIEW_VALUES_ONLY,
     },
     [GROUP]: {
         name: i18n.t('Group'),
         dataKey: GROUP,
         type: TYPE_STRING,
-        filterView: FILTER_VIEW_VALUES,
     },
     [ICON]: {
         name: i18n.t('Icon'),
         dataKey: ICON,
         type: TYPE_STRING,
         renderer: RENDERER_ICON,
-        filterView: FILTER_VIEW_VALUES_ONLY,
     },
 })
 
@@ -200,6 +191,7 @@ const getStyleHeaders = ({
     hasGroup,
     hasColor,
     hasIcon,
+    isColorHidden = false,
 }) => {
     const headers = []
     if (hasLegend) {
@@ -212,7 +204,10 @@ const getStyleHeaders = ({
         headers.push(defaultFieldsMap()[GROUP])
     }
     if (hasColor) {
-        headers.push(defaultFieldsMap()[COLOR])
+        headers.push({
+            ...defaultFieldsMap()[COLOR],
+            ...(isColorHidden && { defaultHidden: true }),
+        })
     }
     if (hasIcon) {
         headers.push(defaultFieldsMap()[ICON])
@@ -281,8 +276,7 @@ const getEventHeaders = ({
                 name,
                 dataKey,
                 type,
-                renderer: getCustomFieldRenderer(type, valueType),
-                filterView: getCustomFieldFilterView(valueType, !!optionSet),
+                renderer: getCustomFieldRenderer(dataKey, type, valueType),
                 optionSet: optionSet || null,
             }
         })
@@ -298,32 +292,43 @@ const getEventHeaders = ({
     return fields.concat(customFields).concat(defaultFieldsMap()[TYPE])
 }
 
-const getOrgUnitStyleHeaders = (data) => {
+// Facility layers draw icons: the Icon column also shows the unclassified facilities' dot,
+// and the Color column, which only holds that dot's color, starts hidden
+const getOrgUnitStyleHeaders = (data, { drawsIcons = false } = {}) => {
+    let hasLegend = false
     let hasGroup = false
     let hasColor = false
     let hasIcon = false
 
     for (const d of data ?? []) {
+        hasLegend ||= d.legend != null
         hasGroup ||= d.group != null
         hasColor ||= d.color != null
-        hasIcon ||= d.iconUrl != null
+        hasIcon ||= d.icon != null
 
-        if (hasGroup && hasColor && hasIcon) {
+        if (hasLegend && hasGroup && hasColor && hasIcon) {
             break
         }
     }
 
-    return getStyleHeaders({ hasGroup, hasColor, hasIcon })
+    return getStyleHeaders({
+        hasLegend,
+        hasGroup,
+        hasColor,
+        hasIcon,
+        isColorHidden: drawsIcons,
+    })
 }
 
-const getFixedFieldsWithOrgUnitStyle = (data) =>
+const getFixedFieldsWithOrgUnitStyle = (data, options) =>
     getOrgUnitCoreFields(i18n.t('Org unit ID'))
-        .concat(getOrgUnitStyleHeaders(data))
+        .concat(getOrgUnitStyleHeaders(data, options))
         .concat(defaultFieldsMap()[TYPE])
 
 const getOrgUnitHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
 
-const getFacilityHeaders = (data) => getFixedFieldsWithOrgUnitStyle(data)
+const getFacilityHeaders = (data) =>
+    getFixedFieldsWithOrgUnitStyle(data, { drawsIcons: true })
 
 const toTitleCase = (str) =>
     str.replace(

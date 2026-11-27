@@ -9,6 +9,7 @@ import {
     EVENT_LAYER,
     THEMATIC_LAYER,
     EARTH_ENGINE_LAYER,
+    GEOJSON_URL_LAYER,
     RENDERING_STRATEGY_SINGLE,
     RENDERING_STRATEGY_TIMELINE,
 } from '../../constants/layers.js'
@@ -25,22 +26,42 @@ import {
     getHeadersForLayer,
 } from '../../util/tableHeaders.js'
 import { ERROR_NO_VALID_DATA, buildTableData } from '../../util/tableRows.js'
-import { compareRows } from '../../util/tableSort.js'
+import {
+    compareRows,
+    getLegendRank,
+    isLegendColumn,
+} from '../../util/tableSort.js'
 
 const ERROR_NO_HEADERS = 'NO_HEADERS'
 
-const getErrorCodeText = (code) => {
+// External layers come with their features: editing the layer can't add any
+const getNoDataMessage = (layerType) => ({
+    title: i18n.t('No data to show'),
+    description:
+        layerType === GEOJSON_URL_LAYER
+            ? i18n.t('This external layer has no features.')
+            : i18n.t('This layer has no features for its current settings.'),
+})
+
+// The two last cases only happen on external layers, whose columns come from their features
+const getErrorMessage = (code, layerType) => {
     switch (code) {
         case ERROR_NO_VALID_DATA:
-            return i18n.t(
-                'No valid data was found for the current layer configuration.'
-            )
+            return getNoDataMessage(layerType)
         case ERROR_NON_HOMOGENOUS_FEATURES:
-            return i18n.t(
-                'Data table is not supported when there is more than one geometry type in the dataset.'
-            )
+            return {
+                title: i18n.t('Data table not available'),
+                description: i18n.t(
+                    'The data table cannot show an external layer with more than one geometry type.'
+                ),
+            }
         case ERROR_NO_HEADERS:
-            return i18n.t('No valid data fields were found for this layer.')
+            return {
+                title: i18n.t('No data to show'),
+                description: i18n.t(
+                    "This external layer's features have no properties to show."
+                ),
+            }
         default:
             return null
     }
@@ -205,10 +226,11 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         () => buildKnownOrgUnitNames(dataWithAggregations),
         [dataWithAggregations]
     )
-    const { idToName: orgUnitIdToName } = useOrgUnitAncestorNames(
-        orgUnitPathValues,
-        knownOrgUnitNames
-    )
+    const { idToName: orgUnitIdToName, loading: isLoadingNames } =
+        useOrgUnitAncestorNames(orgUnitPathValues, knownOrgUnitNames)
+    // Org unit columns show ids until their names arrive, and sort by those names
+    const isWaitingForNames =
+        isLoadingNames || deferredDataForOptions !== dataWithAggregations
 
     const rows = useMemo(() => {
         if (errorCode.current) {
@@ -223,15 +245,17 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         const filteredData = filterData(dataWithAggregations, dataFilters)
 
         // Sort
-        const sortFieldRenderer = headers.find(
-            (h) => h.dataKey === sortField
-        )?.renderer
+        const sortHeader = headers.find((h) => h.dataKey === sortField)
+        const getRank = isLegendColumn(sortHeader)
+            ? getLegendRank(legend?.items)
+            : null
         filteredData.sort((a, b) =>
             compareRows(a, b, {
                 sortField,
                 sortDirection,
-                orgUnitRenderer: sortFieldRenderer,
+                orgUnitRenderer: sortHeader?.renderer,
                 idToName: orgUnitIdToName,
+                getRank,
             })
         )
 
@@ -243,6 +267,7 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         sortField,
         sortDirection,
         orgUnitIdToName,
+        legend,
     ])
 
     // EE layers and event layers may be loading additional data
@@ -254,7 +279,8 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         layerType === EVENT_LAYER &&
         !layer.isExtended &&
         !!(!serverCluster || layer.forceClientCluster)
-    const isLoading = isLoadingAggregations || isExtendingEvents
+    const isLoading =
+        isLoadingAggregations || isExtendingEvents || isWaitingForNames
     let loadingReason = null
     if (isLoadingAggregations) {
         loadingReason = i18n.t('Loading Earth Engine data…')
@@ -265,12 +291,24 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
     const totalCount = dataWithAggregations?.length ?? 0
     const filteredCount = rows?.length ?? 0
 
+    // Stable objects: the table context and column widths depend on them
+    const currentErrorCode = errorCode.current
+    const error = useMemo(
+        () => getErrorMessage(currentErrorCode, layerType),
+        [currentErrorCode, layerType]
+    )
+    const noDataMessage = useMemo(
+        () => getNoDataMessage(layerType),
+        [layerType]
+    )
+
     return {
         headers,
         rows,
         isLoading,
         loadingReason,
-        error: getErrorCodeText(errorCode.current),
+        error,
+        noDataMessage,
         totalCount,
         filteredCount,
         orgUnitIdToName,

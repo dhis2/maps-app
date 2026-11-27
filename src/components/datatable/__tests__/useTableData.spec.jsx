@@ -95,6 +95,7 @@ describe('useTableData headers', () => {
                         name: 'Facility 1',
                         type: 'Point',
                         iconUrl: 'https://server/images/orgunitgroup/1.png',
+                        icon: 'https://server/images/orgunitgroup/1.png',
                         group: 'Hospitals',
                     },
                 },
@@ -118,16 +119,14 @@ describe('useTableData headers', () => {
         const { headers, rows } = result.current
         expect(headers).toContainEqual({
             name: 'Icon',
-            dataKey: 'iconUrl',
+            dataKey: 'icon',
             type: 'string',
             renderer: 'rendericon',
-            filterView: 'valuesOnly',
         })
         expect(headers).toContainEqual({
             name: 'Group',
             dataKey: 'group',
             type: 'string',
-            filterView: 'values',
         })
         expect(headers).not.toContainEqual(
             expect.objectContaining({ dataKey: 'color' })
@@ -135,7 +134,7 @@ describe('useTableData headers', () => {
         expect(rows[0]).toContainEqual(
             expect.objectContaining({
                 value: 'https://server/images/orgunitgroup/1.png',
-                dataKey: 'iconUrl',
+                dataKey: 'icon',
             })
         )
     })
@@ -181,7 +180,7 @@ describe('useTableData headers', () => {
             expect.objectContaining({ name: 'Group', dataKey: 'group' })
         )
         expect(headers).not.toContainEqual(
-            expect.objectContaining({ dataKey: 'iconUrl' })
+            expect.objectContaining({ dataKey: 'icon' })
         )
     })
 
@@ -845,13 +844,11 @@ describe('useTableData headers', () => {
             name: 'Legend',
             dataKey: 'legend',
             type: 'string',
-            filterView: 'values',
         })
         expect(headers).toContainEqual({
             name: 'Range',
             dataKey: 'range',
             type: 'string',
-            filterView: 'values',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: 'High', dataKey: 'legend' })
@@ -1272,7 +1269,6 @@ describe('useTableData headers', () => {
             dataKey: 'color',
             type: 'string',
             renderer: 'rendercolor',
-            filterView: 'valuesOnly',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: '#ff0000', dataKey: 'color' })
@@ -1294,7 +1290,7 @@ describe('useTableData sorting', () => {
         ],
     }
 
-    test('sorts numeric values in ascending order with undefined/null at end', () => {
+    test('sorts numeric values in ascending order with undefined/null first', () => {
         const store = {
             aggregations: {},
         }
@@ -1315,7 +1311,7 @@ describe('useTableData sorting', () => {
         const valueColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'rawValue')?.value
         )
-        expect(valueColumn).toEqual([5, 10, 15, null, null])
+        expect(valueColumn).toEqual([null, null, 5, 10, 15])
     })
 
     test('sorts numeric values in descending order with undefined/null at end', () => {
@@ -1342,7 +1338,7 @@ describe('useTableData sorting', () => {
         expect(valueColumn).toEqual([15, 10, 5, null, null])
     })
 
-    test('sorts string values in ascending order with undefined at end', () => {
+    test('sorts string values in ascending order with undefined first', () => {
         const layerWithStringData = {
             id: 'test-layer',
             layer: 'thematic',
@@ -1375,7 +1371,7 @@ describe('useTableData sorting', () => {
         const nameColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'orgUnitOwn')?.value
         )
-        expect(nameColumn).toEqual(['Apple', 'Banana', 'Zebra', undefined])
+        expect(nameColumn).toEqual([undefined, 'Apple', 'Banana', 'Zebra'])
     })
 
     test('sorts string values in descending order with undefined at end', () => {
@@ -1453,7 +1449,7 @@ describe('useTableData sorting', () => {
         const valueColumn = result.current.rows.map(
             (row) => row.find((c) => c.dataKey === 'rawValue')?.value
         )
-        expect(valueColumn).toEqual([5, 10, null, null])
+        expect(valueColumn).toEqual([null, null, 5, 10])
     })
 
     test('handles all undefined values', () => {
@@ -1821,6 +1817,38 @@ describe('useTableData columnOptions', () => {
     })
 })
 
+describe('useTableData loading', () => {
+    test('loads until the org unit names are in, so rows show names and keep their order', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map(),
+            loading: true,
+        })
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [{ id: 'ou1', properties: { name: 'Bo', id: 'ou1' } }],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore({ aggregations: {} })}>
+                        {children}
+                    </Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(true)
+    })
+})
+
 describe('useTableData errors', () => {
     test.each(['facility', 'event', 'thematic'])(
         'a %s layer without rows shows the no-data message',
@@ -1844,9 +1872,46 @@ describe('useTableData errors', () => {
             )
 
             expect(result.current.rows).toBeNull()
-            expect(result.current.error).toBe(
-                'No valid data was found for the current layer configuration.'
-            )
+            expect(result.current.error).toEqual({
+                title: 'No data to show',
+                description:
+                    'This layer has no features for its current settings.',
+            })
         }
     )
+
+    const renderExternalLayer = (data) =>
+        renderHook(
+            () =>
+                useTableData({
+                    layer: { layer: 'geoJsonUrl', dataFilters: null, data },
+                    sortField: null,
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore({ aggregations: {} })}>
+                        {children}
+                    </Provider>
+                ),
+            }
+        ).result
+
+    test('an external layer without features says so', () => {
+        expect(renderExternalLayer([]).current.error.description).toBe(
+            'This external layer has no features.'
+        )
+    })
+
+    test('an external layer mixing geometry types has no table', () => {
+        const result = renderExternalLayer([
+            { geometry: { type: 'Point' }, properties: { name: 'A' } },
+            { geometry: { type: 'LineString' }, properties: { name: 'B' } },
+        ])
+        expect(result.current.error).toEqual({
+            title: 'Data table not available',
+            description:
+                'The data table cannot show an external layer with more than one geometry type.',
+        })
+    })
 })
