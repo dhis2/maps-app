@@ -9,8 +9,7 @@ import {
     DEFAULT_PLACEHOLDER,
     formatDateInput,
     formatDateOnBlur,
-    nextCharIsAutoHyphen,
-    nextCharIsManualHyphen,
+    typeDate,
 } from '../../util/date.js'
 import { CalendarInput } from './CalendarInput.jsx'
 import styles from './styles/StartEndDate.module.css'
@@ -73,20 +72,9 @@ const StartEndDate = ({
         }
 
         const caret = document.querySelector(inputSelector)?.selectionStart
-        const dateInfo = { date, prevDate, caret }
-
-        let newCaretPosition = caret
-        if (nextCharIsAutoHyphen(dateInfo)) {
-            newCaretPosition = caret + 1
-        } else if (nextCharIsManualHyphen(dateInfo)) {
-            // No change needed for caret position
-        } else if (/\D/.test(date?.[caret - 1] || '')) {
-            newCaretPosition = caret - 1
-        }
-        setCaret(newCaretPosition)
-
-        const formattedDate = formatDateInput(dateInfo)
-        dispatch(dispatchAction(formattedDate))
+        const typed = typeDate({ date, prevDate, caret })
+        setCaret(typed.caret)
+        dispatch(dispatchAction(typed.date))
 
         setDateChangeCount((prevCount) => prevCount + 1)
     }

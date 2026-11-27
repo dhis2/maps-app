@@ -18,8 +18,10 @@ import { TableVirtuoso } from 'react-virtuoso'
 import { highlightFeature } from '../../actions/feature.js'
 import { editLayer, setForceClientCluster } from '../../actions/layers.js'
 import {
+    FILTER_DATE,
     FILTER_NUMBER,
     FILTER_TEXT,
+    FILTER_TIME,
     SORT_ASCENDING,
 } from '../../constants/dataTable.js'
 import { GEOJSON_URL_LAYER } from '../../constants/layers.js'
@@ -44,7 +46,12 @@ import { useColumnWidths } from './useColumnWidths.js'
 import { useTableData } from './useTableData.js'
 
 // Conditions the popover offers so far; the other columns keep FilterInput
-const POPOVER_FILTER_TYPES = new Set([FILTER_TEXT, FILTER_NUMBER])
+const POPOVER_FILTER_TYPES = new Set([
+    FILTER_TEXT,
+    FILTER_NUMBER,
+    FILTER_DATE,
+    FILTER_TIME,
+])
 
 const hasFilterPopover = (header) =>
     POPOVER_FILTER_TYPES.has(getFilterType(header))

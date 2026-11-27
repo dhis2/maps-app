@@ -7,6 +7,7 @@ import {
 
 export const DEFAULT_CALENDAR = 'iso8601'
 export const DEFAULT_PLACEHOLDER = 'yyyy-mm-dd'
+export const TIME_PLACEHOLDER = 'hh:mm'
 
 const JULIAN_CALENDAR_NAME = 'julian'
 const NEPALI_CALENDAR_NAME = 'nepali'
@@ -192,6 +193,46 @@ export const formatDateOnBlur = (date) => {
     }
 }
 
+const capTimePart = (digits, max) =>
+    digits.length === 2
+        ? String(Math.min(Number(digits), max)).padStart(2, '0')
+        : digits
+
+const splitTime = (time) => {
+    const [hour, ...rest] = time.split(':')
+    if (rest.length > 0) {
+        return {
+            hour: hour.slice(0, 2),
+            minute: rest.join('').slice(0, 2),
+            hasColon: true,
+        }
+    }
+    // A first digit above 2 can only be a one-digit hour
+    const hourLength = Number(hour[0]) > 2 ? 1 : 2
+    const minute = hour.slice(hourLength, hourLength + 2)
+    return { hour: hour.slice(0, hourLength), minute, hasColon: minute !== '' }
+}
+
+// Times are typed as HH:MM (24-hour): digits only, hour and minute capped like months and days
+export const formatTimeInput = (time) => {
+    const typed = time?.replaceAll(/[^\d:]/g, '')
+    if (!typed) {
+        return ''
+    }
+    const { hour, minute, hasColon } = splitTime(typed)
+    const cappedHour = capTimePart(hour, 23)
+    return hasColon ? `${cappedHour}:${capTimePart(minute, 59)}` : cappedHour
+}
+
+export const formatTimeOnBlur = (time) => {
+    const match = /^(\d{1,2}):?(\d{0,2})$/.exec(time ?? '')
+    if (!match) {
+        return time
+    }
+    const [, hour, minute] = match
+    return `${hour.padStart(2, '0')}:${minute.padStart(2, '0')}`
+}
+
 export const nextCharIsAutoHyphen = ({ date, prevDate, caret }) => {
     if (!date || !prevDate || !caret) {
         return false
@@ -217,4 +258,24 @@ export const nextCharIsManualHyphen = ({ date, prevDate, caret }) => {
     const insertedCharIsHyphen = date[caret - 1] === '-'
 
     return atHyphenPosition && insertedCharIsHyphen
+}
+
+const getCaretAfterTyping = (dateInfo) => {
+    const { date, caret } = dateInfo
+    if (nextCharIsAutoHyphen(dateInfo)) {
+        return caret + 1
+    }
+    if (nextCharIsManualHyphen(dateInfo)) {
+        return caret
+    }
+    return /\D/.test(date?.[caret - 1] || '') ? caret - 1 : caret
+}
+
+// A typed date formatted as yyyy-mm-dd, and where the caret goes in it
+export const typeDate = ({ date, prevDate, caret }) => {
+    const dateInfo = { date, prevDate, caret }
+    return {
+        date: formatDateInput(dateInfo),
+        caret: getCaretAfterTyping(dateInfo),
+    }
 }

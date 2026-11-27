@@ -1,8 +1,13 @@
 import i18n from '@dhis2/d2-i18n'
 import {
+    FILTER_DATE,
     FILTER_NUMBER,
     FILTER_TEXT,
+    FILTER_TIME,
+    OPERATOR_AFTER,
+    OPERATOR_BEFORE,
     OPERATOR_BETWEEN,
+    OPERATOR_ON,
     OPERATOR_CONTAINS,
     OPERATOR_EQUAL,
     OPERATOR_FIND,
@@ -39,9 +44,26 @@ const getNumberOperators = () => [
     },
 ]
 
+// Between includes both ends; Before and After exclude the date or time typed
+const getDateOperators = () => [
+    { value: OPERATOR_BETWEEN, label: i18n.t('Between') },
+    { value: OPERATOR_ON, label: i18n.t('On') },
+    { value: OPERATOR_BEFORE, label: i18n.t('Before') },
+    { value: OPERATOR_AFTER, label: i18n.t('After') },
+]
+
+const getTimeOperators = () => [
+    { value: OPERATOR_BETWEEN, label: i18n.t('Between') },
+    { value: OPERATOR_ON, label: i18n.t('At') },
+    { value: OPERATOR_BEFORE, label: i18n.t('Before') },
+    { value: OPERATOR_AFTER, label: i18n.t('After') },
+]
+
 const OPERATORS = {
     [FILTER_TEXT]: getTextOperators,
     [FILTER_NUMBER]: getNumberOperators,
+    [FILTER_DATE]: getDateOperators,
+    [FILTER_TIME]: getTimeOperators,
 }
 
 // "Find in list" comes last on text columns: never the default, the text is never saved
