@@ -236,16 +236,6 @@
     font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
-/* A color value is painted as its table cell, as wide as its code */
-.paintedLabel {
-    padding: 0 var(--spacers-dp4);
-    border-radius: 2px;
-}
-
-.lightLabel {
-    color: var(--colors-white);
-}
-
 .noMatch {
     padding: var(--spacers-dp8);
     font-size: 12px;

@@ -9,8 +9,8 @@ import {
     RENDERER_ICON,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
-import { isDarkColor } from '../../../util/colors.js'
 import { isNoValueEntry } from '../../../util/filterValues.js'
+import ColorChip from '../ColorChip.jsx'
 import GeometrySymbol from '../GeometrySymbol.jsx'
 import LegendSymbol from '../LegendSymbol.jsx'
 import styles from './styles/Filters.module.css'
@@ -48,17 +48,19 @@ const ValueLabel = ({ entry, renderer, isMonospace }) => {
     if (isNoValueEntry(entry)) {
         return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
     }
-    // A color value is painted as in its table cell; a legend class shows its icon or color, a geometry type its symbol
-    const isPainted = renderer === RENDERER_COLOR && !entry.isGone
+    if (renderer === RENDERER_COLOR && !entry.isGone) {
+        return (
+            <ColorChip
+                color={entry.value}
+                className={cx({ [styles.monoLabel]: isMonospace })}
+            >
+                {entry.label}
+            </ColorChip>
+        )
+    }
+    // A legend class shows its icon or color, a geometry type its symbol
     return (
-        <span
-            className={cx({
-                [styles.monoLabel]: isMonospace,
-                [styles.paintedLabel]: isPainted,
-                [styles.lightLabel]: isPainted && isDarkColor(entry.value),
-            })}
-            style={isPainted ? { backgroundColor: entry.value } : undefined}
-        >
+        <span className={cx({ [styles.monoLabel]: isMonospace })}>
             {renderer === RENDERER_GEOMETRY && (
                 <GeometrySymbol
                     type={entry.value}

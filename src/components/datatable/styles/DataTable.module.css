@@ -10,13 +10,14 @@ td.dataCell:hover {
     cursor: default;
 }
 
-td.lightText {
-    color: var(--colors-white);
+/* Ids and color codes stay on one line, so the measured column width fits them;
+   the font is set on what the cell holds too, as the UI reset gives every element its own */
+td.monoCell,
+td.monoCell * {
+    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
 }
 
-/* Ids and color codes stay on one line, so the measured column width fits them */
 td.monoCell {
-    font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', 'Consolas', monospace;
     white-space: nowrap;
 }
 

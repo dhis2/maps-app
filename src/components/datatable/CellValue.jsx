@@ -1,7 +1,12 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_GEOMETRY, RENDERER_ICON } from '../../constants/dataTable.js'
+import {
+    RENDERER_COLOR,
+    RENDERER_GEOMETRY,
+    RENDERER_ICON,
+} from '../../constants/dataTable.js'
 import { formatCellText } from '../../util/tableCells.js'
+import ColorChip from './ColorChip.jsx'
 import GeometrySymbol from './GeometrySymbol.jsx'
 import LegendSymbol from './LegendSymbol.jsx'
 import styles from './styles/DataTable.module.css'
@@ -42,6 +47,9 @@ const CellValue = ({
         orgUnitIdToName,
         keyAnalysisDigitGroupSeparator,
     })
+    if (renderer === RENDERER_COLOR && text) {
+        return <ColorChip color={value}>{text}</ColorChip>
+    }
     if (renderer === RENDERER_GEOMETRY && text) {
         return (
             <>

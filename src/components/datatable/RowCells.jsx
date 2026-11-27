@@ -2,8 +2,7 @@ import { DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_COLOR, RENDERER_ICON } from '../../constants/dataTable.js'
-import { isDarkColor } from '../../util/colors.js'
+import { RENDERER_ICON } from '../../constants/dataTable.js'
 import { getRowId, isMonospaceColumn } from '../../util/dataTable.js'
 import CellValue from './CellValue.jsx'
 import styles from './styles/DataTable.module.css'
@@ -40,22 +39,17 @@ const RowCells = ({
                 }
                 const { value, align } = cell
                 const renderer = rendererByDataKey.get(dataKey)
-                const isColorCell = renderer === RENDERER_COLOR
                 return (
                     <DataTableCell
                         key={`dtcell-${dataKey}`}
                         staticStyle
                         className={cx(styles.dataCell, {
-                            [styles.lightText]:
-                                isColorCell && isDarkColor(value),
                             [styles.monoCell]: isMonospaceColumn({
                                 dataKey,
                                 renderer,
                             }),
-                            [styles.hovered]:
-                                isHovered && !(isColorCell && value),
+                            [styles.hovered]: isHovered,
                         })}
-                        backgroundColor={isColorCell ? value : null}
                         align={align}
                     >
                         <CellValue
