@@ -17,7 +17,7 @@ describe('EmptyPlaceholder', () => {
             onForceClientCluster,
         })
 
-        expect(screen.getByText("Event details aren't available")).toBeTruthy()
+        expect(screen.getByText('Event details are not available')).toBeTruthy()
         expect(
             screen.getByText('This layer is clustered on the server.')
         ).toBeTruthy()

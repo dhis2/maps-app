@@ -52,7 +52,7 @@ const getErrorMessage = (code, layerType) => {
             return {
                 title: i18n.t('Data table not available'),
                 description: i18n.t(
-                    "The data table can't show an external layer with more than one geometry type."
+                    'The data table cannot show an external layer with more than one geometry type.'
                 ),
             }
         case ERROR_NO_HEADERS:

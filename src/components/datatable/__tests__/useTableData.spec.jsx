@@ -1880,7 +1880,7 @@ describe('useTableData errors', () => {
         expect(result.current.error).toEqual({
             title: 'Data table not available',
             description:
-                "The data table can't show an external layer with more than one geometry type.",
+                'The data table cannot show an external layer with more than one geometry type.',
         })
     })
 })

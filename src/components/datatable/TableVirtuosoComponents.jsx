@@ -53,7 +53,7 @@ DataTableRowWithVirtuosoContext.propTypes = {
 const getEmptyMessage = (context) => {
     if (context.showServerClusterAction) {
         return {
-            title: i18n.t("Event details aren't available"),
+            title: i18n.t('Event details are not available'),
             description: i18n.t('This layer is clustered on the server.'),
             action: {
                 label: i18n.t('Show event details'),
