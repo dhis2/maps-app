@@ -4,8 +4,10 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     TYPE_DATE,
 } from '../constants/dataTable.js'
+import { getEventStatusName } from '../constants/eventStatuses.js'
 import { formatBoolean, formatDate, formatDatetime } from './helpers.js'
 import { formatWithSeparator } from './numbers.js'
 import {
@@ -33,6 +35,8 @@ export const formatCellText = (
             return formatOrgUnitOwnName(value, orgUnitIdToName)
         case RENDERER_BOOLEAN:
             return formatBoolean(value)
+        case RENDERER_EVENT_STATUS:
+            return getEventStatusName(value)
         default:
             return formatWithSeparator(value, keyAnalysisDigitGroupSeparator)
     }

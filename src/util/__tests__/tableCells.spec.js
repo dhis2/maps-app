@@ -4,6 +4,7 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     TYPE_DATE,
     TYPE_DATETIME,
 } from '../../constants/dataTable.js'
@@ -67,6 +68,18 @@ describe('formatCellText', () => {
             renderer: RENDERER_BOOLEAN,
             expected: 'No',
         },
+        {
+            name: 'a scheduled event status by its name',
+            value: 'SCHEDULE',
+            renderer: RENDERER_EVENT_STATUS,
+            expected: 'Scheduled',
+        },
+        {
+            name: 'an event status without a name by its code',
+            value: 'SKIPPED',
+            renderer: RENDERER_EVENT_STATUS,
+            expected: 'SKIPPED',
+        },
     ])('formats $name', ({ value, renderer, type, expected }) => {
         expect(
             formatCellText(value, {
@@ -85,6 +98,7 @@ describe('formatCellText', () => {
         RENDERER_ORG_UNIT,
         RENDERER_ORG_UNIT_NAME,
         RENDERER_BOOLEAN,
+        RENDERER_EVENT_STATUS,
     ]
     const missingValueCases = renderers.flatMap((renderer) =>
         [null, undefined, ''].map((value) => ({ renderer, value }))

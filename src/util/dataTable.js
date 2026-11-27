@@ -11,6 +11,7 @@ import {
     FILTER_TIME,
     RENDERER_BOOLEAN,
     RENDERER_COLOR,
+    RENDERER_EVENT_STATUS,
     RENDERER_ICON,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
@@ -30,10 +31,11 @@ const NAMED_VALUE_RENDERERS = new Set([
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     RENDERER_ICON,
 ])
 
-// Columns whose cells show a name for the stored value: org units, option sets, Yes/no, icons
+// Columns whose cells show a name for the stored value: org units, option sets, Yes/no, event status, icons
 export const isNamedValueColumn = ({ renderer, optionSet }) =>
     NAMED_VALUE_RENDERERS.has(renderer) || !!optionSet
 

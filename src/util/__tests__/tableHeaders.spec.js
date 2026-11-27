@@ -3,6 +3,7 @@ import {
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
@@ -160,6 +161,7 @@ describe('getHeadersForLayer - event', () => {
                 column: 'Follow-up',
                 valueType: 'BOOLEAN',
             },
+            { name: 'eventstatus', column: 'Event status', valueType: 'TEXT' },
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         const headerFor = (dataKey) =>
@@ -179,6 +181,7 @@ describe('getHeadersForLayer - event', () => {
         expect(headerFor('b2c3d4e5f6a').renderer).toBeUndefined()
         expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
         expect(headerFor('d4e5f6a7b8c').renderer).toBe(RENDERER_BOOLEAN)
+        expect(headerFor('eventstatus').renderer).toBe(RENDERER_EVENT_STATUS)
     })
 
     test('option-set-backed custom field carries the optionSet id onto the header', () => {

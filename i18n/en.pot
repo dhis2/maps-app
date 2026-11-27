@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-27T11:18:36.534Z\n"
-"PO-Revision-Date: 2026-11-27T11:18:36.535Z\n"
+"POT-Creation-Date: 2026-11-27T11:46:36.615Z\n"
+"PO-Revision-Date: 2026-11-27T11:46:36.615Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -1919,6 +1919,9 @@ msgstr "Active"
 
 msgid "Completed"
 msgstr "Completed"
+
+msgid "Scheduled"
+msgstr "Scheduled"
 
 msgid "Choropleth"
 msgstr "Choropleth"

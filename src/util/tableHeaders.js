@@ -6,6 +6,7 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     RENDERER_GEOMETRY,
     TYPE_NUMBER,
     TYPE_STRING,
@@ -61,7 +62,13 @@ const getCustomFieldType = (valueType, hasOptionSet) => {
 
 const DATE_LIKE_TYPES = new Set([TYPE_DATE, TYPE_DATETIME, TYPE_TIME])
 
-const getCustomFieldRenderer = (type, valueType) => {
+// The analytics response's own "eventstatus" column holds status codes, named in the cells
+const EVENT_STATUS = 'eventstatus'
+
+const getCustomFieldRenderer = (dataKey, type, valueType) => {
+    if (dataKey === EVENT_STATUS) {
+        return RENDERER_EVENT_STATUS
+    }
     if (DATE_LIKE_TYPES.has(type)) {
         return RENDERER_DATE
     }
@@ -273,7 +280,7 @@ const getEventHeaders = ({
                 name,
                 dataKey,
                 type,
-                renderer: getCustomFieldRenderer(type, valueType),
+                renderer: getCustomFieldRenderer(dataKey, type, valueType),
                 optionSet: optionSet || null,
             }
         })

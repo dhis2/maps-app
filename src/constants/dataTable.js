@@ -11,6 +11,7 @@ export const RENDERER_ORG_UNIT = 'renderorgunit'
 export const RENDERER_ORG_UNIT_NAME = 'renderorgunitname'
 export const RENDERER_BOOLEAN = 'renderboolean'
 export const RENDERER_GEOMETRY = 'rendergeometry'
+export const RENDERER_EVENT_STATUS = 'rendereventstatus'
 
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
