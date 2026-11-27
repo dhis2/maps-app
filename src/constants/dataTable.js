@@ -10,6 +10,11 @@ export const RENDERER_DATE = 'renderdate'
 export const RENDERER_ORG_UNIT = 'renderorgunit'
 export const RENDERER_ORG_UNIT_NAME = 'renderorgunitname'
 export const RENDERER_BOOLEAN = 'renderboolean'
+export const RENDERER_GEOMETRY = 'rendergeometry'
+export const RENDERER_EVENT_STATUS = 'rendereventstatus'
+
+// The Icon column's value for unclassified facilities, drawn as a dot
+export const ICON_UNCLASSIFIED = 'unclassified'
 
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
@@ -28,10 +33,6 @@ export const FILTER_TEXT = 'text'
 export const FILTER_NUMBER = 'number'
 export const FILTER_DATE = 'date'
 export const FILTER_TIME = 'time'
-
-// What a column's filter shows first: the condition (default), the list of values, or only the list
-export const FILTER_VIEW_VALUES = 'values'
-export const FILTER_VIEW_VALUES_ONLY = 'valuesOnly'
 
 export const OPERATOR_CONTAINS = 'contains'
 export const OPERATOR_NOT_CONTAINS = 'notContains'

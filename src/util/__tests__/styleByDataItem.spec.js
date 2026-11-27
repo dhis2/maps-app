@@ -670,6 +670,14 @@ describe('addLegendProperties', () => {
         expect(properties).toMatchObject({ legend: 'Low', range: '0 – 10' })
     })
 
+    test('names a class without a name by its range, as the layer card shows it', () => {
+        const legend = { items: [{ startValue: 0, endValue: 10 }] }
+
+        const [{ properties }] = addLegendProperties([feature(0)], legend, {})
+
+        expect(properties).toMatchObject({ legend: '0 – 10', range: '0 – 10' })
+    })
+
     test('formats the range with the layer’s legendDecimalPlaces', () => {
         const legend = {
             items: [{ name: 'High', startValue: 50.256, endValue: 100.789 }],

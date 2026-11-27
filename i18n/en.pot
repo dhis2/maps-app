@@ -5,8 +5,8 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
-"POT-Creation-Date: 2026-11-19T14:32:15.236Z\n"
-"PO-Revision-Date: 2026-11-19T14:32:15.236Z\n"
+"POT-Creation-Date: 2026-11-27T11:48:17.142Z\n"
+"PO-Revision-Date: 2026-11-27T11:48:17.142Z\n"
 
 msgid "2020"
 msgstr "2020"
@@ -212,20 +212,23 @@ msgstr "No matches"
 msgid "No value"
 msgstr "No value"
 
-msgid "Event details aren't available while this layer is clustered on the server"
-msgstr "Event details aren't available while this layer is clustered on the server"
+msgid "Event details are not available"
+msgstr "Event details are not available"
+
+msgid "This layer is clustered on the server."
+msgstr "This layer is clustered on the server."
 
 msgid "Show event details"
 msgstr "Show event details"
 
-msgid "No features match your filters"
-msgstr "No features match your filters"
+msgid "No matching rows"
+msgstr "No matching rows"
+
+msgid "Try changing or clearing your filters."
+msgstr "Try changing or clearing your filters."
 
 msgid "Clear filters"
 msgstr "Clear filters"
-
-msgid "No results found"
-msgstr "No results found"
 
 msgid "Close"
 msgstr "Close"
@@ -278,11 +281,42 @@ msgstr "Filter by {{column}}"
 msgid "Filter by"
 msgstr "Filter by"
 
+msgid "+ Add a condition"
+msgstr "+ Add a condition"
+
+msgid "+ Pick values"
+msgstr "+ Pick values"
+
+msgid "{{kept}} of {{total}} rows"
+msgstr "{{kept}} of {{total}} rows"
+
 msgid "Clear"
 msgstr "Clear"
 
 msgid "Apply"
 msgstr "Apply"
+
+msgid "{{total}} value"
+msgid_plural "{{total}} value"
+msgstr[0] "{{total}} value"
+msgstr[1] "{{total}} values"
+
+msgid "{{shown}} of {{total}} value"
+msgid_plural "{{shown}} of {{total}} value"
+msgstr[0] "{{shown}} of {{total}} value"
+msgstr[1] "{{shown}} of {{total}} values"
+
+msgid "Select all"
+msgstr "Select all"
+
+msgid "Deselect all"
+msgstr "Deselect all"
+
+msgid "No value matches"
+msgstr "No value matches"
+
+msgid "Set a condition to reach the other values."
+msgstr "Set a condition to reach the other values."
 
 msgid "Does not contain"
 msgstr "Does not contain"
@@ -314,18 +348,30 @@ msgstr "Less than (<)"
 msgid "Less than or equal to (≤)"
 msgstr "Less than or equal to (≤)"
 
-msgid "No valid data was found for the current layer configuration."
-msgstr "No valid data was found for the current layer configuration."
+msgid "Find in list"
+msgstr "Find in list"
+
+msgid "No data to show"
+msgstr "No data to show"
+
+msgid "This external layer has no features."
+msgstr "This external layer has no features."
+
+msgid "This layer has no features for its current settings."
+msgstr "This layer has no features for its current settings."
+
+msgid "Data table not available"
+msgstr "Data table not available"
 
 msgid ""
-"Data table is not supported when there is more than one geometry type in "
-"the dataset."
+"The data table cannot show an external layer with more than one geometry "
+"type."
 msgstr ""
-"Data table is not supported when there is more than one geometry type in "
-"the dataset."
+"The data table cannot show an external layer with more than one geometry "
+"type."
 
-msgid "No valid data fields were found for this layer."
-msgstr "No valid data fields were found for this layer."
+msgid "This external layer's features have no properties to show."
+msgstr "This external layer's features have no properties to show."
 
 msgid "Loading Earth Engine data…"
 msgstr "Loading Earth Engine data…"
@@ -1874,6 +1920,9 @@ msgstr "Active"
 msgid "Completed"
 msgstr "Completed"
 
+msgid "Scheduled"
+msgstr "Scheduled"
+
 msgid "Choropleth"
 msgstr "Choropleth"
 
@@ -2095,10 +2144,10 @@ msgstr "Enter a number"
 msgid "Fill in both values"
 msgstr "Fill in both values"
 
-msgid "{{count}} selected"
-msgid_plural "{{count}} selected"
-msgstr[0] "{{count}} selected"
-msgstr[1] "{{count}} selected"
+msgid "{{selected}} selected"
+msgid_plural "{{selected}} selected"
+msgstr[0] "{{selected}} selected"
+msgstr[1] "{{selected}} selected"
 
 msgid "Thematic"
 msgstr "Thematic"

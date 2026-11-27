@@ -10,9 +10,12 @@ import {
     FILTER_DATE,
     FILTER_TIME,
     RENDERER_BOOLEAN,
+    RENDERER_COLOR,
+    RENDERER_EVENT_STATUS,
     RENDERER_ICON,
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
+    ORG_UNIT_ID_DATA_KEY,
 } from '../constants/dataTable.js'
 
 export const isFilterable = (dataKey, type) => !!type
@@ -28,12 +31,19 @@ const NAMED_VALUE_RENDERERS = new Set([
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     RENDERER_ICON,
 ])
 
-// Columns whose cells show a name for the stored value: org units, option sets, Yes/no, icons
+// Columns whose cells show a name for the stored value: org units, option sets, Yes/no, event status, icons
 export const isNamedValueColumn = ({ renderer, optionSet }) =>
     NAMED_VALUE_RENDERERS.has(renderer) || !!optionSet
+
+// Ids and color codes, shown in a monospace font in cells and value lists
+export const isMonospaceColumn = ({ dataKey, renderer }) =>
+    dataKey === 'id' ||
+    dataKey === ORG_UNIT_ID_DATA_KEY ||
+    renderer === RENDERER_COLOR
 
 // The kind of condition that fits a column's values; text for the others, org units included
 export const getFilterType = ({ type }) =>

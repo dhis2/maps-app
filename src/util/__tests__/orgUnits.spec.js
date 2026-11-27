@@ -452,6 +452,46 @@ describe('getStyledOrgUnits', () => {
         )
     })
 
+    it('names each feature’s legend class as the layer card does: its group, or the unclassified name', () => {
+        const features = [
+            {
+                geometry: { type: 'Point' },
+                properties: { dimensions: { gs1: 'g1' } },
+            },
+            {
+                geometry: { type: 'Point' },
+                properties: { dimensions: {} },
+            },
+        ]
+        const groupSet = {
+            id: 'gs1',
+            name: 'Facility Type',
+            organisationUnitGroups: [
+                { id: 'g1', name: 'CHC', color: '#ff0000', symbol: '21.png' },
+            ],
+        }
+        const result = getStyledOrgUnits({
+            features,
+            groupSet,
+            config: {
+                radiusLow: 10,
+                unclassifiedLegend: { color: '#cccccc', name: 'Unknown' },
+            },
+            baseUrl: '/baseUrl',
+        })
+
+        expect(
+            result.styledFeatures.map(({ properties }) => [
+                properties.legend,
+                properties.group,
+                properties.icon,
+            ])
+        ).toEqual([
+            ['CHC', 'CHC', '/baseUrl/images/orgunitgroup/21.png'],
+            ['Unknown', undefined, 'unclassified'],
+        ])
+    })
+
     it('should use custom name from unclassifiedLegend when provided', () => {
         const features = [
             {

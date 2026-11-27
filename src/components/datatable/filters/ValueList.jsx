@@ -1,0 +1,227 @@
+import i18n from '@dhis2/d2-i18n'
+import { Checkbox } from '@dhis2/ui'
+import cx from 'classnames'
+import PropTypes from 'prop-types'
+import React from 'react'
+import {
+    ICON_UNCLASSIFIED,
+    RENDERER_COLOR,
+    RENDERER_GEOMETRY,
+    RENDERER_ICON,
+    SENTINEL_NO_VALUE,
+} from '../../../constants/dataTable.js'
+import { isNoValueEntry } from '../../../util/filterValues.js'
+import ColorChip from '../ColorChip.jsx'
+import GeometrySymbol from '../GeometrySymbol.jsx'
+import LegendSymbol from '../LegendSymbol.jsx'
+import styles from './styles/Filters.module.css'
+
+// Long lists show their first values; a condition or "Find in list" narrows them
+const MAX_LISTED = 100
+
+// An icon value shows its icon; unclassified facilities, without one, their dot as on the map
+const IconSymbol = ({ entry }) => {
+    if (entry.value !== ICON_UNCLASSIFIED) {
+        return (
+            <img
+                className={styles.iconThumbnail}
+                src={entry.value}
+                alt=""
+                onError={(e) => {
+                    e.target.style.visibility = 'hidden'
+                }}
+            />
+        )
+    }
+    return (
+        <span
+            className={styles.iconDot}
+            style={{ backgroundColor: entry.color }}
+        />
+    )
+}
+
+IconSymbol.propTypes = {
+    entry: PropTypes.object.isRequired,
+}
+
+const ValueLabel = ({ entry, renderer, isMonospace }) => {
+    if (isNoValueEntry(entry)) {
+        return <span className={styles.emptyOption}>{i18n.t('No value')}</span>
+    }
+    if (renderer === RENDERER_COLOR && !entry.isGone) {
+        return (
+            <ColorChip
+                color={entry.value}
+                className={cx({ [styles.monoLabel]: isMonospace })}
+            >
+                {entry.label}
+            </ColorChip>
+        )
+    }
+    // A legend class shows its icon or color, a geometry type its symbol
+    return (
+        <span className={cx({ [styles.monoLabel]: isMonospace })}>
+            {renderer === RENDERER_GEOMETRY && (
+                <GeometrySymbol
+                    type={entry.value}
+                    className={styles.geometry}
+                />
+            )}
+            {renderer === RENDERER_ICON ? (
+                !entry.isGone && <IconSymbol entry={entry} />
+            ) : (
+                <LegendSymbol iconUrl={entry.iconUrl} color={entry.color} />
+            )}
+            {entry.label}
+        </span>
+    )
+}
+
+ValueLabel.propTypes = {
+    entry: PropTypes.object.isRequired,
+    isMonospace: PropTypes.bool,
+    renderer: PropTypes.string,
+}
+
+// The column's values with a checkbox each: every value starts checked, unchecked ones are left out
+const ValueList = ({
+    listed,
+    valueCount,
+    isNarrowed,
+    excluded,
+    renderer,
+    isMonospace,
+    formatCount,
+    onChange,
+}) => {
+    const excludedKeys = new Set(excluded)
+    const listedKeys = listed.map(({ key }) => key)
+    // "No value" comes first, on top of the values shown
+    const noValueRows = listed[0] && isNoValueEntry(listed[0]) ? 1 : 0
+    const shown = listed.slice(0, MAX_LISTED + noValueRows)
+
+    // How many values the list shows, out of the column's values; "No value" isn't one
+    const isValue = (entry) => !isNoValueEntry(entry)
+    const shownCount = shown.filter(isValue).length
+    const totalCount = valueCount + listed.filter(({ isGone }) => isGone).length
+    const countText =
+        shownCount === totalCount
+            ? i18n.t('{{total}} value', {
+                  count: totalCount,
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{total}} values',
+              })
+            : i18n.t('{{shown}} of {{total}} value', {
+                  count: totalCount,
+                  shown: formatCount(shownCount),
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{shown}} of {{total}} values',
+              })
+
+    const toggle = (key) => {
+        const next = new Set(excludedKeys)
+        if (next.has(key)) {
+            next.delete(key)
+        } else {
+            next.add(key)
+        }
+        onChange([...next], key)
+    }
+
+    // Act on the listed values only, so a condition or a search narrows what they change;
+    // "No value" never matches a condition: only its own checkbox changes it then
+    const keysToSet = isNarrowed
+        ? listedKeys.filter((key) => key !== SENTINEL_NO_VALUE)
+        : listedKeys
+    const checkAll = () =>
+        onChange(excluded.filter((key) => !keysToSet.includes(key)))
+    const uncheckAll = () => onChange([...new Set([...excluded, ...keysToSet])])
+
+    return (
+        <div className={styles.stack}>
+            <div className={styles.optionsMeta}>
+                <span
+                    aria-live="polite"
+                    data-test="data-table-filter-values-count"
+                >
+                    {countText}
+                </span>
+                <span>
+                    <button
+                        type="button"
+                        className={styles.linkButton}
+                        onClick={checkAll}
+                        data-test="data-table-filter-values-check-all"
+                    >
+                        {i18n.t('Select all')}
+                    </button>
+                    {' · '}
+                    <button
+                        type="button"
+                        className={styles.linkButton}
+                        onClick={uncheckAll}
+                        data-test="data-table-filter-values-uncheck-all"
+                    >
+                        {i18n.t('Deselect all')}
+                    </button>
+                </span>
+            </div>
+            <ul
+                className={styles.optionList}
+                data-test="data-table-filter-values-list"
+            >
+                {shown.map((entry) => (
+                    <li
+                        key={entry.key}
+                        className={cx(styles.option, {
+                            [styles.optionGone]: entry.isGone,
+                        })}
+                    >
+                        <Checkbox
+                            dense
+                            className={styles.optionCheckbox}
+                            checked={!excludedKeys.has(entry.key)}
+                            onChange={() => toggle(entry.key)}
+                            label={
+                                <span className={styles.optionLabel}>
+                                    <ValueLabel
+                                        entry={entry}
+                                        renderer={renderer}
+                                        isMonospace={isMonospace}
+                                    />
+                                    <span className={styles.count}>
+                                        {formatCount(entry.count)}
+                                    </span>
+                                </span>
+                            }
+                        />
+                    </li>
+                ))}
+                {!listed.length && (
+                    <li className={styles.noMatch}>
+                        {i18n.t('No value matches')}
+                    </li>
+                )}
+            </ul>
+            {listed.length > shown.length && (
+                <span className={styles.listNote}>
+                    {i18n.t('Set a condition to reach the other values.')}
+                </span>
+            )}
+        </div>
+    )
+}
+
+ValueList.propTypes = {
+    excluded: PropTypes.arrayOf(PropTypes.string).isRequired,
+    formatCount: PropTypes.func.isRequired,
+    listed: PropTypes.arrayOf(PropTypes.object).isRequired,
+    valueCount: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+    isMonospace: PropTypes.bool,
+    isNarrowed: PropTypes.bool,
+    renderer: PropTypes.string,
+}
+
+export default ValueList

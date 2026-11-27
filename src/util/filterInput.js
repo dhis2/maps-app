@@ -1,6 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { TYPE_NUMBER } from '../constants/dataTable.js'
 import { isOrgUnitValueFilter, numericFilter } from './filter.js'
+import { formatWithSeparator } from './numbers.js'
 
 const POPOVER_ROW_NON_LABEL_WIDTH = 56
 const MIN_POPOVER_WIDTH = 140
@@ -24,12 +25,19 @@ export const getDisplayValue = ({
     searchText,
     selected,
     appliedString,
+    keyAnalysisDigitGroupSeparator,
 }) => {
     if (isOpen) {
         return searchText
     }
     if (selected.length) {
-        return i18n.t('{{count}} selected', { count: selected.length })
+        return i18n.t('{{selected}} selected', {
+            count: selected.length,
+            selected: formatWithSeparator(
+                selected.length,
+                keyAnalysisDigitGroupSeparator
+            ),
+        })
     }
     return appliedString
 }

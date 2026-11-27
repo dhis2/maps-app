@@ -5,6 +5,7 @@ import {
     OPERATOR_BETWEEN,
     OPERATOR_CONTAINS,
     OPERATOR_EQUAL,
+    OPERATOR_FIND,
     OPERATOR_GREATER,
     OPERATOR_GREATER_OR_EQUAL,
     OPERATOR_IS,
@@ -43,5 +44,16 @@ const OPERATORS = {
     [FILTER_NUMBER]: getNumberOperators,
 }
 
+// "Find in list" comes last on text columns: never the default, the text is never saved
+const getFindOperator = () => ({
+    value: OPERATOR_FIND,
+    label: i18n.t('Find in list'),
+})
+
 // The conditions offered for a kind of column, the default first
-export const getOperators = (filterType) => OPERATORS[filterType]?.() ?? []
+export const getOperators = (filterType) => {
+    const operators = OPERATORS[filterType]?.() ?? []
+    return filterType === FILTER_TEXT
+        ? [...operators, getFindOperator()]
+        : operators
+}

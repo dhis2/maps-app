@@ -12,6 +12,7 @@ import {
     getPolygonItems,
     getStyledOrgUnits,
     getCoordinateField,
+    attachGroupSetGroups,
     attachOrgUnitPaths,
     getMissingOrgUnitId,
     getOrgUnitsWithoutCoordsCount,
@@ -23,7 +24,7 @@ import { GEOFEATURES_QUERY } from '../util/requests.js'
 
 export const applyMissingCoordsCount = async (
     config,
-    { engine, orgUnitIds, userId, features, legend, alerts }
+    { engine, orgUnitIds, userId, features, groupSet, legend, alerts }
 ) => {
     const result = await getOrgUnitsWithoutCoordsCount({
         engine,
@@ -44,10 +45,15 @@ export const applyMissingCoordsCount = async (
     legend.orgUnitsWithoutCoordinatesCount = result.count
     legend.orgUnitsPointOnly = true
     if (result.count > 0) {
-        config.dataWithoutCoords = await attachOrgUnitPaths(
+        const withPaths = await attachOrgUnitPaths(
             result.missingOrgUnits,
             engine,
             getMissingOrgUnitId
+        )
+        config.dataWithoutCoords = await attachGroupSetGroups(
+            withPaths,
+            engine,
+            groupSet
         )
     }
 }
@@ -154,6 +160,7 @@ const facilityLoader = async ({
             orgUnitIds,
             userId,
             features,
+            groupSet,
             legend,
             alerts,
         })

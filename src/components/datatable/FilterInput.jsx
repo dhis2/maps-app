@@ -80,9 +80,13 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     resolveLabel,
     type,
     renderer,
+    disabled,
     allowCustomFilter = true,
 }) {
     const dispatch = useDispatch()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     const anchorRef = useRef(null)
     const listRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -304,12 +308,14 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         searchText,
         selected,
         appliedString,
+        keyAnalysisDigitGroupSeparator,
     })
 
     const mainInput = (
         <Input
             dense
             clearable
+            disabled={disabled}
             dataTest={`data-table-column-filter-search-${name}`}
             placeholder={
                 type === TYPE_NUMBER
@@ -500,6 +506,7 @@ SearchableFilterPopover.propTypes = {
     resolveLabel: PropTypes.func.isRequired,
     type: PropTypes.string.isRequired,
     allowCustomFilter: PropTypes.bool,
+    disabled: PropTypes.bool,
     filterValue: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.arrayOf(PropTypes.string),
@@ -582,6 +589,7 @@ const FilterInput = React.memo(function FilterInput({
     optionSetId,
     renderer,
     orgUnitIdToName,
+    disabled,
 }) {
     const dataTable = useSelector((state) => state.dataTable)
     const map = useSelector((state) => state.map)
@@ -609,6 +617,7 @@ const FilterInput = React.memo(function FilterInput({
                 optionSetId={optionSetId}
                 type={type}
                 renderer={renderer}
+                disabled={disabled}
             />
         )
     }
@@ -623,6 +632,7 @@ const FilterInput = React.memo(function FilterInput({
             type={type}
             renderer={renderer}
             orgUnitIdToName={orgUnitIdToName}
+            disabled={disabled}
         />
     )
 })
@@ -631,6 +641,7 @@ FilterInput.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
     optionSetId: PropTypes.string,
     options: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })),
     orgUnitIdToName: PropTypes.instanceOf(Map),

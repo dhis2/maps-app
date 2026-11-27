@@ -1,9 +1,8 @@
 import {
-    FILTER_VIEW_VALUES,
-    FILTER_VIEW_VALUES_ONLY,
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
+    RENDERER_EVENT_STATUS,
     TYPE_NUMBER,
     TYPE_STRING,
     TYPE_DATE,
@@ -161,6 +160,7 @@ describe('getHeadersForLayer - event', () => {
                 column: 'Follow-up',
                 valueType: 'BOOLEAN',
             },
+            { name: 'eventstatus', column: 'Event status', valueType: 'TEXT' },
         ]
         const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
         const headerFor = (dataKey) =>
@@ -180,6 +180,7 @@ describe('getHeadersForLayer - event', () => {
         expect(headerFor('b2c3d4e5f6a').renderer).toBeUndefined()
         expect(headerFor('c3d4e5f6a7b').renderer).toBe(RENDERER_ORG_UNIT)
         expect(headerFor('d4e5f6a7b8c').renderer).toBe(RENDERER_BOOLEAN)
+        expect(headerFor('eventstatus').renderer).toBe(RENDERER_EVENT_STATUS)
     })
 
     test('option-set-backed custom field carries the optionSet id onto the header', () => {
@@ -241,7 +242,7 @@ describe('getHeadersForLayer - event', () => {
 describe('getHeadersForLayer - org unit / facility', () => {
     test('org unit: fixed fields plus whichever style columns the data actually has', () => {
         const result = getHeadersForLayer(ORG_UNIT_LAYER, {
-            data: [{ color: '#fff' }, { iconUrl: 'x.png' }],
+            data: [{ color: '#fff' }, { icon: 'x.png' }],
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
@@ -251,7 +252,7 @@ describe('getHeadersForLayer - org unit / facility', () => {
                 'type',
                 'orgUnitPath',
                 'color',
-                'iconUrl',
+                'icon',
             ])
         )
         expect(dataKeys(result)).not.toContain('group')
@@ -269,6 +270,47 @@ describe('getHeadersForLayer - org unit / facility', () => {
             'group',
             'type',
         ])
+    })
+
+    test('styled by a group set: Legend, Group, Color and Icon in the places of thematic Legend, Range and Color', () => {
+        const result = getHeadersForLayer(FACILITY_LAYER, {
+            data: [
+                { legend: 'CHC', group: 'CHC', icon: 'c.png' },
+                {
+                    legend: 'Unclassified',
+                    color: '#ccc',
+                    icon: 'unclassified',
+                },
+            ],
+        })
+        expect(dataKeys(result)).toEqual([
+            'id',
+            'orgUnitOwn',
+            'level',
+            'orgUnitPath',
+            'legend',
+            'group',
+            'color',
+            'icon',
+            'type',
+        ])
+    })
+
+    test('facility: the Color column, holding only the unclassified dot’s color, starts hidden; the Icon column shows the dot', () => {
+        const result = getHeadersForLayer(FACILITY_LAYER, {
+            data: [
+                { legend: 'Unclassified', color: '#ccc', icon: 'unclassified' },
+            ],
+        })
+        const header = (dataKey) =>
+            result.headers.find((h) => h.dataKey === dataKey)
+        expect(header('color').defaultHidden).toBe(true)
+        expect(header('icon')).toBeDefined()
+        expect(
+            getHeadersForLayer(ORG_UNIT_LAYER, {
+                data: [{ legend: 'Unclassified', color: '#ccc' }],
+            }).headers.find((h) => h.dataKey === 'color').defaultHidden
+        ).toBeUndefined()
     })
 })
 
@@ -350,45 +392,5 @@ describe('getHeadersForLayer - unknown layer type', () => {
         expect(getHeadersForLayer('somethingElse', {})).toEqual({
             headers: null,
         })
-    })
-})
-
-describe('getHeadersForLayer - filter views', () => {
-    const filterViewOf = (result, dataKey) =>
-        result.headers.find((h) => h.dataKey === dataKey).filterView
-
-    test('columns with few values open on their list, Color on its list only, the others on the condition', () => {
-        const result = getHeadersForLayer(THEMATIC_LAYER, {})
-        expect(filterViewOf(result, 'orgUnitOwn')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'level')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'legend')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'range')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'type')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'color')).toBe(FILTER_VIEW_VALUES_ONLY)
-        expect(filterViewOf(result, 'orgUnitPath')).toBeUndefined()
-        expect(filterViewOf(result, 'rawValue')).toBeUndefined()
-    })
-
-    test('event data items with an option set or a Yes/no value open on their list, the others on the condition', () => {
-        const layerHeaders = [
-            {
-                name: 'w75KJ2mc4zz',
-                column: 'Gender',
-                valueType: 'TEXT',
-                optionSet: 'pC3N9N77UmT',
-            },
-            { name: 'zDhUuAYrxNC', column: 'Pregnant', valueType: 'BOOLEAN' },
-            {
-                name: 'oZg33kd9taw',
-                column: 'Referred to',
-                valueType: 'ORGANISATION_UNIT',
-            },
-            { name: 'qrur9Dvnyt5', column: 'Age', valueType: 'INTEGER' },
-        ]
-        const result = getHeadersForLayer(EVENT_LAYER, { layerHeaders })
-        expect(filterViewOf(result, 'w75KJ2mc4zz')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'zDhUuAYrxNC')).toBe(FILTER_VIEW_VALUES)
-        expect(filterViewOf(result, 'oZg33kd9taw')).toBeUndefined()
-        expect(filterViewOf(result, 'qrur9Dvnyt5')).toBeUndefined()
     })
 })

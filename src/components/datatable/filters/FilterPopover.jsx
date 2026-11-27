@@ -1,47 +1,111 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconCross16, Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
+import { SENTINEL_NO_VALUE } from '../../../constants/dataTable.js'
+import useKeyDown from '../../../hooks/useKeyDown.js'
+import { isMonospaceColumn } from '../../../util/dataTable.js'
 import {
     getFilterError,
+    hasCondition,
     isEmptyFilter,
     isSameFilter,
     normalizeFilter,
     updateNoValueForCondition,
 } from '../../../util/filter.js'
+import {
+    countKeptRows,
+    getListedValues,
+    getOpenParts,
+    isNoValueEntry,
+    toAppliedFilter,
+} from '../../../util/filterValues.js'
+import { formatWithSeparator } from '../../../util/numbers.js'
 import ConditionRow from './ConditionRow.jsx'
 import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
+import useFilterValues from './useFilterValues.js'
+import ValueList from './ValueList.jsx'
 
-const getEmptyFilter = (filterType) => ({
+const getDraft = (filterType, filter) => ({
     type: filterType,
     operator: getOperators(filterType)[0]?.value,
     value: '',
-    excluded: [],
+    ...filter,
+    excluded: filter?.excluded ?? [],
 })
 
 const FilterPopover = ({
     anchorRef,
     layerId,
-    name,
-    dataKey,
+    header,
     filterType,
+    column,
     filter,
     onClose,
 }) => {
+    const { name, dataKey, renderer } = header
     const dispatch = useDispatch()
-    const [draft, setDraft] = useState(() => ({
-        ...getEmptyFilter(filterType),
-        ...filter,
-    }))
-    const canApply = !isSameFilter(draft, filter) && !getFilterError(draft)
+    const { allValues, values, matchOnLabel } = useFilterValues({
+        header,
+        ...column,
+    })
+    const [draft, setDraft] = useState(() => getDraft(filterType, filter))
+    // "No value" follows the condition until the user checks or unchecks it
+    const [isNoValueChosen, setIsNoValueChosen] = useState(
+        () =>
+            !!filter &&
+            hasCondition(filter) !==
+                filter.excluded?.includes(SENTINEL_NO_VALUE)
+    )
+    const [openParts, setOpenParts] = useState(() =>
+        getOpenParts(values, filter)
+    )
+    const bodyRef = useRef(null)
+
+    useKeyDown('Escape', onClose)
+
+    // Above its column, the popover hangs from its bottom edge: a body that shrinks
+    // while the user types would move the condition field, so it only grows
+    useLayoutEffect(() => {
+        const body = bodyRef.current
+        if (body) {
+            body.style.minHeight = `${body.offsetHeight}px`
+        }
+    })
+
+    useKeyDown('Escape', onClose)
+
+    const options = { matchOnLabel, allValues }
+    const applied = normalizeFilter(toAppliedFilter(draft, options))
+    const error = getFilterError(draft)
+    const canApply = !isSameFilter(applied, filter) && !error
+    const { listed, isNarrowed } = getListedValues(values, draft, options)
+    const keptCount = countKeptRows(values, draft, options)
+    const totalCount = countKeptRows(values, { excluded: [] }, options)
+    const valueCount = values.filter((entry) => !isNoValueEntry(entry)).length
+    const formatCount = (count) =>
+        formatWithSeparator(count, column.keyAnalysisDigitGroupSeparator)
 
     const updateCondition = (changes) =>
-        setDraft((previous) =>
-            updateNoValueForCondition(previous, { ...previous, ...changes })
-        )
+        setDraft((previous) => {
+            const next = { ...previous, ...changes }
+            return isNoValueChosen
+                ? next
+                : updateNoValueForCondition(previous, next)
+        })
+
+    const updateExcluded = (excluded, toggledKey) => {
+        if (toggledKey === SENTINEL_NO_VALUE) {
+            setIsNoValueChosen(true)
+        }
+        setDraft((previous) => ({ ...previous, excluded }))
+    }
+
+    const openPart = (part) =>
+        setOpenParts((parts) => ({ ...parts, [part]: true }))
 
     const apply = (event) => {
         event.preventDefault()
@@ -49,9 +113,9 @@ const FilterPopover = ({
             return
         }
         dispatch(
-            isEmptyFilter(draft)
+            isEmptyFilter(applied)
                 ? clearDataFilter(layerId, dataKey)
-                : setDataFilter(layerId, dataKey, normalizeFilter(draft))
+                : setDataFilter(layerId, dataKey, applied)
         )
         onClose()
     }
@@ -65,6 +129,7 @@ const FilterPopover = ({
         <Popover
             reference={anchorRef}
             placement="bottom-start"
+            observePopperResize
             arrow={false}
             maxWidth={320}
             onClickOutside={onClose}
@@ -92,18 +157,62 @@ const FilterPopover = ({
                         <IconCross16 />
                     </button>
                 </div>
-                <div className={styles.popoverBody}>
-                    <ConditionRow
-                        filterType={filterType}
-                        draft={draft}
-                        onChange={updateCondition}
-                    />
+                <div className={styles.popoverBody} ref={bodyRef}>
+                    {openParts.condition && (
+                        <ConditionRow
+                            filterType={filterType}
+                            draft={draft}
+                            onChange={updateCondition}
+                        />
+                    )}
+                    {!openParts.condition && (
+                        <button
+                            type="button"
+                            className={styles.linkButton}
+                            onClick={() => openPart('condition')}
+                            data-test="data-table-filter-add-condition"
+                        >
+                            {i18n.t('+ Add a condition')}
+                        </button>
+                    )}
+                    {openParts.values ? (
+                        <ValueList
+                            listed={listed}
+                            valueCount={valueCount}
+                            isNarrowed={isNarrowed}
+                            formatCount={formatCount}
+                            excluded={draft.excluded}
+                            renderer={renderer}
+                            isMonospace={isMonospaceColumn(header)}
+                            onChange={updateExcluded}
+                        />
+                    ) : (
+                        <button
+                            type="button"
+                            className={styles.linkButton}
+                            onClick={() => openPart('values')}
+                            data-test="data-table-filter-pick-values"
+                        >
+                            {i18n.t('+ Pick values')}
+                        </button>
+                    )}
                 </div>
                 <div className={styles.popoverFooter}>
+                    <span
+                        className={styles.preview}
+                        aria-live="polite"
+                        data-test="data-table-filter-preview"
+                    >
+                        {!error &&
+                            i18n.t('{{kept}} of {{total}} rows', {
+                                kept: formatCount(keptCount),
+                                total: formatCount(totalCount),
+                            })}
+                    </span>
                     <Button
                         small
                         secondary
-                        disabled={!filter && isEmptyFilter(draft)}
+                        disabled={!filter && isEmptyFilter(applied)}
                         onClick={clear}
                         dataTest="data-table-filter-clear"
                     >
@@ -126,10 +235,22 @@ const FilterPopover = ({
 
 FilterPopover.propTypes = {
     anchorRef: PropTypes.object.isRequired,
-    dataKey: PropTypes.string.isRequired,
+    column: PropTypes.shape({
+        rows: PropTypes.array.isRequired,
+        filters: PropTypes.object,
+        keyAnalysisDigitGroupSeparator: PropTypes.string,
+        legendItems: PropTypes.array,
+        orgUnitIdToName: PropTypes.instanceOf(Map),
+        sortDirection: PropTypes.string,
+        sortField: PropTypes.string,
+    }).isRequired,
     filterType: PropTypes.string.isRequired,
+    header: PropTypes.shape({
+        dataKey: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+        renderer: PropTypes.string,
+    }).isRequired,
     layerId: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     filter: PropTypes.object,
 }

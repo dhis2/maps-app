@@ -7,6 +7,7 @@ import {
     RENDERER_ORG_UNIT,
     RENDERER_ORG_UNIT_NAME,
     RENDERER_BOOLEAN,
+    RENDERER_GEOMETRY,
     TYPE_DATE,
     ORG_UNIT_ID_DATA_KEY,
 } from '../../../constants/dataTable.js'
@@ -44,7 +45,49 @@ describe('RowCells', () => {
         expect(screen.getByText('Bo')).toBeInTheDocument()
     })
 
-    it('renders a color cell as a lowercased swatch value with a background color', () => {
+    it('shows a legend class with its color, as the legend in the layer card', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'High' },
+                { dataKey: 'color', value: '#FF0000' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(screen.getByText('High')).toBeInTheDocument()
+        expect(container.querySelector('td span')).toHaveStyle({
+            backgroundColor: '#FF0000',
+        })
+    })
+
+    it('shows a legend class with its icon, as facility legends in the layer card', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'CHC' },
+                { dataKey: 'icon', value: 'https://example.com/chc.png' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(screen.getByText('CHC')).toBeInTheDocument()
+        expect(container.querySelector('td img')).toHaveAttribute(
+            'src',
+            'https://example.com/chc.png'
+        )
+    })
+
+    it('shows a legend class without a swatch when the row has no color', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'legend', value: 'High' },
+            ],
+            { visibleHeaders: [{ dataKey: 'legend' }] }
+        )
+        expect(container.querySelector('td span')).toBeNull()
+    })
+
+    it('shows a color as its lowercased code painted in that color, as in the filter list', () => {
         renderRow(
             [
                 { dataKey: 'id', value: 'row1' },
@@ -52,9 +95,10 @@ describe('RowCells', () => {
             ],
             { rendererByDataKey: new Map([['name', RENDERER_COLOR]]) }
         )
-        const cell = screen.getByText('#ff0000')
-        expect(cell).toBeInTheDocument()
-        expect(cell.closest('td')).toHaveStyle({
+        const chip = screen.getByText('#ff0000')
+        expect(chip.tagName).toBe('SPAN')
+        expect(chip).toHaveStyle({ backgroundColor: '#FF0000' })
+        expect(chip.closest('td')).not.toHaveStyle({
             backgroundColor: '#FF0000',
         })
     })
@@ -73,6 +117,21 @@ describe('RowCells', () => {
         )
     })
 
+    it('shows the dot of an unclassified facility in its Icon cell, in its color', () => {
+        const { container } = renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'name', value: undefined },
+                { dataKey: 'color', value: '#aabbcc' },
+            ],
+            { rendererByDataKey: new Map([['name', RENDERER_ICON]]) }
+        )
+        expect(container.querySelector('img')).toBeNull()
+        expect(container.querySelector('td span')).toHaveStyle({
+            backgroundColor: '#aabbcc',
+        })
+    })
+
     it('hides an icon that fails to load', () => {
         const { container } = renderRow(
             [
@@ -84,6 +143,42 @@ describe('RowCells', () => {
         const icon = container.querySelector('img')
         fireEvent.error(icon)
         expect(icon).toHaveStyle({ visibility: 'hidden' })
+    })
+
+    it.each([
+        ['Point', 1],
+        ['MultiPoint', 2],
+        ['LineString', 1],
+        ['MultiLineString', 2],
+        ['Polygon', 1],
+        ['MultiPolygon', 2],
+    ])(
+        'shows a %s geometry type with its symbol, one shape per part',
+        (type, shapes) => {
+            renderRow(
+                [
+                    { dataKey: 'id', value: 'row1' },
+                    { dataKey: 'name', value: type },
+                ],
+                { rendererByDataKey: new Map([['name', RENDERER_GEOMETRY]]) }
+            )
+            expect(screen.getByText(type)).toBeInTheDocument()
+            expect(screen.getByTestId('geometry-symbol').children).toHaveLength(
+                shapes
+            )
+        }
+    )
+
+    it('shows other geometry types as text only', () => {
+        renderRow(
+            [
+                { dataKey: 'id', value: 'row1' },
+                { dataKey: 'name', value: 'GeometryCollection' },
+            ],
+            { rendererByDataKey: new Map([['name', RENDERER_GEOMETRY]]) }
+        )
+        expect(screen.getByText('GeometryCollection')).toBeInTheDocument()
+        expect(screen.queryByTestId('geometry-symbol')).toBeNull()
     })
 
     it('renders a date-only cell formatted as just the date', () => {
@@ -242,7 +337,7 @@ describe('RowCells', () => {
         ])
     })
 
-    it('marks the cells of the hovered feature, except color cells', () => {
+    it('marks every cell of the hovered feature, color cells included', () => {
         const { container } = renderRow(
             [
                 { dataKey: 'id', value: 'row1' },
@@ -257,7 +352,7 @@ describe('RowCells', () => {
         const cells = [...container.querySelectorAll('td')]
         expect(cells.map((td) => td.classList.contains('hovered'))).toEqual([
             true,
-            false,
+            true,
         ])
     })
 })

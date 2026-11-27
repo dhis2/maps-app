@@ -7,6 +7,7 @@ import i18n from '@dhis2/d2-i18n'
 import { uniqBy } from 'lodash/fp'
 import { qualitativeColors } from '../constants/colors.js'
 import {
+    ICON_UNCLASSIFIED,
     ORG_UNIT_LEVEL_DATA_KEY,
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
@@ -26,6 +27,7 @@ import {
     FIRST_DATA_ELEMENT_QUERY,
     GEOFEATURES_QUERY,
     ORG_UNITS_COUNT_QUERY,
+    ORG_UNITS_GROUPS_QUERY,
     ORG_UNITS_PATHS_QUERY,
     ORG_UNIT_PATH_DETAILS_QUERY,
 } from './requests.js'
@@ -160,6 +162,7 @@ export const getStyledOrgUnits = ({
     }
 
     const useColor = styleType === STYLE_TYPE_COLOR
+    const unclassifiedName = unclassifiedLegend?.name || i18n.t('Unclassified')
 
     const styledFeatures = features
         .map((f) => {
@@ -184,18 +187,26 @@ export const getStyledOrgUnits = ({
                 radius,
             }
 
+            // The data table's Icon column shows the icon, or the dot of unclassified facilities
             if (isUnclassified && unclassifiedLegend) {
                 properties.color = unclassifiedLegend.color
+                properties.legend = unclassifiedName
+                if (!useColor) {
+                    properties.icon = ICON_UNCLASSIFIED
+                }
             } else if (useColor && color) {
                 properties.color = hasAdditionalGeometry
                     ? ORG_UNIT_COLOR
                     : color
             } else if (symbol) {
                 properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
+                properties.icon = properties.iconUrl
             }
 
+            // The data table's Legend column names the class as the layer card does
             if (groupName) {
                 properties.group = groupName
+                properties.legend = groupName
             }
 
             if (properties.level && levelWeight) {
@@ -220,8 +231,9 @@ export const getStyledOrgUnits = ({
 
     if (unclassifiedLegend && groupSet.id) {
         groupItems.push({
-            name: unclassifiedLegend.name || i18n.t('Unclassified'),
+            name: unclassifiedName,
             color: unclassifiedLegend.color,
+            isUnclassified: true,
             ...(isFacilityLayer && !useColor ? { radius: radiusLow } : {}),
         })
     }
@@ -371,6 +383,40 @@ export const fetchOrgUnitPathDetails = async (engine, ids, nameProperty) => {
         })
         return acc
     }, {})
+}
+
+// Org units without coordinates aren't drawn: they get their group in the layer's group set,
+// but not the legend, icon or color that drawing gives
+export const attachGroupSetGroups = async (features, engine, groupSet) => {
+    const groups = groupSet?.organisationUnitGroups
+    if (!features?.length || !groups?.length) {
+        return features
+    }
+    const groupNameById = new Map(groups.map(({ id, name }) => [id, name]))
+    const results = await fetchInBatches(
+        engine,
+        features.map(getMissingOrgUnitId),
+        {
+            query: ORG_UNITS_GROUPS_QUERY,
+            buildVariables: (batch) => ({ ids: batch.join(',') }),
+        }
+    )
+    const groupByOuId = new Map(
+        results
+            .flatMap((r) => r.organisationUnits.organisationUnits ?? [])
+            .map((ou) => [
+                ou.id,
+                ou.organisationUnitGroups
+                    .map(({ id }) => groupNameById.get(id))
+                    .find(Boolean),
+            ])
+    )
+    return features.map((feature) => {
+        const group = groupByOuId.get(getMissingOrgUnitId(feature))
+        return group
+            ? { ...feature, properties: { ...feature.properties, group } }
+            : feature
+    })
 }
 
 export const attachOrgUnitPaths = async (features, engine, getOuId) => {

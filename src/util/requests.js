@@ -165,6 +165,17 @@ export const ORG_UNITS_PATHS_QUERY = {
     },
 }
 
+export const ORG_UNITS_GROUPS_QUERY = {
+    organisationUnits: {
+        resource: 'organisationUnits',
+        params: ({ ids }) => ({
+            filter: `id:in:[${ids}]`,
+            fields: 'id,organisationUnitGroups[id]',
+            paging: false,
+        }),
+    },
+}
+
 export const ORG_UNITS_COUNT_QUERY = {
     orgUnitsCount: {
         resource: 'analytics',

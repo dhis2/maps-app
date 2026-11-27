@@ -60,18 +60,22 @@ export const getColumnDistinctValues = (headers, data) => {
 
     const result = {}
     headers.forEach(({ dataKey, type }) => {
-        const seen = new Set()
+        const counts = new Map()
         for (const item of data) {
             const val = item[dataKey]
-            seen.add(
+            const value =
                 val === undefined || val === null || val === SENTINEL_NO_VALUE
                     ? SENTINEL_NO_VALUE
                     : String(val)
-            )
+            counts.set(value, (counts.get(value) ?? 0) + 1)
         }
 
-        if (seen.size > 0) {
-            result[dataKey] = { values: Array.from(seen), type }
+        if (counts.size > 0) {
+            result[dataKey] = {
+                values: Array.from(counts.keys()),
+                counts,
+                type,
+            }
         }
     })
 
