@@ -27,6 +27,7 @@ import {
     FIRST_DATA_ELEMENT_QUERY,
     GEOFEATURES_QUERY,
     ORG_UNITS_COUNT_QUERY,
+    ORG_UNITS_GROUPS_QUERY,
     ORG_UNITS_PATHS_QUERY,
     ORG_UNIT_PATH_DETAILS_QUERY,
 } from './requests.js'
@@ -382,6 +383,40 @@ export const fetchOrgUnitPathDetails = async (engine, ids, nameProperty) => {
         })
         return acc
     }, {})
+}
+
+// Org units without coordinates aren't drawn: they get their group in the layer's group set,
+// but not the legend, icon or color that drawing gives
+export const attachGroupSetGroups = async (features, engine, groupSet) => {
+    const groups = groupSet?.organisationUnitGroups
+    if (!features?.length || !groups?.length) {
+        return features
+    }
+    const groupNameById = new Map(groups.map(({ id, name }) => [id, name]))
+    const results = await fetchInBatches(
+        engine,
+        features.map(getMissingOrgUnitId),
+        {
+            query: ORG_UNITS_GROUPS_QUERY,
+            buildVariables: (batch) => ({ ids: batch.join(',') }),
+        }
+    )
+    const groupByOuId = new Map(
+        results
+            .flatMap((r) => r.organisationUnits.organisationUnits ?? [])
+            .map((ou) => [
+                ou.id,
+                ou.organisationUnitGroups
+                    .map(({ id }) => groupNameById.get(id))
+                    .find(Boolean),
+            ])
+    )
+    return features.map((feature) => {
+        const group = groupByOuId.get(getMissingOrgUnitId(feature))
+        return group
+            ? { ...feature, properties: { ...feature.properties, group } }
+            : feature
+    })
 }
 
 export const attachOrgUnitPaths = async (features, engine, getOuId) => {
