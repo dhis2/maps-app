@@ -319,6 +319,20 @@ describe('FilterButton value list', () => {
     })
 })
 
+describe('FilterButton popover', () => {
+    test('closes on Escape without applying the draft', async () => {
+        const store = await renderButton()
+
+        typeText('bo')
+        fireEvent.keyDown(window, { key: 'Escape' })
+
+        expect(
+            screen.queryByTestId('data-table-filter-popover')
+        ).not.toBeInTheDocument()
+        expect(store.getActions()).toEqual([])
+    })
+})
+
 describe('FilterButton tooltip', () => {
     afterEach(() => jest.useRealTimers())
 

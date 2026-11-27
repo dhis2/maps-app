@@ -8,6 +8,7 @@ import {
     FILTER_VIEW_VALUES_ONLY,
     SENTINEL_NO_VALUE,
 } from '../../../constants/dataTable.js'
+import useKeyDown from '../../../hooks/useKeyDown.js'
 import { isMonospaceColumn } from '../../../util/dataTable.js'
 import {
     getFilterError,
@@ -64,6 +65,8 @@ const FilterPopover = ({
     const [openParts, setOpenParts] = useState(() =>
         getOpenParts(values, filter, { isValuesOnly })
     )
+
+    useKeyDown('Escape', onClose)
 
     const options = { matchOnLabel, allValues }
     const applied = normalizeFilter(toAppliedFilter(draft, options))
