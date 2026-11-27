@@ -4,10 +4,7 @@ import PropTypes from 'prop-types'
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
-import {
-    FILTER_VIEW_VALUES_ONLY,
-    SENTINEL_NO_VALUE,
-} from '../../../constants/dataTable.js'
+import { SENTINEL_NO_VALUE } from '../../../constants/dataTable.js'
 import useKeyDown from '../../../hooks/useKeyDown.js'
 import { isMonospaceColumn } from '../../../util/dataTable.js'
 import {
@@ -48,7 +45,7 @@ const FilterPopover = ({
     filter,
     onClose,
 }) => {
-    const { name, dataKey, renderer, filterView } = header
+    const { name, dataKey, renderer } = header
     const dispatch = useDispatch()
     const { allValues, values, matchOnLabel } = useFilterValues({
         header,
@@ -62,9 +59,8 @@ const FilterPopover = ({
             hasCondition(filter) !==
                 filter.excluded?.includes(SENTINEL_NO_VALUE)
     )
-    const isValuesOnly = filterView === FILTER_VIEW_VALUES_ONLY
     const [openParts, setOpenParts] = useState(() =>
-        getOpenParts(values, filter, { isValuesOnly })
+        getOpenParts(values, filter)
     )
     const bodyRef = useRef(null)
 
@@ -170,7 +166,7 @@ const FilterPopover = ({
                             onChange={updateCondition}
                         />
                     )}
-                    {!openParts.condition && !isValuesOnly && (
+                    {!openParts.condition && (
                         <button
                             type="button"
                             className={styles.linkButton}
@@ -253,7 +249,6 @@ FilterPopover.propTypes = {
     header: PropTypes.shape({
         dataKey: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        filterView: PropTypes.string,
         renderer: PropTypes.string,
     }).isRequired,
     layerId: PropTypes.string.isRequired,

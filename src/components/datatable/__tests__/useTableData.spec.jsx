@@ -121,7 +121,6 @@ describe('useTableData headers', () => {
             dataKey: 'iconUrl',
             type: 'string',
             renderer: 'rendericon',
-            filterView: 'valuesOnly',
         })
         expect(headers).toContainEqual({
             name: 'Group',
@@ -1269,7 +1268,6 @@ describe('useTableData headers', () => {
             dataKey: 'color',
             type: 'string',
             renderer: 'rendercolor',
-            filterView: 'valuesOnly',
         })
         expect(rows[0]).toContainEqual(
             expect.objectContaining({ value: '#ff0000', dataKey: 'color' })

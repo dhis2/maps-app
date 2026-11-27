@@ -18,7 +18,6 @@ import {
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
     ORG_UNIT_LEVEL_DATA_KEY,
-    FILTER_VIEW_VALUES_ONLY,
 } from '../constants/dataTable.js'
 import {
     EVENT_LAYER,
@@ -162,8 +161,6 @@ const defaultFieldsMap = () => ({
         dataKey: COLOR,
         type: TYPE_STRING,
         renderer: RENDERER_COLOR,
-        // A hex code or an image isn't text to search: values only
-        filterView: FILTER_VIEW_VALUES_ONLY,
     },
     [GROUP]: {
         name: i18n.t('Group'),
@@ -175,7 +172,6 @@ const defaultFieldsMap = () => ({
         dataKey: ICON,
         type: TYPE_STRING,
         renderer: RENDERER_ICON,
-        filterView: FILTER_VIEW_VALUES_ONLY,
     },
 })
 

@@ -326,8 +326,7 @@ describe('getOpenParts', () => {
             count: 1,
         })),
     ]
-    const open = (count, filter, isValuesOnly = false) =>
-        getOpenParts(valuesOf(count), filter, { isValuesOnly })
+    const open = (count, filter) => getOpenParts(valuesOf(count), filter)
 
     test('opens on the list up to 10 values, "No value" not counted, on the condition from 11', () => {
         expect(open(10)).toEqual({ condition: false, values: true })
@@ -345,13 +344,6 @@ describe('getOpenParts', () => {
         expect(open(50, { type: 'text', excluded: [''] })).toEqual({
             condition: true,
             values: false,
-        })
-    })
-
-    test('shows only the list for Color and Icon, whatever their number of values', () => {
-        expect(open(50, undefined, true)).toEqual({
-            condition: false,
-            values: true,
         })
     })
 })

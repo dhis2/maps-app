@@ -144,13 +144,13 @@ const MAX_PICKED_VALUES = 10
 
 // The parts the popover opens with: the list for a column with few values, the condition
 // for the others, and any part already in use
-export const getOpenParts = (values, filter, { isValuesOnly }) => {
+export const getOpenParts = (values, filter) => {
     const valueCount = values.filter(
         ({ key }) => key !== SENTINEL_NO_VALUE
     ).length
-    const opensOnList = isValuesOnly || valueCount <= MAX_PICKED_VALUES
+    const opensOnList = valueCount <= MAX_PICKED_VALUES
     return {
-        condition: !isValuesOnly && (!opensOnList || hasCondition(filter)),
+        condition: !opensOnList || hasCondition(filter),
         values:
             opensOnList ||
             !!filter?.excluded?.some((key) => key !== SENTINEL_NO_VALUE),

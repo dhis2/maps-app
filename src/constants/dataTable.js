@@ -31,9 +31,6 @@ export const FILTER_NUMBER = 'number'
 export const FILTER_DATE = 'date'
 export const FILTER_TIME = 'time'
 
-// A column whose filter shows only the list of values, without a condition
-export const FILTER_VIEW_VALUES_ONLY = 'valuesOnly'
-
 export const OPERATOR_CONTAINS = 'contains'
 export const OPERATOR_NOT_CONTAINS = 'notContains'
 export const OPERATOR_IS = 'is'

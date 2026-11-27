@@ -1,5 +1,4 @@
 import {
-    FILTER_VIEW_VALUES_ONLY,
     RENDERER_DATE,
     RENDERER_ORG_UNIT,
     RENDERER_BOOLEAN,
@@ -387,22 +386,5 @@ describe('getHeadersForLayer - unknown layer type', () => {
         expect(getHeadersForLayer('somethingElse', {})).toEqual({
             headers: null,
         })
-    })
-})
-
-describe('getHeadersForLayer - filter views', () => {
-    test('Color and Icon filter on their list only, other columns open by their number of values', () => {
-        const result = getHeadersForLayer(FACILITY_LAYER, {
-            data: [{ legend: 'CHC', group: 'CHC', iconUrl: 'c.png' }],
-        })
-        const valuesOnly = result.headers
-            .filter((h) => h.filterView === FILTER_VIEW_VALUES_ONLY)
-            .map((h) => h.dataKey)
-        expect(valuesOnly).toEqual(['iconUrl'])
-        expect(
-            getHeadersForLayer(THEMATIC_LAYER, {}).headers.find(
-                (h) => h.dataKey === 'color'
-            ).filterView
-        ).toBe(FILTER_VIEW_VALUES_ONLY)
     })
 })
