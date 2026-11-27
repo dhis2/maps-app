@@ -106,7 +106,9 @@
     outline-offset: -2px;
 }
 
+/* Its minimum height is set from its full height while the popover is open */
 .popoverBody {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: stretch;

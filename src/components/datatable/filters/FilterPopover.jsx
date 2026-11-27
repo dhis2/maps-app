@@ -1,7 +1,7 @@
 import i18n from '@dhis2/d2-i18n'
 import { Button, IconCross16, Popover } from '@dhis2/ui'
 import PropTypes from 'prop-types'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { clearDataFilter, setDataFilter } from '../../../actions/dataFilters.js'
 import {
@@ -65,6 +65,18 @@ const FilterPopover = ({
     const [openParts, setOpenParts] = useState(() =>
         getOpenParts(values, filter, { isValuesOnly })
     )
+    const bodyRef = useRef(null)
+
+    useKeyDown('Escape', onClose)
+
+    // Above its column, the popover hangs from its bottom edge: a body that shrinks
+    // while the user types would move the condition field, so it only grows
+    useLayoutEffect(() => {
+        const body = bodyRef.current
+        if (body) {
+            body.style.minHeight = `${body.offsetHeight}px`
+        }
+    })
 
     useKeyDown('Escape', onClose)
 
@@ -148,7 +160,7 @@ const FilterPopover = ({
                         <IconCross16 />
                     </button>
                 </div>
-                <div className={styles.popoverBody}>
+                <div className={styles.popoverBody} ref={bodyRef}>
                     {openParts.condition && (
                         <ConditionRow
                             filterType={filterType}
