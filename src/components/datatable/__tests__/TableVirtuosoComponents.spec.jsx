@@ -66,4 +66,18 @@ describe('EmptyPlaceholder', () => {
         ).toBeTruthy()
         expect(screen.queryByRole('button')).toBeNull()
     })
+
+    test('shows no message while the layer loads, the spinner telling what happens', () => {
+        renderPlaceholder({
+            isBusy: true,
+            totalCount: 0,
+            noDataMessage: {
+                title: 'No data to show',
+                description:
+                    'This layer has no features for its current settings.',
+            },
+        })
+
+        expect(screen.queryByText('No data to show')).toBeNull()
+    })
 })

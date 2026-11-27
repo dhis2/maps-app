@@ -7,7 +7,14 @@ import TopTooltip from '../TopTooltip.jsx'
 import FilterPopover from './FilterPopover.jsx'
 import styles from './styles/Filters.module.css'
 
-const FilterButton = ({ layerId, header, filterType, column, filter }) => {
+const FilterButton = ({
+    layerId,
+    header,
+    filterType,
+    column,
+    filter,
+    disabled,
+}) => {
     const anchorRef = useRef()
     const [isOpen, setIsOpen] = useState(false)
     const label = i18n.t('Filter by {{column}}', { column: header.name })
@@ -25,6 +32,7 @@ const FilterButton = ({ layerId, header, filterType, column, filter }) => {
                     })}
                     aria-label={label}
                     aria-pressed={!!filter}
+                    disabled={disabled}
                     onClick={() => setIsOpen(true)}
                     data-test={`data-table-filter-button-${header.dataKey}`}
                 >
@@ -54,6 +62,7 @@ FilterButton.propTypes = {
         name: PropTypes.string.isRequired,
     }).isRequired,
     layerId: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
     filter: PropTypes.object,
 }
 

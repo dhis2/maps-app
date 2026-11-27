@@ -76,11 +76,14 @@ const getEmptyMessage = (context) => {
     return context.noDataMessage
 }
 
+// While loading, the spinner says what happens: no message under it
 export const EmptyPlaceholder = ({ context }) => (
     <tbody>
         <tr>
             <td colSpan={99999}>
-                <TableMessage {...getEmptyMessage(context)} />
+                {!context.isBusy && (
+                    <TableMessage {...getEmptyMessage(context)} />
+                )}
             </td>
         </tr>
     </tbody>
@@ -89,6 +92,7 @@ export const EmptyPlaceholder = ({ context }) => (
 EmptyPlaceholder.propTypes = {
     context: PropTypes.shape({
         hasActiveFilters: PropTypes.bool,
+        isBusy: PropTypes.bool,
         noDataMessage: PropTypes.shape({
             description: PropTypes.string,
             title: PropTypes.string,

@@ -12,6 +12,7 @@ const ColumnHeader = ({
     sortDirection,
     onSort,
     filterButton,
+    disabled,
     ...columnHeaderProps
 }) => {
     const sortLabel = i18n.t('Sort by {{column}}', { column: name })
@@ -26,6 +27,7 @@ const ColumnHeader = ({
                         type="button"
                         className={styles.sortButton}
                         aria-label={sortLabel}
+                        disabled={disabled}
                         data-test={`data-table-column-sort-button-${name}`}
                         onClick={() => onSort({ name: dataKey })}
                     >
@@ -41,6 +43,7 @@ ColumnHeader.propTypes = {
     dataKey: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     onSort: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
     filterButton: PropTypes.node,
     sortDirection: PropTypes.string,
 }

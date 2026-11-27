@@ -67,17 +67,43 @@ const activeArrows = (name) =>
 const UP_ARROW = '4 7 12 7 8 2'
 const DOWN_ARROW = '4 9 12 9 8 14'
 
+const TABLE_DATA = {
+    headers: HEADERS,
+    rows: [],
+    isLoading: false,
+    error: null,
+    totalCount: 3,
+    filteredCount: 0,
+    columnOptions: {},
+    orgUnitIdToName: new Map(),
+    filterRows: [],
+}
+
 beforeEach(() => {
-    useTableData.mockReturnValue({
-        headers: HEADERS,
-        rows: [],
-        isLoading: false,
-        error: null,
-        totalCount: 0,
-        filteredCount: 0,
-        columnOptions: {},
-        orgUnitIdToName: new Map(),
-        filterRows: [],
+    useTableData.mockReturnValue(TABLE_DATA)
+})
+
+describe('DataTable sorting and filtering', () => {
+    test.each([
+        ['the layer has no rows', { totalCount: 0 }],
+        ['the table is loading', { isLoading: true }],
+    ])('are disabled while %s', (_, state) => {
+        useTableData.mockReturnValue({ ...TABLE_DATA, ...state })
+        renderTable()
+
+        expect(sortButton('Value')).toBeDisabled()
+        expect(
+            screen.getByTestId('data-table-filter-button-rawValue')
+        ).toBeDisabled()
+    })
+
+    test('stay available when filters leave no rows, to change the filters', () => {
+        renderTable()
+
+        expect(sortButton('Value')).not.toBeDisabled()
+        expect(
+            screen.getByTestId('data-table-filter-button-rawValue')
+        ).not.toBeDisabled()
     })
 })
 

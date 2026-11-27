@@ -194,6 +194,10 @@ const Table = ({
     const showServerClusterAction =
         layer.serverCluster && !layer.forceClientCluster
 
+    const isBusy = isLoading || layer.isLoaded === false || !!layer.isLoading
+    // Without any row there is nothing to sort or filter
+    const areControlsDisabled = isBusy || totalCount === 0
+
     const onForceClientCluster = useCallback(
         () => dispatch(setForceClientCluster(layer.id)),
         [dispatch, layer.id]
@@ -205,6 +209,7 @@ const Table = ({
             onMouseLeave: clearFeatureHighlight,
             layout: columnWidths.length > 0 ? 'fixed' : 'auto',
             totalCount,
+            isBusy,
             noDataMessage,
             hasActiveFilters,
             onClearFilters,
@@ -216,6 +221,7 @@ const Table = ({
             clearFeatureHighlight,
             columnWidths,
             totalCount,
+            isBusy,
             noDataMessage,
             hasActiveFilters,
             onClearFilters,
@@ -248,6 +254,7 @@ const Table = ({
                                 dataKey === sortField ? sortDirection : null
                             }
                             onSort={sortData}
+                            disabled={areControlsDisabled}
                             filterButton={
                                 hasPopover && (
                                     <FilterButton
@@ -256,6 +263,7 @@ const Table = ({
                                         filterType={getFilterType(header)}
                                         column={filterColumn}
                                         filter={dataFilters?.[dataKey]}
+                                        disabled={areControlsDisabled}
                                     />
                                 )
                             }
@@ -273,6 +281,7 @@ const Table = ({
                                         optionSetId={optionSet?.id}
                                         renderer={renderer}
                                         orgUnitIdToName={orgUnitIdToName}
+                                        disabled={areControlsDisabled}
                                     />
                                 )
                             }
@@ -298,6 +307,7 @@ const Table = ({
             layerId,
             dataFilters,
             filterColumn,
+            areControlsDisabled,
         ]
     )
 
@@ -353,7 +363,7 @@ const Table = ({
                 fixedHeaderContent={fixedHeaderContent}
                 itemContent={itemContent}
             />
-            {(isLoading || layer?.isLoaded === false || layer?.isLoading) && (
+            {isBusy && (
                 <ComponentCover translucent>
                     <CenteredContent>
                         <div className={styles.loadingContent}>
