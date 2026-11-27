@@ -369,20 +369,21 @@ describe('FilterButton value list', () => {
 describe('FilterButton on an icon column', () => {
     const ICON_HEADER = {
         name: 'Icon',
-        dataKey: 'iconUrl',
+        dataKey: 'icon',
         type: 'string',
         renderer: 'rendericon',
     }
     const ICON_COLUMN = {
         ...COLUMN,
         rows: [
-            { iconUrl: 'https://dhis2/images/orgunitgroup/05.png' },
-            { iconUrl: 'https://dhis2/images/orgunitgroup/14.png' },
-            { legend: 'Unclassified', color: '#cccccc' },
+            { icon: 'https://dhis2/images/orgunitgroup/05.png' },
+            { icon: 'https://dhis2/images/orgunitgroup/14.png' },
+            { legend: 'Unclassified', color: '#cccccc', icon: 'unclassified' },
+            { name: 'Facility without coordinates' },
         ],
     }
 
-    test('lists the icons by their file name, the unclassified facilities by their class, and offers a condition', async () => {
+    test('lists the icons by their file name, the unclassified facilities by their class, those without coordinates under "No value"', async () => {
         await renderButton(undefined, {
             header: ICON_HEADER,
             column: ICON_COLUMN,
@@ -393,7 +394,7 @@ describe('FilterButton on an icon column', () => {
                 .getByTestId('data-table-filter-values-list')
                 .querySelectorAll('li'),
         ].map((li) => li.textContent)
-        expect(labels).toEqual(['051', '141', 'Unclassified1'])
+        expect(labels).toEqual(['No value1', '051', '141', 'Unclassified1'])
         expect(
             screen.getByTestId('data-table-filter-add-condition')
         ).toBeInTheDocument()

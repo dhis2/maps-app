@@ -1,5 +1,9 @@
 import { useMemo } from 'react'
-import { RENDERER_ICON, TYPE_NUMBER } from '../../../constants/dataTable.js'
+import {
+    ICON_UNCLASSIFIED,
+    RENDERER_ICON,
+    TYPE_NUMBER,
+} from '../../../constants/dataTable.js'
 import useOptionSet from '../../../hooks/useOptionSet.js'
 import { isNamedValueColumn } from '../../../util/dataTable.js'
 import {
@@ -32,13 +36,15 @@ const useFilterValues = ({
         const optionNames = new Map(
             optionSet?.options.map(({ code, name }) => [code, name])
         )
-        return (value) => {
-            // Icons by their file name, without its extension
+        return (value, row) => {
+            // Icons by their file name, without its extension; the unclassified dot by its class
             if (renderer === RENDERER_ICON) {
-                return String(value)
-                    .split('/')
-                    .pop()
-                    .replace(/\.[^.]+$/, '')
+                return value === ICON_UNCLASSIFIED
+                    ? row.legend
+                    : String(value)
+                          .split('/')
+                          .pop()
+                          .replace(/\.[^.]+$/, '')
             }
             return (
                 optionNames.get(String(value)) ??

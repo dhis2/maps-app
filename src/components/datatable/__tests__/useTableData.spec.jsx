@@ -95,6 +95,7 @@ describe('useTableData headers', () => {
                         name: 'Facility 1',
                         type: 'Point',
                         iconUrl: 'https://server/images/orgunitgroup/1.png',
+                        icon: 'https://server/images/orgunitgroup/1.png',
                         group: 'Hospitals',
                     },
                 },
@@ -118,7 +119,7 @@ describe('useTableData headers', () => {
         const { headers, rows } = result.current
         expect(headers).toContainEqual({
             name: 'Icon',
-            dataKey: 'iconUrl',
+            dataKey: 'icon',
             type: 'string',
             renderer: 'rendericon',
         })
@@ -133,7 +134,7 @@ describe('useTableData headers', () => {
         expect(rows[0]).toContainEqual(
             expect.objectContaining({
                 value: 'https://server/images/orgunitgroup/1.png',
-                dataKey: 'iconUrl',
+                dataKey: 'icon',
             })
         )
     })
@@ -179,7 +180,7 @@ describe('useTableData headers', () => {
             expect.objectContaining({ name: 'Group', dataKey: 'group' })
         )
         expect(headers).not.toContainEqual(
-            expect.objectContaining({ dataKey: 'iconUrl' })
+            expect.objectContaining({ dataKey: 'icon' })
         )
     })
 

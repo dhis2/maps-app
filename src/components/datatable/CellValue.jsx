@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
+    ICON_UNCLASSIFIED,
     RENDERER_COLOR,
     RENDERER_GEOMETRY,
     RENDERER_ICON,
@@ -20,7 +21,7 @@ const CellValue = ({
     keyAnalysisDigitGroupSeparator,
 }) => {
     if (renderer === RENDERER_ICON) {
-        if (value) {
+        if (value && value !== ICON_UNCLASSIFIED) {
             return (
                 <img
                     className={styles.iconCell}

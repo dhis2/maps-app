@@ -2,7 +2,7 @@ import { DataTableCell } from '@dhis2/ui'
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
-import { RENDERER_ICON } from '../../constants/dataTable.js'
+import { ICON_UNCLASSIFIED, RENDERER_ICON } from '../../constants/dataTable.js'
 import { getRowId, isMonospaceColumn } from '../../util/dataTable.js'
 import CellValue from './CellValue.jsx'
 import styles from './styles/DataTable.module.css'
@@ -25,8 +25,9 @@ const RowCells = ({
 
     const cellsByDataKey = new Map(row.map((cell) => [cell.dataKey, cell]))
     // Legend and Icon cells show the class icon or color, as the legend in the layer card
+    const icon = cellsByDataKey.get('icon')?.value
     const legendSymbol = {
-        iconUrl: cellsByDataKey.get('iconUrl')?.value,
+        iconUrl: icon === ICON_UNCLASSIFIED ? undefined : icon,
         color: cellsByDataKey.get('color')?.value,
     }
 

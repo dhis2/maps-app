@@ -7,6 +7,7 @@ import i18n from '@dhis2/d2-i18n'
 import { uniqBy } from 'lodash/fp'
 import { qualitativeColors } from '../constants/colors.js'
 import {
+    ICON_UNCLASSIFIED,
     ORG_UNIT_LEVEL_DATA_KEY,
     ORG_UNIT_DATA_KEY,
     ORG_UNIT_ID_DATA_KEY,
@@ -185,15 +186,20 @@ export const getStyledOrgUnits = ({
                 radius,
             }
 
+            // The data table's Icon column shows the icon, or the dot of unclassified facilities
             if (isUnclassified && unclassifiedLegend) {
                 properties.color = unclassifiedLegend.color
                 properties.legend = unclassifiedName
+                if (!useColor) {
+                    properties.icon = ICON_UNCLASSIFIED
+                }
             } else if (useColor && color) {
                 properties.color = hasAdditionalGeometry
                     ? ORG_UNIT_COLOR
                     : color
             } else if (symbol) {
                 properties.iconUrl = `${baseUrl}/images/orgunitgroup/${symbol}`
+                properties.icon = properties.iconUrl
             }
 
             // The data table's Legend column names the class as the layer card does

@@ -242,7 +242,7 @@ describe('getHeadersForLayer - event', () => {
 describe('getHeadersForLayer - org unit / facility', () => {
     test('org unit: fixed fields plus whichever style columns the data actually has', () => {
         const result = getHeadersForLayer(ORG_UNIT_LAYER, {
-            data: [{ color: '#fff' }, { iconUrl: 'x.png' }],
+            data: [{ color: '#fff' }, { icon: 'x.png' }],
         })
         expect(dataKeys(result)).toEqual(
             expect.arrayContaining([
@@ -252,7 +252,7 @@ describe('getHeadersForLayer - org unit / facility', () => {
                 'type',
                 'orgUnitPath',
                 'color',
-                'iconUrl',
+                'icon',
             ])
         )
         expect(dataKeys(result)).not.toContain('group')
@@ -275,8 +275,12 @@ describe('getHeadersForLayer - org unit / facility', () => {
     test('styled by a group set: Legend, Group, Color and Icon in the places of thematic Legend, Range and Color', () => {
         const result = getHeadersForLayer(FACILITY_LAYER, {
             data: [
-                { legend: 'CHC', group: 'CHC', iconUrl: 'c.png' },
-                { legend: 'Unclassified', color: '#ccc' },
+                { legend: 'CHC', group: 'CHC', icon: 'c.png' },
+                {
+                    legend: 'Unclassified',
+                    color: '#ccc',
+                    icon: 'unclassified',
+                },
             ],
         })
         expect(dataKeys(result)).toEqual([
@@ -287,19 +291,21 @@ describe('getHeadersForLayer - org unit / facility', () => {
             'legend',
             'group',
             'color',
-            'iconUrl',
+            'icon',
             'type',
         ])
     })
 
     test('facility: the Color column, holding only the unclassified dot’s color, starts hidden; the Icon column shows the dot', () => {
         const result = getHeadersForLayer(FACILITY_LAYER, {
-            data: [{ legend: 'Unclassified', color: '#ccc' }],
+            data: [
+                { legend: 'Unclassified', color: '#ccc', icon: 'unclassified' },
+            ],
         })
         const header = (dataKey) =>
             result.headers.find((h) => h.dataKey === dataKey)
         expect(header('color').defaultHidden).toBe(true)
-        expect(header('iconUrl')).toBeDefined()
+        expect(header('icon')).toBeDefined()
         expect(
             getHeadersForLayer(ORG_UNIT_LAYER, {
                 data: [{ legend: 'Unclassified', color: '#ccc' }],

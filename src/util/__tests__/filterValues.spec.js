@@ -158,14 +158,19 @@ describe('countColumnValues', () => {
             ])
         })
 
-        test('lists the unclassified facilities, which have no icon, as their class with its dot, where the legend puts it', () => {
+        test('lists the unclassified facilities with their dot where the legend puts them, those without coordinates under "No value"', () => {
             const values = countColumnValues(
                 [
-                    { legend: 'Unclassified', color: '#ccc' },
-                    { legend: 'Clinic', iconUrl: 'b.png' },
+                    {
+                        legend: 'Unclassified',
+                        color: '#ccc',
+                        icon: 'unclassified',
+                    },
+                    { legend: 'Clinic', icon: 'b.png' },
+                    { name: 'Facility without coordinates' },
                 ],
                 {
-                    header: { dataKey: 'iconUrl', renderer: RENDERER_ICON },
+                    header: { dataKey: 'icon', renderer: RENDERER_ICON },
                     getLabel: String,
                     legendItems: [
                         { name: 'Clinic' },
@@ -176,8 +181,9 @@ describe('countColumnValues', () => {
             expect(
                 values.map(({ key, label, color }) => [key, label, color])
             ).toEqual([
+                ['', '', undefined],
                 ['b.png', 'b.png', undefined],
-                ['', 'Unclassified', '#ccc'],
+                ['unclassified', 'unclassified', '#ccc'],
             ])
         })
 

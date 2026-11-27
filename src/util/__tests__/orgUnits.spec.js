@@ -484,10 +484,11 @@ describe('getStyledOrgUnits', () => {
             result.styledFeatures.map(({ properties }) => [
                 properties.legend,
                 properties.group,
+                properties.icon,
             ])
         ).toEqual([
-            ['CHC', 'CHC'],
-            ['Unknown', undefined],
+            ['CHC', 'CHC', '/baseUrl/images/orgunitgroup/21.png'],
+            ['Unknown', undefined, 'unclassified'],
         ])
     })
 

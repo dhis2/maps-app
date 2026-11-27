@@ -88,7 +88,7 @@ const LEVEL = ORG_UNIT_LEVEL_DATA_KEY
 const TYPE = 'type'
 const COLOR = 'color'
 const GROUP = 'group'
-const ICON = 'iconUrl'
+const ICON = 'icon'
 const OUBOUNDARY = 'ouBoundary'
 const EVENTDATE = 'eventdate'
 const LASTUPDATED = 'lastupdated'
@@ -304,7 +304,7 @@ const getOrgUnitStyleHeaders = (data, { drawsIcons = false } = {}) => {
         hasLegend ||= d.legend != null
         hasGroup ||= d.group != null
         hasColor ||= d.color != null
-        hasIcon ||= d.iconUrl != null
+        hasIcon ||= d.icon != null
 
         if (hasLegend && hasGroup && hasColor && hasIcon) {
             break
@@ -315,7 +315,7 @@ const getOrgUnitStyleHeaders = (data, { drawsIcons = false } = {}) => {
         hasLegend,
         hasGroup,
         hasColor,
-        hasIcon: hasIcon || (drawsIcons && hasColor),
+        hasIcon,
         isColorHidden: drawsIcons,
     })
 }

@@ -13,6 +13,9 @@ export const RENDERER_BOOLEAN = 'renderboolean'
 export const RENDERER_GEOMETRY = 'rendergeometry'
 export const RENDERER_EVENT_STATUS = 'rendereventstatus'
 
+// The Icon column's value for unclassified facilities, drawn as a dot
+export const ICON_UNCLASSIFIED = 'unclassified'
+
 export const TYPE_NUMBER = 'number'
 export const TYPE_STRING = 'string'
 export const TYPE_DATE = 'date'

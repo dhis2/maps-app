@@ -70,9 +70,7 @@ const getCompare = (header, { byLabel, sorting }) => {
     return isLegendColumn(header) ? compareByLegend(compare) : compare
 }
 
-// The "No value" row, unless it lists the unclassified facilities like an icon
-export const isNoValueEntry = (entry) =>
-    entry.key === SENTINEL_NO_VALUE && !entry.label
+export const isNoValueEntry = (entry) => entry.key === SENTINEL_NO_VALUE
 
 const compareEntries = (header, options) => {
     const compare = getCompare(header, options)
@@ -87,7 +85,8 @@ const compareEntries = (header, options) => {
     }
 }
 
-// A legend column's value takes its row's place in the legend; Legend also shows its class icon or color
+// A legend column's value takes its row's place in the legend; Legend also shows its class
+// icon or color, Icon the color of the unclassified facilities' dot
 const getLegendFields = (row, header, getRank) =>
     getRank && {
         legendRank: getRank(row),
@@ -95,6 +94,7 @@ const getLegendFields = (row, header, getRank) =>
             iconUrl: row.iconUrl,
             color: row.color,
         }),
+        ...(header.renderer === RENDERER_ICON && { color: row.color }),
     }
 
 // A legend column lists its values as the table sorts them when sorted by it, else as the layer card does
@@ -116,7 +116,6 @@ export const countColumnValues = (
     const byKey = new Map([
         [SENTINEL_NO_VALUE, { key: SENTINEL_NO_VALUE, label: '', count: 0 }],
     ])
-    const noValue = byKey.get(SENTINEL_NO_VALUE)
     for (const row of rows) {
         const value = row[header.dataKey]
         const key = toFilterKey(value)
@@ -130,18 +129,6 @@ export const countColumnValues = (
                 label: getLabel(value, row),
                 count: 1,
                 ...getLegendFields(row, header, getRank),
-            })
-        }
-        // Unclassified facilities have no icon file: their empty value is named after their class
-        if (
-            entry === noValue &&
-            header.renderer === RENDERER_ICON &&
-            row.legend
-        ) {
-            Object.assign(noValue, {
-                label: row.legend,
-                color: row.color,
-                legendRank: getRank?.(row),
             })
         }
     }

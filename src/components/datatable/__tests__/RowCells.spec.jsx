@@ -65,7 +65,7 @@ describe('RowCells', () => {
             [
                 { dataKey: 'id', value: 'row1' },
                 { dataKey: 'legend', value: 'CHC' },
-                { dataKey: 'iconUrl', value: 'https://example.com/chc.png' },
+                { dataKey: 'icon', value: 'https://example.com/chc.png' },
             ],
             { visibleHeaders: [{ dataKey: 'legend' }] }
         )

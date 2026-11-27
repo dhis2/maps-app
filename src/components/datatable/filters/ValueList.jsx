@@ -4,6 +4,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 import React from 'react'
 import {
+    ICON_UNCLASSIFIED,
     RENDERER_COLOR,
     RENDERER_GEOMETRY,
     RENDERER_ICON,
@@ -20,7 +21,7 @@ const MAX_LISTED = 100
 
 // An icon value shows its icon; unclassified facilities, without one, their dot as on the map
 const IconSymbol = ({ entry }) => {
-    if (entry.value) {
+    if (entry.value !== ICON_UNCLASSIFIED) {
         return (
             <img
                 className={styles.iconThumbnail}
