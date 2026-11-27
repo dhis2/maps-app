@@ -372,12 +372,43 @@ describe('FilterButton on date and time columns', () => {
         header: { name: 'Event date', dataKey: 'id', type: 'date' },
     }
 
+    test('picks dates with the app’s date picker, Escape closing the calendar only', async () => {
+        await renderButton(undefined, DATE_COLUMN)
+        const input = screen
+            .getByTestId('data-table-filter-value')
+            .querySelector('input')
+
+        expect(input).toHaveAttribute('placeholder', 'yyyy-mm-dd')
+        fireEvent.focus(input)
+        expect(screen.getByTestId('calendar')).toBeInTheDocument()
+
+        fireEvent.keyDown(input, { key: 'Escape' })
+        expect(screen.queryByTestId('calendar')).not.toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-popover')
+        ).toBeInTheDocument()
+    })
+
+    test('formats typed dates as yyyy-mm-dd, like the layer dialogs', async () => {
+        await renderButton(undefined, DATE_COLUMN)
+        const input = screen
+            .getByTestId('data-table-filter-value')
+            .querySelector('input')
+
+        typeInto('data-table-filter-value', '20250115')
+        expect(input).toHaveValue('2025-01-15')
+
+        typeInto('data-table-filter-value', '2025-13')
+        expect(input).toHaveValue('2025-12')
+
+        typeInto('data-table-filter-value', '2025-12-')
+        fireEvent.blur(input)
+        expect(input).toHaveValue('2025-12')
+    })
+
     test('applies a date range from the two date inputs', async () => {
         const store = await renderButton(undefined, DATE_COLUMN)
 
-        expect(
-            screen.getByTestId('data-table-filter-value').querySelector('input')
-        ).toHaveAttribute('type', 'date')
         typeInto('data-table-filter-value', '2025-01-01')
         typeInto('data-table-filter-value2', '2025-03-31')
         fireEvent.click(applyButton())
@@ -403,15 +434,34 @@ describe('FilterButton on date and time columns', () => {
         ).toBeInTheDocument()
     })
 
-    test('a time column takes times', async () => {
-        await renderButton(undefined, {
+    test('a time column takes 24-hour times, completed when leaving the field', async () => {
+        const store = await renderButton(undefined, {
             filterType: 'time',
             header: { name: 'Time', dataKey: 'id', type: 'time' },
         })
+        const input = screen
+            .getByTestId('data-table-filter-value')
+            .querySelector('input')
 
-        expect(
-            screen.getByTestId('data-table-filter-value').querySelector('input')
-        ).toHaveAttribute('type', 'time')
+        expect(input).toHaveAttribute('type', 'text')
+        expect(input).toHaveAttribute('placeholder', 'hh:mm')
+
+        typeInto('data-table-filter-value', '2575')
+        expect(input).toHaveValue('23:59')
+
+        typeInto('data-table-filter-value', '9')
+        fireEvent.blur(input)
+        expect(input).toHaveValue('09:00')
+
+        typeInto('data-table-filter-value2', '1730')
+        fireEvent.click(applyButton())
+
+        expect(store.getActions()[0].filter).toMatchObject({
+            type: 'time',
+            operator: 'between',
+            value: '09:00',
+            value2: '17:30',
+        })
     })
 })
 

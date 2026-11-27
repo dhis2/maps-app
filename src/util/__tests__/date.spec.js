@@ -7,6 +7,9 @@ import {
     replaceAt,
     formatDateInput,
     formatDateOnBlur,
+    formatTimeInput,
+    formatTimeOnBlur,
+    typeDate,
     nextCharIsAutoHyphen,
     nextCharIsManualHyphen,
 } from '../date.js'
@@ -487,6 +490,79 @@ describe('formatDateOnBlur', () => {
         expect(formatDateOnBlur('2021-12')).toBe('2021-12') // Valid date, no trailing dash
         expect(formatDateOnBlur('2021-12-03')).toBe('2021-12-03') // Properly formatted date
         expect(formatDateOnBlur('')).toBe('') // Empty input
+    })
+})
+
+describe('typeDate', () => {
+    it('formats the typed date and moves the caret past an added hyphen', () => {
+        expect(typeDate({ date: '20251', prevDate: '2025', caret: 5 })).toEqual(
+            { date: '2025-1', caret: 6 }
+        )
+    })
+
+    it('keeps the caret on a typed hyphen', () => {
+        expect(typeDate({ date: '2025-', prevDate: '2025', caret: 5 })).toEqual(
+            { date: '2025-', caret: 5 }
+        )
+    })
+
+    it('steps the caret back over a dropped character', () => {
+        expect(
+            typeDate({ date: '2025-0a', prevDate: '2025-0', caret: 7 })
+        ).toEqual({ date: '2025-0', caret: 6 })
+    })
+
+    it('caps the month like the layer dialogs', () => {
+        expect(
+            typeDate({ date: '2025-13', prevDate: '2025-1', caret: 7 })
+        ).toEqual({ date: '2025-12', caret: 7 })
+    })
+})
+
+describe('formatTimeInput', () => {
+    it('keeps digits and the colon only', () => {
+        expect(formatTimeInput('1a4:3b0')).toBe('14:30')
+        expect(formatTimeInput('pm')).toBe('')
+        expect(formatTimeInput('')).toBe('')
+    })
+
+    it('adds the colon once a minute digit is typed', () => {
+        expect(formatTimeInput('14')).toBe('14')
+        expect(formatTimeInput('143')).toBe('14:3')
+        expect(formatTimeInput('1430')).toBe('14:30')
+        expect(formatTimeInput('14301')).toBe('14:30')
+    })
+
+    it('reads a first digit above 2 as a one-digit hour', () => {
+        expect(formatTimeInput('9')).toBe('9')
+        expect(formatTimeInput('930')).toBe('9:30')
+    })
+
+    it('keeps a typed colon, so the hour or minute can be edited apart', () => {
+        expect(formatTimeInput('9:')).toBe('9:')
+        expect(formatTimeInput('1:30')).toBe('1:30')
+        expect(formatTimeInput('14:305')).toBe('14:30')
+    })
+
+    it('caps the hour at 23 and the minute at 59', () => {
+        expect(formatTimeInput('25')).toBe('23')
+        expect(formatTimeInput('2475')).toBe('23:59')
+        expect(formatTimeInput('9:75')).toBe('9:59')
+    })
+})
+
+describe('formatTimeOnBlur', () => {
+    it('completes a partial time to HH:MM', () => {
+        expect(formatTimeOnBlur('9')).toBe('09:00')
+        expect(formatTimeOnBlur('14')).toBe('14:00')
+        expect(formatTimeOnBlur('14:')).toBe('14:00')
+        expect(formatTimeOnBlur('9:30')).toBe('09:30')
+        expect(formatTimeOnBlur('14:3')).toBe('14:03')
+    })
+
+    it('leaves a complete time and an empty input unchanged', () => {
+        expect(formatTimeOnBlur('14:30')).toBe('14:30')
+        expect(formatTimeOnBlur('')).toBe('')
     })
 })
 

@@ -68,9 +68,21 @@ export const CalendarInput = ({
         rest.onChange(e)
     }
 
+    // Escape closes the open calendar only, not the dialog or popover around it
+    const onKeyDown = (e) => {
+        if (open && e.key === 'Escape') {
+            e.stopPropagation()
+            setOpen(false)
+        }
+    }
+
     return (
         <>
-            <div className={styles.calendarInputWrapper} ref={ref}>
+            <div
+                className={styles.calendarInputWrapper}
+                ref={ref}
+                onKeyDown={onKeyDown}
+            >
                 <InputField
                     {...rest}
                     dataTest={dataTest}
@@ -105,7 +117,9 @@ export const CalendarInput = ({
                         modifiers={[offsetModifier]}
                     >
                         <Card>
-                            <Calendar {...calendarProps} date={date} />
+                            <div onKeyDown={onKeyDown}>
+                                <Calendar {...calendarProps} date={date} />
+                            </div>
                         </Card>
                     </Popper>
                 </Layer>
