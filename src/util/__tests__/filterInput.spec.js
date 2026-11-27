@@ -1,3 +1,4 @@
+import { DIGIT_GROUP_SEPARATOR_COMMA } from '../../constants/settings.js'
 import {
     getCyclicIndex,
     getDisplayValue,
@@ -53,6 +54,18 @@ describe('getDisplayValue', () => {
                 appliedString: '',
             })
         ).toBe('2 selected')
+    })
+
+    it('groups the digits of the selection count as the instance does', () => {
+        expect(
+            getDisplayValue({
+                isOpen: false,
+                searchText: '',
+                selected: Array.from({ length: 1200 }, (_, i) => `v${i}`),
+                appliedString: '',
+                keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+            })
+        ).toBe('1,200 selected')
     })
 
     it('falls back to the applied custom filter string when closed with nothing selected', () => {

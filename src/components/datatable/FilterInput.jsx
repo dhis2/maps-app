@@ -84,6 +84,9 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
     allowCustomFilter = true,
 }) {
     const dispatch = useDispatch()
+    const {
+        systemSettings: { keyAnalysisDigitGroupSeparator },
+    } = useCachedData()
     const anchorRef = useRef(null)
     const listRef = useRef(null)
     const [isOpen, setIsOpen] = useState(false)
@@ -305,6 +308,7 @@ const SearchableFilterPopover = React.memo(function SearchableFilterPopover({
         searchText,
         selected,
         appliedString,
+        keyAnalysisDigitGroupSeparator,
     })
 
     const mainInput = (

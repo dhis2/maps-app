@@ -273,6 +273,19 @@ describe('FilterButton value list', () => {
         ).toHaveTextContent('1,200 of 1,200 rows')
     })
 
+    test('groups the digits of each value’s row count as the instance does', async () => {
+        await renderButton(undefined, {
+            header: GENDER_HEADER,
+            column: {
+                ...COLUMN,
+                rows: Array.from({ length: 1200 }, () => ({ gender: 'F' })),
+                keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+            },
+        })
+
+        expect(listItems().map((li) => li.textContent)).toContain('F1,200')
+    })
+
     test('lists the values by the names the cells show, with their row count and "No value"', async () => {
         await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
 

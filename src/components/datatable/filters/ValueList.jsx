@@ -167,7 +167,7 @@ const ValueList = ({
                                         isMonospace={isMonospace}
                                     />
                                     <span className={styles.count}>
-                                        {entry.count}
+                                        {formatCount(entry.count)}
                                     </span>
                                 </span>
                             }
