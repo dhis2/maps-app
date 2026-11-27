@@ -226,10 +226,11 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         () => buildKnownOrgUnitNames(dataWithAggregations),
         [dataWithAggregations]
     )
-    const { idToName: orgUnitIdToName } = useOrgUnitAncestorNames(
-        orgUnitPathValues,
-        knownOrgUnitNames
-    )
+    const { idToName: orgUnitIdToName, loading: isLoadingNames } =
+        useOrgUnitAncestorNames(orgUnitPathValues, knownOrgUnitNames)
+    // Org unit columns show ids until their names arrive, and sort by those names
+    const isWaitingForNames =
+        isLoadingNames || deferredDataForOptions !== dataWithAggregations
 
     const rows = useMemo(() => {
         if (errorCode.current) {
@@ -278,7 +279,8 @@ export const useTableData = ({ layer, sortField, sortDirection }) => {
         layerType === EVENT_LAYER &&
         !layer.isExtended &&
         !!(!serverCluster || layer.forceClientCluster)
-    const isLoading = isLoadingAggregations || isExtendingEvents
+    const isLoading =
+        isLoadingAggregations || isExtendingEvents || isWaitingForNames
     let loadingReason = null
     if (isLoadingAggregations) {
         loadingReason = i18n.t('Loading Earth Engine data…')

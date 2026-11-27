@@ -1818,6 +1818,38 @@ describe('useTableData columnOptions', () => {
     })
 })
 
+describe('useTableData loading', () => {
+    test('loads until the org unit names are in, so rows show names and keep their order', () => {
+        useOrgUnitAncestorNames.mockReturnValue({
+            idToName: new Map(),
+            loading: true,
+        })
+        const layer = {
+            layer: 'thematic',
+            dataFilters: null,
+            data: [{ id: 'ou1', properties: { name: 'Bo', id: 'ou1' } }],
+        }
+
+        const { result } = renderHook(
+            () =>
+                useTableData({
+                    layer,
+                    sortField: 'name',
+                    sortDirection: 'asc',
+                }),
+            {
+                wrapper: ({ children }) => (
+                    <Provider store={mockStore({ aggregations: {} })}>
+                        {children}
+                    </Provider>
+                ),
+            }
+        )
+
+        expect(result.current.isLoading).toBe(true)
+    })
+})
+
 describe('useTableData errors', () => {
     test.each(['facility', 'event', 'thematic'])(
         'a %s layer without rows shows the no-data message',
