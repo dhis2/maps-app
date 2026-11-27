@@ -24,6 +24,7 @@ import {
     getOpenParts,
     toAppliedFilter,
 } from '../../../util/filterValues.js'
+import { formatWithSeparator } from '../../../util/numbers.js'
 import ConditionRow from './ConditionRow.jsx'
 import { getOperators } from './filterOperators.js'
 import styles from './styles/Filters.module.css'
@@ -84,13 +85,14 @@ const FilterPopover = ({
     const applied = normalizeFilter(toAppliedFilter(draft, options))
     const error = getFilterError(draft)
     const canApply = !isSameFilter(applied, filter) && !error
-    const { listed, hidden, isNarrowed } = getListedValues(
-        values,
-        draft,
-        options
-    )
+    const { listed, isNarrowed } = getListedValues(values, draft, options)
     const keptCount = countKeptRows(values, draft, options)
     const totalCount = countKeptRows(values, { excluded: [] }, options)
+    const valueCount = values.filter(
+        ({ key }) => key !== SENTINEL_NO_VALUE
+    ).length
+    const formatCount = (count) =>
+        formatWithSeparator(count, column.keyAnalysisDigitGroupSeparator)
 
     const updateCondition = (changes) =>
         setDraft((previous) => {
@@ -181,8 +183,9 @@ const FilterPopover = ({
                     {openParts.values ? (
                         <ValueList
                             listed={listed}
-                            hidden={hidden}
+                            valueCount={valueCount}
                             isNarrowed={isNarrowed}
+                            formatCount={formatCount}
                             excluded={draft.excluded}
                             renderer={renderer}
                             isMonospace={isMonospaceColumn(header)}
@@ -207,8 +210,8 @@ const FilterPopover = ({
                     >
                         {!error &&
                             i18n.t('{{kept}} of {{total}} rows', {
-                                kept: keptCount,
-                                total: totalCount,
+                                kept: formatCount(keptCount),
+                                total: formatCount(totalCount),
                             })}
                     </span>
                     <Button

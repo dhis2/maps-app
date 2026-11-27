@@ -281,14 +281,13 @@ describe('getRowsForColumn', () => {
 })
 
 describe('getListedValues', () => {
-    test('lists the values passing the condition, on their names where cells show names, and counts the others', () => {
+    test('lists the values passing the condition, on their names where cells show names', () => {
         const result = getListedValues(
             orgUnits(),
             draft({ type: 'text', operator: 'startsWith', value: 'bo' }),
             { matchOnLabel: true }
         )
         expect(keys(result)).toEqual(['', 'ou1', 'ou2'])
-        expect(result.hidden).toBe(1)
         expect(result.isNarrowed).toBe(true)
     })
 
@@ -299,7 +298,6 @@ describe('getListedValues', () => {
             { matchOnLabel: true }
         )
         expect(keys(result)).toEqual(['ou2'])
-        expect(result.hidden).toBe(0)
         expect(result.isNarrowed).toBe(true)
     })
 

@@ -6,6 +6,7 @@ import {
     DATA_FILTER_CLEAR,
     DATA_FILTER_SET,
 } from '../../../../constants/actionTypes.js'
+import { DIGIT_GROUP_SEPARATOR_COMMA } from '../../../../constants/settings.js'
 import FilterButton from '../FilterButton.jsx'
 
 jest.mock('../../../../hooks/useOptionSet.js', () => () => ({
@@ -237,6 +238,39 @@ describe('FilterButton value list', () => {
         expect(
             screen.getByTestId('data-table-filter-values-list')
         ).toBeInTheDocument()
+    })
+
+    test('counts the values the list shows out of the column’s values, "No value" not being one', async () => {
+        await renderButton(undefined, { header: OU_HEADER, ...FEW_VALUES })
+        const count = () =>
+            screen.getByTestId('data-table-filter-values-count').textContent
+
+        // Tests load no translations: plurals read singular
+        expect(count()).toMatch(/^2 values?$/)
+        fireEvent.click(screen.getByTestId('data-table-filter-add-condition'))
+        typeText('ken')
+        expect(count()).toMatch(/^1 of 2 values?$/)
+    })
+
+    test('a long list shows its first 100 values, its counts grouped as the instance groups digits', async () => {
+        await renderButton(undefined, {
+            column: {
+                ...COLUMN,
+                rows: Array.from({ length: 1200 }, (_, i) => ({ id: `e${i}` })),
+                keyAnalysisDigitGroupSeparator: DIGIT_GROUP_SEPARATOR_COMMA,
+            },
+        })
+        fireEvent.click(screen.getByTestId('data-table-filter-pick-values'))
+
+        expect(
+            screen.getByTestId('data-table-filter-values-count')
+        ).toHaveTextContent(/^100 of 1,200 values?$/)
+        expect(
+            screen.getByText('Set a condition to reach the other values.')
+        ).toBeInTheDocument()
+        expect(
+            screen.getByTestId('data-table-filter-preview')
+        ).toHaveTextContent('1,200 of 1,200 rows')
     })
 
     test('lists the values by the names the cells show, with their row count and "No value"', async () => {

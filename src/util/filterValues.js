@@ -174,20 +174,12 @@ const getFindText = (draft) =>
 export const getListedValues = (values, draft, { matchOnLabel }) => {
     const test = getEntryTest(draft, matchOnLabel)
     const findText = getFindText(draft)
-    const listed = []
-    let hidden = 0
-
-    for (const entry of values) {
-        if (entry.key === SENTINEL_NO_VALUE) {
-            if (!findText) {
-                listed.push(entry)
-            }
-        } else if (test && !test(entry)) {
-            hidden++
-        } else if (normalizeText(entry.label).includes(findText)) {
-            listed.push(entry)
-        }
-    }
+    const listed = values.filter((entry) =>
+        entry.key === SENTINEL_NO_VALUE
+            ? !findText
+            : (!test || test(entry)) &&
+              normalizeText(entry.label).includes(findText)
+    )
 
     const counted = new Set(values.map(({ key }) => key))
     const gone = (draft.excluded ?? [])
@@ -196,7 +188,6 @@ export const getListedValues = (values, draft, { matchOnLabel }) => {
 
     return {
         listed: [...listed, ...gone],
-        hidden,
         isNarrowed: !!test || !!findText,
     }
 }

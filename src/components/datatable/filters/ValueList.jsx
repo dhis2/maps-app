@@ -63,19 +63,37 @@ ValueLabel.propTypes = {
 // The column's values with a checkbox each: every value starts checked, unchecked ones are left out
 const ValueList = ({
     listed,
-    hidden,
+    valueCount,
     isNarrowed,
     excluded,
     renderer,
     isMonospace,
+    formatCount,
     onChange,
 }) => {
     const excludedKeys = new Set(excluded)
     const listedKeys = listed.map(({ key }) => key)
-    const checkedCount = listedKeys.filter(
-        (key) => !excludedKeys.has(key)
-    ).length
-    const shown = listed.slice(0, MAX_LISTED)
+    // "No value" comes first, on top of the values shown
+    const noValueRows = listed[0]?.key === SENTINEL_NO_VALUE ? 1 : 0
+    const shown = listed.slice(0, MAX_LISTED + noValueRows)
+
+    // How many values the list shows, out of the column's values; "No value" isn't one
+    const isValue = ({ key }) => key !== SENTINEL_NO_VALUE
+    const shownCount = shown.filter(isValue).length
+    const totalCount = valueCount + listed.filter(({ isGone }) => isGone).length
+    const countText =
+        shownCount === totalCount
+            ? i18n.t('{{total}} value', {
+                  count: totalCount,
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{total}} values',
+              })
+            : i18n.t('{{shown}} of {{total}} value', {
+                  count: totalCount,
+                  shown: formatCount(shownCount),
+                  total: formatCount(totalCount),
+                  defaultValue_plural: '{{shown}} of {{total}} values',
+              })
 
     const toggle = (key) => {
         const next = new Set(excludedKeys)
@@ -99,11 +117,11 @@ const ValueList = ({
     return (
         <div className={styles.stack}>
             <div className={styles.optionsMeta}>
-                <span aria-live="polite">
-                    {i18n.t('{{checked}} of {{count}} checked', {
-                        checked: checkedCount,
-                        count: listed.length,
-                    })}
+                <span
+                    aria-live="polite"
+                    data-test="data-table-filter-values-count"
+                >
+                    {countText}
                 </span>
                 <span>
                     <button
@@ -162,23 +180,9 @@ const ValueList = ({
                     </li>
                 )}
             </ul>
-            {listed.length > MAX_LISTED && (
+            {listed.length > shown.length && (
                 <span className={styles.listNote}>
-                    {i18n.t('Showing the first {{shown}} values.', {
-                        shown: MAX_LISTED,
-                    })}
-                    <br />
-                    {i18n.t('Set a condition to reach the others.')}
-                </span>
-            )}
-            {hidden > 0 && (
-                <span className={styles.listNote}>
-                    {i18n.t('{{count}} values hidden by the condition', {
-                        count: hidden,
-                        defaultValue: '{{count}} value hidden by the condition',
-                        defaultValue_plural:
-                            '{{count}} values hidden by the condition',
-                    })}
+                    {i18n.t('Set a condition to reach the other values.')}
                 </span>
             )}
         </div>
@@ -187,8 +191,9 @@ const ValueList = ({
 
 ValueList.propTypes = {
     excluded: PropTypes.arrayOf(PropTypes.string).isRequired,
-    hidden: PropTypes.number.isRequired,
+    formatCount: PropTypes.func.isRequired,
     listed: PropTypes.arrayOf(PropTypes.object).isRequired,
+    valueCount: PropTypes.number.isRequired,
     onChange: PropTypes.func.isRequired,
     isMonospace: PropTypes.bool,
     isNarrowed: PropTypes.bool,
